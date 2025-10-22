@@ -1,0 +1,179 @@
+package cn.ibizlab.hr.logic.hr_attendancelogic.check_validity;
+        import java.util.Map;
+        import java.util.HashMap;
+        import com.alibaba.fastjson.JSONObject;
+        import org.springframework.util.StringUtils;
+        import org.springframework.util.ObjectUtils;
+        import cn.ibizlab.util.errors.BadRequestAlertException;
+                global cn.ibizlab.core.hr.domain.hr_attendance hr_attendancecheck_validitydefault;
+                global cn.ibizlab.core.hr.domain.hr_attendance hr_attendancecheck_validitybefore_check_in;
+                global cn.ibizlab.core.hr.domain.hr_attendance hr_attendancecheck_validitybefore_check_out;
+                global java.util.Map hr_attendancecheck_validityerrormessage;
+                global cn.ibizlab.core.hr.domain.hr_attendance hr_attendancecheck_validityno_check_out;
+        global cn.ibizlab.core.hr.service.Ihr_attendanceService iBzSysHr_attendanceDefaultService;
+        global cn.ibizlab.util.security.AuthenticationUser curuser;
+
+
+    no-loop
+
+            //逻辑处理节点[开始]
+            rule "begin"
+            ruleflow-group "hr_attendancecheck_validitybegin"
+            when
+            then
+            end
+
+            //逻辑处理节点[查询check_in之前且最近的考勤记录]
+            rule "rawsqlcall_01"
+            ruleflow-group "hr_attendancecheck_validityrawsqlcall_01"
+            when
+            then
+    Map param =new HashMap();
+        param.put("param0",hr_attendancecheck_validitydefault.get("employeeid"));
+        param.put("param1",hr_attendancecheck_validitydefault.get("checkin"));
+        param.put("param2",hr_attendancecheck_validitydefault.get("id"));
+    String strSql="SELECT *  FROM hr_attendance  WHERE employee_id = #{et.param0}   AND check_in <= #{et.param1}   AND id != #{et.param2} ORDER BY check_in DESC  LIMIT 1;";
+                        java.util.List<JSONObject> entities=iBzSysHr_attendanceDefaultService.select(strSql,param);//SQL调用
+                            if(entities.size()>0){
+                            JSONObject entity=entities.get(0);
+                                    cn.ibizlab.core.hr.domain.hr_attendance targetEntity =new cn.ibizlab.core.hr.domain.hr_attendance();
+                                    for (Map.Entry entry : entity.entrySet()) {
+                                    targetEntity.set(String.valueOf(entry.getKey()),entry.getValue());
+                                    }
+                                    org.springframework.cglib.beans.BeanCopier copier= org.springframework.cglib.beans.BeanCopier.create(targetEntity.getClass(),hr_attendancecheck_validitybefore_check_in.getClass(), false);
+                                    copier.copy(targetEntity,hr_attendancecheck_validitybefore_check_in,null);
+                            }
+                        update(hr_attendancecheck_validitydefault);//更新fact中变量值
+                        update(hr_attendancecheck_validitybefore_check_in);//更新fact中变量值
+                        update(hr_attendancecheck_validitybefore_check_out);//更新fact中变量值
+                        update(hr_attendancecheck_validityerrormessage);//更新fact中变量值
+                        update(hr_attendancecheck_validityno_check_out);//更新fact中变量值
+            end
+
+            //逻辑处理节点[构造异常参数]
+            rule "prepareparam_01"
+            ruleflow-group "hr_attendancecheck_validityprepareparam_01"
+            when
+            then
+                            hr_attendancecheck_validityerrormessage.set("employee_name",hr_attendancecheck_validitydefault.get("employeename"));
+                            hr_attendancecheck_validityerrormessage.set("check_time",hr_attendancecheck_validitybefore_check_in.get("checkin"));
+                        update(hr_attendancecheck_validitydefault);//更新fact中变量值
+                        update(hr_attendancecheck_validitybefore_check_in);//更新fact中变量值
+                        update(hr_attendancecheck_validitybefore_check_out);//更新fact中变量值
+                        update(hr_attendancecheck_validityerrormessage);//更新fact中变量值
+                        update(hr_attendancecheck_validityno_check_out);//更新fact中变量值
+            end
+
+            //逻辑处理节点[获取其他未签退的记录]
+            rule "rawsqlcall_02"
+            ruleflow-group "hr_attendancecheck_validityrawsqlcall_02"
+            when
+            then
+    Map param =new HashMap();
+        param.put("param0",hr_attendancecheck_validitydefault.get("employeeid"));
+        param.put("param1",hr_attendancecheck_validitydefault.get("id"));
+    String strSql="SELECT *  FROM hr_attendance  WHERE employee_id = #{et.param0}   AND check_out is null   AND id != #{et.param1} ORDER BY check_in DESC  LIMIT 1;";
+                        java.util.List<JSONObject> entities=iBzSysHr_attendanceDefaultService.select(strSql,param);//SQL调用
+                            if(entities.size()>0){
+                            JSONObject entity=entities.get(0);
+                                    for (Map.Entry entry : entity.entrySet()) {
+                                    hr_attendancecheck_validityno_check_out.set(String.valueOf(entry.getKey()),entry.getValue());
+                                    }
+                            }
+                        update(hr_attendancecheck_validitydefault);//更新fact中变量值
+                        update(hr_attendancecheck_validitybefore_check_in);//更新fact中变量值
+                        update(hr_attendancecheck_validitybefore_check_out);//更新fact中变量值
+                        update(hr_attendancecheck_validityerrormessage);//更新fact中变量值
+                        update(hr_attendancecheck_validityno_check_out);//更新fact中变量值
+            end
+
+            //逻辑处理节点[获取签退时间之前的记录]
+            rule "rawsqlcall_03"
+            ruleflow-group "hr_attendancecheck_validityrawsqlcall_03"
+            when
+            then
+    Map param =new HashMap();
+        param.put("param0",hr_attendancecheck_validitydefault.get("employeeid"));
+        param.put("param1",hr_attendancecheck_validitydefault.get("checkout"));
+        param.put("param2",hr_attendancecheck_validitydefault.get("id"));
+    String strSql="SELECT *  FROM hr_attendance  WHERE employee_id = #{et.param0}   AND check_in < #{et.param1}   AND id != #{et.param2} ORDER BY check_in DESC  LIMIT 1;";
+                        java.util.List<JSONObject> entities=iBzSysHr_attendanceDefaultService.select(strSql,param);//SQL调用
+                            if(entities.size()>0){
+                            JSONObject entity=entities.get(0);
+                                    cn.ibizlab.core.hr.domain.hr_attendance targetEntity =new cn.ibizlab.core.hr.domain.hr_attendance();
+                                    for (Map.Entry entry : entity.entrySet()) {
+                                    targetEntity.set(String.valueOf(entry.getKey()),entry.getValue());
+                                    }
+                                    org.springframework.cglib.beans.BeanCopier copier= org.springframework.cglib.beans.BeanCopier.create(targetEntity.getClass(),hr_attendancecheck_validitybefore_check_out.getClass(), false);
+                                    copier.copy(targetEntity,hr_attendancecheck_validitybefore_check_out,null);
+                            }
+                        update(hr_attendancecheck_validitydefault);//更新fact中变量值
+                        update(hr_attendancecheck_validitybefore_check_in);//更新fact中变量值
+                        update(hr_attendancecheck_validitybefore_check_out);//更新fact中变量值
+                        update(hr_attendancecheck_validityerrormessage);//更新fact中变量值
+                        update(hr_attendancecheck_validityno_check_out);//更新fact中变量值
+            end
+
+            //逻辑处理节点[构造异常参数]
+            rule "prepareparam_03"
+            ruleflow-group "hr_attendancecheck_validityprepareparam_03"
+            when
+            then
+                            hr_attendancecheck_validityerrormessage.set("check_time",hr_attendancecheck_validitybefore_check_out.get("checkin"));
+                            hr_attendancecheck_validityerrormessage.set("employee_name",hr_attendancecheck_validitydefault.get("employeename"));
+                        update(hr_attendancecheck_validitydefault);//更新fact中变量值
+                        update(hr_attendancecheck_validitybefore_check_in);//更新fact中变量值
+                        update(hr_attendancecheck_validitybefore_check_out);//更新fact中变量值
+                        update(hr_attendancecheck_validityerrormessage);//更新fact中变量值
+                        update(hr_attendancecheck_validityno_check_out);//更新fact中变量值
+            end
+
+            //逻辑处理节点[构造异常参数]
+            rule "prepareparam_02"
+            ruleflow-group "hr_attendancecheck_validityprepareparam_02"
+            when
+            then
+                            hr_attendancecheck_validityerrormessage.set("employee_name",hr_attendancecheck_validitydefault.get("employeename"));
+                            hr_attendancecheck_validityerrormessage.set("check_time",hr_attendancecheck_validityno_check_out.get("checkin"));
+                        update(hr_attendancecheck_validitydefault);//更新fact中变量值
+                        update(hr_attendancecheck_validitybefore_check_in);//更新fact中变量值
+                        update(hr_attendancecheck_validitybefore_check_out);//更新fact中变量值
+                        update(hr_attendancecheck_validityerrormessage);//更新fact中变量值
+                        update(hr_attendancecheck_validityno_check_out);//更新fact中变量值
+            end
+
+            //逻辑处理节点[抛出异常]
+            rule "throwexception_01"
+            ruleflow-group "hr_attendancecheck_validitythrowexception_01"
+            when
+            then
+                        update(hr_attendancecheck_validitydefault);//更新fact中变量值
+                        update(hr_attendancecheck_validitybefore_check_in);//更新fact中变量值
+                        update(hr_attendancecheck_validitybefore_check_out);//更新fact中变量值
+                        update(hr_attendancecheck_validityerrormessage);//更新fact中变量值
+                        update(hr_attendancecheck_validityno_check_out);//更新fact中变量值
+            end
+
+            //逻辑处理节点[抛出异常]
+            rule "throwexception_03"
+            ruleflow-group "hr_attendancecheck_validitythrowexception_03"
+            when
+            then
+                        update(hr_attendancecheck_validitydefault);//更新fact中变量值
+                        update(hr_attendancecheck_validitybefore_check_in);//更新fact中变量值
+                        update(hr_attendancecheck_validitybefore_check_out);//更新fact中变量值
+                        update(hr_attendancecheck_validityerrormessage);//更新fact中变量值
+                        update(hr_attendancecheck_validityno_check_out);//更新fact中变量值
+            end
+
+            //逻辑处理节点[抛出异常]
+            rule "throwexception_02"
+            ruleflow-group "hr_attendancecheck_validitythrowexception_02"
+            when
+            then
+                        update(hr_attendancecheck_validitydefault);//更新fact中变量值
+                        update(hr_attendancecheck_validitybefore_check_in);//更新fact中变量值
+                        update(hr_attendancecheck_validitybefore_check_out);//更新fact中变量值
+                        update(hr_attendancecheck_validityerrormessage);//更新fact中变量值
+                        update(hr_attendancecheck_validityno_check_out);//更新fact中变量值
+            end

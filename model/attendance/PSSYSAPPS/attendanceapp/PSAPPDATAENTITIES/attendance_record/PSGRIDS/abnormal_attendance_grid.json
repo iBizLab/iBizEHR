@@ -1,0 +1,1421 @@
+{
+  "aggMode" : "NONE",
+  "codeName" : "abnormal_attendance_grid",
+  "columnEnableFilter" : 2,
+  "columnEnableLink" : 2,
+  "controlType" : "GRID",
+  "dynaModelFilePath" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/attendance_record/PSGRIDS/abnormal_attendance_grid.json",
+  "getFetchPSControlAction" : {
+    "modelref" : true,
+    "id" : "fetch",
+    "actionType" : "DEDATASET",
+    "name" : "fetch",
+    "getPSAppDEMethod" : {
+      "modelref" : true,
+      "id" : "fetch_abnormal_attendance"
+    },
+    "getPSAppDataEntity" : {
+      "modelref" : true,
+      "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/attendance_record.json"
+    }
+  },
+  "frozenFirstColumn" : 1,
+  "groupMode" : "NONE",
+  "hookEventNames" : [ "ONMOUNTED" ],
+  "logicName" : "异常考勤表格",
+  "getPSAppDataEntity" : {
+    "modelref" : true,
+    "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/attendance_record.json"
+  },
+  "getPSControlLogics" : [ {
+    "eventNames" : "onMounted",
+    "logicTag" : "grid",
+    "logicType" : "SCRIPT",
+    "name" : "default_hidden"
+  } ],
+  "getPSDEDataExport" : {
+    "modelref" : true,
+    "id" : "AbnormalAttendance"
+  },
+  "getPSDEGridColumns" : [ {
+    "align" : "LEFT",
+    "cLConvertMode" : "NONE",
+    "getCapPSLanguageRes" : {
+      "lanResTag" : "DEF.LNAME.ATTENDANCE_RECORD.MEMBER_NAME"
+    },
+    "caption" : "姓名",
+    "codeName" : "member_name",
+    "columnType" : "DEFGRIDCOLUMN",
+    "dataItemName" : "member_name",
+    "excelCaption" : "姓名",
+    "name" : "member_name",
+    "noPrivDisplayMode" : 1,
+    "getPSAppDEField" : {
+      "name" : "MEMBER_NAME",
+      "codeName" : "member_name"
+    },
+    "width" : 100,
+    "widthUnit" : "STAR",
+    "enableSort" : true
+  }, {
+    "align" : "CENTER",
+    "caption" : "基本信息",
+    "codeName" : "base_info",
+    "columnType" : "GROUPGRIDCOLUMN",
+    "name" : "base_info",
+    "noPrivDisplayMode" : 1,
+    "getPSDEGridColumns" : [ {
+      "align" : "LEFT",
+      "cLConvertMode" : "NONE",
+      "caption" : "工号",
+      "codeName" : "member_num",
+      "columnType" : "DEFGRIDCOLUMN",
+      "dataItemName" : "member_num",
+      "enableCond" : 3,
+      "excelCaption" : "工号",
+      "ignoreInput" : 0,
+      "name" : "member_num",
+      "noPrivDisplayMode" : 1,
+      "getPSAppDEField" : {
+        "name" : "MEMBER_NUM",
+        "codeName" : "member_num"
+      },
+      "width" : 200,
+      "widthUnit" : "PX",
+      "allowEmpty" : true,
+      "enableSort" : true
+    }, {
+      "align" : "CENTER",
+      "cLConvertMode" : "NONE",
+      "caption" : "部门",
+      "codeName" : "dept_name",
+      "columnType" : "DEFGRIDCOLUMN",
+      "dataItemName" : "dept_name",
+      "enableCond" : 3,
+      "excelCaption" : "部门",
+      "ignoreInput" : 0,
+      "name" : "dept_name",
+      "noPrivDisplayMode" : 1,
+      "getPSAppDEField" : {
+        "name" : "DEPT_NAME",
+        "codeName" : "dept_name"
+      },
+      "width" : 200,
+      "widthUnit" : "PX",
+      "allowEmpty" : true,
+      "enableSort" : true
+    }, {
+      "align" : "CENTER",
+      "cLConvertMode" : "NONE",
+      "caption" : "职位",
+      "codeName" : "title",
+      "columnType" : "DEFGRIDCOLUMN",
+      "dataItemName" : "title",
+      "enableCond" : 3,
+      "excelCaption" : "职位",
+      "ignoreInput" : 0,
+      "name" : "title",
+      "noPrivDisplayMode" : 1,
+      "getPSAppDEField" : {
+        "name" : "TITLE",
+        "codeName" : "title"
+      },
+      "width" : 200,
+      "widthUnit" : "PX",
+      "allowEmpty" : true,
+      "enableSort" : true
+    }, {
+      "align" : "LEFT",
+      "cLConvertMode" : "NONE",
+      "getCapPSLanguageRes" : {
+        "lanResTag" : "DEF.LNAME.ATTENDANCE_RECORD.CHECKIN_DATE"
+      },
+      "caption" : "日期",
+      "codeName" : "checkin_date",
+      "columnType" : "DEFGRIDCOLUMN",
+      "dataItemName" : "checkin_date",
+      "enableCond" : 3,
+      "excelCaption" : "日期",
+      "ignoreInput" : 0,
+      "name" : "checkin_date",
+      "noPrivDisplayMode" : 1,
+      "getPSAppDEField" : {
+        "name" : "CHECKIN_DATE",
+        "codeName" : "checkin_date"
+      },
+      "valueFormat" : "YYYY-MM-DD",
+      "width" : 200,
+      "widthUnit" : "PX",
+      "allowEmpty" : true,
+      "enableSort" : true
+    }, {
+      "align" : "LEFT",
+      "cLConvertMode" : "NONE",
+      "getCapPSLanguageRes" : {
+        "lanResTag" : "DEF.LNAME.ATTENDANCE_RECORD.RULE_NAME"
+      },
+      "caption" : "考勤规则",
+      "codeName" : "rule_name",
+      "columnType" : "DEFGRIDCOLUMN",
+      "dataItemName" : "rule_name",
+      "enableCond" : 3,
+      "excelCaption" : "考勤规则",
+      "ignoreInput" : 0,
+      "name" : "rule_name",
+      "noPrivDisplayMode" : 1,
+      "getPSAppDEField" : {
+        "name" : "RULE_NAME",
+        "codeName" : "rule_name"
+      },
+      "width" : 220,
+      "widthUnit" : "PX",
+      "allowEmpty" : true,
+      "enableSort" : true
+    }, {
+      "align" : "LEFT",
+      "cLConvertMode" : "NONE",
+      "getCapPSLanguageRes" : {
+        "lanResTag" : "DEF.LNAME.ATTENDANCE_RECORD.SHIFT_MESSAGE"
+      },
+      "caption" : "班次",
+      "codeName" : "shift_message",
+      "columnType" : "DEFGRIDCOLUMN",
+      "dataItemName" : "shift_message",
+      "enableCond" : 3,
+      "excelCaption" : "班次",
+      "ignoreInput" : 0,
+      "name" : "shift_message",
+      "noPrivDisplayMode" : 1,
+      "getPSAppDEField" : {
+        "name" : "SHIFT_MESSAGE",
+        "codeName" : "shift_message"
+      },
+      "width" : 220,
+      "widthUnit" : "PX",
+      "allowEmpty" : true,
+      "enableSort" : true
+    } ],
+    "width" : 100,
+    "widthUnit" : "STAR",
+    "enableSort" : false
+  }, {
+    "caption" : "打卡信息",
+    "codeName" : "groupgridcolumn2",
+    "columnType" : "GROUPGRIDCOLUMN",
+    "name" : "groupgridcolumn2",
+    "noPrivDisplayMode" : 1,
+    "getPSDEGridColumns" : [ {
+      "align" : "LEFT",
+      "cLConvertMode" : "NONE",
+      "caption" : "上班1打开时间",
+      "codeName" : "start_1",
+      "columnType" : "DEFGRIDCOLUMN",
+      "dataItemName" : "details",
+      "enableCond" : 3,
+      "excelCaption" : "上班1打开时间",
+      "ignoreInput" : 0,
+      "name" : "start_1",
+      "noPrivDisplayMode" : 1,
+      "objectIdField" : "id",
+      "objectNameField" : "name",
+      "getPSAppDEField" : {
+        "name" : "DETAILS",
+        "codeName" : "details"
+      },
+      "getPSDEUIAction" : {
+        "actionTarget" : "SINGLEDATA",
+        "caption" : "考勤记录反查校验",
+        "codeName" : "check_info_vail",
+        "frontProcessType" : "OTHER",
+        "fullCodeName" : "attendance_record_check_info_vail",
+        "name" : "考勤记录反查校验",
+        "getNextPSUIAction" : {
+          "getPSAppDataEntity" : {
+            "modelref" : true,
+            "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/attendance_record.json"
+          },
+          "modelref" : true,
+          "id" : "check_info@attendance_record"
+        },
+        "getPSAppDataEntity" : {
+          "modelref" : true,
+          "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/attendance_record.json"
+        },
+        "scriptCode" : "console.log(\"表格列反查\")\r\nconst target = event.currentTarget;\r\nconst classList = target.className.split(' ');\r\nconst codeName = classList[classList.length - 1].split('--')[1];\r\nif (codeName) {\r\n    const items = data[0].details.filter(x => x.detail_index === codeName);\r\n    if (!items.length) {\r\n        // return { cancel: true }\r\n    }\r\n}",
+        "uIActionMode" : "FRONT",
+        "uIActionTag" : "check_info_vail",
+        "uIActionType" : "DEUIACTION",
+        "id" : "check_info_vail@attendance_record"
+      },
+      "valueType" : "OBJECTS",
+      "width" : 200,
+      "widthUnit" : "PX",
+      "allowEmpty" : true,
+      "enableSort" : false
+    }, {
+      "align" : "LEFT",
+      "cLConvertMode" : "NONE",
+      "caption" : "下班1打卡时间",
+      "codeName" : "end_1",
+      "columnType" : "DEFGRIDCOLUMN",
+      "dataItemName" : "details",
+      "enableCond" : 3,
+      "excelCaption" : "下班1打卡时间",
+      "ignoreInput" : 0,
+      "name" : "end_1",
+      "noPrivDisplayMode" : 1,
+      "objectIdField" : "id",
+      "objectNameField" : "name",
+      "getPSAppDEField" : {
+        "name" : "DETAILS",
+        "codeName" : "details"
+      },
+      "getPSDEUIAction" : {
+        "actionTarget" : "SINGLEDATA",
+        "caption" : "考勤记录反查校验",
+        "codeName" : "check_info_vail",
+        "frontProcessType" : "OTHER",
+        "fullCodeName" : "attendance_record_check_info_vail",
+        "name" : "考勤记录反查校验",
+        "getNextPSUIAction" : {
+          "getPSAppDataEntity" : {
+            "modelref" : true,
+            "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/attendance_record.json"
+          },
+          "modelref" : true,
+          "id" : "check_info@attendance_record"
+        },
+        "getPSAppDataEntity" : {
+          "modelref" : true,
+          "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/attendance_record.json"
+        },
+        "scriptCode" : "console.log(\"表格列反查\")\r\nconst target = event.currentTarget;\r\nconst classList = target.className.split(' ');\r\nconst codeName = classList[classList.length - 1].split('--')[1];\r\nif (codeName) {\r\n    const items = data[0].details.filter(x => x.detail_index === codeName);\r\n    if (!items.length) {\r\n        // return { cancel: true }\r\n    }\r\n}",
+        "uIActionMode" : "FRONT",
+        "uIActionTag" : "check_info_vail",
+        "uIActionType" : "DEUIACTION",
+        "id" : "check_info_vail@attendance_record"
+      },
+      "valueType" : "OBJECTS",
+      "width" : 200,
+      "widthUnit" : "PX",
+      "allowEmpty" : true,
+      "enableSort" : false
+    }, {
+      "align" : "LEFT",
+      "cLConvertMode" : "NONE",
+      "caption" : "上班2打开时间",
+      "codeName" : "start_2",
+      "columnType" : "DEFGRIDCOLUMN",
+      "dataItemName" : "details",
+      "enableCond" : 3,
+      "excelCaption" : "上班2打开时间",
+      "ignoreInput" : 0,
+      "name" : "start_2",
+      "noPrivDisplayMode" : 1,
+      "objectIdField" : "id",
+      "objectNameField" : "name",
+      "getPSAppDEField" : {
+        "name" : "DETAILS",
+        "codeName" : "details"
+      },
+      "getPSDEUIAction" : {
+        "actionTarget" : "SINGLEDATA",
+        "caption" : "考勤记录反查校验",
+        "codeName" : "check_info_vail",
+        "frontProcessType" : "OTHER",
+        "fullCodeName" : "attendance_record_check_info_vail",
+        "name" : "考勤记录反查校验",
+        "getNextPSUIAction" : {
+          "getPSAppDataEntity" : {
+            "modelref" : true,
+            "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/attendance_record.json"
+          },
+          "modelref" : true,
+          "id" : "check_info@attendance_record"
+        },
+        "getPSAppDataEntity" : {
+          "modelref" : true,
+          "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/attendance_record.json"
+        },
+        "scriptCode" : "console.log(\"表格列反查\")\r\nconst target = event.currentTarget;\r\nconst classList = target.className.split(' ');\r\nconst codeName = classList[classList.length - 1].split('--')[1];\r\nif (codeName) {\r\n    const items = data[0].details.filter(x => x.detail_index === codeName);\r\n    if (!items.length) {\r\n        // return { cancel: true }\r\n    }\r\n}",
+        "uIActionMode" : "FRONT",
+        "uIActionTag" : "check_info_vail",
+        "uIActionType" : "DEUIACTION",
+        "id" : "check_info_vail@attendance_record"
+      },
+      "valueType" : "OBJECTS",
+      "width" : 200,
+      "widthUnit" : "PX",
+      "allowEmpty" : true,
+      "enableSort" : false
+    }, {
+      "align" : "LEFT",
+      "cLConvertMode" : "NONE",
+      "caption" : "下班2打卡时间",
+      "codeName" : "end_2",
+      "columnType" : "DEFGRIDCOLUMN",
+      "dataItemName" : "details",
+      "enableCond" : 3,
+      "excelCaption" : "下班2打卡时间",
+      "ignoreInput" : 0,
+      "name" : "end_2",
+      "noPrivDisplayMode" : 1,
+      "objectIdField" : "id",
+      "objectNameField" : "name",
+      "getPSAppDEField" : {
+        "name" : "DETAILS",
+        "codeName" : "details"
+      },
+      "getPSDEUIAction" : {
+        "actionTarget" : "SINGLEDATA",
+        "caption" : "考勤记录反查校验",
+        "codeName" : "check_info_vail",
+        "frontProcessType" : "OTHER",
+        "fullCodeName" : "attendance_record_check_info_vail",
+        "name" : "考勤记录反查校验",
+        "getNextPSUIAction" : {
+          "getPSAppDataEntity" : {
+            "modelref" : true,
+            "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/attendance_record.json"
+          },
+          "modelref" : true,
+          "id" : "check_info@attendance_record"
+        },
+        "getPSAppDataEntity" : {
+          "modelref" : true,
+          "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/attendance_record.json"
+        },
+        "scriptCode" : "console.log(\"表格列反查\")\r\nconst target = event.currentTarget;\r\nconst classList = target.className.split(' ');\r\nconst codeName = classList[classList.length - 1].split('--')[1];\r\nif (codeName) {\r\n    const items = data[0].details.filter(x => x.detail_index === codeName);\r\n    if (!items.length) {\r\n        // return { cancel: true }\r\n    }\r\n}",
+        "uIActionMode" : "FRONT",
+        "uIActionTag" : "check_info_vail",
+        "uIActionType" : "DEUIACTION",
+        "id" : "check_info_vail@attendance_record"
+      },
+      "valueType" : "OBJECTS",
+      "width" : 200,
+      "widthUnit" : "PX",
+      "allowEmpty" : true,
+      "enableSort" : false
+    }, {
+      "align" : "LEFT",
+      "cLConvertMode" : "NONE",
+      "caption" : "上班3打开时间",
+      "codeName" : "start_3",
+      "columnType" : "DEFGRIDCOLUMN",
+      "dataItemName" : "details",
+      "enableCond" : 3,
+      "excelCaption" : "上班3打开时间",
+      "ignoreInput" : 0,
+      "name" : "start_3",
+      "noPrivDisplayMode" : 1,
+      "objectIdField" : "id",
+      "objectNameField" : "name",
+      "getPSAppDEField" : {
+        "name" : "DETAILS",
+        "codeName" : "details"
+      },
+      "getPSDEUIAction" : {
+        "actionTarget" : "SINGLEDATA",
+        "caption" : "考勤记录反查校验",
+        "codeName" : "check_info_vail",
+        "frontProcessType" : "OTHER",
+        "fullCodeName" : "attendance_record_check_info_vail",
+        "name" : "考勤记录反查校验",
+        "getNextPSUIAction" : {
+          "getPSAppDataEntity" : {
+            "modelref" : true,
+            "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/attendance_record.json"
+          },
+          "modelref" : true,
+          "id" : "check_info@attendance_record"
+        },
+        "getPSAppDataEntity" : {
+          "modelref" : true,
+          "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/attendance_record.json"
+        },
+        "scriptCode" : "console.log(\"表格列反查\")\r\nconst target = event.currentTarget;\r\nconst classList = target.className.split(' ');\r\nconst codeName = classList[classList.length - 1].split('--')[1];\r\nif (codeName) {\r\n    const items = data[0].details.filter(x => x.detail_index === codeName);\r\n    if (!items.length) {\r\n        // return { cancel: true }\r\n    }\r\n}",
+        "uIActionMode" : "FRONT",
+        "uIActionTag" : "check_info_vail",
+        "uIActionType" : "DEUIACTION",
+        "id" : "check_info_vail@attendance_record"
+      },
+      "valueType" : "OBJECTS",
+      "width" : 200,
+      "widthUnit" : "PX",
+      "allowEmpty" : true,
+      "enableSort" : false
+    }, {
+      "align" : "LEFT",
+      "cLConvertMode" : "NONE",
+      "caption" : "下班3打卡时间",
+      "codeName" : "end_3",
+      "columnType" : "DEFGRIDCOLUMN",
+      "dataItemName" : "details",
+      "enableCond" : 3,
+      "excelCaption" : "下班3打卡时间",
+      "ignoreInput" : 0,
+      "name" : "end_3",
+      "noPrivDisplayMode" : 1,
+      "objectIdField" : "id",
+      "objectNameField" : "name",
+      "getPSAppDEField" : {
+        "name" : "DETAILS",
+        "codeName" : "details"
+      },
+      "getPSDEUIAction" : {
+        "actionTarget" : "SINGLEDATA",
+        "caption" : "考勤记录反查校验",
+        "codeName" : "check_info_vail",
+        "frontProcessType" : "OTHER",
+        "fullCodeName" : "attendance_record_check_info_vail",
+        "name" : "考勤记录反查校验",
+        "getNextPSUIAction" : {
+          "getPSAppDataEntity" : {
+            "modelref" : true,
+            "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/attendance_record.json"
+          },
+          "modelref" : true,
+          "id" : "check_info@attendance_record"
+        },
+        "getPSAppDataEntity" : {
+          "modelref" : true,
+          "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/attendance_record.json"
+        },
+        "scriptCode" : "console.log(\"表格列反查\")\r\nconst target = event.currentTarget;\r\nconst classList = target.className.split(' ');\r\nconst codeName = classList[classList.length - 1].split('--')[1];\r\nif (codeName) {\r\n    const items = data[0].details.filter(x => x.detail_index === codeName);\r\n    if (!items.length) {\r\n        // return { cancel: true }\r\n    }\r\n}",
+        "uIActionMode" : "FRONT",
+        "uIActionTag" : "check_info_vail",
+        "uIActionType" : "DEUIACTION",
+        "id" : "check_info_vail@attendance_record"
+      },
+      "valueType" : "OBJECTS",
+      "width" : 200,
+      "widthUnit" : "PX",
+      "allowEmpty" : true,
+      "enableSort" : false
+    }, {
+      "align" : "LEFT",
+      "cLConvertMode" : "NONE",
+      "caption" : "上班4打开时间",
+      "codeName" : "start_4",
+      "columnType" : "DEFGRIDCOLUMN",
+      "dataItemName" : "details",
+      "enableCond" : 3,
+      "excelCaption" : "上班4打开时间",
+      "ignoreInput" : 0,
+      "name" : "start_4",
+      "noPrivDisplayMode" : 1,
+      "objectIdField" : "id",
+      "objectNameField" : "name",
+      "getPSAppDEField" : {
+        "name" : "DETAILS",
+        "codeName" : "details"
+      },
+      "getPSDEUIAction" : {
+        "actionTarget" : "SINGLEDATA",
+        "caption" : "考勤记录反查校验",
+        "codeName" : "check_info_vail",
+        "frontProcessType" : "OTHER",
+        "fullCodeName" : "attendance_record_check_info_vail",
+        "name" : "考勤记录反查校验",
+        "getNextPSUIAction" : {
+          "getPSAppDataEntity" : {
+            "modelref" : true,
+            "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/attendance_record.json"
+          },
+          "modelref" : true,
+          "id" : "check_info@attendance_record"
+        },
+        "getPSAppDataEntity" : {
+          "modelref" : true,
+          "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/attendance_record.json"
+        },
+        "scriptCode" : "console.log(\"表格列反查\")\r\nconst target = event.currentTarget;\r\nconst classList = target.className.split(' ');\r\nconst codeName = classList[classList.length - 1].split('--')[1];\r\nif (codeName) {\r\n    const items = data[0].details.filter(x => x.detail_index === codeName);\r\n    if (!items.length) {\r\n        // return { cancel: true }\r\n    }\r\n}",
+        "uIActionMode" : "FRONT",
+        "uIActionTag" : "check_info_vail",
+        "uIActionType" : "DEUIACTION",
+        "id" : "check_info_vail@attendance_record"
+      },
+      "valueType" : "OBJECTS",
+      "width" : 200,
+      "widthUnit" : "PX",
+      "allowEmpty" : true,
+      "enableSort" : false
+    }, {
+      "align" : "LEFT",
+      "cLConvertMode" : "NONE",
+      "caption" : "下班4打卡时间",
+      "codeName" : "end_4",
+      "columnType" : "DEFGRIDCOLUMN",
+      "dataItemName" : "details",
+      "enableCond" : 3,
+      "excelCaption" : "下班4打卡时间",
+      "ignoreInput" : 0,
+      "name" : "end_4",
+      "noPrivDisplayMode" : 1,
+      "objectIdField" : "id",
+      "objectNameField" : "name",
+      "getPSAppDEField" : {
+        "name" : "DETAILS",
+        "codeName" : "details"
+      },
+      "getPSDEUIAction" : {
+        "actionTarget" : "SINGLEDATA",
+        "caption" : "考勤记录反查校验",
+        "codeName" : "check_info_vail",
+        "frontProcessType" : "OTHER",
+        "fullCodeName" : "attendance_record_check_info_vail",
+        "name" : "考勤记录反查校验",
+        "getNextPSUIAction" : {
+          "getPSAppDataEntity" : {
+            "modelref" : true,
+            "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/attendance_record.json"
+          },
+          "modelref" : true,
+          "id" : "check_info@attendance_record"
+        },
+        "getPSAppDataEntity" : {
+          "modelref" : true,
+          "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/attendance_record.json"
+        },
+        "scriptCode" : "console.log(\"表格列反查\")\r\nconst target = event.currentTarget;\r\nconst classList = target.className.split(' ');\r\nconst codeName = classList[classList.length - 1].split('--')[1];\r\nif (codeName) {\r\n    const items = data[0].details.filter(x => x.detail_index === codeName);\r\n    if (!items.length) {\r\n        // return { cancel: true }\r\n    }\r\n}",
+        "uIActionMode" : "FRONT",
+        "uIActionTag" : "check_info_vail",
+        "uIActionType" : "DEUIACTION",
+        "id" : "check_info_vail@attendance_record"
+      },
+      "valueType" : "OBJECTS",
+      "width" : 200,
+      "widthUnit" : "PX",
+      "allowEmpty" : true,
+      "enableSort" : false
+    }, {
+      "align" : "LEFT",
+      "cLConvertMode" : "NONE",
+      "caption" : "上班5打开时间",
+      "codeName" : "start_5",
+      "columnType" : "DEFGRIDCOLUMN",
+      "dataItemName" : "details",
+      "enableCond" : 3,
+      "excelCaption" : "上班5打开时间",
+      "ignoreInput" : 0,
+      "name" : "start_5",
+      "noPrivDisplayMode" : 1,
+      "objectIdField" : "id",
+      "objectNameField" : "name",
+      "getPSAppDEField" : {
+        "name" : "DETAILS",
+        "codeName" : "details"
+      },
+      "getPSDEUIAction" : {
+        "actionTarget" : "SINGLEDATA",
+        "caption" : "考勤记录反查校验",
+        "codeName" : "check_info_vail",
+        "frontProcessType" : "OTHER",
+        "fullCodeName" : "attendance_record_check_info_vail",
+        "name" : "考勤记录反查校验",
+        "getNextPSUIAction" : {
+          "getPSAppDataEntity" : {
+            "modelref" : true,
+            "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/attendance_record.json"
+          },
+          "modelref" : true,
+          "id" : "check_info@attendance_record"
+        },
+        "getPSAppDataEntity" : {
+          "modelref" : true,
+          "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/attendance_record.json"
+        },
+        "scriptCode" : "console.log(\"表格列反查\")\r\nconst target = event.currentTarget;\r\nconst classList = target.className.split(' ');\r\nconst codeName = classList[classList.length - 1].split('--')[1];\r\nif (codeName) {\r\n    const items = data[0].details.filter(x => x.detail_index === codeName);\r\n    if (!items.length) {\r\n        // return { cancel: true }\r\n    }\r\n}",
+        "uIActionMode" : "FRONT",
+        "uIActionTag" : "check_info_vail",
+        "uIActionType" : "DEUIACTION",
+        "id" : "check_info_vail@attendance_record"
+      },
+      "valueType" : "OBJECTS",
+      "width" : 200,
+      "widthUnit" : "PX",
+      "allowEmpty" : true,
+      "enableSort" : false
+    }, {
+      "align" : "LEFT",
+      "cLConvertMode" : "NONE",
+      "caption" : "下班5打卡时间",
+      "codeName" : "end_5",
+      "columnType" : "DEFGRIDCOLUMN",
+      "dataItemName" : "details",
+      "enableCond" : 3,
+      "excelCaption" : "下班5打卡时间",
+      "ignoreInput" : 0,
+      "name" : "end_5",
+      "noPrivDisplayMode" : 1,
+      "objectIdField" : "id",
+      "objectNameField" : "name",
+      "getPSAppDEField" : {
+        "name" : "DETAILS",
+        "codeName" : "details"
+      },
+      "getPSDEUIAction" : {
+        "actionTarget" : "SINGLEDATA",
+        "caption" : "考勤记录反查校验",
+        "codeName" : "check_info_vail",
+        "frontProcessType" : "OTHER",
+        "fullCodeName" : "attendance_record_check_info_vail",
+        "name" : "考勤记录反查校验",
+        "getNextPSUIAction" : {
+          "getPSAppDataEntity" : {
+            "modelref" : true,
+            "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/attendance_record.json"
+          },
+          "modelref" : true,
+          "id" : "check_info@attendance_record"
+        },
+        "getPSAppDataEntity" : {
+          "modelref" : true,
+          "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/attendance_record.json"
+        },
+        "scriptCode" : "console.log(\"表格列反查\")\r\nconst target = event.currentTarget;\r\nconst classList = target.className.split(' ');\r\nconst codeName = classList[classList.length - 1].split('--')[1];\r\nif (codeName) {\r\n    const items = data[0].details.filter(x => x.detail_index === codeName);\r\n    if (!items.length) {\r\n        // return { cancel: true }\r\n    }\r\n}",
+        "uIActionMode" : "FRONT",
+        "uIActionTag" : "check_info_vail",
+        "uIActionType" : "DEUIACTION",
+        "id" : "check_info_vail@attendance_record"
+      },
+      "valueType" : "OBJECTS",
+      "width" : 200,
+      "widthUnit" : "PX",
+      "allowEmpty" : true,
+      "enableSort" : false
+    }, {
+      "align" : "LEFT",
+      "cLConvertMode" : "NONE",
+      "caption" : "上班6打开时间",
+      "codeName" : "start_6",
+      "columnType" : "DEFGRIDCOLUMN",
+      "dataItemName" : "details",
+      "enableCond" : 3,
+      "excelCaption" : "上班6打开时间",
+      "ignoreInput" : 0,
+      "name" : "start_6",
+      "noPrivDisplayMode" : 1,
+      "objectIdField" : "id",
+      "objectNameField" : "name",
+      "getPSAppDEField" : {
+        "name" : "DETAILS",
+        "codeName" : "details"
+      },
+      "getPSDEUIAction" : {
+        "actionTarget" : "SINGLEDATA",
+        "caption" : "考勤记录反查校验",
+        "codeName" : "check_info_vail",
+        "frontProcessType" : "OTHER",
+        "fullCodeName" : "attendance_record_check_info_vail",
+        "name" : "考勤记录反查校验",
+        "getNextPSUIAction" : {
+          "getPSAppDataEntity" : {
+            "modelref" : true,
+            "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/attendance_record.json"
+          },
+          "modelref" : true,
+          "id" : "check_info@attendance_record"
+        },
+        "getPSAppDataEntity" : {
+          "modelref" : true,
+          "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/attendance_record.json"
+        },
+        "scriptCode" : "console.log(\"表格列反查\")\r\nconst target = event.currentTarget;\r\nconst classList = target.className.split(' ');\r\nconst codeName = classList[classList.length - 1].split('--')[1];\r\nif (codeName) {\r\n    const items = data[0].details.filter(x => x.detail_index === codeName);\r\n    if (!items.length) {\r\n        // return { cancel: true }\r\n    }\r\n}",
+        "uIActionMode" : "FRONT",
+        "uIActionTag" : "check_info_vail",
+        "uIActionType" : "DEUIACTION",
+        "id" : "check_info_vail@attendance_record"
+      },
+      "valueType" : "OBJECTS",
+      "width" : 200,
+      "widthUnit" : "PX",
+      "allowEmpty" : true,
+      "enableSort" : false
+    }, {
+      "align" : "LEFT",
+      "cLConvertMode" : "NONE",
+      "caption" : "下班6打卡时间",
+      "codeName" : "end_6",
+      "columnType" : "DEFGRIDCOLUMN",
+      "dataItemName" : "details",
+      "enableCond" : 3,
+      "excelCaption" : "下班6打卡时间",
+      "ignoreInput" : 0,
+      "name" : "end_6",
+      "noPrivDisplayMode" : 1,
+      "objectIdField" : "id",
+      "objectNameField" : "name",
+      "getPSAppDEField" : {
+        "name" : "DETAILS",
+        "codeName" : "details"
+      },
+      "getPSDEUIAction" : {
+        "actionTarget" : "SINGLEDATA",
+        "caption" : "考勤记录反查校验",
+        "codeName" : "check_info_vail",
+        "frontProcessType" : "OTHER",
+        "fullCodeName" : "attendance_record_check_info_vail",
+        "name" : "考勤记录反查校验",
+        "getNextPSUIAction" : {
+          "getPSAppDataEntity" : {
+            "modelref" : true,
+            "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/attendance_record.json"
+          },
+          "modelref" : true,
+          "id" : "check_info@attendance_record"
+        },
+        "getPSAppDataEntity" : {
+          "modelref" : true,
+          "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/attendance_record.json"
+        },
+        "scriptCode" : "console.log(\"表格列反查\")\r\nconst target = event.currentTarget;\r\nconst classList = target.className.split(' ');\r\nconst codeName = classList[classList.length - 1].split('--')[1];\r\nif (codeName) {\r\n    const items = data[0].details.filter(x => x.detail_index === codeName);\r\n    if (!items.length) {\r\n        // return { cancel: true }\r\n    }\r\n}",
+        "uIActionMode" : "FRONT",
+        "uIActionTag" : "check_info_vail",
+        "uIActionType" : "DEUIACTION",
+        "id" : "check_info_vail@attendance_record"
+      },
+      "valueType" : "OBJECTS",
+      "width" : 200,
+      "widthUnit" : "PX",
+      "allowEmpty" : true,
+      "enableSort" : false
+    }, {
+      "align" : "LEFT",
+      "cLConvertMode" : "NONE",
+      "caption" : "上班7打开时间",
+      "codeName" : "start_7",
+      "columnType" : "DEFGRIDCOLUMN",
+      "dataItemName" : "details",
+      "enableCond" : 3,
+      "excelCaption" : "上班7打开时间",
+      "ignoreInput" : 0,
+      "name" : "start_7",
+      "noPrivDisplayMode" : 1,
+      "objectIdField" : "id",
+      "objectNameField" : "name",
+      "getPSAppDEField" : {
+        "name" : "DETAILS",
+        "codeName" : "details"
+      },
+      "getPSDEUIAction" : {
+        "actionTarget" : "SINGLEDATA",
+        "caption" : "考勤记录反查校验",
+        "codeName" : "check_info_vail",
+        "frontProcessType" : "OTHER",
+        "fullCodeName" : "attendance_record_check_info_vail",
+        "name" : "考勤记录反查校验",
+        "getNextPSUIAction" : {
+          "getPSAppDataEntity" : {
+            "modelref" : true,
+            "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/attendance_record.json"
+          },
+          "modelref" : true,
+          "id" : "check_info@attendance_record"
+        },
+        "getPSAppDataEntity" : {
+          "modelref" : true,
+          "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/attendance_record.json"
+        },
+        "scriptCode" : "console.log(\"表格列反查\")\r\nconst target = event.currentTarget;\r\nconst classList = target.className.split(' ');\r\nconst codeName = classList[classList.length - 1].split('--')[1];\r\nif (codeName) {\r\n    const items = data[0].details.filter(x => x.detail_index === codeName);\r\n    if (!items.length) {\r\n        // return { cancel: true }\r\n    }\r\n}",
+        "uIActionMode" : "FRONT",
+        "uIActionTag" : "check_info_vail",
+        "uIActionType" : "DEUIACTION",
+        "id" : "check_info_vail@attendance_record"
+      },
+      "valueType" : "OBJECTS",
+      "width" : 200,
+      "widthUnit" : "PX",
+      "allowEmpty" : true,
+      "enableSort" : false
+    }, {
+      "align" : "LEFT",
+      "cLConvertMode" : "NONE",
+      "caption" : "下班7打卡时间",
+      "codeName" : "end_7",
+      "columnType" : "DEFGRIDCOLUMN",
+      "dataItemName" : "details",
+      "enableCond" : 3,
+      "excelCaption" : "下班7打卡时间",
+      "ignoreInput" : 0,
+      "name" : "end_7",
+      "noPrivDisplayMode" : 1,
+      "objectIdField" : "id",
+      "objectNameField" : "name",
+      "getPSAppDEField" : {
+        "name" : "DETAILS",
+        "codeName" : "details"
+      },
+      "getPSDEUIAction" : {
+        "actionTarget" : "SINGLEDATA",
+        "caption" : "考勤记录反查校验",
+        "codeName" : "check_info_vail",
+        "frontProcessType" : "OTHER",
+        "fullCodeName" : "attendance_record_check_info_vail",
+        "name" : "考勤记录反查校验",
+        "getNextPSUIAction" : {
+          "getPSAppDataEntity" : {
+            "modelref" : true,
+            "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/attendance_record.json"
+          },
+          "modelref" : true,
+          "id" : "check_info@attendance_record"
+        },
+        "getPSAppDataEntity" : {
+          "modelref" : true,
+          "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/attendance_record.json"
+        },
+        "scriptCode" : "console.log(\"表格列反查\")\r\nconst target = event.currentTarget;\r\nconst classList = target.className.split(' ');\r\nconst codeName = classList[classList.length - 1].split('--')[1];\r\nif (codeName) {\r\n    const items = data[0].details.filter(x => x.detail_index === codeName);\r\n    if (!items.length) {\r\n        // return { cancel: true }\r\n    }\r\n}",
+        "uIActionMode" : "FRONT",
+        "uIActionTag" : "check_info_vail",
+        "uIActionType" : "DEUIACTION",
+        "id" : "check_info_vail@attendance_record"
+      },
+      "valueType" : "OBJECTS",
+      "width" : 200,
+      "widthUnit" : "PX",
+      "allowEmpty" : true,
+      "enableSort" : false
+    }, {
+      "align" : "LEFT",
+      "cLConvertMode" : "NONE",
+      "caption" : "上班8打开时间",
+      "codeName" : "start_8",
+      "columnType" : "DEFGRIDCOLUMN",
+      "dataItemName" : "details",
+      "enableCond" : 3,
+      "excelCaption" : "上班8打开时间",
+      "ignoreInput" : 0,
+      "name" : "start_8",
+      "noPrivDisplayMode" : 1,
+      "objectIdField" : "id",
+      "objectNameField" : "name",
+      "getPSAppDEField" : {
+        "name" : "DETAILS",
+        "codeName" : "details"
+      },
+      "getPSDEUIAction" : {
+        "actionTarget" : "SINGLEDATA",
+        "caption" : "考勤记录反查校验",
+        "codeName" : "check_info_vail",
+        "frontProcessType" : "OTHER",
+        "fullCodeName" : "attendance_record_check_info_vail",
+        "name" : "考勤记录反查校验",
+        "getNextPSUIAction" : {
+          "getPSAppDataEntity" : {
+            "modelref" : true,
+            "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/attendance_record.json"
+          },
+          "modelref" : true,
+          "id" : "check_info@attendance_record"
+        },
+        "getPSAppDataEntity" : {
+          "modelref" : true,
+          "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/attendance_record.json"
+        },
+        "scriptCode" : "console.log(\"表格列反查\")\r\nconst target = event.currentTarget;\r\nconst classList = target.className.split(' ');\r\nconst codeName = classList[classList.length - 1].split('--')[1];\r\nif (codeName) {\r\n    const items = data[0].details.filter(x => x.detail_index === codeName);\r\n    if (!items.length) {\r\n        // return { cancel: true }\r\n    }\r\n}",
+        "uIActionMode" : "FRONT",
+        "uIActionTag" : "check_info_vail",
+        "uIActionType" : "DEUIACTION",
+        "id" : "check_info_vail@attendance_record"
+      },
+      "valueType" : "OBJECTS",
+      "width" : 200,
+      "widthUnit" : "PX",
+      "allowEmpty" : true,
+      "enableSort" : false
+    }, {
+      "align" : "LEFT",
+      "cLConvertMode" : "NONE",
+      "caption" : "下班8打卡时间",
+      "codeName" : "end_8",
+      "columnType" : "DEFGRIDCOLUMN",
+      "dataItemName" : "details",
+      "enableCond" : 3,
+      "excelCaption" : "下班8打卡时间",
+      "ignoreInput" : 0,
+      "name" : "end_8",
+      "noPrivDisplayMode" : 1,
+      "objectIdField" : "id",
+      "objectNameField" : "name",
+      "getPSAppDEField" : {
+        "name" : "DETAILS",
+        "codeName" : "details"
+      },
+      "getPSDEUIAction" : {
+        "actionTarget" : "SINGLEDATA",
+        "caption" : "考勤记录反查校验",
+        "codeName" : "check_info_vail",
+        "frontProcessType" : "OTHER",
+        "fullCodeName" : "attendance_record_check_info_vail",
+        "name" : "考勤记录反查校验",
+        "getNextPSUIAction" : {
+          "getPSAppDataEntity" : {
+            "modelref" : true,
+            "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/attendance_record.json"
+          },
+          "modelref" : true,
+          "id" : "check_info@attendance_record"
+        },
+        "getPSAppDataEntity" : {
+          "modelref" : true,
+          "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/attendance_record.json"
+        },
+        "scriptCode" : "console.log(\"表格列反查\")\r\nconst target = event.currentTarget;\r\nconst classList = target.className.split(' ');\r\nconst codeName = classList[classList.length - 1].split('--')[1];\r\nif (codeName) {\r\n    const items = data[0].details.filter(x => x.detail_index === codeName);\r\n    if (!items.length) {\r\n        // return { cancel: true }\r\n    }\r\n}",
+        "uIActionMode" : "FRONT",
+        "uIActionTag" : "check_info_vail",
+        "uIActionType" : "DEUIACTION",
+        "id" : "check_info_vail@attendance_record"
+      },
+      "valueType" : "OBJECTS",
+      "width" : 200,
+      "widthUnit" : "PX",
+      "allowEmpty" : true,
+      "enableSort" : false
+    }, {
+      "align" : "LEFT",
+      "cLConvertMode" : "NONE",
+      "caption" : "上班9打开时间",
+      "codeName" : "start_9",
+      "columnType" : "DEFGRIDCOLUMN",
+      "dataItemName" : "details",
+      "enableCond" : 3,
+      "excelCaption" : "上班9打开时间",
+      "ignoreInput" : 0,
+      "name" : "start_9",
+      "noPrivDisplayMode" : 1,
+      "objectIdField" : "id",
+      "objectNameField" : "name",
+      "getPSAppDEField" : {
+        "name" : "DETAILS",
+        "codeName" : "details"
+      },
+      "getPSDEUIAction" : {
+        "actionTarget" : "SINGLEDATA",
+        "caption" : "考勤记录反查校验",
+        "codeName" : "check_info_vail",
+        "frontProcessType" : "OTHER",
+        "fullCodeName" : "attendance_record_check_info_vail",
+        "name" : "考勤记录反查校验",
+        "getNextPSUIAction" : {
+          "getPSAppDataEntity" : {
+            "modelref" : true,
+            "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/attendance_record.json"
+          },
+          "modelref" : true,
+          "id" : "check_info@attendance_record"
+        },
+        "getPSAppDataEntity" : {
+          "modelref" : true,
+          "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/attendance_record.json"
+        },
+        "scriptCode" : "console.log(\"表格列反查\")\r\nconst target = event.currentTarget;\r\nconst classList = target.className.split(' ');\r\nconst codeName = classList[classList.length - 1].split('--')[1];\r\nif (codeName) {\r\n    const items = data[0].details.filter(x => x.detail_index === codeName);\r\n    if (!items.length) {\r\n        // return { cancel: true }\r\n    }\r\n}",
+        "uIActionMode" : "FRONT",
+        "uIActionTag" : "check_info_vail",
+        "uIActionType" : "DEUIACTION",
+        "id" : "check_info_vail@attendance_record"
+      },
+      "valueType" : "OBJECTS",
+      "width" : 200,
+      "widthUnit" : "PX",
+      "allowEmpty" : true,
+      "enableSort" : false
+    }, {
+      "align" : "LEFT",
+      "cLConvertMode" : "NONE",
+      "caption" : "下班9打卡时间",
+      "codeName" : "end_9",
+      "columnType" : "DEFGRIDCOLUMN",
+      "dataItemName" : "details",
+      "enableCond" : 3,
+      "excelCaption" : "下班9打卡时间",
+      "ignoreInput" : 0,
+      "name" : "end_9",
+      "noPrivDisplayMode" : 1,
+      "objectIdField" : "id",
+      "objectNameField" : "name",
+      "getPSAppDEField" : {
+        "name" : "DETAILS",
+        "codeName" : "details"
+      },
+      "getPSDEUIAction" : {
+        "actionTarget" : "SINGLEDATA",
+        "caption" : "考勤记录反查校验",
+        "codeName" : "check_info_vail",
+        "frontProcessType" : "OTHER",
+        "fullCodeName" : "attendance_record_check_info_vail",
+        "name" : "考勤记录反查校验",
+        "getNextPSUIAction" : {
+          "getPSAppDataEntity" : {
+            "modelref" : true,
+            "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/attendance_record.json"
+          },
+          "modelref" : true,
+          "id" : "check_info@attendance_record"
+        },
+        "getPSAppDataEntity" : {
+          "modelref" : true,
+          "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/attendance_record.json"
+        },
+        "scriptCode" : "console.log(\"表格列反查\")\r\nconst target = event.currentTarget;\r\nconst classList = target.className.split(' ');\r\nconst codeName = classList[classList.length - 1].split('--')[1];\r\nif (codeName) {\r\n    const items = data[0].details.filter(x => x.detail_index === codeName);\r\n    if (!items.length) {\r\n        // return { cancel: true }\r\n    }\r\n}",
+        "uIActionMode" : "FRONT",
+        "uIActionTag" : "check_info_vail",
+        "uIActionType" : "DEUIACTION",
+        "id" : "check_info_vail@attendance_record"
+      },
+      "valueType" : "OBJECTS",
+      "width" : 200,
+      "widthUnit" : "PX",
+      "allowEmpty" : true,
+      "enableSort" : false
+    }, {
+      "align" : "LEFT",
+      "cLConvertMode" : "NONE",
+      "caption" : "上班10打开时间",
+      "codeName" : "start_10",
+      "columnType" : "DEFGRIDCOLUMN",
+      "dataItemName" : "details",
+      "enableCond" : 3,
+      "excelCaption" : "上班10打开时间",
+      "ignoreInput" : 0,
+      "name" : "start_10",
+      "noPrivDisplayMode" : 1,
+      "objectIdField" : "id",
+      "objectNameField" : "name",
+      "getPSAppDEField" : {
+        "name" : "DETAILS",
+        "codeName" : "details"
+      },
+      "getPSDEUIAction" : {
+        "actionTarget" : "SINGLEDATA",
+        "caption" : "考勤记录反查校验",
+        "codeName" : "check_info_vail",
+        "frontProcessType" : "OTHER",
+        "fullCodeName" : "attendance_record_check_info_vail",
+        "name" : "考勤记录反查校验",
+        "getNextPSUIAction" : {
+          "getPSAppDataEntity" : {
+            "modelref" : true,
+            "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/attendance_record.json"
+          },
+          "modelref" : true,
+          "id" : "check_info@attendance_record"
+        },
+        "getPSAppDataEntity" : {
+          "modelref" : true,
+          "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/attendance_record.json"
+        },
+        "scriptCode" : "console.log(\"表格列反查\")\r\nconst target = event.currentTarget;\r\nconst classList = target.className.split(' ');\r\nconst codeName = classList[classList.length - 1].split('--')[1];\r\nif (codeName) {\r\n    const items = data[0].details.filter(x => x.detail_index === codeName);\r\n    if (!items.length) {\r\n        // return { cancel: true }\r\n    }\r\n}",
+        "uIActionMode" : "FRONT",
+        "uIActionTag" : "check_info_vail",
+        "uIActionType" : "DEUIACTION",
+        "id" : "check_info_vail@attendance_record"
+      },
+      "valueType" : "OBJECTS",
+      "width" : 200,
+      "widthUnit" : "PX",
+      "allowEmpty" : true,
+      "enableSort" : false
+    }, {
+      "align" : "LEFT",
+      "cLConvertMode" : "NONE",
+      "caption" : "下班10打卡时间",
+      "codeName" : "end_10",
+      "columnType" : "DEFGRIDCOLUMN",
+      "dataItemName" : "details",
+      "enableCond" : 3,
+      "excelCaption" : "下班10打卡时间",
+      "ignoreInput" : 0,
+      "name" : "end_10",
+      "noPrivDisplayMode" : 1,
+      "objectIdField" : "id",
+      "objectNameField" : "name",
+      "getPSAppDEField" : {
+        "name" : "DETAILS",
+        "codeName" : "details"
+      },
+      "getPSDEUIAction" : {
+        "actionTarget" : "SINGLEDATA",
+        "caption" : "考勤记录反查校验",
+        "codeName" : "check_info_vail",
+        "frontProcessType" : "OTHER",
+        "fullCodeName" : "attendance_record_check_info_vail",
+        "name" : "考勤记录反查校验",
+        "getNextPSUIAction" : {
+          "getPSAppDataEntity" : {
+            "modelref" : true,
+            "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/attendance_record.json"
+          },
+          "modelref" : true,
+          "id" : "check_info@attendance_record"
+        },
+        "getPSAppDataEntity" : {
+          "modelref" : true,
+          "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/attendance_record.json"
+        },
+        "scriptCode" : "console.log(\"表格列反查\")\r\nconst target = event.currentTarget;\r\nconst classList = target.className.split(' ');\r\nconst codeName = classList[classList.length - 1].split('--')[1];\r\nif (codeName) {\r\n    const items = data[0].details.filter(x => x.detail_index === codeName);\r\n    if (!items.length) {\r\n        // return { cancel: true }\r\n    }\r\n}",
+        "uIActionMode" : "FRONT",
+        "uIActionTag" : "check_info_vail",
+        "uIActionType" : "DEUIACTION",
+        "id" : "check_info_vail@attendance_record"
+      },
+      "valueType" : "OBJECTS",
+      "width" : 200,
+      "widthUnit" : "PX",
+      "allowEmpty" : true,
+      "enableSort" : false
+    }, {
+      "align" : "CENTER",
+      "cLConvertMode" : "FRONT",
+      "getCapPSLanguageRes" : {
+        "lanResTag" : "DEF.LNAME.ATTENDANCE_RECORD.CHECKIN_RESULT"
+      },
+      "caption" : "考勤结果",
+      "codeName" : "checkin_result",
+      "columnType" : "DEFGRIDCOLUMN",
+      "dataItemName" : "checkin_result",
+      "enableCond" : 3,
+      "excelCaption" : "考勤结果",
+      "ignoreInput" : 0,
+      "name" : "checkin_result",
+      "noPrivDisplayMode" : 1,
+      "getPSAppCodeList" : {
+        "modelref" : true,
+        "path" : "PSSYSAPPS/attendanceapp/PSAPPCODELISTS/attendance__attendance_result.json"
+      },
+      "getPSAppDEField" : {
+        "name" : "CHECKIN_RESULT",
+        "codeName" : "checkin_result"
+      },
+      "width" : 220,
+      "widthUnit" : "PX",
+      "allowEmpty" : true,
+      "enableSort" : true
+    } ],
+    "width" : 100,
+    "widthUnit" : "STAR",
+    "enableSort" : false
+  }, {
+    "align" : "CENTER",
+    "caption" : "时长统计",
+    "codeName" : "duration_statistics",
+    "columnType" : "GROUPGRIDCOLUMN",
+    "name" : "duration_statistics",
+    "noPrivDisplayMode" : 1,
+    "getPSDEGridColumns" : [ {
+      "align" : "RIGHT",
+      "cLConvertMode" : "NONE",
+      "getCapPSLanguageRes" : {
+        "lanResTag" : "DEF.LNAME.ATTENDANCE_RECORD.LATE_MINUTES"
+      },
+      "caption" : "迟到时长（分钟）",
+      "codeName" : "late_minutes",
+      "columnType" : "DEFGRIDCOLUMN",
+      "dataItemName" : "late_minutes",
+      "enableCond" : 3,
+      "excelCaption" : "迟到时长（分钟）",
+      "ignoreInput" : 0,
+      "name" : "late_minutes",
+      "noPrivDisplayMode" : 1,
+      "getPSAppDEField" : {
+        "name" : "LATE_MINUTES",
+        "codeName" : "late_minutes"
+      },
+      "width" : 220,
+      "widthUnit" : "PX",
+      "allowEmpty" : true,
+      "enableSort" : true
+    }, {
+      "align" : "RIGHT",
+      "cLConvertMode" : "NONE",
+      "getCapPSLanguageRes" : {
+        "lanResTag" : "DEF.LNAME.ATTENDANCE_RECORD.LEAVE_EARLY_MINUTES"
+      },
+      "caption" : "早退时长（分钟）",
+      "codeName" : "leave_early_minutes",
+      "columnType" : "DEFGRIDCOLUMN",
+      "dataItemName" : "leave_early_minutes",
+      "enableCond" : 3,
+      "excelCaption" : "早退时长（分钟）",
+      "ignoreInput" : 0,
+      "name" : "leave_early_minutes",
+      "noPrivDisplayMode" : 1,
+      "getPSAppDEField" : {
+        "name" : "LEAVE_EARLY_MINUTES",
+        "codeName" : "leave_early_minutes"
+      },
+      "width" : 220,
+      "widthUnit" : "PX",
+      "allowEmpty" : true,
+      "enableSort" : true
+    } ],
+    "width" : 700,
+    "widthUnit" : "STAR",
+    "enableSort" : false
+  } ],
+  "getPSDEGridDataItems" : [ {
+    "dataType" : 25,
+    "name" : "member_name",
+    "getPSAppDEField" : {
+      "name" : "MEMBER_NAME",
+      "codeName" : "member_name"
+    }
+  }, {
+    "dataType" : 25,
+    "name" : "member_num",
+    "getPSAppDEField" : {
+      "name" : "MEMBER_NUM",
+      "codeName" : "member_num"
+    }
+  }, {
+    "dataType" : 25,
+    "name" : "dept_name",
+    "getPSAppDEField" : {
+      "name" : "DEPT_NAME",
+      "codeName" : "dept_name"
+    }
+  }, {
+    "dataType" : 25,
+    "name" : "title",
+    "getPSAppDEField" : {
+      "name" : "TITLE",
+      "codeName" : "title"
+    }
+  }, {
+    "format" : "YYYY-MM-DD",
+    "dataType" : 5,
+    "name" : "checkin_date",
+    "getPSAppDEField" : {
+      "name" : "CHECKIN_DATE",
+      "codeName" : "checkin_date"
+    }
+  }, {
+    "dataType" : 25,
+    "name" : "rule_name",
+    "getPSAppDEField" : {
+      "name" : "RULE_NAME",
+      "codeName" : "rule_name"
+    }
+  }, {
+    "dataType" : 25,
+    "name" : "shift_message",
+    "getPSAppDEField" : {
+      "name" : "SHIFT_MESSAGE",
+      "codeName" : "shift_message"
+    }
+  }, {
+    "dataType" : 21,
+    "name" : "details",
+    "getPSAppDEField" : {
+      "name" : "DETAILS",
+      "codeName" : "details"
+    },
+    "scriptCode" : "let details = data.details;\r\nconst result = details?.filter(item => item.detail_index === metadata.column.codeName).map(item => item.checkin_time);\r\nreturn result;",
+    "valueType" : "OBJECTS",
+    "customCode" : true
+  }, {
+    "dataType" : 25,
+    "name" : "checkin_result",
+    "getPSAppDEField" : {
+      "name" : "CHECKIN_RESULT",
+      "codeName" : "checkin_result"
+    }
+  }, {
+    "dataType" : 9,
+    "name" : "late_minutes",
+    "getPSAppDEField" : {
+      "name" : "LATE_MINUTES",
+      "codeName" : "late_minutes"
+    }
+  }, {
+    "dataType" : 9,
+    "name" : "leave_early_minutes",
+    "getPSAppDEField" : {
+      "name" : "LEAVE_EARLY_MINUTES",
+      "codeName" : "leave_early_minutes"
+    }
+  }, {
+    "dataType" : 25,
+    "name" : "srfkey",
+    "getPSAppDEField" : {
+      "name" : "ID",
+      "codeName" : "id"
+    }
+  }, {
+    "dataType" : 25,
+    "name" : "srfdataaccaction",
+    "getPSAppDEField" : {
+      "name" : "ID",
+      "codeName" : "id"
+    },
+    "dataAccessAction" : true
+  }, {
+    "dataType" : 25,
+    "name" : "member_id",
+    "getPSAppDEField" : {
+      "name" : "MEMBER_ID",
+      "codeName" : "member_id"
+    }
+  }, {
+    "dataType" : 25,
+    "name" : "rule_id",
+    "getPSAppDEField" : {
+      "name" : "RULE_ID",
+      "codeName" : "rule_id"
+    }
+  }, {
+    "dataType" : 25,
+    "name" : "srfmajortext",
+    "getPSAppDEField" : {
+      "name" : "NAME",
+      "codeName" : "name"
+    }
+  } ],
+  "getPSDEGridEditItems" : [ {
+    "caption" : "考勤记录ID",
+    "codeName" : "srfkey",
+    "enableCond" : 3,
+    "ignoreInput" : 0,
+    "name" : "srfkey",
+    "getPSAppDEField" : {
+      "name" : "ID",
+      "codeName" : "id"
+    },
+    "getPSEditor" : {
+      "editorType" : "HIDDEN",
+      "name" : "srfkey"
+    },
+    "allowEmpty" : true
+  } ],
+  "pagingMode" : 1,
+  "pagingSize" : 20,
+  "getRemovePSControlAction" : {
+    "actionName" : "Remove",
+    "actionType" : "DEACTION",
+    "dataAccessAction" : "DELETE",
+    "name" : "remove",
+    "getPSAppDEMethod" : {
+      "modelref" : true,
+      "id" : "remove"
+    },
+    "getPSAppDataEntity" : {
+      "modelref" : true,
+      "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/attendance_record.json"
+    }
+  },
+  "sortMode" : "REMOTE",
+  "hasWFDataItems" : false,
+  "enableColFilter" : false,
+  "enableCustomized" : true,
+  "enableGroup" : false,
+  "enablePagingBar" : true,
+  "enableRowEdit" : false,
+  "enableRowEditOrder" : false,
+  "enableRowNew" : false,
+  "forceFit" : false,
+  "hideHeader" : false,
+  "noSort" : false,
+  "singleSelect" : true,
+  "modelid" : "29d8069f7485323d695563de77aecb9a",
+  "modeltype" : "PSDEGRID"
+}

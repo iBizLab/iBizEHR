@@ -1,0 +1,70 @@
+{
+  "dBType" : "MYSQL5",
+  "name" : "MySQL5",
+  "getPSDEDataQueryCodeExps" : [ {
+    "expression" : "t1.`NOTE`",
+    "name" : "NOTE"
+  }, {
+    "expression" : "t1.`ACTIVE`",
+    "name" : "ACTIVE"
+  }, {
+    "expression" : "(SELECT count(1) child_count  FROM `hr_department`  t  where t.PARENT_ID= t1.`ID` )",
+    "name" : "CHILD_COUNT"
+  }, {
+    "expression" : "t1.`COLOR`",
+    "name" : "COLOR"
+  }, {
+    "expression" : "t1.`COMPANY_ID`",
+    "name" : "COMPANY_ID"
+  }, {
+    "expression" : "t11.`NAME`",
+    "name" : "COMPANY_NAME"
+  }, {
+    "expression" : "t1.`COMPLETE_NAME`",
+    "name" : "COMPLETE_NAME"
+  }, {
+    "expression" : "t1.`CREATE_DATE`",
+    "name" : "CREATE_DATE"
+  }, {
+    "expression" : "t1.`CREATE_UID`",
+    "name" : "CREATE_UID"
+  }, {
+    "expression" : "t1.`ID`",
+    "name" : "ID"
+  }, {
+    "expression" : "t1.`MANAGER_ID`",
+    "name" : "MANAGER_ID"
+  }, {
+    "expression" : "t21.`NAME`",
+    "name" : "MANAGER_NAME"
+  }, {
+    "expression" : "t1.`MASTER_DEPARTMENT_ID`",
+    "name" : "MASTER_DEPARTMENT_ID"
+  }, {
+    "expression" : "t1.`NAME`",
+    "name" : "NAME"
+  }, {
+    "expression" : "t1.`PARENT_ID`",
+    "name" : "PARENT_ID"
+  }, {
+    "expression" : "t31.`NAME`",
+    "name" : "PARENT_NAME"
+  }, {
+    "expression" : "t1.`PARENT_PATH`",
+    "name" : "PARENT_PATH"
+  }, {
+    "expression" : "(SELECT count(1) FROM `mail_activity_plan` t where t.DEPARTMENT_ID= t1.`ID`)",
+    "name" : "PLANS_COUNT"
+  }, {
+    "expression" : "(SELECT count(1)  FROM `hr_employee` t where t.DEPARTMENT_ID= t1.`ID` )",
+    "name" : "TOTAL_EMPLOYEE"
+  }, {
+    "expression" : "t1.`WRITE_DATE`",
+    "name" : "WRITE_DATE"
+  }, {
+    "expression" : "t1.`WRITE_UID`",
+    "name" : "WRITE_UID"
+  } ],
+  "queryCode" : "SELECT\nt1.`ACTIVE`,\n(SELECT count(1) child_count  FROM `hr_department`  t  where t.PARENT_ID= t1.`ID` ) AS `CHILD_COUNT`,\nt1.`COLOR`,\nt1.`COMPANY_ID`,\nt11.`NAME` AS `COMPANY_NAME`,\nt1.`COMPLETE_NAME`,\nt1.`CREATE_DATE`,\nt1.`CREATE_UID`,\nt1.`ID`,\nt1.`MANAGER_ID`,\nt21.`NAME` AS `MANAGER_NAME`,\nt1.`MASTER_DEPARTMENT_ID`,\nt1.`NAME`,\nt1.`PARENT_ID`,\nt31.`NAME` AS `PARENT_NAME`,\nt1.`PARENT_PATH`,\n(SELECT count(1) FROM `mail_activity_plan` t where t.DEPARTMENT_ID= t1.`ID`) AS `PLANS_COUNT`,\n(SELECT count(1)  FROM `hr_employee` t where t.DEPARTMENT_ID= t1.`ID` ) AS `TOTAL_EMPLOYEE`,\nt1.`WRITE_DATE`,\nt1.`WRITE_UID`\nFROM `hr_department` t1 \nLEFT JOIN `res_company` t11 ON t1.`COMPANY_ID` = t11.`ID` \nLEFT JOIN `hr_employee` t21 ON t1.`MANAGER_ID` = t21.`ID` \nLEFT JOIN `hr_department` t31 ON t1.`PARENT_ID` = t31.`ID` \n",
+  "id" : "PSMODULES/hr/PSDATAENTITIES/hr_department/PSDEDATAQUERIES/Default/PSDEDQCODES/MYSQL5.json"
+}

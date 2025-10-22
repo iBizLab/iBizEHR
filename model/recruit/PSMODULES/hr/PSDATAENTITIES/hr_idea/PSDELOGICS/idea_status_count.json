@@ -1,0 +1,228 @@
+{
+  "codeName" : "idea_status_count",
+  "defaultParamName" : "Default",
+  "dynaModelFilePath" : "PSMODULES/hr/PSDATAENTITIES/hr_idea/PSDELOGICS/idea_status_count.json",
+  "logicName" : "招聘需求搜索栏计数",
+  "name" : "招聘需求搜索栏计数",
+  "getPSDELogicNodes" : [ {
+    "codeName" : "Begin",
+    "leftPos" : 100,
+    "logicNodeType" : "BEGIN",
+    "name" : "开始",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "RAWSQLCALL_01"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "Begin"
+      }
+    } ],
+    "topPos" : 210,
+    "parallelOutput" : true
+  }, {
+    "codeName" : "RAWSQLCALL_01",
+    "getDstPSDELogicParam" : {
+      "modelref" : true,
+      "id" : "result"
+    },
+    "leftPos" : 190,
+    "logicNodeType" : "RAWSQLCALL",
+    "name" : "草稿阶段",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "RAWSQLCALL_02"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "RAWSQLCALL_01"
+      }
+    } ],
+    "sql" : "select count(1) as draft from hr_idea thi where status = 'draft'",
+    "topPos" : 208,
+    "fillDstLogicParam" : true,
+    "parallelOutput" : true
+  }, {
+    "codeName" : "RAWSQLCALL_02",
+    "getDstPSDELogicParam" : {
+      "modelref" : true,
+      "id" : "result"
+    },
+    "leftPos" : 189,
+    "logicNodeType" : "RAWSQLCALL",
+    "name" : "未进行阶段",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "RAWSQLCALL_03"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "RAWSQLCALL_02"
+      }
+    } ],
+    "sql" : "select count(1) as unstart from hr_idea thi where status = 'unstart'",
+    "topPos" : 304,
+    "fillDstLogicParam" : true,
+    "parallelOutput" : true
+  }, {
+    "codeName" : "RAWSQLCALL_03",
+    "getDstPSDELogicParam" : {
+      "modelref" : true,
+      "id" : "result"
+    },
+    "leftPos" : 190,
+    "logicNodeType" : "RAWSQLCALL",
+    "name" : "进行中阶段",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "RAWSQLCALL_04"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "RAWSQLCALL_03"
+      }
+    } ],
+    "sql" : "select  count(1) as ongoing from hr_idea thi where status = 'ongoing'",
+    "topPos" : 394,
+    "fillDstLogicParam" : true,
+    "parallelOutput" : true
+  }, {
+    "codeName" : "RAWSQLCALL_04",
+    "getDstPSDELogicParam" : {
+      "modelref" : true,
+      "id" : "result"
+    },
+    "leftPos" : 190,
+    "logicNodeType" : "RAWSQLCALL",
+    "name" : "已完成阶段",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "RAWSQLCALL_05"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "RAWSQLCALL_04"
+      }
+    } ],
+    "sql" : "select  count(1) as complete from hr_idea thi where status = 'complete'",
+    "topPos" : 490,
+    "fillDstLogicParam" : true,
+    "parallelOutput" : true
+  }, {
+    "codeName" : "RAWSQLCALL_05",
+    "getDstPSDELogicParam" : {
+      "modelref" : true,
+      "id" : "result"
+    },
+    "leftPos" : 190,
+    "logicNodeType" : "RAWSQLCALL",
+    "name" : "已暂停阶段",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "RAWSQLCALL_06"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "RAWSQLCALL_05"
+      }
+    } ],
+    "sql" : "select  count(1) as suspend from hr_idea thi where status = 'suspend'",
+    "topPos" : 594,
+    "fillDstLogicParam" : true,
+    "parallelOutput" : true
+  }, {
+    "codeName" : "RAWSQLCALL_06",
+    "getDstPSDELogicParam" : {
+      "modelref" : true,
+      "id" : "result"
+    },
+    "leftPos" : 190,
+    "logicNodeType" : "RAWSQLCALL",
+    "name" : "已取消阶段",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "RAWSQLCALL_07"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "RAWSQLCALL_06"
+      }
+    } ],
+    "sql" : "select  count(1) as canceled from hr_idea thi where status = 'canceled'",
+    "topPos" : 692,
+    "fillDstLogicParam" : true,
+    "parallelOutput" : true
+  }, {
+    "codeName" : "RAWSQLCALL_07",
+    "getDstPSDELogicParam" : {
+      "modelref" : true,
+      "id" : "result"
+    },
+    "leftPos" : 190,
+    "logicNodeType" : "RAWSQLCALL",
+    "name" : "已超期阶段",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "END_01"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "RAWSQLCALL_07"
+      }
+    } ],
+    "sql" : "select  count(1) as timeout from hr_idea thi where status = 'timeout'",
+    "topPos" : 782,
+    "fillDstLogicParam" : true,
+    "parallelOutput" : true
+  }, {
+    "codeName" : "END_01",
+    "leftPos" : 230,
+    "logicNodeType" : "END",
+    "name" : "结束",
+    "getReturnParam" : {
+      "modelref" : true,
+      "id" : "result"
+    },
+    "returnType" : "LOGICPARAM",
+    "topPos" : 910,
+    "parallelOutput" : true
+  } ],
+  "getPSDELogicParams" : [ {
+    "codeName" : "Default",
+    "logicName" : "传入变量",
+    "name" : "传入变量",
+    "getParamPSDataEntity" : {
+      "modelref" : true,
+      "path" : "PSMODULES/hr/PSDATAENTITIES/hr_idea.json"
+    },
+    "default" : true,
+    "entityParam" : true
+  }, {
+    "codeName" : "result",
+    "logicName" : "结果",
+    "name" : "结果",
+    "entityParam" : true
+  } ],
+  "getStartPSDELogicNode" : {
+    "modelref" : true,
+    "id" : "Begin"
+  },
+  "enableBackend" : true,
+  "enableFront" : false
+}

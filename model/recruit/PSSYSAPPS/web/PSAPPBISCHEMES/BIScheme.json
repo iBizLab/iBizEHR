@@ -1,0 +1,73 @@
+{
+  "dynaModelFilePath" : "PSSYSAPPS/web/PSAPPBISCHEMES/BIScheme.json",
+  "name" : "智能报表",
+  "getPSAppBICubes" : [ {
+    "codeName" : "applicant",
+    "name" : "候选人申请",
+    "getPSAppBICubeDimensions" : [ {
+      "codeName" : "w_job_platform_name",
+      "dimensionType" : "COMMON",
+      "name" : "招聘平台",
+      "getPSAppDEField" : {
+        "name" : "JOB_PLATFORM_NAME",
+        "codeName" : "job_platform_name"
+      },
+      "stdDataType" : 25
+    }, {
+      "codeName" : "w_owner_name",
+      "dimensionType" : "COMMON",
+      "name" : "招聘负责人",
+      "getPSAppDEField" : {
+        "name" : "OWNER_NAME",
+        "codeName" : "owner_name"
+      },
+      "stdDataType" : 25
+    }, {
+      "codeName" : "w_stage_id",
+      "dimensionType" : "COMMON",
+      "name" : "招聘阶段",
+      "getPSAppCodeList" : {
+        "modelref" : true,
+        "path" : "PSSYSAPPS/web/PSAPPCODELISTS/hr__hr_recruitment_stage.json"
+      },
+      "getPSAppDEField" : {
+        "name" : "STAGE_ID",
+        "codeName" : "stage_id"
+      },
+      "stdDataType" : 25
+    }, {
+      "codeName" : "w_resume_source",
+      "dimensionType" : "COMMON",
+      "name" : "简历来源",
+      "getPSAppCodeList" : {
+        "modelref" : true,
+        "path" : "PSSYSAPPS/web/PSAPPCODELISTS/hr__UsrCodeList0813106864.json"
+      },
+      "getPSAppDEField" : {
+        "name" : "RESUME_SOURCE",
+        "codeName" : "resume_source"
+      },
+      "stdDataType" : 25
+    }, {
+      "codeName" : "w_job_name",
+      "dimensionType" : "COMMON",
+      "name" : "职位",
+      "getPSAppDEField" : {
+        "name" : "JOB_NAME",
+        "codeName" : "job_name"
+      },
+      "stdDataType" : 25
+    } ],
+    "getPSAppBICubeMeasures" : [ {
+      "codeName" : "count",
+      "measureFormula" : "countif(1 = 1)",
+      "measureType" : "CALCULATED",
+      "name" : "申请数量"
+    } ],
+    "getPSAppDataEntity" : {
+      "modelref" : true,
+      "path" : "PSSYSAPPS/web/PSAPPDATAENTITIES/hr_applicant.json"
+    }
+  } ],
+  "uniqueTag" : "BIScheme"
+}

@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+    <definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:g="http://www.jboss.org/drools/flow/gpd" xmlns:tns="http://www.jboss.org/drools" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" expressionLanguage="http://www.mvel.org/2.0" id="Definition" name="" targetNamespace="http://www.jboss.org/drools" typeLanguage="http://www.java.com/javaTypes">
+        <process id="cn.ibizlab.core.attendance.service.logic.attendance_rulefillworkdays" isClosed="false" isExecutable="true" name="attendance_attendance_rule_fillworkdays_ruleFlow" processType="Private" tns:packageName="cn.ibizlab.core.attendance.service.logic.attendance_rulefillworkdays">
+            <extensionElements>
+                <tns:import name="java.util.Map" />
+                <tns:import name="org.springframework.util.StringUtils"/>
+                <tns:import name="cn.ibizlab.util.helper.RuleUtils"/>
+                                <tns:metaData express="" name="attendance_rulefillworkdaysdefault" type="entity"/>
+                                <tns:metaData express="new cn.ibizlab.core.attendance.domain.attendance_shift()" name="attendance_rulefillworkdaysshifts" type="refentity"/>
+                                <tns:metaData express="new cn.ibizlab.core.attendance.domain.attendance_workday()" name="attendance_rulefillworkdaysworkday" type="refentity"/>
+                                <tns:metaData express="new cn.ibizlab.core.attendance.domain.attendance_workday()" name="attendance_rulefillworkdaysworkdays" type="refentity"/>
+                    <tns:metaData express="T(cn.ibizlab.util.security.SpringContextHolder).getBean(T(cn.ibizlab.core.attendance.service.Iattendance_ruleService))" name="iBzSysAttendance_ruleDefaultService" type="service"/>
+                    <tns:metaData express="T(cn.ibizlab.util.security.AuthenticationUser).getAuthenticationUser()" name="curuser" type="session"/>
+                            <tns:global identifier="attendance_rulefillworkdaysdefault" type="cn.ibizlab.core.attendance.domain.attendance_rule" />
+                            <tns:global identifier="attendance_rulefillworkdaysshifts" type="cn.ibizlab.core.attendance.domain.attendance_shift" />
+                            <tns:global identifier="attendance_rulefillworkdaysworkday" type="cn.ibizlab.core.attendance.domain.attendance_workday" />
+                            <tns:global identifier="attendance_rulefillworkdaysworkdays" type="cn.ibizlab.core.attendance.domain.attendance_workday" />
+            </extensionElements>
+                        <startEvent id="begin" isInterrupting="true"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="attendance_rulefillworkdaysrawsfcode_01" id="rawsfcode_01" implementation="http://www.jboss.org/drools/rule" name="固定排班/灵活打卡填充工作日"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="attendance_rulefillworkdaysrawsfcode_05" id="rawsfcode_05" implementation="http://www.jboss.org/drools/rule" name="计算week、workday"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="attendance_rulefillworkdaysprepareparam_01" id="prepareparam_01" implementation="http://www.jboss.org/drools/rule" name="准备参数"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="attendance_rulefillworkdaysrawsfcode_02" id="rawsfcode_02" implementation="http://www.jboss.org/drools/rule" name="大小周填充工作日"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="attendance_rulefillworkdaysdebugparam_01" id="debugparam_01" implementation="http://www.jboss.org/drools/rule" name="调试逻辑参数"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="attendance_rulefillworkdaysend_01" id="end_01" implementation="http://www.jboss.org/drools/rule" name="结束"/>
+                        <endEvent id="end_01_end" name="end"/>
+                        <sequenceFlow id="end_01_end_line" sourceRef="end_01" targetRef="end_01_end"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="attendance_rulefillworkdaysrawsfcode_03" id="rawsfcode_03" implementation="http://www.jboss.org/drools/rule" name="上A休B填充工作日"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="attendance_rulefillworkdaysrawsfcode_04" id="rawsfcode_04" implementation="http://www.jboss.org/drools/rule" name="N班倒填充工作日"/>
+                    <sequenceFlow id="begin_rawsfcode_05" sourceRef="begin" targetRef="rawsfcode_05">
+                    </sequenceFlow>
+                    <sequenceFlow id="rawsfcode_01_debugparam_01" sourceRef="rawsfcode_01" targetRef="debugparam_01">
+                    </sequenceFlow>
+                    <sequenceFlow id="gateway-rawsfcode_05_prepareparam_01" sourceRef="gateway-rawsfcode_05" targetRef="prepareparam_01">
+                            <conditionExpression  language="http://www.jboss.org/drools/rule" ><![CDATA[
+                                            $attendance_rulefillworkdaysdefault:attendance_rule();
+                                            $attendance_rulefillworkdaysshifts:attendance_shift();
+                                            $attendance_rulefillworkdaysworkday:attendance_workday();
+                                            $attendance_rulefillworkdaysworkdays:attendance_workday();
+                                    eval($attendance_rulefillworkdaysdefault==attendance_rulefillworkdaysdefault && $attendance_rulefillworkdaysshifts==attendance_rulefillworkdaysshifts && $attendance_rulefillworkdaysworkday==attendance_rulefillworkdaysworkday && $attendance_rulefillworkdaysworkdays==attendance_rulefillworkdaysworkdays);
+                                eval((RuleUtils.test($attendance_rulefillworkdaysdefault.get("scheduleType"),"NOTEQ","manual"))&&(RuleUtils.test($attendance_rulefillworkdaysdefault.get("scheduleType"),"NOTEQ","free")))
+                                ]]>
+                            </conditionExpression>
+                    </sequenceFlow>
+                    <sequenceFlow id="gateway-prepareparam_01_rawsfcode_01" sourceRef="gateway-prepareparam_01" targetRef="rawsfcode_01">
+                            <conditionExpression  language="http://www.jboss.org/drools/rule" ><![CDATA[
+                                            $attendance_rulefillworkdaysdefault:attendance_rule();
+                                            $attendance_rulefillworkdaysshifts:attendance_shift();
+                                            $attendance_rulefillworkdaysworkday:attendance_workday();
+                                            $attendance_rulefillworkdaysworkdays:attendance_workday();
+                                    eval($attendance_rulefillworkdaysdefault==attendance_rulefillworkdaysdefault && $attendance_rulefillworkdaysshifts==attendance_rulefillworkdaysshifts && $attendance_rulefillworkdaysworkday==attendance_rulefillworkdaysworkday && $attendance_rulefillworkdaysworkdays==attendance_rulefillworkdaysworkdays);
+                                eval(((RuleUtils.test($attendance_rulefillworkdaysdefault.get("scheduleType"),"EQ","flexible"))||(RuleUtils.test($attendance_rulefillworkdaysdefault.get("scheduleType"),"EQ","fixed"))))
+                                ]]>
+                            </conditionExpression>
+                    </sequenceFlow>
+                    <sequenceFlow id="gateway-prepareparam_01_rawsfcode_02" sourceRef="gateway-prepareparam_01" targetRef="rawsfcode_02">
+                            <conditionExpression  language="http://www.jboss.org/drools/rule" ><![CDATA[
+                                            $attendance_rulefillworkdaysdefault:attendance_rule();
+                                            $attendance_rulefillworkdaysshifts:attendance_shift();
+                                            $attendance_rulefillworkdaysworkday:attendance_workday();
+                                            $attendance_rulefillworkdaysworkdays:attendance_workday();
+                                    eval($attendance_rulefillworkdaysdefault==attendance_rulefillworkdaysdefault && $attendance_rulefillworkdaysshifts==attendance_rulefillworkdaysshifts && $attendance_rulefillworkdaysworkday==attendance_rulefillworkdaysworkday && $attendance_rulefillworkdaysworkdays==attendance_rulefillworkdaysworkdays);
+                                eval((RuleUtils.test($attendance_rulefillworkdaysdefault.get("scheduleType"),"EQ","alternate_week")))
+                                ]]>
+                            </conditionExpression>
+                    </sequenceFlow>
+                    <sequenceFlow id="gateway-prepareparam_01_rawsfcode_03" sourceRef="gateway-prepareparam_01" targetRef="rawsfcode_03">
+                            <conditionExpression  language="http://www.jboss.org/drools/rule" ><![CDATA[
+                                            $attendance_rulefillworkdaysdefault:attendance_rule();
+                                            $attendance_rulefillworkdaysshifts:attendance_shift();
+                                            $attendance_rulefillworkdaysworkday:attendance_workday();
+                                            $attendance_rulefillworkdaysworkdays:attendance_workday();
+                                    eval($attendance_rulefillworkdaysdefault==attendance_rulefillworkdaysdefault && $attendance_rulefillworkdaysshifts==attendance_rulefillworkdaysshifts && $attendance_rulefillworkdaysworkday==attendance_rulefillworkdaysworkday && $attendance_rulefillworkdaysworkdays==attendance_rulefillworkdaysworkdays);
+                                eval((RuleUtils.test($attendance_rulefillworkdaysdefault.get("scheduleType"),"EQ","work_rest")))
+                                ]]>
+                            </conditionExpression>
+                    </sequenceFlow>
+                    <sequenceFlow id="gateway-prepareparam_01_rawsfcode_04" sourceRef="gateway-prepareparam_01" targetRef="rawsfcode_04">
+                            <conditionExpression  language="http://www.jboss.org/drools/rule" ><![CDATA[
+                                            $attendance_rulefillworkdaysdefault:attendance_rule();
+                                            $attendance_rulefillworkdaysshifts:attendance_shift();
+                                            $attendance_rulefillworkdaysworkday:attendance_workday();
+                                            $attendance_rulefillworkdaysworkdays:attendance_workday();
+                                    eval($attendance_rulefillworkdaysdefault==attendance_rulefillworkdaysdefault && $attendance_rulefillworkdaysshifts==attendance_rulefillworkdaysshifts && $attendance_rulefillworkdaysworkday==attendance_rulefillworkdaysworkday && $attendance_rulefillworkdaysworkdays==attendance_rulefillworkdaysworkdays);
+                                eval((RuleUtils.test($attendance_rulefillworkdaysdefault.get("scheduleType"),"EQ","class_inversion")))
+                                ]]>
+                            </conditionExpression>
+                    </sequenceFlow>
+                    <sequenceFlow id="rawsfcode_02_debugparam_01" sourceRef="rawsfcode_02" targetRef="debugparam_01">
+                    </sequenceFlow>
+                    <sequenceFlow id="debugparam_01_end_01" sourceRef="debugparam_01" targetRef="end_01">
+                    </sequenceFlow>
+                    <sequenceFlow id="rawsfcode_03_debugparam_01" sourceRef="rawsfcode_03" targetRef="debugparam_01">
+                    </sequenceFlow>
+                    <sequenceFlow id="rawsfcode_04_debugparam_01" sourceRef="rawsfcode_04" targetRef="debugparam_01">
+                    </sequenceFlow>
+                            <exclusiveGateway id="gateway-rawsfcode_05" name="Gateway" gatewayDirection="Diverging" default="gateway-rawsfcode_05_end_line"></exclusiveGateway>
+                            <sequenceFlow id="rawsfcode_05_gateway-rawsfcode_05_gatewayline" sourceRef="rawsfcode_05" targetRef="gateway-rawsfcode_05"></sequenceFlow>
+                            <sequenceFlow id="gateway-rawsfcode_05_end_line" sourceRef="gateway-rawsfcode_05" targetRef="gateway-rawsfcode_05_end"/>
+                            <endEvent id="gateway-rawsfcode_05_end" name="end"/>
+                            <exclusiveGateway id="gateway-prepareparam_01" name="Gateway" gatewayDirection="Diverging" default="gateway-prepareparam_01_end_line"></exclusiveGateway>
+                            <sequenceFlow id="prepareparam_01_gateway-prepareparam_01_gatewayline" sourceRef="prepareparam_01" targetRef="gateway-prepareparam_01"></sequenceFlow>
+                            <sequenceFlow id="gateway-prepareparam_01_end_line" sourceRef="gateway-prepareparam_01" targetRef="gateway-prepareparam_01_end"/>
+                            <endEvent id="gateway-prepareparam_01_end" name="end"/>
+        </process>
+    </definitions>

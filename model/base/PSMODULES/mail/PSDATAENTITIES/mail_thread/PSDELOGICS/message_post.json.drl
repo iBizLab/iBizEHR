@@ -1,0 +1,61 @@
+package cn.ibizlab.mail.logic.mail_threadlogic.message_post;
+        import java.util.Map;
+        import java.util.HashMap;
+        import com.alibaba.fastjson.JSONObject;
+        import org.springframework.util.StringUtils;
+        import org.springframework.util.ObjectUtils;
+        import cn.ibizlab.util.errors.BadRequestAlertException;
+                global cn.ibizlab.core.mail.domain.mail_thread mail_threadmessage_postdefault;
+                global cn.ibizlab.core.mail.domain.mail_message mail_threadmessage_postmessage;
+                    global cn.ibizlab.core.mail.service.Imail_messageService mail_messageservice;
+        global cn.ibizlab.core.mail.service.Imail_threadService iBzSysMail_threadDefaultService;
+        global cn.ibizlab.util.security.AuthenticationUser curuser;
+
+
+    no-loop
+
+            //逻辑处理节点[开始]
+            rule "begin"
+            ruleflow-group "mail_threadmessage_postbegin"
+            when
+            then
+            end
+
+            //逻辑处理节点[构造消息对象]
+            rule "prepareparam_01"
+            ruleflow-group "mail_threadmessage_postprepareparam_01"
+            when
+            then
+                            mail_threadmessage_postmessage.set("",mail_threadmessage_postdefault.get(""));
+                        update(mail_threadmessage_postdefault);//更新fact中变量值
+                        update(mail_threadmessage_postmessage);//更新fact中变量值
+            end
+
+            //逻辑处理节点[填充默认值]
+            rule "prepareparam_02"
+            ruleflow-group "mail_threadmessage_postprepareparam_02"
+            when
+            then
+                            mail_threadmessage_postmessage.set("messagetype","notification");
+                        update(mail_threadmessage_postdefault);//更新fact中变量值
+                        update(mail_threadmessage_postmessage);//更新fact中变量值
+            end
+
+            //逻辑处理节点[建立消息]
+            rule "deaction_01"
+            ruleflow-group "mail_threadmessage_postdeaction_01"
+            when
+            then
+                        mail_messageservice.create(mail_threadmessage_postmessage);
+                        update(mail_threadmessage_postdefault);//更新fact中变量值
+                        update(mail_threadmessage_postmessage);//更新fact中变量值
+            end
+
+            //逻辑处理节点[结束]
+            rule "end_01"
+            ruleflow-group "mail_threadmessage_postend_01"
+            when
+            then
+                        update(mail_threadmessage_postdefault);//更新fact中变量值
+                        update(mail_threadmessage_postmessage);//更新fact中变量值
+            end

@@ -1,0 +1,238 @@
+{
+  "codeName" : "add_members",
+  "defaultParamName" : "Default",
+  "dynaModelFilePath" : "PSMODULES/discuss/PSDATAENTITIES/discuss_channel/PSDELOGICS/add_members.json",
+  "logicName" : "添加邀请成员",
+  "name" : "添加邀请成员",
+  "getPSDELogicNodes" : [ {
+    "codeName" : "Begin",
+    "leftPos" : 100,
+    "logicNodeType" : "BEGIN",
+    "name" : "开始",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "RAWSFCODE_01"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "Begin"
+      }
+    } ],
+    "topPos" : 100,
+    "parallelOutput" : true
+  }, {
+    "code" : "    // 获取默认参数中的members字段值\r\n    def src = logic.param(\"Default\").getReal()\r\n    def membersStr = src.get(\"members\")\r\n    \r\n    // 解析ID列表\r\n    def ids = membersStr?.split(',') ?: []\r\n    \r\n    // 构造实体对象列表\r\n    def res_partners = ids.collect { id ->\r\n        // 获取RES_PARTNER实体运行时对象\r\n        def dePartner = sys.dataentity(\"res_partner\")\r\n        // 创建新实体对象\r\n        def partner = dePartner.entity()\r\n        // 设置ID属性（假设RES_PARTNER主键为id）\r\n        partner.set(\"id\", id.trim())\r\n        partner\r\n    }\r\n    \r\n    // 绑定到目标参数\r\n    logic.param(\"res_partners\").getReal().addAll(res_partners)",
+    "codeName" : "RAWSFCODE_01",
+    "codeType" : "Groovy",
+    "leftPos" : 436,
+    "logicNodeType" : "RAWSFCODE",
+    "name" : "提取标识构造对象列表",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "LOOP_01"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "RAWSFCODE_01"
+      }
+    } ],
+    "topPos" : 98,
+    "parallelOutput" : true
+  }, {
+    "codeName" : "LOOP_01",
+    "getDstPSDELogicParam" : {
+      "modelref" : true,
+      "id" : "current_partner"
+    },
+    "leftPos" : 436,
+    "logicNodeType" : "LOOPSUBCALL",
+    "name" : "循环处理成员",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "RENEWPARAM_01"
+      },
+      "name" : "连接",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "LOOP_01"
+      },
+      "subCallLink" : true
+    }, {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "END"
+      },
+      "name" : "连接",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "LOOP_01"
+      }
+    } ],
+    "getSrcPSDELogicParam" : {
+      "modelref" : true,
+      "id" : "res_partners"
+    },
+    "topPos" : 390,
+    "parallelOutput" : true
+  }, {
+    "codeName" : "RENEWPARAM_01",
+    "getDstPSDELogicParam" : {
+      "modelref" : true,
+      "id" : "member"
+    },
+    "leftPos" : 700,
+    "logicNodeType" : "RENEWPARAM",
+    "name" : "重新建立参数",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "PREPAREPARAM_02"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "RENEWPARAM_01"
+      }
+    } ],
+    "topPos" : 390,
+    "parallelOutput" : true
+  }, {
+    "codeName" : "PREPAREPARAM_02",
+    "leftPos" : 936,
+    "logicNodeType" : "PREPAREPARAM",
+    "name" : "准备参数",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "CREATE_MEMBER"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "PREPAREPARAM_02"
+      }
+    } ],
+    "getPSDELogicNodeParams" : [ {
+      "dstFieldName" : "PARTNER_ID",
+      "getDstPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "member"
+      },
+      "paramAction" : "SETPARAMVALUE",
+      "srcFieldName" : "ID",
+      "getSrcPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "current_partner"
+      },
+      "srcValueType" : "SRCDLPARAM"
+    }, {
+      "dstFieldName" : "CHANNEL_ID",
+      "getDstPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "member"
+      },
+      "paramAction" : "SETPARAMVALUE",
+      "srcFieldName" : "ID",
+      "getSrcPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "Default"
+      },
+      "srcValueType" : "SRCDLPARAM"
+    } ],
+    "topPos" : 390,
+    "parallelOutput" : true
+  }, {
+    "codeName" : "CREATE_MEMBER",
+    "getDstPSDEAction" : {
+      "modelref" : true,
+      "path" : "PSMODULES/discuss/PSDATAENTITIES/discuss_channel_member/PSDEACTIONS/Save.json"
+    },
+    "getDstPSDELogicParam" : {
+      "modelref" : true,
+      "id" : "member"
+    },
+    "getDstPSDataEntity" : {
+      "modelref" : true,
+      "path" : "PSMODULES/discuss/PSDATAENTITIES/discuss_channel_member.json"
+    },
+    "leftPos" : 1130,
+    "logicNodeType" : "DEACTION",
+    "name" : "创建频道成员",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "LOOP_END"
+      },
+      "name" : "连接",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "CREATE_MEMBER"
+      }
+    } ],
+    "topPos" : 390,
+    "parallelOutput" : true
+  }, {
+    "codeName" : "END",
+    "leftPos" : 476,
+    "logicNodeType" : "END",
+    "name" : "结束",
+    "topPos" : 620,
+    "parallelOutput" : true
+  }, {
+    "codeName" : "LOOP_END",
+    "leftPos" : 1170,
+    "logicNodeType" : "END",
+    "name" : "循环结束",
+    "topPos" : 620,
+    "parallelOutput" : true
+  } ],
+  "getPSDELogicParams" : [ {
+    "codeName" : "Default",
+    "logicName" : "传入变量",
+    "name" : "传入变量",
+    "getParamPSDataEntity" : {
+      "modelref" : true,
+      "path" : "PSMODULES/discuss/PSDATAENTITIES/discuss_channel.json"
+    },
+    "default" : true,
+    "entityParam" : true
+  }, {
+    "codeName" : "current_partner",
+    "logicName" : "当前处理的成员ID",
+    "name" : "当前处理的成员ID",
+    "getParamPSDataEntity" : {
+      "modelref" : true,
+      "path" : "PSMODULES/base/PSDATAENTITIES/res_partner.json"
+    },
+    "entityParam" : true
+  }, {
+    "codeName" : "member",
+    "logicName" : "成员",
+    "name" : "成员",
+    "getParamPSDataEntity" : {
+      "modelref" : true,
+      "path" : "PSMODULES/discuss/PSDATAENTITIES/discuss_channel_member.json"
+    },
+    "entityParam" : true
+  }, {
+    "codeName" : "res_partners",
+    "logicName" : "选中人员",
+    "name" : "选中人员",
+    "getParamPSDataEntity" : {
+      "modelref" : true,
+      "path" : "PSMODULES/base/PSDATAENTITIES/res_partner.json"
+    },
+    "entityListParam" : true
+  } ],
+  "getStartPSDELogicNode" : {
+    "modelref" : true,
+    "id" : "Begin"
+  },
+  "enableBackend" : true,
+  "enableFront" : false
+}

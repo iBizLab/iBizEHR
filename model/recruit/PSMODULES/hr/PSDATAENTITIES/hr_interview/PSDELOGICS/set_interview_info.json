@@ -1,0 +1,138 @@
+{
+  "codeName" : "set_interview_info",
+  "defaultParamName" : "Default",
+  "dynaModelFilePath" : "PSMODULES/hr/PSDATAENTITIES/hr_interview/PSDELOGICS/set_interview_info.json",
+  "logicName" : "预设面试信息（临时）",
+  "name" : "预设面试信息（临时）",
+  "getPSDELogicNodes" : [ {
+    "codeName" : "Begin",
+    "leftPos" : 260,
+    "logicNodeType" : "BEGIN",
+    "name" : "开始",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "PREPAREPARAM1"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "Begin"
+      }
+    } ],
+    "topPos" : 110,
+    "parallelOutput" : true
+  }, {
+    "codeName" : "PREPAREPARAM1",
+    "leftPos" : 220,
+    "logicNodeType" : "PREPAREPARAM",
+    "name" : "准备参数",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "DEBUGPARAM1"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "PREPAREPARAM1"
+      }
+    } ],
+    "getPSDELogicNodeParams" : [ {
+      "dstFieldName" : "CANDIDATE_URL",
+      "getDstPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "Default"
+      },
+      "name" : "直接值[https://meeting.tenc...] ==> Default[CANDIDATE_URL]",
+      "paramAction" : "SETPARAMVALUE",
+      "srcValue" : "https://meeting.tencent.com/dm/o8WT7tIry9tb",
+      "srcValueType" : "SRCVALUE"
+    }, {
+      "dstFieldName" : "INTERVIEWER_URL",
+      "getDstPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "Default"
+      },
+      "name" : "直接值[https://meeting.tenc...] ==> Default[INTERVIEWER_URL]",
+      "paramAction" : "SETPARAMVALUE",
+      "srcValue" : "https://meeting.tencent.com/dm/o8WT7tIry9tb",
+      "srcValueType" : "SRCVALUE"
+    }, {
+      "dstFieldName" : "MEETING_ID",
+      "getDstPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "Default"
+      },
+      "name" : "直接值[711-434-123] ==> Default[MEETING_ID]",
+      "paramAction" : "SETPARAMVALUE",
+      "srcValue" : "711-434-123",
+      "srcValueType" : "SRCVALUE"
+    } ],
+    "topPos" : 240
+  }, {
+    "codeName" : "DEBUGPARAM1",
+    "getDstPSDELogicParam" : {
+      "modelref" : true,
+      "id" : "Default"
+    },
+    "leftPos" : 221,
+    "logicNodeType" : "DEBUGPARAM",
+    "name" : "调试逻辑参数",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "PREPAREPARAM2"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "DEBUGPARAM1"
+      }
+    } ],
+    "topPos" : 367
+  }, {
+    "codeName" : "PREPAREPARAM2",
+    "leftPos" : 220,
+    "logicNodeType" : "PREPAREPARAM",
+    "name" : "准备参数",
+    "getPSDELogicNodeParams" : [ {
+      "dstFieldName" : "applicant_ids",
+      "getDstPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "session_entity"
+      },
+      "name" : "Default[applicant_ids] ==> session_entity[applicant_ids]",
+      "paramAction" : "SETPARAMVALUE",
+      "srcFieldName" : "applicant_ids",
+      "getSrcPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "Default"
+      },
+      "srcValueType" : "SRCDLPARAM"
+    } ],
+    "topPos" : 500
+  } ],
+  "getPSDELogicParams" : [ {
+    "codeName" : "Default",
+    "logicName" : "传入变量",
+    "name" : "传入变量",
+    "getParamPSDataEntity" : {
+      "modelref" : true,
+      "path" : "PSMODULES/hr/PSDATAENTITIES/hr_interview.json"
+    },
+    "default" : true,
+    "entityParam" : true
+  }, {
+    "codeName" : "session_entity",
+    "logicName" : "session_entity",
+    "name" : "session_entity",
+    "sessionParam" : true
+  } ],
+  "getStartPSDELogicNode" : {
+    "modelref" : true,
+    "id" : "Begin"
+  },
+  "enableBackend" : true,
+  "enableFront" : false
+}

@@ -1,0 +1,106 @@
+{
+  "dBType" : "MYSQL5",
+  "name" : "MySQL5",
+  "getPSDEDataQueryCodeExps" : [ {
+    "expression" : "t21.`ADDRESS`",
+    "name" : "ADDRESS"
+  }, {
+    "expression" : "t41.`ADDRESS_ID`",
+    "name" : "ADDRESS_ID"
+  }, {
+    "expression" : "t1.`APPLICANT_ID`",
+    "name" : "APPLICANT_ID"
+  }, {
+    "expression" : "t1.`APPLICANT_INTERVIEW_ID`",
+    "name" : "APPLICANT_INTERVIEW_ID"
+  }, {
+    "expression" : "t21.`CANDIDATE_DISPLAY_NAME`",
+    "name" : "CANDIDATE_DISPLAY_NAME"
+  }, {
+    "expression" : "t1.`CREATE_DATE`",
+    "name" : "CREATE_DATE"
+  }, {
+    "expression" : "t1.`CREATE_UID`",
+    "name" : "CREATE_UID"
+  }, {
+    "expression" : "datediff(t41.`START_DATE`,sysdate())",
+    "name" : "DAYCALC"
+  }, {
+    "expression" : "t21.`EMAIL_FROM`",
+    "name" : "EMAIL_FROM"
+  }, {
+    "expression" : "t21.`EXPERIENCE`",
+    "name" : "EXPERIENCE"
+  }, {
+    "expression" : "t1.`ID`",
+    "name" : "ID"
+  }, {
+    "expression" : "t1.`INTERVIEWER_ID`",
+    "name" : "INTERVIEWER_ID"
+  }, {
+    "expression" : "t81.`NAME`",
+    "name" : "INTERVIEWER_NAME"
+  }, {
+    "expression" : "t1.`INTERVIEW_ID`",
+    "name" : "INTERVIEW_ID"
+  }, {
+    "expression" : "t41.`INTERVIEW_TYPE`",
+    "name" : "INTERVIEW_TYPE"
+  }, {
+    "expression" : "t1.`INTERVIEW_USER_ID`",
+    "name" : "INTERVIEW_USER_ID"
+  }, {
+    "expression" : "t1.`IS_NEXT_ROUND`",
+    "name" : "IS_NEXT_ROUND"
+  }, {
+    "expression" : "t21.`JOB_ID`",
+    "name" : "JOB_ID"
+  }, {
+    "expression" : "t51.`NAME`",
+    "name" : "JOB_NAME"
+  }, {
+    "expression" : "t71.`NAME`",
+    "name" : "JOB_PLATFORM_NAME"
+  }, {
+    "expression" : "t21.`LAST_EDU_ACADEMIC_DEGREE`",
+    "name" : "LAST_EDU_ACADEMIC_DEGREE"
+  }, {
+    "expression" : "t21.`MOBILE_PHONE`",
+    "name" : "MOBILE_PHONE"
+  }, {
+    "expression" : "t1.`NAME`",
+    "name" : "NAME"
+  }, {
+    "expression" : "t21.`OWNER_ID`",
+    "name" : "OWNER_ID"
+  }, {
+    "expression" : "t61.`NAME`",
+    "name" : "OWNER_NAME"
+  }, {
+    "expression" : "t1.`RESULT_TYPE`",
+    "name" : "RESULT_TYPE"
+  }, {
+    "expression" : "t31.`STAGE_ID`",
+    "name" : "STAGE_ID"
+  }, {
+    "expression" : "t41.`START_DATE`",
+    "name" : "START_DATE"
+  }, {
+    "expression" : "t31.`START_TIME`",
+    "name" : "START_TIME"
+  }, {
+    "expression" : "t31.`STATUS`",
+    "name" : "STATUS"
+  }, {
+    "expression" : "t11.`VIDEO_URL`",
+    "name" : "VIDEO_URL"
+  }, {
+    "expression" : "t1.`WRITE_DATE`",
+    "name" : "WRITE_DATE"
+  }, {
+    "expression" : "t1.`WRITE_UID`",
+    "name" : "WRITE_UID"
+  } ],
+  "queryCode" : "SELECT\nt21.`ADDRESS`,\nt41.`ADDRESS_ID`,\nt1.`APPLICANT_ID`,\nt1.`APPLICANT_INTERVIEW_ID`,\nt21.`CANDIDATE_DISPLAY_NAME`,\nt1.`CREATE_DATE`,\nt1.`CREATE_UID`,\ndatediff(t41.`START_DATE`,sysdate()) AS `DAYCALC`,\nt21.`EMAIL_FROM`,\nt21.`EXPERIENCE`,\nt1.`ID`,\nt1.`INTERVIEWER_ID`,\nt81.`NAME` AS `INTERVIEWER_NAME`,\nt1.`INTERVIEW_ID`,\nt41.`INTERVIEW_TYPE`,\nt1.`INTERVIEW_USER_ID`,\nt1.`IS_NEXT_ROUND`,\nt21.`JOB_ID`,\nt51.`NAME` AS `JOB_NAME`,\nt71.`NAME` AS `JOB_PLATFORM_NAME`,\nt21.`LAST_EDU_ACADEMIC_DEGREE`,\nt21.`MOBILE_PHONE`,\nt1.`NAME`,\nt21.`OWNER_ID`,\nt61.`NAME` AS `OWNER_NAME`,\nt1.`RESULT_TYPE`,\nt31.`STAGE_ID`,\nt41.`START_DATE`,\nt31.`START_TIME`,\nt31.`STATUS`,\nt11.`VIDEO_URL`,\nt1.`WRITE_DATE`,\nt1.`WRITE_UID`\nFROM `hr_interview_feedback` t1 \nLEFT JOIN `hr_interview_user` t11 ON t1.`INTERVIEW_USER_ID` = t11.`ID` \nLEFT JOIN `hr_applicant` t21 ON t1.`APPLICANT_ID` = t21.`ID` \nLEFT JOIN `hr_interview` t31 ON t1.`INTERVIEW_ID` = t31.`ID` \nLEFT JOIN `hr_interview_schedule` t41 ON t31.`SCHEDULE_ID` = t41.`ID` \nLEFT JOIN `hr_job` t51 ON t21.`JOB_ID` = t51.`ID` \nLEFT JOIN `hr_employee` t61 ON t21.`OWNER_ID` = t61.`ID` \nLEFT JOIN `hr_job_platform` t71 ON t21.`JOB_PLATFORM_ID` = t71.`ID` \nLEFT JOIN `hr_employee` t81 ON t1.`INTERVIEWER_ID` = t81.`ID` \n",
+  "id" : "PSMODULES/hr/PSDATAENTITIES/hr_interview_feedback/PSDEDATAQUERIES/Default/PSDEDQCODES/MYSQL5.json"
+}

@@ -1,0 +1,185 @@
+{
+  "aggMode" : "NONE",
+  "codeName" : "platform_account_info_grid",
+  "columnEnableFilter" : 2,
+  "columnEnableLink" : 2,
+  "controlType" : "GRID",
+  "dynaModelFilePath" : "PSSYSAPPS/web/PSAPPDATAENTITIES/hr_job_platform_account/PSGRIDS/platform_account_info_grid.json",
+  "getFetchPSControlAction" : {
+    "modelref" : true,
+    "id" : "fetch",
+    "actionType" : "DEDATASET",
+    "name" : "fetch",
+    "getPSAppDEMethod" : {
+      "modelref" : true,
+      "id" : "fetch_default"
+    },
+    "getPSAppDataEntity" : {
+      "modelref" : true,
+      "path" : "PSSYSAPPS/web/PSAPPDATAENTITIES/hr_job_platform_account.json"
+    }
+  },
+  "groupMode" : "NONE",
+  "logicName" : "招聘平台账号基础表格信息_表格",
+  "getPSAppDataEntity" : {
+    "modelref" : true,
+    "path" : "PSSYSAPPS/web/PSAPPDATAENTITIES/hr_job_platform_account.json"
+  },
+  "getPSDEGridColumns" : [ {
+    "align" : "LEFT",
+    "cLConvertMode" : "NONE",
+    "caption" : "平台",
+    "codeName" : "job_platform_name",
+    "columnType" : "DEFGRIDCOLUMN",
+    "dataItemName" : "job_platform_name",
+    "excelCaption" : "平台",
+    "getLinkPSAppView" : {
+      "modelref" : true,
+      "path" : "PSSYSAPPS/web/PSAPPDEVIEWS/hr_job_platform_redirect_view.json",
+      "viewType" : "DEREDIRECTVIEW"
+    },
+    "linkValueItem" : "job_platform_id",
+    "name" : "job_platform_name",
+    "noPrivDisplayMode" : 1,
+    "getPSAppDEField" : {
+      "name" : "JOB_PLATFORM_NAME",
+      "codeName" : "job_platform_name"
+    },
+    "width" : 250,
+    "widthUnit" : "PX",
+    "enableLinkView" : true,
+    "enableSort" : true
+  }, {
+    "align" : "LEFT",
+    "cLConvertMode" : "NONE",
+    "caption" : "授权账号",
+    "codeName" : "name",
+    "columnType" : "DEFGRIDCOLUMN",
+    "dataItemName" : "name",
+    "excelCaption" : "授权账号",
+    "name" : "name",
+    "noPrivDisplayMode" : 1,
+    "getPSAppDEField" : {
+      "name" : "NAME",
+      "codeName" : "name"
+    },
+    "width" : 250,
+    "widthUnit" : "PX",
+    "enableSort" : true
+  }, {
+    "align" : "LEFT",
+    "cLConvertMode" : "NONE",
+    "caption" : "接收简历邮箱",
+    "codeName" : "receive_email",
+    "columnType" : "DEFGRIDCOLUMN",
+    "dataItemName" : "receive_email",
+    "excelCaption" : "接收简历邮箱",
+    "name" : "receive_email",
+    "noPrivDisplayMode" : 1,
+    "getPSAppDEField" : {
+      "name" : "RECEIVE_EMAIL",
+      "codeName" : "receive_email"
+    },
+    "width" : 250,
+    "widthUnit" : "PX",
+    "enableSort" : true
+  } ],
+  "getPSDEGridDataItems" : [ {
+    "dataType" : 25,
+    "name" : "job_platform_name",
+    "getPSAppDEField" : {
+      "name" : "JOB_PLATFORM_NAME",
+      "codeName" : "job_platform_name"
+    }
+  }, {
+    "dataType" : 25,
+    "name" : "name",
+    "getPSAppDEField" : {
+      "name" : "NAME",
+      "codeName" : "name"
+    }
+  }, {
+    "dataType" : 25,
+    "name" : "receive_email",
+    "getPSAppDEField" : {
+      "name" : "RECEIVE_EMAIL",
+      "codeName" : "receive_email"
+    }
+  }, {
+    "dataType" : 25,
+    "name" : "srfkey",
+    "getPSAppDEField" : {
+      "name" : "ID",
+      "codeName" : "id"
+    }
+  }, {
+    "dataType" : 25,
+    "name" : "srfdataaccaction",
+    "getPSAppDEField" : {
+      "name" : "ID",
+      "codeName" : "id"
+    },
+    "dataAccessAction" : true
+  }, {
+    "dataType" : 25,
+    "name" : "job_platform_id",
+    "getPSAppDEField" : {
+      "name" : "JOB_PLATFORM_ID",
+      "codeName" : "job_platform_id"
+    }
+  }, {
+    "dataType" : 25,
+    "name" : "srfmajortext",
+    "getPSAppDEField" : {
+      "name" : "NAME",
+      "codeName" : "name"
+    }
+  } ],
+  "getPSDEGridEditItems" : [ {
+    "caption" : "标识",
+    "codeName" : "srfkey",
+    "enableCond" : 3,
+    "ignoreInput" : 0,
+    "name" : "srfkey",
+    "getPSAppDEField" : {
+      "name" : "ID",
+      "codeName" : "id"
+    },
+    "getPSEditor" : {
+      "editorType" : "HIDDEN",
+      "name" : "srfkey"
+    },
+    "allowEmpty" : true
+  } ],
+  "pagingMode" : 1,
+  "pagingSize" : 20,
+  "getRemovePSControlAction" : {
+    "actionName" : "Remove",
+    "actionType" : "DEACTION",
+    "dataAccessAction" : "DELETE",
+    "name" : "remove",
+    "getPSAppDEMethod" : {
+      "modelref" : true,
+      "id" : "remove"
+    },
+    "getPSAppDataEntity" : {
+      "modelref" : true,
+      "path" : "PSSYSAPPS/web/PSAPPDATAENTITIES/hr_job_platform_account.json"
+    }
+  },
+  "sortMode" : "REMOTE",
+  "hasWFDataItems" : false,
+  "enableColFilter" : false,
+  "enableCustomized" : true,
+  "enableGroup" : false,
+  "enablePagingBar" : true,
+  "enableRowEdit" : false,
+  "enableRowEditOrder" : false,
+  "enableRowNew" : false,
+  "forceFit" : false,
+  "hideHeader" : false,
+  "noSort" : false,
+  "singleSelect" : false,
+  "modelid" : "5e3fd30c1aeb408024c7d5eba8eef679",
+  "modeltype" : "PSDEGRID"
+}

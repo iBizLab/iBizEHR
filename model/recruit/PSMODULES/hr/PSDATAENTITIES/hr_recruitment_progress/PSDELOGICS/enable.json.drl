@@ -1,0 +1,47 @@
+package cn.ibizlab.hr.logic.hr_recruitment_progresslogic.enable;
+        import java.util.Map;
+        import java.util.HashMap;
+        import com.alibaba.fastjson.JSONObject;
+        import org.springframework.util.StringUtils;
+        import org.springframework.util.ObjectUtils;
+        import cn.ibizlab.util.errors.BadRequestAlertException;
+                global cn.ibizlab.core.hr.domain.hr_recruitment_progress hr_recruitment_progressenabledefault;
+                    global cn.ibizlab.core.hr.service.Ihr_recruitment_progressService hr_recruitment_progressservice;
+        global cn.ibizlab.core.hr.service.Ihr_recruitment_progressService iBzSysHr_recruitment_progressDefaultService;
+        global cn.ibizlab.util.security.AuthenticationUser curuser;
+
+
+    no-loop
+
+            //逻辑处理节点[开始]
+            rule "begin"
+            ruleflow-group "hr_recruitment_progressenablebegin"
+            when
+            then
+            end
+
+            //逻辑处理节点[设置状态为启用]
+            rule "prepareparam1"
+            ruleflow-group "hr_recruitment_progressenableprepareparam1"
+            when
+            then
+                            hr_recruitment_progressenabledefault.set("status","1");
+                        update(hr_recruitment_progressenabledefault);//更新fact中变量值
+            end
+
+            //逻辑处理节点[更新状态]
+            rule "deaction1"
+            ruleflow-group "hr_recruitment_progressenabledeaction1"
+            when
+            then
+                        hr_recruitment_progressservice.update(hr_recruitment_progressenabledefault);
+                        update(hr_recruitment_progressenabledefault);//更新fact中变量值
+            end
+
+            //逻辑处理节点[结束]
+            rule "end1"
+            ruleflow-group "hr_recruitment_progressenableend1"
+            when
+            then
+                        update(hr_recruitment_progressenabledefault);//更新fact中变量值
+            end

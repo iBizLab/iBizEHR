@@ -1,0 +1,21 @@
+```sql
+SELECT
+t1.`ACTIVE`,
+t1.`CREATE_DATE`,
+t1.`CREATE_UID`,
+t1.`DISPLAY_NAME`,
+t1.`DOMAIN_FORCE`,
+t1.`GLOBAL`,
+t1.`ID`,
+t1.`MODEL_ID`,
+t1.`NAME`,
+t1.`PERM_CREATE`,
+t1.`PERM_READ`,
+t1.`PERM_UNLINK`,
+t1.`PERM_WRITE`,
+t1.`WRITE_DATE`,
+t1.`WRITE_UID`
+FROM `ir_rule` t1 
+
+
+```

@@ -1,0 +1,131 @@
+@include b(dsl-model-clipboard-item) {
+  .el-timeline-item__wrapper {
+    padding-left: 18px;
+  }
+
+  .el-card {
+    --el-card-padding: 6px 8px;
+  }
+
+  .el-card__body {
+    position: relative;
+  }
+  @include e(content) {
+    position: relative;
+    color: getCssVar(color, text, 3);
+    @include m(title) {
+      width: 100%;
+      height: 100%;
+      font-size: 18px;
+
+      .el-input {
+        --el-input-width: 360px;
+        --el-input-height: 30px;
+      }
+
+      .el-input__wrapper {
+        padding: 1px 0;
+
+        &:not(.is-focus) {
+          box-shadow: none;
+        }
+      }
+
+      .el-input__inner {
+        font-size: 18px;
+      }
+    }
+    @include m(info) {
+      padding: 6px 0;
+    }
+  }
+  @include e(actions) {
+    top: 0;
+    right: 0;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    position: absolute;
+    @include m(item) {
+      width: 32px;
+      height: 32px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  }
+  @include e(loading) {
+    inset: 0;
+    z-index: 1;
+    position: absolute;
+    @include m(inner) {
+      @keyframes breath {
+        0% {
+          opacity: 0.5;
+        }
+
+        10% {
+          opacity: 0.6;
+        }
+
+        20% {
+          opacity: 0.7;
+        }
+
+        30% {
+          opacity: 0.8;
+        }
+
+        40% {
+          opacity: 0.9;
+        }
+
+        50% {
+          opacity: 1;
+        }
+
+        60% {
+          opacity: 0.9;
+        }
+
+        70% {
+          opacity: 0.8;
+        }
+
+        80% {
+          opacity: 0.7;
+        }
+
+        90% {
+          opacity: 0.6;
+        }
+
+        100% {
+          opacity: 0.5;
+        }
+      }
+
+      width: 0%;
+      height: 100%;
+      text-align: right;
+      background: #c6ffdd;
+      background: linear-gradient(
+        to right,
+        #f7797d,
+        #fbd786,
+        #c6ffdd
+      ) !important;
+      transition: width 0.5s;
+      animation: breath 2s infinite ease-in-out;
+    }
+    @include m(label) {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      height: 100%;
+      margin-right: 5px;
+      font-size: 18px;
+    }
+  }
+}

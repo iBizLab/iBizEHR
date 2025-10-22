@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+    <definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:g="http://www.jboss.org/drools/flow/gpd" xmlns:tns="http://www.jboss.org/drools" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" expressionLanguage="http://www.mvel.org/2.0" id="Definition" name="" targetNamespace="http://www.jboss.org/drools" typeLanguage="http://www.java.com/javaTypes">
+        <process id="cn.ibizlab.core.attendance.service.logic.attendance_ruleexecuteactivate" isClosed="false" isExecutable="true" name="attendance_attendance_rule_executeactivate_ruleFlow" processType="Private" tns:packageName="cn.ibizlab.core.attendance.service.logic.attendance_ruleexecuteactivate">
+            <extensionElements>
+                <tns:import name="java.util.Map" />
+                <tns:import name="org.springframework.util.StringUtils"/>
+                <tns:import name="cn.ibizlab.util.helper.RuleUtils"/>
+                                <tns:metaData express="" name="attendance_ruleexecuteactivatedefault" type="entity"/>
+                                <tns:metaData express="new cn.ibizlab.core.attendance.domain.attendance_rule()" name="attendance_ruleexecuteactivatefilter" type="refentity"/>
+                                <tns:metaData express="new cn.ibizlab.core.attendance.domain.attendance_rule()" name="attendance_ruleexecuteactivaterule" type="refentity"/>
+                                <tns:metaData express="new cn.ibizlab.core.attendance.domain.attendance_rule()" name="attendance_ruleexecuteactivaterules" type="refentity"/>
+                                    <tns:metaData express="T(cn.ibizlab.util.security.SpringContextHolder).getBean(T(cn.ibizlab.core.attendance.service.Iattendance_ruleService))" name="attendance_ruleservice" type="service"/>
+                    <tns:metaData express="T(cn.ibizlab.util.security.SpringContextHolder).getBean(T(cn.ibizlab.core.attendance.service.Iattendance_ruleService))" name="iBzSysAttendance_ruleDefaultService" type="service"/>
+                    <tns:metaData express="T(cn.ibizlab.util.security.AuthenticationUser).getAuthenticationUser()" name="curuser" type="session"/>
+                            <tns:global identifier="attendance_ruleexecuteactivatedefault" type="cn.ibizlab.core.attendance.domain.attendance_rule" />
+                            <tns:global identifier="attendance_ruleexecuteactivatefilter" type="cn.ibizlab.core.attendance.domain.attendance_rule" />
+                            <tns:global identifier="attendance_ruleexecuteactivaterule" type="cn.ibizlab.core.attendance.domain.attendance_rule" />
+                            <tns:global identifier="attendance_ruleexecuteactivaterules" type="cn.ibizlab.core.attendance.domain.attendance_rule" />
+            </extensionElements>
+                        <startEvent id="begin" isInterrupting="true"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="attendance_ruleexecuteactivatedebugparam_01" id="debugparam_01" implementation="http://www.jboss.org/drools/rule" name="调试逻辑参数"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="attendance_ruleexecuteactivatededataset_01" id="dedataset_01" implementation="http://www.jboss.org/drools/rule" name="实体数据集"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="attendance_ruleexecuteactivateloopsubcall_01" id="loopsubcall_01" implementation="http://www.jboss.org/drools/rule" name="循环子调用"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="attendance_ruleexecuteactivatedeaction_01" id="deaction_01" implementation="http://www.jboss.org/drools/rule" name="实体行为"/>
+                        <endEvent id="deaction_01_end" name="end"/>
+                        <sequenceFlow id="deaction_01_end_line" sourceRef="deaction_01" targetRef="deaction_01_end"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="attendance_ruleexecuteactivateend_01" id="end_01" implementation="http://www.jboss.org/drools/rule" name="结束"/>
+                        <endEvent id="end_01_end" name="end"/>
+                        <sequenceFlow id="end_01_end_line" sourceRef="end_01" targetRef="end_01_end"/>
+                    <sequenceFlow id="begin_dedataset_01" sourceRef="begin" targetRef="dedataset_01">
+                    </sequenceFlow>
+                    <sequenceFlow id="debugparam_01_deaction_01" sourceRef="debugparam_01" targetRef="deaction_01">
+                    </sequenceFlow>
+                    <sequenceFlow id="gateway-dedataset_01_loopsubcall_01" sourceRef="gateway-dedataset_01" targetRef="loopsubcall_01">
+                            <conditionExpression  language="http://www.jboss.org/drools/rule" ><![CDATA[
+                                            $attendance_ruleexecuteactivatedefault:attendance_rule();
+                                            $attendance_ruleexecuteactivatefilter:attendance_rule();
+                                            $attendance_ruleexecuteactivaterule:attendance_rule();
+                                            $attendance_ruleexecuteactivaterules:attendance_rule();
+                                    eval($attendance_ruleexecuteactivatedefault==attendance_ruleexecuteactivatedefault && $attendance_ruleexecuteactivatefilter==attendance_ruleexecuteactivatefilter && $attendance_ruleexecuteactivaterule==attendance_ruleexecuteactivaterule && $attendance_ruleexecuteactivaterules==attendance_ruleexecuteactivaterules);
+                                eval((RuleUtils.test($attendance_ruleexecuteactivaterules.get("size"),"NOTEQ","0")))
+                                ]]>
+                            </conditionExpression>
+                    </sequenceFlow>
+                    <sequenceFlow id="loopsubcall_01_debugparam_01" sourceRef="loopsubcall_01" targetRef="debugparam_01">
+                    </sequenceFlow>
+                    <sequenceFlow id="loopsubcall_01_end_01" sourceRef="loopsubcall_01" targetRef="end_01">
+                    </sequenceFlow>
+                            <exclusiveGateway id="gateway-dedataset_01" name="Gateway" gatewayDirection="Diverging" default="gateway-dedataset_01_end_line"></exclusiveGateway>
+                            <sequenceFlow id="dedataset_01_gateway-dedataset_01_gatewayline" sourceRef="dedataset_01" targetRef="gateway-dedataset_01"></sequenceFlow>
+                            <sequenceFlow id="gateway-dedataset_01_end_line" sourceRef="gateway-dedataset_01" targetRef="gateway-dedataset_01_end"/>
+                            <endEvent id="gateway-dedataset_01_end" name="end"/>
+        </process>
+    </definitions>

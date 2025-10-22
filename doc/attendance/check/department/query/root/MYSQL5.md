@@ -1,0 +1,17 @@
+```sql
+SELECT
+t1.`CREATE_DATE`,
+t1.`CREATE_UID`,
+t1.`ID`,
+t1.`NAME`,
+t1.`ORGID`,
+t1.`PARENT_ID`,
+t1.`PARENT_NAME`,
+t1.`SRFDCID`,
+t1.`STATUS`,
+t1.`WRITE_DATE`,
+t1.`WRITE_UID`
+FROM `` t1 
+
+WHERE ( t1.`PARENT_ID` IS NULL )
+```

@@ -1,0 +1,44 @@
+@include b(model-tree) {
+  height: 100%;
+  width: 100%;
+  overflow: auto;
+
+  .el-tree {
+    font-size: 16px;
+  }
+  
+  .el-tree-node__content {
+    height: 36px;
+  }
+
+  @include e(node) {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: getCssVar(spacing, tight);
+
+    .icon {
+      width: 16px;
+      height: 16px;
+      fill: getCssVar(color, text-0);
+    }
+
+    @include m(caption) {
+      display: flex;
+      align-items: center;
+      gap: getCssVar(spacing, tight);
+      min-width: 310px;
+    }
+
+    @include m(content) {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: getCssVar(spacing, tight);
+    }
+
+    @include m(editor) {
+      min-width: 212px;
+    }
+  }
+}

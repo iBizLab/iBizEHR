@@ -1,0 +1,68 @@
+{
+  "codeName" : "join_idea_job",
+  "defaultParamName" : "Default",
+  "dynaModelFilePath" : "PSMODULES/hr/PSDATAENTITIES/hr_job/PSDELOGICS/join_idea_job.json",
+  "logicName" : "关联职位",
+  "name" : "关联职位",
+  "getPSDELogicNodes" : [ {
+    "codeName" : "Begin",
+    "leftPos" : 510,
+    "logicNodeType" : "BEGIN",
+    "name" : "开始",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "RAWSFCODE"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "Begin"
+      }
+    } ],
+    "topPos" : 230,
+    "parallelOutput" : true
+  }, {
+    "code" : "// 获取默认参数\r\ndef _default = logic.param('Default').getReal()\r\n\r\nString ideaID = _default.get('hr_idea')\r\n\r\nString reviewerUserIds = _default.get('name')\r\n\r\n// 解析JSON并提取id列表\r\ndef jsonSlurper = new groovy.json.JsonSlurper()\r\ndef list = jsonSlurper.parseText(reviewerUserIds)\r\ndef ids = list.collect { it.id } // 提取所有id\r\n\r\n// 创建主表实体\r\ndef hrIdeaJobRuntime = sys.dataentity('HR_IDEA_JOB')\r\n\r\nids.each { id ->\r\n    def hrIdeaJobEntity = hrIdeaJobRuntime.createEntity()\r\n    hrIdeaJobEntity.set(\"Idea_id\", ideaID)\r\n    hrIdeaJobEntity.set(\"Job_id\", id)\r\n    hrIdeaJobRuntime.save(hrIdeaJobEntity)\r\n}\r\n",
+    "codeName" : "RAWSFCODE",
+    "codeType" : "Groovy",
+    "leftPos" : 470,
+    "logicNodeType" : "RAWSFCODE",
+    "name" : "需求关联职位",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "END1"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "RAWSFCODE"
+      }
+    } ],
+    "topPos" : 370
+  }, {
+    "codeName" : "END1",
+    "leftPos" : 510,
+    "logicNodeType" : "END",
+    "name" : "结束",
+    "topPos" : 512
+  } ],
+  "getPSDELogicParams" : [ {
+    "codeName" : "Default",
+    "logicName" : "传入变量",
+    "name" : "传入变量",
+    "getParamPSDataEntity" : {
+      "modelref" : true,
+      "path" : "PSMODULES/hr/PSDATAENTITIES/hr_job.json"
+    },
+    "default" : true,
+    "entityParam" : true
+  } ],
+  "getStartPSDELogicNode" : {
+    "modelref" : true,
+    "id" : "Begin"
+  },
+  "enableBackend" : true,
+  "enableFront" : false
+}

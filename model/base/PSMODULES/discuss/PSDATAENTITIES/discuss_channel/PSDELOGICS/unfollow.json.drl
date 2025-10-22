@@ -1,0 +1,83 @@
+package cn.ibizlab.discuss.logic.discuss_channellogic.unfollow;
+        import java.util.Map;
+        import java.util.HashMap;
+        import com.alibaba.fastjson.JSONObject;
+        import org.springframework.util.StringUtils;
+        import org.springframework.util.ObjectUtils;
+        import cn.ibizlab.util.errors.BadRequestAlertException;
+                global cn.ibizlab.core.discuss.domain.discuss_channel discuss_channelunfollowdefault;
+                global cn.ibizlab.core.discuss.domain.discuss_channel_member discuss_channelunfollowmember_filter;
+                global cn.ibizlab.core.discuss.domain.discuss_channel_member discuss_channelunfollowmember_temp;
+                global cn.ibizlab.core.discuss.domain.discuss_channel_member discuss_channelunfollowmembers;
+                    global cn.ibizlab.core.discuss.service.Idiscuss_channel_memberService discuss_channel_memberservice;
+        global cn.ibizlab.core.discuss.service.Idiscuss_channelService iBzSysDiscuss_channelDefaultService;
+        global cn.ibizlab.util.security.AuthenticationUser curuser;
+
+
+    no-loop
+
+            //逻辑处理节点[开始]
+            rule "begin"
+            ruleflow-group "discuss_channelunfollowbegin"
+            when
+            then
+            end
+
+            //逻辑处理节点[准备过滤器]
+            rule "prepareparam_01"
+            ruleflow-group "discuss_channelunfollowprepareparam_01"
+            when
+            then
+                            discuss_channelunfollowmember_filter.set("n_channel_id_eq",discuss_channelunfollowdefault.get("id"));
+                                discuss_channelunfollowmember_filter.set("n_partner_id_eq",curuser.getSessionParams().get("srfpartnerid"));
+                            discuss_channelunfollowmember_filter.set("size","1000");
+                        update(discuss_channelunfollowdefault);//更新fact中变量值
+                        update(discuss_channelunfollowmember_filter);//更新fact中变量值
+                        update(discuss_channelunfollowmember_temp);//更新fact中变量值
+                        update(discuss_channelunfollowmembers);//更新fact中变量值
+            end
+
+            //逻辑处理节点[查询]
+            rule "dedataset_01"
+            ruleflow-group "discuss_channelunfollowdedataset_01"
+            when
+            then
+                        update(discuss_channelunfollowdefault);//更新fact中变量值
+                        update(discuss_channelunfollowmember_filter);//更新fact中变量值
+                        update(discuss_channelunfollowmember_temp);//更新fact中变量值
+                        update(discuss_channelunfollowmembers);//更新fact中变量值
+            end
+
+            //逻辑处理节点[循环子调用]
+            rule "loopsubcall_01"
+            ruleflow-group "discuss_channelunfollowloopsubcall_01"
+            when
+            then
+                        update(discuss_channelunfollowdefault);//更新fact中变量值
+                        update(discuss_channelunfollowmember_filter);//更新fact中变量值
+                        update(discuss_channelunfollowmember_temp);//更新fact中变量值
+                        update(discuss_channelunfollowmembers);//更新fact中变量值
+            end
+
+            //逻辑处理节点[移除成员]
+            rule "deaction_01"
+            ruleflow-group "discuss_channelunfollowdeaction_01"
+            when
+            then
+                        discuss_channel_memberservice.remove(discuss_channelunfollowmember_temp.getId());
+                        update(discuss_channelunfollowdefault);//更新fact中变量值
+                        update(discuss_channelunfollowmember_filter);//更新fact中变量值
+                        update(discuss_channelunfollowmember_temp);//更新fact中变量值
+                        update(discuss_channelunfollowmembers);//更新fact中变量值
+            end
+
+            //逻辑处理节点[结束]
+            rule "end_01"
+            ruleflow-group "discuss_channelunfollowend_01"
+            when
+            then
+                        update(discuss_channelunfollowdefault);//更新fact中变量值
+                        update(discuss_channelunfollowmember_filter);//更新fact中变量值
+                        update(discuss_channelunfollowmember_temp);//更新fact中变量值
+                        update(discuss_channelunfollowmembers);//更新fact中变量值
+            end

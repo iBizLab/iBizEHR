@@ -1,0 +1,77 @@
+export default {
+  codeListTag: 'attendance__abnormal_statistics',
+  codeListType: 'STATIC',
+  codeName: 'attendance__abnormal_statistics',
+  emptyText: '未定义',
+  codeItems: [
+    {
+      codeName: 'late_times',
+      text: '迟到次数',
+      value: 'late_times',
+      id: 'late_times',
+    },
+    {
+      codeName: 'late_duration',
+      text: '迟到时长',
+      value: 'late_duration',
+      id: 'late_duration',
+    },
+    {
+      codeName: 'leave_early',
+      text: '早退次数',
+      value: 'leave_early',
+      id: 'leave_early',
+    },
+    {
+      codeName: 'leave_early_duration',
+      text: '早退时长',
+      value: 'leave_early_duration',
+      id: 'leave_early_duration',
+    },
+    {
+      codeName: 'on_missing',
+      text: '上班卡缺卡',
+      value: 'on_missing',
+      id: 'on_missing',
+    },
+    {
+      codeName: 'off_missing',
+      text: '下班卡缺卡',
+      value: 'off_missing',
+      id: 'off_missing',
+    },
+    {
+      codeName: 'absent_days',
+      text: '旷工天数',
+      value: 'absent_days',
+      id: 'absent_days',
+    },
+    {
+      codeName: 'on_business_days',
+      text: '出差天数',
+      value: 'on_business_days',
+      id: 'on_business_days',
+    },
+    {
+      codeName: 'out_time',
+      text: '外出时长',
+      value: 'out_time',
+      id: 'out_time',
+    },
+    {
+      codeName: 'make_card_times',
+      text: '补卡次数',
+      value: 'make_card_times',
+      id: 'make_card_times',
+    },
+    {
+      codeName: 'out_work_times',
+      text: '外勤次数',
+      value: 'out_work_times',
+      id: 'out_work_times',
+    },
+  ],
+  enableCache: true,
+  name: '异常统计',
+  id: 'attendanceapp.attendance__abnormal_statistics',
+};

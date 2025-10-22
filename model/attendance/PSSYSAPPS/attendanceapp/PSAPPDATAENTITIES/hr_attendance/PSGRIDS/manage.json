@@ -1,0 +1,600 @@
+{
+  "aggMode" : "NONE",
+  "codeName" : "manage",
+  "columnEnableFilter" : 2,
+  "columnEnableLink" : 2,
+  "controlStyle" : "ODOO_GROUP_GRID",
+  "controlType" : "GRID",
+  "dynaModelFilePath" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/hr_attendance/PSGRIDS/manage.json",
+  "getFetchPSControlAction" : {
+    "modelref" : true,
+    "id" : "fetch",
+    "actionType" : "DEDATASET",
+    "name" : "fetch",
+    "getPSAppDEMethod" : {
+      "modelref" : true,
+      "id" : "fetch_manage"
+    },
+    "getPSAppDataEntity" : {
+      "modelref" : true,
+      "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/hr_attendance.json"
+    }
+  },
+  "groupMode" : "NONE",
+  "logicName" : "管理-主表格",
+  "getPSAppDataEntity" : {
+    "modelref" : true,
+    "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/hr_attendance.json"
+  },
+  "getPSControls" : [ {
+    "codeName" : "manage_multi_data_view_grid_batchtoolbar",
+    "controlType" : "TOOLBAR",
+    "logicName" : "批操作工作栏（出勤）",
+    "name" : "grid_batchtoolbar",
+    "getPSAppDataEntity" : {
+      "modelref" : true,
+      "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/hr_attendance.json"
+    },
+    "getPSControlParam" : {
+      "id" : "grid_batchtoolbar"
+    },
+    "getPSDEToolbarItems" : [ {
+      "caption" : "批准",
+      "groupExtractMode" : "ITEM",
+      "itemType" : "DEUIACTION",
+      "name" : "deuiaction1",
+      "noPrivDisplayMode" : 2,
+      "getPSAppViewUIAction" : {
+        "modelref" : true,
+        "id" : "grid_batchtoolbar_deuiaction1"
+      },
+      "getPSSysImage" : {
+        "glyph" : "xf00c@FontAwesome",
+        "cssClass" : "fa fa-check"
+      },
+      "getPSUIAction" : {
+        "actionTarget" : "MULTIKEY",
+        "caption" : "批准",
+        "codeName" : "batchApprove",
+        "fullCodeName" : "hr_attendance_batchApprove",
+        "name" : "出勤审批-批量批准",
+        "getPSAppDEMethod" : {
+          "modelref" : true,
+          "id" : "batch_approval"
+        },
+        "getPSAppDataEntity" : {
+          "modelref" : true,
+          "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/hr_attendance.json"
+        },
+        "getPSNavigateParams" : [ {
+          "key" : "overtime_status",
+          "name" : "overtime_status",
+          "value" : "approved",
+          "rawValue" : true
+        } ],
+        "getPSSysImage" : {
+          "glyph" : "xf00c@FontAwesome",
+          "cssClass" : "fa fa-check"
+        },
+        "refreshMode" : 1,
+        "timeout" : 60000,
+        "uIActionMode" : "BACKEND",
+        "uIActionTag" : "batchApprove",
+        "uIActionType" : "DEUIACTION",
+        "enableConfirm" : true,
+        "reloadData" : true,
+        "id" : "batchApprove@hr_attendance"
+      },
+      "tooltip" : "批准",
+      "uIActionTarget" : "MULTIKEY",
+      "showCaption" : true,
+      "showIcon" : true
+    }, {
+      "caption" : "拒绝",
+      "groupExtractMode" : "ITEM",
+      "itemType" : "DEUIACTION",
+      "name" : "deuiaction2",
+      "noPrivDisplayMode" : 2,
+      "getPSAppViewUIAction" : {
+        "modelref" : true,
+        "id" : "grid_batchtoolbar_deuiaction2"
+      },
+      "getPSSysImage" : {
+        "glyph" : "xf00d@FontAwesome",
+        "cssClass" : "fa fa-times"
+      },
+      "getPSUIAction" : {
+        "actionTarget" : "MULTIKEY",
+        "caption" : "拒绝",
+        "codeName" : "batchRefuse",
+        "fullCodeName" : "hr_attendance_batchRefuse",
+        "name" : "出勤审批-批量拒绝",
+        "getPSAppDEMethod" : {
+          "modelref" : true,
+          "id" : "batch_approval"
+        },
+        "getPSAppDataEntity" : {
+          "modelref" : true,
+          "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/hr_attendance.json"
+        },
+        "getPSNavigateParams" : [ {
+          "key" : "overtime_status",
+          "name" : "overtime_status",
+          "value" : "refused",
+          "rawValue" : true
+        } ],
+        "getPSSysImage" : {
+          "glyph" : "xf00d@FontAwesome",
+          "cssClass" : "fa fa-times"
+        },
+        "refreshMode" : 1,
+        "timeout" : 60000,
+        "uIActionMode" : "BACKEND",
+        "uIActionTag" : "batchRefuse",
+        "uIActionType" : "DEUIACTION",
+        "enableConfirm" : true,
+        "reloadData" : true,
+        "id" : "batchRefuse@hr_attendance"
+      },
+      "tooltip" : "拒绝",
+      "uIActionTarget" : "MULTIKEY",
+      "showCaption" : true,
+      "showIcon" : true
+    }, {
+      "caption" : "操作",
+      "itemType" : "ITEMS",
+      "name" : "items1",
+      "getPSDEToolbarItems" : [ {
+        "getCapPSLanguageRes" : {
+          "lanResTag" : "TBB.TEXT.*.REMOVE"
+        },
+        "caption" : "删除",
+        "groupExtractMode" : "ITEM",
+        "itemType" : "DEUIACTION",
+        "name" : "deuiaction4",
+        "noPrivDisplayMode" : 2,
+        "getPSAppViewUIAction" : {
+          "modelref" : true,
+          "id" : "grid_batchtoolbar_deuiaction4"
+        },
+        "getPSSysImage" : {
+          "glyph" : "xf00d@FontAwesome",
+          "cssClass" : "fa fa-remove"
+        },
+        "getPSUIAction" : {
+          "actionTarget" : "MULTIKEY",
+          "getCapPSLanguageRes" : {
+            "lanResTag" : "TBB.TEXT.*.REMOVE"
+          },
+          "caption" : "删除",
+          "codeName" : "Remove",
+          "fullCodeName" : "Remove",
+          "name" : "表格界面_删除操作",
+          "getPSSysImage" : {
+            "glyph" : "xf00d@FontAwesome",
+            "cssClass" : "fa fa-remove"
+          },
+          "predefinedType" : "GRIDVIEW_REMOVEACTION",
+          "timeout" : 60000,
+          "getTooltipPSLanguageRes" : {
+            "lanResTag" : "TBB.TOOLTIP.*.REMOVE"
+          },
+          "uIActionMode" : "SYS",
+          "uIActionTag" : "Remove",
+          "uIActionType" : "DEUIACTION"
+        },
+        "tooltip" : "删除",
+        "getTooltipPSLanguageRes" : {
+          "lanResTag" : "TBB.TOOLTIP.*.REMOVE"
+        },
+        "uIActionTarget" : "MULTIKEY",
+        "showCaption" : true,
+        "showIcon" : true
+      } ],
+      "getPSSysImage" : {
+        "glyph" : "xf013@FontAwesome",
+        "cssClass" : "fa fa-cog"
+      },
+      "tooltip" : "操作",
+      "showCaption" : true,
+      "showIcon" : true
+    } ],
+    "modelid" : "8a524bad3e4ade41aa23d88260d6de73",
+    "modeltype" : "PSDETOOLBAR"
+  } ],
+  "getPSDEGridColumns" : [ {
+    "align" : "LEFT",
+    "cLConvertMode" : "NONE",
+    "caption" : "员工",
+    "codeName" : "employee_name",
+    "columnType" : "DEFGRIDCOLUMN",
+    "dataItemName" : "employee_name",
+    "excelCaption" : "员工",
+    "getLinkPSAppView" : {
+      "modelref" : true,
+      "path" : "PSSYSAPPS/attendanceapp/PSAPPDEVIEWS/hr_employee_redirect_view.json",
+      "viewType" : "DEREDIRECTVIEW"
+    },
+    "linkValueItem" : "employee_id",
+    "name" : "employee_name",
+    "noPrivDisplayMode" : 1,
+    "getPSAppDEField" : {
+      "name" : "EMPLOYEE_NAME",
+      "codeName" : "employee_name"
+    },
+    "width" : 180,
+    "widthUnit" : "STAR",
+    "enableLinkView" : true,
+    "enableSort" : true
+  }, {
+    "align" : "LEFT",
+    "cLConvertMode" : "NONE",
+    "getCapPSLanguageRes" : {
+      "lanResTag" : "DEF.LNAME.HR_ATTENDANCE.CHECK_IN"
+    },
+    "caption" : "签到",
+    "codeName" : "check_in",
+    "columnType" : "DEFGRIDCOLUMN",
+    "dataItemName" : "check_in",
+    "excelCaption" : "签到",
+    "name" : "check_in",
+    "noPrivDisplayMode" : 1,
+    "getPSAppDEField" : {
+      "name" : "CHECK_IN",
+      "codeName" : "check_in"
+    },
+    "valueFormat" : "YYYY-MM-DD HH:mm:ss",
+    "width" : 150,
+    "widthUnit" : "STAR",
+    "enableSort" : true
+  }, {
+    "align" : "LEFT",
+    "cLConvertMode" : "NONE",
+    "getCapPSLanguageRes" : {
+      "lanResTag" : "DEF.LNAME.HR_ATTENDANCE.CHECK_OUT"
+    },
+    "caption" : "签离",
+    "codeName" : "check_out",
+    "columnType" : "DEFGRIDCOLUMN",
+    "dataItemName" : "check_out",
+    "excelCaption" : "签离",
+    "name" : "check_out",
+    "noPrivDisplayMode" : 1,
+    "getPSAppDEField" : {
+      "name" : "CHECK_OUT",
+      "codeName" : "check_out"
+    },
+    "valueFormat" : "YYYY-MM-DD HH:mm:ss",
+    "width" : 150,
+    "widthUnit" : "STAR",
+    "enableSort" : true
+  }, {
+    "align" : "LEFT",
+    "cLConvertMode" : "NONE",
+    "getCapPSLanguageRes" : {
+      "lanResTag" : "DEF.LNAME.HR_ATTENDANCE.WORKED_HOURS"
+    },
+    "caption" : "工作时数",
+    "codeName" : "worked_hours",
+    "columnType" : "DEFGRIDCOLUMN",
+    "dataItemName" : "worked_hours",
+    "excelCaption" : "工作时数",
+    "name" : "worked_hours",
+    "noPrivDisplayMode" : 1,
+    "getPSAppDEField" : {
+      "name" : "WORKED_HOURS",
+      "codeName" : "worked_hours"
+    },
+    "valueFormat" : "0.00",
+    "width" : 120,
+    "widthUnit" : "STAR",
+    "enableSort" : true
+  }, {
+    "align" : "LEFT",
+    "cLConvertMode" : "NONE",
+    "getCapPSLanguageRes" : {
+      "lanResTag" : "DEF.LNAME.HR_ATTENDANCE.OVERTIME_HOURS"
+    },
+    "caption" : "加班时数",
+    "codeName" : "overtime_hours",
+    "columnType" : "DEFGRIDCOLUMN",
+    "dataItemName" : "overtime_hours",
+    "excelCaption" : "加班时数",
+    "name" : "overtime_hours",
+    "noPrivDisplayMode" : 1,
+    "getPSAppDEField" : {
+      "name" : "OVERTIME_HOURS",
+      "codeName" : "overtime_hours"
+    },
+    "valueFormat" : "0.00",
+    "width" : 120,
+    "widthUnit" : "STAR",
+    "enableSort" : true
+  }, {
+    "align" : "LEFT",
+    "cLConvertMode" : "NONE",
+    "getCapPSLanguageRes" : {
+      "lanResTag" : "DEF.LNAME.HR_ATTENDANCE.VALIDATED_OVERTIME_HOURS"
+    },
+    "caption" : "加班时间",
+    "codeName" : "validated_overtime_hours",
+    "columnType" : "DEFGRIDCOLUMN",
+    "dataItemName" : "validated_overtime_hours",
+    "excelCaption" : "加班时间",
+    "name" : "validated_overtime_hours",
+    "noPrivDisplayMode" : 1,
+    "getPSAppDEField" : {
+      "name" : "VALIDATED_OVERTIME_HOURS",
+      "codeName" : "validated_overtime_hours"
+    },
+    "valueFormat" : "0.00",
+    "width" : 120,
+    "widthUnit" : "STAR",
+    "enableSort" : true
+  }, {
+    "align" : "LEFT",
+    "cLConvertMode" : "FRONT",
+    "getCapPSLanguageRes" : {
+      "lanResTag" : "DEF.LNAME.HR_ATTENDANCE.OVERTIME_STATUS"
+    },
+    "caption" : "加班状态",
+    "codeName" : "overtime_status",
+    "columnType" : "DEFGRIDCOLUMN",
+    "dataItemName" : "overtime_status",
+    "excelCaption" : "加班状态",
+    "name" : "overtime_status",
+    "noPrivDisplayMode" : 1,
+    "getPSAppCodeList" : {
+      "modelref" : true,
+      "path" : "PSSYSAPPS/attendanceapp/PSAPPCODELISTS/hr__hr_attendance_overtime_status.json"
+    },
+    "getPSAppDEField" : {
+      "name" : "OVERTIME_STATUS",
+      "codeName" : "overtime_status"
+    },
+    "width" : 120,
+    "widthUnit" : "STAR",
+    "enableSort" : true
+  }, {
+    "align" : "RIGHT",
+    "codeName" : "uagridcolumn1",
+    "columnType" : "UAGRIDCOLUMN",
+    "name" : "uagridcolumn1",
+    "noPrivDisplayMode" : 1,
+    "getPSDEUIActionGroup" : {
+      "codeName" : "Auto577590812",
+      "name" : "出勤管理审批",
+      "getPSAppDataEntity" : {
+        "modelref" : true,
+        "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/hr_attendance.json"
+      },
+      "getPSUIActionGroupDetails" : [ {
+        "caption" : "批准",
+        "detailType" : "DEUIACTION",
+        "name" : "u8a0c181",
+        "getPSSysImage" : {
+          "glyph" : "xf00c@FontAwesome",
+          "cssClass" : "fa fa-check"
+        },
+        "getPSUIAction" : {
+          "actionTarget" : "MULTIKEY",
+          "caption" : "批准",
+          "codeName" : "batchApprove",
+          "fullCodeName" : "hr_attendance_batchApprove",
+          "name" : "出勤审批-批量批准",
+          "getPSAppDEMethod" : {
+            "modelref" : true,
+            "id" : "batch_approval"
+          },
+          "getPSAppDataEntity" : {
+            "modelref" : true,
+            "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/hr_attendance.json"
+          },
+          "getPSNavigateParams" : [ {
+            "key" : "overtime_status",
+            "name" : "overtime_status",
+            "value" : "approved",
+            "rawValue" : true
+          } ],
+          "getPSSysImage" : {
+            "glyph" : "xf00c@FontAwesome",
+            "cssClass" : "fa fa-check"
+          },
+          "refreshMode" : 1,
+          "timeout" : 60000,
+          "uIActionMode" : "BACKEND",
+          "uIActionTag" : "batchApprove",
+          "uIActionType" : "DEUIACTION",
+          "enableConfirm" : true,
+          "reloadData" : true,
+          "id" : "batchApprove@hr_attendance"
+        },
+        "visibleScriptCode" : "data.overtime_status==\"to_approve\"||data.overtime_status==\"refused\"",
+        "addSeparator" : false,
+        "showCaption" : true,
+        "showIcon" : true
+      }, {
+        "caption" : "拒绝",
+        "detailType" : "DEUIACTION",
+        "name" : "u8864a2e",
+        "getPSSysImage" : {
+          "glyph" : "xf00d@FontAwesome",
+          "cssClass" : "fa fa-times"
+        },
+        "getPSUIAction" : {
+          "actionTarget" : "MULTIKEY",
+          "caption" : "拒绝",
+          "codeName" : "batchRefuse",
+          "fullCodeName" : "hr_attendance_batchRefuse",
+          "name" : "出勤审批-批量拒绝",
+          "getPSAppDEMethod" : {
+            "modelref" : true,
+            "id" : "batch_approval"
+          },
+          "getPSAppDataEntity" : {
+            "modelref" : true,
+            "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/hr_attendance.json"
+          },
+          "getPSNavigateParams" : [ {
+            "key" : "overtime_status",
+            "name" : "overtime_status",
+            "value" : "refused",
+            "rawValue" : true
+          } ],
+          "getPSSysImage" : {
+            "glyph" : "xf00d@FontAwesome",
+            "cssClass" : "fa fa-times"
+          },
+          "refreshMode" : 1,
+          "timeout" : 60000,
+          "uIActionMode" : "BACKEND",
+          "uIActionTag" : "batchRefuse",
+          "uIActionType" : "DEUIACTION",
+          "enableConfirm" : true,
+          "reloadData" : true,
+          "id" : "batchRefuse@hr_attendance"
+        },
+        "visibleScriptCode" : "data.overtime_status==\"to_approve\"||data.overtime_status==\"approved\"",
+        "addSeparator" : false,
+        "showCaption" : true,
+        "showIcon" : true
+      } ],
+      "uniqueTag" : "hr_attendance__Auto577590812"
+    },
+    "width" : 100,
+    "widthUnit" : "STAR",
+    "enableSort" : false
+  } ],
+  "getPSDEGridDataItems" : [ {
+    "dataType" : 25,
+    "name" : "employee_name",
+    "getPSAppDEField" : {
+      "name" : "EMPLOYEE_NAME",
+      "codeName" : "employee_name"
+    }
+  }, {
+    "format" : "YYYY-MM-DD HH:mm:ss",
+    "dataType" : 5,
+    "name" : "check_in",
+    "getPSAppDEField" : {
+      "name" : "CHECK_IN",
+      "codeName" : "check_in"
+    }
+  }, {
+    "format" : "YYYY-MM-DD HH:mm:ss",
+    "dataType" : 5,
+    "name" : "check_out",
+    "getPSAppDEField" : {
+      "name" : "CHECK_OUT",
+      "codeName" : "check_out"
+    }
+  }, {
+    "format" : "0.00",
+    "dataType" : 7,
+    "name" : "worked_hours",
+    "getPSAppDEField" : {
+      "name" : "WORKED_HOURS",
+      "codeName" : "worked_hours"
+    }
+  }, {
+    "format" : "0.00",
+    "dataType" : 7,
+    "name" : "overtime_hours",
+    "getPSAppDEField" : {
+      "name" : "OVERTIME_HOURS",
+      "codeName" : "overtime_hours"
+    }
+  }, {
+    "format" : "0.00",
+    "dataType" : 7,
+    "name" : "validated_overtime_hours",
+    "getPSAppDEField" : {
+      "name" : "VALIDATED_OVERTIME_HOURS",
+      "codeName" : "validated_overtime_hours"
+    }
+  }, {
+    "dataType" : 25,
+    "name" : "overtime_status",
+    "getPSAppDEField" : {
+      "name" : "OVERTIME_STATUS",
+      "codeName" : "overtime_status"
+    }
+  }, {
+    "dataType" : 25,
+    "name" : "srfkey",
+    "getPSAppDEField" : {
+      "name" : "ID",
+      "codeName" : "id"
+    }
+  }, {
+    "dataType" : 25,
+    "name" : "srfdataaccaction",
+    "getPSAppDEField" : {
+      "name" : "ID",
+      "codeName" : "id"
+    },
+    "dataAccessAction" : true
+  }, {
+    "dataType" : 25,
+    "name" : "employee_id",
+    "getPSAppDEField" : {
+      "name" : "EMPLOYEE_ID",
+      "codeName" : "employee_id"
+    }
+  } ],
+  "getPSDEGridEditItems" : [ {
+    "caption" : "标识",
+    "codeName" : "srfkey",
+    "enableCond" : 3,
+    "ignoreInput" : 0,
+    "name" : "srfkey",
+    "getPSAppDEField" : {
+      "name" : "ID",
+      "codeName" : "id"
+    },
+    "getPSEditor" : {
+      "editorType" : "HIDDEN",
+      "name" : "srfkey"
+    },
+    "allowEmpty" : true
+  } ],
+  "getPSSysPFPlugin" : {
+    "pluginType" : "GRID_RENDER",
+    "pluginCode" : "ODOO_GROUP_GRID",
+    "runtimeObject" : true,
+    "pluginParams" : {
+      "replaceglobal" : "true"
+    }
+  },
+  "pagingMode" : 1,
+  "pagingSize" : 20,
+  "getRemovePSControlAction" : {
+    "actionName" : "Remove",
+    "actionType" : "DEACTION",
+    "dataAccessAction" : "DELETE",
+    "name" : "remove",
+    "getPSAppDEMethod" : {
+      "modelref" : true,
+      "id" : "remove"
+    },
+    "getPSAppDataEntity" : {
+      "modelref" : true,
+      "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/hr_attendance.json"
+    }
+  },
+  "sortMode" : "REMOTE",
+  "hasWFDataItems" : false,
+  "enableColFilter" : false,
+  "enableCustomized" : true,
+  "enableGroup" : false,
+  "enablePagingBar" : true,
+  "enableRowEdit" : false,
+  "enableRowEditOrder" : false,
+  "enableRowNew" : false,
+  "forceFit" : false,
+  "hideHeader" : false,
+  "noSort" : false,
+  "singleSelect" : false,
+  "modelid" : "5e9cd56a41c46c3aede623738146f997",
+  "modeltype" : "PSDEGRID"
+}

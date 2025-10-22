@@ -1,0 +1,93 @@
+package cn.ibizlab.base.logic.image_mixinlogic.image_stored;
+        import java.util.Map;
+        import java.util.HashMap;
+        import com.alibaba.fastjson.JSONObject;
+        import org.springframework.util.StringUtils;
+        import org.springframework.util.ObjectUtils;
+        import cn.ibizlab.util.errors.BadRequestAlertException;
+                global cn.ibizlab.core.base.domain.image_mixin image_mixinimage_storeddefault;
+                global cn.ibizlab.core.base.domain.ir_attachment image_mixinimage_storedattachmentlist;
+                global cn.ibizlab.core.base.domain.ir_attachment image_mixinimage_storedfilterparam;
+                global cn.ibizlab.core.base.domain.ir_attachment image_mixinimage_storedir_attachment;
+                    global cn.ibizlab.core.base.service.Iir_attachmentService ir_attachmentservice;
+        global cn.ibizlab.core.base.service.Iimage_mixinService iBzSysImage_mixinDefaultService;
+        global cn.ibizlab.util.security.AuthenticationUser curuser;
+
+
+    no-loop
+
+            //逻辑处理节点[开始]
+            rule "begin"
+            ruleflow-group "image_mixinimage_storedbegin"
+            when
+            then
+            end
+
+            //逻辑处理节点[准备过滤参数]
+            rule "preparefilter"
+            ruleflow-group "image_mixinimage_storedpreparefilter"
+            when
+            then
+                            image_mixinimage_storedfilterparam.set("n_field_id_eq",image_mixinimage_storeddefault.get("image"));
+                        update(image_mixinimage_storeddefault);//更新fact中变量值
+                        update(image_mixinimage_storedattachmentlist);//更新fact中变量值
+                        update(image_mixinimage_storedfilterparam);//更新fact中变量值
+                        update(image_mixinimage_storedir_attachment);//更新fact中变量值
+            end
+
+            //逻辑处理节点[查询附件数据集]
+            rule "dedataset_01"
+            ruleflow-group "image_mixinimage_storeddedataset_01"
+            when
+            then
+                        update(image_mixinimage_storeddefault);//更新fact中变量值
+                        update(image_mixinimage_storedattachmentlist);//更新fact中变量值
+                        update(image_mixinimage_storedfilterparam);//更新fact中变量值
+                        update(image_mixinimage_storedir_attachment);//更新fact中变量值
+            end
+
+            //逻辑处理节点[绑定参数]
+            rule "bindparam_01"
+            ruleflow-group "image_mixinimage_storedbindparam_01"
+            when
+            then
+                        update(image_mixinimage_storeddefault);//更新fact中变量值
+                        update(image_mixinimage_storedattachmentlist);//更新fact中变量值
+                        update(image_mixinimage_storedfilterparam);//更新fact中变量值
+                        update(image_mixinimage_storedir_attachment);//更新fact中变量值
+            end
+
+            //逻辑处理节点[设置res_field]
+            rule "prepareparam_01"
+            ruleflow-group "image_mixinimage_storedprepareparam_01"
+            when
+            then
+                            image_mixinimage_storedir_attachment.set("resfield","image");
+                        update(image_mixinimage_storeddefault);//更新fact中变量值
+                        update(image_mixinimage_storedattachmentlist);//更新fact中变量值
+                        update(image_mixinimage_storedfilterparam);//更新fact中变量值
+                        update(image_mixinimage_storedir_attachment);//更新fact中变量值
+            end
+
+            //逻辑处理节点[结束]
+            rule "end_01"
+            ruleflow-group "image_mixinimage_storedend_01"
+            when
+            then
+                        update(image_mixinimage_storeddefault);//更新fact中变量值
+                        update(image_mixinimage_storedattachmentlist);//更新fact中变量值
+                        update(image_mixinimage_storedfilterparam);//更新fact中变量值
+                        update(image_mixinimage_storedir_attachment);//更新fact中变量值
+            end
+
+            //逻辑处理节点[更新附件]
+            rule "createattachment"
+            ruleflow-group "image_mixinimage_storedcreateattachment"
+            when
+            then
+                        ir_attachmentservice.update(image_mixinimage_storeddefault);
+                        update(image_mixinimage_storeddefault);//更新fact中变量值
+                        update(image_mixinimage_storedattachmentlist);//更新fact中变量值
+                        update(image_mixinimage_storedfilterparam);//更新fact中变量值
+                        update(image_mixinimage_storedir_attachment);//更新fact中变量值
+            end

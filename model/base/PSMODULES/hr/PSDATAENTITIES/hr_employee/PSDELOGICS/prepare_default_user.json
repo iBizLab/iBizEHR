@@ -1,0 +1,86 @@
+{
+  "codeName" : "prepare_default_user",
+  "defaultParamName" : "Default",
+  "dynaModelFilePath" : "PSMODULES/hr/PSDATAENTITIES/hr_employee/PSDELOGICS/prepare_default_user.json",
+  "logicName" : "准备默认用户数据对象",
+  "name" : "准备默认用户数据对象",
+  "getPSDELogicNodes" : [ {
+    "codeName" : "Begin",
+    "leftPos" : 200,
+    "logicNodeType" : "BEGIN",
+    "name" : "开始",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "PREPAREPARAM_01"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "Begin"
+      }
+    } ],
+    "topPos" : 200,
+    "parallelOutput" : true
+  }, {
+    "codeName" : "PREPAREPARAM_01",
+    "leftPos" : 180,
+    "logicNodeType" : "PREPAREPARAM",
+    "name" : "准备参数",
+    "getPSDELogicNodeParams" : [ {
+      "dstFieldName" : "login",
+      "getDstPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "default_user"
+      },
+      "paramAction" : "SETPARAMVALUE",
+      "srcFieldName" : "WORK_EMAIL",
+      "getSrcPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "Default"
+      },
+      "srcValueType" : "SRCDLPARAM"
+    }, {
+      "dstFieldName" : "NAME",
+      "getDstPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "default_user"
+      },
+      "paramAction" : "SETPARAMVALUE",
+      "srcFieldName" : "NAME",
+      "getSrcPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "Default"
+      },
+      "srcValueType" : "SRCDLPARAM"
+    } ],
+    "topPos" : 350,
+    "parallelOutput" : true
+  } ],
+  "getPSDELogicParams" : [ {
+    "codeName" : "Default",
+    "logicName" : "传入变量",
+    "name" : "传入变量",
+    "getParamPSDataEntity" : {
+      "modelref" : true,
+      "path" : "PSMODULES/hr/PSDATAENTITIES/hr_employee.json"
+    },
+    "default" : true,
+    "entityParam" : true
+  }, {
+    "codeName" : "default_user",
+    "logicName" : "默认用户",
+    "name" : "默认用户",
+    "getParamPSDataEntity" : {
+      "modelref" : true,
+      "path" : "PSMODULES/base/PSDATAENTITIES/res_users.json"
+    },
+    "sessionParam" : true
+  } ],
+  "getStartPSDELogicNode" : {
+    "modelref" : true,
+    "id" : "Begin"
+  },
+  "enableBackend" : true,
+  "enableFront" : false
+}

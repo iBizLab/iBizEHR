@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+    <definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:g="http://www.jboss.org/drools/flow/gpd" xmlns:tns="http://www.jboss.org/drools" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" expressionLanguage="http://www.mvel.org/2.0" id="Definition" name="" targetNamespace="http://www.jboss.org/drools" typeLanguage="http://www.java.com/javaTypes">
+        <process id="cn.ibizlab.core.base.service.logic.res_userssync_cloud_user" isClosed="false" isExecutable="true" name="base_res_users_sync_cloud_user_ruleFlow" processType="Private" tns:packageName="cn.ibizlab.core.base.service.logic.res_userssync_cloud_user">
+            <extensionElements>
+                <tns:import name="java.util.Map" />
+                <tns:import name="org.springframework.util.StringUtils"/>
+                <tns:import name="cn.ibizlab.util.helper.RuleUtils"/>
+                                <tns:metaData express="" name="res_userssync_cloud_userdefault" type="entity"/>
+                                <tns:metaData express="new cn.ibizlab.core.cloud_proxy.domain.cloud_proxy_user()" name="res_userssync_cloud_usercloud_proxy_user" type="refentity"/>
+                                <tns:metaData express="new HashMap()" name="res_userssync_cloud_userexist_cloud_user" type="refentity"/>
+                                    <tns:metaData express="T(cn.ibizlab.util.security.SpringContextHolder).getBean(T(cn.ibizlab.core.cloud_proxy.service.Icloud_proxy_userService))" name="cloud_proxy_userservice" type="service"/>
+                    <tns:metaData express="T(cn.ibizlab.util.security.SpringContextHolder).getBean(T(cn.ibizlab.core.base.service.Ires_usersService))" name="iBzSysRes_usersDefaultService" type="service"/>
+                    <tns:metaData express="T(cn.ibizlab.util.security.AuthenticationUser).getAuthenticationUser()" name="curuser" type="session"/>
+                            <tns:global identifier="res_userssync_cloud_userdefault" type="cn.ibizlab.core.base.domain.res_users" />
+                            <tns:global identifier="res_userssync_cloud_usercloud_proxy_user" type="cn.ibizlab.core.cloud_proxy.domain.cloud_proxy_user" />
+            </extensionElements>
+                        <startEvent id="begin" isInterrupting="true"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="res_userssync_cloud_userprepareparam_02" id="prepareparam_02" implementation="http://www.jboss.org/drools/rule" name="补充参数"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="res_userssync_cloud_userprepareparam_01" id="prepareparam_01" implementation="http://www.jboss.org/drools/rule" name="设置关联ID"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="res_userssync_cloud_userdeaction_01" id="deaction_01" implementation="http://www.jboss.org/drools/rule" name="检查cloud用户数据"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="res_userssync_cloud_usercopyparam_01" id="copyparam_01" implementation="http://www.jboss.org/drools/rule" name="拷贝参数"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="res_userssync_cloud_userdeaction_02" id="deaction_02" implementation="http://www.jboss.org/drools/rule" name="同步建立cloud用户"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="res_userssync_cloud_userend_02" id="end_02" implementation="http://www.jboss.org/drools/rule" name="结束"/>
+                        <endEvent id="end_02_end" name="end"/>
+                        <sequenceFlow id="end_02_end_line" sourceRef="end_02" targetRef="end_02_end"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="res_userssync_cloud_userend_01" id="end_01" implementation="http://www.jboss.org/drools/rule" name="结束"/>
+                        <endEvent id="end_01_end" name="end"/>
+                        <sequenceFlow id="end_01_end_line" sourceRef="end_01" targetRef="end_01_end"/>
+                    <sequenceFlow id="begin_prepareparam_01" sourceRef="begin" targetRef="prepareparam_01">
+                    </sequenceFlow>
+                    <sequenceFlow id="prepareparam_02_deaction_02" sourceRef="prepareparam_02" targetRef="deaction_02">
+                    </sequenceFlow>
+                    <sequenceFlow id="prepareparam_01_deaction_01" sourceRef="prepareparam_01" targetRef="deaction_01">
+                    </sequenceFlow>
+                    <sequenceFlow id="gateway-deaction_01_copyparam_01" sourceRef="gateway-deaction_01" targetRef="copyparam_01">
+                            <conditionExpression  language="http://www.jboss.org/drools/rule" ><![CDATA[
+                                            $res_userssync_cloud_userdefault:res_users();
+                                            $res_userssync_cloud_usercloud_proxy_user:cloud_proxy_user();
+                                            $res_userssync_cloud_userexist_cloud_user:Map();
+                                    eval($res_userssync_cloud_userdefault==res_userssync_cloud_userdefault && $res_userssync_cloud_usercloud_proxy_user==res_userssync_cloud_usercloud_proxy_user && );
+                                eval((RuleUtils.test($res_userssync_cloud_userexist_cloud_user.get(""),"EQ","0")))
+                                ]]>
+                            </conditionExpression>
+                    </sequenceFlow>
+                    <sequenceFlow id="deaction_01_end_01" sourceRef="deaction_01" targetRef="end_01">
+                    </sequenceFlow>
+                    <sequenceFlow id="copyparam_01_prepareparam_02" sourceRef="copyparam_01" targetRef="prepareparam_02">
+                    </sequenceFlow>
+                    <sequenceFlow id="deaction_02_end_02" sourceRef="deaction_02" targetRef="end_02">
+                    </sequenceFlow>
+                            <exclusiveGateway id="gateway-deaction_01" name="Gateway" gatewayDirection="Diverging" default="gateway-deaction_01_end_line"></exclusiveGateway>
+                            <sequenceFlow id="deaction_01_gateway-deaction_01_gatewayline" sourceRef="deaction_01" targetRef="gateway-deaction_01"></sequenceFlow>
+                            <sequenceFlow id="gateway-deaction_01_end_line" sourceRef="gateway-deaction_01" targetRef="gateway-deaction_01_end"/>
+                            <endEvent id="gateway-deaction_01_end" name="end"/>
+        </process>
+    </definitions>

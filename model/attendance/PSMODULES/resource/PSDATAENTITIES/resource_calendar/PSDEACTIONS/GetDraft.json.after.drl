@@ -1,0 +1,13 @@
+global cn.ibizlab.core.resource.service.Iresource_calendarService  resourceCalendarService;
+global cn.ibizlab.core.resource.domain.resource_calendar et;
+
+    no-loop
+
+    rule "resource_calendarfilldraft"
+    ruleflow-group "8a9a791bd32faf6adbbe85343b8dae82"
+    when
+    then
+    cn.ibizlab.core.resource.domain.resource_calendar actionLogicDE =new cn.ibizlab.core.resource.domain.resource_calendar();
+    et.copyTo(actionLogicDE,true);
+    resourceCalendarService.fillDraft(actionLogicDE);
+    end

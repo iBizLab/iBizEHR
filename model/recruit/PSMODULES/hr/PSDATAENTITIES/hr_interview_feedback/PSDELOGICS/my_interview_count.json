@@ -1,0 +1,180 @@
+{
+  "codeName" : "my_interview_count",
+  "defaultParamName" : "Default",
+  "dynaModelFilePath" : "PSMODULES/hr/PSDATAENTITIES/hr_interview_feedback/PSDELOGICS/my_interview_count.json",
+  "logicName" : "用人经理-我的面试-搜索栏计数器",
+  "name" : "用人经理-我的面试-搜索栏计数器",
+  "getPSDELogicNodes" : [ {
+    "codeName" : "Begin",
+    "leftPos" : 200,
+    "logicNodeType" : "BEGIN",
+    "name" : "开始",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "RAWSQLCALL_01"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "Begin"
+      }
+    } ],
+    "topPos" : 190,
+    "parallelOutput" : true
+  }, {
+    "codeName" : "RAWSQLCALL_01",
+    "getDstPSDELogicParam" : {
+      "modelref" : true,
+      "id" : "result"
+    },
+    "leftPos" : 316,
+    "logicNodeType" : "RAWSQLCALL",
+    "name" : "今后的面试",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "RAWSQLCALL_02"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "RAWSQLCALL_01"
+      }
+    } ],
+    "getPSDELogicNodeParams" : [ {
+      "name" : "用户全局对象[srfuserid]",
+      "paramAction" : "SQLPARAM",
+      "srcFieldName" : "srfuserid",
+      "srcValueType" : "SESSION"
+    } ],
+    "sql" : "SELECT COUNT(1) todo_count\nFROM hr_interview_feedback hif\nleft join hr_interview hi on hif.INTERVIEW_ID  = hi.id\nleft join hr_interview_schedule his  on hi.SCHEDULE_ID  = his.id\nwhere his.START_DATE >= CURRENT_DATE and hif.INTERVIEWER_ID  = ?",
+    "topPos" : 198,
+    "fillDstLogicParam" : true,
+    "parallelOutput" : true
+  }, {
+    "codeName" : "RAWSQLCALL_02",
+    "getDstPSDELogicParam" : {
+      "modelref" : true,
+      "id" : "result"
+    },
+    "leftPos" : 316,
+    "logicNodeType" : "RAWSQLCALL",
+    "name" : "待反馈的面试",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "RAWSQLCALL_03"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "RAWSQLCALL_02"
+      }
+    } ],
+    "getPSDELogicNodeParams" : [ {
+      "name" : "用户全局对象[srfuserid]",
+      "paramAction" : "SQLPARAM",
+      "srcFieldName" : "srfuserid",
+      "srcValueType" : "SESSION"
+    } ],
+    "sql" : "SELECT COUNT(1) as undo_count\nFROM hr_interview_feedback hif \nleft join hr_interview hi on hif.INTERVIEW_ID  = hi.id\nWHERE (hif.RESULT_TYPE IS NULL OR hif.RESULT_TYPE = '') and hif.INTERVIEWER_ID  = ? and hi.STATUS  = 2;",
+    "topPos" : 309,
+    "fillDstLogicParam" : true,
+    "parallelOutput" : true
+  }, {
+    "codeName" : "RAWSQLCALL_03",
+    "getDstPSDELogicParam" : {
+      "modelref" : true,
+      "id" : "result"
+    },
+    "leftPos" : 316,
+    "logicNodeType" : "RAWSQLCALL",
+    "name" : "已反馈的面试",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "RAWSQLCALL_04"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "RAWSQLCALL_03"
+      }
+    } ],
+    "getPSDELogicNodeParams" : [ {
+      "name" : "用户全局对象[srfuserid]",
+      "paramAction" : "SQLPARAM",
+      "srcFieldName" : "srfuserid",
+      "srcValueType" : "SESSION"
+    } ],
+    "sql" : "SELECT COUNT(1) as done_count\nFROM hr_interview_feedback hif \nWHERE hif.RESULT_TYPE IS NOT NULL \n  AND TRIM(hif.RESULT_TYPE) != '' and hif.INTERVIEWER_ID  = ?;",
+    "topPos" : 423,
+    "fillDstLogicParam" : true,
+    "parallelOutput" : true
+  }, {
+    "codeName" : "RAWSQLCALL_04",
+    "getDstPSDELogicParam" : {
+      "modelref" : true,
+      "id" : "result"
+    },
+    "leftPos" : 316,
+    "logicNodeType" : "RAWSQLCALL",
+    "name" : "已失效的面试",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "END_01"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "RAWSQLCALL_04"
+      }
+    } ],
+    "getPSDELogicNodeParams" : [ {
+      "name" : "用户全局对象[srfuserid]",
+      "paramAction" : "SQLPARAM",
+      "srcFieldName" : "srfuserid",
+      "srcValueType" : "SESSION"
+    } ],
+    "sql" : "SELECT COUNT(1) AS expire_count\nFROM hr_interview_feedback hif \nleft join hr_interview hi on hif.INTERVIEW_ID  = hi.id\nleft join hr_interview_schedule his  on hi.SCHEDULE_ID  = his.id\nWHERE his.START_DATE < CURRENT_DATE \n  AND (hif.RESULT_TYPE IS NULL OR TRIM(hif.RESULT_TYPE) = '') and hif.INTERVIEWER_ID  = ?;",
+    "topPos" : 535,
+    "fillDstLogicParam" : true,
+    "parallelOutput" : true
+  }, {
+    "codeName" : "END_01",
+    "leftPos" : 356,
+    "logicNodeType" : "END",
+    "name" : "结束",
+    "getReturnParam" : {
+      "modelref" : true,
+      "id" : "result"
+    },
+    "returnType" : "LOGICPARAM",
+    "topPos" : 660,
+    "parallelOutput" : true
+  } ],
+  "getPSDELogicParams" : [ {
+    "codeName" : "Default",
+    "logicName" : "传入变量",
+    "name" : "传入变量",
+    "getParamPSDataEntity" : {
+      "modelref" : true,
+      "path" : "PSMODULES/hr/PSDATAENTITIES/hr_interview_feedback.json"
+    },
+    "default" : true,
+    "entityParam" : true
+  }, {
+    "codeName" : "result",
+    "logicName" : "结果",
+    "name" : "结果",
+    "entityParam" : true
+  } ],
+  "getStartPSDELogicNode" : {
+    "modelref" : true,
+    "id" : "Begin"
+  },
+  "enableBackend" : true,
+  "enableFront" : false
+}

@@ -1,0 +1,105 @@
+package cn.ibizlab.hr.logic.hr_attendancelogic.batchapproval;
+        import java.util.Map;
+        import java.util.HashMap;
+        import com.alibaba.fastjson.JSONObject;
+        import org.springframework.util.StringUtils;
+        import org.springframework.util.ObjectUtils;
+        import cn.ibizlab.util.errors.BadRequestAlertException;
+                global cn.ibizlab.core.hr.domain.hr_attendance hr_attendancebatchapprovaldefault;
+                global cn.ibizlab.core.hr.domain.hr_attendance hr_attendancebatchapprovalattendance;
+                global cn.ibizlab.core.hr.domain.hr_attendance hr_attendancebatchapprovalattendances;
+                global cn.ibizlab.core.hr.domain.hr_attendance hr_attendancebatchapprovaltemp;
+                    global cn.ibizlab.core.hr.service.Ihr_attendanceService hr_attendanceservice;
+        global cn.ibizlab.core.hr.service.Ihr_attendanceService iBzSysHr_attendanceDefaultService;
+        global cn.ibizlab.util.security.AuthenticationUser curuser;
+
+
+    no-loop
+
+            //逻辑处理节点[开始]
+            rule "begin"
+            ruleflow-group "hr_attendancebatchapprovalbegin"
+            when
+            then
+            end
+
+            //逻辑处理节点[执行脚本代码]
+            rule "rawsfcode_01"
+            ruleflow-group "hr_attendancebatchapprovalrawsfcode_01"
+            when
+            then
+                        update(hr_attendancebatchapprovaldefault);//更新fact中变量值
+                        update(hr_attendancebatchapprovalattendance);//更新fact中变量值
+                        update(hr_attendancebatchapprovalattendances);//更新fact中变量值
+                        update(hr_attendancebatchapprovaltemp);//更新fact中变量值
+            end
+
+            //逻辑处理节点[循环子调用]
+            rule "loopsubcall_01"
+            ruleflow-group "hr_attendancebatchapprovalloopsubcall_01"
+            when
+            then
+                        update(hr_attendancebatchapprovaldefault);//更新fact中变量值
+                        update(hr_attendancebatchapprovalattendance);//更新fact中变量值
+                        update(hr_attendancebatchapprovalattendances);//更新fact中变量值
+                        update(hr_attendancebatchapprovaltemp);//更新fact中变量值
+            end
+
+            //逻辑处理节点[准备参数]
+            rule "prepareparam_01"
+            ruleflow-group "hr_attendancebatchapprovalprepareparam_01"
+            when
+            then
+                            hr_attendancebatchapprovalattendance.set("id",hr_attendancebatchapprovaltemp.get("id"));
+                        update(hr_attendancebatchapprovaldefault);//更新fact中变量值
+                        update(hr_attendancebatchapprovalattendance);//更新fact中变量值
+                        update(hr_attendancebatchapprovalattendances);//更新fact中变量值
+                        update(hr_attendancebatchapprovaltemp);//更新fact中变量值
+            end
+
+            //逻辑处理节点[实体行为]
+            rule "deaction_01"
+            ruleflow-group "hr_attendancebatchapprovaldeaction_01"
+            when
+            then
+                            cn.ibizlab.util.helper.CachedBeanCopier.copy(hr_attendanceservice.get(hr_attendancebatchapprovalattendance.getId()),hr_attendancebatchapprovalattendance);
+                        update(hr_attendancebatchapprovaldefault);//更新fact中变量值
+                        update(hr_attendancebatchapprovalattendance);//更新fact中变量值
+                        update(hr_attendancebatchapprovalattendances);//更新fact中变量值
+                        update(hr_attendancebatchapprovaltemp);//更新fact中变量值
+            end
+
+            //逻辑处理节点[准备参数]
+            rule "prepareparam_02"
+            ruleflow-group "hr_attendancebatchapprovalprepareparam_02"
+            when
+            then
+                            hr_attendancebatchapprovalattendance.set("overtimestatus",hr_attendancebatchapprovaltemp.get("overtimestatus"));
+                        update(hr_attendancebatchapprovaldefault);//更新fact中变量值
+                        update(hr_attendancebatchapprovalattendance);//更新fact中变量值
+                        update(hr_attendancebatchapprovalattendances);//更新fact中变量值
+                        update(hr_attendancebatchapprovaltemp);//更新fact中变量值
+            end
+
+            //逻辑处理节点[实体行为]
+            rule "deaction_02"
+            ruleflow-group "hr_attendancebatchapprovaldeaction_02"
+            when
+            then
+                        hr_attendanceservice.update(hr_attendancebatchapprovalattendance);
+                        update(hr_attendancebatchapprovaldefault);//更新fact中变量值
+                        update(hr_attendancebatchapprovalattendance);//更新fact中变量值
+                        update(hr_attendancebatchapprovalattendances);//更新fact中变量值
+                        update(hr_attendancebatchapprovaltemp);//更新fact中变量值
+            end
+
+            //逻辑处理节点[结束]
+            rule "end_01"
+            ruleflow-group "hr_attendancebatchapprovalend_01"
+            when
+            then
+                        update(hr_attendancebatchapprovaldefault);//更新fact中变量值
+                        update(hr_attendancebatchapprovalattendance);//更新fact中变量值
+                        update(hr_attendancebatchapprovalattendances);//更新fact中变量值
+                        update(hr_attendancebatchapprovaltemp);//更新fact中变量值
+            end

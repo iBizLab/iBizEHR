@@ -1,0 +1,79 @@
+{
+  "codeName" : "prepare_create",
+  "defaultParamName" : "Default",
+  "dynaModelFilePath" : "PSMODULES/base/PSDATAENTITIES/res_users/PSDELOGICS/prepare_create.json",
+  "logicName" : "准备建立",
+  "name" : "准备建立",
+  "getPSDELogicNodes" : [ {
+    "codeName" : "Begin",
+    "leftPos" : 200,
+    "logicNodeType" : "BEGIN",
+    "name" : "开始",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "COPYPARAM_01"
+      },
+      "name" : "连接名称",
+      "getPSDELogicLinkGroupCond" : {
+        "groupOP" : "AND",
+        "logicType" : "GROUP",
+        "name" : "连接条件组",
+        "getPSDELogicLinkConds" : [ {
+          "condOP" : "ISNULL",
+          "dstFieldName" : "LOGIN",
+          "getDstLogicParam" : {
+            "modelref" : true,
+            "id" : "Default"
+          },
+          "logicType" : "SINGLE",
+          "name" : "Default[LOGIN] 值为空(Nil)"
+        } ]
+      },
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "Begin"
+      }
+    } ],
+    "topPos" : 200,
+    "parallelOutput" : true
+  }, {
+    "codeName" : "COPYPARAM_01",
+    "getDstPSDELogicParam" : {
+      "modelref" : true,
+      "id" : "Default"
+    },
+    "leftPos" : 160,
+    "logicNodeType" : "COPYPARAM",
+    "name" : "拷贝参数",
+    "getSrcPSDELogicParam" : {
+      "modelref" : true,
+      "id" : "default_user"
+    },
+    "topPos" : 509,
+    "copyIfNotExists" : true,
+    "parallelOutput" : true
+  } ],
+  "getPSDELogicParams" : [ {
+    "codeName" : "Default",
+    "logicName" : "传入变量",
+    "name" : "传入变量",
+    "getParamPSDataEntity" : {
+      "modelref" : true,
+      "path" : "PSMODULES/base/PSDATAENTITIES/res_users.json"
+    },
+    "default" : true,
+    "entityParam" : true
+  }, {
+    "codeName" : "default_user",
+    "logicName" : "默认用户",
+    "name" : "默认用户",
+    "sessionParam" : true
+  } ],
+  "getStartPSDELogicNode" : {
+    "modelref" : true,
+    "id" : "Begin"
+  },
+  "enableBackend" : true,
+  "enableFront" : false
+}

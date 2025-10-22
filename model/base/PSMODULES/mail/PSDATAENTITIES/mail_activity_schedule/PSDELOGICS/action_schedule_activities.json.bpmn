@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+    <definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:g="http://www.jboss.org/drools/flow/gpd" xmlns:tns="http://www.jboss.org/drools" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" expressionLanguage="http://www.mvel.org/2.0" id="Definition" name="" targetNamespace="http://www.jboss.org/drools" typeLanguage="http://www.java.com/javaTypes">
+        <process id="cn.ibizlab.core.mail.service.logic.mail_activity_scheduleaction_schedule_activities" isClosed="false" isExecutable="true" name="mail_mail_activity_schedule_action_schedule_activities_ruleFlow" processType="Private" tns:packageName="cn.ibizlab.core.mail.service.logic.mail_activity_scheduleaction_schedule_activities">
+            <extensionElements>
+                <tns:import name="java.util.Map" />
+                <tns:import name="org.springframework.util.StringUtils"/>
+                <tns:import name="cn.ibizlab.util.helper.RuleUtils"/>
+                                <tns:metaData express="" name="mail_activity_scheduleaction_schedule_activitiesdefault" type="entity"/>
+                                <tns:metaData express="new cn.ibizlab.core.mail.domain.mail_activity()" name="mail_activity_scheduleaction_schedule_activitiesmail_activity" type="refentity"/>
+                                    <tns:metaData express="T(cn.ibizlab.util.security.SpringContextHolder).getBean(T(cn.ibizlab.core.mail.service.Imail_activity_scheduleService))" name="mail_activity_scheduleservice" type="service"/>
+                                    <tns:metaData express="T(cn.ibizlab.util.security.SpringContextHolder).getBean(T(cn.ibizlab.core.mail.service.Imail_activityService))" name="mail_activityservice" type="service"/>
+                    <tns:metaData express="T(cn.ibizlab.util.security.SpringContextHolder).getBean(T(cn.ibizlab.core.mail.service.Imail_activity_scheduleService))" name="iBzSysMail_activity_scheduleDefaultService" type="service"/>
+                    <tns:metaData express="T(cn.ibizlab.util.security.AuthenticationUser).getAuthenticationUser()" name="curuser" type="session"/>
+                            <tns:global identifier="mail_activity_scheduleaction_schedule_activitiesdefault" type="cn.ibizlab.core.mail.domain.mail_activity_schedule" />
+                            <tns:global identifier="mail_activity_scheduleaction_schedule_activitiesmail_activity" type="cn.ibizlab.core.mail.domain.mail_activity" />
+            </extensionElements>
+                        <startEvent id="begin" isInterrupting="true"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="mail_activity_scheduleaction_schedule_activitiesdeaction_01" id="deaction_01" implementation="http://www.jboss.org/drools/rule" name="新建活动日程计划向导"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="mail_activity_scheduleaction_schedule_activitiesprepareparam_01" id="prepareparam_01" implementation="http://www.jboss.org/drools/rule" name="填充活动数据"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="mail_activity_scheduleaction_schedule_activitiesdeaction_02" id="deaction_02" implementation="http://www.jboss.org/drools/rule" name="新建活动"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="mail_activity_scheduleaction_schedule_activitiesend_01" id="end_01" implementation="http://www.jboss.org/drools/rule" name="结束"/>
+                        <endEvent id="end_01_end" name="end"/>
+                        <sequenceFlow id="end_01_end_line" sourceRef="end_01" targetRef="end_01_end"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="mail_activity_scheduleaction_schedule_activitiesrawsfcode_01" id="rawsfcode_01" implementation="http://www.jboss.org/drools/rule" name="获取活动re_name"/>
+                    <sequenceFlow id="begin_deaction_01" sourceRef="begin" targetRef="deaction_01">
+                    </sequenceFlow>
+                    <sequenceFlow id="deaction_01_prepareparam_01" sourceRef="deaction_01" targetRef="prepareparam_01">
+                    </sequenceFlow>
+                    <sequenceFlow id="prepareparam_01_rawsfcode_01" sourceRef="prepareparam_01" targetRef="rawsfcode_01">
+                    </sequenceFlow>
+                    <sequenceFlow id="deaction_02_end_01" sourceRef="deaction_02" targetRef="end_01">
+                    </sequenceFlow>
+                    <sequenceFlow id="rawsfcode_01_deaction_02" sourceRef="rawsfcode_01" targetRef="deaction_02">
+                    </sequenceFlow>
+        </process>
+    </definitions>

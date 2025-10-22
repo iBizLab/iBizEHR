@@ -1,0 +1,33 @@
+## 计算上下班时间 <!-- {docsify-ignore-all} -->
+
+   
+
+### 逻辑处理脚本
+
+```
+if (data != null && data.scopes != null ) {
+    function timeToMinutes(timeStr) {
+        const parts = timeStr.split(':');
+        const hours = parseInt(parts[0], 10);
+        const minutes = parseInt(parts[1], 10);
+        return hours * 60 + minutes;
+    }
+    
+    var scopes = data.scopes
+    var worktimeParts = [];
+    scopes.forEach(scope => {
+        var start = scope.start_base_time.substring(0, 5);
+        const startMinutes = timeToMinutes(scope.start_base_time);
+        const endMinutes = timeToMinutes(scope.end_base_time);
+        if(scope.next_tag === "1,0"||scope.next_tag === "1,1"){
+            start = "次日" + start;
+        }
+        var end = scope.end_base_time.substring(0, 5);
+        if(scope.next_tag === "0,1"||scope.next_tag === "1,1" || startMinutes >= endMinutes){
+            end = "次日" + end;
+        }
+        worktimeParts.push(start + '-' + end);
+    })
+    data.work_time = worktimeParts.join('/');
+}
+```

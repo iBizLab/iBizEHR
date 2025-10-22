@@ -1,0 +1,52 @@
+package cn.ibizlab.hr.logic.hr_offerlogic.updatereloffer;
+        import java.util.Map;
+        import java.util.HashMap;
+        import com.alibaba.fastjson.JSONObject;
+        import org.springframework.util.StringUtils;
+        import org.springframework.util.ObjectUtils;
+        import cn.ibizlab.util.errors.BadRequestAlertException;
+                global cn.ibizlab.core.hr.domain.hr_offer hr_offerupdaterelofferdefault;
+                global cn.ibizlab.core.hr.domain.hr_applicant hr_offerupdaterelofferhr_applicant;
+                    global cn.ibizlab.core.hr.service.Ihr_applicantService hr_applicantservice;
+        global cn.ibizlab.core.hr.service.Ihr_offerService iBzSysHr_offerDefaultService;
+        global cn.ibizlab.util.security.AuthenticationUser curuser;
+
+
+    no-loop
+
+            //逻辑处理节点[开始]
+            rule "begin"
+            ruleflow-group "hr_offerupdaterelofferbegin"
+            when
+            then
+            end
+
+            //逻辑处理节点[设置offer标识]
+            rule "prepareparam1"
+            ruleflow-group "hr_offerupdaterelofferprepareparam1"
+            when
+            then
+                            hr_offerupdaterelofferhr_applicant.set("offer_id",hr_offerupdaterelofferdefault.get("applicantid"));
+                            hr_offerupdaterelofferhr_applicant.set("id",hr_offerupdaterelofferdefault.get("applicantid"));
+                        update(hr_offerupdaterelofferdefault);//更新fact中变量值
+                        update(hr_offerupdaterelofferhr_applicant);//更新fact中变量值
+            end
+
+            //逻辑处理节点[更新申请]
+            rule "deaction1"
+            ruleflow-group "hr_offerupdaterelofferdeaction1"
+            when
+            then
+                        hr_applicantservice.update(hr_offerupdaterelofferhr_applicant);
+                        update(hr_offerupdaterelofferdefault);//更新fact中变量值
+                        update(hr_offerupdaterelofferhr_applicant);//更新fact中变量值
+            end
+
+            //逻辑处理节点[结束]
+            rule "end1"
+            ruleflow-group "hr_offerupdaterelofferend1"
+            when
+            then
+                        update(hr_offerupdaterelofferdefault);//更新fact中变量值
+                        update(hr_offerupdaterelofferhr_applicant);//更新fact中变量值
+            end

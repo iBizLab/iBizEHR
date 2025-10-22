@@ -1,0 +1,17 @@
+{
+  "codeName" : "calcWorkTime",
+  "dEFLogicMode" : "COMPUTE",
+  "defaultParamName" : "DEFAULT",
+  "dynaModelFilePath" : "PSMODULES/attendance/PSDATAENTITIES/attendance_workday/PSDEFLOGICS/calcWorkTime.json",
+  "logicName" : "计算上下班时间",
+  "logicSubType" : "DEFIELD",
+  "name" : "计算上下班时间",
+  "getPSDEField" : {
+    "name" : "WORK_TIME",
+    "codeName" : "work_time"
+  },
+  "scriptCode" : "const serviceUtil = ibiz.hub.getApp(context.srfappid).deService;\r\nconst shiftService = await serviceUtil.getService(context, 'attendanceapp.attendance_shift');\r\nvar shift = await shiftService.local.get(context, data.shift_id);\r\nvar worktimeParts = [];\r\nif (shift != null && shift.scopes!=null) {\r\n    var scopes = shift.scopes\r\n    scopes.forEach(scope => {\r\n        var start = scope.start_base_time.substring(0, 5);\r\n        if(scope.next_tag === \"1,0\"||scope.next_tag === \"1,1\"){\r\n            start = \"次日\" + start;\r\n        }\r\n        var end = scope.end_base_time.substring(0, 5);\r\n        if(scope.next_tag === \"0,1\"||scope.next_tag === \"1,1\"){\r\n            end = \"次日\" + end;\r\n        }\r\n        worktimeParts.push(start + '-' + end);\r\n    })\r\n}\r\ndata.work_time = worktimeParts.length == 0 ? \"休息日\" : worktimeParts.join('/');",
+  "customCode" : true,
+  "enableBackend" : false,
+  "enableFront" : true
+}

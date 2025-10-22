@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+    <definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:g="http://www.jboss.org/drools/flow/gpd" xmlns:tns="http://www.jboss.org/drools" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" expressionLanguage="http://www.mvel.org/2.0" id="Definition" name="" targetNamespace="http://www.jboss.org/drools" typeLanguage="http://www.java.com/javaTypes">
+        <process id="cn.ibizlab.core.mail.service.logic.mail_messageafter_create_notify" isClosed="false" isExecutable="true" name="mail_mail_message_after_create_notify_ruleFlow" processType="Private" tns:packageName="cn.ibizlab.core.mail.service.logic.mail_messageafter_create_notify">
+            <extensionElements>
+                <tns:import name="java.util.Map" />
+                <tns:import name="org.springframework.util.StringUtils"/>
+                <tns:import name="cn.ibizlab.util.helper.RuleUtils"/>
+                                <tns:metaData express="" name="mail_messageafter_create_notifydefault" type="entity"/>
+                                    <tns:metaData express="T(cn.ibizlab.util.security.SpringContextHolder).getBean(T(cn.ibizlab.core.mail.service.Imail_messageService))" name="mail_messageservice" type="service"/>
+                    <tns:metaData express="T(cn.ibizlab.util.security.SpringContextHolder).getBean(T(cn.ibizlab.core.mail.service.Imail_messageService))" name="iBzSysMail_messageDefaultService" type="service"/>
+                    <tns:metaData express="T(cn.ibizlab.util.security.AuthenticationUser).getAuthenticationUser()" name="curuser" type="session"/>
+                            <tns:global identifier="mail_messageafter_create_notifydefault" type="cn.ibizlab.core.mail.domain.mail_message" />
+            </extensionElements>
+                        <startEvent id="begin" isInterrupting="true"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="mail_messageafter_create_notifydenotify" id="denotify" implementation="http://www.jboss.org/drools/rule" name="评论通知"/>
+                        <endEvent id="denotify_end" name="end"/>
+                        <sequenceFlow id="denotify_end_line" sourceRef="denotify" targetRef="denotify_end"/>
+                    <sequenceFlow id="begin_denotify" sourceRef="begin" targetRef="denotify">
+                    </sequenceFlow>
+        </process>
+    </definitions>

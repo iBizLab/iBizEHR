@@ -1,0 +1,91 @@
+package cn.ibizlab.base.logic.res_userslogic.current_user;
+        import java.util.Map;
+        import java.util.HashMap;
+        import com.alibaba.fastjson.JSONObject;
+        import org.springframework.util.StringUtils;
+        import org.springframework.util.ObjectUtils;
+        import cn.ibizlab.util.errors.BadRequestAlertException;
+                global cn.ibizlab.core.base.domain.res_users res_userscurrent_userdefault;
+                global cn.ibizlab.core.base.domain.res_users res_userscurrent_userfilter_user;
+                global cn.ibizlab.core.base.domain.res_users res_userscurrent_useruser;
+                global cn.ibizlab.core.base.domain.res_users res_userscurrent_useruser_page;
+                    global cn.ibizlab.core.base.service.Ires_usersService res_usersservice;
+        global cn.ibizlab.core.base.service.Ires_usersService iBzSysRes_usersDefaultService;
+        global cn.ibizlab.util.security.AuthenticationUser curuser;
+
+
+    no-loop
+
+            //逻辑处理节点[开始]
+            rule "begin"
+            ruleflow-group "res_userscurrent_userbegin"
+            when
+            then
+            end
+
+            //逻辑处理节点[准备参数]
+            rule "prepareparam_01"
+            ruleflow-group "res_userscurrent_userprepareparam_01"
+            when
+            then
+                            res_userscurrent_userfilter_user.set("n_partner_id_eq",res_userscurrent_userdefault.get("srfpartnerid"));
+                        update(res_userscurrent_userdefault);//更新fact中变量值
+                        update(res_userscurrent_userfilter_user);//更新fact中变量值
+                        update(res_userscurrent_useruser);//更新fact中变量值
+                        update(res_userscurrent_useruser_page);//更新fact中变量值
+            end
+
+            //逻辑处理节点[实体数据查询]
+            rule "dedataquery_01"
+            ruleflow-group "res_userscurrent_userdedataquery_01"
+            when
+            then
+                        update(res_userscurrent_userdefault);//更新fact中变量值
+                        update(res_userscurrent_userfilter_user);//更新fact中变量值
+                        update(res_userscurrent_useruser);//更新fact中变量值
+                        update(res_userscurrent_useruser_page);//更新fact中变量值
+            end
+
+            //逻辑处理节点[循环子调用]
+            rule "loopsubcall_01"
+            ruleflow-group "res_userscurrent_userloopsubcall_01"
+            when
+            then
+                        update(res_userscurrent_userdefault);//更新fact中变量值
+                        update(res_userscurrent_userfilter_user);//更新fact中变量值
+                        update(res_userscurrent_useruser);//更新fact中变量值
+                        update(res_userscurrent_useruser_page);//更新fact中变量值
+            end
+
+            //逻辑处理节点[绑定参数]
+            rule "bindparam_01"
+            ruleflow-group "res_userscurrent_userbindparam_01"
+            when
+            then
+                        update(res_userscurrent_userdefault);//更新fact中变量值
+                        update(res_userscurrent_userfilter_user);//更新fact中变量值
+                        update(res_userscurrent_useruser);//更新fact中变量值
+                        update(res_userscurrent_useruser_page);//更新fact中变量值
+            end
+
+            //逻辑处理节点[结束]
+            rule "end_02"
+            ruleflow-group "res_userscurrent_userend_02"
+            when
+            then
+                        update(res_userscurrent_userdefault);//更新fact中变量值
+                        update(res_userscurrent_userfilter_user);//更新fact中变量值
+                        update(res_userscurrent_useruser);//更新fact中变量值
+                        update(res_userscurrent_useruser_page);//更新fact中变量值
+            end
+
+            //逻辑处理节点[结束]
+            rule "end_01"
+            ruleflow-group "res_userscurrent_userend_01"
+            when
+            then
+                        update(res_userscurrent_userdefault);//更新fact中变量值
+                        update(res_userscurrent_userfilter_user);//更新fact中变量值
+                        update(res_userscurrent_useruser);//更新fact中变量值
+                        update(res_userscurrent_useruser_page);//更新fact中变量值
+            end

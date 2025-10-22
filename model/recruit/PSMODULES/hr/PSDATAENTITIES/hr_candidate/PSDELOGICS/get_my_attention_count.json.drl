@@ -1,0 +1,64 @@
+package cn.ibizlab.hr.logic.hr_candidatelogic.get_my_attention_count;
+        import java.util.Map;
+        import java.util.HashMap;
+        import com.alibaba.fastjson.JSONObject;
+        import org.springframework.util.StringUtils;
+        import org.springframework.util.ObjectUtils;
+        import cn.ibizlab.util.errors.BadRequestAlertException;
+                global cn.ibizlab.core.hr.domain.hr_candidate hr_candidateget_my_attention_countdefault;
+                global java.util.Map hr_candidateget_my_attention_countresult;
+        global cn.ibizlab.core.hr.service.Ihr_candidateService iBzSysHr_candidateDefaultService;
+        global cn.ibizlab.util.security.AuthenticationUser curuser;
+
+
+    no-loop
+
+            //逻辑处理节点[开始]
+            rule "begin"
+            ruleflow-group "hr_candidateget_my_attention_countbegin"
+            when
+            then
+            end
+
+            //逻辑处理节点[我关注的]
+            rule "rawsqlcall1"
+            ruleflow-group "hr_candidateget_my_attention_countrawsqlcall1"
+            when
+            then
+    Map param =new HashMap();
+        param.put("param0",curuser.getSessionParams().get("srfpersonid"));
+    String strSql="select count(1)as my_attention  from ( 	select id,      (select count(1) from favorite where create_man=#{et.param0} and owner_id=t1.id ) as is_favorite 	from hr_applicant t1  )t  where is_favorite = 1 ";
+                        java.util.List<JSONObject> entities=iBzSysHr_candidateDefaultService.select(strSql,param);//SQL调用
+                            if(entities.size()>0){
+                            JSONObject entity=entities.get(0);
+                                hr_candidateget_my_attention_countresult.putAll(entity);
+                            }
+                        update(hr_candidateget_my_attention_countdefault);//更新fact中变量值
+                        update(hr_candidateget_my_attention_countresult);//更新fact中变量值
+            end
+
+            //逻辑处理节点[我通过的]
+            rule "rawsqlcall2"
+            ruleflow-group "hr_candidateget_my_attention_countrawsqlcall2"
+            when
+            then
+    Map param =new HashMap();
+        param.put("param0",curuser.getSessionParams().get("srfuserid"));
+    String strSql="select 	count(1) as my_pass from 	hr_interview_feedback t where 	t.result_type = '1' and t.INTERVIEWER_ID  = #{et.param0}";
+                        java.util.List<JSONObject> entities=iBzSysHr_candidateDefaultService.select(strSql,param);//SQL调用
+                            if(entities.size()>0){
+                            JSONObject entity=entities.get(0);
+                                hr_candidateget_my_attention_countresult.putAll(entity);
+                            }
+                        update(hr_candidateget_my_attention_countdefault);//更新fact中变量值
+                        update(hr_candidateget_my_attention_countresult);//更新fact中变量值
+            end
+
+            //逻辑处理节点[结束]
+            rule "end1"
+            ruleflow-group "hr_candidateget_my_attention_countend1"
+            when
+            then
+                        update(hr_candidateget_my_attention_countdefault);//更新fact中变量值
+                        update(hr_candidateget_my_attention_countresult);//更新fact中变量值
+            end

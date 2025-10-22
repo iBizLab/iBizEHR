@@ -1,0 +1,294 @@
+{
+  "codeName" : "get_workspace_count",
+  "defaultParamName" : "Default",
+  "dynaModelFilePath" : "PSMODULES/hr/PSDATAENTITIES/hr_applicant/PSDELOGICS/get_workspace_count.json",
+  "logicName" : "获取工作台数据",
+  "name" : "获取工作台数据",
+  "getPSDELogicNodes" : [ {
+    "codeName" : "Begin",
+    "leftPos" : 200,
+    "logicNodeType" : "BEGIN",
+    "name" : "开始",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "RAWSQLCALL1"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "Begin"
+      }
+    } ],
+    "topPos" : 132,
+    "parallelOutput" : true
+  }, {
+    "codeName" : "RAWSQLCALL1",
+    "getDstPSDELogicParam" : {
+      "modelref" : true,
+      "id" : "result"
+    },
+    "leftPos" : 297,
+    "logicNodeType" : "RAWSQLCALL",
+    "name" : "今日初筛人数",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "RAWSQLCALL2"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "RAWSQLCALL1"
+      }
+    } ],
+    "sql" : "select count(1) today_to_filter_apply from hr_applicant ha where ha.STAGE_ID  = 10 and status = 1 and DATE(CREATE_DATE) = CURRENT_DATE;",
+    "topPos" : 140,
+    "fillDstLogicParam" : true
+  }, {
+    "codeName" : "END1",
+    "leftPos" : 509,
+    "logicNodeType" : "END",
+    "name" : "结束",
+    "getReturnParam" : {
+      "modelref" : true,
+      "id" : "result"
+    },
+    "returnType" : "LOGICPARAM",
+    "topPos" : 200
+  }, {
+    "codeName" : "RAWSQLCALL2",
+    "getDstPSDELogicParam" : {
+      "modelref" : true,
+      "id" : "result"
+    },
+    "leftPos" : 297,
+    "logicNodeType" : "RAWSQLCALL",
+    "name" : "今日面试人数",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "RAWSQLCALL9"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "RAWSQLCALL2"
+      }
+    } ],
+    "sql" : "select count(1) today_interview from hr_interview hi \r\nleft join hr_interview_schedule his on hi.SCHEDULE_ID = his.id\r\nwhere  DATE(his.START_DATE) = CURRENT_DATE;",
+    "topPos" : 227,
+    "fillDstLogicParam" : true
+  }, {
+    "codeName" : "RAWSQLCALL9",
+    "getDstPSDELogicParam" : {
+      "modelref" : true,
+      "id" : "result"
+    },
+    "leftPos" : 297,
+    "logicNodeType" : "RAWSQLCALL",
+    "name" : "待筛选简历",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "RAWSQLCALL3"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "RAWSQLCALL9"
+      }
+    } ],
+    "sql" : "select count(1) filter_apply from hr_applicant ha where ha.STAGE_ID  = 10",
+    "topPos" : 323,
+    "fillDstLogicParam" : true
+  }, {
+    "codeName" : "PREPAREPARAM1",
+    "leftPos" : 469,
+    "logicNodeType" : "PREPAREPARAM",
+    "name" : "准备参数",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "END1"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "PREPAREPARAM1"
+      }
+    } ],
+    "getPSDELogicNodeParams" : [ {
+      "dstFieldName" : "to_assign_resume",
+      "getDstPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "result"
+      },
+      "name" : "直接值[0] ==> result[to_assign_resume]",
+      "paramAction" : "SETPARAMVALUE",
+      "srcValue" : "0",
+      "srcValueType" : "SRCVALUE"
+    } ],
+    "topPos" : 323
+  }, {
+    "codeName" : "RAWSQLCALL3",
+    "getDstPSDELogicParam" : {
+      "modelref" : true,
+      "id" : "result"
+    },
+    "leftPos" : 297,
+    "logicNodeType" : "RAWSQLCALL",
+    "name" : "待发送offer人数",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "RAWSQLCALL4"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "RAWSQLCALL3"
+      }
+    } ],
+    "sql" : "select count(1) to_send_offer from hr_applicant ha where (ha.STAGE_ID  = 40)",
+    "topPos" : 437,
+    "fillDstLogicParam" : true
+  }, {
+    "codeName" : "RAWSQLCALL8",
+    "getDstPSDELogicParam" : {
+      "modelref" : true,
+      "id" : "result"
+    },
+    "leftPos" : 469,
+    "logicNodeType" : "RAWSQLCALL",
+    "name" : "复试待反馈",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "PREPAREPARAM1"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "RAWSQLCALL8"
+      }
+    } ],
+    "sql" : "SELECT COUNT(1)  AS second_feedback_pending \r\nFROM hr_interview_feedback hif \r\nleft join hr_interview hi on hif.INTERVIEW_ID  = hi.id\r\nwhere \r\n\thi.STAGE_ID  = 2\r\n  and hif.RESULT_TYPE IS NOT NULL \r\n  AND hif.RESULT_TYPE != '';",
+    "topPos" : 437,
+    "fillDstLogicParam" : true
+  }, {
+    "codeName" : "RAWSQLCALL4",
+    "getDstPSDELogicParam" : {
+      "modelref" : true,
+      "id" : "result"
+    },
+    "leftPos" : 297,
+    "logicNodeType" : "RAWSQLCALL",
+    "name" : "待入职人数",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "RAWSQLCALL5"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "RAWSQLCALL4"
+      }
+    } ],
+    "sql" : "select count(1) to_onboard from hr_applicant ha where (ha.STAGE_ID  = 50)",
+    "topPos" : 549,
+    "fillDstLogicParam" : true
+  }, {
+    "codeName" : "RAWSQLCALL7",
+    "getDstPSDELogicParam" : {
+      "modelref" : true,
+      "id" : "result"
+    },
+    "leftPos" : 469,
+    "logicNodeType" : "RAWSQLCALL",
+    "name" : "复试待面试",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "RAWSQLCALL8"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "RAWSQLCALL7"
+      }
+    } ],
+    "sql" : "select count(1) second_interview_pending from hr_interview hi where hi.status != 1 and hi.STAGE_ID  = 2",
+    "topPos" : 549,
+    "fillDstLogicParam" : true
+  }, {
+    "codeName" : "RAWSQLCALL5",
+    "getDstPSDELogicParam" : {
+      "modelref" : true,
+      "id" : "result"
+    },
+    "leftPos" : 297,
+    "logicNodeType" : "RAWSQLCALL",
+    "name" : "初试待面试",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "RAWSQLCALL6"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "RAWSQLCALL5"
+      }
+    } ],
+    "sql" : "select count(1) first_interview_pending from hr_interview hi where hi.status != 1 and hi.STAGE_ID  = 1",
+    "topPos" : 646,
+    "fillDstLogicParam" : true
+  }, {
+    "codeName" : "RAWSQLCALL6",
+    "getDstPSDELogicParam" : {
+      "modelref" : true,
+      "id" : "result"
+    },
+    "leftPos" : 469,
+    "logicNodeType" : "RAWSQLCALL",
+    "name" : "初试待反馈",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "RAWSQLCALL7"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "RAWSQLCALL6"
+      }
+    } ],
+    "sql" : "SELECT COUNT(1)  AS first_feedback_pending \r\nFROM hr_interview_feedback hif \r\nleft join hr_interview hi on hif.INTERVIEW_ID  = hi.id\r\nwhere \r\n\thi.STAGE_ID  = 1\r\n  and hif.RESULT_TYPE IS NOT NULL \r\n  AND hif.RESULT_TYPE != '';",
+    "topPos" : 646,
+    "fillDstLogicParam" : true
+  } ],
+  "getPSDELogicParams" : [ {
+    "codeName" : "Default",
+    "logicName" : "传入变量",
+    "name" : "传入变量",
+    "getParamPSDataEntity" : {
+      "modelref" : true,
+      "path" : "PSMODULES/hr/PSDATAENTITIES/hr_applicant.json"
+    },
+    "default" : true,
+    "entityParam" : true
+  }, {
+    "codeName" : "result",
+    "logicName" : "结果",
+    "name" : "结果",
+    "entityParam" : true
+  } ],
+  "getStartPSDELogicNode" : {
+    "modelref" : true,
+    "id" : "Begin"
+  },
+  "enableBackend" : true,
+  "enableFront" : false
+}

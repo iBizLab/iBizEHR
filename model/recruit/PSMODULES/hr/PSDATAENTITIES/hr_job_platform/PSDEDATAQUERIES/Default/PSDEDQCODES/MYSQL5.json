@@ -1,0 +1,40 @@
+{
+  "dBType" : "MYSQL5",
+  "name" : "MySQL5",
+  "getPSDEDataQueryCodeExps" : [ {
+    "expression" : "t1.`CREATE_DATE`",
+    "name" : "CREATE_DATE"
+  }, {
+    "expression" : "t1.`CREATE_UID`",
+    "name" : "CREATE_UID"
+  }, {
+    "expression" : "t1.`EMAIL`",
+    "name" : "EMAIL"
+  }, {
+    "expression" : "t1.`ID`",
+    "name" : "ID"
+  }, {
+    "expression" : "t1.`IMAGE`",
+    "name" : "IMAGE"
+  }, {
+    "expression" : "t1.`NAME`",
+    "name" : "NAME"
+  }, {
+    "expression" : "(SELECT count(1) from hr_job_platform_account where Job_platform_id = t1.id )",
+    "name" : "PLATFORM_ACCOUNT_COUNT"
+  }, {
+    "expression" : "t1.`TYPE`",
+    "name" : "TYPE"
+  }, {
+    "expression" : "t1.`URL`",
+    "name" : "URL"
+  }, {
+    "expression" : "t1.`WRITE_DATE`",
+    "name" : "WRITE_DATE"
+  }, {
+    "expression" : "t1.`WRITE_UID`",
+    "name" : "WRITE_UID"
+  } ],
+  "queryCode" : "SELECT\nt1.`CREATE_DATE`,\nt1.`CREATE_UID`,\nt1.`EMAIL`,\nt1.`ID`,\nt1.`IMAGE`,\nt1.`NAME`,\n(SELECT count(1) from hr_job_platform_account where Job_platform_id = t1.id ) AS `PLATFORM_ACCOUNT_COUNT`,\nt1.`TYPE`,\nt1.`URL`,\nt1.`WRITE_DATE`,\nt1.`WRITE_UID`\nFROM `hr_job_platform` t1 \n",
+  "id" : "PSMODULES/hr/PSDATAENTITIES/hr_job_platform/PSDEDATAQUERIES/Default/PSDEDQCODES/MYSQL5.json"
+}

@@ -1,0 +1,157 @@
+{
+  "accUserMode" : 2,
+  "getCapPSLanguageRes" : {
+    "lanResTag" : "DE.LNAME.HR_INTERVIEW_SCHEDULE"
+  },
+  "caption" : "面试官日程",
+  "codeName" : "hr_interview_schedule_interviewer_calendar_view",
+  "dynaModelFilePath" : "PSSYSAPPS/web/PSAPPDEVIEWS/hr_interview_schedule_interviewer_calendar_view.json",
+  "mDCtrlActiveMode" : 2,
+  "name" : "hr_interview_scheduleinterviewer_calendar_view",
+  "getPSAppDataEntity" : {
+    "modelref" : true,
+    "path" : "PSSYSAPPS/web/PSAPPDATAENTITIES/hr_interview_schedule.json"
+  },
+  "getPSAppModule" : {
+    "modelref" : true,
+    "path" : "PSSYSAPPS/web/PSAPPMODULES/base.json"
+  },
+  "getPSAppViewLogics" : [ {
+    "logicTrigger" : "CUSTOM",
+    "logicType" : "APPUILOGIC",
+    "name" : "newdata",
+    "getPSAppUILogic" : {
+      "actionAfterWizard" : "DEFAULT",
+      "logicType" : "PREDEFINED",
+      "name" : "新建数据",
+      "viewLogicType" : "APP_NEWDATA",
+      "batchAddOnly" : false,
+      "enableBatchAdd" : false,
+      "enableWizardAdd" : false
+    }
+  }, {
+    "logicTrigger" : "CUSTOM",
+    "logicType" : "APPUILOGIC",
+    "name" : "opendata",
+    "getPSAppUILogic" : {
+      "logicType" : "PREDEFINED",
+      "name" : "打开数据",
+      "viewLogicType" : "APP_OPENDATA",
+      "editMode" : true
+    }
+  } ],
+  "getPSControls" : [ {
+    "calendarStyle" : "DAY",
+    "codeName" : "interviewer_calendar_view_calendar",
+    "controlType" : "CALENDAR",
+    "dynaModelFilePath" : "PSSYSAPPS/web/PSAPPDATAENTITIES/hr_interview_schedule/PSCALENDARS/interviewer_calendar_view_calendar.json",
+    "groupMode" : "NONE",
+    "legendPos" : "NONE",
+    "logicName" : "面试官日程_日历部件",
+    "getPSAppDataEntity" : {
+      "modelref" : true,
+      "path" : "PSSYSAPPS/web/PSAPPDATAENTITIES/hr_interview_schedule.json"
+    },
+    "getPSControlHandler" : {
+      "enableDEFieldPrivilege" : false,
+      "id" : "calendar"
+    },
+    "getPSControlParam" : {
+      "autoLoad" : true,
+      "showBusyIndicator" : true,
+      "id" : "CALENDAR"
+    },
+    "getPSSysCalendarItems" : [ {
+      "getBeginTimePSAppDEField" : {
+        "name" : "CREATE_DATE",
+        "codeName" : "create_date"
+      },
+      "getEndTimePSAppDEField" : {
+        "name" : "WRITE_DATE",
+        "codeName" : "write_date"
+      },
+      "getIdPSAppDEField" : {
+        "name" : "ID",
+        "codeName" : "id"
+      },
+      "itemStyle" : "DEFAULT",
+      "itemType" : "master",
+      "maxSize" : -1,
+      "name" : "master",
+      "getPSAppDEDataSet" : {
+        "modelref" : true,
+        "id" : "fetch_default"
+      },
+      "getPSAppDataEntity" : {
+        "modelref" : true,
+        "path" : "PSSYSAPPS/web/PSAPPDATAENTITIES/hr_interview_schedule.json"
+      },
+      "getTextPSAppDEField" : {
+        "name" : "NAME",
+        "codeName" : "name"
+      },
+      "enableQuickCreate" : false
+    } ],
+    "enableGroup" : false,
+    "name" : "calendar",
+    "modelid" : "847b8dd11769b345ca099c5135273942",
+    "modeltype" : "PSSYSCALENDAR"
+  }, {
+    "controlType" : "SEARCHBAR",
+    "name" : "searchbar",
+    "getPSAppDataEntity" : {
+      "modelref" : true,
+      "path" : "PSSYSAPPS/web/PSAPPDATAENTITIES/hr_interview_schedule.json"
+    },
+    "getPSControlParam" : {
+      "id" : "searchbar"
+    },
+    "quickGroupCount" : -1,
+    "quickSearchMode" : 0,
+    "quickSearchWidth" : 0,
+    "enableFilter" : false,
+    "enableGroup" : false,
+    "enableQuickSearch" : false,
+    "mobileSearchBar" : false
+  }, {
+    "getCapPSLanguageRes" : {
+      "lanResTag" : "DE.LNAME.HR_INTERVIEW_SCHEDULE"
+    },
+    "caption" : "面试官日程",
+    "codeName" : "interviewer_calendar_view_captionbar",
+    "controlType" : "CAPTIONBAR",
+    "name" : "captionbar",
+    "getPSAppDataEntity" : {
+      "modelref" : true,
+      "path" : "PSSYSAPPS/web/PSAPPDATAENTITIES/hr_interview_schedule.json"
+    },
+    "getPSControlParam" : { }
+  } ],
+  "getPSDEViewCodeName" : "interviewer_calendar_view",
+  "getPSDEViewId" : "7e7acf8d15cca03edc2762c113bc0d34",
+  "getPSViewLayoutPanel" : {
+    "codeName" : "layoutpanel",
+    "controlStyle" : "APPDECALENDARVIEW",
+    "controlType" : "VIEWLAYOUTPANEL",
+    "name" : "layoutpanel",
+    "getPSAppDataEntity" : {
+      "modelref" : true,
+      "path" : "PSSYSAPPS/web/PSAPPDATAENTITIES/hr_interview_schedule.json"
+    },
+    "getPSControlParam" : { },
+    "layoutBodyOnly" : true,
+    "layoutPanel" : true,
+    "useDefaultLayout" : true
+  },
+  "refFlag" : false,
+  "title" : "面试官日程",
+  "viewStyle" : "DEFAULT",
+  "viewType" : "DECALENDARVIEW",
+  "xDataControlName" : "calendar",
+  "enableDP" : true,
+  "enableFilter" : true,
+  "enableSearch" : true,
+  "showCaptionBar" : false,
+  "modelid" : "e5ad49de7572edb22f10e201d8fc3cc9",
+  "modeltype" : "PSAPPDEVIEW"
+}

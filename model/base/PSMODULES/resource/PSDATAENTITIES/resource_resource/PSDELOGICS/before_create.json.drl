@@ -1,0 +1,53 @@
+package cn.ibizlab.resource.logic.resource_resourcelogic.before_create;
+        import java.util.Map;
+        import java.util.HashMap;
+        import com.alibaba.fastjson.JSONObject;
+        import org.springframework.util.StringUtils;
+        import org.springframework.util.ObjectUtils;
+        import cn.ibizlab.util.errors.BadRequestAlertException;
+                global cn.ibizlab.core.resource.domain.resource_resource resource_resourcebefore_createdefault;
+                global cn.ibizlab.core.base.domain.res_users resource_resourcebefore_createuser;
+                    global cn.ibizlab.core.base.service.Ires_usersService res_usersservice;
+        global cn.ibizlab.core.resource.service.Iresource_resourceService iBzSysResource_resourceDefaultService;
+        global cn.ibizlab.util.security.AuthenticationUser curuser;
+
+
+    no-loop
+
+            //逻辑处理节点[开始]
+            rule "begin"
+            ruleflow-group "resource_resourcebefore_createbegin"
+            when
+            then
+            end
+
+            //逻辑处理节点[准备参数]
+            rule "prepareparam_01"
+            ruleflow-group "resource_resourcebefore_createprepareparam_01"
+            when
+            then
+                            resource_resourcebefore_createuser.set("name",resource_resourcebefore_createdefault.get("name"));
+                            resource_resourcebefore_createuser.set("companyid",resource_resourcebefore_createdefault.get("companyid"));
+                        update(resource_resourcebefore_createdefault);//更新fact中变量值
+                        update(resource_resourcebefore_createuser);//更新fact中变量值
+            end
+
+            //逻辑处理节点[建立用户]
+            rule "deaction_01"
+            ruleflow-group "resource_resourcebefore_createdeaction_01"
+            when
+            then
+                        res_usersservice.create(resource_resourcebefore_createuser);
+                        update(resource_resourcebefore_createdefault);//更新fact中变量值
+                        update(resource_resourcebefore_createuser);//更新fact中变量值
+            end
+
+            //逻辑处理节点[回填user_id]
+            rule "prepareparam_02"
+            ruleflow-group "resource_resourcebefore_createprepareparam_02"
+            when
+            then
+                            resource_resourcebefore_createdefault.set("userid",resource_resourcebefore_createuser.get("id"));
+                        update(resource_resourcebefore_createdefault);//更新fact中变量值
+                        update(resource_resourcebefore_createuser);//更新fact中变量值
+            end

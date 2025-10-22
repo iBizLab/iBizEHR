@@ -1,0 +1,41 @@
+#Generate code from /{{projectName}}-provider/src/main/resources/application.yml.hbs
+server:
+  port: 48080
+
+spring:
+  profiles:
+    include: sys, ${ibiz.servicehub.initmode}
+  application:
+    name: recruit
+  cloud:
+    nacos:
+      discovery:
+        server-addr: http://nacos:8848
+        group: ibiz_config_group
+      config:
+        server-addr: http://nacos:8848
+        group: ibiz_config_group
+        file-extension: yaml
+
+ibiz:
+  servicehub:
+    id: recruit
+#    register-naming-service: false
+#    publish-config: false
+    # 新增初始化模式 initmode ，默认 manual：手动模式（手工初始化nacos和system），auto：自动模式
+    initmode: manual
+    enableRTCodeMode: true
+    enableProdMode: true
+  tenant: true
+
+#生产环境需要关闭
+springfox:
+  documentation:
+    enabled: true
+
+logging:
+  level:
+    net.ibizsys.central.cloud: debug
+    net.ibizsys.central: debug
+    net.ibizsys.runtime: debug
+    cn.ibizlab: debug

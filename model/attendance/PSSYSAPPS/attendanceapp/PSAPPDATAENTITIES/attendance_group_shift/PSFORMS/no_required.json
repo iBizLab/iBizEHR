@@ -1,0 +1,1019 @@
+{
+  "codeName" : "no_required",
+  "controlType" : "FORM",
+  "getCreatePSControlAction" : {
+    "modelref" : true,
+    "id" : "create",
+    "actionName" : "Create",
+    "actionType" : "DEACTION",
+    "dataAccessAction" : "CREATE",
+    "name" : "create",
+    "getPSAppDEMethod" : {
+      "modelref" : true,
+      "id" : "create"
+    },
+    "getPSAppDataEntity" : {
+      "modelref" : true,
+      "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/attendance_group_shift.json"
+    }
+  },
+  "defaultLabelWidth" : 130,
+  "dynaModelFilePath" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/attendance_group_shift/PSFORMS/no_required.json",
+  "getGetDraftFromPSControlAction" : {
+    "modelref" : true,
+    "id" : "loaddraftfrom",
+    "actionName" : "GETDRAFTFROM",
+    "actionType" : "DEACTION",
+    "dataAccessAction" : "CREATE",
+    "name" : "loaddraftfrom",
+    "getPSAppDataEntity" : {
+      "modelref" : true,
+      "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/attendance_group_shift.json"
+    }
+  },
+  "getGetDraftPSControlAction" : {
+    "modelref" : true,
+    "id" : "loaddraft",
+    "actionName" : "GetDraft",
+    "actionType" : "DEACTION",
+    "dataAccessAction" : "CREATE",
+    "name" : "loaddraft",
+    "getPSAppDEMethod" : {
+      "modelref" : true,
+      "id" : "get_draft"
+    },
+    "getPSAppDataEntity" : {
+      "modelref" : true,
+      "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/attendance_group_shift.json"
+    }
+  },
+  "getGetPSControlAction" : {
+    "modelref" : true,
+    "id" : "load",
+    "actionName" : "Get",
+    "actionType" : "DEACTION",
+    "dataAccessAction" : "READ",
+    "name" : "load",
+    "getPSAppDEMethod" : {
+      "modelref" : true,
+      "id" : "get"
+    },
+    "getPSAppDataEntity" : {
+      "modelref" : true,
+      "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/attendance_group_shift.json"
+    }
+  },
+  "logicName" : "免考勤编辑表单",
+  "getPSAppDataEntity" : {
+    "modelref" : true,
+    "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/attendance_group_shift.json"
+  },
+  "getPSDEFormItems" : [ {
+    "id" : "srforikey",
+    "hidden" : true,
+    "dataType" : 25
+  }, {
+    "id" : "srfkey",
+    "hidden" : true,
+    "dataType" : 25,
+    "getPSAppDEField" : {
+      "name" : "ID",
+      "codeName" : "id"
+    }
+  }, {
+    "id" : "srfmajortext",
+    "hidden" : true,
+    "dataType" : 25,
+    "getPSAppDEField" : {
+      "name" : "NAME",
+      "codeName" : "name"
+    }
+  }, {
+    "id" : "srftempmode",
+    "hidden" : true,
+    "dataType" : 25
+  }, {
+    "id" : "srfuf",
+    "hidden" : true,
+    "dataType" : 25
+  }, {
+    "id" : "srfdeid",
+    "hidden" : true,
+    "dataType" : 25
+  }, {
+    "id" : "srfsourcekey",
+    "hidden" : true,
+    "dataType" : 25
+  }, {
+    "id" : "id",
+    "hidden" : true,
+    "dataType" : 25,
+    "getPSAppDEField" : {
+      "name" : "ID",
+      "codeName" : "id"
+    }
+  } ],
+  "getPSDEFormPages" : [ {
+    "getCapPSLanguageRes" : {
+      "lanResTag" : "CONTROL.DEFORM.ATTENDANCE_GROUP_SHIFT.MAIN.FORMPAGE.FORMPAGE1"
+    },
+    "caption" : "基本信息",
+    "codeName" : "formpage1",
+    "detailStyle" : "DEFAULT",
+    "detailType" : "FORMPAGE",
+    "name" : "formpage1",
+    "getPSDEFormDetails" : [ {
+      "getCapPSLanguageRes" : {
+        "lanResTag" : "CONTROL.DEFORM.ATTENDANCE_GROUP_SHIFT.MAIN.GROUPPANEL.GROUP1"
+      },
+      "caption" : "组排班基本信息",
+      "codeName" : "group1",
+      "detailStyle" : "DEFAULT",
+      "detailType" : "GROUPPANEL",
+      "name" : "group1",
+      "getPSDEFormDetails" : [ {
+        "codeName" : "grouppanel1",
+        "detailStyle" : "DEFAULT",
+        "detailType" : "GROUPPANEL",
+        "name" : "grouppanel1",
+        "getPSDEFormDetails" : [ {
+          "caption" : "考勤人员",
+          "codeName" : "druipart1",
+          "dRItemTag" : "A8b9e994b7f0baf0f45",
+          "detailStyle" : "DEFAULT",
+          "detailType" : "DRUIPART",
+          "name" : "druipart1",
+          "getPSAppView" : {
+            "accUserMode" : 2,
+            "getCapPSLanguageRes" : {
+              "lanResTag" : "DE.LNAME.ATTENDANCE_GROUP_SHIFT_MEMBER"
+            },
+            "caption" : "考勤规则成员",
+            "codeName" : "attendance_group_shift_member_grid_view",
+            "dynaModelFilePath" : "PSSYSAPPS/attendanceapp/PSAPPDEVIEWS/attendance_group_shift_member_grid_view.json",
+            "funcViewMode" : "MDATAVIEW",
+            "gridRowActiveMode" : 2,
+            "name" : "attendance_group_shift_memberGridView",
+            "getPSAppDataEntity" : {
+              "modelref" : true,
+              "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/attendance_group_shift_member.json"
+            },
+            "getPSAppModule" : {
+              "modelref" : true,
+              "path" : "PSSYSAPPS/attendanceapp/PSAPPMODULES/attendance.json"
+            },
+            "getPSAppViewEngines" : [ {
+              "engineCat" : "VIEW",
+              "engineType" : "GridView",
+              "name" : "engine"
+            } ],
+            "getPSAppViewLogics" : [ {
+              "logicTrigger" : "CUSTOM",
+              "logicType" : "APPUILOGIC",
+              "name" : "newdata",
+              "getPSAppUILogic" : {
+                "actionAfterWizard" : "DEFAULT",
+                "getBatchAddPSAppViews" : [ {
+                  "openMode" : "POPUPMODAL",
+                  "refMode" : "USER_OBJECT",
+                  "getRefPSAppView" : {
+                    "modelref" : true,
+                    "path" : "PSSYSAPPS/attendanceapp/PSAPPDEVIEWS/user_object_m_pickup_view.json",
+                    "viewType" : "DEMPICKUPVIEW"
+                  }
+                } ],
+                "logicType" : "PREDEFINED",
+                "name" : "新建数据",
+                "getNewDataPSAppView" : {
+                  "getRefPSAppView" : {
+                    "modelref" : true,
+                    "path" : "PSSYSAPPS/attendanceapp/PSAPPDEVIEWS/attendance_group_shift_member_edit_view.json",
+                    "viewType" : "DEEDITVIEW"
+                  }
+                },
+                "getPSAppDataEntity" : {
+                  "modelref" : true,
+                  "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/attendance_group_shift_member.json"
+                },
+                "getPSAppUILogicRefViews" : [ {
+                  "getRefPSAppView" : {
+                    "modelref" : true,
+                    "path" : "PSSYSAPPS/attendanceapp/PSAPPDEVIEWS/attendance_group_shift_member_edit_view.json",
+                    "viewType" : "DEEDITVIEW"
+                  }
+                }, {
+                  "openMode" : "POPUPMODAL",
+                  "refMode" : "USER_OBJECT",
+                  "getRefPSAppView" : {
+                    "modelref" : true,
+                    "path" : "PSSYSAPPS/attendanceapp/PSAPPDEVIEWS/user_object_m_pickup_view.json",
+                    "viewType" : "DEMPICKUPVIEW"
+                  }
+                } ],
+                "viewLogicType" : "APP_NEWDATA",
+                "batchAddOnly" : false,
+                "enableBatchAdd" : true,
+                "enableWizardAdd" : false
+              }
+            } ],
+            "getPSAppViewNavParams" : [ {
+              "key" : "n_group_id_eq",
+              "name" : "n_group_id_eq",
+              "value" : " attendance_group",
+              "rawValue" : false
+            } ],
+            "getPSAppViewParams" : [ {
+              "key" : "PROPERTYMAP",
+              "name" : "PROPERTYMAP",
+              "value" : "type:type,id:user_id,name:name"
+            } ],
+            "getPSAppViewRefs" : [ {
+              "name" : "NEWDATA",
+              "realTitle" : "考勤规则成员编辑视图",
+              "getRefPSAppView" : {
+                "modelref" : true,
+                "path" : "PSSYSAPPS/attendanceapp/PSAPPDEVIEWS/attendance_group_shift_member_edit_view.json",
+                "viewType" : "DEEDITVIEW"
+              }
+            }, {
+              "name" : "EDITDATA",
+              "realTitle" : "考勤规则成员编辑视图",
+              "getRefPSAppView" : {
+                "modelref" : true,
+                "path" : "PSSYSAPPS/attendanceapp/PSAPPDEVIEWS/attendance_group_shift_member_edit_view.json",
+                "viewType" : "DEEDITVIEW"
+              }
+            }, {
+              "name" : "MPICKUPVIEW:ATTENDANCE_GROUP_SHIFT"
+            }, {
+              "name" : "MPICKUPVIEW:USER_OBJECT",
+              "realOpenMode" : "POPUPMODAL",
+              "realTitle" : "用户对象映射数据多项选择视图",
+              "getRefPSAppView" : {
+                "modelref" : true,
+                "path" : "PSSYSAPPS/attendanceapp/PSAPPDEVIEWS/user_object_m_pickup_view.json",
+                "viewType" : "DEMPICKUPVIEW"
+              }
+            } ],
+            "getPSControls" : [ {
+              "codeName" : "default",
+              "controlType" : "SEARCHFORM",
+              "defaultLabelWidth" : 130,
+              "dynaModelFilePath" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/attendance_group_shift_member/PSSEARCHFORMS/default.json",
+              "logicName" : "默认搜索表单",
+              "getPSAppDataEntity" : {
+                "modelref" : true,
+                "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/attendance_group_shift_member.json"
+              },
+              "getPSControlHandler" : {
+                "getPSHandlerActions" : [ {
+                  "actionType" : "FILTERACTION",
+                  "name" : "load",
+                  "getPSAppDEMethod" : {
+                    "modelref" : true,
+                    "id" : "FilterGet"
+                  },
+                  "getPSAppDataEntity" : {
+                    "modelref" : true,
+                    "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/attendance_group_shift_member.json"
+                  }
+                }, {
+                  "actionType" : "FILTERACTION",
+                  "name" : "loaddraft",
+                  "getPSAppDEMethod" : {
+                    "modelref" : true,
+                    "id" : "FilterGetDraft"
+                  },
+                  "getPSAppDataEntity" : {
+                    "modelref" : true,
+                    "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/attendance_group_shift_member.json"
+                  }
+                }, {
+                  "actionType" : "FILTERACTION",
+                  "name" : "search",
+                  "getPSAppDEMethod" : {
+                    "modelref" : true,
+                    "id" : "FilterSearch"
+                  },
+                  "getPSAppDataEntity" : {
+                    "modelref" : true,
+                    "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/attendance_group_shift_member.json"
+                  }
+                } ],
+                "enableDEFieldPrivilege" : false,
+                "id" : "日历控件处理器"
+              },
+              "getPSControlParam" : {
+                "autoLoad" : true,
+                "showBusyIndicator" : true,
+                "id" : "SEARCHFORM"
+              },
+              "getPSDEFormPages" : [ {
+                "getCapPSLanguageRes" : {
+                  "lanResTag" : "CONTROL.DEFORM.ATTENDANCE_GROUP_SHIFT_MEMBER.DEFAULT.FORMPAGE.FORMPAGE1"
+                },
+                "caption" : "常规条件",
+                "codeName" : "formpage1",
+                "detailStyle" : "DEFAULT",
+                "detailType" : "FORMPAGE",
+                "name" : "formpage1",
+                "getPSLayout" : {
+                  "childColMD" : 24,
+                  "columnCount" : 24,
+                  "layout" : "TABLE_24COL"
+                },
+                "infoGroupMode" : false
+              } ],
+              "getPSLayout" : {
+                "childColMD" : 24,
+                "columnCount" : 24,
+                "layout" : "TABLE_24COL"
+              },
+              "searchButtonStyle" : "DEFAULT",
+              "tabHeaderPos" : "TOP",
+              "enableAdvanceSearch" : false,
+              "enableAutoSearch" : false,
+              "enableFilterSave" : false,
+              "noTabHeader" : true,
+              "name" : "searchform",
+              "modelid" : "fe2e689da636adcf4fd77d484af3a259",
+              "modeltype" : "PSDEFORM_SEARCHFORM"
+            }, {
+              "codeName" : "grid_view_toolbar",
+              "controlType" : "TOOLBAR",
+              "logicName" : "工具栏模板（默认表格界面）",
+              "name" : "toolbar",
+              "getPSAppDataEntity" : {
+                "modelref" : true,
+                "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/attendance_group_shift_member.json"
+              },
+              "getPSControlParam" : {
+                "id" : "TOOLBAR"
+              },
+              "getPSDEToolbarItems" : [ {
+                "getCapPSLanguageRes" : {
+                  "lanResTag" : "TBB.TEXT.*.NEW"
+                },
+                "caption" : "新建",
+                "groupExtractMode" : "ITEM",
+                "itemType" : "DEUIACTION",
+                "name" : "tbitem3",
+                "noPrivDisplayMode" : 2,
+                "getPSAppViewUIAction" : {
+                  "modelref" : true,
+                  "id" : "toolbar_tbitem3"
+                },
+                "getPSSysImage" : {
+                  "glyph" : "xf0f6@FontAwesome",
+                  "cssClass" : "fa fa-file-text-o"
+                },
+                "getPSUIAction" : {
+                  "getCapPSLanguageRes" : {
+                    "lanResTag" : "TBB.TEXT.*.NEW"
+                  },
+                  "caption" : "新建",
+                  "codeName" : "New",
+                  "fullCodeName" : "New",
+                  "name" : "表格界面_新建操作",
+                  "getPSSysImage" : {
+                    "glyph" : "xf0f6@FontAwesome",
+                    "cssClass" : "fa fa-file-text-o"
+                  },
+                  "predefinedType" : "GRIDVIEW_NEWACTION",
+                  "timeout" : 60000,
+                  "getTooltipPSLanguageRes" : {
+                    "lanResTag" : "TBB.TOOLTIP.*.NEW"
+                  },
+                  "uIActionMode" : "SYS",
+                  "uIActionTag" : "New",
+                  "uIActionType" : "DEUIACTION"
+                },
+                "tooltip" : "新建",
+                "getTooltipPSLanguageRes" : {
+                  "lanResTag" : "TBB.TOOLTIP.*.NEW"
+                },
+                "showCaption" : true,
+                "showIcon" : true
+              }, {
+                "itemType" : "SEPERATOR",
+                "name" : "tbitem7"
+              }, {
+                "getCapPSLanguageRes" : {
+                  "lanResTag" : "TBB.TEXT.*.REMOVE"
+                },
+                "caption" : "删除",
+                "groupExtractMode" : "ITEM",
+                "itemType" : "DEUIACTION",
+                "name" : "tbitem8",
+                "noPrivDisplayMode" : 2,
+                "getPSAppViewUIAction" : {
+                  "modelref" : true,
+                  "id" : "toolbar_tbitem8"
+                },
+                "getPSSysImage" : {
+                  "glyph" : "xf00d@FontAwesome",
+                  "cssClass" : "fa fa-remove"
+                },
+                "getPSUIAction" : {
+                  "actionTarget" : "MULTIKEY",
+                  "getCapPSLanguageRes" : {
+                    "lanResTag" : "TBB.TEXT.*.REMOVE"
+                  },
+                  "caption" : "删除",
+                  "codeName" : "Remove",
+                  "fullCodeName" : "Remove",
+                  "name" : "表格界面_删除操作",
+                  "getPSSysImage" : {
+                    "glyph" : "xf00d@FontAwesome",
+                    "cssClass" : "fa fa-remove"
+                  },
+                  "predefinedType" : "GRIDVIEW_REMOVEACTION",
+                  "timeout" : 60000,
+                  "getTooltipPSLanguageRes" : {
+                    "lanResTag" : "TBB.TOOLTIP.*.REMOVE"
+                  },
+                  "uIActionMode" : "SYS",
+                  "uIActionTag" : "Remove",
+                  "uIActionType" : "DEUIACTION"
+                },
+                "tooltip" : "删除",
+                "getTooltipPSLanguageRes" : {
+                  "lanResTag" : "TBB.TOOLTIP.*.REMOVE"
+                },
+                "uIActionTarget" : "MULTIKEY",
+                "showCaption" : true,
+                "showIcon" : true
+              } ],
+              "xDataControlName" : "grid",
+              "modelid" : "95007e82726c9de412bfb29d3ae8cabf",
+              "modeltype" : "PSDETOOLBAR"
+            }, {
+              "aggMode" : "NONE",
+              "codeName" : "main",
+              "columnEnableFilter" : 2,
+              "columnEnableLink" : 2,
+              "controlType" : "GRID",
+              "dynaModelFilePath" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/attendance_group_shift_member/PSGRIDS/main.json",
+              "getFetchPSControlAction" : {
+                "modelref" : true,
+                "id" : "fetch",
+                "actionType" : "DEDATASET",
+                "name" : "fetch",
+                "getPSAppDEMethod" : {
+                  "modelref" : true,
+                  "id" : "FetchMembers"
+                },
+                "getPSAppDataEntity" : {
+                  "modelref" : true,
+                  "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/attendance_group_shift_member.json"
+                }
+              },
+              "groupMode" : "NONE",
+              "logicName" : "主表格",
+              "getPSAppDataEntity" : {
+                "modelref" : true,
+                "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/attendance_group_shift_member.json"
+              },
+              "getPSControlHandler" : {
+                "getPSHandlerActions" : [ {
+                  "actionName" : "Get",
+                  "actionType" : "DEACTION",
+                  "dataAccessAction" : "READ",
+                  "name" : "load",
+                  "getPSAppDEMethod" : {
+                    "modelref" : true,
+                    "id" : "Get"
+                  },
+                  "getPSAppDataEntity" : {
+                    "modelref" : true,
+                    "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/attendance_group_shift_member.json"
+                  }
+                }, {
+                  "actionName" : "Create",
+                  "actionType" : "DEACTION",
+                  "dataAccessAction" : "CREATE",
+                  "name" : "create",
+                  "getPSAppDEMethod" : {
+                    "modelref" : true,
+                    "id" : "Create"
+                  },
+                  "getPSAppDataEntity" : {
+                    "modelref" : true,
+                    "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/attendance_group_shift_member.json"
+                  }
+                }, {
+                  "actionName" : "Update",
+                  "actionType" : "DEACTION",
+                  "dataAccessAction" : "UPDATE",
+                  "name" : "update",
+                  "getPSAppDEMethod" : {
+                    "modelref" : true,
+                    "id" : "Update"
+                  },
+                  "getPSAppDataEntity" : {
+                    "modelref" : true,
+                    "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/attendance_group_shift_member.json"
+                  }
+                }, {
+                  "actionName" : "Remove",
+                  "actionType" : "DEACTION",
+                  "dataAccessAction" : "DELETE",
+                  "name" : "remove",
+                  "getPSAppDEMethod" : {
+                    "modelref" : true,
+                    "id" : "Remove"
+                  },
+                  "getPSAppDataEntity" : {
+                    "modelref" : true,
+                    "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/attendance_group_shift_member.json"
+                  }
+                }, {
+                  "actionName" : "GetDraft",
+                  "actionType" : "DEACTION",
+                  "dataAccessAction" : "CREATE",
+                  "name" : "loaddraft",
+                  "getPSAppDEMethod" : {
+                    "modelref" : true,
+                    "id" : "GetDraft"
+                  },
+                  "getPSAppDataEntity" : {
+                    "modelref" : true,
+                    "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/attendance_group_shift_member.json"
+                  }
+                }, {
+                  "actionType" : "DEDATASET",
+                  "name" : "fetch",
+                  "getPSAppDEMethod" : {
+                    "modelref" : true,
+                    "id" : "FetchMembers"
+                  },
+                  "getPSAppDataEntity" : {
+                    "modelref" : true,
+                    "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/attendance_group_shift_member.json"
+                  }
+                } ],
+                "userDRAction" : "READ",
+                "enableDEFieldPrivilege" : false,
+                "id" : "日历控件处理器"
+              },
+              "getPSControlParam" : {
+                "autoLoad" : true,
+                "showBusyIndicator" : true,
+                "id" : "GRID"
+              },
+              "getPSDEGridColumns" : [ {
+                "align" : "LEFT",
+                "cLConvertMode" : "NONE",
+                "getCapPSLanguageRes" : {
+                  "lanResTag" : "DEF.LNAME.ATTENDANCE_GROUP_SHIFT_MEMBER.NAME"
+                },
+                "caption" : "名称",
+                "codeName" : "name",
+                "columnType" : "DEFGRIDCOLUMN",
+                "dataItemName" : "name",
+                "excelCaption" : "名称",
+                "name" : "name",
+                "noPrivDisplayMode" : 1,
+                "getPSAppDEField" : {
+                  "name" : "NAME",
+                  "codeName" : "name"
+                },
+                "width" : 150,
+                "widthUnit" : "STAR",
+                "enableSort" : true
+              }, {
+                "align" : "LEFT",
+                "cLConvertMode" : "FRONT",
+                "getCapPSLanguageRes" : {
+                  "lanResTag" : "DEF.LNAME.ATTENDANCE_GROUP_SHIFT_MEMBER.TYPE"
+                },
+                "caption" : "类型",
+                "codeName" : "type",
+                "columnType" : "DEFGRIDCOLUMN",
+                "dataItemName" : "type",
+                "excelCaption" : "类型",
+                "name" : "type",
+                "noPrivDisplayMode" : 1,
+                "getPSAppCodeList" : {
+                  "modelref" : true,
+                  "path" : "PSSYSAPPS/attendanceapp/PSAPPCODELISTS/attendance__member_type.json"
+                },
+                "getPSAppDEField" : {
+                  "name" : "TYPE",
+                  "codeName" : "type"
+                },
+                "width" : 150,
+                "widthUnit" : "STAR",
+                "enableSort" : true
+              } ],
+              "getPSDEGridDataItems" : [ {
+                "dataType" : 25,
+                "name" : "name",
+                "getPSAppDEField" : {
+                  "name" : "NAME",
+                  "codeName" : "name"
+                }
+              }, {
+                "dataType" : 25,
+                "name" : "type",
+                "getPSAppDEField" : {
+                  "name" : "TYPE",
+                  "codeName" : "type"
+                }
+              }, {
+                "dataType" : 25,
+                "name" : "user_id",
+                "getPSAppDEField" : {
+                  "name" : "USER_ID",
+                  "codeName" : "user_id"
+                }
+              }, {
+                "dataType" : 25,
+                "name" : "group_id",
+                "getPSAppDEField" : {
+                  "name" : "GROUP_ID",
+                  "codeName" : "group_id"
+                }
+              }, {
+                "dataType" : 25,
+                "name" : "parent_id",
+                "getPSAppDEField" : {
+                  "name" : "PARENT_ID",
+                  "codeName" : "parent_id"
+                }
+              }, {
+                "dataType" : 25,
+                "name" : "srfkey",
+                "getPSAppDEField" : {
+                  "name" : "ID",
+                  "codeName" : "id"
+                }
+              }, {
+                "dataType" : 25,
+                "name" : "srfdataaccaction",
+                "getPSAppDEField" : {
+                  "name" : "ID",
+                  "codeName" : "id"
+                },
+                "dataAccessAction" : true
+              }, {
+                "dataType" : 25,
+                "name" : "srfmajortext",
+                "getPSAppDEField" : {
+                  "name" : "NAME",
+                  "codeName" : "name"
+                }
+              } ],
+              "getPSDEGridEditItems" : [ {
+                "caption" : "主键",
+                "codeName" : "srfkey",
+                "enableCond" : 3,
+                "ignoreInput" : 0,
+                "name" : "srfkey",
+                "getPSAppDEField" : {
+                  "name" : "ID",
+                  "codeName" : "id"
+                },
+                "getPSEditor" : {
+                  "editorType" : "HIDDEN",
+                  "name" : "srfkey"
+                },
+                "allowEmpty" : true
+              } ],
+              "pagingMode" : 1,
+              "pagingSize" : 20,
+              "getRemovePSControlAction" : {
+                "actionName" : "Remove",
+                "actionType" : "DEACTION",
+                "dataAccessAction" : "DELETE",
+                "name" : "remove",
+                "getPSAppDEMethod" : {
+                  "modelref" : true,
+                  "id" : "Remove"
+                },
+                "getPSAppDataEntity" : {
+                  "modelref" : true,
+                  "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/attendance_group_shift_member.json"
+                }
+              },
+              "sortMode" : "REMOTE",
+              "hasWFDataItems" : false,
+              "enableColFilter" : false,
+              "enableCustomized" : true,
+              "enableGroup" : false,
+              "enablePagingBar" : true,
+              "enableRowEdit" : false,
+              "enableRowEditOrder" : false,
+              "enableRowNew" : false,
+              "forceFit" : false,
+              "hideHeader" : false,
+              "noSort" : false,
+              "singleSelect" : false,
+              "name" : "grid",
+              "modelid" : "aba75c17c4f79306d83dfb4d7bc08c44",
+              "modeltype" : "PSDEGRID"
+            }, {
+              "controlType" : "SEARCHBAR",
+              "name" : "searchbar",
+              "getPSAppDataEntity" : {
+                "modelref" : true,
+                "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/attendance_group_shift_member.json"
+              },
+              "getPSControlParam" : {
+                "id" : "searchbar"
+              },
+              "quickGroupCount" : -1,
+              "quickSearchMode" : 1,
+              "quickSearchWidth" : 0,
+              "enableFilter" : false,
+              "enableGroup" : false,
+              "enableQuickSearch" : true,
+              "mobileSearchBar" : false
+            }, {
+              "getCapPSLanguageRes" : {
+                "lanResTag" : "DE.LNAME.ATTENDANCE_GROUP_SHIFT_MEMBER"
+              },
+              "caption" : "考勤规则成员",
+              "codeName" : "grid_view_captionbar",
+              "controlType" : "CAPTIONBAR",
+              "name" : "captionbar",
+              "getPSAppDataEntity" : {
+                "modelref" : true,
+                "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/attendance_group_shift_member.json"
+              },
+              "getPSControlParam" : { }
+            } ],
+            "getPSDEViewCodeName" : "GridView",
+            "getPSDEViewId" : "b720185f6ade619ce3e91911a3da374e",
+            "getPSViewLayoutPanel" : {
+              "codeName" : "layoutpanel",
+              "controlStyle" : "APPDEGRIDVIEW",
+              "controlType" : "VIEWLAYOUTPANEL",
+              "name" : "layoutpanel",
+              "getPSAppDataEntity" : {
+                "modelref" : true,
+                "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/attendance_group_shift_member.json"
+              },
+              "getPSControlParam" : { },
+              "layoutBodyOnly" : true,
+              "layoutPanel" : true,
+              "useDefaultLayout" : true
+            },
+            "refFlag" : false,
+            "title" : "考勤规则成员表格视图",
+            "viewStyle" : "DEFAULT",
+            "viewType" : "DEGRIDVIEW",
+            "xDataControlName" : "grid",
+            "enableDP" : true,
+            "enableExport" : false,
+            "enableFilter" : false,
+            "enableImport" : false,
+            "enableQuickSearch" : true,
+            "enableRowEdit" : false,
+            "enableSearch" : true,
+            "rowEditDefault" : false,
+            "showCaptionBar" : false,
+            "modelid" : "537c0d6157b952c16a3efb329858e85e",
+            "modeltype" : "PSAPPDEVIEW",
+            "getPSAppDERSPaths" : [ [ {
+              "actionRSMode" : 1,
+              "codeName" : "group_shifts",
+              "dataRSMode" : 0,
+              "majorDECodeName" : "attendance_rule",
+              "majorDEName" : "ATTENDANCE_RULE",
+              "getMajorPSAppDataEntity" : {
+                "modelref" : true,
+                "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/attendance_rule.json"
+              },
+              "minorDECodeName" : "attendance_group_shift",
+              "minorDEName" : "ATTENDANCE_GROUP_SHIFT",
+              "getMinorPSAppDataEntity" : {
+                "modelref" : true,
+                "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/attendance_group_shift.json"
+              },
+              "name" : "考勤规则-组排班",
+              "getParentPSAppDEField" : {
+                "name" : "RULE_ID",
+                "codeName" : "rule_id"
+              },
+              "getParentTextPSAppDEField" : {
+                "name" : "RULE_NAME",
+                "codeName" : "rule_name"
+              },
+              "rSMode" : 2,
+              "tempDataOrder" : 10
+            }, {
+              "actionRSMode" : 1,
+              "codeName" : "members",
+              "dataRSMode" : 0,
+              "majorDECodeName" : "attendance_group_shift",
+              "majorDEName" : "ATTENDANCE_GROUP_SHIFT",
+              "getMajorPSAppDataEntity" : {
+                "modelref" : true,
+                "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/attendance_group_shift.json"
+              },
+              "minorDECodeName" : "attendance_group_shift_member",
+              "minorDEName" : "ATTENDANCE_GROUP_SHIFT_MEMBER",
+              "getMinorPSAppDataEntity" : {
+                "modelref" : true,
+                "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/attendance_group_shift_member.json"
+              },
+              "name" : "组排班-成员",
+              "getParentPSAppDEField" : {
+                "name" : "GROUP_ID",
+                "codeName" : "group_id"
+              },
+              "rSMode" : 2,
+              "tempDataOrder" : 10
+            } ], [ {
+              "actionRSMode" : 1,
+              "codeName" : "members",
+              "dataRSMode" : 0,
+              "majorDECodeName" : "attendance_group_shift",
+              "majorDEName" : "ATTENDANCE_GROUP_SHIFT",
+              "getMajorPSAppDataEntity" : {
+                "modelref" : true,
+                "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/attendance_group_shift.json"
+              },
+              "minorDECodeName" : "attendance_group_shift_member",
+              "minorDEName" : "ATTENDANCE_GROUP_SHIFT_MEMBER",
+              "getMinorPSAppDataEntity" : {
+                "modelref" : true,
+                "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/attendance_group_shift_member.json"
+              },
+              "name" : "组排班-成员",
+              "getParentPSAppDEField" : {
+                "name" : "GROUP_ID",
+                "codeName" : "group_id"
+              },
+              "rSMode" : 2,
+              "tempDataOrder" : 10
+            } ], [ {
+              "actionRSMode" : 1,
+              "codeName" : "attendance_group_shift_members",
+              "dataRSMode" : 0,
+              "majorDECodeName" : "user_object",
+              "majorDEName" : "USER_OBJECT",
+              "getMajorPSAppDataEntity" : {
+                "modelref" : true,
+                "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/user_object.json"
+              },
+              "minorDECodeName" : "attendance_group_shift_member",
+              "minorDEName" : "ATTENDANCE_GROUP_SHIFT_MEMBER",
+              "getMinorPSAppDataEntity" : {
+                "modelref" : true,
+                "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/attendance_group_shift_member.json"
+              },
+              "name" : "用户对象-成员",
+              "getParentPSAppDEField" : {
+                "name" : "USER_ID",
+                "codeName" : "user_id"
+              },
+              "rSMode" : 2
+            } ] ]
+          },
+          "getPSLayoutPos" : {
+            "colLG" : 15,
+            "colMD" : 24,
+            "layout" : "TABLE_24COL"
+          },
+          "getPSNavigateContexts" : [ {
+            "key" : "RULE_ID",
+            "name" : "RULE_ID",
+            "value" : "rule",
+            "rawValue" : false
+          }, {
+            "key" : "ATTENDANCE_GROUP",
+            "name" : "ATTENDANCE_GROUP",
+            "value" : "id",
+            "rawValue" : false
+          } ],
+          "getPSNavigateParams" : [ {
+            "key" : "n_group_id_eq",
+            "name" : "n_group_id_eq",
+            "value" : "id",
+            "rawValue" : false
+          }, {
+            "key" : "attendance_group",
+            "name" : "attendance_group",
+            "value" : "id",
+            "rawValue" : false
+          }, {
+            "key" : "srfaddconditions",
+            "name" : "srfaddconditions",
+            "value" : "true",
+            "rawValue" : true
+          } ],
+          "parentDataJO" : {
+            "SRFPARENTTYPE" : "DER1N",
+            "srfparentdename" : "ATTENDANCE_GROUP_SHIFT",
+            "srfparentmode" : "DER1N_ATTENDANCE_GROUP_SHIFT_MEMBER_ATTENDANCE_GROUP_SHIFT_GROUP_ID",
+            "srfparentdefname" : "GROUP_ID",
+            "SRFDER1NID" : "DER1N_ATTENDANCE_GROUP_SHIFT_MEMBER_ATTENDANCE_GROUP_SHIFT_GROUP_ID"
+          },
+          "needSave" : false,
+          "refreshItemsSetParamOnly" : false,
+          "showCaption" : true
+        } ],
+        "getPSLayout" : {
+          "childColMD" : 24,
+          "columnCount" : 24,
+          "layout" : "TABLE_24COL"
+        },
+        "getPSLayoutPos" : {
+          "colMD" : 24,
+          "layout" : "TABLE_24COL"
+        },
+        "infoGroupMode" : false,
+        "showCaption" : false
+      } ],
+      "getPSLayout" : {
+        "childColMD" : 24,
+        "columnCount" : 24,
+        "layout" : "TABLE_24COL"
+      },
+      "getPSLayoutPos" : {
+        "colMD" : 24,
+        "layout" : "TABLE_24COL"
+      },
+      "infoGroupMode" : false,
+      "showCaption" : false
+    }, {
+      "getCapPSLanguageRes" : {
+        "lanResTag" : "DEF.LNAME.ATTENDANCE_GROUP_SHIFT.ID"
+      },
+      "caption" : "主键",
+      "codeName" : "id",
+      "dataType" : 25,
+      "detailStyle" : "DEFAULT",
+      "detailType" : "FORMITEM",
+      "enableCond" : 3,
+      "ignoreInput" : 0,
+      "labelPos" : "LEFT",
+      "labelWidth" : 130,
+      "name" : "id",
+      "noPrivDisplayMode" : 1,
+      "getPSAppDEField" : {
+        "name" : "ID",
+        "codeName" : "id"
+      },
+      "getPSEditor" : {
+        "editorType" : "HIDDEN",
+        "name" : "id"
+      },
+      "getPSLayoutPos" : {
+        "colMD" : 24,
+        "layout" : "TABLE_24COL"
+      },
+      "allowEmpty" : true,
+      "hidden" : true
+    } ],
+    "getPSLayout" : {
+      "childColMD" : 24,
+      "columnCount" : 24,
+      "layout" : "TABLE_24COL"
+    },
+    "infoGroupMode" : false
+  } ],
+  "getPSLayout" : {
+    "childColMD" : 24,
+    "columnCount" : 24,
+    "layout" : "TABLE_24COL"
+  },
+  "getRemovePSControlAction" : {
+    "modelref" : true,
+    "id" : "remove",
+    "actionName" : "Remove",
+    "actionType" : "DEACTION",
+    "dataAccessAction" : "DELETE",
+    "name" : "remove",
+    "getPSAppDEMethod" : {
+      "modelref" : true,
+      "id" : "remove"
+    },
+    "getPSAppDataEntity" : {
+      "modelref" : true,
+      "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/attendance_group_shift.json"
+    }
+  },
+  "tabHeaderPos" : "TOP",
+  "getUpdatePSControlAction" : {
+    "modelref" : true,
+    "id" : "update",
+    "actionName" : "Update",
+    "actionType" : "DEACTION",
+    "dataAccessAction" : "UPDATE",
+    "name" : "update",
+    "getPSAppDEMethod" : {
+      "modelref" : true,
+      "id" : "update"
+    },
+    "getPSAppDataEntity" : {
+      "modelref" : true,
+      "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/attendance_group_shift.json"
+    }
+  },
+  "noTabHeader" : true,
+  "modelid" : "6af8ec6d6e48d652be62a97d4f764c68",
+  "modeltype" : "PSDEFORM_EDITFORM"
+}

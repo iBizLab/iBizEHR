@@ -1,0 +1,155 @@
+{
+  "getAllPSPanelFields" : [ {
+    "id" : "candidate_display_name",
+    "viewFieldName" : "candidate_display_name"
+  }, {
+    "id" : "job_name",
+    "viewFieldName" : "job_name"
+  } ],
+  "codeName" : "usr0903443670",
+  "controlType" : "PANEL",
+  "dynaModelFilePath" : "PSSYSAPPS/web/PSAPPDATAENTITIES/HR_EXAM/PSPANELS/usr0903443670.json",
+  "layoutMode" : "TABLE_24COL",
+  "logicName" : "List2_列表项面板",
+  "getPSAppDataEntity" : {
+    "modelref" : true,
+    "path" : "PSSYSAPPS/web/PSAPPDATAENTITIES/HR_EXAM.json"
+  },
+  "getPSLayout" : {
+    "childColMD" : 24,
+    "columnCount" : 24,
+    "layout" : "TABLE_24COL"
+  },
+  "getRootPSPanelItems" : [ {
+    "itemStyle" : "DEFAULT",
+    "itemType" : "CONTAINER",
+    "name" : "page_container",
+    "getPSLayout" : {
+      "dir" : "column",
+      "layout" : "FLEX"
+    },
+    "getPSLayoutPos" : {
+      "colMD" : 24,
+      "layout" : "TABLE_24COL"
+    },
+    "getPSPanelItems" : [ {
+      "caption" : "容器",
+      "itemStyle" : "DEFAULT",
+      "itemType" : "CONTAINER",
+      "name" : "container",
+      "getPSLayout" : {
+        "align" : "space-between",
+        "dir" : "row",
+        "layout" : "FLEX",
+        "vAlign" : "center"
+      },
+      "getPSLayoutPos" : {
+        "grow" : -1,
+        "layout" : "FLEX"
+      },
+      "getPSPanelItems" : [ {
+        "caption" : "容器",
+        "itemStyle" : "DEFAULT",
+        "itemType" : "CONTAINER",
+        "name" : "container1",
+        "getPSLayout" : {
+          "layout" : "FLEX"
+        },
+        "getPSLayoutPos" : {
+          "grow" : -1,
+          "layout" : "FLEX"
+        },
+        "getPSPanelItems" : [ {
+          "caption" : "文本(动态)",
+          "itemStyle" : "DEFAULT",
+          "itemType" : "FIELD",
+          "name" : "candidate_display_name",
+          "getPSEditor" : {
+            "editorType" : "SPAN",
+            "name" : "candidate_display_name",
+            "predefinedType" : "FIELD_TEXT_DYNAMIC",
+            "renderMode" : "TEXT_DYNAMIC",
+            "enableLinkView" : false
+          },
+          "getPSLayoutPos" : {
+            "grow" : -1,
+            "layout" : "FLEX"
+          },
+          "viewFieldName" : "candidate_display_name"
+        }, {
+          "caption" : "文本(动态)",
+          "itemStyle" : "DEFAULT",
+          "itemType" : "FIELD",
+          "name" : "job_name",
+          "getPSEditor" : {
+            "editorType" : "SPAN",
+            "name" : "job_name",
+            "predefinedType" : "FIELD_TEXT_DYNAMIC",
+            "renderMode" : "TEXT_DYNAMIC",
+            "enableLinkView" : false
+          },
+          "getPSLayoutPos" : {
+            "grow" : -1,
+            "layout" : "FLEX"
+          },
+          "viewFieldName" : "job_name"
+        } ]
+      }, {
+        "caption" : "容器",
+        "itemStyle" : "DEFAULT",
+        "itemType" : "CONTAINER",
+        "name" : "container2",
+        "getPSLayout" : {
+          "layout" : "FLEX"
+        },
+        "getPSLayoutPos" : {
+          "grow" : -1,
+          "layout" : "FLEX"
+        },
+        "getPSPanelItems" : [ {
+          "actionType" : "UIACTION",
+          "buttonStyle" : "DEFAULT",
+          "caption" : "查看详情",
+          "itemStyle" : "DEFAULT",
+          "itemType" : "BUTTON",
+          "name" : "button_link",
+          "getPSAppViewUIAction" : {
+            "modelref" : true,
+            "id" : "list_itempanel_button_link"
+          },
+          "getPSLayoutPos" : {
+            "grow" : -1,
+            "layout" : "FLEX"
+          },
+          "getPSUIAction" : {
+            "actionTarget" : "SINGLEKEY",
+            "caption" : "添加考试/评测信息",
+            "codeName" : "re_enter",
+            "getFrontPSAppView" : {
+              "modelref" : true,
+              "path" : "PSSYSAPPS/web/PSAPPDEVIEWS/hr_exam_option_view.json",
+              "viewType" : "DEOPTVIEW"
+            },
+            "frontProcessType" : "WIZARD",
+            "fullCodeName" : "HR_EXAM_re_enter",
+            "name" : "添加考试/评测信息",
+            "getPSAppDataEntity" : {
+              "modelref" : true,
+              "path" : "PSSYSAPPS/web/PSAPPDATAENTITIES/HR_EXAM.json"
+            },
+            "uIActionMode" : "FRONT",
+            "uIActionTag" : "re_enter",
+            "uIActionType" : "DEUIACTION",
+            "id" : "re_enter@HR_EXAM"
+          },
+          "renderMode" : "LINK",
+          "tooltip" : "查看详情",
+          "uIActionTarget" : "SINGLEKEY",
+          "showCaption" : true
+        } ]
+      } ]
+    } ]
+  } ],
+  "modelid" : "96776f24b74d90c1b158e3de361da95f",
+  "modeltype" : "PSSYSVIEWPANEL"
+}

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+    <definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:g="http://www.jboss.org/drools/flow/gpd" xmlns:tns="http://www.jboss.org/drools" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" expressionLanguage="http://www.mvel.org/2.0" id="Definition" name="" targetNamespace="http://www.jboss.org/drools" typeLanguage="http://www.java.com/javaTypes">
+        <process id="cn.ibizlab.core.hr.service.logic.hr_employeebefore_create" isClosed="false" isExecutable="true" name="hr_hr_employee_before_create_ruleFlow" processType="Private" tns:packageName="cn.ibizlab.core.hr.service.logic.hr_employeebefore_create">
+            <extensionElements>
+                <tns:import name="java.util.Map" />
+                <tns:import name="org.springframework.util.StringUtils"/>
+                <tns:import name="cn.ibizlab.util.helper.RuleUtils"/>
+                                <tns:metaData express="" name="hr_employeebefore_createdefault" type="entity"/>
+                                <tns:metaData express="new HashMap()" name="hr_employeebefore_createemployees" type="refentity"/>
+                                <tns:metaData express="new HashMap()" name="hr_employeebefore_createfilter" type="refentity"/>
+                                <tns:metaData express="new cn.ibizlab.core.base.domain.res_partner()" name="hr_employeebefore_createpartner" type="refentity"/>
+                                <tns:metaData express="new cn.ibizlab.core.base.domain.res_users()" name="hr_employeebefore_createuser" type="refentity"/>
+                                    <tns:metaData express="T(cn.ibizlab.util.security.SpringContextHolder).getBean(T(cn.ibizlab.core.base.service.Ires_partnerService))" name="res_partnerservice" type="service"/>
+                    <tns:metaData express="T(cn.ibizlab.util.security.SpringContextHolder).getBean(T(cn.ibizlab.core.hr.service.Ihr_employeeService))" name="iBzSysHr_employeeDefaultService" type="service"/>
+                    <tns:metaData express="T(cn.ibizlab.util.security.AuthenticationUser).getAuthenticationUser()" name="curuser" type="session"/>
+                            <tns:global identifier="hr_employeebefore_createdefault" type="cn.ibizlab.core.hr.domain.hr_employee" />
+                            <tns:global identifier="hr_employeebefore_createpartner" type="cn.ibizlab.core.base.domain.res_partner" />
+                            <tns:global identifier="hr_employeebefore_createuser" type="cn.ibizlab.core.base.domain.res_users" />
+            </extensionElements>
+                        <startEvent id="begin" isInterrupting="true"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="hr_employeebefore_createprepareparam_01" id="prepareparam_01" implementation="http://www.jboss.org/drools/rule" name="准备联系人对象"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="hr_employeebefore_createdeaction_01" id="deaction_01" implementation="http://www.jboss.org/drools/rule" name="创建联系人"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="hr_employeebefore_createprepareparam_02" id="prepareparam_02" implementation="http://www.jboss.org/drools/rule" name="回填work_contact_id"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="hr_employeebefore_createend_01" id="end_01" implementation="http://www.jboss.org/drools/rule" name="结束"/>
+                        <endEvent id="end_01_end" name="end"/>
+                        <sequenceFlow id="end_01_end_line" sourceRef="end_01" targetRef="end_01_end"/>
+                    <sequenceFlow id="gateway-begin_prepareparam_01" sourceRef="gateway-begin" targetRef="prepareparam_01">
+                            <conditionExpression  language="http://www.jboss.org/drools/rule" ><![CDATA[
+                                            $hr_employeebefore_createdefault:hr_employee();
+                                            $hr_employeebefore_createemployees:Map();
+                                            $hr_employeebefore_createfilter:Map();
+                                            $hr_employeebefore_createpartner:res_partner();
+                                            $hr_employeebefore_createuser:res_users();
+                                    eval($hr_employeebefore_createdefault==hr_employeebefore_createdefault && $hr_employeebefore_createpartner==hr_employeebefore_createpartner && $hr_employeebefore_createuser==hr_employeebefore_createuser);
+                                eval((RuleUtils.test($hr_employeebefore_createdefault.get("userId"),"ISNULL","")))
+                                ]]>
+                            </conditionExpression>
+                    </sequenceFlow>
+                    <sequenceFlow id="prepareparam_01_deaction_01" sourceRef="prepareparam_01" targetRef="deaction_01">
+                    </sequenceFlow>
+                    <sequenceFlow id="deaction_01_prepareparam_02" sourceRef="deaction_01" targetRef="prepareparam_02">
+                    </sequenceFlow>
+                    <sequenceFlow id="prepareparam_02_end_01" sourceRef="prepareparam_02" targetRef="end_01">
+                    </sequenceFlow>
+                            <exclusiveGateway id="gateway-begin" name="Gateway" gatewayDirection="Diverging" default="gateway-begin_end_line"></exclusiveGateway>
+                            <sequenceFlow id="begin_gateway-begin_gatewayline" sourceRef="begin" targetRef="gateway-begin"></sequenceFlow>
+                            <sequenceFlow id="gateway-begin_end_line" sourceRef="gateway-begin" targetRef="gateway-begin_end"/>
+                            <endEvent id="gateway-begin_end" name="end"/>
+        </process>
+    </definitions>

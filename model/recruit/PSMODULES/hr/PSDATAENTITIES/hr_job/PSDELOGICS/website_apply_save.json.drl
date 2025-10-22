@@ -1,0 +1,67 @@
+package cn.ibizlab.hr.logic.hr_joblogic.website_apply_save;
+        import java.util.Map;
+        import java.util.HashMap;
+        import com.alibaba.fastjson.JSONObject;
+        import org.springframework.util.StringUtils;
+        import org.springframework.util.ObjectUtils;
+        import cn.ibizlab.util.errors.BadRequestAlertException;
+                global cn.ibizlab.core.hr.domain.hr_job hr_jobwebsite_apply_savedefault;
+                global cn.ibizlab.core.hr.domain.hr_applicant hr_jobwebsite_apply_savehr_applicant;
+                    global cn.ibizlab.core.hr.service.Ihr_applicantService hr_applicantservice;
+        global cn.ibizlab.core.hr.service.Ihr_jobService iBzSysHr_jobDefaultService;
+        global cn.ibizlab.util.security.AuthenticationUser curuser;
+
+
+    no-loop
+
+            //逻辑处理节点[开始]
+            rule "begin"
+            ruleflow-group "hr_jobwebsite_apply_savebegin"
+            when
+            then
+            end
+
+            //逻辑处理节点[准备参数]
+            rule "prepareparam1"
+            ruleflow-group "hr_jobwebsite_apply_saveprepareparam1"
+            when
+            then
+                            hr_jobwebsite_apply_savehr_applicant.set("candidatedisplayname",hr_jobwebsite_apply_savedefault.get("apply_name"));
+                            hr_jobwebsite_apply_savehr_applicant.set("mobilephone",hr_jobwebsite_apply_savedefault.get("apply_phone"));
+                            hr_jobwebsite_apply_savehr_applicant.set("emailfrom",hr_jobwebsite_apply_savedefault.get("apply_emil"));
+                            hr_jobwebsite_apply_savehr_applicant.set("birthday",hr_jobwebsite_apply_savedefault.get("apply_birthday"));
+                            hr_jobwebsite_apply_savehr_applicant.set("gender",hr_jobwebsite_apply_savedefault.get("apply_sex"));
+                            hr_jobwebsite_apply_savehr_applicant.set("address",hr_jobwebsite_apply_savedefault.get("apply_address"));
+                            hr_jobwebsite_apply_savehr_applicant.set("jobname",hr_jobwebsite_apply_savedefault.get("apply_job_name"));
+                            hr_jobwebsite_apply_savehr_applicant.set("salaryexpected",hr_jobwebsite_apply_savedefault.get("apply_salary_expected"));
+                            hr_jobwebsite_apply_savehr_applicant.set("lasteduschool",hr_jobwebsite_apply_savedefault.get("apply_last_edu_school"));
+                            hr_jobwebsite_apply_savehr_applicant.set("lastedudate",hr_jobwebsite_apply_savedefault.get("apply_last_exp_date"));
+                            hr_jobwebsite_apply_savehr_applicant.set("lasteduspeciality",hr_jobwebsite_apply_savedefault.get("apply_last_edu_speciality"));
+                            hr_jobwebsite_apply_savehr_applicant.set("lasteduacademicdegree",hr_jobwebsite_apply_savedefault.get("apply_last_edu_academic_degree"));
+                            hr_jobwebsite_apply_savehr_applicant.set("lastexpcompany",hr_jobwebsite_apply_savedefault.get("apply_last_exp_company"));
+                            hr_jobwebsite_apply_savehr_applicant.set("lastexpjob",hr_jobwebsite_apply_savedefault.get("apply_last_exp_job"));
+                            hr_jobwebsite_apply_savehr_applicant.set("lastexpdate",hr_jobwebsite_apply_savedefault.get("apply_last_exp_date"));
+                            hr_jobwebsite_apply_savehr_applicant.set("experience",hr_jobwebsite_apply_savedefault.get("apply_experience"));
+                            hr_jobwebsite_apply_savehr_applicant.set("image",hr_jobwebsite_apply_savedefault.get("image"));
+                        update(hr_jobwebsite_apply_savedefault);//更新fact中变量值
+                        update(hr_jobwebsite_apply_savehr_applicant);//更新fact中变量值
+            end
+
+            //逻辑处理节点[实体行为]
+            rule "deaction1"
+            ruleflow-group "hr_jobwebsite_apply_savedeaction1"
+            when
+            then
+                        hr_applicantservice.create(hr_jobwebsite_apply_savehr_applicant);
+                        update(hr_jobwebsite_apply_savedefault);//更新fact中变量值
+                        update(hr_jobwebsite_apply_savehr_applicant);//更新fact中变量值
+            end
+
+            //逻辑处理节点[结束]
+            rule "end1"
+            ruleflow-group "hr_jobwebsite_apply_saveend1"
+            when
+            then
+                        update(hr_jobwebsite_apply_savedefault);//更新fact中变量值
+                        update(hr_jobwebsite_apply_savehr_applicant);//更新fact中变量值
+            end

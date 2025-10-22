@@ -1,0 +1,725 @@
+{
+  "codeName" : "create_interview_info",
+  "defaultParamName" : "Default",
+  "dynaModelFilePath" : "PSMODULES/hr/PSDATAENTITIES/hr_interview/PSDELOGICS/create_interview_info.json",
+  "logicName" : "创建面试详情(参与者、待反馈）",
+  "name" : "创建面试详情(参与者、待反馈）",
+  "getPSDELogicNodes" : [ {
+    "codeName" : "Begin",
+    "leftPos" : 270,
+    "logicNodeType" : "BEGIN",
+    "name" : "开始",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "DEBUGPARAM1"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "Begin"
+      }
+    } ],
+    "topPos" : 90,
+    "parallelOutput" : true
+  }, {
+    "codeName" : "DEBUGPARAM1",
+    "getDstPSDELogicParam" : {
+      "modelref" : true,
+      "id" : "Default"
+    },
+    "leftPos" : 230,
+    "logicNodeType" : "DEBUGPARAM",
+    "name" : "调试逻辑参数",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "PREPAREPARAM3"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "DEBUGPARAM1"
+      }
+    } ],
+    "topPos" : 213
+  }, {
+    "codeName" : "DEBUGPARAM2",
+    "getDstPSDELogicParam" : {
+      "modelref" : true,
+      "id" : "hr_applicant"
+    },
+    "leftPos" : 440,
+    "logicNodeType" : "DEBUGPARAM",
+    "name" : "调试逻辑参数",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "DEACTION4"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "DEBUGPARAM2"
+      }
+    } ],
+    "topPos" : 213
+  }, {
+    "codeName" : "PREPAREPARAM3",
+    "leftPos" : 230,
+    "logicNodeType" : "PREPAREPARAM",
+    "name" : "准备参数",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "DEBUGPARAM2"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "PREPAREPARAM3"
+      }
+    } ],
+    "getPSDELogicNodeParams" : [ {
+      "dstFieldName" : "ID",
+      "getDstPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "hr_applicant"
+      },
+      "name" : "session_entity[applicant_ids] ==> hr_applicant[ID]",
+      "paramAction" : "SETPARAMVALUE",
+      "srcFieldName" : "applicant_ids",
+      "getSrcPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "session_entity"
+      },
+      "srcValueType" : "SRCDLPARAM"
+    } ],
+    "topPos" : 310
+  }, {
+    "codeName" : "DEACTION4",
+    "getDstPSDEAction" : {
+      "modelref" : true,
+      "path" : "PSMODULES/hr/PSDATAENTITIES/hr_applicant/PSDEACTIONS/Get.json"
+    },
+    "getDstPSDELogicParam" : {
+      "modelref" : true,
+      "id" : "hr_applicant"
+    },
+    "getDstPSDataEntity" : {
+      "modelref" : true,
+      "path" : "PSMODULES/hr/PSDATAENTITIES/hr_applicant.json"
+    },
+    "leftPos" : 440,
+    "logicNodeType" : "DEACTION",
+    "name" : "获取候选人申请",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "PREPAREPARAM1"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "DEACTION4"
+      }
+    } ],
+    "getRetPSDELogicParam" : {
+      "modelref" : true,
+      "id" : "hr_applicant"
+    },
+    "topPos" : 310
+  }, {
+    "codeName" : "PREPAREPARAM1",
+    "leftPos" : 230,
+    "logicNodeType" : "PREPAREPARAM",
+    "name" : "准备申请面试关系",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "DEACTION1"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "PREPAREPARAM1"
+      }
+    } ],
+    "getPSDELogicNodeParams" : [ {
+      "dstFieldName" : "APPLICANT_ID",
+      "getDstPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "applicant_interview"
+      },
+      "name" : "hr_applicant[ID] ==> applicant_interview[APPLICANT_ID]",
+      "paramAction" : "SETPARAMVALUE",
+      "srcFieldName" : "ID",
+      "getSrcPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "hr_applicant"
+      },
+      "srcValueType" : "SRCDLPARAM"
+    }, {
+      "dstFieldName" : "INTERVIEW_ID",
+      "getDstPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "applicant_interview"
+      },
+      "name" : "Default[ID] ==> applicant_interview[INTERVIEW_ID]",
+      "paramAction" : "SETPARAMVALUE",
+      "srcFieldName" : "ID",
+      "getSrcPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "Default"
+      },
+      "srcValueType" : "SRCDLPARAM"
+    } ],
+    "topPos" : 430
+  }, {
+    "codeName" : "DEACTION1",
+    "getDstPSDEAction" : {
+      "modelref" : true,
+      "path" : "PSMODULES/hr/PSDATAENTITIES/hr_applicant_interview/PSDEACTIONS/Create.json"
+    },
+    "getDstPSDELogicParam" : {
+      "modelref" : true,
+      "id" : "applicant_interview"
+    },
+    "getDstPSDataEntity" : {
+      "modelref" : true,
+      "path" : "PSMODULES/hr/PSDATAENTITIES/hr_applicant_interview.json"
+    },
+    "leftPos" : 430,
+    "logicNodeType" : "DEACTION",
+    "name" : "保存申请面试关系",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "PREPAREPARAM2"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "DEACTION1"
+      }
+    } ],
+    "topPos" : 430
+  }, {
+    "codeName" : "PREPAREPARAM2",
+    "leftPos" : 230,
+    "logicNodeType" : "PREPAREPARAM",
+    "name" : "设置候选人",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "DEACTION3"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "PREPAREPARAM2"
+      }
+    } ],
+    "getPSDELogicNodeParams" : [ {
+      "dstFieldName" : "USER_ID",
+      "getDstPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "interview_user2"
+      },
+      "name" : "hr_applicant[CANDIDATE_ID] ==> interview_user2[USER_ID]",
+      "paramAction" : "SETPARAMVALUE",
+      "srcFieldName" : "CANDIDATE_ID",
+      "getSrcPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "hr_applicant"
+      },
+      "srcValueType" : "SRCDLPARAM"
+    }, {
+      "dstFieldName" : "INTERVIEW_ID",
+      "getDstPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "interview_user2"
+      },
+      "name" : "Default[ID] ==> interview_user2[INTERVIEW_ID]",
+      "paramAction" : "SETPARAMVALUE",
+      "srcFieldName" : "ID",
+      "getSrcPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "Default"
+      },
+      "srcValueType" : "SRCDLPARAM"
+    }, {
+      "dstFieldName" : "APPLICANT_ID",
+      "getDstPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "interview_user2"
+      },
+      "name" : "hr_applicant[ID] ==> interview_user2[APPLICANT_ID]",
+      "paramAction" : "SETPARAMVALUE",
+      "srcFieldName" : "ID",
+      "getSrcPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "hr_applicant"
+      },
+      "srcValueType" : "SRCDLPARAM"
+    }, {
+      "dstFieldName" : "USER_TYPE",
+      "getDstPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "interview_user2"
+      },
+      "name" : "直接值[2] ==> interview_user2[USER_TYPE]",
+      "paramAction" : "SETPARAMVALUE",
+      "srcValue" : "2",
+      "srcValueType" : "SRCVALUE"
+    }, {
+      "dstFieldName" : "VIDEO_URL",
+      "getDstPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "interview_user2"
+      },
+      "name" : "直接值[https://meeting.tenc...] ==> interview_user2[VIDEO_URL]",
+      "paramAction" : "SETPARAMVALUE",
+      "srcValue" : "https://meeting.tencent.com/dm/o8WT7tIry9tb",
+      "srcValueType" : "SRCVALUE"
+    }, {
+      "dstFieldName" : "USER_NAME",
+      "getDstPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "interview_user2"
+      },
+      "name" : "hr_applicant[CANDIDATE_NAME] ==> interview_user2[USER_NAME]",
+      "paramAction" : "SETPARAMVALUE",
+      "srcFieldName" : "CANDIDATE_NAME",
+      "getSrcPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "hr_applicant"
+      },
+      "srcValueType" : "SRCDLPARAM"
+    } ],
+    "topPos" : 570
+  }, {
+    "codeName" : "DEACTION3",
+    "getDstPSDEAction" : {
+      "modelref" : true,
+      "path" : "PSMODULES/hr/PSDATAENTITIES/hr_interview_user/PSDEACTIONS/Create.json"
+    },
+    "getDstPSDELogicParam" : {
+      "modelref" : true,
+      "id" : "interview_user2"
+    },
+    "getDstPSDataEntity" : {
+      "modelref" : true,
+      "path" : "PSMODULES/hr/PSDATAENTITIES/hr_interview_user.json"
+    },
+    "leftPos" : 430,
+    "logicNodeType" : "DEACTION",
+    "name" : "保存候选人",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "BINDPARAM1"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "DEACTION3"
+      }
+    } ],
+    "topPos" : 570
+  }, {
+    "codeName" : "BINDPARAM1",
+    "getDstPSDELogicParam" : {
+      "modelref" : true,
+      "id" : "interview_user_list"
+    },
+    "leftPos" : 230,
+    "logicNodeType" : "BINDPARAM",
+    "name" : "绑定参数",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "LOOPSUBCALL1"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "BINDPARAM1"
+      }
+    } ],
+    "srcFieldName" : "INTERVIEWERS",
+    "getSrcPSDELogicParam" : {
+      "modelref" : true,
+      "id" : "Default"
+    },
+    "topPos" : 700
+  }, {
+    "codeName" : "LOOPSUBCALL1",
+    "getDstPSDELogicParam" : {
+      "modelref" : true,
+      "id" : "interview_user"
+    },
+    "leftPos" : 430,
+    "logicNodeType" : "LOOPSUBCALL",
+    "name" : "循环子调用",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "PREPAREPARAM4"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "LOOPSUBCALL1"
+      },
+      "subCallLink" : true
+    } ],
+    "getSrcPSDELogicParam" : {
+      "modelref" : true,
+      "id" : "interview_user_list"
+    },
+    "topPos" : 700
+  }, {
+    "codeName" : "PREPAREPARAM4",
+    "leftPos" : 634,
+    "logicNodeType" : "PREPAREPARAM",
+    "name" : "准备面试官",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "DEACTION2"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "PREPAREPARAM4"
+      }
+    } ],
+    "getPSDELogicNodeParams" : [ {
+      "dstFieldName" : "VIDEO_URL",
+      "getDstPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "interview_user3"
+      },
+      "name" : "直接值[https://meeting.tenc...] ==> interview_user3[VIDEO_URL]",
+      "paramAction" : "SETPARAMVALUE",
+      "srcValue" : "https://meeting.tencent.com/dm/o8WT7tIry9tb",
+      "srcValueType" : "SRCVALUE"
+    }, {
+      "dstFieldName" : "INTERVIEW_ID",
+      "getDstPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "interview_user3"
+      },
+      "name" : "Default[ID] ==> interview_user3[INTERVIEW_ID]",
+      "paramAction" : "SETPARAMVALUE",
+      "srcFieldName" : "ID",
+      "getSrcPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "Default"
+      },
+      "srcValueType" : "SRCDLPARAM"
+    }, {
+      "dstFieldName" : "USER_TYPE",
+      "getDstPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "interview_user3"
+      },
+      "name" : "直接值[1] ==> interview_user3[USER_TYPE]",
+      "paramAction" : "SETPARAMVALUE",
+      "srcValue" : "1",
+      "srcValueType" : "SRCVALUE"
+    }, {
+      "dstFieldName" : "USER_ID",
+      "getDstPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "interview_user3"
+      },
+      "name" : "interview_user[ID] ==> interview_user3[USER_ID]",
+      "paramAction" : "SETPARAMVALUE",
+      "srcFieldName" : "ID",
+      "getSrcPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "interview_user"
+      },
+      "srcValueType" : "SRCDLPARAM"
+    }, {
+      "dstFieldName" : "USER_NAME",
+      "getDstPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "interview_user3"
+      },
+      "name" : "interview_user[NAME] ==> interview_user3[USER_NAME]",
+      "paramAction" : "SETPARAMVALUE",
+      "srcFieldName" : "NAME",
+      "getSrcPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "interview_user"
+      },
+      "srcValueType" : "SRCDLPARAM"
+    } ],
+    "topPos" : 700
+  }, {
+    "codeName" : "DEACTION2",
+    "getDstPSDEAction" : {
+      "modelref" : true,
+      "path" : "PSMODULES/hr/PSDATAENTITIES/hr_interview_user/PSDEACTIONS/Create.json"
+    },
+    "getDstPSDELogicParam" : {
+      "modelref" : true,
+      "id" : "interview_user3"
+    },
+    "getDstPSDataEntity" : {
+      "modelref" : true,
+      "path" : "PSMODULES/hr/PSDATAENTITIES/hr_interview_user.json"
+    },
+    "leftPos" : 840,
+    "logicNodeType" : "DEACTION",
+    "name" : "保存面试官",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "PREPAREPARAM5"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "DEACTION2"
+      }
+    } ],
+    "topPos" : 700
+  }, {
+    "codeName" : "PREPAREPARAM5",
+    "leftPos" : 634,
+    "logicNodeType" : "PREPAREPARAM",
+    "name" : "准备面试反馈",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "DEACTION5"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "PREPAREPARAM5"
+      }
+    } ],
+    "getPSDELogicNodeParams" : [ {
+      "dstFieldName" : "INTERVIEWER_ID",
+      "getDstPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "interview_feedback"
+      },
+      "name" : "interview_user3[USER_ID] ==> interview_feedback[INTERVIEWER_ID]",
+      "paramAction" : "SETPARAMVALUE",
+      "srcFieldName" : "USER_ID",
+      "getSrcPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "interview_user3"
+      },
+      "srcValueType" : "SRCDLPARAM"
+    }, {
+      "dstFieldName" : "APPLICANT_INTERVIEW_ID",
+      "getDstPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "interview_feedback"
+      },
+      "name" : "applicant_interview[ID] ==> interview_feedback[APPLICANT_INTERVIEW_ID]",
+      "paramAction" : "SETPARAMVALUE",
+      "srcFieldName" : "ID",
+      "getSrcPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "applicant_interview"
+      },
+      "srcValueType" : "SRCDLPARAM"
+    }, {
+      "dstFieldName" : "APPLICANT_ID",
+      "getDstPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "interview_feedback"
+      },
+      "name" : "hr_applicant[ID] ==> interview_feedback[APPLICANT_ID]",
+      "paramAction" : "SETPARAMVALUE",
+      "srcFieldName" : "ID",
+      "getSrcPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "hr_applicant"
+      },
+      "srcValueType" : "SRCDLPARAM"
+    }, {
+      "dstFieldName" : "INTERVIEW_ID",
+      "getDstPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "interview_feedback"
+      },
+      "name" : "Default[ID] ==> interview_feedback[INTERVIEW_ID]",
+      "paramAction" : "SETPARAMVALUE",
+      "srcFieldName" : "ID",
+      "getSrcPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "Default"
+      },
+      "srcValueType" : "SRCDLPARAM"
+    }, {
+      "dstFieldName" : "INTERVIEW_USER_ID",
+      "getDstPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "interview_feedback"
+      },
+      "name" : "interview_user3[ID] ==> interview_feedback[INTERVIEW_USER_ID]",
+      "paramAction" : "SETPARAMVALUE",
+      "srcFieldName" : "ID",
+      "getSrcPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "interview_user3"
+      },
+      "srcValueType" : "SRCDLPARAM"
+    } ],
+    "topPos" : 815
+  }, {
+    "codeName" : "DEACTION5",
+    "getDstPSDEAction" : {
+      "modelref" : true,
+      "path" : "PSMODULES/hr/PSDATAENTITIES/hr_interview_feedback/PSDEACTIONS/Create.json"
+    },
+    "getDstPSDELogicParam" : {
+      "modelref" : true,
+      "id" : "interview_feedback"
+    },
+    "getDstPSDataEntity" : {
+      "modelref" : true,
+      "path" : "PSMODULES/hr/PSDATAENTITIES/hr_interview_feedback.json"
+    },
+    "leftPos" : 840,
+    "logicNodeType" : "DEACTION",
+    "name" : "创建面试反馈",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "RENEWPARAM1"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "DEACTION5"
+      }
+    } ],
+    "topPos" : 815
+  }, {
+    "codeName" : "RENEWPARAM1",
+    "getDstPSDELogicParam" : {
+      "modelref" : true,
+      "id" : "interview_user3"
+    },
+    "leftPos" : 1028,
+    "logicNodeType" : "RENEWPARAM",
+    "name" : "重新建立参数",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "RENEWPARAM2"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "RENEWPARAM1"
+      }
+    } ],
+    "topPos" : 815
+  }, {
+    "codeName" : "RENEWPARAM2",
+    "getDstPSDELogicParam" : {
+      "modelref" : true,
+      "id" : "interview_feedback"
+    },
+    "leftPos" : 1210,
+    "logicNodeType" : "RENEWPARAM",
+    "name" : "重新建立参数",
+    "topPos" : 815
+  } ],
+  "getPSDELogicParams" : [ {
+    "codeName" : "Default",
+    "logicName" : "传入变量",
+    "name" : "传入变量",
+    "getParamPSDataEntity" : {
+      "modelref" : true,
+      "path" : "PSMODULES/hr/PSDATAENTITIES/hr_interview.json"
+    },
+    "default" : true,
+    "entityParam" : true
+  }, {
+    "codeName" : "applicant_interview",
+    "logicName" : "applicant_interview",
+    "name" : "applicant_interview",
+    "getParamPSDataEntity" : {
+      "modelref" : true,
+      "path" : "PSMODULES/hr/PSDATAENTITIES/hr_applicant_interview.json"
+    },
+    "entityParam" : true
+  }, {
+    "codeName" : "hr_applicant",
+    "logicName" : "hr_applicant",
+    "name" : "hr_applicant",
+    "getParamPSDataEntity" : {
+      "modelref" : true,
+      "path" : "PSMODULES/hr/PSDATAENTITIES/hr_applicant.json"
+    },
+    "entityParam" : true
+  }, {
+    "codeName" : "interview_feedback",
+    "logicName" : "interview_feedback",
+    "name" : "interview_feedback",
+    "getParamPSDataEntity" : {
+      "modelref" : true,
+      "path" : "PSMODULES/hr/PSDATAENTITIES/hr_interview_feedback.json"
+    },
+    "entityParam" : true
+  }, {
+    "codeName" : "interview_user",
+    "logicName" : "interview_user",
+    "name" : "interview_user",
+    "getParamPSDataEntity" : {
+      "modelref" : true,
+      "path" : "PSMODULES/hr/PSDATAENTITIES/hr_interview_user.json"
+    },
+    "entityParam" : true
+  }, {
+    "codeName" : "interview_user2",
+    "logicName" : "interview_user2",
+    "name" : "interview_user2",
+    "getParamPSDataEntity" : {
+      "modelref" : true,
+      "path" : "PSMODULES/hr/PSDATAENTITIES/hr_interview_user.json"
+    },
+    "entityParam" : true
+  }, {
+    "codeName" : "interview_user3",
+    "logicName" : "interview_user3",
+    "name" : "interview_user3",
+    "getParamPSDataEntity" : {
+      "modelref" : true,
+      "path" : "PSMODULES/hr/PSDATAENTITIES/hr_interview_user.json"
+    },
+    "entityParam" : true
+  }, {
+    "codeName" : "interview_user_list",
+    "logicName" : "interview_user_list",
+    "name" : "interview_user_list",
+    "getParamPSDataEntity" : {
+      "modelref" : true,
+      "path" : "PSMODULES/hr/PSDATAENTITIES/hr_interview_user.json"
+    },
+    "entityListParam" : true
+  }, {
+    "codeName" : "session_entity",
+    "logicName" : "session_entity",
+    "name" : "session_entity",
+    "sessionParam" : true
+  } ],
+  "getStartPSDELogicNode" : {
+    "modelref" : true,
+    "id" : "Begin"
+  },
+  "enableBackend" : true,
+  "enableFront" : false
+}

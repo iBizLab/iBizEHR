@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+    <definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:g="http://www.jboss.org/drools/flow/gpd" xmlns:tns="http://www.jboss.org/drools" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" expressionLanguage="http://www.mvel.org/2.0" id="Definition" name="" targetNamespace="http://www.jboss.org/drools" typeLanguage="http://www.java.com/javaTypes">
+        <process id="cn.ibizlab.core.attendance.service.logic.attendance_scheduleclearmanualschedule" isClosed="false" isExecutable="true" name="attendance_attendance_schedule_clearmanualschedule_ruleFlow" processType="Private" tns:packageName="cn.ibizlab.core.attendance.service.logic.attendance_scheduleclearmanualschedule">
+            <extensionElements>
+                <tns:import name="java.util.Map" />
+                <tns:import name="org.springframework.util.StringUtils"/>
+                <tns:import name="cn.ibizlab.util.helper.RuleUtils"/>
+                                <tns:metaData express="" name="attendance_scheduleclearmanualscheduledefault" type="entity"/>
+                                <tns:metaData express="new cn.ibizlab.core.attendance.domain.attendance_activate_shift()" name="attendance_scheduleclearmanualscheduleactiveshifts" type="refentity"/>
+                                <tns:metaData express="new cn.ibizlab.core.attendance.domain.attendance_group_shift()" name="attendance_scheduleclearmanualscheduleattendance_group_shifts" type="refentity"/>
+                                <tns:metaData express="new cn.ibizlab.core.attendance.domain.attendance_schedule()" name="attendance_scheduleclearmanualschedulemanualschedules" type="refentity"/>
+                                <tns:metaData express="new cn.ibizlab.core.attendance.domain.attendance_rule()" name="attendance_scheduleclearmanualschedulerule" type="refentity"/>
+                                <tns:metaData express="new cn.ibizlab.core.attendance.domain.attendance_scope()" name="attendance_scheduleclearmanualschedulescopes" type="refentity"/>
+                                <tns:metaData express="new cn.ibizlab.core.attendance.domain.attendance_activate_shift()" name="attendance_scheduleclearmanualscheduleshiftfilter" type="refentity"/>
+                                <tns:metaData express="new cn.ibizlab.core.attendance.domain.attendance_shift()" name="attendance_scheduleclearmanualscheduleshifts" type="refentity"/>
+                                <tns:metaData express="new cn.ibizlab.core.attendance.domain.attendance_schedule()" name="attendance_scheduleclearmanualscheduletemp" type="refentity"/>
+                                <tns:metaData express="new cn.ibizlab.core.attendance.domain.attendance_rule()" name="attendance_scheduleclearmanualscheduletemprule" type="refentity"/>
+                                <tns:metaData express="new cn.ibizlab.core.attendance.domain.attendance_workday()" name="attendance_scheduleclearmanualscheduleworkdays" type="refentity"/>
+                                    <tns:metaData express="T(cn.ibizlab.util.security.SpringContextHolder).getBean(T(cn.ibizlab.core.attendance.service.Iattendance_activate_shiftService))" name="attendance_activate_shiftservice" type="service"/>
+                                    <tns:metaData express="T(cn.ibizlab.util.security.SpringContextHolder).getBean(T(cn.ibizlab.core.attendance.service.Iattendance_ruleService))" name="attendance_ruleservice" type="service"/>
+                                    <tns:metaData express="T(cn.ibizlab.util.security.SpringContextHolder).getBean(T(cn.ibizlab.core.attendance.service.Iattendance_scheduleService))" name="attendance_scheduleservice" type="service"/>
+                    <tns:metaData express="T(cn.ibizlab.util.security.SpringContextHolder).getBean(T(cn.ibizlab.core.attendance.service.Iattendance_scheduleService))" name="iBzSysAttendance_scheduleDefaultService" type="service"/>
+                    <tns:metaData express="T(cn.ibizlab.util.security.AuthenticationUser).getAuthenticationUser()" name="curuser" type="session"/>
+                            <tns:global identifier="attendance_scheduleclearmanualscheduledefault" type="cn.ibizlab.core.attendance.domain.attendance_schedule" />
+                            <tns:global identifier="attendance_scheduleclearmanualscheduleactiveshifts" type="cn.ibizlab.core.attendance.domain.attendance_activate_shift" />
+                            <tns:global identifier="attendance_scheduleclearmanualscheduleattendance_group_shifts" type="cn.ibizlab.core.attendance.domain.attendance_group_shift" />
+                            <tns:global identifier="attendance_scheduleclearmanualschedulemanualschedules" type="cn.ibizlab.core.attendance.domain.attendance_schedule" />
+                            <tns:global identifier="attendance_scheduleclearmanualschedulerule" type="cn.ibizlab.core.attendance.domain.attendance_rule" />
+                            <tns:global identifier="attendance_scheduleclearmanualschedulescopes" type="cn.ibizlab.core.attendance.domain.attendance_scope" />
+                            <tns:global identifier="attendance_scheduleclearmanualscheduleshiftfilter" type="cn.ibizlab.core.attendance.domain.attendance_activate_shift" />
+                            <tns:global identifier="attendance_scheduleclearmanualscheduleshifts" type="cn.ibizlab.core.attendance.domain.attendance_shift" />
+                            <tns:global identifier="attendance_scheduleclearmanualscheduletemp" type="cn.ibizlab.core.attendance.domain.attendance_schedule" />
+                            <tns:global identifier="attendance_scheduleclearmanualscheduletemprule" type="cn.ibizlab.core.attendance.domain.attendance_rule" />
+                            <tns:global identifier="attendance_scheduleclearmanualscheduleworkdays" type="cn.ibizlab.core.attendance.domain.attendance_workday" />
+            </extensionElements>
+                        <startEvent id="begin" isInterrupting="true"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="attendance_scheduleclearmanualschedulerawsqlcall_01" id="rawsqlcall_01" implementation="http://www.jboss.org/drools/rule" name="查询手动排班"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="attendance_scheduleclearmanualscheduledebugparam_01" id="debugparam_01" implementation="http://www.jboss.org/drools/rule" name="调试逻辑参数"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="attendance_scheduleclearmanualschedulerawsqlcall_02" id="rawsqlcall_02" implementation="http://www.jboss.org/drools/rule" name="查询手动排班"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="attendance_scheduleclearmanualscheduleloopsubcall_01" id="loopsubcall_01" implementation="http://www.jboss.org/drools/rule" name="循环子调用"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="attendance_scheduleclearmanualscheduleend_01" id="end_01" implementation="http://www.jboss.org/drools/rule" name="结束"/>
+                        <endEvent id="end_01_end" name="end"/>
+                        <sequenceFlow id="end_01_end_line" sourceRef="end_01" targetRef="end_01_end"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="attendance_scheduleclearmanualscheduleloopsubcall_02" id="loopsubcall_02" implementation="http://www.jboss.org/drools/rule" name="循环子调用"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="attendance_scheduleclearmanualscheduleprepareparam_01" id="prepareparam_01" implementation="http://www.jboss.org/drools/rule" name="准备参数"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="attendance_scheduleclearmanualschedulerawsfcode_03" id="rawsfcode_03" implementation="http://www.jboss.org/drools/rule" name="执行脚本代码"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="attendance_scheduleclearmanualschedulededataset_01" id="dedataset_01" implementation="http://www.jboss.org/drools/rule" name="获取当前规则激活班次"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="attendance_scheduleclearmanualschedulerawsfcode_01" id="rawsfcode_01" implementation="http://www.jboss.org/drools/rule" name="计算构造新排班"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="attendance_scheduleclearmanualscheduledebugparam_04" id="debugparam_04" implementation="http://www.jboss.org/drools/rule" name="输出拷贝后的rule"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="attendance_scheduleclearmanualschedulerawsfcode_02" id="rawsfcode_02" implementation="http://www.jboss.org/drools/rule" name="上A休B构造新排班"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="attendance_scheduleclearmanualscheduleprepareparam_02" id="prepareparam_02" implementation="http://www.jboss.org/drools/rule" name="手动排班置空"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="attendance_scheduleclearmanualscheduledelogic_01" id="delogic_01" implementation="http://www.jboss.org/drools/rule" name="实体处理逻辑"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="attendance_scheduleclearmanualscheduleprepareparam3" id="prepareparam3" implementation="http://www.jboss.org/drools/rule" name="准备参数"/>
+                        <endEvent id="prepareparam3_end" name="end"/>
+                        <sequenceFlow id="prepareparam3_end_line" sourceRef="prepareparam3" targetRef="prepareparam3_end"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="attendance_scheduleclearmanualscheduledeaction_01" id="deaction_01" implementation="http://www.jboss.org/drools/rule" name="更新排班"/>
+                        <endEvent id="deaction_01_end" name="end"/>
+                        <sequenceFlow id="deaction_01_end_line" sourceRef="deaction_01" targetRef="deaction_01_end"/>
+                    <sequenceFlow id="begin_rawsqlcall_02" sourceRef="begin" targetRef="rawsqlcall_02">
+                    </sequenceFlow>
+                    <sequenceFlow id="rawsqlcall_01_debugparam_01" sourceRef="rawsqlcall_01" targetRef="debugparam_01">
+                    </sequenceFlow>
+                    <sequenceFlow id="debugparam_01_loopsubcall_01" sourceRef="debugparam_01" targetRef="loopsubcall_01">
+                    </sequenceFlow>
+                    <sequenceFlow id="rawsqlcall_02_loopsubcall_02" sourceRef="rawsqlcall_02" targetRef="loopsubcall_02">
+                    </sequenceFlow>
+                    <sequenceFlow id="loopsubcall_01_prepareparam_01" sourceRef="loopsubcall_01" targetRef="prepareparam_01">
+                    </sequenceFlow>
+                    <sequenceFlow id="loopsubcall_01_end_01" sourceRef="loopsubcall_01" targetRef="end_01">
+                    </sequenceFlow>
+                    <sequenceFlow id="loopsubcall_02_rawsfcode_03" sourceRef="loopsubcall_02" targetRef="rawsfcode_03">
+                    </sequenceFlow>
+                    <sequenceFlow id="prepareparam_01_dedataset_01" sourceRef="prepareparam_01" targetRef="dedataset_01">
+                    </sequenceFlow>
+                    <sequenceFlow id="rawsfcode_03_debugparam_04" sourceRef="rawsfcode_03" targetRef="debugparam_04">
+                    </sequenceFlow>
+                    <sequenceFlow id="gateway-dedataset_01_prepareparam_02" sourceRef="gateway-dedataset_01" targetRef="prepareparam_02">
+                            <conditionExpression  language="http://www.jboss.org/drools/rule" ><![CDATA[
+                                            $attendance_scheduleclearmanualscheduledefault:attendance_schedule();
+                                            $attendance_scheduleclearmanualscheduleactiveshifts:attendance_activate_shift();
+                                            $attendance_scheduleclearmanualscheduleattendance_group_shifts:attendance_group_shift();
+                                            $attendance_scheduleclearmanualschedulemanualschedules:attendance_schedule();
+                                            $attendance_scheduleclearmanualschedulerule:attendance_rule();
+                                            $attendance_scheduleclearmanualschedulescopes:attendance_scope();
+                                            $attendance_scheduleclearmanualscheduleshiftfilter:attendance_activate_shift();
+                                            $attendance_scheduleclearmanualscheduleshifts:attendance_shift();
+                                            $attendance_scheduleclearmanualscheduletemp:attendance_schedule();
+                                            $attendance_scheduleclearmanualscheduletemprule:attendance_rule();
+                                            $attendance_scheduleclearmanualscheduleworkdays:attendance_workday();
+                                    eval($attendance_scheduleclearmanualscheduledefault==attendance_scheduleclearmanualscheduledefault && $attendance_scheduleclearmanualscheduleactiveshifts==attendance_scheduleclearmanualscheduleactiveshifts && $attendance_scheduleclearmanualscheduleattendance_group_shifts==attendance_scheduleclearmanualscheduleattendance_group_shifts && $attendance_scheduleclearmanualschedulemanualschedules==attendance_scheduleclearmanualschedulemanualschedules && $attendance_scheduleclearmanualschedulerule==attendance_scheduleclearmanualschedulerule && $attendance_scheduleclearmanualschedulescopes==attendance_scheduleclearmanualschedulescopes && $attendance_scheduleclearmanualscheduleshiftfilter==attendance_scheduleclearmanualscheduleshiftfilter && $attendance_scheduleclearmanualscheduleshifts==attendance_scheduleclearmanualscheduleshifts && $attendance_scheduleclearmanualscheduletemp==attendance_scheduleclearmanualscheduletemp && $attendance_scheduleclearmanualscheduletemprule==attendance_scheduleclearmanualscheduletemprule && $attendance_scheduleclearmanualscheduleworkdays==attendance_scheduleclearmanualscheduleworkdays);
+                                eval((RuleUtils.test($attendance_scheduleclearmanualscheduletemp.get("scheduleType"),"EQ","manual")))
+                                ]]>
+                            </conditionExpression>
+                    </sequenceFlow>
+                    <sequenceFlow id="gateway-dedataset_01_rawsfcode_01" sourceRef="gateway-dedataset_01" targetRef="rawsfcode_01">
+                            <conditionExpression  language="http://www.jboss.org/drools/rule" ><![CDATA[
+                                            $attendance_scheduleclearmanualscheduledefault:attendance_schedule();
+                                            $attendance_scheduleclearmanualscheduleactiveshifts:attendance_activate_shift();
+                                            $attendance_scheduleclearmanualscheduleattendance_group_shifts:attendance_group_shift();
+                                            $attendance_scheduleclearmanualschedulemanualschedules:attendance_schedule();
+                                            $attendance_scheduleclearmanualschedulerule:attendance_rule();
+                                            $attendance_scheduleclearmanualschedulescopes:attendance_scope();
+                                            $attendance_scheduleclearmanualscheduleshiftfilter:attendance_activate_shift();
+                                            $attendance_scheduleclearmanualscheduleshifts:attendance_shift();
+                                            $attendance_scheduleclearmanualscheduletemp:attendance_schedule();
+                                            $attendance_scheduleclearmanualscheduletemprule:attendance_rule();
+                                            $attendance_scheduleclearmanualscheduleworkdays:attendance_workday();
+                                    eval($attendance_scheduleclearmanualscheduledefault==attendance_scheduleclearmanualscheduledefault && $attendance_scheduleclearmanualscheduleactiveshifts==attendance_scheduleclearmanualscheduleactiveshifts && $attendance_scheduleclearmanualscheduleattendance_group_shifts==attendance_scheduleclearmanualscheduleattendance_group_shifts && $attendance_scheduleclearmanualschedulemanualschedules==attendance_scheduleclearmanualschedulemanualschedules && $attendance_scheduleclearmanualschedulerule==attendance_scheduleclearmanualschedulerule && $attendance_scheduleclearmanualschedulescopes==attendance_scheduleclearmanualschedulescopes && $attendance_scheduleclearmanualscheduleshiftfilter==attendance_scheduleclearmanualscheduleshiftfilter && $attendance_scheduleclearmanualscheduleshifts==attendance_scheduleclearmanualscheduleshifts && $attendance_scheduleclearmanualscheduletemp==attendance_scheduleclearmanualscheduletemp && $attendance_scheduleclearmanualscheduletemprule==attendance_scheduleclearmanualscheduletemprule && $attendance_scheduleclearmanualscheduleworkdays==attendance_scheduleclearmanualscheduleworkdays);
+                                eval(((RuleUtils.test($attendance_scheduleclearmanualscheduletemp.get("scheduleType"),"EQ","fixed"))||(RuleUtils.test($attendance_scheduleclearmanualscheduletemp.get("scheduleType"),"EQ","flexible"))))
+                                ]]>
+                            </conditionExpression>
+                    </sequenceFlow>
+                    <sequenceFlow id="gateway-dedataset_01_rawsfcode_02" sourceRef="gateway-dedataset_01" targetRef="rawsfcode_02">
+                            <conditionExpression  language="http://www.jboss.org/drools/rule" ><![CDATA[
+                                            $attendance_scheduleclearmanualscheduledefault:attendance_schedule();
+                                            $attendance_scheduleclearmanualscheduleactiveshifts:attendance_activate_shift();
+                                            $attendance_scheduleclearmanualscheduleattendance_group_shifts:attendance_group_shift();
+                                            $attendance_scheduleclearmanualschedulemanualschedules:attendance_schedule();
+                                            $attendance_scheduleclearmanualschedulerule:attendance_rule();
+                                            $attendance_scheduleclearmanualschedulescopes:attendance_scope();
+                                            $attendance_scheduleclearmanualscheduleshiftfilter:attendance_activate_shift();
+                                            $attendance_scheduleclearmanualscheduleshifts:attendance_shift();
+                                            $attendance_scheduleclearmanualscheduletemp:attendance_schedule();
+                                            $attendance_scheduleclearmanualscheduletemprule:attendance_rule();
+                                            $attendance_scheduleclearmanualscheduleworkdays:attendance_workday();
+                                    eval($attendance_scheduleclearmanualscheduledefault==attendance_scheduleclearmanualscheduledefault && $attendance_scheduleclearmanualscheduleactiveshifts==attendance_scheduleclearmanualscheduleactiveshifts && $attendance_scheduleclearmanualscheduleattendance_group_shifts==attendance_scheduleclearmanualscheduleattendance_group_shifts && $attendance_scheduleclearmanualschedulemanualschedules==attendance_scheduleclearmanualschedulemanualschedules && $attendance_scheduleclearmanualschedulerule==attendance_scheduleclearmanualschedulerule && $attendance_scheduleclearmanualschedulescopes==attendance_scheduleclearmanualschedulescopes && $attendance_scheduleclearmanualscheduleshiftfilter==attendance_scheduleclearmanualscheduleshiftfilter && $attendance_scheduleclearmanualscheduleshifts==attendance_scheduleclearmanualscheduleshifts && $attendance_scheduleclearmanualscheduletemp==attendance_scheduleclearmanualscheduletemp && $attendance_scheduleclearmanualscheduletemprule==attendance_scheduleclearmanualscheduletemprule && $attendance_scheduleclearmanualscheduleworkdays==attendance_scheduleclearmanualscheduleworkdays);
+                                eval((RuleUtils.test($attendance_scheduleclearmanualscheduletemp.get("scheduleType"),"EQ","work_rest")))
+                                ]]>
+                            </conditionExpression>
+                    </sequenceFlow>
+                    <sequenceFlow id="rawsfcode_01_deaction_01" sourceRef="rawsfcode_01" targetRef="deaction_01">
+                    </sequenceFlow>
+                    <sequenceFlow id="debugparam_04_delogic_01" sourceRef="debugparam_04" targetRef="delogic_01">
+                    </sequenceFlow>
+                    <sequenceFlow id="rawsfcode_02_deaction_01" sourceRef="rawsfcode_02" targetRef="deaction_01">
+                    </sequenceFlow>
+                    <sequenceFlow id="prepareparam_02_deaction_01" sourceRef="prepareparam_02" targetRef="deaction_01">
+                    </sequenceFlow>
+                    <sequenceFlow id="delogic_01_prepareparam3" sourceRef="delogic_01" targetRef="prepareparam3">
+                    </sequenceFlow>
+                            <exclusiveGateway id="gateway-dedataset_01" name="Gateway" gatewayDirection="Diverging" default="gateway-dedataset_01_end_line"></exclusiveGateway>
+                            <sequenceFlow id="dedataset_01_gateway-dedataset_01_gatewayline" sourceRef="dedataset_01" targetRef="gateway-dedataset_01"></sequenceFlow>
+                            <sequenceFlow id="gateway-dedataset_01_end_line" sourceRef="gateway-dedataset_01" targetRef="gateway-dedataset_01_end"/>
+                            <endEvent id="gateway-dedataset_01_end" name="end"/>
+        </process>
+    </definitions>

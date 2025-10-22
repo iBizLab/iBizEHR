@@ -1,0 +1,232 @@
+{
+  "codeName" : "record",
+  "defaultParamName" : "Default",
+  "dynaModelFilePath" : "PSMODULES/attendance/PSDATAENTITIES/attendance_clock_in_record/PSDELOGICS/record.json",
+  "logicName" : "打卡记录",
+  "name" : "打卡记录",
+  "getPSDELogicNodes" : [ {
+    "codeName" : "Begin",
+    "leftPos" : 200,
+    "logicNodeType" : "BEGIN",
+    "name" : "开始",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "RAWSFCODE_01"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "Begin"
+      }
+    } ],
+    "topPos" : 70,
+    "parallelOutput" : true
+  }, {
+    "codeName" : "DEBUGPARAM_01",
+    "getDstPSDELogicParam" : {
+      "modelref" : true,
+      "id" : "newRecords"
+    },
+    "leftPos" : 605,
+    "logicNodeType" : "DEBUGPARAM",
+    "name" : "调试逻辑参数",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "END_01"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "DEBUGPARAM_01"
+      }
+    } ],
+    "topPos" : 68,
+    "parallelOutput" : true
+  }, {
+    "code" : "def _default = logic.param('Default').getReal()\r\n//获取`打卡记录`实体运行对象\r\ndef record_runtime = sys.dataentity('attendance_clock_in_record')\r\ndef record_filter = record_runtime.filter()\r\nrecord_filter.all()\r\n\r\ndef person_range = _default.get(\"n_member_id_in\")\r\nif ( person_range != null && person_range != \"\") {\r\n    def depts = []\r\n    def persons = []\r\n    person_range.each { item ->\r\n        if (item.type == \"dept\") {\r\n            depts.add(item.id)\r\n        } else {\r\n            persons.add(item.id)\r\n        }\r\n    }\r\n    def deptStr = depts ? depts.join(\",\") : \"\"\r\n    def personStr = persons ? persons.join(\",\") : \"\"\r\n    if (deptStr != \"\" && personStr != \"\") {\r\n        record_filter.and().or().in('dept_id', deptStr).in('id', personStr)\r\n    } else if (deptStr != \"\" && personStr == \"\") {\r\n        record_filter.in('dept_id', deptStr)\r\n    } else {\r\n        record_filter.in('member_id', personStr)\r\n    }\r\n}\r\n\r\ndef n_checkin_time_gtandeq = _default.get('n_checkin_time_gtandeq')\r\ndef n_checkin_time_ltandeq = _default.get('n_checkin_time_ltandeq')\r\nif (n_checkin_time_gtandeq != null && n_checkin_time_ltandeq != null) {\r\n    record_filter.custom(\" DATE_FORMAT(t1.checkin_time, '%Y-%m-%d') >= '\"+ n_checkin_time_gtandeq +\"'\")\r\n    record_filter.custom(\" DATE_FORMAT(t1.checkin_time, '%Y-%m-%d') <= '\"+ n_checkin_time_ltandeq +\"'\")\r\n}\r\n\r\ndef dataList = record_filter.select('');\r\nif (dataList){\r\n    def newRecords = logic.param('newRecords').getReal()\r\n    dataList.groupBy { it.get(\"member_id\") }.each { memberId, records ->\r\n        println(\"输出memberId: \" + memberId)\r\n        println(\"输出records: \" + records)\r\n        if (!records) {\r\n            return\r\n        }\r\n\r\n        def newRecord = sys.entity('attendance_clock_in_record')\r\n        newRecord.set('id', records[0].get(\"member_id\"))\r\n        newRecord.set('member_id', records[0].get(\"member_id\"))\r\n        newRecord.set('dept_id', records[0].get(\"dept_id\"))\r\n        newRecord.set('dept_name', records[0].get(\"dept_name\"))\r\n        newRecord.set('member_name', records[0].get(\"member_name\"))\r\n\r\n        def map = new HashMap<String, List<String>>()\r\n        def resultMap = new HashMap()\r\n\r\n        // 遍历数据列表，根据日期分组\r\n        records.each { item ->\r\n            def dateKey = item.get(\"checkin_time\").toString().substring(0, 10)\r\n            // 按照年月日分组\r\n            if (!map.containsKey(dateKey)) {\r\n                map[dateKey] = []\r\n            }\r\n            map[dateKey].add(item)\r\n        }\r\n\r\n        // 处理分组后的数据\r\n        map.each { entry ->\r\n            def temp = [details: entry.value]\r\n            resultMap.put(entry.key, temp)\r\n        }\r\n        println(\"输出map: \" + map)\r\n        println(\"输出resultMap: \" + resultMap)\r\n        newRecord.set('attendance_data', resultMap)\r\n        newRecords.add(newRecord)\r\n    }\r\n}",
+    "codeName" : "RAWSFCODE_01",
+    "codeType" : "Groovy",
+    "leftPos" : 379,
+    "logicNodeType" : "RAWSFCODE",
+    "name" : "执行脚本代码",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "DEBUGPARAM_01"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "RAWSFCODE_01"
+      }
+    } ],
+    "topPos" : 156,
+    "parallelOutput" : true
+  }, {
+    "codeName" : "END_01",
+    "leftPos" : 645,
+    "logicNodeType" : "END",
+    "name" : "结束",
+    "getReturnParam" : {
+      "modelref" : true,
+      "id" : "newRecords"
+    },
+    "returnType" : "LOGICPARAM",
+    "topPos" : 160,
+    "parallelOutput" : true
+  }, {
+    "code" : "def _default = logic.param('Default').getReal()\r\ndef person_range = _default.get(\"n_member_id_in\")\r\nif ( person_range != null && person_range != \"\") {\r\n    def depts = []\r\n    def persons = []\r\n    person_range.each { item ->\r\n        if (item.type == \"dept\") {\r\n            depts.add(item.id)\r\n        } else {\r\n            persons.add(item.id)\r\n        }\r\n    }\r\n    def deptStr = depts ? depts.join(\",\") : \"\"\r\n    def personStr = persons ? persons.join(\",\") : \"\"\r\n    if (deptStr != \"\" && personStr != \"\") {\r\n        _default.and().or().in('dept_id', deptStr).in('id', personStr)\r\n    } else if (deptStr != \"\" && personStr == \"\") {\r\n        _default.in('dept_id', deptStr)\r\n    } else {\r\n        _default.in('id', personStr)\r\n    }\r\n}\r\n\r\n//获取`打卡记录`实体运行对象\r\ndef record_runtime = sys.dataentity('attendance_clock_in_record')\r\ndef record_filter = record_runtime.filter()\r\nrecord_filter.all()\r\nrecord_filter.eq('member_id', emp_temp.get(\"id\"))\r\n\r\nif (n_checkin_time_gtandeq != null && n_checkin_time_ltandeq != null) {\r\n    record_filter.custom(\" DATE_FORMAT(t1.checkin_time, '%Y-%m-%d') >= '\"+ n_checkin_time_gtandeq +\"'\")\r\n    record_filter.custom(\" DATE_FORMAT(t1.checkin_time, '%Y-%m-%d') <= '\"+ n_checkin_time_ltandeq +\"'\")\r\n}",
+    "codeName" : "RAWSFCODE2",
+    "codeType" : "Groovy",
+    "leftPos" : 160,
+    "logicNodeType" : "RAWSFCODE",
+    "name" : "解析搜索条件",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "DEDATASET1"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "RAWSFCODE2"
+      }
+    } ],
+    "topPos" : 216
+  }, {
+    "codeName" : "DEDATASET1",
+    "getDstPSDEDataSet" : {
+      "modelref" : true,
+      "id" : "user"
+    },
+    "getDstPSDELogicParam" : {
+      "modelref" : true,
+      "id" : "Default"
+    },
+    "getDstPSDataEntity" : {
+      "modelref" : true,
+      "path" : "PSMODULES/employee_management/PSDATAENTITIES/employee.json"
+    },
+    "leftPos" : 160,
+    "logicNodeType" : "DEDATASET",
+    "name" : "查询人员",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "LOOPSUBCALL1"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "DEDATASET1"
+      }
+    } ],
+    "getRetPSDELogicParam" : {
+      "modelref" : true,
+      "id" : "emp_page"
+    },
+    "topPos" : 355
+  }, {
+    "codeName" : "LOOPSUBCALL1",
+    "getDstPSDELogicParam" : {
+      "modelref" : true,
+      "id" : "emp_temp"
+    },
+    "leftPos" : 379,
+    "logicNodeType" : "LOOPSUBCALL",
+    "name" : "循环子调用",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "RAWSFCODE1"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "LOOPSUBCALL1"
+      },
+      "subCallLink" : true
+    }, {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "END1"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "LOOPSUBCALL1"
+      }
+    } ],
+    "getSrcPSDELogicParam" : {
+      "modelref" : true,
+      "id" : "emp_page"
+    },
+    "topPos" : 355
+  }, {
+    "code" : "def _default = logic.param('Default').getReal()\r\ndef emp_temp = logic.param('emp_temp').getReal()\r\n\r\ndef n_checkin_time_gtandeq = _default.get('n_checkin_time_gtandeq')\r\ndef n_checkin_time_ltandeq = _default.get('n_checkin_time_ltandeq')\r\n\r\n//获取`打卡记录`实体运行对象\r\ndef record_runtime = sys.dataentity('attendance_clock_in_record')\r\ndef record_filter = record_runtime.filter()\r\nrecord_filter.all()\r\nrecord_filter.eq('member_id', emp_temp.get(\"id\"))\r\n\r\nif (n_checkin_time_gtandeq != null && n_checkin_time_ltandeq != null) {\r\n    record_filter.custom(\" DATE_FORMAT(t1.checkin_time, '%Y-%m-%d') >= '\"+ n_checkin_time_gtandeq +\"'\")\r\n    record_filter.custom(\" DATE_FORMAT(t1.checkin_time, '%Y-%m-%d') <= '\"+ n_checkin_time_ltandeq +\"'\")\r\n}\r\ndef dataList = record_filter.select('');\r\n\r\ndef map = new HashMap<String, List<String>>()\r\ndef resultMap = new HashMap()\r\n\r\n// 遍历数据列表，根据日期分组\r\ndataList.each { item ->\r\n    def dateKey = item.get(\"checkin_time\").toString().substring(0, 10)\r\n    // 按照年月日分组\r\n    if (!map.containsKey(dateKey)) {\r\n        map[dateKey] = []\r\n    }\r\n    map[dateKey].add(item)\r\n}\r\n\r\n// 处理分组后的数据\r\nmap.each { entry ->\r\n    // entry.value.each { it ->\r\n    //     it.set(\"checkin_time\", it.get(\"checkin_time\") ? it.get(\"checkin_time\").toString().substring(11, 19) : '')\r\n    // }\r\n    def temp = [details: entry.value]\r\n    resultMap.put(entry.key, temp)\r\n}\r\n\r\nemp_temp.set('attendance_data', resultMap);\r\nemp_temp.set('member_name', emp_temp.get(\"name\"));\r\nemp_temp.set('member_num',emp_temp.get(\"employee_num\"));",
+    "codeName" : "RAWSFCODE1",
+    "codeType" : "Groovy",
+    "leftPos" : 605,
+    "logicNodeType" : "RAWSFCODE",
+    "name" : "获取打卡记录",
+    "topPos" : 355
+  }, {
+    "codeName" : "END1",
+    "leftPos" : 419,
+    "logicNodeType" : "END",
+    "name" : "结束",
+    "getReturnParam" : {
+      "modelref" : true,
+      "id" : "emp_page"
+    },
+    "returnType" : "LOGICPARAM",
+    "topPos" : 501,
+    "parallelOutput" : true
+  } ],
+  "getPSDELogicParams" : [ {
+    "codeName" : "Default",
+    "logicName" : "传入变量",
+    "name" : "传入变量",
+    "getParamPSDataEntity" : {
+      "modelref" : true,
+      "path" : "PSMODULES/attendance/PSDATAENTITIES/attendance_clock_in_record.json"
+    },
+    "default" : true,
+    "filterParam" : true
+  }, {
+    "codeName" : "emp_page",
+    "logicName" : "人员查询分页",
+    "name" : "人员查询分页",
+    "getParamPSDataEntity" : {
+      "modelref" : true,
+      "path" : "PSMODULES/employee_management/PSDATAENTITIES/employee.json"
+    },
+    "entityPageParam" : true
+  }, {
+    "codeName" : "emp_temp",
+    "logicName" : "人员临时变量",
+    "name" : "人员临时变量",
+    "getParamPSDataEntity" : {
+      "modelref" : true,
+      "path" : "PSMODULES/employee_management/PSDATAENTITIES/employee.json"
+    },
+    "entityParam" : true
+  }, {
+    "codeName" : "newRecords",
+    "logicName" : "newRecords",
+    "name" : "newRecords",
+    "getParamPSDataEntity" : {
+      "modelref" : true,
+      "path" : "PSMODULES/attendance/PSDATAENTITIES/attendance_clock_in_record.json"
+    },
+    "entityListParam" : true
+  } ],
+  "getStartPSDELogicNode" : {
+    "modelref" : true,
+    "id" : "Begin"
+  },
+  "enableBackend" : true,
+  "enableFront" : false
+}

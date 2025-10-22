@@ -1,0 +1,46 @@
+{
+  "dBType" : "MYSQL5",
+  "name" : "MySQL5",
+  "getPSDEDataQueryCodeExps" : [ {
+    "expression" : "t1.`ACTIVE`",
+    "name" : "ACTIVE"
+  }, {
+    "expression" : "t1.`ADDRESS_ID`",
+    "name" : "ADDRESS_ID"
+  }, {
+    "expression" : "t21.`NAME`",
+    "name" : "ADDRESS_NAME"
+  }, {
+    "expression" : "t1.`COMPANY_ID`",
+    "name" : "COMPANY_ID"
+  }, {
+    "expression" : "t11.`NAME`",
+    "name" : "COMPANY_NAME"
+  }, {
+    "expression" : "t1.`CREATE_DATE`",
+    "name" : "CREATE_DATE"
+  }, {
+    "expression" : "t1.`CREATE_UID`",
+    "name" : "CREATE_UID"
+  }, {
+    "expression" : "t1.`ID`",
+    "name" : "ID"
+  }, {
+    "expression" : "t1.`LOCATION_NUMBER`",
+    "name" : "LOCATION_NUMBER"
+  }, {
+    "expression" : "t1.`LOCATION_TYPE`",
+    "name" : "LOCATION_TYPE"
+  }, {
+    "expression" : "t1.`NAME`",
+    "name" : "NAME"
+  }, {
+    "expression" : "t1.`WRITE_DATE`",
+    "name" : "WRITE_DATE"
+  }, {
+    "expression" : "t1.`WRITE_UID`",
+    "name" : "WRITE_UID"
+  } ],
+  "queryCode" : "SELECT\nt1.`ACTIVE`,\nt1.`ADDRESS_ID`,\nt21.`NAME` AS `ADDRESS_NAME`,\nt1.`COMPANY_ID`,\nt11.`NAME` AS `COMPANY_NAME`,\nt1.`CREATE_DATE`,\nt1.`CREATE_UID`,\nt1.`ID`,\nt1.`LOCATION_NUMBER`,\nt1.`LOCATION_TYPE`,\nt1.`NAME`,\nt1.`WRITE_DATE`,\nt1.`WRITE_UID`\nFROM `hr_work_location` t1 \nLEFT JOIN `res_company` t11 ON t1.`COMPANY_ID` = t11.`ID` \nLEFT JOIN `res_partner` t21 ON t1.`ADDRESS_ID` = t21.`ID` \n",
+  "id" : "PSMODULES/hr/PSDATAENTITIES/hr_work_location/PSDEDATAQUERIES/Default/PSDEDQCODES/MYSQL5.json"
+}

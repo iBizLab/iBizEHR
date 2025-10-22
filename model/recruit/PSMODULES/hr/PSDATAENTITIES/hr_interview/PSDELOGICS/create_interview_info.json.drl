@@ -1,0 +1,312 @@
+package cn.ibizlab.hr.logic.hr_interviewlogic.create_interview_info;
+        import java.util.Map;
+        import java.util.HashMap;
+        import com.alibaba.fastjson.JSONObject;
+        import org.springframework.util.StringUtils;
+        import org.springframework.util.ObjectUtils;
+        import cn.ibizlab.util.errors.BadRequestAlertException;
+                global cn.ibizlab.core.hr.domain.hr_interview hr_interviewcreate_interview_infodefault;
+                global cn.ibizlab.core.hr.domain.hr_applicant_interview hr_interviewcreate_interview_infoapplicant_interview;
+                global cn.ibizlab.core.hr.domain.hr_applicant hr_interviewcreate_interview_infohr_applicant;
+                global cn.ibizlab.core.hr.domain.hr_interview_feedback hr_interviewcreate_interview_infointerview_feedback;
+                global cn.ibizlab.core.hr.domain.hr_interview_user hr_interviewcreate_interview_infointerview_user;
+                global cn.ibizlab.core.hr.domain.hr_interview_user hr_interviewcreate_interview_infointerview_user2;
+                global cn.ibizlab.core.hr.domain.hr_interview_user hr_interviewcreate_interview_infointerview_user3;
+                global cn.ibizlab.core.hr.domain.hr_interview_user hr_interviewcreate_interview_infointerview_user_list;
+                global java.util.Map hr_interviewcreate_interview_infosession_entity;
+                    global cn.ibizlab.core.hr.service.Ihr_applicantService hr_applicantservice;
+                    global cn.ibizlab.core.hr.service.Ihr_applicant_interviewService hr_applicant_interviewservice;
+                    global cn.ibizlab.core.hr.service.Ihr_interview_userService hr_interview_userservice;
+                    global cn.ibizlab.core.hr.service.Ihr_interview_feedbackService hr_interview_feedbackservice;
+        global cn.ibizlab.core.hr.service.Ihr_interviewService iBzSysHr_interviewDefaultService;
+        global cn.ibizlab.util.security.AuthenticationUser curuser;
+
+
+    no-loop
+
+            //逻辑处理节点[开始]
+            rule "begin"
+            ruleflow-group "hr_interviewcreate_interview_infobegin"
+            when
+            then
+            end
+
+            //逻辑处理节点[调试逻辑参数]
+            rule "debugparam1"
+            ruleflow-group "hr_interviewcreate_interview_infodebugparam1"
+            when
+            then
+                        update(hr_interviewcreate_interview_infodefault);//更新fact中变量值
+                        update(hr_interviewcreate_interview_infoapplicant_interview);//更新fact中变量值
+                        update(hr_interviewcreate_interview_infohr_applicant);//更新fact中变量值
+                        update(hr_interviewcreate_interview_infointerview_feedback);//更新fact中变量值
+                        update(hr_interviewcreate_interview_infointerview_user);//更新fact中变量值
+                        update(hr_interviewcreate_interview_infointerview_user2);//更新fact中变量值
+                        update(hr_interviewcreate_interview_infointerview_user3);//更新fact中变量值
+                        update(hr_interviewcreate_interview_infointerview_user_list);//更新fact中变量值
+                        update(hr_interviewcreate_interview_infosession_entity);//更新fact中变量值
+            end
+
+            //逻辑处理节点[调试逻辑参数]
+            rule "debugparam2"
+            ruleflow-group "hr_interviewcreate_interview_infodebugparam2"
+            when
+            then
+                        update(hr_interviewcreate_interview_infodefault);//更新fact中变量值
+                        update(hr_interviewcreate_interview_infoapplicant_interview);//更新fact中变量值
+                        update(hr_interviewcreate_interview_infohr_applicant);//更新fact中变量值
+                        update(hr_interviewcreate_interview_infointerview_feedback);//更新fact中变量值
+                        update(hr_interviewcreate_interview_infointerview_user);//更新fact中变量值
+                        update(hr_interviewcreate_interview_infointerview_user2);//更新fact中变量值
+                        update(hr_interviewcreate_interview_infointerview_user3);//更新fact中变量值
+                        update(hr_interviewcreate_interview_infointerview_user_list);//更新fact中变量值
+                        update(hr_interviewcreate_interview_infosession_entity);//更新fact中变量值
+            end
+
+            //逻辑处理节点[准备参数]
+            rule "prepareparam3"
+            ruleflow-group "hr_interviewcreate_interview_infoprepareparam3"
+            when
+            then
+                            hr_interviewcreate_interview_infohr_applicant.set("id",hr_interviewcreate_interview_infosession_entity.get("applicant_ids"));
+                        update(hr_interviewcreate_interview_infodefault);//更新fact中变量值
+                        update(hr_interviewcreate_interview_infoapplicant_interview);//更新fact中变量值
+                        update(hr_interviewcreate_interview_infohr_applicant);//更新fact中变量值
+                        update(hr_interviewcreate_interview_infointerview_feedback);//更新fact中变量值
+                        update(hr_interviewcreate_interview_infointerview_user);//更新fact中变量值
+                        update(hr_interviewcreate_interview_infointerview_user2);//更新fact中变量值
+                        update(hr_interviewcreate_interview_infointerview_user3);//更新fact中变量值
+                        update(hr_interviewcreate_interview_infointerview_user_list);//更新fact中变量值
+                        update(hr_interviewcreate_interview_infosession_entity);//更新fact中变量值
+            end
+
+            //逻辑处理节点[获取候选人申请]
+            rule "deaction4"
+            ruleflow-group "hr_interviewcreate_interview_infodeaction4"
+            when
+            then
+                            cn.ibizlab.util.helper.CachedBeanCopier.copy(hr_applicantservice.get(hr_interviewcreate_interview_infohr_applicant.getId()),hr_interviewcreate_interview_infohr_applicant);
+                        update(hr_interviewcreate_interview_infodefault);//更新fact中变量值
+                        update(hr_interviewcreate_interview_infoapplicant_interview);//更新fact中变量值
+                        update(hr_interviewcreate_interview_infohr_applicant);//更新fact中变量值
+                        update(hr_interviewcreate_interview_infointerview_feedback);//更新fact中变量值
+                        update(hr_interviewcreate_interview_infointerview_user);//更新fact中变量值
+                        update(hr_interviewcreate_interview_infointerview_user2);//更新fact中变量值
+                        update(hr_interviewcreate_interview_infointerview_user3);//更新fact中变量值
+                        update(hr_interviewcreate_interview_infointerview_user_list);//更新fact中变量值
+                        update(hr_interviewcreate_interview_infosession_entity);//更新fact中变量值
+            end
+
+            //逻辑处理节点[准备申请面试关系]
+            rule "prepareparam1"
+            ruleflow-group "hr_interviewcreate_interview_infoprepareparam1"
+            when
+            then
+                            hr_interviewcreate_interview_infoapplicant_interview.set("applicantid",hr_interviewcreate_interview_infohr_applicant.get("id"));
+                            hr_interviewcreate_interview_infoapplicant_interview.set("interviewid",hr_interviewcreate_interview_infodefault.get("id"));
+                        update(hr_interviewcreate_interview_infodefault);//更新fact中变量值
+                        update(hr_interviewcreate_interview_infoapplicant_interview);//更新fact中变量值
+                        update(hr_interviewcreate_interview_infohr_applicant);//更新fact中变量值
+                        update(hr_interviewcreate_interview_infointerview_feedback);//更新fact中变量值
+                        update(hr_interviewcreate_interview_infointerview_user);//更新fact中变量值
+                        update(hr_interviewcreate_interview_infointerview_user2);//更新fact中变量值
+                        update(hr_interviewcreate_interview_infointerview_user3);//更新fact中变量值
+                        update(hr_interviewcreate_interview_infointerview_user_list);//更新fact中变量值
+                        update(hr_interviewcreate_interview_infosession_entity);//更新fact中变量值
+            end
+
+            //逻辑处理节点[保存申请面试关系]
+            rule "deaction1"
+            ruleflow-group "hr_interviewcreate_interview_infodeaction1"
+            when
+            then
+                        hr_applicant_interviewservice.create(hr_interviewcreate_interview_infoapplicant_interview);
+                        update(hr_interviewcreate_interview_infodefault);//更新fact中变量值
+                        update(hr_interviewcreate_interview_infoapplicant_interview);//更新fact中变量值
+                        update(hr_interviewcreate_interview_infohr_applicant);//更新fact中变量值
+                        update(hr_interviewcreate_interview_infointerview_feedback);//更新fact中变量值
+                        update(hr_interviewcreate_interview_infointerview_user);//更新fact中变量值
+                        update(hr_interviewcreate_interview_infointerview_user2);//更新fact中变量值
+                        update(hr_interviewcreate_interview_infointerview_user3);//更新fact中变量值
+                        update(hr_interviewcreate_interview_infointerview_user_list);//更新fact中变量值
+                        update(hr_interviewcreate_interview_infosession_entity);//更新fact中变量值
+            end
+
+            //逻辑处理节点[设置候选人]
+            rule "prepareparam2"
+            ruleflow-group "hr_interviewcreate_interview_infoprepareparam2"
+            when
+            then
+                            hr_interviewcreate_interview_infointerview_user2.set("userid",hr_interviewcreate_interview_infohr_applicant.get("candidateid"));
+                            hr_interviewcreate_interview_infointerview_user2.set("interviewid",hr_interviewcreate_interview_infodefault.get("id"));
+                            hr_interviewcreate_interview_infointerview_user2.set("applicantid",hr_interviewcreate_interview_infohr_applicant.get("id"));
+                            hr_interviewcreate_interview_infointerview_user2.set("usertype","2");
+                            hr_interviewcreate_interview_infointerview_user2.set("videourl","https://meeting.tencent.com/dm/o8WT7tIry9tb");
+                            hr_interviewcreate_interview_infointerview_user2.set("username",hr_interviewcreate_interview_infohr_applicant.get("candidatename"));
+                        update(hr_interviewcreate_interview_infodefault);//更新fact中变量值
+                        update(hr_interviewcreate_interview_infoapplicant_interview);//更新fact中变量值
+                        update(hr_interviewcreate_interview_infohr_applicant);//更新fact中变量值
+                        update(hr_interviewcreate_interview_infointerview_feedback);//更新fact中变量值
+                        update(hr_interviewcreate_interview_infointerview_user);//更新fact中变量值
+                        update(hr_interviewcreate_interview_infointerview_user2);//更新fact中变量值
+                        update(hr_interviewcreate_interview_infointerview_user3);//更新fact中变量值
+                        update(hr_interviewcreate_interview_infointerview_user_list);//更新fact中变量值
+                        update(hr_interviewcreate_interview_infosession_entity);//更新fact中变量值
+            end
+
+            //逻辑处理节点[保存候选人]
+            rule "deaction3"
+            ruleflow-group "hr_interviewcreate_interview_infodeaction3"
+            when
+            then
+                        hr_interview_userservice.create(hr_interviewcreate_interview_infointerview_user2);
+                        update(hr_interviewcreate_interview_infodefault);//更新fact中变量值
+                        update(hr_interviewcreate_interview_infoapplicant_interview);//更新fact中变量值
+                        update(hr_interviewcreate_interview_infohr_applicant);//更新fact中变量值
+                        update(hr_interviewcreate_interview_infointerview_feedback);//更新fact中变量值
+                        update(hr_interviewcreate_interview_infointerview_user);//更新fact中变量值
+                        update(hr_interviewcreate_interview_infointerview_user2);//更新fact中变量值
+                        update(hr_interviewcreate_interview_infointerview_user3);//更新fact中变量值
+                        update(hr_interviewcreate_interview_infointerview_user_list);//更新fact中变量值
+                        update(hr_interviewcreate_interview_infosession_entity);//更新fact中变量值
+            end
+
+            //逻辑处理节点[绑定参数]
+            rule "bindparam1"
+            ruleflow-group "hr_interviewcreate_interview_infobindparam1"
+            when
+            then
+                        update(hr_interviewcreate_interview_infodefault);//更新fact中变量值
+                        update(hr_interviewcreate_interview_infoapplicant_interview);//更新fact中变量值
+                        update(hr_interviewcreate_interview_infohr_applicant);//更新fact中变量值
+                        update(hr_interviewcreate_interview_infointerview_feedback);//更新fact中变量值
+                        update(hr_interviewcreate_interview_infointerview_user);//更新fact中变量值
+                        update(hr_interviewcreate_interview_infointerview_user2);//更新fact中变量值
+                        update(hr_interviewcreate_interview_infointerview_user3);//更新fact中变量值
+                        update(hr_interviewcreate_interview_infointerview_user_list);//更新fact中变量值
+                        update(hr_interviewcreate_interview_infosession_entity);//更新fact中变量值
+            end
+
+            //逻辑处理节点[循环子调用]
+            rule "loopsubcall1"
+            ruleflow-group "hr_interviewcreate_interview_infoloopsubcall1"
+            when
+            then
+                        update(hr_interviewcreate_interview_infodefault);//更新fact中变量值
+                        update(hr_interviewcreate_interview_infoapplicant_interview);//更新fact中变量值
+                        update(hr_interviewcreate_interview_infohr_applicant);//更新fact中变量值
+                        update(hr_interviewcreate_interview_infointerview_feedback);//更新fact中变量值
+                        update(hr_interviewcreate_interview_infointerview_user);//更新fact中变量值
+                        update(hr_interviewcreate_interview_infointerview_user2);//更新fact中变量值
+                        update(hr_interviewcreate_interview_infointerview_user3);//更新fact中变量值
+                        update(hr_interviewcreate_interview_infointerview_user_list);//更新fact中变量值
+                        update(hr_interviewcreate_interview_infosession_entity);//更新fact中变量值
+            end
+
+            //逻辑处理节点[准备面试官]
+            rule "prepareparam4"
+            ruleflow-group "hr_interviewcreate_interview_infoprepareparam4"
+            when
+            then
+                            hr_interviewcreate_interview_infointerview_user3.set("videourl","https://meeting.tencent.com/dm/o8WT7tIry9tb");
+                            hr_interviewcreate_interview_infointerview_user3.set("interviewid",hr_interviewcreate_interview_infodefault.get("id"));
+                            hr_interviewcreate_interview_infointerview_user3.set("usertype","1");
+                            hr_interviewcreate_interview_infointerview_user3.set("userid",hr_interviewcreate_interview_infointerview_user.get("id"));
+                            hr_interviewcreate_interview_infointerview_user3.set("username",hr_interviewcreate_interview_infointerview_user.get("name"));
+                        update(hr_interviewcreate_interview_infodefault);//更新fact中变量值
+                        update(hr_interviewcreate_interview_infoapplicant_interview);//更新fact中变量值
+                        update(hr_interviewcreate_interview_infohr_applicant);//更新fact中变量值
+                        update(hr_interviewcreate_interview_infointerview_feedback);//更新fact中变量值
+                        update(hr_interviewcreate_interview_infointerview_user);//更新fact中变量值
+                        update(hr_interviewcreate_interview_infointerview_user2);//更新fact中变量值
+                        update(hr_interviewcreate_interview_infointerview_user3);//更新fact中变量值
+                        update(hr_interviewcreate_interview_infointerview_user_list);//更新fact中变量值
+                        update(hr_interviewcreate_interview_infosession_entity);//更新fact中变量值
+            end
+
+            //逻辑处理节点[保存面试官]
+            rule "deaction2"
+            ruleflow-group "hr_interviewcreate_interview_infodeaction2"
+            when
+            then
+                        hr_interview_userservice.create(hr_interviewcreate_interview_infointerview_user3);
+                        update(hr_interviewcreate_interview_infodefault);//更新fact中变量值
+                        update(hr_interviewcreate_interview_infoapplicant_interview);//更新fact中变量值
+                        update(hr_interviewcreate_interview_infohr_applicant);//更新fact中变量值
+                        update(hr_interviewcreate_interview_infointerview_feedback);//更新fact中变量值
+                        update(hr_interviewcreate_interview_infointerview_user);//更新fact中变量值
+                        update(hr_interviewcreate_interview_infointerview_user2);//更新fact中变量值
+                        update(hr_interviewcreate_interview_infointerview_user3);//更新fact中变量值
+                        update(hr_interviewcreate_interview_infointerview_user_list);//更新fact中变量值
+                        update(hr_interviewcreate_interview_infosession_entity);//更新fact中变量值
+            end
+
+            //逻辑处理节点[准备面试反馈]
+            rule "prepareparam5"
+            ruleflow-group "hr_interviewcreate_interview_infoprepareparam5"
+            when
+            then
+                            hr_interviewcreate_interview_infointerview_feedback.set("interviewerid",hr_interviewcreate_interview_infointerview_user3.get("userid"));
+                            hr_interviewcreate_interview_infointerview_feedback.set("applicantinterviewid",hr_interviewcreate_interview_infoapplicant_interview.get("id"));
+                            hr_interviewcreate_interview_infointerview_feedback.set("applicantid",hr_interviewcreate_interview_infohr_applicant.get("id"));
+                            hr_interviewcreate_interview_infointerview_feedback.set("interviewid",hr_interviewcreate_interview_infodefault.get("id"));
+                            hr_interviewcreate_interview_infointerview_feedback.set("interviewuserid",hr_interviewcreate_interview_infointerview_user3.get("id"));
+                        update(hr_interviewcreate_interview_infodefault);//更新fact中变量值
+                        update(hr_interviewcreate_interview_infoapplicant_interview);//更新fact中变量值
+                        update(hr_interviewcreate_interview_infohr_applicant);//更新fact中变量值
+                        update(hr_interviewcreate_interview_infointerview_feedback);//更新fact中变量值
+                        update(hr_interviewcreate_interview_infointerview_user);//更新fact中变量值
+                        update(hr_interviewcreate_interview_infointerview_user2);//更新fact中变量值
+                        update(hr_interviewcreate_interview_infointerview_user3);//更新fact中变量值
+                        update(hr_interviewcreate_interview_infointerview_user_list);//更新fact中变量值
+                        update(hr_interviewcreate_interview_infosession_entity);//更新fact中变量值
+            end
+
+            //逻辑处理节点[创建面试反馈]
+            rule "deaction5"
+            ruleflow-group "hr_interviewcreate_interview_infodeaction5"
+            when
+            then
+                        hr_interview_feedbackservice.create(hr_interviewcreate_interview_infointerview_feedback);
+                        update(hr_interviewcreate_interview_infodefault);//更新fact中变量值
+                        update(hr_interviewcreate_interview_infoapplicant_interview);//更新fact中变量值
+                        update(hr_interviewcreate_interview_infohr_applicant);//更新fact中变量值
+                        update(hr_interviewcreate_interview_infointerview_feedback);//更新fact中变量值
+                        update(hr_interviewcreate_interview_infointerview_user);//更新fact中变量值
+                        update(hr_interviewcreate_interview_infointerview_user2);//更新fact中变量值
+                        update(hr_interviewcreate_interview_infointerview_user3);//更新fact中变量值
+                        update(hr_interviewcreate_interview_infointerview_user_list);//更新fact中变量值
+                        update(hr_interviewcreate_interview_infosession_entity);//更新fact中变量值
+            end
+
+            //逻辑处理节点[重新建立参数]
+            rule "renewparam1"
+            ruleflow-group "hr_interviewcreate_interview_inforenewparam1"
+            when
+            then
+                        update(hr_interviewcreate_interview_infodefault);//更新fact中变量值
+                        update(hr_interviewcreate_interview_infoapplicant_interview);//更新fact中变量值
+                        update(hr_interviewcreate_interview_infohr_applicant);//更新fact中变量值
+                        update(hr_interviewcreate_interview_infointerview_feedback);//更新fact中变量值
+                        update(hr_interviewcreate_interview_infointerview_user);//更新fact中变量值
+                        update(hr_interviewcreate_interview_infointerview_user2);//更新fact中变量值
+                        update(hr_interviewcreate_interview_infointerview_user3);//更新fact中变量值
+                        update(hr_interviewcreate_interview_infointerview_user_list);//更新fact中变量值
+                        update(hr_interviewcreate_interview_infosession_entity);//更新fact中变量值
+            end
+
+            //逻辑处理节点[重新建立参数]
+            rule "renewparam2"
+            ruleflow-group "hr_interviewcreate_interview_inforenewparam2"
+            when
+            then
+                        update(hr_interviewcreate_interview_infodefault);//更新fact中变量值
+                        update(hr_interviewcreate_interview_infoapplicant_interview);//更新fact中变量值
+                        update(hr_interviewcreate_interview_infohr_applicant);//更新fact中变量值
+                        update(hr_interviewcreate_interview_infointerview_feedback);//更新fact中变量值
+                        update(hr_interviewcreate_interview_infointerview_user);//更新fact中变量值
+                        update(hr_interviewcreate_interview_infointerview_user2);//更新fact中变量值
+                        update(hr_interviewcreate_interview_infointerview_user3);//更新fact中变量值
+                        update(hr_interviewcreate_interview_infointerview_user_list);//更新fact中变量值
+                        update(hr_interviewcreate_interview_infosession_entity);//更新fact中变量值
+            end

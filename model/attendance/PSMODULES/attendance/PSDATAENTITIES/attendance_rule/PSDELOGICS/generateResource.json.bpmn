@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+    <definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:g="http://www.jboss.org/drools/flow/gpd" xmlns:tns="http://www.jboss.org/drools" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" expressionLanguage="http://www.mvel.org/2.0" id="Definition" name="" targetNamespace="http://www.jboss.org/drools" typeLanguage="http://www.java.com/javaTypes">
+        <process id="cn.ibizlab.core.attendance.service.logic.attendance_rulegenerateresource" isClosed="false" isExecutable="true" name="attendance_attendance_rule_generateresource_ruleFlow" processType="Private" tns:packageName="cn.ibizlab.core.attendance.service.logic.attendance_rulegenerateresource">
+            <extensionElements>
+                <tns:import name="java.util.Map" />
+                <tns:import name="org.springframework.util.StringUtils"/>
+                <tns:import name="cn.ibizlab.util.helper.RuleUtils"/>
+                                <tns:metaData express="" name="attendance_rulegenerateresourcedefault" type="entity"/>
+                                <tns:metaData express="new cn.ibizlab.core.hr.domain.hr_employee()" name="attendance_rulegenerateresourcefilter" type="refentity"/>
+                                <tns:metaData express="new cn.ibizlab.core.hr.domain.hr_employee()" name="attendance_rulegenerateresourceemp" type="refentity"/>
+                                <tns:metaData express="new cn.ibizlab.core.hr.domain.hr_employee()" name="attendance_rulegenerateresourceemppage" type="refentity"/>
+                                <tns:metaData express="new cn.ibizlab.core.attendance.domain.attendance_group_shift_member()" name="attendance_rulegenerateresourcemembers" type="refentity"/>
+                                <tns:metaData express="new cn.ibizlab.core.resource.domain.resource_resource()" name="attendance_rulegenerateresourceresource" type="refentity"/>
+                                <tns:metaData express="new cn.ibizlab.core.resource.domain.resource_resource()" name="attendance_rulegenerateresourceret" type="refentity"/>
+                                <tns:metaData express="new cn.ibizlab.core.attendance.domain.attendance_group_shift_member()" name="attendance_rulegenerateresourcetemp" type="refentity"/>
+                                    <tns:metaData express="T(cn.ibizlab.util.security.SpringContextHolder).getBean(T(cn.ibizlab.core.hr.service.Ihr_employeeService))" name="hr_employeeservice" type="service"/>
+                    <tns:metaData express="T(cn.ibizlab.util.security.SpringContextHolder).getBean(T(cn.ibizlab.core.attendance.service.Iattendance_ruleService))" name="iBzSysAttendance_ruleDefaultService" type="service"/>
+                    <tns:metaData express="T(cn.ibizlab.util.security.AuthenticationUser).getAuthenticationUser()" name="curuser" type="session"/>
+                            <tns:global identifier="attendance_rulegenerateresourcedefault" type="cn.ibizlab.core.attendance.domain.attendance_rule" />
+                            <tns:global identifier="attendance_rulegenerateresourcefilter" type="cn.ibizlab.core.hr.domain.hr_employee" />
+                            <tns:global identifier="attendance_rulegenerateresourceemp" type="cn.ibizlab.core.hr.domain.hr_employee" />
+                            <tns:global identifier="attendance_rulegenerateresourceemppage" type="cn.ibizlab.core.hr.domain.hr_employee" />
+                            <tns:global identifier="attendance_rulegenerateresourcemembers" type="cn.ibizlab.core.attendance.domain.attendance_group_shift_member" />
+                            <tns:global identifier="attendance_rulegenerateresourceresource" type="cn.ibizlab.core.resource.domain.resource_resource" />
+                            <tns:global identifier="attendance_rulegenerateresourceret" type="cn.ibizlab.core.resource.domain.resource_resource" />
+                            <tns:global identifier="attendance_rulegenerateresourcetemp" type="cn.ibizlab.core.attendance.domain.attendance_group_shift_member" />
+            </extensionElements>
+                        <startEvent id="begin" isInterrupting="true"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="attendance_rulegenerateresourceprepareparam_01" id="prepareparam_01" implementation="http://www.jboss.org/drools/rule" name="准备参数"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="attendance_rulegenerateresourceloopsubcall_01" id="loopsubcall_01" implementation="http://www.jboss.org/drools/rule" name="循环子调用"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="attendance_rulegenerateresourceprepareparam_02" id="prepareparam_02" implementation="http://www.jboss.org/drools/rule" name="准备参数"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="attendance_rulegenerateresourcededataset_01" id="dedataset_01" implementation="http://www.jboss.org/drools/rule" name="查询人员信息"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="attendance_rulegenerateresourceprepareparam_03" id="prepareparam_03" implementation="http://www.jboss.org/drools/rule" name="准备参数"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="attendance_rulegenerateresourcerawsqlcall_02" id="rawsqlcall_02" implementation="http://www.jboss.org/drools/rule" name="更新人员关联工作时间"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="attendance_rulegenerateresourcerawsqlcall_01" id="rawsqlcall_01" implementation="http://www.jboss.org/drools/rule" name="更新资源关联工作时间"/>
+                        <endEvent id="rawsqlcall_01_end" name="end"/>
+                        <sequenceFlow id="rawsqlcall_01_end_line" sourceRef="rawsqlcall_01" targetRef="rawsqlcall_01_end"/>
+                    <sequenceFlow id="gateway-begin_prepareparam_01" sourceRef="gateway-begin" targetRef="prepareparam_01">
+                            <conditionExpression  language="http://www.jboss.org/drools/rule" ><![CDATA[
+                                            $attendance_rulegenerateresourcedefault:attendance_rule();
+                                            $attendance_rulegenerateresourcefilter:hr_employee();
+                                            $attendance_rulegenerateresourceemp:hr_employee();
+                                            $attendance_rulegenerateresourceemppage:hr_employee();
+                                            $attendance_rulegenerateresourcemembers:attendance_group_shift_member();
+                                            $attendance_rulegenerateresourceresource:resource_resource();
+                                            $attendance_rulegenerateresourceret:resource_resource();
+                                            $attendance_rulegenerateresourcetemp:attendance_group_shift_member();
+                                    eval($attendance_rulegenerateresourcedefault==attendance_rulegenerateresourcedefault && $attendance_rulegenerateresourcefilter==attendance_rulegenerateresourcefilter && $attendance_rulegenerateresourceemp==attendance_rulegenerateresourceemp && $attendance_rulegenerateresourceemppage==attendance_rulegenerateresourceemppage && $attendance_rulegenerateresourcemembers==attendance_rulegenerateresourcemembers && $attendance_rulegenerateresourceresource==attendance_rulegenerateresourceresource && $attendance_rulegenerateresourceret==attendance_rulegenerateresourceret && $attendance_rulegenerateresourcetemp==attendance_rulegenerateresourcetemp);
+                                eval((RuleUtils.test($attendance_rulegenerateresourcedefault.get("isActivate"),"EQ","1"))&&(RuleUtils.test($attendance_rulegenerateresourcedefault.get("members"),"ISNOTNULL","")))
+                                ]]>
+                            </conditionExpression>
+                    </sequenceFlow>
+                    <sequenceFlow id="prepareparam_01_loopsubcall_01" sourceRef="prepareparam_01" targetRef="loopsubcall_01">
+                    </sequenceFlow>
+                    <sequenceFlow id="loopsubcall_01_prepareparam_02" sourceRef="loopsubcall_01" targetRef="prepareparam_02">
+                    </sequenceFlow>
+                    <sequenceFlow id="prepareparam_02_dedataset_01" sourceRef="prepareparam_02" targetRef="dedataset_01">
+                    </sequenceFlow>
+                    <sequenceFlow id="gateway-dedataset_01_prepareparam_03" sourceRef="gateway-dedataset_01" targetRef="prepareparam_03">
+                            <conditionExpression  language="http://www.jboss.org/drools/rule" ><![CDATA[
+                                            $attendance_rulegenerateresourcedefault:attendance_rule();
+                                            $attendance_rulegenerateresourcefilter:hr_employee();
+                                            $attendance_rulegenerateresourceemp:hr_employee();
+                                            $attendance_rulegenerateresourceemppage:hr_employee();
+                                            $attendance_rulegenerateresourcemembers:attendance_group_shift_member();
+                                            $attendance_rulegenerateresourceresource:resource_resource();
+                                            $attendance_rulegenerateresourceret:resource_resource();
+                                            $attendance_rulegenerateresourcetemp:attendance_group_shift_member();
+                                    eval($attendance_rulegenerateresourcedefault==attendance_rulegenerateresourcedefault && $attendance_rulegenerateresourcefilter==attendance_rulegenerateresourcefilter && $attendance_rulegenerateresourceemp==attendance_rulegenerateresourceemp && $attendance_rulegenerateresourceemppage==attendance_rulegenerateresourceemppage && $attendance_rulegenerateresourcemembers==attendance_rulegenerateresourcemembers && $attendance_rulegenerateresourceresource==attendance_rulegenerateresourceresource && $attendance_rulegenerateresourceret==attendance_rulegenerateresourceret && $attendance_rulegenerateresourcetemp==attendance_rulegenerateresourcetemp);
+                                eval((RuleUtils.test($attendance_rulegenerateresourceemppage.get("size"),"NOTEQ","0")))
+                                ]]>
+                            </conditionExpression>
+                    </sequenceFlow>
+                    <sequenceFlow id="prepareparam_03_rawsqlcall_02" sourceRef="prepareparam_03" targetRef="rawsqlcall_02">
+                    </sequenceFlow>
+                    <sequenceFlow id="rawsqlcall_02_rawsqlcall_01" sourceRef="rawsqlcall_02" targetRef="rawsqlcall_01">
+                    </sequenceFlow>
+                            <exclusiveGateway id="gateway-begin" name="Gateway" gatewayDirection="Diverging" default="gateway-begin_end_line"></exclusiveGateway>
+                            <sequenceFlow id="begin_gateway-begin_gatewayline" sourceRef="begin" targetRef="gateway-begin"></sequenceFlow>
+                            <sequenceFlow id="gateway-begin_end_line" sourceRef="gateway-begin" targetRef="gateway-begin_end"/>
+                            <endEvent id="gateway-begin_end" name="end"/>
+                            <exclusiveGateway id="gateway-dedataset_01" name="Gateway" gatewayDirection="Diverging" default="gateway-dedataset_01_end_line"></exclusiveGateway>
+                            <sequenceFlow id="dedataset_01_gateway-dedataset_01_gatewayline" sourceRef="dedataset_01" targetRef="gateway-dedataset_01"></sequenceFlow>
+                            <sequenceFlow id="gateway-dedataset_01_end_line" sourceRef="gateway-dedataset_01" targetRef="gateway-dedataset_01_end"/>
+                            <endEvent id="gateway-dedataset_01_end" name="end"/>
+        </process>
+    </definitions>

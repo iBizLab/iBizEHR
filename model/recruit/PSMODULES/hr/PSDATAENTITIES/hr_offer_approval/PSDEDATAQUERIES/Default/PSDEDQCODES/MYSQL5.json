@@ -1,0 +1,64 @@
+{
+  "dBType" : "MYSQL5",
+  "name" : "MySQL5",
+  "getPSDEDataQueryCodeExps" : [ {
+    "expression" : "t21.`ADDRESS`",
+    "name" : "ADDRESS"
+  }, {
+    "expression" : "t21.`CANDIDATE_DISPLAY_NAME`",
+    "name" : "CANDIDATE_DISPLAY_NAME"
+  }, {
+    "expression" : "t1.`CREATE_DATE`",
+    "name" : "CREATE_DATE"
+  }, {
+    "expression" : "t1.`CREATE_UID`",
+    "name" : "CREATE_UID"
+  }, {
+    "expression" : "t21.`EDUCATION`",
+    "name" : "EDUCATION"
+  }, {
+    "expression" : "t21.`EMAIL_FROM`",
+    "name" : "EMAIL_FROM"
+  }, {
+    "expression" : "t21.`EXPERIENCE`",
+    "name" : "EXPERIENCE"
+  }, {
+    "expression" : "t1.`HR_OFFER_ID`",
+    "name" : "HR_OFFER_ID"
+  }, {
+    "expression" : "t1.`ID`",
+    "name" : "ID"
+  }, {
+    "expression" : "t11.`JOB_NAME`",
+    "name" : "JOB_NAME"
+  }, {
+    "expression" : "t31.`NAME`",
+    "name" : "JOB_PLATFORM_NAME"
+  }, {
+    "expression" : "t21.`MOBILE_PHONE`",
+    "name" : "MOBILE_PHONE"
+  }, {
+    "expression" : "t1.`NAME`",
+    "name" : "NAME"
+  }, {
+    "expression" : "t1.`PERIOD`",
+    "name" : "PERIOD"
+  }, {
+    "expression" : "t41.`NAME`",
+    "name" : "RES_COMPANY_NAME"
+  }, {
+    "expression" : "t1.`STATUS`",
+    "name" : "STATUS"
+  }, {
+    "expression" : "t1.`WFMEMO`",
+    "name" : "WFMEMO"
+  }, {
+    "expression" : "t1.`WRITE_DATE`",
+    "name" : "WRITE_DATE"
+  }, {
+    "expression" : "t1.`WRITE_UID`",
+    "name" : "WRITE_UID"
+  } ],
+  "queryCode" : "SELECT\nt21.`ADDRESS`,\nt21.`CANDIDATE_DISPLAY_NAME`,\nt1.`CREATE_DATE`,\nt1.`CREATE_UID`,\nt21.`EDUCATION`,\nt21.`EMAIL_FROM`,\nt21.`EXPERIENCE`,\nt1.`HR_OFFER_ID`,\nt1.`ID`,\nt11.`JOB_NAME`,\nt31.`NAME` AS `JOB_PLATFORM_NAME`,\nt21.`MOBILE_PHONE`,\nt1.`NAME`,\nt1.`PERIOD`,\nt41.`NAME` AS `RES_COMPANY_NAME`,\nt1.`STATUS`,\nt1.`WFMEMO`,\nt1.`WRITE_DATE`,\nt1.`WRITE_UID`\nFROM `hr_offer_approval` t1 \nLEFT JOIN `hr_offer` t11 ON t1.`HR_OFFER_ID` = t11.`ID` \nLEFT JOIN `hr_applicant` t21 ON t11.`APPLICANT_ID` = t21.`ID` \nLEFT JOIN `hr_job_platform` t31 ON t21.`JOB_PLATFORM_ID` = t31.`ID` \nLEFT JOIN `res_company` t41 ON t11.`RES_COMPANY_ID` = t41.`ID` \n",
+  "id" : "PSMODULES/hr/PSDATAENTITIES/hr_offer_approval/PSDEDATAQUERIES/Default/PSDEDQCODES/MYSQL5.json"
+}

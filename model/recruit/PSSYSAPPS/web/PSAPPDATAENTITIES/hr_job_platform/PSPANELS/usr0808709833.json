@@ -1,0 +1,361 @@
+{
+  "getAllPSPanelFields" : [ {
+    "id" : "publish_status",
+    "viewFieldName" : "publish_status"
+  }, {
+    "id" : "name",
+    "hidden" : true,
+    "viewFieldName" : "name"
+  }, {
+    "id" : "image",
+    "viewFieldName" : "image"
+  }, {
+    "id" : "platform_account_count",
+    "viewFieldName" : "platform_account_count"
+  } ],
+  "codeName" : "usr0808709833",
+  "controlType" : "PANEL",
+  "dynaModelFilePath" : "PSSYSAPPS/web/PSAPPDATAENTITIES/hr_job_platform/PSPANELS/usr0808709833.json",
+  "hookEventNames" : [ "ONCLICK" ],
+  "layoutMode" : "TABLE_24COL",
+  "logicName" : "招聘网站管理_卡片视图_卡片面板",
+  "getPSAppDataEntity" : {
+    "modelref" : true,
+    "path" : "PSSYSAPPS/web/PSAPPDATAENTITIES/hr_job_platform.json"
+  },
+  "getPSControlLogics" : [ {
+    "eventNames" : "onClick",
+    "itemName" : "page_container",
+    "logicTag" : "itemlayoutpanel",
+    "logicType" : "APPDEUIACTION",
+    "name" : "logic",
+    "getPSAppDEUIAction" : {
+      "actionTarget" : "SINGLEDATA",
+      "caption" : "打开平台账号列表",
+      "codeName" : "open_accout_list",
+      "getFrontPSAppView" : {
+        "modelref" : true,
+        "path" : "PSSYSAPPS/web/PSAPPDEVIEWS/hr_job_platform_account_list_data_view.json",
+        "viewType" : "DEDATAVIEW"
+      },
+      "frontProcessType" : "WIZARD",
+      "fullCodeName" : "hr_job_platform_open_accout_list",
+      "name" : "打开平台账号列表",
+      "getPSAppDataEntity" : {
+        "modelref" : true,
+        "path" : "PSSYSAPPS/web/PSAPPDATAENTITIES/hr_job_platform.json"
+      },
+      "getPSNavigateParams" : [ {
+        "key" : "n_job_platform_id_eq",
+        "name" : "n_job_platform_id_eq",
+        "value" : "id",
+        "rawValue" : false
+      } ],
+      "uIActionMode" : "FRONT",
+      "uIActionTag" : "open_accout_list",
+      "uIActionType" : "DEUIACTION",
+      "id" : "open_accout_list@hr_job_platform"
+    }
+  } ],
+  "getPSLayout" : {
+    "childColMD" : 24,
+    "columnCount" : 24,
+    "layout" : "TABLE_24COL"
+  },
+  "getRootPSPanelItems" : [ {
+    "itemStyle" : "DEFAULT",
+    "itemType" : "CONTAINER",
+    "name" : "page_container",
+    "getPSLayout" : {
+      "dir" : "column",
+      "layout" : "FLEX"
+    },
+    "getPSLayoutPos" : {
+      "colMD" : 24,
+      "layout" : "TABLE_24COL"
+    },
+    "getPSPanelItems" : [ {
+      "caption" : "容器",
+      "itemStyle" : "DEFAULT",
+      "itemType" : "CONTAINER",
+      "name" : "container1",
+      "getPSLayout" : {
+        "align" : "center",
+        "dir" : "column",
+        "layout" : "FLEX",
+        "vAlign" : "center"
+      },
+      "getPSLayoutPos" : {
+        "grow" : -1,
+        "layout" : "FLEX"
+      },
+      "getPSPanelItems" : [ {
+        "caption" : "容器",
+        "itemStyle" : "DEFAULT",
+        "itemType" : "CONTAINER",
+        "name" : "container3",
+        "getPSLayout" : {
+          "align" : "flex-end",
+          "dir" : "row-reverse",
+          "layout" : "FLEX",
+          "vAlign" : "center"
+        },
+        "getPSLayoutPos" : {
+          "grow" : -1,
+          "layout" : "FLEX"
+        },
+        "getPSPanelItems" : [ {
+          "caption" : "文本(动态)",
+          "itemStyle" : "DEFAULT",
+          "itemType" : "FIELD",
+          "name" : "publish_status",
+          "getPSEditor" : {
+            "editorType" : "SPAN",
+            "name" : "publish_status",
+            "getPSAppCodeList" : {
+              "modelref" : true,
+              "path" : "PSSYSAPPS/web/PSAPPCODELISTS/hr__hr_platform_publish_status.json"
+            },
+            "predefinedType" : "FIELD_TEXT_DYNAMIC",
+            "renderMode" : "TEXT_DYNAMIC",
+            "enableLinkView" : false
+          },
+          "getPSLayoutPos" : {
+            "grow" : -1,
+            "layout" : "FLEX"
+          },
+          "viewFieldName" : "publish_status",
+          "convertToCodeItemText" : true
+        } ],
+        "getPSSysCss" : {
+          "cssName" : "platform_acc"
+        }
+      }, {
+        "caption" : "容器",
+        "itemStyle" : "DEFAULT",
+        "itemType" : "CONTAINER",
+        "name" : "container",
+        "getPSLayout" : {
+          "align" : "center",
+          "dir" : "row-reverse",
+          "layout" : "FLEX",
+          "vAlign" : "center"
+        },
+        "getPSLayoutPos" : {
+          "grow" : -1,
+          "layout" : "FLEX"
+        },
+        "getPSPanelItems" : [ {
+          "caption" : "文本(动态)",
+          "itemType" : "FIELD",
+          "name" : "name",
+          "getPSEditor" : {
+            "editorType" : "HIDDEN",
+            "name" : "name"
+          },
+          "getPSLayoutPos" : {
+            "grow" : -1,
+            "layout" : "FLEX"
+          },
+          "viewFieldName" : "name",
+          "hidden" : true
+        }, {
+          "caption" : "图片(动态)",
+          "contentHeight" : 133.0,
+          "contentWidth" : 133.0,
+          "fieldStates" : 1,
+          "height" : 133.0,
+          "itemStyle" : "DEFAULT",
+          "itemType" : "FIELD",
+          "name" : "image",
+          "getPSEditor" : {
+            "editorHeight" : 133.0,
+            "editorParams" : {
+              "readonly" : "true",
+              "autoPreview" : "false",
+              "MAXCOUNT" : "1",
+              "STOPPROPAGATION" : "false",
+              "READONLY" : "TRUE"
+            },
+            "editorType" : "PICTURE_ONE",
+            "editorWidth" : 133.0,
+            "maxFileCount" : 1,
+            "maxFileSize" : -1,
+            "minFileCount" : 0,
+            "name" : "image",
+            "predefinedType" : "FIELD_IMAGE",
+            "readOnly" : true
+          },
+          "getPSLayoutPos" : {
+            "grow" : -1,
+            "height" : 133,
+            "heightMode" : "PX",
+            "layout" : "FLEX",
+            "width" : 133,
+            "widthMode" : "PX"
+          },
+          "viewFieldName" : "image",
+          "width" : 133.0
+        } ]
+      }, {
+        "caption" : "容器",
+        "itemStyle" : "DEFAULT",
+        "itemType" : "CONTAINER",
+        "name" : "container2",
+        "getPSLayout" : {
+          "align" : "flex-start",
+          "dir" : "row",
+          "layout" : "FLEX",
+          "vAlign" : "center"
+        },
+        "getPSLayoutPos" : {
+          "grow" : -1,
+          "layout" : "FLEX"
+        },
+        "getPSPanelItemGroupLogics" : [ {
+          "groupOP" : "AND",
+          "logicCat" : "PANELVISIBLE",
+          "logicType" : "GROUP",
+          "getPSPanelItemLogics" : [ {
+            "condOp" : "GT",
+            "dstModelField" : "platform_account_count",
+            "logicType" : "SINGLE",
+            "name" : "逻辑项",
+            "value" : "0"
+          } ],
+          "relatedItemNames" : [ "platform_account_count" ],
+          "notMode" : false
+        } ],
+        "getPSPanelItems" : [ {
+          "caption" : "文本",
+          "contentType" : "RAW",
+          "itemStyle" : "DEFAULT",
+          "itemType" : "RAWITEM",
+          "name" : "static_text1",
+          "getPSLayoutPos" : {
+            "grow" : -1,
+            "layout" : "FLEX"
+          },
+          "getPSRawItem" : {
+            "caption" : "已授权",
+            "contentType" : "RAW",
+            "name" : "static_text1",
+            "predefinedType" : "STATIC_TEXT",
+            "renderMode" : "TEXT"
+          },
+          "rawContent" : "已授权",
+          "showCaption" : true
+        }, {
+          "caption" : "文本(动态)",
+          "itemStyle" : "DEFAULT",
+          "itemType" : "FIELD",
+          "name" : "platform_account_count",
+          "getPSEditor" : {
+            "editorType" : "SPAN",
+            "name" : "platform_account_count",
+            "predefinedType" : "FIELD_TEXT_DYNAMIC",
+            "renderMode" : "TEXT_DYNAMIC",
+            "enableLinkView" : false
+          },
+          "getPSLayoutPos" : {
+            "grow" : -1,
+            "layout" : "FLEX",
+            "spacingLeft" : "OUTERSMALL",
+            "spacingRight" : "OUTERSMALL"
+          },
+          "viewFieldName" : "platform_account_count"
+        }, {
+          "caption" : "文本",
+          "contentType" : "RAW",
+          "itemStyle" : "DEFAULT",
+          "itemType" : "RAWITEM",
+          "name" : "static_text",
+          "getPSLayoutPos" : {
+            "grow" : -1,
+            "layout" : "FLEX"
+          },
+          "getPSRawItem" : {
+            "caption" : "账号",
+            "contentType" : "RAW",
+            "name" : "static_text",
+            "predefinedType" : "STATIC_TEXT",
+            "renderMode" : "TEXT"
+          },
+          "rawContent" : "账号",
+          "showCaption" : true
+        } ],
+        "getPSSysCss" : {
+          "cssName" : "platform_acc"
+        }
+      }, {
+        "caption" : "容器",
+        "itemStyle" : "DEFAULT",
+        "itemType" : "CONTAINER",
+        "name" : "container4",
+        "getPSLayout" : {
+          "align" : "flex-start",
+          "dir" : "row",
+          "layout" : "FLEX",
+          "vAlign" : "center"
+        },
+        "getPSLayoutPos" : {
+          "grow" : -1,
+          "layout" : "FLEX"
+        },
+        "getPSPanelItemGroupLogics" : [ {
+          "groupOP" : "AND",
+          "logicCat" : "PANELVISIBLE",
+          "logicType" : "GROUP",
+          "getPSPanelItemLogics" : [ {
+            "condOp" : "EQ",
+            "dstModelField" : "platform_account_count",
+            "logicType" : "SINGLE",
+            "name" : "逻辑项",
+            "value" : "0"
+          } ],
+          "relatedItemNames" : [ "platform_account_count" ],
+          "notMode" : false
+        } ],
+        "getPSPanelItems" : [ {
+          "caption" : "文本",
+          "contentType" : "RAW",
+          "itemStyle" : "DEFAULT",
+          "itemType" : "RAWITEM",
+          "name" : "static_text2",
+          "getPSLayoutPos" : {
+            "grow" : -1,
+            "layout" : "FLEX"
+          },
+          "getPSPanelItemGroupLogics" : [ {
+            "groupOP" : "AND",
+            "logicCat" : "PANELVISIBLE",
+            "logicType" : "GROUP",
+            "getPSPanelItemLogics" : [ {
+              "condOp" : "EQ",
+              "dstModelField" : "platform_account_count",
+              "logicType" : "SINGLE",
+              "name" : "逻辑项",
+              "value" : "0"
+            } ],
+            "relatedItemNames" : [ "platform_account_count" ],
+            "notMode" : false
+          } ],
+          "getPSRawItem" : {
+            "caption" : "无授权账号",
+            "contentType" : "RAW",
+            "name" : "static_text2",
+            "predefinedType" : "STATIC_TEXT",
+            "renderMode" : "TEXT"
+          },
+          "rawContent" : "无授权账号",
+          "showCaption" : true
+        } ],
+        "getPSSysCss" : {
+          "cssName" : "platform_acc"
+        }
+      } ]
+    } ]
+  } ],
+  "modelid" : "a8838c3c82fa3fcd0c95150694a76874",
+  "modeltype" : "PSSYSVIEWPANEL"
+}

@@ -1,0 +1,18 @@
+```sql
+SELECT
+t1.`ACTIVE`,
+t1.`COMPANY_ID`,
+t11.`NAME` AS `COMPANY_NAME`,
+t1.`CREATE_DATE`,
+t1.`CREATE_UID`,
+t1.`ID`,
+t1.`LOCATION_NUMBER`,
+t1.`LOCATION_TYPE`,
+t1.`NAME`,
+t1.`WRITE_DATE`,
+t1.`WRITE_UID`
+FROM `hr_work_location` t1 
+LEFT JOIN `res_company` t11 ON t1.`COMPANY_ID` = t11.`ID` 
+
+
+```

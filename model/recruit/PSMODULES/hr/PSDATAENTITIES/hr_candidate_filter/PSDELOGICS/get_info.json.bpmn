@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+    <definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:g="http://www.jboss.org/drools/flow/gpd" xmlns:tns="http://www.jboss.org/drools" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" expressionLanguage="http://www.mvel.org/2.0" id="Definition" name="" targetNamespace="http://www.jboss.org/drools" typeLanguage="http://www.java.com/javaTypes">
+        <process id="cn.ibizlab.core.hr.service.logic.hr_candidate_filterget_info" isClosed="false" isExecutable="true" name="hr_hr_candidate_filter_get_info_ruleFlow" processType="Private" tns:packageName="cn.ibizlab.core.hr.service.logic.hr_candidate_filterget_info">
+            <extensionElements>
+                <tns:import name="java.util.Map" />
+                <tns:import name="org.springframework.util.StringUtils"/>
+                <tns:import name="cn.ibizlab.util.helper.RuleUtils"/>
+                                <tns:metaData express="" name="hr_candidate_filterget_infodefault" type="entity"/>
+                                <tns:metaData express="new cn.ibizlab.core.hr.domain.hr_candidate_filter()" name="hr_candidate_filterget_infohr_candidate_filter" type="refentity"/>
+                                <tns:metaData express="new cn.ibizlab.core.hr.domain.hr_candidate_filter()" name="hr_candidate_filterget_infofilter" type="refentity"/>
+                                <tns:metaData express="new cn.ibizlab.core.hr.domain.hr_candidate_filter()" name="hr_candidate_filterget_infolist" type="refentity"/>
+                                    <tns:metaData express="T(cn.ibizlab.util.security.SpringContextHolder).getBean(T(cn.ibizlab.core.hr.service.Ihr_candidate_filterService))" name="hr_candidate_filterservice" type="service"/>
+                    <tns:metaData express="T(cn.ibizlab.util.security.SpringContextHolder).getBean(T(cn.ibizlab.core.hr.service.Ihr_candidate_filterService))" name="iBzSysHr_candidate_filterDefaultService" type="service"/>
+                    <tns:metaData express="T(cn.ibizlab.util.security.AuthenticationUser).getAuthenticationUser()" name="curuser" type="session"/>
+                            <tns:global identifier="hr_candidate_filterget_infodefault" type="cn.ibizlab.core.hr.domain.hr_candidate_filter" />
+                            <tns:global identifier="hr_candidate_filterget_infohr_candidate_filter" type="cn.ibizlab.core.hr.domain.hr_candidate_filter" />
+                            <tns:global identifier="hr_candidate_filterget_infofilter" type="cn.ibizlab.core.hr.domain.hr_candidate_filter" />
+                            <tns:global identifier="hr_candidate_filterget_infolist" type="cn.ibizlab.core.hr.domain.hr_candidate_filter" />
+            </extensionElements>
+                        <startEvent id="begin" isInterrupting="true"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="hr_candidate_filterget_infoprepareparam1" id="prepareparam1" implementation="http://www.jboss.org/drools/rule" name="设置过滤器参数"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="hr_candidate_filterget_infodedataset1" id="dedataset1" implementation="http://www.jboss.org/drools/rule" name="获取数据"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="hr_candidate_filterget_inforawsfcode1" id="rawsfcode1" implementation="http://www.jboss.org/drools/rule" name="执行脚本代码"/>
+                        <endEvent id="rawsfcode1_end" name="end"/>
+                        <sequenceFlow id="rawsfcode1_end_line" sourceRef="rawsfcode1" targetRef="rawsfcode1_end"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="hr_candidate_filterget_infoprepareparam2" id="prepareparam2" implementation="http://www.jboss.org/drools/rule" name="赋值"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="hr_candidate_filterget_infoend1" id="end1" implementation="http://www.jboss.org/drools/rule" name="结束"/>
+                        <endEvent id="end1_end" name="end"/>
+                        <sequenceFlow id="end1_end_line" sourceRef="end1" targetRef="end1_end"/>
+                    <sequenceFlow id="begin_prepareparam1" sourceRef="begin" targetRef="prepareparam1">
+                    </sequenceFlow>
+                    <sequenceFlow id="prepareparam1_dedataset1" sourceRef="prepareparam1" targetRef="dedataset1">
+                    </sequenceFlow>
+                    <sequenceFlow id="dedataset1_prepareparam2" sourceRef="dedataset1" targetRef="prepareparam2">
+                    </sequenceFlow>
+                    <sequenceFlow id="prepareparam2_end1" sourceRef="prepareparam2" targetRef="end1">
+                    </sequenceFlow>
+        </process>
+    </definitions>

@@ -1,0 +1,71 @@
+export default {
+  codeListTag: 'hr__interview_start_time',
+  codeListType: 'STATIC',
+  codeName: 'hr__interview_start_time',
+  emptyText: '未定义',
+  codeItems: [
+    {
+      codeName: 'item_1',
+      text: '9:00',
+      value: '1',
+      id: 'item_1',
+    },
+    {
+      codeName: 'item_2',
+      text: '10:00',
+      value: '2',
+      id: 'item_2',
+    },
+    {
+      codeName: 'item_3',
+      text: '11:00',
+      value: '3',
+      id: 'item_3',
+    },
+    {
+      codeName: 'item_4',
+      text: '12:00',
+      value: '4',
+      id: 'item_4',
+    },
+    {
+      codeName: 'item_5',
+      text: '13:00',
+      value: '5',
+      id: 'item_5',
+    },
+    {
+      codeName: 'item_6',
+      text: '14:00',
+      value: '6',
+      id: 'item_6',
+    },
+    {
+      codeName: 'item_7',
+      text: '15:00',
+      value: '7',
+      id: 'item_7',
+    },
+    {
+      codeName: 'item_8',
+      text: '16:00',
+      value: '8',
+      id: 'item_8',
+    },
+    {
+      codeName: 'item_9',
+      text: '17:00',
+      value: '9',
+      id: 'item_9',
+    },
+    {
+      codeName: 'item_10',
+      text: '18:00',
+      value: '10',
+      id: 'item_10',
+    },
+  ],
+  enableCache: true,
+  name: '面试开始时间',
+  id: 'web.hr__interview_start_time',
+};

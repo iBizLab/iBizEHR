@@ -1,0 +1,174 @@
+package cn.ibizlab.hr.logic.hr_applicantlogic.get_applicant_state;
+        import java.util.Map;
+        import java.util.HashMap;
+        import com.alibaba.fastjson.JSONObject;
+        import org.springframework.util.StringUtils;
+        import org.springframework.util.ObjectUtils;
+        import cn.ibizlab.util.errors.BadRequestAlertException;
+                global cn.ibizlab.core.hr.domain.hr_applicant hr_applicantget_applicant_statedefault;
+                global java.util.Map hr_applicantget_applicant_stateresult;
+        global cn.ibizlab.core.hr.service.Ihr_applicantService iBzSysHr_applicantDefaultService;
+        global cn.ibizlab.util.security.AuthenticationUser curuser;
+
+
+    no-loop
+
+            //逻辑处理节点[开始]
+            rule "begin"
+            ruleflow-group "hr_applicantget_applicant_statebegin"
+            when
+            then
+            end
+
+            //逻辑处理节点[初筛]
+            rule "rawsqlcall1"
+            ruleflow-group "hr_applicantget_applicant_staterawsqlcall1"
+            when
+            then
+                        Map param = null;
+                        String strSql="select count(1)  as status_20  from hr_applicant ha  left join hr_recruitment_stage hrs on ha.STAGE_ID  = hrs.id where hrs.`SEQUENCE`  = 20 and ha.status = 1";
+                        java.util.List<JSONObject> entities=iBzSysHr_applicantDefaultService.select(strSql,param);//SQL调用
+                            if(entities.size()>0){
+                            JSONObject entity=entities.get(0);
+                                hr_applicantget_applicant_stateresult.putAll(entity);
+                            }
+                        update(hr_applicantget_applicant_statedefault);//更新fact中变量值
+                        update(hr_applicantget_applicant_stateresult);//更新fact中变量值
+            end
+
+            //逻辑处理节点[人才推荐]
+            rule "rawsqlcall2"
+            ruleflow-group "hr_applicantget_applicant_staterawsqlcall2"
+            when
+            then
+                        Map param = null;
+                        String strSql="select count(1)  as status_10  from hr_applicant ha  left join hr_recruitment_stage hrs on ha.STAGE_ID  = hrs.id where hrs.`SEQUENCE`  = 10 and ha.status = 1";
+                        java.util.List<JSONObject> entities=iBzSysHr_applicantDefaultService.select(strSql,param);//SQL调用
+                            if(entities.size()>0){
+                            JSONObject entity=entities.get(0);
+                                hr_applicantget_applicant_stateresult.putAll(entity);
+                            }
+                        update(hr_applicantget_applicant_statedefault);//更新fact中变量值
+                        update(hr_applicantget_applicant_stateresult);//更新fact中变量值
+            end
+
+            //逻辑处理节点[用人部门筛选]
+            rule "rawsqlcall3"
+            ruleflow-group "hr_applicantget_applicant_staterawsqlcall3"
+            when
+            then
+                        Map param = null;
+                        String strSql="select count(1)  as status_30  from hr_applicant ha  left join hr_recruitment_stage hrs on ha.STAGE_ID  = hrs.id where hrs.`SEQUENCE`  = 30 and ha.status = 1";
+                        java.util.List<JSONObject> entities=iBzSysHr_applicantDefaultService.select(strSql,param);//SQL调用
+                            if(entities.size()>0){
+                            JSONObject entity=entities.get(0);
+                                hr_applicantget_applicant_stateresult.putAll(entity);
+                            }
+                        update(hr_applicantget_applicant_statedefault);//更新fact中变量值
+                        update(hr_applicantget_applicant_stateresult);//更新fact中变量值
+            end
+
+            //逻辑处理节点[初试]
+            rule "rawsqlcall4"
+            ruleflow-group "hr_applicantget_applicant_staterawsqlcall4"
+            when
+            then
+                        Map param = null;
+                        String strSql="select count(1)  as status_40  from hr_applicant ha  left join hr_recruitment_stage hrs on ha.STAGE_ID  = hrs.id where hrs.`SEQUENCE`  = 40 and ha.status = 1";
+                        java.util.List<JSONObject> entities=iBzSysHr_applicantDefaultService.select(strSql,param);//SQL调用
+                            if(entities.size()>0){
+                            JSONObject entity=entities.get(0);
+                                hr_applicantget_applicant_stateresult.putAll(entity);
+                            }
+                        update(hr_applicantget_applicant_statedefault);//更新fact中变量值
+                        update(hr_applicantget_applicant_stateresult);//更新fact中变量值
+            end
+
+            //逻辑处理节点[沟通offer]
+            rule "rawsqlcall6"
+            ruleflow-group "hr_applicantget_applicant_staterawsqlcall6"
+            when
+            then
+                        Map param = null;
+                        String strSql="select count(1)  as status_70  from hr_applicant ha  left join hr_recruitment_stage hrs on ha.STAGE_ID  = hrs.id where hrs.`SEQUENCE`  = 70 and ha.status = 1";
+                        java.util.List<JSONObject> entities=iBzSysHr_applicantDefaultService.select(strSql,param);//SQL调用
+                            if(entities.size()>0){
+                            JSONObject entity=entities.get(0);
+                                hr_applicantget_applicant_stateresult.putAll(entity);
+                            }
+                        update(hr_applicantget_applicant_statedefault);//更新fact中变量值
+                        update(hr_applicantget_applicant_stateresult);//更新fact中变量值
+            end
+
+            //逻辑处理节点[大五性格测评]
+            rule "rawsqlcall_02"
+            ruleflow-group "hr_applicantget_applicant_staterawsqlcall_02"
+            when
+            then
+                        Map param = null;
+                        String strSql="select count(1)  as status_50  from hr_applicant ha  left join hr_recruitment_stage hrs on ha.STAGE_ID  = hrs.id where hrs.`SEQUENCE`  = 50 and ha.status = 1";
+                        java.util.List<JSONObject> entities=iBzSysHr_applicantDefaultService.select(strSql,param);//SQL调用
+                            if(entities.size()>0){
+                            JSONObject entity=entities.get(0);
+                                hr_applicantget_applicant_stateresult.putAll(entity);
+                            }
+                        update(hr_applicantget_applicant_statedefault);//更新fact中变量值
+                        update(hr_applicantget_applicant_stateresult);//更新fact中变量值
+            end
+
+            //逻辑处理节点[完成]
+            rule "rawsqlcall_01"
+            ruleflow-group "hr_applicantget_applicant_staterawsqlcall_01"
+            when
+            then
+                        Map param = null;
+                        String strSql="select count(1)  as status_90  from hr_applicant ha  left join hr_recruitment_stage hrs on ha.STAGE_ID  = hrs.id where hrs.`SEQUENCE`  = 90 and ha.status = 1";
+                        java.util.List<JSONObject> entities=iBzSysHr_applicantDefaultService.select(strSql,param);//SQL调用
+                            if(entities.size()>0){
+                            JSONObject entity=entities.get(0);
+                                hr_applicantget_applicant_stateresult.putAll(entity);
+                            }
+                        update(hr_applicantget_applicant_statedefault);//更新fact中变量值
+                        update(hr_applicantget_applicant_stateresult);//更新fact中变量值
+            end
+
+            //逻辑处理节点[复试]
+            rule "rawsqlcall5"
+            ruleflow-group "hr_applicantget_applicant_staterawsqlcall5"
+            when
+            then
+                        Map param = null;
+                        String strSql="select count(1)  as status_60  from hr_applicant ha  left join hr_recruitment_stage hrs on ha.STAGE_ID  = hrs.id where hrs.`SEQUENCE`  = 60 and ha.status = 1";
+                        java.util.List<JSONObject> entities=iBzSysHr_applicantDefaultService.select(strSql,param);//SQL调用
+                            if(entities.size()>0){
+                            JSONObject entity=entities.get(0);
+                                hr_applicantget_applicant_stateresult.putAll(entity);
+                            }
+                        update(hr_applicantget_applicant_statedefault);//更新fact中变量值
+                        update(hr_applicantget_applicant_stateresult);//更新fact中变量值
+            end
+
+            //逻辑处理节点[待入职]
+            rule "rawsqlcall7"
+            ruleflow-group "hr_applicantget_applicant_staterawsqlcall7"
+            when
+            then
+                        Map param = null;
+                        String strSql="select count(1)  as status_80  from hr_applicant ha  left join hr_recruitment_stage hrs on ha.STAGE_ID  = hrs.id where hrs.`SEQUENCE`  = 80 and ha.status = 1";
+                        java.util.List<JSONObject> entities=iBzSysHr_applicantDefaultService.select(strSql,param);//SQL调用
+                            if(entities.size()>0){
+                            JSONObject entity=entities.get(0);
+                                hr_applicantget_applicant_stateresult.putAll(entity);
+                            }
+                        update(hr_applicantget_applicant_statedefault);//更新fact中变量值
+                        update(hr_applicantget_applicant_stateresult);//更新fact中变量值
+            end
+
+            //逻辑处理节点[结束]
+            rule "end1"
+            ruleflow-group "hr_applicantget_applicant_stateend1"
+            when
+            then
+                        update(hr_applicantget_applicant_statedefault);//更新fact中变量值
+                        update(hr_applicantget_applicant_stateresult);//更新fact中变量值
+            end

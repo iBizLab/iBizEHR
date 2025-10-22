@@ -1,0 +1,471 @@
+{
+  "codeName" : "cleanWorkdays",
+  "defaultParamName" : "Default",
+  "dynaModelFilePath" : "PSMODULES/attendance/PSDATAENTITIES/attendance_rule/PSDELOGICS/cleanWorkdays.json",
+  "logicName" : "创建/更新时清理工作日",
+  "name" : "创建/更新时清理工作日",
+  "getPSDELogicNodes" : [ {
+    "codeName" : "Begin",
+    "leftPos" : 180,
+    "logicNodeType" : "BEGIN",
+    "name" : "开始",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "PREPAREPARAM_03"
+      },
+      "name" : "上A休B",
+      "getPSDELogicLinkGroupCond" : {
+        "groupOP" : "AND",
+        "logicType" : "GROUP",
+        "name" : "连接条件组",
+        "getPSDELogicLinkConds" : [ {
+          "condOP" : "EQ",
+          "dstFieldName" : "SCHEDULE_TYPE",
+          "getDstLogicParam" : {
+            "modelref" : true,
+            "id" : "Default"
+          },
+          "logicType" : "SINGLE",
+          "name" : "Default[SCHEDULE_TYPE] 等于(=) work_rest",
+          "paramValue" : "work_rest"
+        } ]
+      },
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "Begin"
+      }
+    }, {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "PREPAREPARAM_01"
+      },
+      "name" : "固定排班/灵活打卡/大小周/N班倒",
+      "getPSDELogicLinkGroupCond" : {
+        "groupOP" : "AND",
+        "logicType" : "GROUP",
+        "name" : "连接条件组",
+        "getPSDELogicLinkConds" : [ {
+          "groupOP" : "OR",
+          "logicType" : "GROUP",
+          "name" : "OR",
+          "getPSDELogicLinkConds" : [ {
+            "condOP" : "EQ",
+            "dstFieldName" : "SCHEDULE_TYPE",
+            "getDstLogicParam" : {
+              "modelref" : true,
+              "id" : "Default"
+            },
+            "logicType" : "SINGLE",
+            "name" : "Default[SCHEDULE_TYPE] 等于(=) fixed",
+            "paramValue" : "fixed"
+          }, {
+            "condOP" : "EQ",
+            "dstFieldName" : "SCHEDULE_TYPE",
+            "getDstLogicParam" : {
+              "modelref" : true,
+              "id" : "Default"
+            },
+            "logicType" : "SINGLE",
+            "name" : "Default[SCHEDULE_TYPE] 等于(=) flexible",
+            "paramValue" : "flexible"
+          }, {
+            "condOP" : "EQ",
+            "dstFieldName" : "SCHEDULE_TYPE",
+            "getDstLogicParam" : {
+              "modelref" : true,
+              "id" : "Default"
+            },
+            "logicType" : "SINGLE",
+            "name" : "Default[SCHEDULE_TYPE] 等于(=) alternate_week",
+            "paramValue" : "alternate_week"
+          }, {
+            "groupOP" : "AND",
+            "logicType" : "GROUP",
+            "name" : "AND",
+            "getPSDELogicLinkConds" : [ {
+              "condOP" : "EQ",
+              "dstFieldName" : "SCHEDULE_TYPE",
+              "getDstLogicParam" : {
+                "modelref" : true,
+                "id" : "Default"
+              },
+              "logicType" : "SINGLE",
+              "name" : "Default[SCHEDULE_TYPE] 等于(=) class_inversion",
+              "paramValue" : "class_inversion"
+            }, {
+              "condOP" : "EQ",
+              "dstFieldName" : "SAME_RESTDAY",
+              "getDstLogicParam" : {
+                "modelref" : true,
+                "id" : "Default"
+              },
+              "logicType" : "SINGLE",
+              "name" : "Default[SAME_RESTDAY] 等于(=) 1",
+              "paramValue" : "1"
+            } ]
+          } ]
+        } ]
+      },
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "Begin"
+      }
+    }, {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "END_01"
+      },
+      "name" : "N班倒-休息日不同",
+      "getPSDELogicLinkGroupCond" : {
+        "groupOP" : "AND",
+        "logicType" : "GROUP",
+        "name" : "连接条件组",
+        "getPSDELogicLinkConds" : [ {
+          "condOP" : "EQ",
+          "dstFieldName" : "SCHEDULE_TYPE",
+          "getDstLogicParam" : {
+            "modelref" : true,
+            "id" : "Default"
+          },
+          "logicType" : "SINGLE",
+          "name" : "Default[SCHEDULE_TYPE] 等于(=) class_inversion",
+          "paramValue" : "class_inversion"
+        }, {
+          "condOP" : "EQ",
+          "dstFieldName" : "SAME_RESTDAY",
+          "getDstLogicParam" : {
+            "modelref" : true,
+            "id" : "Default"
+          },
+          "logicType" : "SINGLE",
+          "name" : "Default[SAME_RESTDAY] 等于(=) 0",
+          "paramValue" : "0"
+        } ]
+      },
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "Begin"
+      }
+    } ],
+    "topPos" : 104,
+    "parallelOutput" : true
+  }, {
+    "codeName" : "PREPAREPARAM_01",
+    "leftPos" : 140,
+    "logicNodeType" : "PREPAREPARAM",
+    "name" : "准备参数",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "RAWSFCODE_01"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "PREPAREPARAM_01"
+      }
+    } ],
+    "getPSDELogicNodeParams" : [ {
+      "getDstPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "workdays"
+      },
+      "paramAction" : "BINDPARAM",
+      "srcFieldName" : "workdays",
+      "getSrcPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "Default"
+      },
+      "srcValueType" : "SRCDLPARAM"
+    } ],
+    "topPos" : 280,
+    "parallelOutput" : true
+  }, {
+    "codeName" : "PREPAREPARAM_03",
+    "leftPos" : 580,
+    "logicNodeType" : "PREPAREPARAM",
+    "name" : "准备参数",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "END_01"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "PREPAREPARAM_03"
+      }
+    } ],
+    "getPSDELogicNodeParams" : [ {
+      "dstFieldName" : "workdays",
+      "getDstPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "Default"
+      },
+      "paramAction" : "SETPARAMVALUE",
+      "srcValueType" : "NULLVALUE"
+    } ],
+    "topPos" : 280,
+    "parallelOutput" : true
+  }, {
+    "code" : "def _default = logic.param('Default').getReal()\r\ndef schedule_type = _default.schedule_type ;\r\n//N班倒\r\nif(schedule_type == \"class_inversion\"){\r\n    _default.workday = \"\";\r\n    def inversion_cycle = _default.inversion_cycle ;\r\n\r\n    if(inversion_cycle== 1){\r\n        _default.week2 = \"\" ;\r\n        _default.week3 = \"\" ;\r\n        _default.week4 = \"\" ;\r\n    }\r\n    if(inversion_cycle== 2){\r\n        _default.week3 = \"\" ;\r\n        _default.week4 = \"\" ;\r\n    }\r\n    if(inversion_cycle== 3){\r\n        _default.week4 = \"\" ;\r\n    }\r\n}\r\n\r\n//固定排班/灵活打卡\r\nif(schedule_type == \"flexible\" || schedule_type == \"fixed\"){\r\n    _default.week1 = \"\" ;\r\n    _default.week2 = \"\" ;\r\n    _default.week3 = \"\" ;\r\n    _default.week4 = \"\" ;\r\n}\r\n\r\n//大小周\r\nif(schedule_type == \"alternate_week\" ){\r\n    _default.workday = \"\";\r\n    _default.week3 = \"\" ;\r\n    _default.week4 = \"\" ;\r\n}\r\n\r\ndef workdays = logic.param('workdays').getReal()\r\ndef lastDays = logic.param('lastDays').getReal()\r\n\r\ndef selection = [_default.week1, _default.week2, _default.week3, _default.week4,_default.workday].join(',').split(',')\r\n\r\n//遍历workdays\r\nfor(workday in workdays){\r\n    if(selection.contains(workday.get(\"name\"))){\r\n        //附加到数组\r\n        lastDays.add(workday)\r\n    }\r\n}",
+    "codeName" : "RAWSFCODE_01",
+    "codeType" : "Groovy",
+    "leftPos" : 140,
+    "logicNodeType" : "RAWSFCODE",
+    "name" : "执行脚本代码",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "DEBUGPARAM_01"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "RAWSFCODE_01"
+      }
+    } ],
+    "topPos" : 380,
+    "parallelOutput" : true
+  }, {
+    "codeName" : "DEBUGPARAM_01",
+    "getDstPSDELogicParam" : {
+      "modelref" : true,
+      "id" : "Default"
+    },
+    "leftPos" : -50,
+    "logicNodeType" : "DEBUGPARAM",
+    "name" : "调试逻辑参数",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "PREPAREPARAM_02"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "DEBUGPARAM_01"
+      }
+    } ],
+    "topPos" : 440,
+    "parallelOutput" : true
+  }, {
+    "codeName" : "PREPAREPARAM_02",
+    "leftPos" : 370,
+    "logicNodeType" : "PREPAREPARAM",
+    "name" : "准备参数",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "END_01"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "PREPAREPARAM_02"
+      }
+    } ],
+    "getPSDELogicNodeParams" : [ {
+      "dstFieldName" : "workdays",
+      "getDstPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "Default"
+      },
+      "paramAction" : "SETPARAMVALUE",
+      "getSrcPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "lastDays"
+      },
+      "srcValueType" : "SRCDLPARAM"
+    } ],
+    "topPos" : 482,
+    "parallelOutput" : true
+  }, {
+    "codeName" : "END_01",
+    "leftPos" : 620,
+    "logicNodeType" : "END",
+    "name" : "结束",
+    "getReturnParam" : {
+      "modelref" : true,
+      "id" : "Default"
+    },
+    "returnType" : "LOGICPARAM",
+    "topPos" : 484,
+    "parallelOutput" : true
+  }, {
+    "codeName" : "LOOPSUBCALL_01",
+    "getDstPSDELogicParam" : {
+      "modelref" : true,
+      "id" : "temp"
+    },
+    "leftPos" : -100,
+    "logicNodeType" : "LOOPSUBCALL",
+    "name" : "循环子调用",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "APPENDPARAM_01"
+      },
+      "name" : "连接名称",
+      "getPSDELogicLinkGroupCond" : {
+        "groupOP" : "AND",
+        "logicType" : "GROUP",
+        "name" : "连接条件组",
+        "getPSDELogicLinkConds" : [ {
+          "groupOP" : "OR",
+          "logicType" : "GROUP",
+          "name" : "OR",
+          "getPSDELogicLinkConds" : [ {
+            "condOP" : "LIKE",
+            "dstFieldName" : "WORKDAY",
+            "getDstLogicParam" : {
+              "modelref" : true,
+              "id" : "Default"
+            },
+            "logicType" : "SINGLE",
+            "name" : "Default[WORKDAY] 文本包含(%) name",
+            "paramType" : "SRCENTITYFIELD",
+            "paramValue" : "name",
+            "getSrcLogicParam" : {
+              "modelref" : true,
+              "id" : "temp"
+            }
+          }, {
+            "condOP" : "LIKE",
+            "dstFieldName" : "WEEK2",
+            "getDstLogicParam" : {
+              "modelref" : true,
+              "id" : "Default"
+            },
+            "logicType" : "SINGLE",
+            "name" : "Default[WEEK2] 文本包含(%) name",
+            "paramType" : "SRCENTITYFIELD",
+            "paramValue" : "name",
+            "getSrcLogicParam" : {
+              "modelref" : true,
+              "id" : "temp"
+            }
+          }, {
+            "condOP" : "LIKE",
+            "dstFieldName" : "WEEK1",
+            "getDstLogicParam" : {
+              "modelref" : true,
+              "id" : "Default"
+            },
+            "logicType" : "SINGLE",
+            "name" : "Default[WEEK1] 文本包含(%) name",
+            "paramType" : "SRCENTITYFIELD",
+            "paramValue" : "name",
+            "getSrcLogicParam" : {
+              "modelref" : true,
+              "id" : "temp"
+            }
+          }, {
+            "condOP" : "LIKE",
+            "dstFieldName" : "WEEK3",
+            "getDstLogicParam" : {
+              "modelref" : true,
+              "id" : "Default"
+            },
+            "logicType" : "SINGLE",
+            "name" : "Default[WEEK3] 文本包含(%) name",
+            "paramType" : "SRCENTITYFIELD",
+            "paramValue" : "name",
+            "getSrcLogicParam" : {
+              "modelref" : true,
+              "id" : "temp"
+            }
+          }, {
+            "condOP" : "LIKE",
+            "dstFieldName" : "WEEK4",
+            "getDstLogicParam" : {
+              "modelref" : true,
+              "id" : "Default"
+            },
+            "logicType" : "SINGLE",
+            "name" : "Default[WEEK4] 文本包含(%) name",
+            "paramType" : "SRCENTITYFIELD",
+            "paramValue" : "name",
+            "getSrcLogicParam" : {
+              "modelref" : true,
+              "id" : "temp"
+            }
+          } ]
+        } ]
+      },
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "LOOPSUBCALL_01"
+      },
+      "subCallLink" : true
+    } ],
+    "getSrcPSDELogicParam" : {
+      "modelref" : true,
+      "id" : "workdays"
+    },
+    "topPos" : 570,
+    "parallelOutput" : true
+  }, {
+    "codeName" : "APPENDPARAM_01",
+    "getDstPSDELogicParam" : {
+      "modelref" : true,
+      "id" : "lastDays"
+    },
+    "leftPos" : 140,
+    "logicNodeType" : "APPENDPARAM",
+    "name" : "附加到数组参数",
+    "srcIndex" : 0,
+    "getSrcPSDELogicParam" : {
+      "modelref" : true,
+      "id" : "temp"
+    },
+    "topPos" : 630,
+    "parallelOutput" : true
+  } ],
+  "getPSDELogicParams" : [ {
+    "codeName" : "Default",
+    "logicName" : "传入变量",
+    "name" : "传入变量",
+    "getParamPSDataEntity" : {
+      "modelref" : true,
+      "path" : "PSMODULES/attendance/PSDATAENTITIES/attendance_rule.json"
+    },
+    "default" : true,
+    "entityParam" : true
+  }, {
+    "codeName" : "lastDays",
+    "logicName" : "lastDays",
+    "name" : "lastDays",
+    "getParamPSDataEntity" : {
+      "modelref" : true,
+      "path" : "PSMODULES/attendance/PSDATAENTITIES/attendance_workday.json"
+    },
+    "entityListParam" : true
+  }, {
+    "codeName" : "temp",
+    "logicName" : "temp",
+    "name" : "temp",
+    "getParamPSDataEntity" : {
+      "modelref" : true,
+      "path" : "PSMODULES/attendance/PSDATAENTITIES/attendance_workday.json"
+    },
+    "entityParam" : true
+  }, {
+    "codeName" : "workdays",
+    "logicName" : "workdays",
+    "name" : "workdays",
+    "getParamPSDataEntity" : {
+      "modelref" : true,
+      "path" : "PSMODULES/attendance/PSDATAENTITIES/attendance_workday.json"
+    },
+    "entityListParam" : true
+  } ],
+  "scriptCode" : "var selection = data.workday;\r\n//固定打卡、灵活排班\r\nif ((data.schedule_type == \"fixed\" || data.schedule_type == \"flexible\") && selection != null && selection != \"\") {\r\n  var workdays = data.workdays;\r\n  var last =  [];\r\n  for (var i = 0; i < workdays.length; i++){\r\n    var item = workdays[i];\r\n    if(selection.includes(item.name.toString())){\r\n      last.push(item)\r\n    }\r\n  }\r\n  data.workdays = last;\r\n}",
+  "getStartPSDELogicNode" : {
+    "modelref" : true,
+    "id" : "Begin"
+  },
+  "enableBackend" : true,
+  "enableFront" : false
+}

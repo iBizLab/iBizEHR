@@ -1,0 +1,775 @@
+{
+  "codeName" : "main",
+  "controlType" : "FORM",
+  "getCreatePSControlAction" : {
+    "modelref" : true,
+    "id" : "create",
+    "actionName" : "Create",
+    "actionType" : "DEACTION",
+    "dataAccessAction" : "CREATE",
+    "name" : "create",
+    "getPSAppDEMethod" : {
+      "modelref" : true,
+      "id" : "Create"
+    },
+    "getPSAppDataEntity" : {
+      "modelref" : true,
+      "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/attendance_scope.json"
+    }
+  },
+  "defaultLabelWidth" : 130,
+  "dynaModelFilePath" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/attendance_scope/PSFORMS/main.json",
+  "getGetDraftFromPSControlAction" : {
+    "modelref" : true,
+    "id" : "loaddraftfrom",
+    "actionName" : "GETDRAFTFROM",
+    "actionType" : "DEACTION",
+    "dataAccessAction" : "CREATE",
+    "name" : "loaddraftfrom",
+    "getPSAppDataEntity" : {
+      "modelref" : true,
+      "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/attendance_scope.json"
+    }
+  },
+  "getGetDraftPSControlAction" : {
+    "modelref" : true,
+    "id" : "loaddraft",
+    "actionName" : "GetDraft",
+    "actionType" : "DEACTION",
+    "dataAccessAction" : "CREATE",
+    "name" : "loaddraft",
+    "getPSAppDEMethod" : {
+      "modelref" : true,
+      "id" : "GetDraft"
+    },
+    "getPSAppDataEntity" : {
+      "modelref" : true,
+      "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/attendance_scope.json"
+    }
+  },
+  "getGetPSControlAction" : {
+    "modelref" : true,
+    "id" : "load",
+    "actionName" : "Get",
+    "actionType" : "DEACTION",
+    "dataAccessAction" : "READ",
+    "name" : "load",
+    "getPSAppDEMethod" : {
+      "modelref" : true,
+      "id" : "Get"
+    },
+    "getPSAppDataEntity" : {
+      "modelref" : true,
+      "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/attendance_scope.json"
+    }
+  },
+  "logicName" : "主编辑表单",
+  "getPSAppDataEntity" : {
+    "modelref" : true,
+    "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/attendance_scope.json"
+  },
+  "getPSDEFormItems" : [ {
+    "id" : "srforikey",
+    "hidden" : true,
+    "dataType" : 25
+  }, {
+    "id" : "srfkey",
+    "hidden" : true,
+    "dataType" : 25,
+    "getPSAppDEField" : {
+      "name" : "ID",
+      "codeName" : "id"
+    }
+  }, {
+    "id" : "srfmajortext",
+    "hidden" : true,
+    "dataType" : 25,
+    "getPSAppDEField" : {
+      "name" : "NAME",
+      "codeName" : "name"
+    }
+  }, {
+    "id" : "srftempmode",
+    "hidden" : true,
+    "dataType" : 25
+  }, {
+    "id" : "srfuf",
+    "hidden" : true,
+    "dataType" : 25
+  }, {
+    "id" : "srfdeid",
+    "hidden" : true,
+    "dataType" : 25
+  }, {
+    "id" : "srfsourcekey",
+    "hidden" : true,
+    "dataType" : 25
+  }, {
+    "id" : "start_base_time",
+    "dataType" : 5,
+    "getPSAppDEField" : {
+      "name" : "START_BASE_TIME",
+      "codeName" : "start_base_time"
+    }
+  }, {
+    "id" : "late_for_late",
+    "dataType" : 9,
+    "getPSAppDEField" : {
+      "name" : "LATE_FOR_LATE",
+      "codeName" : "late_for_late"
+    }
+  }, {
+    "id" : "late_for_absenteeism",
+    "dataType" : 9,
+    "getPSAppDEField" : {
+      "name" : "LATE_FOR_ABSENTEEISM",
+      "codeName" : "late_for_absenteeism"
+    }
+  }, {
+    "id" : "earliest_checkin",
+    "dataType" : 9,
+    "getPSAppDEField" : {
+      "name" : "EARLIEST_CHECKIN",
+      "codeName" : "earliest_checkin"
+    }
+  }, {
+    "id" : "end_base_time",
+    "dataType" : 5,
+    "getPSAppDEField" : {
+      "name" : "END_BASE_TIME",
+      "codeName" : "end_base_time"
+    }
+  }, {
+    "id" : "early_for_early",
+    "dataType" : 9,
+    "getPSAppDEField" : {
+      "name" : "EARLY_FOR_EARLY",
+      "codeName" : "early_for_early"
+    }
+  }, {
+    "id" : "early_for_absenteeism",
+    "dataType" : 9,
+    "getPSAppDEField" : {
+      "name" : "EARLY_FOR_ABSENTEEISM",
+      "codeName" : "early_for_absenteeism"
+    }
+  }, {
+    "id" : "latest_checkout",
+    "dataType" : 9,
+    "getPSAppDEField" : {
+      "name" : "LATEST_CHECKOUT",
+      "codeName" : "latest_checkout"
+    }
+  }, {
+    "id" : "shift_id",
+    "hidden" : true,
+    "dataType" : 25,
+    "createDVT" : "APPDATA",
+    "createDV" : "attendance_shift",
+    "updateDVT" : "APPDATA",
+    "updateDV" : "attendance_shift",
+    "getPSAppDEField" : {
+      "name" : "SHIFT_ID",
+      "codeName" : "shift_id"
+    }
+  }, {
+    "id" : "id",
+    "hidden" : true,
+    "dataType" : 25,
+    "getPSAppDEField" : {
+      "name" : "ID",
+      "codeName" : "id"
+    }
+  } ],
+  "getPSDEFormPages" : [ {
+    "getCapPSLanguageRes" : {
+      "lanResTag" : "CONTROL.DEFORM.SCOPE.MAIN.FORMPAGE.FORMPAGE1"
+    },
+    "caption" : "基本信息",
+    "codeName" : "formpage1",
+    "detailStyle" : "DEFAULT",
+    "detailType" : "FORMPAGE",
+    "name" : "formpage1",
+    "getPSDEFormDetails" : [ {
+      "getCapPSLanguageRes" : {
+        "lanResTag" : "CONTROL.DEFORM.SCOPE.MAIN.GROUPPANEL.GROUP1"
+      },
+      "caption" : "时间范围基本信息",
+      "codeName" : "group1",
+      "detailStyle" : "DEFAULT",
+      "detailType" : "GROUPPANEL",
+      "name" : "group1",
+      "getPSDEFormDetails" : [ {
+        "codeName" : "grouppanel4",
+        "detailStyle" : "DEFAULT",
+        "detailType" : "GROUPPANEL",
+        "name" : "grouppanel4",
+        "getPSDEFormDetails" : [ {
+          "getCapPSLanguageRes" : {
+            "lanResTag" : "CONTROL.DEFORM.SHIFT.MAIN2.FORMITEM.BASE_TIME"
+          },
+          "caption" : "上班时间",
+          "codeName" : "start_base_time",
+          "dataType" : 5,
+          "detailStyle" : "DEFAULT",
+          "detailType" : "FORMITEM",
+          "enableCond" : 3,
+          "ignoreInput" : 0,
+          "labelPos" : "LEFT",
+          "labelWidth" : 130,
+          "name" : "start_base_time",
+          "noPrivDisplayMode" : 1,
+          "getPSAppDEField" : {
+            "name" : "START_BASE_TIME",
+            "codeName" : "start_base_time"
+          },
+          "getPSEditor" : {
+            "editorType" : "NUMBER",
+            "name" : "start_base_time"
+          },
+          "getPSLayoutPos" : {
+            "colLG" : 16,
+            "colMD" : 16,
+            "layout" : "TABLE_24COL"
+          },
+          "valueFormat" : "HH:mm:ss",
+          "allowEmpty" : false,
+          "showCaption" : true
+        }, {
+          "codeName" : "rawitem2",
+          "contentType" : "RAW",
+          "detailStyle" : "DEFAULT",
+          "detailType" : "RAWITEM",
+          "name" : "rawitem2",
+          "getPSLayoutPos" : {
+            "colLG" : 8,
+            "colMD" : 8,
+            "layout" : "TABLE_24COL"
+          },
+          "getPSRawItem" : {
+            "contentType" : "RAW",
+            "name" : "rawitem2",
+            "rawItemHeight" : -1.0,
+            "rawItemWidth" : -1.0
+          },
+          "rawItemHeight" : -1.0,
+          "rawItemWidth" : -1.0,
+          "showCaption" : true
+        }, {
+          "getCapPSLanguageRes" : {
+            "lanResTag" : "CONTROL.DEFORM.SHIFT.MAIN2.FORMITEM.LATE_FOR_LATE"
+          },
+          "caption" : "上班晚",
+          "codeName" : "late_for_late",
+          "dataType" : 9,
+          "detailStyle" : "DEFAULT",
+          "detailType" : "FORMITEM",
+          "enableCond" : 3,
+          "ignoreInput" : 0,
+          "labelPos" : "LEFT",
+          "labelWidth" : 130,
+          "name" : "late_for_late",
+          "noPrivDisplayMode" : 1,
+          "getPSAppDEField" : {
+            "name" : "LATE_FOR_LATE",
+            "codeName" : "late_for_late"
+          },
+          "getPSEditor" : {
+            "editorType" : "NUMBER",
+            "name" : "late_for_late"
+          },
+          "getPSLayoutPos" : {
+            "colLG" : 16,
+            "colMD" : 16,
+            "layout" : "TABLE_24COL"
+          },
+          "allowEmpty" : true,
+          "showCaption" : true
+        }, {
+          "codeName" : "rawitem1",
+          "contentType" : "RAW",
+          "detailStyle" : "DEFAULT",
+          "detailType" : "RAWITEM",
+          "name" : "rawitem1",
+          "getPSLayoutPos" : {
+            "colLG" : 8,
+            "colMD" : 24,
+            "layout" : "TABLE_24COL"
+          },
+          "getPSRawItem" : {
+            "caption" : "分钟记为迟到",
+            "contentType" : "RAW",
+            "name" : "rawitem1",
+            "rawItemHeight" : -1.0,
+            "rawItemWidth" : -1.0
+          },
+          "rawContent" : "分钟记为迟到",
+          "rawItemHeight" : -1.0,
+          "rawItemWidth" : -1.0,
+          "showCaption" : true
+        }, {
+          "getCapPSLanguageRes" : {
+            "lanResTag" : "CONTROL.DEFORM.SHIFT.MAIN2.FORMITEM.LATE_FOR_ABSENTEEISM"
+          },
+          "caption" : "上班晚",
+          "codeName" : "late_for_absenteeism",
+          "dataType" : 9,
+          "detailStyle" : "DEFAULT",
+          "detailType" : "FORMITEM",
+          "enableCond" : 3,
+          "ignoreInput" : 0,
+          "labelPos" : "LEFT",
+          "labelWidth" : 130,
+          "name" : "late_for_absenteeism",
+          "noPrivDisplayMode" : 1,
+          "getPSAppDEField" : {
+            "name" : "LATE_FOR_ABSENTEEISM",
+            "codeName" : "late_for_absenteeism"
+          },
+          "getPSEditor" : {
+            "editorType" : "NUMBER",
+            "name" : "late_for_absenteeism"
+          },
+          "getPSLayoutPos" : {
+            "colLG" : 16,
+            "colMD" : 16,
+            "layout" : "TABLE_24COL"
+          },
+          "allowEmpty" : true,
+          "showCaption" : true
+        }, {
+          "codeName" : "rawitem3",
+          "contentType" : "RAW",
+          "detailStyle" : "DEFAULT",
+          "detailType" : "RAWITEM",
+          "name" : "rawitem3",
+          "getPSLayoutPos" : {
+            "colLG" : 8,
+            "colMD" : 8,
+            "layout" : "TABLE_24COL"
+          },
+          "getPSRawItem" : {
+            "caption" : "分钟记为缺卡",
+            "contentType" : "RAW",
+            "name" : "rawitem3",
+            "rawItemHeight" : -1.0,
+            "rawItemWidth" : -1.0
+          },
+          "rawContent" : "分钟记为缺卡",
+          "rawItemHeight" : -1.0,
+          "rawItemWidth" : -1.0,
+          "showCaption" : true
+        }, {
+          "getCapPSLanguageRes" : {
+            "lanResTag" : "CONTROL.DEFORM.SHIFT.MAIN2.FORMITEM.EARLIEST_CHECKIN"
+          },
+          "caption" : "最早提前",
+          "codeName" : "earliest_checkin",
+          "dataType" : 9,
+          "detailStyle" : "DEFAULT",
+          "detailType" : "FORMITEM",
+          "enableCond" : 3,
+          "ignoreInput" : 0,
+          "labelPos" : "LEFT",
+          "labelWidth" : 130,
+          "name" : "earliest_checkin",
+          "noPrivDisplayMode" : 1,
+          "getPSAppDEField" : {
+            "name" : "EARLIEST_CHECKIN",
+            "codeName" : "earliest_checkin"
+          },
+          "getPSEditor" : {
+            "editorType" : "NUMBER",
+            "name" : "earliest_checkin"
+          },
+          "getPSLayoutPos" : {
+            "colLG" : 16,
+            "colMD" : 16,
+            "layout" : "TABLE_24COL"
+          },
+          "allowEmpty" : true,
+          "showCaption" : true
+        }, {
+          "codeName" : "rawitem4",
+          "contentType" : "RAW",
+          "detailStyle" : "DEFAULT",
+          "detailType" : "RAWITEM",
+          "name" : "rawitem4",
+          "getPSLayoutPos" : {
+            "colLG" : 8,
+            "colMD" : 8,
+            "layout" : "TABLE_24COL"
+          },
+          "getPSRawItem" : {
+            "caption" : "分钟进行打卡",
+            "contentType" : "RAW",
+            "name" : "rawitem4",
+            "rawItemHeight" : -1.0,
+            "rawItemWidth" : -1.0
+          },
+          "rawContent" : "分钟进行打卡",
+          "rawItemHeight" : -1.0,
+          "rawItemWidth" : -1.0,
+          "showCaption" : true
+        } ],
+        "getPSLayout" : {
+          "childColMD" : 24,
+          "columnCount" : 24,
+          "layout" : "TABLE_24COL"
+        },
+        "getPSLayoutPos" : {
+          "colLG" : 12,
+          "colMD" : 12,
+          "layout" : "TABLE_24COL"
+        },
+        "infoGroupMode" : false,
+        "showCaption" : false
+      }, {
+        "codeName" : "grouppanel5",
+        "detailStyle" : "DEFAULT",
+        "detailType" : "GROUPPANEL",
+        "name" : "grouppanel5",
+        "getPSDEFormDetails" : [ {
+          "getCapPSLanguageRes" : {
+            "lanResTag" : "CONTROL.DEFORM.SCOPE.MAIN.FORMITEM.END_BASE_TIME"
+          },
+          "caption" : "下班时间",
+          "codeName" : "end_base_time",
+          "dataType" : 5,
+          "detailStyle" : "DEFAULT",
+          "detailType" : "FORMITEM",
+          "enableCond" : 3,
+          "ignoreInput" : 0,
+          "labelPos" : "LEFT",
+          "labelWidth" : 130,
+          "name" : "end_base_time",
+          "noPrivDisplayMode" : 1,
+          "getPSAppDEField" : {
+            "name" : "END_BASE_TIME",
+            "codeName" : "end_base_time"
+          },
+          "getPSEditor" : {
+            "editorType" : "NUMBER",
+            "name" : "end_base_time"
+          },
+          "getPSLayoutPos" : {
+            "colLG" : 13,
+            "colMD" : 13,
+            "layout" : "TABLE_24COL"
+          },
+          "valueFormat" : "HH:mm:ss",
+          "allowEmpty" : true,
+          "showCaption" : true
+        }, {
+          "codeName" : "rawitem5",
+          "contentType" : "RAW",
+          "detailStyle" : "DEFAULT",
+          "detailType" : "RAWITEM",
+          "name" : "rawitem5",
+          "getPSLayoutPos" : {
+            "colLG" : 8,
+            "colMD" : 8,
+            "layout" : "TABLE_24COL"
+          },
+          "getPSRawItem" : {
+            "contentType" : "RAW",
+            "name" : "rawitem5",
+            "rawItemHeight" : -1.0,
+            "rawItemWidth" : -1.0
+          },
+          "rawItemHeight" : -1.0,
+          "rawItemWidth" : -1.0,
+          "showCaption" : true
+        }, {
+          "getCapPSLanguageRes" : {
+            "lanResTag" : "CONTROL.DEFORM.SHIFT.MAIN2.FORMITEM.EARLY_FOR_EARLY"
+          },
+          "caption" : "下班早",
+          "codeName" : "early_for_early",
+          "dataType" : 9,
+          "detailStyle" : "DEFAULT",
+          "detailType" : "FORMITEM",
+          "enableCond" : 3,
+          "ignoreInput" : 0,
+          "labelPos" : "LEFT",
+          "labelWidth" : 130,
+          "name" : "early_for_early",
+          "noPrivDisplayMode" : 1,
+          "getPSAppDEField" : {
+            "name" : "EARLY_FOR_EARLY",
+            "codeName" : "early_for_early"
+          },
+          "getPSEditor" : {
+            "editorType" : "NUMBER",
+            "name" : "early_for_early"
+          },
+          "getPSLayoutPos" : {
+            "colLG" : 13,
+            "colMD" : 13,
+            "layout" : "TABLE_24COL"
+          },
+          "allowEmpty" : true,
+          "showCaption" : true
+        }, {
+          "codeName" : "rawitem6",
+          "contentType" : "RAW",
+          "detailStyle" : "DEFAULT",
+          "detailType" : "RAWITEM",
+          "name" : "rawitem6",
+          "getPSLayoutPos" : {
+            "colLG" : 8,
+            "colMD" : 8,
+            "layout" : "TABLE_24COL"
+          },
+          "getPSRawItem" : {
+            "caption" : "分钟记为早退",
+            "contentType" : "RAW",
+            "name" : "rawitem6",
+            "rawItemHeight" : -1.0,
+            "rawItemWidth" : -1.0
+          },
+          "rawContent" : "分钟记为早退",
+          "rawItemHeight" : -1.0,
+          "rawItemWidth" : -1.0,
+          "showCaption" : true
+        }, {
+          "getCapPSLanguageRes" : {
+            "lanResTag" : "CONTROL.DEFORM.SHIFT.MAIN2.FORMITEM.EARLY_FOR_ABSENTEEISM"
+          },
+          "caption" : "下班早",
+          "codeName" : "early_for_absenteeism",
+          "dataType" : 9,
+          "detailStyle" : "DEFAULT",
+          "detailType" : "FORMITEM",
+          "enableCond" : 3,
+          "ignoreInput" : 0,
+          "labelPos" : "LEFT",
+          "labelWidth" : 130,
+          "name" : "early_for_absenteeism",
+          "noPrivDisplayMode" : 1,
+          "getPSAppDEField" : {
+            "name" : "EARLY_FOR_ABSENTEEISM",
+            "codeName" : "early_for_absenteeism"
+          },
+          "getPSEditor" : {
+            "editorType" : "NUMBER",
+            "name" : "early_for_absenteeism"
+          },
+          "getPSLayoutPos" : {
+            "colLG" : 13,
+            "colMD" : 13,
+            "layout" : "TABLE_24COL"
+          },
+          "allowEmpty" : true,
+          "showCaption" : true
+        }, {
+          "codeName" : "rawitem7",
+          "contentType" : "RAW",
+          "detailStyle" : "DEFAULT",
+          "detailType" : "RAWITEM",
+          "name" : "rawitem7",
+          "getPSLayoutPos" : {
+            "colLG" : 8,
+            "colMD" : 8,
+            "layout" : "TABLE_24COL"
+          },
+          "getPSRawItem" : {
+            "caption" : "分钟记为缺卡",
+            "contentType" : "RAW",
+            "name" : "rawitem7",
+            "rawItemHeight" : -1.0,
+            "rawItemWidth" : -1.0
+          },
+          "rawContent" : "分钟记为缺卡",
+          "rawItemHeight" : -1.0,
+          "rawItemWidth" : -1.0,
+          "showCaption" : true
+        }, {
+          "getCapPSLanguageRes" : {
+            "lanResTag" : "CONTROL.DEFORM.SHIFT.MAIN2.FORMITEM.LATEST_CHECKOUT"
+          },
+          "caption" : "最晚延后",
+          "codeName" : "latest_checkout",
+          "dataType" : 9,
+          "detailStyle" : "DEFAULT",
+          "detailType" : "FORMITEM",
+          "enableCond" : 3,
+          "ignoreInput" : 0,
+          "labelPos" : "LEFT",
+          "labelWidth" : 130,
+          "name" : "latest_checkout",
+          "noPrivDisplayMode" : 1,
+          "getPSAppDEField" : {
+            "name" : "LATEST_CHECKOUT",
+            "codeName" : "latest_checkout"
+          },
+          "getPSEditor" : {
+            "editorType" : "NUMBER",
+            "name" : "latest_checkout"
+          },
+          "getPSLayoutPos" : {
+            "colLG" : 13,
+            "colMD" : 13,
+            "layout" : "TABLE_24COL"
+          },
+          "allowEmpty" : true,
+          "showCaption" : true
+        }, {
+          "codeName" : "rawitem8",
+          "contentType" : "RAW",
+          "detailStyle" : "DEFAULT",
+          "detailType" : "RAWITEM",
+          "name" : "rawitem8",
+          "getPSLayoutPos" : {
+            "colLG" : 8,
+            "colMD" : 8,
+            "layout" : "TABLE_24COL"
+          },
+          "getPSRawItem" : {
+            "caption" : "分钟进行打卡",
+            "contentType" : "RAW",
+            "name" : "rawitem8",
+            "rawItemHeight" : -1.0,
+            "rawItemWidth" : -1.0
+          },
+          "rawContent" : "分钟进行打卡",
+          "rawItemHeight" : -1.0,
+          "rawItemWidth" : -1.0,
+          "showCaption" : true
+        } ],
+        "getPSLayout" : {
+          "childColMD" : 24,
+          "columnCount" : 24,
+          "layout" : "TABLE_24COL"
+        },
+        "getPSLayoutPos" : {
+          "colLG" : 12,
+          "colMD" : 12,
+          "layout" : "TABLE_24COL"
+        },
+        "infoGroupMode" : false,
+        "showCaption" : false
+      }, {
+        "getCapPSLanguageRes" : {
+          "lanResTag" : "DEF.LNAME.SCOPE.SHIFT_ID"
+        },
+        "caption" : "班次ID",
+        "codeName" : "shift_id",
+        "createDV" : "attendance_shift",
+        "createDVT" : "APPDATA",
+        "dataType" : 25,
+        "detailStyle" : "DEFAULT",
+        "detailType" : "FORMITEM",
+        "enableCond" : 3,
+        "ignoreInput" : 0,
+        "labelPos" : "LEFT",
+        "labelWidth" : 130,
+        "name" : "shift_id",
+        "noPrivDisplayMode" : 1,
+        "getPSAppDEField" : {
+          "name" : "SHIFT_ID",
+          "codeName" : "shift_id"
+        },
+        "getPSEditor" : {
+          "editorType" : "HIDDEN",
+          "name" : "shift_id"
+        },
+        "getPSLayoutPos" : {
+          "colMD" : 24,
+          "layout" : "TABLE_24COL"
+        },
+        "updateDV" : "attendance_shift",
+        "updateDVT" : "APPDATA",
+        "allowEmpty" : true,
+        "hidden" : true
+      } ],
+      "getPSLayout" : {
+        "childColMD" : 24,
+        "columnCount" : 24,
+        "layout" : "TABLE_24COL"
+      },
+      "getPSLayoutPos" : {
+        "colMD" : 24,
+        "layout" : "TABLE_24COL"
+      },
+      "infoGroupMode" : false,
+      "showCaption" : false
+    }, {
+      "getCapPSLanguageRes" : {
+        "lanResTag" : "DEF.LNAME.SCOPE.ID"
+      },
+      "caption" : "主键",
+      "codeName" : "id",
+      "dataType" : 25,
+      "detailStyle" : "DEFAULT",
+      "detailType" : "FORMITEM",
+      "enableCond" : 3,
+      "ignoreInput" : 0,
+      "labelPos" : "LEFT",
+      "labelWidth" : 130,
+      "name" : "id",
+      "noPrivDisplayMode" : 1,
+      "getPSAppDEField" : {
+        "name" : "ID",
+        "codeName" : "id"
+      },
+      "getPSEditor" : {
+        "editorType" : "HIDDEN",
+        "name" : "id"
+      },
+      "getPSLayoutPos" : {
+        "colMD" : 24,
+        "layout" : "TABLE_24COL"
+      },
+      "allowEmpty" : true,
+      "hidden" : true
+    } ],
+    "getPSLayout" : {
+      "childColMD" : 24,
+      "columnCount" : 24,
+      "layout" : "TABLE_24COL"
+    },
+    "infoGroupMode" : false
+  } ],
+  "getPSLayout" : {
+    "childColMD" : 24,
+    "columnCount" : 24,
+    "layout" : "TABLE_24COL"
+  },
+  "getRemovePSControlAction" : {
+    "modelref" : true,
+    "id" : "remove",
+    "actionName" : "Remove",
+    "actionType" : "DEACTION",
+    "dataAccessAction" : "DELETE",
+    "name" : "remove",
+    "getPSAppDEMethod" : {
+      "modelref" : true,
+      "id" : "Remove"
+    },
+    "getPSAppDataEntity" : {
+      "modelref" : true,
+      "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/attendance_scope.json"
+    }
+  },
+  "tabHeaderPos" : "TOP",
+  "getUpdatePSControlAction" : {
+    "modelref" : true,
+    "id" : "update",
+    "actionName" : "Update",
+    "actionType" : "DEACTION",
+    "dataAccessAction" : "UPDATE",
+    "name" : "update",
+    "getPSAppDEMethod" : {
+      "modelref" : true,
+      "id" : "Update"
+    },
+    "getPSAppDataEntity" : {
+      "modelref" : true,
+      "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/attendance_scope.json"
+    }
+  },
+  "noTabHeader" : true,
+  "modelid" : "16c309443645e630ca477fa4819ef649",
+  "modeltype" : "PSDEFORM_EDITFORM"
+}

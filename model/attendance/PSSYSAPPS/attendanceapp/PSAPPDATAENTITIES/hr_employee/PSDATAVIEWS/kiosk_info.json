@@ -1,0 +1,350 @@
+{
+  "cardColLG" : 6,
+  "cardColMD" : 8,
+  "cardColSM" : 12,
+  "cardColXS" : 12,
+  "cardHeight" : 210,
+  "codeName" : "kiosk_info",
+  "controlType" : "DATAVIEW",
+  "getCreatePSControlAction" : {
+    "modelref" : true,
+    "id" : "create",
+    "actionName" : "Create",
+    "actionType" : "DEACTION",
+    "dataAccessAction" : "CREATE",
+    "name" : "create",
+    "getPSAppDEMethod" : {
+      "modelref" : true,
+      "id" : "create"
+    },
+    "getPSAppDataEntity" : {
+      "modelref" : true,
+      "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/hr_employee.json"
+    }
+  },
+  "dynaModelFilePath" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/hr_employee/PSDATAVIEWS/kiosk_info.json",
+  "getFetchPSControlAction" : {
+    "modelref" : true,
+    "id" : "fetch",
+    "actionType" : "DEDATASET",
+    "name" : "fetch",
+    "getPSAppDEMethod" : {
+      "modelref" : true,
+      "id" : "fetch_default"
+    },
+    "getPSAppDataEntity" : {
+      "modelref" : true,
+      "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/hr_employee.json"
+    }
+  },
+  "getGetPSControlAction" : {
+    "modelref" : true,
+    "id" : "load",
+    "actionName" : "Get",
+    "actionType" : "DEACTION",
+    "dataAccessAction" : "READ",
+    "name" : "load",
+    "getPSAppDEMethod" : {
+      "modelref" : true,
+      "id" : "get"
+    },
+    "getPSAppDataEntity" : {
+      "modelref" : true,
+      "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/hr_employee.json"
+    }
+  },
+  "groupMode" : "NONE",
+  "getItemPSLayoutPanel" : {
+    "getAllPSPanelFields" : [ {
+      "id" : "personal_info",
+      "viewFieldName" : "NAME"
+    }, {
+      "id" : "avatar",
+      "hidden" : true,
+      "viewFieldName" : "avatar"
+    }, {
+      "id" : "name",
+      "viewFieldName" : "NAME"
+    }, {
+      "id" : "job_title",
+      "viewFieldName" : "JOB_TITLE"
+    } ],
+    "codeName" : "abab0481faf5416afc5",
+    "controlType" : "PANEL",
+    "dynaModelFilePath" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/hr_employee/PSPANELS/abab0481faf5416afc5.json",
+    "layoutMode" : "FLEX",
+    "logicName" : "emp_info卡片视图",
+    "getPSAppDataEntity" : {
+      "modelref" : true,
+      "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/hr_employee.json"
+    },
+    "getPSControlParam" : { },
+    "getPSLayout" : {
+      "layout" : "FLEX"
+    },
+    "getRootPSPanelItems" : [ {
+      "caption" : "容器",
+      "itemStyle" : "DEFAULT",
+      "itemType" : "CONTAINER",
+      "name" : "container",
+      "getPSLayout" : {
+        "align" : "center",
+        "dir" : "row",
+        "layout" : "FLEX"
+      },
+      "getPSLayoutPos" : {
+        "grow" : -1,
+        "layout" : "FLEX"
+      },
+      "getPSPanelItems" : [ {
+        "caption" : "容器",
+        "itemStyle" : "DEFAULT",
+        "itemType" : "CONTAINER",
+        "name" : "container3",
+        "getPSLayout" : {
+          "dir" : "row",
+          "layout" : "FLEX"
+        },
+        "getPSLayoutPos" : {
+          "grow" : -1,
+          "layout" : "FLEX"
+        },
+        "getPSPanelItems" : [ {
+          "caption" : "容器",
+          "itemStyle" : "DEFAULT",
+          "itemType" : "CONTAINER",
+          "name" : "container1",
+          "getPSLayout" : {
+            "layout" : "FLEX"
+          },
+          "getPSLayoutPos" : {
+            "grow" : -1,
+            "layout" : "FLEX",
+            "shrink" : 0
+          },
+          "getPSPanelItems" : [ {
+            "caption" : "文本(动态)",
+            "itemStyle" : "DEFAULT",
+            "itemType" : "FIELD",
+            "name" : "personal_info",
+            "getPSEditor" : {
+              "editorParams" : {
+                "SHOWNAMETEXT" : "false",
+                "avatarfield" : "avatar"
+              },
+              "editorStyle" : "ODOO_PERSONNEL_INFO",
+              "editorType" : "SPAN",
+              "name" : "personal_info",
+              "getPSSysPFPlugin" : {
+                "pluginType" : "EDITOR_CUSTOMSTYLE",
+                "pluginCode" : "ODOO_PERSONNEL_INFO",
+                "runtimeObject" : true
+              },
+              "predefinedType" : "FIELD_TEXT_DYNAMIC",
+              "renderMode" : "TEXT_DYNAMIC",
+              "enableLinkView" : false
+            },
+            "getPSLayoutPos" : {
+              "grow" : -1,
+              "layout" : "FLEX"
+            },
+            "viewFieldName" : "NAME"
+          }, {
+            "caption" : "文本(动态)",
+            "itemType" : "FIELD",
+            "name" : "avatar",
+            "getPSEditor" : {
+              "editorType" : "HIDDEN",
+              "name" : "avatar",
+              "predefinedType" : "FIELD_TEXT_DYNAMIC"
+            },
+            "getPSLayoutPos" : {
+              "grow" : -1,
+              "layout" : "FLEX"
+            },
+            "viewFieldName" : "avatar",
+            "hidden" : true
+          }, {
+            "caption" : "文本(动态)",
+            "cssStyle" : "font-weight: var(--ibiz-font-weight-bold);",
+            "itemStyle" : "DEFAULT",
+            "itemType" : "FIELD",
+            "name" : "name",
+            "getPSEditor" : {
+              "editorType" : "SPAN",
+              "name" : "name",
+              "predefinedType" : "FIELD_TEXT_DYNAMIC",
+              "renderMode" : "TEXT_DYNAMIC",
+              "enableLinkView" : false
+            },
+            "getPSLayoutPos" : {
+              "grow" : -1,
+              "layout" : "FLEX"
+            },
+            "viewFieldName" : "NAME"
+          }, {
+            "caption" : "文本(动态)",
+            "itemStyle" : "DEFAULT",
+            "itemType" : "FIELD",
+            "name" : "job_title",
+            "getPSEditor" : {
+              "editorType" : "SPAN",
+              "name" : "job_title",
+              "predefinedType" : "FIELD_TEXT_DYNAMIC",
+              "renderMode" : "TEXT_DYNAMIC",
+              "enableLinkView" : false
+            },
+            "getPSLayoutPos" : {
+              "grow" : -1,
+              "layout" : "FLEX"
+            },
+            "viewFieldName" : "JOB_TITLE"
+          } ]
+        } ],
+        "getPSSysCss" : {
+          "cssName" : "car-image"
+        }
+      } ]
+    } ],
+    "layoutPanel" : true,
+    "name" : "itemlayoutpanel",
+    "modelid" : "37cb54eadfa16d37f5a9b655c7b41289",
+    "modeltype" : "PSSYSVIEWPANEL"
+  },
+  "logicName" : "员工卡片（自助考勤）",
+  "getPSAppDataEntity" : {
+    "modelref" : true,
+    "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/hr_employee.json"
+  },
+  "getPSDEDataViewDataItems" : [ {
+    "dataType" : 25,
+    "name" : "job_title"
+  }, {
+    "dataType" : 25,
+    "name" : "image"
+  }, {
+    "dataType" : 25,
+    "name" : "name"
+  }, {
+    "dataType" : 25,
+    "name" : "avatar"
+  }, {
+    "dataType" : 25,
+    "name" : "srfkey",
+    "getPSAppDEField" : {
+      "name" : "ID",
+      "codeName" : "id"
+    }
+  }, {
+    "dataType" : 25,
+    "name" : "srfmajortext",
+    "getPSAppDEField" : {
+      "name" : "NAME",
+      "codeName" : "name"
+    }
+  }, {
+    "dataType" : 25,
+    "name" : "resource_calendar_id",
+    "getPSAppDEField" : {
+      "name" : "RESOURCE_CALENDAR_ID",
+      "codeName" : "resource_calendar_id"
+    }
+  }, {
+    "dataType" : 25,
+    "name" : "resource_id",
+    "getPSAppDEField" : {
+      "name" : "RESOURCE_ID",
+      "codeName" : "resource_id"
+    }
+  }, {
+    "dataType" : 25,
+    "name" : "department_id",
+    "getPSAppDEField" : {
+      "name" : "DEPARTMENT_ID",
+      "codeName" : "department_id"
+    }
+  } ],
+  "getPSDEDataViewItems" : [ {
+    "getCapPSLanguageRes" : {
+      "lanResTag" : "DEF.LNAME.HR_EMPLOYEE.JOB_TITLE"
+    },
+    "caption" : "工作头衔",
+    "dataItemName" : "job_title",
+    "itemType" : "DATAITEM",
+    "name" : "JOB_TITLE",
+    "getPSAppDEField" : {
+      "name" : "JOB_TITLE",
+      "codeName" : "job_title"
+    },
+    "enableSort" : false
+  }, {
+    "dataItemName" : "image",
+    "itemType" : "DATAITEM",
+    "name" : "IMAGE",
+    "enableSort" : false
+  }, {
+    "getCapPSLanguageRes" : {
+      "lanResTag" : "DEF.LNAME.HR_EMPLOYEE.NAME"
+    },
+    "caption" : "名称",
+    "dataItemName" : "name",
+    "itemType" : "DATAITEM",
+    "name" : "NAME",
+    "getPSAppDEField" : {
+      "name" : "NAME",
+      "codeName" : "name"
+    },
+    "enableSort" : false
+  }, {
+    "dataItemName" : "avatar",
+    "itemType" : "DATAITEM",
+    "name" : "AVATAR",
+    "enableSort" : false
+  } ],
+  "pagingMode" : 1,
+  "pagingSize" : 20,
+  "getRemovePSControlAction" : {
+    "modelref" : true,
+    "id" : "remove",
+    "actionName" : "Remove",
+    "actionType" : "DEACTION",
+    "dataAccessAction" : "DELETE",
+    "name" : "remove",
+    "getPSAppDEMethod" : {
+      "modelref" : true,
+      "id" : "remove"
+    },
+    "getPSAppDataEntity" : {
+      "modelref" : true,
+      "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/hr_employee.json"
+    }
+  },
+  "getUpdatePSControlAction" : {
+    "modelref" : true,
+    "id" : "update",
+    "actionName" : "Update",
+    "actionType" : "DEACTION",
+    "dataAccessAction" : "UPDATE",
+    "name" : "update",
+    "getPSAppDEMethod" : {
+      "modelref" : true,
+      "id" : "update"
+    },
+    "getPSAppDataEntity" : {
+      "modelref" : true,
+      "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/hr_employee.json"
+    }
+  },
+  "hasWFDataItems" : false,
+  "appendDEItems" : true,
+  "enableCardEdit" : false,
+  "enableCardEditGroup" : false,
+  "enableCardEditOrder" : false,
+  "enableCardNew" : false,
+  "enableGroup" : false,
+  "enablePagingBar" : true,
+  "noSort" : true,
+  "singleSelect" : true,
+  "modelid" : "de912c5684fe96e11a4f0d67a29cdf3e",
+  "modeltype" : "PSDEDATAVIEW"
+}

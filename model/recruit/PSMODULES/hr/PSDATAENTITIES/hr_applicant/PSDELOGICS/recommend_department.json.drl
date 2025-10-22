@@ -1,0 +1,36 @@
+package cn.ibizlab.hr.logic.hr_applicantlogic.recommend_department;
+        import java.util.Map;
+        import java.util.HashMap;
+        import com.alibaba.fastjson.JSONObject;
+        import org.springframework.util.StringUtils;
+        import org.springframework.util.ObjectUtils;
+        import cn.ibizlab.util.errors.BadRequestAlertException;
+                global cn.ibizlab.core.hr.domain.hr_applicant hr_applicantrecommend_departmentdefault;
+        global cn.ibizlab.core.hr.service.Ihr_applicantService iBzSysHr_applicantDefaultService;
+        global cn.ibizlab.util.security.AuthenticationUser curuser;
+
+
+    no-loop
+
+            //逻辑处理节点[开始]
+            rule "begin"
+            ruleflow-group "hr_applicantrecommend_departmentbegin"
+            when
+            then
+            end
+
+            //逻辑处理节点[执行脚本代码]
+            rule "rawsfcode1"
+            ruleflow-group "hr_applicantrecommend_departmentrawsfcode1"
+            when
+            then
+                        update(hr_applicantrecommend_departmentdefault);//更新fact中变量值
+            end
+
+            //逻辑处理节点[结束]
+            rule "end1"
+            ruleflow-group "hr_applicantrecommend_departmentend1"
+            when
+            then
+                        update(hr_applicantrecommend_departmentdefault);//更新fact中变量值
+            end

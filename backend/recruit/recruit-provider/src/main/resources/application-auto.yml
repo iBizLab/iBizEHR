@@ -1,0 +1,125 @@
+#Generate code from /{{projectName}}-provider/src/main/resources/application-auto.yml.hbs
+# 示例：兼容spring boot默认配置，自动提取servicehub和devlopsystem，兼容spring datasource、redis、zk的配置
+
+system:
+  name: ${spring.application.name}
+#  #repo必须以.git或者.git结尾
+#  repo: ''
+#  #zip模式下不可以配置branch,必须为空
+#  branch: ''
+rtds:
+  url: jdbc:mysql://${mysql.host:mysql}:${mysql.port:3306}/a_lab01_3f9ebc219?autoReconnect=true&useUnicode=true&characterEncoding=UTF-8&useOldAliasMetadataBehavior=true&serverTimezone=GMT%2B8&allowMultiQueries=true&useSSL=false
+  username: a_lab01_3f9ebc219
+  driver-class-name: com.mysql.jdbc.Driver
+
+zookeeper:
+  address: ${zookeeper.host:zoo1}
+spring:
+  redis:
+    host: ${redis.host:redis}
+    port: ${redis.port:6379}
+  cloud:
+    nacos:
+      discovery:
+        server-addr: http://${nacos.host:nacos}:${nacos.port:8848}
+        group: ${nacos.group:ibiz_config_group}
+      config:
+        server-addr: http://${nacos.host:nacos}:${nacos.port:8848}
+        group: ${nacos.group:ibiz_config_group}
+        file-extension: yaml
+
+ibiz:
+  tenant: true
+  deploysystems:
+    gateway:
+      deploysystemid: gateway
+      settings:
+        sysutil:
+          #状态同步服务配置
+          unistate:
+            serviceurl: ${zookeeper.address:zoo1}:${zookeeper.port:2181}
+            servicehost: ${zookeeper.address:zoo1}
+            serviceport: ${zookeeper.port:2181}
+          #缓存服务配置
+          cache:
+            serviceurl: ${spring.redis.host:redis}:${spring.redis.port:6379}
+            servicehost: ${spring.redis.host:redis}
+            serviceport: ${spring.redis.port:6379}
+          #uaa认证配置
+          uaa:
+            newrtuaa: true
+            signature: RSA
+            secret: sec
+          #系统插件配置
+          hubextension:
+            productmarket:
+              serviceurl: https://code.ibizlab.cn/api/v4
+              mode: V2
+              projectid: plm_addons/public
+        sysdbscheme:
+          #数据源default配置
+          default:
+            datasource: rtds
+
+    master:
+      deploysystemid: ${system.name}
+      group: /EE/OFFICE
+      settings:
+        repo: ${system.repo:}
+        branch: ${system.branch:}
+        appdatactx:
+          modeldesignpath: https://open.ibizlab.cn/modeldesign/#/
+          modeldesignmode: v9
+        sysdbscheme:
+          default:
+            datasource: ${system.name}__default
+          ebsx:
+            DB2:
+              datasource: rtds
+        subsysserviceapi:
+          ibizsysmgr:
+            ibizsysmgr:
+              serviceurl: ${uaa.serviceurl:lb://uaa-api}
+              clientid: ${cloud.clientid:aibizhi}
+              clientsecret: ${cloud.clientsecret:123456}
+              ibizsysmgr:
+                serviceurl: lb://uaa-api
+                clientid: ${cloud.clientid:aibizhi}
+                clientsecret: ${cloud.clientsecret:123456}
+      updatedbschema: true
+      extension: true
+  servicehub:
+    id: ${system.name}
+    register-naming-service: true
+    publish-config: true
+    enableappgateway: true
+    enableprodmode: true
+    tempfolder: ${ibiz.filePath:/app/file/}tempfile
+    filefolder: ${ibiz.filePath:/app/file/}datafile
+    # 初始化模式 initmode ，默认 manual：手动模式（手工初始化nacos和system），auto：自动模式
+    initmode: auto
+    # 本地配置优先启动模式 localmode true：本地配置优先，false：远程nacos配置优先（默认）
+    localmode: false
+    deploysystems:
+      - gateway
+      - ${system.name}
+    datasources:
+      rtds:
+        username: ${rtds.username:}
+        password: ${rtds.password:}
+        url: ${rtds.url:}
+        driver-class-name: ${rtds.driver-class-name:}
+      master:
+        username: ${spring.datasource.dynamic.datasource.master.username}
+        password: ${spring.datasource.dynamic.datasource.master.password}
+        url: ${spring.datasource.dynamic.datasource.master.url}
+        driver-class-name: ${spring.datasource.dynamic.datasource.master.driver-class-name}
+    systemsettings:
+      cloudclientutil:
+        serviceurl: ${cloud.serviceurl:lb://ebsx-oldapi}
+        accesstokenurl: ${cloud.accesstokenurl:lb://ibizcloud-uaa/v7/login}
+        clientid: ${cloud.clientid:aibizhi}
+        clientsecret: ${cloud.clientsecret:123456}
+
+
+

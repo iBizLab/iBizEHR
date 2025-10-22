@@ -1,0 +1,66 @@
+package cn.ibizlab.employee_management.logic.user_objectlogic.querydeptuser;
+        import java.util.Map;
+        import java.util.HashMap;
+        import com.alibaba.fastjson.JSONObject;
+        import org.springframework.util.StringUtils;
+        import org.springframework.util.ObjectUtils;
+        import cn.ibizlab.util.errors.BadRequestAlertException;
+                global cn.ibizlab.core.employee_management.domain.user_object user_objectquerydeptuserdefault;
+                global cn.ibizlab.core.employee_management.domain.department user_objectquerydeptuserdept;
+                global cn.ibizlab.core.employee_management.domain.employee user_objectquerydeptuseremployee;
+                    global cn.ibizlab.core.employee_management.service.IemployeeService employeeservice;
+                    global cn.ibizlab.core.employee_management.service.IdepartmentService departmentservice;
+        global cn.ibizlab.core.employee_management.service.Iuser_objectService iBzSysUser_objectDefaultService;
+        global cn.ibizlab.util.security.AuthenticationUser curuser;
+
+
+    no-loop
+
+            //逻辑处理节点[开始]
+            rule "begin"
+            ruleflow-group "user_objectquerydeptuserbegin"
+            when
+            then
+            end
+
+            //逻辑处理节点[结束]
+            rule "end_01"
+            ruleflow-group "user_objectquerydeptuserend_01"
+            when
+            then
+                        update(user_objectquerydeptuserdefault);//更新fact中变量值
+                        update(user_objectquerydeptuserdept);//更新fact中变量值
+                        update(user_objectquerydeptuseremployee);//更新fact中变量值
+            end
+
+            //逻辑处理节点[获取人员]
+            rule "deaction_01"
+            ruleflow-group "user_objectquerydeptuserdeaction_01"
+            when
+            then
+                            cn.ibizlab.util.helper.CachedBeanCopier.copy(employeeservice.get(user_objectquerydeptuserdefault.getId()),user_objectquerydeptuserdefault);
+                        update(user_objectquerydeptuserdefault);//更新fact中变量值
+                        update(user_objectquerydeptuserdept);//更新fact中变量值
+                        update(user_objectquerydeptuseremployee);//更新fact中变量值
+            end
+
+            //逻辑处理节点[获取部门]
+            rule "deaction_02"
+            ruleflow-group "user_objectquerydeptuserdeaction_02"
+            when
+            then
+                            cn.ibizlab.util.helper.CachedBeanCopier.copy(departmentservice.get(user_objectquerydeptuserdefault.getId()),user_objectquerydeptuserdefault);
+                        update(user_objectquerydeptuserdefault);//更新fact中变量值
+                        update(user_objectquerydeptuserdept);//更新fact中变量值
+                        update(user_objectquerydeptuseremployee);//更新fact中变量值
+            end
+
+            //逻辑处理节点[结束]
+            rule "end_02"
+            ruleflow-group "user_objectquerydeptuserend_02"
+            when
+            then
+                        update(user_objectquerydeptuserdefault);//更新fact中变量值
+                        update(user_objectquerydeptuserdept);//更新fact中变量值
+                        update(user_objectquerydeptuseremployee);//更新fact中变量值
+            end

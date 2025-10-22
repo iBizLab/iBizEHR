@@ -1,0 +1,102 @@
+package cn.ibizlab.attendance.logic.attendance_rulelogic.generateholiday;
+        import java.util.Map;
+        import java.util.HashMap;
+        import com.alibaba.fastjson.JSONObject;
+        import org.springframework.util.StringUtils;
+        import org.springframework.util.ObjectUtils;
+        import cn.ibizlab.util.errors.BadRequestAlertException;
+                global cn.ibizlab.core.attendance.domain.attendance_rule attendance_rulegenerateholidaydefault;
+                global cn.ibizlab.core.resource.domain.resource_calendar_leaves attendance_rulegenerateholidayholidays;
+                global cn.ibizlab.core.resource.domain.resource_calendar_leaves attendance_rulegenerateholidaytemp;
+                    global cn.ibizlab.core.resource.service.Iresource_calendar_leavesService resource_calendar_leavesservice;
+        global cn.ibizlab.core.attendance.service.Iattendance_ruleService iBzSysAttendance_ruleDefaultService;
+        global cn.ibizlab.util.security.AuthenticationUser curuser;
+
+
+    no-loop
+
+            //逻辑处理节点[开始]
+            rule "begin"
+            ruleflow-group "attendance_rulegenerateholidaybegin"
+            when
+            then
+            end
+
+            //逻辑处理节点[获取今年的公共假期]
+            rule "rawsqlcall_02"
+            ruleflow-group "attendance_rulegenerateholidayrawsqlcall_02"
+            when
+            then
+                        Map param = null;
+                        String strSql="SELECT *  FROM resource_calendar_leaves  WHERE DATE_FROM >= DATE_FORMAT(CURDATE(), '%Y-01-01')    AND DATE_FROM < DATE_ADD(DATE_FORMAT(CURDATE(), '%Y-01-01'), INTERVAL 1 YEAR)   AND CALENDAR_ID IS NULL";
+                        java.util.List<JSONObject> entities=iBzSysAttendance_ruleDefaultService.select(strSql,param);//SQL调用
+                            if(entities.size()>0){
+                            JSONObject entity=entities.get(0);
+                                    cn.ibizlab.core.resource.domain.resource_calendar_leaves targetEntity =new cn.ibizlab.core.resource.domain.resource_calendar_leaves();
+                                    for (Map.Entry entry : entity.entrySet()) {
+                                    targetEntity.set(String.valueOf(entry.getKey()),entry.getValue());
+                                    }
+                                    org.springframework.cglib.beans.BeanCopier copier= org.springframework.cglib.beans.BeanCopier.create(targetEntity.getClass(),attendance_rulegenerateholidayholidays.getClass(), false);
+                                    copier.copy(targetEntity,attendance_rulegenerateholidayholidays,null);
+                            }
+                        update(attendance_rulegenerateholidaydefault);//更新fact中变量值
+                        update(attendance_rulegenerateholidayholidays);//更新fact中变量值
+                        update(attendance_rulegenerateholidaytemp);//更新fact中变量值
+            end
+
+            //逻辑处理节点[循环子调用]
+            rule "loopsubcall_01"
+            ruleflow-group "attendance_rulegenerateholidayloopsubcall_01"
+            when
+            then
+                        update(attendance_rulegenerateholidaydefault);//更新fact中变量值
+                        update(attendance_rulegenerateholidayholidays);//更新fact中变量值
+                        update(attendance_rulegenerateholidaytemp);//更新fact中变量值
+            end
+
+            //逻辑处理节点[删除规则关联的公共假期]
+            rule "rawsqlcall_01"
+            ruleflow-group "attendance_rulegenerateholidayrawsqlcall_01"
+            when
+            then
+    Map param =new HashMap();
+        param.put("param0",attendance_rulegenerateholidaydefault.get("id"));
+    String strSql="delete from resource_calendar_leaves where CALENDAR_ID = #{et.param0}";
+                        iBzSysAttendance_ruleDefaultService.execute(strSql,param);//SQL调用
+                        update(attendance_rulegenerateholidaydefault);//更新fact中变量值
+                        update(attendance_rulegenerateholidayholidays);//更新fact中变量值
+                        update(attendance_rulegenerateholidaytemp);//更新fact中变量值
+            end
+
+            //逻辑处理节点[结束]
+            rule "end_01"
+            ruleflow-group "attendance_rulegenerateholidayend_01"
+            when
+            then
+                        update(attendance_rulegenerateholidaydefault);//更新fact中变量值
+                        update(attendance_rulegenerateholidayholidays);//更新fact中变量值
+                        update(attendance_rulegenerateholidaytemp);//更新fact中变量值
+            end
+
+            //逻辑处理节点[准备参数]
+            rule "prepareparam_01"
+            ruleflow-group "attendance_rulegenerateholidayprepareparam_01"
+            when
+            then
+                            attendance_rulegenerateholidaytemp.set("calendarid",attendance_rulegenerateholidaydefault.get("id"));
+                                attendance_rulegenerateholidaytemp.set("id",null);
+                        update(attendance_rulegenerateholidaydefault);//更新fact中变量值
+                        update(attendance_rulegenerateholidayholidays);//更新fact中变量值
+                        update(attendance_rulegenerateholidaytemp);//更新fact中变量值
+            end
+
+            //逻辑处理节点[实体行为]
+            rule "deaction_01"
+            ruleflow-group "attendance_rulegenerateholidaydeaction_01"
+            when
+            then
+                        resource_calendar_leavesservice.create(attendance_rulegenerateholidaytemp);
+                        update(attendance_rulegenerateholidaydefault);//更新fact中变量值
+                        update(attendance_rulegenerateholidayholidays);//更新fact中变量值
+                        update(attendance_rulegenerateholidaytemp);//更新fact中变量值
+            end

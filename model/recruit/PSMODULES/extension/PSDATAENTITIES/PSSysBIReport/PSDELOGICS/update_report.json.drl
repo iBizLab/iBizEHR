@@ -1,0 +1,61 @@
+package cn.ibizlab.extension.logic.pssysbireportlogic.update_report;
+        import java.util.Map;
+        import java.util.HashMap;
+        import com.alibaba.fastjson.JSONObject;
+        import org.springframework.util.StringUtils;
+        import org.springframework.util.ObjectUtils;
+        import cn.ibizlab.util.errors.BadRequestAlertException;
+                global cn.ibizlab.core.extension.domain.PSSysBIReport pssysbireportupdate_reportdefault;
+                global cn.ibizlab.core.base.domain.report pssysbireportupdate_reportreport;
+                    global cn.ibizlab.core.base.service.IreportService reportservice;
+        global cn.ibizlab.core.extension.service.IPSSysBIReportService iBzSysPssysbireportDefaultService;
+        global cn.ibizlab.util.security.AuthenticationUser curuser;
+
+
+    no-loop
+
+            //逻辑处理节点[开始]
+            rule "begin"
+            ruleflow-group "pssysbireportupdate_reportbegin"
+            when
+            then
+            end
+
+            //逻辑处理节点[结束]
+            rule "end1"
+            ruleflow-group "pssysbireportupdate_reportend1"
+            when
+            then
+                        update(pssysbireportupdate_reportdefault);//更新fact中变量值
+                        update(pssysbireportupdate_reportreport);//更新fact中变量值
+            end
+
+            //逻辑处理节点[回填数据]
+            rule "prepareparam1"
+            ruleflow-group "pssysbireportupdate_reportprepareparam1"
+            when
+            then
+                            pssysbireportupdate_reportreport.set("name",pssysbireportupdate_reportdefault.get("pssysbireportname"));
+                            pssysbireportupdate_reportreport.set("id",pssysbireportupdate_reportdefault.get("pssysbireportid"));
+                        update(pssysbireportupdate_reportdefault);//更新fact中变量值
+                        update(pssysbireportupdate_reportreport);//更新fact中变量值
+            end
+
+            //逻辑处理节点[回写图表类型]
+            rule "rawsfcode1"
+            ruleflow-group "pssysbireportupdate_reportrawsfcode1"
+            when
+            then
+                        update(pssysbireportupdate_reportdefault);//更新fact中变量值
+                        update(pssysbireportupdate_reportreport);//更新fact中变量值
+            end
+
+            //逻辑处理节点[更新业务报表]
+            rule "deaction1"
+            ruleflow-group "pssysbireportupdate_reportdeaction1"
+            when
+            then
+                        reportservice.update(pssysbireportupdate_reportreport);
+                        update(pssysbireportupdate_reportdefault);//更新fact中变量值
+                        update(pssysbireportupdate_reportreport);//更新fact中变量值
+            end

@@ -1,0 +1,67 @@
+package cn.ibizlab.attendance.logic.attendance_clock_in_recordlogic.sync_clock;
+        import java.util.Map;
+        import java.util.HashMap;
+        import com.alibaba.fastjson.JSONObject;
+        import org.springframework.util.StringUtils;
+        import org.springframework.util.ObjectUtils;
+        import cn.ibizlab.util.errors.BadRequestAlertException;
+                global cn.ibizlab.core.attendance.domain.attendance_clock_in_record attendance_clock_in_recordsync_clockdefault;
+                global cn.ibizlab.core.hr.domain.hr_attendance attendance_clock_in_recordsync_clockattendances;
+                global cn.ibizlab.core.hr.domain.hr_attendance attendance_clock_in_recordsync_clockhr_attendance;
+        global cn.ibizlab.core.attendance.service.Iattendance_clock_in_recordService iBzSysAttendance_clock_in_recordDefaultService;
+        global cn.ibizlab.util.security.AuthenticationUser curuser;
+
+
+    no-loop
+
+            //逻辑处理节点[开始]
+            rule "begin"
+            ruleflow-group "attendance_clock_in_recordsync_clockbegin"
+            when
+            then
+            end
+
+            //逻辑处理节点[查询当天出勤记录]
+            rule "rawsqlcall_01"
+            ruleflow-group "attendance_clock_in_recordsync_clockrawsqlcall_01"
+            when
+            then
+    Map param =new HashMap();
+        param.put("param0",attendance_clock_in_recordsync_clockdefault.get("memberid"));
+        param.put("param1",attendance_clock_in_recordsync_clockdefault.get("checkintime"));
+        param.put("param2",attendance_clock_in_recordsync_clockdefault.get("checkintime"));
+    String strSql="select 	* from 	hr_attendance ha where 	EMPLOYEE_ID = #{et.param0} 	and DATE(CHECK_IN) = DATE(#{et.param1}) 	and CHECK_IN < #{et.param2} 	and CHECK_OUT is null";
+                        java.util.List<JSONObject> entities=iBzSysAttendance_clock_in_recordDefaultService.select(strSql,param);//SQL调用
+                            if(entities.size()>0){
+                            JSONObject entity=entities.get(0);
+                                    cn.ibizlab.core.hr.domain.hr_attendance targetEntity =new cn.ibizlab.core.hr.domain.hr_attendance();
+                                    for (Map.Entry entry : entity.entrySet()) {
+                                    targetEntity.set(String.valueOf(entry.getKey()),entry.getValue());
+                                    }
+                                    org.springframework.cglib.beans.BeanCopier copier= org.springframework.cglib.beans.BeanCopier.create(targetEntity.getClass(),attendance_clock_in_recordsync_clockattendances.getClass(), false);
+                                    copier.copy(targetEntity,attendance_clock_in_recordsync_clockattendances,null);
+                            }
+                        update(attendance_clock_in_recordsync_clockdefault);//更新fact中变量值
+                        update(attendance_clock_in_recordsync_clockattendances);//更新fact中变量值
+                        update(attendance_clock_in_recordsync_clockhr_attendance);//更新fact中变量值
+            end
+
+            //逻辑处理节点[调试逻辑参数]
+            rule "debugparam_01"
+            ruleflow-group "attendance_clock_in_recordsync_clockdebugparam_01"
+            when
+            then
+                        update(attendance_clock_in_recordsync_clockdefault);//更新fact中变量值
+                        update(attendance_clock_in_recordsync_clockattendances);//更新fact中变量值
+                        update(attendance_clock_in_recordsync_clockhr_attendance);//更新fact中变量值
+            end
+
+            //逻辑处理节点[执行脚本代码]
+            rule "rawsfcode_01"
+            ruleflow-group "attendance_clock_in_recordsync_clockrawsfcode_01"
+            when
+            then
+                        update(attendance_clock_in_recordsync_clockdefault);//更新fact中变量值
+                        update(attendance_clock_in_recordsync_clockattendances);//更新fact中变量值
+                        update(attendance_clock_in_recordsync_clockhr_attendance);//更新fact中变量值
+            end

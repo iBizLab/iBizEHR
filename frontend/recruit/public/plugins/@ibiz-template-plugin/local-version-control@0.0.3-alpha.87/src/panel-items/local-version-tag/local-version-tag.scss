@@ -1,0 +1,34 @@
+@include b(local-version-tag){
+    display: flex;
+    gap: getCssVar('spacing', 'base-tight');
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    height: 36px;
+    padding: getCssVar('spacing', 'base-tight');
+    font-size: getCssVar('font-size', 'regular');
+    border-radius: getCssVar(border, radius, large);
+}
+
+@include b(local-version-tag-state){
+    width: getCssVar('font-size', 'regular');
+    height: getCssVar('font-size', 'regular');
+    background-color: #3EB348;
+    border-radius: 50%;
+    @include when('dirty'){
+        background-color: #FF9800;
+    }
+}
+
+@include b(local-version-tag-caption){
+    display: flex;
+    gap:  getCssVar('spacing', 'base-tight');
+    align-items: center;
+    color: getCssVar(color, text, 1);
+    cursor: pointer;
+
+    @include e(timestamp){
+        font-size: getCssVar('font-size', 'small');
+        color: getCssVar(color, text, 3);
+    }
+}

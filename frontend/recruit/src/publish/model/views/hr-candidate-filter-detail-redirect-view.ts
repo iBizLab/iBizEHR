@@ -1,0 +1,73 @@
+export default {
+  redirectAppViewRefs: [
+    {
+      realOpenMode: 'POPUPMODAL',
+      realTitle: '筛选候选人明细编辑视图',
+      realTitleLanguageRes: {
+        lanResTag: 'PAGE.TITLE.HR_CANDIDATE_FILTER_DETAIL.EDITVIEW',
+      },
+      refAppViewId: 'web.hr_candidate_filter_detail_edit_view',
+      name: 'HR_CANDIDATE_FILTER_DETAIL:EDITVIEW',
+      id: 'hr_candidate_filter_detail:editview',
+    },
+    {
+      realOpenMode: 'POPUPMODAL',
+      realTitle: '筛选候选人明细编辑视图',
+      realTitleLanguageRes: {
+        lanResTag: 'PAGE.TITLE.HR_CANDIDATE_FILTER_DETAIL.EDITVIEW',
+      },
+      refAppViewId: 'web.hr_candidate_filter_detail_edit_view',
+      name: 'EDITVIEW',
+      id: 'editview',
+    },
+  ],
+  enableWorkflow: true,
+  funcViewMode: 'REDIRECTVIEW',
+  deviewCodeName: 'RedirectView',
+  deviewId: 'deb4bba6fc1acac9d7e9fd2159cafc3b',
+  accUserMode: 2,
+  capLanguageRes: {
+    lanResTag: 'DE.LNAME.HR_CANDIDATE_FILTER_DETAIL',
+  },
+  caption: '筛选候选人明细',
+  codeName: 'hr_candidate_filter_detail_redirect_view',
+  appDataEntityId: 'web.hr_candidate_filter_detail',
+  controls: [
+    {
+      capLanguageRes: {
+        lanResTag: 'DE.LNAME.HR_CANDIDATE_FILTER_DETAIL',
+      },
+      caption: '筛选候选人明细',
+      codeName: 'redirect_view_captionbar',
+      controlType: 'CAPTIONBAR',
+      appDataEntityId: 'web.hr_candidate_filter_detail',
+      controlParam: {},
+      name: 'captionbar',
+      id: 'redirect_view_captionbar',
+    },
+  ],
+  viewLayoutPanel: {
+    layoutBodyOnly: true,
+    useDefaultLayout: true,
+    layoutPanel: true,
+    codeName: 'layoutpanel',
+    controlStyle: 'APPDEREDIRECTVIEW',
+    controlType: 'VIEWLAYOUTPANEL',
+    appDataEntityId: 'web.hr_candidate_filter_detail',
+    controlParam: {},
+    id: 'layoutpanel',
+  },
+  title: '筛选候选人明细数据重定向视图',
+  titleLanguageRes: {
+    lanResTag: 'PAGE.TITLE.HR_CANDIDATE_FILTER_DETAIL.REDIRECTVIEW',
+  },
+  viewStyle: 'DEFAULT',
+  viewType: 'DEREDIRECTVIEW',
+  enableDP: true,
+  redirectView: true,
+  showCaptionBar: true,
+  modelId: 'b5e3646786472af0a34a611ff6822d01',
+  modelType: 'PSAPPDEVIEW',
+  name: 'hr_candidate_filter_detailRedirectView',
+  id: 'web.hr_candidate_filter_detail_redirect_view',
+};

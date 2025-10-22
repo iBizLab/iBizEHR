@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+    <definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:g="http://www.jboss.org/drools/flow/gpd" xmlns:tns="http://www.jboss.org/drools" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" expressionLanguage="http://www.mvel.org/2.0" id="Definition" name="" targetNamespace="http://www.jboss.org/drools" typeLanguage="http://www.java.com/javaTypes">
+        <process id="cn.ibizlab.core.resource.service.logic.resource_resourcebefore_create" isClosed="false" isExecutable="true" name="resource_resource_resource_before_create_ruleFlow" processType="Private" tns:packageName="cn.ibizlab.core.resource.service.logic.resource_resourcebefore_create">
+            <extensionElements>
+                <tns:import name="java.util.Map" />
+                <tns:import name="org.springframework.util.StringUtils"/>
+                <tns:import name="cn.ibizlab.util.helper.RuleUtils"/>
+                                <tns:metaData express="" name="resource_resourcebefore_createdefault" type="entity"/>
+                                <tns:metaData express="new cn.ibizlab.core.base.domain.res_users()" name="resource_resourcebefore_createuser" type="refentity"/>
+                                    <tns:metaData express="T(cn.ibizlab.util.security.SpringContextHolder).getBean(T(cn.ibizlab.core.base.service.Ires_usersService))" name="res_usersservice" type="service"/>
+                    <tns:metaData express="T(cn.ibizlab.util.security.SpringContextHolder).getBean(T(cn.ibizlab.core.resource.service.Iresource_resourceService))" name="iBzSysResource_resourceDefaultService" type="service"/>
+                    <tns:metaData express="T(cn.ibizlab.util.security.AuthenticationUser).getAuthenticationUser()" name="curuser" type="session"/>
+                            <tns:global identifier="resource_resourcebefore_createdefault" type="cn.ibizlab.core.resource.domain.resource_resource" />
+                            <tns:global identifier="resource_resourcebefore_createuser" type="cn.ibizlab.core.base.domain.res_users" />
+            </extensionElements>
+                        <startEvent id="begin" isInterrupting="true"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="resource_resourcebefore_createprepareparam_01" id="prepareparam_01" implementation="http://www.jboss.org/drools/rule" name="准备参数"/>
+                        <endEvent id="prepareparam_01_end" name="end"/>
+                        <sequenceFlow id="prepareparam_01_end_line" sourceRef="prepareparam_01" targetRef="prepareparam_01_end"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="resource_resourcebefore_createdeaction_01" id="deaction_01" implementation="http://www.jboss.org/drools/rule" name="建立用户"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="resource_resourcebefore_createprepareparam_02" id="prepareparam_02" implementation="http://www.jboss.org/drools/rule" name="回填user_id"/>
+                        <endEvent id="prepareparam_02_end" name="end"/>
+                        <sequenceFlow id="prepareparam_02_end_line" sourceRef="prepareparam_02" targetRef="prepareparam_02_end"/>
+                    <sequenceFlow id="gateway-begin_prepareparam_01" sourceRef="gateway-begin" targetRef="prepareparam_01">
+                            <conditionExpression  language="http://www.jboss.org/drools/rule" ><![CDATA[
+                                            $resource_resourcebefore_createdefault:resource_resource();
+                                            $resource_resourcebefore_createuser:res_users();
+                                    eval($resource_resourcebefore_createdefault==resource_resourcebefore_createdefault && $resource_resourcebefore_createuser==resource_resourcebefore_createuser);
+                                eval((RuleUtils.test($resource_resourcebefore_createdefault.get("resourceType"),"EQ","user"))&&(RuleUtils.test($resource_resourcebefore_createdefault.get("userId"),"ISNULL","")))
+                                ]]>
+                            </conditionExpression>
+                    </sequenceFlow>
+                    <sequenceFlow id="deaction_01_prepareparam_02" sourceRef="deaction_01" targetRef="prepareparam_02">
+                    </sequenceFlow>
+                            <exclusiveGateway id="gateway-begin" name="Gateway" gatewayDirection="Diverging" default="gateway-begin_end_line"></exclusiveGateway>
+                            <sequenceFlow id="begin_gateway-begin_gatewayline" sourceRef="begin" targetRef="gateway-begin"></sequenceFlow>
+                            <sequenceFlow id="gateway-begin_end_line" sourceRef="gateway-begin" targetRef="gateway-begin_end"/>
+                            <endEvent id="gateway-begin_end" name="end"/>
+        </process>
+    </definitions>

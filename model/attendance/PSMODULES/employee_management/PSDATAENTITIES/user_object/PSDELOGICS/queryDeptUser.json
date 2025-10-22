@@ -1,0 +1,191 @@
+{
+  "codeName" : "queryDeptUser",
+  "defaultParamName" : "Default",
+  "dynaModelFilePath" : "PSMODULES/employee_management/PSDATAENTITIES/user_object/PSDELOGICS/queryDeptUser.json",
+  "logicName" : "查询部门/人员",
+  "name" : "查询部门/人员",
+  "getPSDELogicNodes" : [ {
+    "codeName" : "Begin",
+    "leftPos" : 60,
+    "logicNodeType" : "BEGIN",
+    "name" : "开始",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "DEACTION_01"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "Begin"
+      }
+    } ],
+    "topPos" : 212,
+    "parallelOutput" : true
+  }, {
+    "codeName" : "END_01",
+    "leftPos" : 730,
+    "logicNodeType" : "END",
+    "name" : "结束",
+    "getReturnParam" : {
+      "modelref" : true,
+      "id" : "dept"
+    },
+    "returnType" : "LOGICPARAM",
+    "topPos" : 212,
+    "parallelOutput" : true
+  }, {
+    "codeName" : "DEACTION_01",
+    "getDstPSDEAction" : {
+      "modelref" : true,
+      "path" : "PSMODULES/employee_management/PSDATAENTITIES/employee/PSDEACTIONS/Get.json"
+    },
+    "getDstPSDELogicParam" : {
+      "modelref" : true,
+      "id" : "Default"
+    },
+    "getDstPSDataEntity" : {
+      "modelref" : true,
+      "path" : "PSMODULES/employee_management/PSDATAENTITIES/employee.json"
+    },
+    "leftPos" : 230,
+    "logicNodeType" : "DEACTION",
+    "name" : "获取人员",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "DEACTION_02"
+      },
+      "name" : "连接名称",
+      "getPSDELogicLinkGroupCond" : {
+        "groupOP" : "AND",
+        "logicType" : "GROUP",
+        "name" : "连接条件组",
+        "getPSDELogicLinkConds" : [ {
+          "condOP" : "ISNULL",
+          "getDstLogicParam" : {
+            "modelref" : true,
+            "id" : "employee"
+          },
+          "logicType" : "SINGLE",
+          "name" : "employee 值为空(Nil)"
+        } ]
+      },
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "DEACTION_01"
+      }
+    }, {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "END_02"
+      },
+      "name" : "连接名称",
+      "getPSDELogicLinkGroupCond" : {
+        "groupOP" : "AND",
+        "logicType" : "GROUP",
+        "name" : "连接条件组",
+        "getPSDELogicLinkConds" : [ {
+          "condOP" : "ISNOTNULL",
+          "getDstLogicParam" : {
+            "modelref" : true,
+            "id" : "employee"
+          },
+          "logicType" : "SINGLE",
+          "name" : "employee 值不为空(NotNil)"
+        } ]
+      },
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "DEACTION_01"
+      }
+    } ],
+    "getRetPSDELogicParam" : {
+      "modelref" : true,
+      "id" : "Default"
+    },
+    "topPos" : 220,
+    "parallelOutput" : true
+  }, {
+    "codeName" : "DEACTION_02",
+    "getDstPSDEAction" : {
+      "modelref" : true,
+      "path" : "PSMODULES/employee_management/PSDATAENTITIES/department/PSDEACTIONS/Get.json"
+    },
+    "getDstPSDELogicParam" : {
+      "modelref" : true,
+      "id" : "Default"
+    },
+    "getDstPSDataEntity" : {
+      "modelref" : true,
+      "path" : "PSMODULES/employee_management/PSDATAENTITIES/department.json"
+    },
+    "leftPos" : 480,
+    "logicNodeType" : "DEACTION",
+    "name" : "获取部门",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "END_01"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "DEACTION_02"
+      }
+    } ],
+    "getRetPSDELogicParam" : {
+      "modelref" : true,
+      "id" : "dept"
+    },
+    "topPos" : 220,
+    "parallelOutput" : true
+  }, {
+    "codeName" : "END_02",
+    "leftPos" : 270,
+    "logicNodeType" : "END",
+    "name" : "结束",
+    "getReturnParam" : {
+      "modelref" : true,
+      "id" : "Default"
+    },
+    "returnType" : "LOGICPARAM",
+    "topPos" : 383,
+    "parallelOutput" : true
+  } ],
+  "getPSDELogicParams" : [ {
+    "codeName" : "Default",
+    "logicName" : "传入变量",
+    "name" : "传入变量",
+    "getParamPSDataEntity" : {
+      "modelref" : true,
+      "path" : "PSMODULES/employee_management/PSDATAENTITIES/user_object.json"
+    },
+    "default" : true,
+    "entityParam" : true
+  }, {
+    "codeName" : "dept",
+    "logicName" : "dept",
+    "name" : "dept",
+    "getParamPSDataEntity" : {
+      "modelref" : true,
+      "path" : "PSMODULES/employee_management/PSDATAENTITIES/department.json"
+    },
+    "entityParam" : true
+  }, {
+    "codeName" : "employee",
+    "logicName" : "employee",
+    "name" : "employee",
+    "getParamPSDataEntity" : {
+      "modelref" : true,
+      "path" : "PSMODULES/employee_management/PSDATAENTITIES/employee.json"
+    },
+    "entityParam" : true
+  } ],
+  "getStartPSDELogicNode" : {
+    "modelref" : true,
+    "id" : "Begin"
+  },
+  "enableBackend" : true,
+  "enableFront" : false
+}

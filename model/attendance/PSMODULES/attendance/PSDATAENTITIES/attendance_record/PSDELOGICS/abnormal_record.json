@@ -1,0 +1,116 @@
+{
+  "codeName" : "abnormal_record",
+  "defaultParamName" : "Default",
+  "dynaModelFilePath" : "PSMODULES/attendance/PSDATAENTITIES/attendance_record/PSDELOGICS/abnormal_record.json",
+  "logicName" : "异常记录(特定搜索条件)",
+  "name" : "异常记录(特定搜索条件)",
+  "getPSDELogicNodes" : [ {
+    "codeName" : "Begin",
+    "leftPos" : 200,
+    "logicNodeType" : "BEGIN",
+    "name" : "开始",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "RAWSFCODE1"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "Begin"
+      }
+    } ],
+    "topPos" : 180,
+    "parallelOutput" : true
+  }, {
+    "code" : "def _default = logic.param('Default').getReal()\r\ndef person_range = _default.get(\"n_member_id_in\")\r\n\r\nif (person_range) {\r\n    def depts = []\r\n    def persons = []\r\n    person_range.each { item ->\r\n        if (item.type == \"dept\") {\r\n            depts.add(item.id)\r\n        } else {\r\n            persons.add(item.id)\r\n        }\r\n    }\r\n    def deptStr = depts ? depts.join(\",\") : \"\"\r\n    def personStr = persons ? persons.join(\",\") : \"\"\r\n    if (deptStr != \"\" && personStr != \"\") {\r\n        _default.and().or().in('dept_id', deptStr).in('member_id', personStr)\r\n    } else if (deptStr != \"\" && personStr == \"\") {\r\n        _default.in('dept_id', deptStr)\r\n    } else {\r\n        _default.in('member_id', personStr)\r\n    }\r\n}",
+    "codeName" : "RAWSFCODE1",
+    "codeType" : "Groovy",
+    "leftPos" : 160,
+    "logicNodeType" : "RAWSFCODE",
+    "name" : "解析搜索条件",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "DEDATASET1"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "RAWSFCODE1"
+      }
+    } ],
+    "topPos" : 329
+  }, {
+    "codeName" : "DEDATASET1",
+    "getDstPSDEDataSet" : {
+      "modelref" : true,
+      "id" : "Default"
+    },
+    "getDstPSDELogicParam" : {
+      "modelref" : true,
+      "id" : "Default"
+    },
+    "getDstPSDataEntity" : {
+      "modelref" : true,
+      "path" : "PSMODULES/attendance/PSDATAENTITIES/attendance_record.json"
+    },
+    "leftPos" : 160,
+    "logicNodeType" : "DEDATASET",
+    "name" : "获取考勤记录数据",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "END1"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "DEDATASET1"
+      }
+    } ],
+    "getRetPSDELogicParam" : {
+      "modelref" : true,
+      "id" : "page"
+    },
+    "topPos" : 478
+  }, {
+    "codeName" : "END1",
+    "leftPos" : 200,
+    "logicNodeType" : "END",
+    "name" : "结束",
+    "getReturnParam" : {
+      "modelref" : true,
+      "id" : "page"
+    },
+    "returnType" : "LOGICPARAM",
+    "topPos" : 623,
+    "parallelOutput" : true
+  } ],
+  "getPSDELogicParams" : [ {
+    "codeName" : "Default",
+    "logicName" : "传入变量",
+    "name" : "传入变量",
+    "getParamPSDataEntity" : {
+      "modelref" : true,
+      "path" : "PSMODULES/attendance/PSDATAENTITIES/attendance_record.json"
+    },
+    "default" : true,
+    "filterParam" : true
+  }, {
+    "codeName" : "page",
+    "logicName" : "分页查询结果",
+    "name" : "分页查询结果",
+    "getParamPSDataEntity" : {
+      "modelref" : true,
+      "path" : "PSMODULES/attendance/PSDATAENTITIES/attendance_record.json"
+    },
+    "entityPageParam" : true
+  } ],
+  "getStartPSDELogicNode" : {
+    "modelref" : true,
+    "id" : "Begin"
+  },
+  "enableBackend" : true,
+  "enableFront" : false
+}

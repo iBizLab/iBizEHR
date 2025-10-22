@@ -1,0 +1,133 @@
+{
+  "getAllPSPanelFields" : [ {
+    "id" : "field_text_dynamic",
+    "viewFieldName" : "content"
+  }, {
+    "id" : "content_type",
+    "hidden" : true,
+    "viewFieldName" : "content_type"
+  } ],
+  "codeName" : "usr0924886806",
+  "controlType" : "PANEL",
+  "dynaModelFilePath" : "PSSYSAPPS/web/PSAPPDATAENTITIES/internal_message/PSPANELS/usr0924886806.json",
+  "layoutMode" : "TABLE_24COL",
+  "logicName" : "notification_列表项面板",
+  "getPSAppDataEntity" : {
+    "modelref" : true,
+    "path" : "PSSYSAPPS/web/PSAPPDATAENTITIES/internal_message.json"
+  },
+  "getPSLayout" : {
+    "childColMD" : 24,
+    "columnCount" : 24,
+    "layout" : "TABLE_24COL"
+  },
+  "getRootPSPanelItems" : [ {
+    "itemStyle" : "DEFAULT",
+    "itemType" : "CONTAINER",
+    "name" : "page_container",
+    "getPSLayout" : {
+      "dir" : "column",
+      "layout" : "FLEX"
+    },
+    "getPSLayoutPos" : {
+      "colMD" : 24,
+      "layout" : "TABLE_24COL"
+    },
+    "getPSPanelItems" : [ {
+      "caption" : "容器",
+      "itemStyle" : "DEFAULT",
+      "itemType" : "CONTAINER",
+      "name" : "container",
+      "getPSLayout" : {
+        "dir" : "row",
+        "layout" : "FLEX"
+      },
+      "getPSLayoutPos" : {
+        "grow" : -1,
+        "layout" : "FLEX",
+        "spacingBottom" : "OUTERSMALL",
+        "spacingTop" : "OUTERSMALL"
+      },
+      "getPSPanelItems" : [ {
+        "caption" : "容器",
+        "contentWidth" : 80.0,
+        "itemStyle" : "DEFAULT",
+        "itemType" : "CONTAINER",
+        "name" : "container3",
+        "getPSLayout" : {
+          "layout" : "FLEX"
+        },
+        "getPSLayoutPos" : {
+          "grow" : -1,
+          "layout" : "FLEX",
+          "spacingLeft" : "OUTERMEDIUM",
+          "width" : 80,
+          "widthMode" : "PERCENTAGE"
+        },
+        "getPSPanelItems" : [ {
+          "caption" : "容器",
+          "itemStyle" : "DEFAULT",
+          "itemType" : "CONTAINER",
+          "name" : "container4",
+          "getPSLayout" : {
+            "layout" : "FLEX"
+          },
+          "getPSLayoutPos" : {
+            "grow" : -1,
+            "layout" : "FLEX"
+          },
+          "getPSPanelItems" : [ {
+            "caption" : "文本(动态)",
+            "itemStyle" : "DEFAULT",
+            "itemType" : "FIELD",
+            "name" : "field_text_dynamic",
+            "getPSEditor" : {
+              "contentType" : "HTML",
+              "editorParams" : {
+                "contenttype" : "HTML"
+              },
+              "editorType" : "RAW",
+              "name" : "field_text_dynamic"
+            },
+            "getPSLayoutPos" : {
+              "grow" : -1,
+              "layout" : "FLEX"
+            },
+            "getPSPanelItemGroupLogics" : [ {
+              "groupOP" : "AND",
+              "logicCat" : "PANELVISIBLE",
+              "logicType" : "GROUP",
+              "getPSPanelItemLogics" : [ {
+                "condOp" : "EQ",
+                "dstModelField" : "content_type",
+                "logicType" : "SINGLE",
+                "name" : "逻辑项",
+                "value" : "HTML"
+              } ],
+              "relatedItemNames" : [ "content_type" ],
+              "notMode" : false
+            } ],
+            "viewFieldName" : "content"
+          }, {
+            "caption" : "文本(动态)",
+            "itemType" : "FIELD",
+            "name" : "content_type",
+            "getPSEditor" : {
+              "editorType" : "HIDDEN",
+              "name" : "content_type"
+            },
+            "getPSLayoutPos" : {
+              "grow" : -1,
+              "layout" : "FLEX"
+            },
+            "viewFieldName" : "content_type",
+            "hidden" : true
+          } ]
+        } ],
+        "width" : 80.0
+      } ]
+    } ]
+  } ],
+  "modelid" : "555c4ff62401fa3d5ff53ab34b8618d2",
+  "modeltype" : "PSSYSVIEWPANEL"
+}

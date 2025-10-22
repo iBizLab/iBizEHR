@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+    <definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:g="http://www.jboss.org/drools/flow/gpd" xmlns:tns="http://www.jboss.org/drools" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" expressionLanguage="http://www.mvel.org/2.0" id="Definition" name="" targetNamespace="http://www.jboss.org/drools" typeLanguage="http://www.java.com/javaTypes">
+        <process id="cn.ibizlab.core.hr.service.logic.hr_applicantout" isClosed="false" isExecutable="true" name="hr_hr_applicant_out_ruleFlow" processType="Private" tns:packageName="cn.ibizlab.core.hr.service.logic.hr_applicantout">
+            <extensionElements>
+                <tns:import name="java.util.Map" />
+                <tns:import name="org.springframework.util.StringUtils"/>
+                <tns:import name="cn.ibizlab.util.helper.RuleUtils"/>
+                                <tns:metaData express="" name="hr_applicantoutdefault" type="entity"/>
+                                <tns:metaData express="new cn.ibizlab.core.hr.domain.hr_applicant()" name="hr_applicantoutapplicant" type="refentity"/>
+                                <tns:metaData express="new cn.ibizlab.core.hr.domain.hr_candidate()" name="hr_applicantoutcandidate" type="refentity"/>
+                                <tns:metaData express="new cn.ibizlab.core.hr.domain.hr_candidate_talent_pool()" name="hr_applicantoutcandidate_talentpool" type="refentity"/>
+                                <tns:metaData express="new cn.ibizlab.core.hr.domain.hr_talent_pool()" name="hr_applicantouttalentpool" type="refentity"/>
+                                    <tns:metaData express="T(cn.ibizlab.util.security.SpringContextHolder).getBean(T(cn.ibizlab.core.hr.service.Ihr_applicantService))" name="hr_applicantservice" type="service"/>
+                                    <tns:metaData express="T(cn.ibizlab.util.security.SpringContextHolder).getBean(T(cn.ibizlab.core.hr.service.Ihr_candidateService))" name="hr_candidateservice" type="service"/>
+                                    <tns:metaData express="T(cn.ibizlab.util.security.SpringContextHolder).getBean(T(cn.ibizlab.core.hr.service.Ihr_candidate_talent_poolService))" name="hr_candidate_talent_poolservice" type="service"/>
+                    <tns:metaData express="T(cn.ibizlab.util.security.SpringContextHolder).getBean(T(cn.ibizlab.core.hr.service.Ihr_applicantService))" name="iBzSysHr_applicantDefaultService" type="service"/>
+                    <tns:metaData express="T(cn.ibizlab.util.security.AuthenticationUser).getAuthenticationUser()" name="curuser" type="session"/>
+                            <tns:global identifier="hr_applicantoutdefault" type="cn.ibizlab.core.hr.domain.hr_applicant" />
+                            <tns:global identifier="hr_applicantoutapplicant" type="cn.ibizlab.core.hr.domain.hr_applicant" />
+                            <tns:global identifier="hr_applicantoutcandidate" type="cn.ibizlab.core.hr.domain.hr_candidate" />
+                            <tns:global identifier="hr_applicantoutcandidate_talentpool" type="cn.ibizlab.core.hr.domain.hr_candidate_talent_pool" />
+                            <tns:global identifier="hr_applicantouttalentpool" type="cn.ibizlab.core.hr.domain.hr_talent_pool" />
+            </extensionElements>
+                        <startEvent id="begin" isInterrupting="true"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="hr_applicantoutprepareparam3" id="prepareparam3" implementation="http://www.jboss.org/drools/rule" name="准备参数"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="hr_applicantoutdeaction3" id="deaction3" implementation="http://www.jboss.org/drools/rule" name="获取候选人申请数据"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="hr_applicantoutprepareparam4" id="prepareparam4" implementation="http://www.jboss.org/drools/rule" name="更新候选人申请状态"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="hr_applicantoutdeaction4" id="deaction4" implementation="http://www.jboss.org/drools/rule" name="更新候选人申请状态"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="hr_applicantoutrawsqlcall1" id="rawsqlcall1" implementation="http://www.jboss.org/drools/rule" name="获取公共人才库实体数据"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="hr_applicantoutprepareparam1" id="prepareparam1" implementation="http://www.jboss.org/drools/rule" name="更新候选人数据"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="hr_applicantoutdeaction1" id="deaction1" implementation="http://www.jboss.org/drools/rule" name="更新候选人数据"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="hr_applicantoutprepareparam2" id="prepareparam2" implementation="http://www.jboss.org/drools/rule" name="准备维护候选人和人才库数据"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="hr_applicantoutdeaction2" id="deaction2" implementation="http://www.jboss.org/drools/rule" name="维护候选人和人才库数据"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="hr_applicantoutend1" id="end1" implementation="http://www.jboss.org/drools/rule" name="结束"/>
+                        <endEvent id="end1_end" name="end"/>
+                        <sequenceFlow id="end1_end_line" sourceRef="end1" targetRef="end1_end"/>
+                    <sequenceFlow id="begin_prepareparam3" sourceRef="begin" targetRef="prepareparam3">
+                    </sequenceFlow>
+                    <sequenceFlow id="prepareparam3_deaction3" sourceRef="prepareparam3" targetRef="deaction3">
+                    </sequenceFlow>
+                    <sequenceFlow id="deaction3_prepareparam4" sourceRef="deaction3" targetRef="prepareparam4">
+                    </sequenceFlow>
+                    <sequenceFlow id="prepareparam4_deaction4" sourceRef="prepareparam4" targetRef="deaction4">
+                    </sequenceFlow>
+                    <sequenceFlow id="deaction4_rawsqlcall1" sourceRef="deaction4" targetRef="rawsqlcall1">
+                    </sequenceFlow>
+                    <sequenceFlow id="rawsqlcall1_prepareparam1" sourceRef="rawsqlcall1" targetRef="prepareparam1">
+                    </sequenceFlow>
+                    <sequenceFlow id="prepareparam1_deaction1" sourceRef="prepareparam1" targetRef="deaction1">
+                    </sequenceFlow>
+                    <sequenceFlow id="deaction1_prepareparam2" sourceRef="deaction1" targetRef="prepareparam2">
+                    </sequenceFlow>
+                    <sequenceFlow id="prepareparam2_deaction2" sourceRef="prepareparam2" targetRef="deaction2">
+                    </sequenceFlow>
+                    <sequenceFlow id="deaction2_end1" sourceRef="deaction2" targetRef="end1">
+                    </sequenceFlow>
+        </process>
+    </definitions>

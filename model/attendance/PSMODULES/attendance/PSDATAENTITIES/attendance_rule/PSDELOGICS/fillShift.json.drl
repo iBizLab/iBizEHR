@@ -1,0 +1,192 @@
+package cn.ibizlab.attendance.logic.attendance_rulelogic.fillshift;
+        import java.util.Map;
+        import java.util.HashMap;
+        import com.alibaba.fastjson.JSONObject;
+        import org.springframework.util.StringUtils;
+        import org.springframework.util.ObjectUtils;
+        import cn.ibizlab.util.errors.BadRequestAlertException;
+                global cn.ibizlab.core.attendance.domain.attendance_rule attendance_rulefillshiftdefault;
+                global cn.ibizlab.core.attendance.domain.attendance_scope attendance_rulefillshiftscope;
+                global cn.ibizlab.core.attendance.domain.attendance_scope attendance_rulefillshiftscopes;
+                global cn.ibizlab.core.attendance.domain.attendance_shift attendance_rulefillshiftshift;
+                global cn.ibizlab.core.attendance.domain.attendance_shift attendance_rulefillshiftshiftfilter;
+                global cn.ibizlab.core.attendance.domain.attendance_shift attendance_rulefillshiftshiftpage;
+                global cn.ibizlab.core.attendance.domain.attendance_shift attendance_rulefillshiftshifts;
+                global java.util.Map attendance_rulefillshiftwork_time;
+                    global cn.ibizlab.core.attendance.service.Iattendance_shiftService attendance_shiftservice;
+        global cn.ibizlab.core.attendance.service.Iattendance_ruleService iBzSysAttendance_ruleDefaultService;
+        global cn.ibizlab.util.security.AuthenticationUser curuser;
+
+
+    no-loop
+
+            //逻辑处理节点[开始]
+            rule "begin"
+            ruleflow-group "attendance_rulefillshiftbegin"
+            when
+            then
+            end
+
+            //逻辑处理节点[准备参数]
+            rule "prepareparam_03"
+            ruleflow-group "attendance_rulefillshiftprepareparam_03"
+            when
+            then
+                            attendance_rulefillshiftshiftfilter.set("n_public_flag_eq","1");
+                            attendance_rulefillshiftshiftfilter.set("n_default_flag_eq","1");
+                        update(attendance_rulefillshiftdefault);//更新fact中变量值
+                        update(attendance_rulefillshiftscope);//更新fact中变量值
+                        update(attendance_rulefillshiftscopes);//更新fact中变量值
+                        update(attendance_rulefillshiftshift);//更新fact中变量值
+                        update(attendance_rulefillshiftshiftfilter);//更新fact中变量值
+                        update(attendance_rulefillshiftshiftpage);//更新fact中变量值
+                        update(attendance_rulefillshiftshifts);//更新fact中变量值
+                        update(attendance_rulefillshiftwork_time);//更新fact中变量值
+            end
+
+            //逻辑处理节点[实体数据集]
+            rule "dedataset_01"
+            ruleflow-group "attendance_rulefillshiftdedataset_01"
+            when
+            then
+                        update(attendance_rulefillshiftdefault);//更新fact中变量值
+                        update(attendance_rulefillshiftscope);//更新fact中变量值
+                        update(attendance_rulefillshiftscopes);//更新fact中变量值
+                        update(attendance_rulefillshiftshift);//更新fact中变量值
+                        update(attendance_rulefillshiftshiftfilter);//更新fact中变量值
+                        update(attendance_rulefillshiftshiftpage);//更新fact中变量值
+                        update(attendance_rulefillshiftshifts);//更新fact中变量值
+                        update(attendance_rulefillshiftwork_time);//更新fact中变量值
+            end
+
+            //逻辑处理节点[绑定参数]
+            rule "bindparam_01"
+            ruleflow-group "attendance_rulefillshiftbindparam_01"
+            when
+            then
+                        update(attendance_rulefillshiftdefault);//更新fact中变量值
+                        update(attendance_rulefillshiftscope);//更新fact中变量值
+                        update(attendance_rulefillshiftscopes);//更新fact中变量值
+                        update(attendance_rulefillshiftshift);//更新fact中变量值
+                        update(attendance_rulefillshiftshiftfilter);//更新fact中变量值
+                        update(attendance_rulefillshiftshiftpage);//更新fact中变量值
+                        update(attendance_rulefillshiftshifts);//更新fact中变量值
+                        update(attendance_rulefillshiftwork_time);//更新fact中变量值
+            end
+
+            //逻辑处理节点[准备参数]
+            rule "prepareparam_04"
+            ruleflow-group "attendance_rulefillshiftprepareparam_04"
+            when
+            then
+                            attendance_rulefillshiftshift.set("publicflag","0");
+                                attendance_rulefillshiftshift.set("id",null);
+                            attendance_rulefillshiftscopes.set("",attendance_rulefillshiftshift.get("scopes"));
+                            attendance_rulefillshiftscope.set("",attendance_rulefillshiftscopes.get("0"));
+                                attendance_rulefillshiftscope.set("id",null);
+                                attendance_rulefillshiftscope.set("shiftid",null);
+                            attendance_rulefillshiftshift.set("name","白班");
+                            attendance_rulefillshiftscope.set("ordervalue","1");
+                        update(attendance_rulefillshiftdefault);//更新fact中变量值
+                        update(attendance_rulefillshiftscope);//更新fact中变量值
+                        update(attendance_rulefillshiftscopes);//更新fact中变量值
+                        update(attendance_rulefillshiftshift);//更新fact中变量值
+                        update(attendance_rulefillshiftshiftfilter);//更新fact中变量值
+                        update(attendance_rulefillshiftshiftpage);//更新fact中变量值
+                        update(attendance_rulefillshiftshifts);//更新fact中变量值
+                        update(attendance_rulefillshiftwork_time);//更新fact中变量值
+            end
+
+            //逻辑处理节点[执行脚本代码]
+            rule "rawsfcode_01"
+            ruleflow-group "attendance_rulefillshiftrawsfcode_01"
+            when
+            then
+                        update(attendance_rulefillshiftdefault);//更新fact中变量值
+                        update(attendance_rulefillshiftscope);//更新fact中变量值
+                        update(attendance_rulefillshiftscopes);//更新fact中变量值
+                        update(attendance_rulefillshiftshift);//更新fact中变量值
+                        update(attendance_rulefillshiftshiftfilter);//更新fact中变量值
+                        update(attendance_rulefillshiftshiftpage);//更新fact中变量值
+                        update(attendance_rulefillshiftshifts);//更新fact中变量值
+                        update(attendance_rulefillshiftwork_time);//更新fact中变量值
+            end
+
+            //逻辑处理节点[执行脚本代码]
+            rule "rawsfcode_02"
+            ruleflow-group "attendance_rulefillshiftrawsfcode_02"
+            when
+            then
+                        update(attendance_rulefillshiftdefault);//更新fact中变量值
+                        update(attendance_rulefillshiftscope);//更新fact中变量值
+                        update(attendance_rulefillshiftscopes);//更新fact中变量值
+                        update(attendance_rulefillshiftshift);//更新fact中变量值
+                        update(attendance_rulefillshiftshiftfilter);//更新fact中变量值
+                        update(attendance_rulefillshiftshiftpage);//更新fact中变量值
+                        update(attendance_rulefillshiftshifts);//更新fact中变量值
+                        update(attendance_rulefillshiftwork_time);//更新fact中变量值
+            end
+
+            //逻辑处理节点[执行脚本代码]
+            rule "rawsfcode_03"
+            ruleflow-group "attendance_rulefillshiftrawsfcode_03"
+            when
+            then
+                        update(attendance_rulefillshiftdefault);//更新fact中变量值
+                        update(attendance_rulefillshiftscope);//更新fact中变量值
+                        update(attendance_rulefillshiftscopes);//更新fact中变量值
+                        update(attendance_rulefillshiftshift);//更新fact中变量值
+                        update(attendance_rulefillshiftshiftfilter);//更新fact中变量值
+                        update(attendance_rulefillshiftshiftpage);//更新fact中变量值
+                        update(attendance_rulefillshiftshifts);//更新fact中变量值
+                        update(attendance_rulefillshiftwork_time);//更新fact中变量值
+            end
+
+            //逻辑处理节点[准备参数]
+            rule "prepareparam_01"
+            ruleflow-group "attendance_rulefillshiftprepareparam_01"
+            when
+            then
+                            attendance_rulefillshiftshifts.set("shifts",attendance_rulefillshiftshift.get(""));
+                            attendance_rulefillshiftdefault.set("shifts",attendance_rulefillshiftshifts.get(""));
+                            attendance_rulefillshiftshift.set("scheduletype",attendance_rulefillshiftdefault.get("scheduletype"));
+                        update(attendance_rulefillshiftdefault);//更新fact中变量值
+                        update(attendance_rulefillshiftscope);//更新fact中变量值
+                        update(attendance_rulefillshiftscopes);//更新fact中变量值
+                        update(attendance_rulefillshiftshift);//更新fact中变量值
+                        update(attendance_rulefillshiftshiftfilter);//更新fact中变量值
+                        update(attendance_rulefillshiftshiftpage);//更新fact中变量值
+                        update(attendance_rulefillshiftshifts);//更新fact中变量值
+                        update(attendance_rulefillshiftwork_time);//更新fact中变量值
+            end
+
+            //逻辑处理节点[准备参数]
+            rule "prepareparam4"
+            ruleflow-group "attendance_rulefillshiftprepareparam4"
+            when
+            then
+                            attendance_rulefillshiftdefault.set("defaultshift",attendance_rulefillshiftshift.get("id"));
+                        update(attendance_rulefillshiftdefault);//更新fact中变量值
+                        update(attendance_rulefillshiftscope);//更新fact中变量值
+                        update(attendance_rulefillshiftscopes);//更新fact中变量值
+                        update(attendance_rulefillshiftshift);//更新fact中变量值
+                        update(attendance_rulefillshiftshiftfilter);//更新fact中变量值
+                        update(attendance_rulefillshiftshiftpage);//更新fact中变量值
+                        update(attendance_rulefillshiftshifts);//更新fact中变量值
+                        update(attendance_rulefillshiftwork_time);//更新fact中变量值
+            end
+
+            //逻辑处理节点[结束]
+            rule "end_01"
+            ruleflow-group "attendance_rulefillshiftend_01"
+            when
+            then
+                        update(attendance_rulefillshiftdefault);//更新fact中变量值
+                        update(attendance_rulefillshiftscope);//更新fact中变量值
+                        update(attendance_rulefillshiftscopes);//更新fact中变量值
+                        update(attendance_rulefillshiftshift);//更新fact中变量值
+                        update(attendance_rulefillshiftshiftfilter);//更新fact中变量值
+                        update(attendance_rulefillshiftshiftpage);//更新fact中变量值
+                        update(attendance_rulefillshiftshifts);//更新fact中变量值
+                        update(attendance_rulefillshiftwork_time);//更新fact中变量值
+            end

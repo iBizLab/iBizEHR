@@ -1,0 +1,24 @@
+```sql
+SELECT
+t1.`CALENDAR_ID`,
+t1.`CREATE_DATE`,
+t1.`CREATE_UID`,
+t1.`DATE_FROM`,
+t1.`DATE_TO`,
+t1.`DAYOFWEEK`,
+t1.`DAY_PERIOD`,
+t1.`DISPLAY_TYPE`,
+t1.`DURATION_DAYS`,
+t1.`HOUR_FROM`,
+t1.`HOUR_TO`,
+t1.`ID`,
+t1.`NAME`,
+t1.`RESOURCE_ID`,
+t1.`SEQUENCE`,
+t1.`WEEK_TYPE`,
+t1.`WRITE_DATE`,
+t1.`WRITE_UID`
+FROM `resource_calendar_attendance` t1 
+
+
+```

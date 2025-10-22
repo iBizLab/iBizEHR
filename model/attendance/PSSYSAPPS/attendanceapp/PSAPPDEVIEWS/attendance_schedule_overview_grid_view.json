@@ -1,0 +1,832 @@
+{
+  "accUserMode" : 2,
+  "getCapPSLanguageRes" : {
+    "lanResTag" : "DE.LNAME.ATTENDANCE_SCHEDULE"
+  },
+  "caption" : "排班",
+  "codeName" : "attendance_schedule_overview_grid_view",
+  "dynaModelFilePath" : "PSSYSAPPS/attendanceapp/PSAPPDEVIEWS/attendance_schedule_overview_grid_view.json",
+  "gridRowActiveMode" : 0,
+  "name" : "attendance_scheduleoverview_grid_view",
+  "getPSAppDataEntity" : {
+    "modelref" : true,
+    "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/attendance_schedule.json"
+  },
+  "getPSAppModule" : {
+    "modelref" : true,
+    "path" : "PSSYSAPPS/attendanceapp/PSAPPMODULES/attendance.json"
+  },
+  "getPSAppViewEngines" : [ {
+    "engineCat" : "VIEW",
+    "engineType" : "GridView",
+    "name" : "engine"
+  } ],
+  "getPSAppViewLogics" : [ {
+    "logicTrigger" : "CUSTOM",
+    "logicType" : "APPUILOGIC",
+    "name" : "newdata",
+    "getPSAppUILogic" : {
+      "actionAfterWizard" : "DEFAULT",
+      "logicType" : "PREDEFINED",
+      "name" : "新建数据",
+      "getNewDataPSAppView" : {
+        "openMode" : "POPUPMODAL",
+        "getRefPSAppView" : {
+          "modelref" : true,
+          "path" : "PSSYSAPPS/attendanceapp/PSAPPDEVIEWS/attendance_schedule_edit_view.json",
+          "viewType" : "DEEDITVIEW"
+        }
+      },
+      "getPSAppUILogicRefViews" : [ {
+        "openMode" : "POPUPMODAL",
+        "getRefPSAppView" : {
+          "modelref" : true,
+          "path" : "PSSYSAPPS/attendanceapp/PSAPPDEVIEWS/attendance_schedule_edit_view.json",
+          "viewType" : "DEEDITVIEW"
+        }
+      } ],
+      "viewLogicType" : "APP_NEWDATA",
+      "batchAddOnly" : false,
+      "enableBatchAdd" : false,
+      "enableWizardAdd" : false
+    }
+  }, {
+    "logicTrigger" : "CUSTOM",
+    "logicType" : "APPUILOGIC",
+    "name" : "opendata",
+    "getPSAppUILogic" : {
+      "logicType" : "PREDEFINED",
+      "name" : "打开数据",
+      "getOpenDataPSAppView" : {
+        "getRefPSAppView" : {
+          "modelref" : true,
+          "path" : "PSSYSAPPS/attendanceapp/PSAPPDEVIEWS/attendance_schedule_redirect_view.json",
+          "viewType" : "DEREDIRECTVIEW"
+        }
+      },
+      "getPSAppUILogicRefViews" : [ {
+        "getRefPSAppView" : {
+          "modelref" : true,
+          "path" : "PSSYSAPPS/attendanceapp/PSAPPDEVIEWS/attendance_schedule_redirect_view.json",
+          "viewType" : "DEREDIRECTVIEW"
+        }
+      } ],
+      "viewLogicType" : "APP_OPENDATA",
+      "editMode" : true
+    }
+  } ],
+  "getPSAppViewRefs" : [ {
+    "name" : "NEWDATA",
+    "realOpenMode" : "POPUPMODAL",
+    "realTitle" : "排班编辑视图",
+    "getRefPSAppView" : {
+      "modelref" : true,
+      "path" : "PSSYSAPPS/attendanceapp/PSAPPDEVIEWS/attendance_schedule_edit_view.json",
+      "viewType" : "DEEDITVIEW"
+    }
+  }, {
+    "name" : "EDITDATA",
+    "realTitle" : "排班数据重定向视图",
+    "getRefPSAppView" : {
+      "modelref" : true,
+      "path" : "PSSYSAPPS/attendanceapp/PSAPPDEVIEWS/attendance_schedule_redirect_view.json",
+      "viewType" : "DEREDIRECTVIEW"
+    }
+  } ],
+  "getPSControls" : [ {
+    "aggMode" : "NONE",
+    "codeName" : "main",
+    "columnEnableFilter" : 2,
+    "columnEnableLink" : 2,
+    "controlStyle" : "CHECKIN",
+    "controlType" : "GRID",
+    "dynaModelFilePath" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/attendance_schedule/PSGRIDS/main.json",
+    "getFetchPSControlAction" : {
+      "modelref" : true,
+      "id" : "fetch",
+      "actionType" : "DEDATASET",
+      "name" : "fetch",
+      "getPSAppDEMethod" : {
+        "modelref" : true,
+        "id" : "fetch_member"
+      },
+      "getPSAppDataEntity" : {
+        "modelref" : true,
+        "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/attendance_schedule.json"
+      }
+    },
+    "groupMode" : "NONE",
+    "logicName" : "主表格",
+    "getPSAppDataEntity" : {
+      "modelref" : true,
+      "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/attendance_schedule.json"
+    },
+    "getPSControlHandler" : {
+      "getPSHandlerActions" : [ {
+        "actionName" : "Get",
+        "actionType" : "DEACTION",
+        "dataAccessAction" : "READ",
+        "name" : "load",
+        "getPSAppDEMethod" : {
+          "modelref" : true,
+          "id" : "get"
+        },
+        "getPSAppDataEntity" : {
+          "modelref" : true,
+          "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/attendance_schedule.json"
+        }
+      }, {
+        "actionName" : "Create",
+        "actionType" : "DEACTION",
+        "dataAccessAction" : "CREATE",
+        "name" : "create",
+        "getPSAppDEMethod" : {
+          "modelref" : true,
+          "id" : "create"
+        },
+        "getPSAppDataEntity" : {
+          "modelref" : true,
+          "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/attendance_schedule.json"
+        }
+      }, {
+        "actionName" : "Update",
+        "actionType" : "DEACTION",
+        "dataAccessAction" : "UPDATE",
+        "name" : "update",
+        "getPSAppDEMethod" : {
+          "modelref" : true,
+          "id" : "update"
+        },
+        "getPSAppDataEntity" : {
+          "modelref" : true,
+          "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/attendance_schedule.json"
+        }
+      }, {
+        "actionName" : "Remove",
+        "actionType" : "DEACTION",
+        "dataAccessAction" : "DELETE",
+        "name" : "remove",
+        "getPSAppDEMethod" : {
+          "modelref" : true,
+          "id" : "remove"
+        },
+        "getPSAppDataEntity" : {
+          "modelref" : true,
+          "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/attendance_schedule.json"
+        }
+      }, {
+        "actionName" : "GetDraft",
+        "actionType" : "DEACTION",
+        "dataAccessAction" : "CREATE",
+        "name" : "loaddraft",
+        "getPSAppDEMethod" : {
+          "modelref" : true,
+          "id" : "get_draft"
+        },
+        "getPSAppDataEntity" : {
+          "modelref" : true,
+          "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/attendance_schedule.json"
+        }
+      }, {
+        "actionType" : "DEDATASET",
+        "name" : "fetch",
+        "getPSAppDEMethod" : {
+          "modelref" : true,
+          "id" : "fetch_member"
+        },
+        "getPSAppDataEntity" : {
+          "modelref" : true,
+          "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/attendance_schedule.json"
+        }
+      } ],
+      "userDRAction" : "READ",
+      "enableDEFieldPrivilege" : false,
+      "id" : "数据表格处理器"
+    },
+    "getPSControlParam" : {
+      "autoLoad" : true,
+      "showBusyIndicator" : true,
+      "id" : "GRID"
+    },
+    "getPSDEDataExport" : {
+      "modelref" : true,
+      "id" : "DataExport"
+    },
+    "getPSDEGridColumns" : [ {
+      "align" : "LEFT",
+      "cLConvertMode" : "NONE",
+      "caption" : "姓名",
+      "codeName" : "member_name",
+      "columnType" : "DEFGRIDCOLUMN",
+      "dataItemName" : "member_name",
+      "excelCaption" : "姓名",
+      "name" : "member_name",
+      "noPrivDisplayMode" : 1,
+      "getPSAppDEField" : {
+        "name" : "MEMBER_NAME",
+        "codeName" : "member_name"
+      },
+      "width" : 130,
+      "widthUnit" : "PX",
+      "enableSort" : true
+    }, {
+      "align" : "LEFT",
+      "cLConvertMode" : "NONE",
+      "caption" : "工号",
+      "codeName" : "member_num",
+      "columnType" : "DEFGRIDCOLUMN",
+      "dataItemName" : "member_num",
+      "excelCaption" : "工号",
+      "name" : "member_num",
+      "noPrivDisplayMode" : 1,
+      "getPSAppDEField" : {
+        "name" : "MEMBER_NUM",
+        "codeName" : "member_num"
+      },
+      "width" : 130,
+      "widthUnit" : "PX",
+      "enableSort" : true
+    }, {
+      "align" : "LEFT",
+      "cLConvertMode" : "NONE",
+      "caption" : "部门",
+      "codeName" : "dept_name",
+      "columnType" : "DEFGRIDCOLUMN",
+      "dataItemName" : "dept_name",
+      "excelCaption" : "部门",
+      "name" : "dept_name",
+      "noPrivDisplayMode" : 1,
+      "getPSAppDEField" : {
+        "name" : "DEPT_NAME",
+        "codeName" : "dept_name"
+      },
+      "width" : 130,
+      "widthUnit" : "PX",
+      "enableSort" : true
+    }, {
+      "align" : "LEFT",
+      "cLConvertMode" : "NONE",
+      "caption" : "职位",
+      "codeName" : "title",
+      "columnType" : "DEFGRIDCOLUMN",
+      "dataItemName" : "title",
+      "excelCaption" : "职位",
+      "name" : "title",
+      "noPrivDisplayMode" : 1,
+      "getPSAppDEField" : {
+        "name" : "TITLE",
+        "codeName" : "title"
+      },
+      "width" : 100,
+      "widthUnit" : "PX",
+      "enableSort" : true
+    }, {
+      "align" : "LEFT",
+      "cLConvertMode" : "NONE",
+      "caption" : "规则名称",
+      "codeName" : "rule_name",
+      "columnType" : "DEFGRIDCOLUMN",
+      "dataItemName" : "rule_name",
+      "excelCaption" : "规则名称",
+      "name" : "rule_name",
+      "noPrivDisplayMode" : 1,
+      "getPSAppDEField" : {
+        "name" : "RULE_NAME",
+        "codeName" : "rule_name"
+      },
+      "width" : 160,
+      "widthUnit" : "PX",
+      "enableSort" : true
+    } ],
+    "getPSDEGridDataItems" : [ {
+      "dataType" : 25,
+      "name" : "member_name",
+      "getPSAppDEField" : {
+        "name" : "MEMBER_NAME",
+        "codeName" : "member_name"
+      }
+    }, {
+      "dataType" : 25,
+      "name" : "member_num",
+      "getPSAppDEField" : {
+        "name" : "MEMBER_NUM",
+        "codeName" : "member_num"
+      }
+    }, {
+      "dataType" : 25,
+      "name" : "dept_name",
+      "getPSAppDEField" : {
+        "name" : "DEPT_NAME",
+        "codeName" : "dept_name"
+      }
+    }, {
+      "dataType" : 25,
+      "name" : "title",
+      "getPSAppDEField" : {
+        "name" : "TITLE",
+        "codeName" : "title"
+      }
+    }, {
+      "dataType" : 25,
+      "name" : "rule_name",
+      "getPSAppDEField" : {
+        "name" : "RULE_NAME",
+        "codeName" : "rule_name"
+      }
+    }, {
+      "dataType" : 25,
+      "name" : "srfkey",
+      "getPSAppDEField" : {
+        "name" : "ID",
+        "codeName" : "id"
+      }
+    }, {
+      "dataType" : 25,
+      "name" : "srfdataaccaction",
+      "getPSAppDEField" : {
+        "name" : "ID",
+        "codeName" : "id"
+      },
+      "dataAccessAction" : true
+    }, {
+      "dataType" : 25,
+      "name" : "member_id",
+      "getPSAppDEField" : {
+        "name" : "MEMBER_ID",
+        "codeName" : "member_id"
+      }
+    }, {
+      "dataType" : 25,
+      "name" : "rule_id",
+      "getPSAppDEField" : {
+        "name" : "RULE_ID",
+        "codeName" : "rule_id"
+      }
+    }, {
+      "dataType" : 25,
+      "name" : "srfmajortext",
+      "getPSAppDEField" : {
+        "name" : "NAME",
+        "codeName" : "name"
+      }
+    } ],
+    "getPSDEGridEditItems" : [ {
+      "caption" : "标识",
+      "codeName" : "srfkey",
+      "enableCond" : 3,
+      "ignoreInput" : 0,
+      "name" : "srfkey",
+      "getPSAppDEField" : {
+        "name" : "ID",
+        "codeName" : "id"
+      },
+      "getPSEditor" : {
+        "editorType" : "HIDDEN",
+        "name" : "srfkey"
+      },
+      "allowEmpty" : true
+    } ],
+    "getPSSysPFPlugin" : {
+      "pluginType" : "GRID_RENDER",
+      "pluginCode" : "CHECKIN",
+      "runtimeObject" : true
+    },
+    "pagingMode" : 1,
+    "pagingSize" : 20,
+    "getRemovePSControlAction" : {
+      "actionName" : "Remove",
+      "actionType" : "DEACTION",
+      "dataAccessAction" : "DELETE",
+      "name" : "remove",
+      "getPSAppDEMethod" : {
+        "modelref" : true,
+        "id" : "remove"
+      },
+      "getPSAppDataEntity" : {
+        "modelref" : true,
+        "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/attendance_schedule.json"
+      }
+    },
+    "sortMode" : "REMOTE",
+    "hasWFDataItems" : false,
+    "enableColFilter" : false,
+    "enableCustomized" : true,
+    "enableGroup" : false,
+    "enablePagingBar" : true,
+    "enableRowEdit" : false,
+    "enableRowEditOrder" : false,
+    "enableRowNew" : false,
+    "forceFit" : false,
+    "hideHeader" : false,
+    "noSort" : false,
+    "singleSelect" : true,
+    "name" : "grid",
+    "modelid" : "76c9c8cbb01bd826152a3d3afb222365",
+    "modeltype" : "PSDEGRID"
+  }, {
+    "codeName" : "default",
+    "controlType" : "SEARCHFORM",
+    "defaultLabelWidth" : 130,
+    "dynaModelFilePath" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/attendance_schedule/PSSEARCHFORMS/default.json",
+    "hookEventNames" : [ "ONBEFORELOADDRAFT" ],
+    "logicName" : "默认搜索表单",
+    "getPSAppDataEntity" : {
+      "modelref" : true,
+      "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/attendance_schedule.json"
+    },
+    "getPSControlHandler" : {
+      "getPSHandlerActions" : [ {
+        "actionType" : "FILTERACTION",
+        "name" : "load",
+        "getPSAppDEMethod" : {
+          "modelref" : true,
+          "id" : "FilterGet"
+        },
+        "getPSAppDataEntity" : {
+          "modelref" : true,
+          "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/attendance_schedule.json"
+        }
+      }, {
+        "actionType" : "FILTERACTION",
+        "name" : "loaddraft",
+        "getPSAppDEMethod" : {
+          "modelref" : true,
+          "id" : "FilterGetDraft"
+        },
+        "getPSAppDataEntity" : {
+          "modelref" : true,
+          "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/attendance_schedule.json"
+        }
+      }, {
+        "actionType" : "FILTERACTION",
+        "name" : "search",
+        "getPSAppDEMethod" : {
+          "modelref" : true,
+          "id" : "FilterSearch"
+        },
+        "getPSAppDataEntity" : {
+          "modelref" : true,
+          "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/attendance_schedule.json"
+        }
+      } ],
+      "enableDEFieldPrivilege" : false,
+      "id" : "搜索表单处理器"
+    },
+    "getPSControlLogics" : [ {
+      "eventNames" : "onBeforeLoadDraft",
+      "logicTag" : "searchform",
+      "logicType" : "SCRIPT",
+      "name" : "logic",
+      "scriptCode" : "const today = new Date();\r\nconst year = today.getFullYear();\r\nconst month = String(today.getMonth() + 1).padStart(2, '0');\r\nconst choose_month = `${year}-${month}`;\r\nObject.assign(viewParam, { choose_month });"
+    } ],
+    "getPSControlParam" : {
+      "autoLoad" : true,
+      "showBusyIndicator" : true,
+      "ctrlParams" : {
+        "ENABLESTOREDFILTERS" : "false"
+      },
+      "id" : "SEARCHFORM"
+    },
+    "getPSDEFormItems" : [ {
+      "id" : "choose_month",
+      "dataType" : 25,
+      "createDVT" : "CURTIME"
+    }, {
+      "id" : "n_rule_id_eq",
+      "dataType" : 25,
+      "getPSAppDEField" : {
+        "name" : "RULE_ID",
+        "codeName" : "rule_id"
+      }
+    }, {
+      "id" : "n_member_id_in",
+      "dataType" : 25,
+      "getPSAppDEField" : {
+        "name" : "MEMBER_ID",
+        "codeName" : "member_id"
+      }
+    } ],
+    "getPSDEFormPages" : [ {
+      "getCapPSLanguageRes" : {
+        "lanResTag" : "CONTROL.DEFORM.ATTENDANCE_SCHEDULE.DEFAULT.FORMPAGE.FORMPAGE1"
+      },
+      "caption" : "常规条件",
+      "codeName" : "formpage1",
+      "detailStyle" : "DEFAULT",
+      "detailType" : "FORMPAGE",
+      "name" : "formpage1",
+      "getPSDEFormDetails" : [ {
+        "caption" : "选择日期",
+        "codeName" : "choose_month",
+        "createDVT" : "CURTIME",
+        "dataType" : 25,
+        "detailStyle" : "DEFAULT",
+        "detailType" : "FORMITEM",
+        "enableCond" : 3,
+        "fieldName" : "choose_month",
+        "ignoreInput" : 0,
+        "labelPos" : "LEFT",
+        "labelWidth" : 75,
+        "name" : "choose_month",
+        "noPrivDisplayMode" : 1,
+        "getPSEditor" : {
+          "editorParams" : {
+            "customprops" : "{\"clearable\":false}"
+          },
+          "editorType" : "DROPDOWNLIST",
+          "name" : "choose_month",
+          "getPSAppCodeList" : {
+            "modelref" : true,
+            "path" : "PSSYSAPPS/attendanceapp/PSAPPCODELISTS/attendance__search_month.json"
+          },
+          "singleSelect" : true
+        },
+        "getPSLayoutPos" : {
+          "colLG" : 5,
+          "colMD" : 5,
+          "layout" : "TABLE_24COL"
+        },
+        "allowEmpty" : true,
+        "needCodeListConfig" : true,
+        "showCaption" : true
+      }, {
+        "caption" : "考勤规则",
+        "codeName" : "n_rule_id_eq",
+        "dataType" : 25,
+        "detailStyle" : "DEFAULT",
+        "detailType" : "FORMITEM",
+        "enableCond" : 3,
+        "ignoreInput" : 0,
+        "labelPos" : "LEFT",
+        "labelWidth" : 75,
+        "name" : "n_rule_id_eq",
+        "noPrivDisplayMode" : 1,
+        "getPSAppDEField" : {
+          "name" : "RULE_ID",
+          "codeName" : "rule_id"
+        },
+        "getPSEditor" : {
+          "editorType" : "DROPDOWNLIST",
+          "name" : "n_rule_id_eq",
+          "getPSAppCodeList" : {
+            "modelref" : true,
+            "path" : "PSSYSAPPS/attendanceapp/PSAPPCODELISTS/attendance__attendance_rules.json"
+          },
+          "singleSelect" : true
+        },
+        "getPSLayoutPos" : {
+          "colLG" : 5,
+          "colMD" : 5,
+          "layout" : "TABLE_24COL"
+        },
+        "allowEmpty" : true,
+        "needCodeListConfig" : true,
+        "showCaption" : true
+      }, {
+        "caption" : "人员范围",
+        "codeName" : "n_member_id_in",
+        "dataType" : 25,
+        "detailStyle" : "DEFAULT",
+        "detailType" : "FORMITEM",
+        "enableCond" : 3,
+        "ignoreInput" : 0,
+        "labelPos" : "LEFT",
+        "labelWidth" : 75,
+        "name" : "n_member_id_in",
+        "noPrivDisplayMode" : 1,
+        "getPSAppDEField" : {
+          "name" : "MEMBER_ID",
+          "codeName" : "member_id"
+        },
+        "getPSControlAttributes" : [ {
+          "attrName" : "collapse-tags",
+          "attrValue" : "true",
+          "name" : "collapseTags"
+        }, {
+          "attrName" : "collapse-tags-tooltip",
+          "attrValue" : "true",
+          "name" : "collapseTagsTooltip"
+        }, {
+          "attrName" : "max-collapse-tags",
+          "attrValue" : "3",
+          "name" : "maxCollapseTags"
+        } ],
+        "getPSEditor" : {
+          "editorParams" : {
+            "valuetype" : "OBJECTS",
+            "objectnamefield" : "name",
+            "keymapping" : "type:type;",
+            "objectidfield" : "id",
+            "PICKUPVIEW" : "TRUE"
+          },
+          "editorType" : "ADDRESSPICKUP",
+          "name" : "n_member_id_in",
+          "objectIdField" : "id",
+          "objectNameField" : "name",
+          "getPSAppDEACMode" : {
+            "modelref" : true,
+            "id" : "people"
+          },
+          "getPSAppDEDataSet" : {
+            "modelref" : true,
+            "id" : "FetchDefault"
+          },
+          "getPSAppDataEntity" : {
+            "modelref" : true,
+            "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/user_object.json"
+          },
+          "getPickupPSAppView" : {
+            "modelref" : true,
+            "path" : "PSSYSAPPS/attendanceapp/PSAPPDEVIEWS/user_object_preson_limit_m_pickup_view.json",
+            "viewType" : "DEMPICKUPVIEW"
+          },
+          "valueType" : "OBJECTS",
+          "enableAC" : false,
+          "enablePickupView" : true,
+          "forceSelection" : true,
+          "showTrigger" : true
+        },
+        "getPSLayoutPos" : {
+          "colLG" : 5,
+          "colMD" : 5,
+          "layout" : "TABLE_24COL"
+        },
+        "allowEmpty" : true,
+        "showCaption" : true
+      } ],
+      "getPSLayout" : {
+        "childColMD" : 24,
+        "columnCount" : 24,
+        "layout" : "TABLE_24COL"
+      },
+      "infoGroupMode" : false
+    } ],
+    "getPSLayout" : {
+      "childColMD" : 24,
+      "columnCount" : 24,
+      "layout" : "TABLE_24COL"
+    },
+    "searchButtonStyle" : "NONE",
+    "tabHeaderPos" : "TOP",
+    "enableAdvanceSearch" : false,
+    "enableAutoSearch" : true,
+    "enableFilterSave" : false,
+    "noTabHeader" : true,
+    "name" : "searchform",
+    "modelid" : "8ad1ec538972d422906ef41a473c3251",
+    "modeltype" : "PSDEFORM_SEARCHFORM"
+  }, {
+    "codeName" : "overview_grid_view_toolbar",
+    "controlType" : "TOOLBAR",
+    "logicName" : "工具栏",
+    "name" : "toolbar",
+    "getPSAppDataEntity" : {
+      "modelref" : true,
+      "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/attendance_schedule.json"
+    },
+    "getPSControlParam" : {
+      "id" : "TOOLBAR"
+    },
+    "getPSDEToolbarItems" : [ {
+      "caption" : "清除手动排班",
+      "groupExtractMode" : "ITEM",
+      "itemType" : "DEUIACTION",
+      "name" : "deuiaction3",
+      "noPrivDisplayMode" : 1,
+      "getPSAppViewUIAction" : {
+        "modelref" : true,
+        "id" : "toolbar_deuiaction3"
+      },
+      "getPSUIAction" : {
+        "actionTarget" : "NONE",
+        "noPrivDisplayMode" : 1,
+        "caption" : "清除手动排班",
+        "codeName" : "clear_manual_attendance_schedule",
+        "confirmMsg" : "是否清除今日及之后的手动排班，今日及之后的排班将会恢复为原来的排班规则",
+        "dataAccessAction" : "SRFUR__CLEAR_MANUAL_ATTENDANCE_SCHEDULE",
+        "fullCodeName" : "attendance_schedule_clear_manual_attendance_schedule",
+        "name" : "清除手动排班",
+        "getPSAppDEMethod" : {
+          "modelref" : true,
+          "id" : "clear_manual_schedule"
+        },
+        "getPSAppDataEntity" : {
+          "modelref" : true,
+          "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/attendance_schedule.json"
+        },
+        "getPSDEOPPriv" : {
+          "modelref" : true,
+          "id" : "SRFUR__CLEAR_MANUAL_ATTENDANCE_SCHEDULE"
+        },
+        "refreshMode" : 1,
+        "successMsg" : "清除成功",
+        "timeout" : 60000,
+        "uIActionMode" : "BACKEND",
+        "uIActionTag" : "clear_manual_attendance_schedule",
+        "uIActionType" : "DEUIACTION",
+        "enableConfirm" : true,
+        "reloadData" : true,
+        "id" : "clear_manual_attendance_schedule@attendance_schedule"
+      },
+      "tooltip" : "清除手动排班",
+      "uIActionTarget" : "NONE",
+      "showCaption" : true,
+      "showIcon" : true
+    }, {
+      "caption" : "导出月排班视图",
+      "groupExtractMode" : "ITEM",
+      "itemType" : "DEUIACTION",
+      "name" : "deuiaction1",
+      "noPrivDisplayMode" : 2,
+      "getPSAppViewUIAction" : {
+        "modelref" : true,
+        "id" : "toolbar_deuiaction1"
+      },
+      "getPSUIAction" : {
+        "actionTarget" : "NONE",
+        "caption" : "导出报表",
+        "codeName" : "export_report",
+        "frontProcessType" : "OTHER",
+        "fullCodeName" : "attendance_schedule_export_report",
+        "name" : "导出排班视图",
+        "getPSAppDataEntity" : {
+          "modelref" : true,
+          "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/attendance_schedule.json"
+        },
+        "scriptCode" : "const viewC = view\r\nconsole.log('导出报表参数：', viewC);\r\nconst tempPatams = {...viewC.params};\r\nif (viewC.getController(\"searchform\")) {\r\n    const searchForm = viewC.getController(\"searchform\");\r\n    Object.assign(tempPatams, {...searchForm.data});\r\n}\r\nconsole.log('导出报表参数：', tempPatams);\r\ndelete tempPatams.n_checkin_date_gtandeq;\r\ndelete tempPatams.n_checkin_date_ltandeq;\r\ndelete tempPatams.n_member_id_in;\r\nconst urlParam = new URLSearchParams(tempPatams);\r\nconst exportUrl = `/attendance_schedules/exportdata/fetch_member/?srfexporttag=DataExport&${decodeURIComponent(urlParam)}`;\r\nconst app = ibiz.hub.getApp(context.srfappid);\r\nconst { data: file } = await app.net.request(exportUrl, {\r\n    method: 'post',\r\n    data: tempPatams,\r\n    responseType: 'blob',\r\n});\r\nif (file) {\r\n    const title = viewC.model.title;\r\n    const fileName = `${title}表.xlsx`;\r\n    const filetype = 'application/vnd.ms-excel';\r\n    const blob = new Blob([file], { type: filetype });\r\n    const href = URL.createObjectURL(blob);\r\n    const a = document.createElement('a');\r\n    a.href = href;\r\n    a.download = fileName;\r\n    document.body.appendChild(a);\r\n    a.click();\r\n    document.body.removeChild(a);\r\n    URL.revokeObjectURL(href);\r\n}",
+        "uIActionMode" : "FRONT",
+        "uIActionTag" : "export_report",
+        "uIActionType" : "DEUIACTION",
+        "globalUIAction" : true,
+        "id" : "export_report@attendance_schedule"
+      },
+      "tooltip" : "导出月排班视图",
+      "uIActionTarget" : "NONE",
+      "showCaption" : true,
+      "showIcon" : true
+    } ],
+    "xDataControlName" : "grid",
+    "modelid" : "51647e40e9f6531bfc1048a6f6ddc757",
+    "modeltype" : "PSDETOOLBAR"
+  }, {
+    "controlType" : "SEARCHBAR",
+    "name" : "searchbar",
+    "getPSAppDataEntity" : {
+      "modelref" : true,
+      "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/attendance_schedule.json"
+    },
+    "getPSControlParam" : {
+      "id" : "searchbar"
+    },
+    "quickGroupCount" : -1,
+    "quickSearchMode" : 0,
+    "quickSearchWidth" : 0,
+    "enableFilter" : false,
+    "enableGroup" : false,
+    "enableQuickSearch" : false,
+    "mobileSearchBar" : false
+  }, {
+    "getCapPSLanguageRes" : {
+      "lanResTag" : "DE.LNAME.ATTENDANCE_SCHEDULE"
+    },
+    "caption" : "排班",
+    "codeName" : "overview_grid_view_captionbar",
+    "controlType" : "CAPTIONBAR",
+    "name" : "captionbar",
+    "getPSAppDataEntity" : {
+      "modelref" : true,
+      "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/attendance_schedule.json"
+    },
+    "getPSControlParam" : { }
+  } ],
+  "getPSDEViewCodeName" : "overview_grid_view",
+  "getPSDEViewId" : "14ac1e08b17994dbdcfba4b43535bfcb",
+  "getPSViewLayoutPanel" : {
+    "codeName" : "layoutpanel",
+    "controlStyle" : "APPDEGRIDVIEW",
+    "controlType" : "VIEWLAYOUTPANEL",
+    "name" : "layoutpanel",
+    "getPSAppDataEntity" : {
+      "modelref" : true,
+      "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/attendance_schedule.json"
+    },
+    "getPSControlParam" : { },
+    "layoutBodyOnly" : true,
+    "layoutPanel" : true,
+    "useDefaultLayout" : true
+  },
+  "title" : "排班",
+  "viewStyle" : "DEFAULT",
+  "viewType" : "DEGRIDVIEW",
+  "xDataControlName" : "grid",
+  "enableDP" : true,
+  "enableExport" : true,
+  "enableFilter" : true,
+  "enableImport" : true,
+  "enableRowEdit" : false,
+  "enableSearch" : true,
+  "expandSearchForm" : true,
+  "rowEditDefault" : false,
+  "modelid" : "4b93140d218d804c6034c7321029a9d5",
+  "modeltype" : "PSAPPDEVIEW"
+}

@@ -1,0 +1,61 @@
+{
+  "dBType" : "MYSQL5",
+  "name" : "MySQL5",
+  "getPSDEDataQueryCodeExps" : [ {
+    "expression" : "t1.`NOTE`",
+    "name" : "NOTE"
+  }, {
+    "expression" : "t1.`RES_IDS`",
+    "name" : "RES_IDS"
+  }, {
+    "expression" : "t1.`ACTIVITY_TYPE_ID`",
+    "name" : "ACTIVITY_TYPE_ID"
+  }, {
+    "expression" : "t11.`NAME`",
+    "name" : "ACTIVITY_TYPE_NAME"
+  }, {
+    "expression" : "t1.`ACTIVITY_USER_ID`",
+    "name" : "ACTIVITY_USER_ID"
+  }, {
+    "expression" : "t31.`NAME`",
+    "name" : "ACTIVITY_USER_NAME"
+  }, {
+    "expression" : "t11.`CHAINING_TYPE`",
+    "name" : "CHAINING_TYPE"
+  }, {
+    "expression" : "t1.`CREATE_DATE`",
+    "name" : "CREATE_DATE"
+  }, {
+    "expression" : "t1.`CREATE_UID`",
+    "name" : "CREATE_UID"
+  }, {
+    "expression" : "t1.`DATE_DEADLINE`",
+    "name" : "DATE_DEADLINE"
+  }, {
+    "expression" : "t1.`ID`",
+    "name" : "ID"
+  }, {
+    "expression" : "t1.`PLAN_DATE`",
+    "name" : "PLAN_DATE"
+  }, {
+    "expression" : "t1.`PLAN_ID`",
+    "name" : "PLAN_ID"
+  }, {
+    "expression" : "t1.`PLAN_ON_DEMAND_USER_ID`",
+    "name" : "PLAN_ON_DEMAND_USER_ID"
+  }, {
+    "expression" : "t1.`RES_MODEL`",
+    "name" : "RES_MODEL"
+  }, {
+    "expression" : "t1.`SUMMARY`",
+    "name" : "SUMMARY"
+  }, {
+    "expression" : "t1.`WRITE_DATE`",
+    "name" : "WRITE_DATE"
+  }, {
+    "expression" : "t1.`WRITE_UID`",
+    "name" : "WRITE_UID"
+  } ],
+  "queryCode" : "SELECT\nt1.`ACTIVITY_TYPE_ID`,\nt11.`NAME` AS `ACTIVITY_TYPE_NAME`,\nt1.`ACTIVITY_USER_ID`,\nt31.`NAME` AS `ACTIVITY_USER_NAME`,\nt11.`CHAINING_TYPE`,\nt1.`CREATE_DATE`,\nt1.`CREATE_UID`,\nt1.`DATE_DEADLINE`,\nt1.`ID`,\nt1.`PLAN_DATE`,\nt1.`PLAN_ID`,\nt1.`PLAN_ON_DEMAND_USER_ID`,\nt1.`RES_MODEL`,\nt1.`SUMMARY`,\nt1.`WRITE_DATE`,\nt1.`WRITE_UID`\nFROM `mail_activity_schedule` t1 \nLEFT JOIN `mail_activity_type` t11 ON t1.`ACTIVITY_TYPE_ID` = t11.`ID` \nLEFT JOIN `res_users` t21 ON t1.`ACTIVITY_USER_ID` = t21.`ID` \nLEFT JOIN `res_partner` t31 ON t21.`PARTNER_ID` = t31.`ID` \n",
+  "id" : "PSMODULES/mail/PSDATAENTITIES/mail_activity_schedule/PSDEDATAQUERIES/Default/PSDEDQCODES/MYSQL5.json"
+}

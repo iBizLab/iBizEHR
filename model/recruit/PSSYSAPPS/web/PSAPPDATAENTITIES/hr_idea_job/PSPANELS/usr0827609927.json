@@ -1,0 +1,176 @@
+{
+  "getAllPSPanelFields" : [ {
+    "id" : "field_text_dynamic",
+    "viewFieldName" : "JOB_NAME"
+  }, {
+    "id" : "field_text_dynamic1",
+    "viewFieldName" : "category"
+  }, {
+    "id" : "field_text_dynamic2",
+    "viewFieldName" : "address_id"
+  } ],
+  "codeName" : "usr0827609927",
+  "controlType" : "PANEL",
+  "dynaModelFilePath" : "PSSYSAPPS/web/PSAPPDATAENTITIES/hr_idea_job/PSPANELS/usr0827609927.json",
+  "layoutMode" : "TABLE_24COL",
+  "logicName" : "idea_job_List_列表项面板",
+  "getPSAppDataEntity" : {
+    "modelref" : true,
+    "path" : "PSSYSAPPS/web/PSAPPDATAENTITIES/hr_idea_job.json"
+  },
+  "getPSLayout" : {
+    "childColMD" : 24,
+    "columnCount" : 24,
+    "layout" : "TABLE_24COL"
+  },
+  "getRootPSPanelItems" : [ {
+    "itemStyle" : "DEFAULT",
+    "itemType" : "CONTAINER",
+    "name" : "page_container",
+    "getPSLayout" : {
+      "dir" : "column",
+      "layout" : "FLEX"
+    },
+    "getPSLayoutPos" : {
+      "colMD" : 24,
+      "layout" : "TABLE_24COL",
+      "spacingLeft" : "OUTERSMALL",
+      "spacingRight" : "OUTERSMALL",
+      "spacingTop" : "OUTERSMALL"
+    },
+    "getPSPanelItems" : [ {
+      "caption" : "容器",
+      "itemStyle" : "DEFAULT",
+      "itemType" : "CONTAINER",
+      "name" : "container1",
+      "getPSLayout" : {
+        "align" : "space-between",
+        "dir" : "row",
+        "layout" : "FLEX",
+        "vAlign" : "flex-start"
+      },
+      "getPSLayoutPos" : {
+        "grow" : -1,
+        "layout" : "FLEX"
+      },
+      "getPSPanelItems" : [ {
+        "caption" : "文本(动态)",
+        "itemStyle" : "DEFAULT",
+        "itemType" : "FIELD",
+        "name" : "field_text_dynamic",
+        "getPSEditor" : {
+          "editorType" : "SPAN",
+          "name" : "field_text_dynamic",
+          "predefinedType" : "FIELD_TEXT_DYNAMIC",
+          "renderMode" : "TEXT_DYNAMIC",
+          "enableLinkView" : false
+        },
+        "getPSLayoutPos" : {
+          "grow" : -1,
+          "layout" : "FLEX"
+        },
+        "viewFieldName" : "JOB_NAME"
+      }, {
+        "actionType" : "UIACTION",
+        "buttonStyle" : "DEFAULT",
+        "caption" : "按钮",
+        "itemStyle" : "DEFAULT",
+        "itemType" : "BUTTON",
+        "name" : "delete",
+        "getPSAppViewUIAction" : {
+          "modelref" : true,
+          "id" : "list_itempanel_delete"
+        },
+        "getPSLayoutPos" : {
+          "grow" : -1,
+          "layout" : "FLEX"
+        },
+        "getPSSysImage" : {
+          "rawContent" : "<svg xmlns=\"http://www.w3.org/2000/svg\" class=\"icon design-iconfont\" viewBox=\"0 0 1024 1024\" width=\"18\" height=\"18\">\n  <path d=\"M745.344 233.344l-512 512a32 32 0 0 0 45.312 45.312l512-512a32 32 0 1 0-45.312-45.312z\" fill=\"#C4C4C4\"></path>\n  <path d=\"M233.344 278.656l512 512a32 32 0 1 0 45.312-45.312l-512-512a32 32 0 0 0-45.312 45.312z\" fill=\"#C4C4C4\"></path>\n</svg>"
+        },
+        "getPSUIAction" : {
+          "actionTarget" : "SINGLEKEY",
+          "caption" : "删除",
+          "codeName" : "remove",
+          "confirmMsg" : "确认删除关联关系？",
+          "fullCodeName" : "hr_idea_job_remove",
+          "name" : "删除",
+          "getPSAppDEMethod" : {
+            "modelref" : true,
+            "id" : "remove"
+          },
+          "getPSAppDEUILogic" : {
+            "modelref" : true,
+            "id" : "refresh_list"
+          },
+          "getPSAppDataEntity" : {
+            "modelref" : true,
+            "path" : "PSSYSAPPS/web/PSAPPDATAENTITIES/hr_idea_job.json"
+          },
+          "successMsg" : "删除成功！",
+          "timeout" : 60000,
+          "tooltip" : "删除",
+          "uIActionMode" : "BACKEND",
+          "uIActionTag" : "remove",
+          "uIActionType" : "DEUIACTION",
+          "uILogicAttachMode" : "AFTER",
+          "enableConfirm" : true,
+          "id" : "remove@hr_idea_job"
+        },
+        "tooltip" : "按钮",
+        "uIActionTarget" : "SINGLEKEY"
+      } ]
+    }, {
+      "caption" : "容器",
+      "itemStyle" : "DEFAULT",
+      "itemType" : "CONTAINER",
+      "name" : "container",
+      "getPSLayout" : {
+        "dir" : "row",
+        "layout" : "FLEX"
+      },
+      "getPSLayoutPos" : {
+        "grow" : -1,
+        "layout" : "FLEX"
+      },
+      "getPSPanelItems" : [ {
+        "caption" : "文本(动态)",
+        "itemStyle" : "DEFAULT",
+        "itemType" : "FIELD",
+        "name" : "field_text_dynamic1",
+        "getPSEditor" : {
+          "editorType" : "SPAN",
+          "name" : "field_text_dynamic1",
+          "predefinedType" : "FIELD_TEXT_DYNAMIC",
+          "renderMode" : "TEXT_DYNAMIC",
+          "enableLinkView" : false
+        },
+        "getPSLayoutPos" : {
+          "grow" : -1,
+          "layout" : "FLEX"
+        },
+        "viewFieldName" : "category"
+      }, {
+        "caption" : "文本(动态)",
+        "itemStyle" : "DEFAULT",
+        "itemType" : "FIELD",
+        "name" : "field_text_dynamic2",
+        "getPSEditor" : {
+          "editorType" : "SPAN",
+          "name" : "field_text_dynamic2",
+          "predefinedType" : "FIELD_TEXT_DYNAMIC",
+          "renderMode" : "TEXT_DYNAMIC",
+          "enableLinkView" : false
+        },
+        "getPSLayoutPos" : {
+          "grow" : -1,
+          "layout" : "FLEX",
+          "spacingLeft" : "OUTERSMALL"
+        },
+        "viewFieldName" : "address_id"
+      } ]
+    } ]
+  } ],
+  "modelid" : "d5aa733cbc0831a96865241fa45b1bcb",
+  "modeltype" : "PSSYSVIEWPANEL"
+}

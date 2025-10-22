@@ -1,0 +1,233 @@
+package cn.ibizlab.hr.logic.hr_attendancelogic.kiosk_checkin;
+        import java.util.Map;
+        import java.util.HashMap;
+        import com.alibaba.fastjson.JSONObject;
+        import org.springframework.util.StringUtils;
+        import org.springframework.util.ObjectUtils;
+        import cn.ibizlab.util.errors.BadRequestAlertException;
+                global cn.ibizlab.core.hr.domain.hr_attendance hr_attendancekiosk_checkindefault;
+                global cn.ibizlab.core.hr.domain.hr_employee hr_attendancekiosk_checkinemp;
+                global java.util.Map hr_attendancekiosk_checkinhours_previously_today;
+                global cn.ibizlab.core.hr.domain.hr_attendance hr_attendancekiosk_checkinlast;
+                global cn.ibizlab.core.hr.domain.hr_attendance hr_attendancekiosk_checkinnew_attendance;
+                    global cn.ibizlab.core.hr.service.Ihr_employeeService hr_employeeservice;
+                    global cn.ibizlab.core.hr.service.Ihr_attendanceService hr_attendanceservice;
+        global cn.ibizlab.core.hr.service.Ihr_attendanceService iBzSysHr_attendanceDefaultService;
+        global cn.ibizlab.util.security.AuthenticationUser curuser;
+
+
+    no-loop
+
+            //逻辑处理节点[开始]
+            rule "begin"
+            ruleflow-group "hr_attendancekiosk_checkinbegin"
+            when
+            then
+            end
+
+            //逻辑处理节点[准备参数]
+            rule "prepareparam_01"
+            ruleflow-group "hr_attendancekiosk_checkinprepareparam_01"
+            when
+            then
+                            hr_attendancekiosk_checkinemp.set("id",hr_attendancekiosk_checkindefault.get("hr_employee"));
+                        update(hr_attendancekiosk_checkindefault);//更新fact中变量值
+                        update(hr_attendancekiosk_checkinemp);//更新fact中变量值
+                        update(hr_attendancekiosk_checkinhours_previously_today);//更新fact中变量值
+                        update(hr_attendancekiosk_checkinlast);//更新fact中变量值
+                        update(hr_attendancekiosk_checkinnew_attendance);//更新fact中变量值
+            end
+
+            //逻辑处理节点[获取人员数据]
+            rule "deaction_05"
+            ruleflow-group "hr_attendancekiosk_checkindeaction_05"
+            when
+            then
+                            cn.ibizlab.util.helper.CachedBeanCopier.copy(hr_employeeservice.get(hr_attendancekiosk_checkinemp.getId()),hr_attendancekiosk_checkinemp);
+                        update(hr_attendancekiosk_checkindefault);//更新fact中变量值
+                        update(hr_attendancekiosk_checkinemp);//更新fact中变量值
+                        update(hr_attendancekiosk_checkinhours_previously_today);//更新fact中变量值
+                        update(hr_attendancekiosk_checkinlast);//更新fact中变量值
+                        update(hr_attendancekiosk_checkinnew_attendance);//更新fact中变量值
+            end
+
+            //逻辑处理节点[获取最近一次考勤记录]
+            rule "rawsqlcall_01"
+            ruleflow-group "hr_attendancekiosk_checkinrawsqlcall_01"
+            when
+            then
+    Map param =new HashMap();
+        param.put("param0",hr_attendancekiosk_checkinemp.get("id"));
+    String strSql="SELECT *  FROM hr_attendance  WHERE employee_id = #{et.param0} ORDER BY WRITE_DATE  DESC  LIMIT 1;";
+                        java.util.List<JSONObject> entities=iBzSysHr_attendanceDefaultService.select(strSql,param);//SQL调用
+                            if(entities.size()>0){
+                            JSONObject entity=entities.get(0);
+                                    cn.ibizlab.core.hr.domain.hr_attendance targetEntity =new cn.ibizlab.core.hr.domain.hr_attendance();
+                                    for (Map.Entry entry : entity.entrySet()) {
+                                    targetEntity.set(String.valueOf(entry.getKey()),entry.getValue());
+                                    }
+                                    org.springframework.cglib.beans.BeanCopier copier= org.springframework.cglib.beans.BeanCopier.create(targetEntity.getClass(),hr_attendancekiosk_checkinlast.getClass(), false);
+                                    copier.copy(targetEntity,hr_attendancekiosk_checkinlast,null);
+                            }
+                        update(hr_attendancekiosk_checkindefault);//更新fact中变量值
+                        update(hr_attendancekiosk_checkinemp);//更新fact中变量值
+                        update(hr_attendancekiosk_checkinhours_previously_today);//更新fact中变量值
+                        update(hr_attendancekiosk_checkinlast);//更新fact中变量值
+                        update(hr_attendancekiosk_checkinnew_attendance);//更新fact中变量值
+            end
+
+            //逻辑处理节点[计算今日时时数]
+            rule "rawsqlcall_02"
+            ruleflow-group "hr_attendancekiosk_checkinrawsqlcall_02"
+            when
+            then
+    Map param =new HashMap();
+        param.put("param0",hr_attendancekiosk_checkinemp.get("id"));
+    String strSql="SELECT COALESCE(SUM(WORKED_HOURS), 0) AS hours_previously_today FROM hr_attendance  WHERE employee_id = #{et.param0}   AND DATE(CHECK_IN) = CURDATE();";
+                        java.util.List<JSONObject> entities=iBzSysHr_attendanceDefaultService.select(strSql,param);//SQL调用
+                            if(entities.size()>0){
+                            JSONObject entity=entities.get(0);
+                                hr_attendancekiosk_checkinhours_previously_today.putAll(entity);
+                            }
+                        update(hr_attendancekiosk_checkindefault);//更新fact中变量值
+                        update(hr_attendancekiosk_checkinemp);//更新fact中变量值
+                        update(hr_attendancekiosk_checkinhours_previously_today);//更新fact中变量值
+                        update(hr_attendancekiosk_checkinlast);//更新fact中变量值
+                        update(hr_attendancekiosk_checkinnew_attendance);//更新fact中变量值
+            end
+
+            //逻辑处理节点[调试逻辑参数]
+            rule "debugparam_01"
+            ruleflow-group "hr_attendancekiosk_checkindebugparam_01"
+            when
+            then
+                        update(hr_attendancekiosk_checkindefault);//更新fact中变量值
+                        update(hr_attendancekiosk_checkinemp);//更新fact中变量值
+                        update(hr_attendancekiosk_checkinhours_previously_today);//更新fact中变量值
+                        update(hr_attendancekiosk_checkinlast);//更新fact中变量值
+                        update(hr_attendancekiosk_checkinnew_attendance);//更新fact中变量值
+            end
+
+            //逻辑处理节点[构造出勤]
+            rule "rawsfcode_02"
+            ruleflow-group "hr_attendancekiosk_checkinrawsfcode_02"
+            when
+            then
+                        update(hr_attendancekiosk_checkindefault);//更新fact中变量值
+                        update(hr_attendancekiosk_checkinemp);//更新fact中变量值
+                        update(hr_attendancekiosk_checkinhours_previously_today);//更新fact中变量值
+                        update(hr_attendancekiosk_checkinlast);//更新fact中变量值
+                        update(hr_attendancekiosk_checkinnew_attendance);//更新fact中变量值
+            end
+
+            //逻辑处理节点[构造出勤]
+            rule "rawsfcode_01"
+            ruleflow-group "hr_attendancekiosk_checkinrawsfcode_01"
+            when
+            then
+                        update(hr_attendancekiosk_checkindefault);//更新fact中变量值
+                        update(hr_attendancekiosk_checkinemp);//更新fact中变量值
+                        update(hr_attendancekiosk_checkinhours_previously_today);//更新fact中变量值
+                        update(hr_attendancekiosk_checkinlast);//更新fact中变量值
+                        update(hr_attendancekiosk_checkinnew_attendance);//更新fact中变量值
+            end
+
+            //逻辑处理节点[计算工作时间]
+            rule "deaction_01"
+            ruleflow-group "hr_attendancekiosk_checkindeaction_01"
+            when
+            then
+                        hr_attendanceservice.computeWorkHour(hr_attendancekiosk_checkinlast);
+                        update(hr_attendancekiosk_checkindefault);//更新fact中变量值
+                        update(hr_attendancekiosk_checkinemp);//更新fact中变量值
+                        update(hr_attendancekiosk_checkinhours_previously_today);//更新fact中变量值
+                        update(hr_attendancekiosk_checkinlast);//更新fact中变量值
+                        update(hr_attendancekiosk_checkinnew_attendance);//更新fact中变量值
+            end
+
+            //逻辑处理节点[实体行为]
+            rule "deaction_04"
+            ruleflow-group "hr_attendancekiosk_checkindeaction_04"
+            when
+            then
+                        hr_attendanceservice.create(hr_attendancekiosk_checkinnew_attendance);
+                        update(hr_attendancekiosk_checkindefault);//更新fact中变量值
+                        update(hr_attendancekiosk_checkinemp);//更新fact中变量值
+                        update(hr_attendancekiosk_checkinhours_previously_today);//更新fact中变量值
+                        update(hr_attendancekiosk_checkinlast);//更新fact中变量值
+                        update(hr_attendancekiosk_checkinnew_attendance);//更新fact中变量值
+            end
+
+            //逻辑处理节点[实体行为]
+            rule "deaction_02"
+            ruleflow-group "hr_attendancekiosk_checkindeaction_02"
+            when
+            then
+                        hr_attendanceservice.update(hr_attendancekiosk_checkinlast);
+                        update(hr_attendancekiosk_checkindefault);//更新fact中变量值
+                        update(hr_attendancekiosk_checkinemp);//更新fact中变量值
+                        update(hr_attendancekiosk_checkinhours_previously_today);//更新fact中变量值
+                        update(hr_attendancekiosk_checkinlast);//更新fact中变量值
+                        update(hr_attendancekiosk_checkinnew_attendance);//更新fact中变量值
+            end
+
+            //逻辑处理节点[计算工作时间]
+            rule "deaction_03"
+            ruleflow-group "hr_attendancekiosk_checkindeaction_03"
+            when
+            then
+                        hr_attendanceservice.computeWorkHour(hr_attendancekiosk_checkinnew_attendance);
+                        update(hr_attendancekiosk_checkindefault);//更新fact中变量值
+                        update(hr_attendancekiosk_checkinemp);//更新fact中变量值
+                        update(hr_attendancekiosk_checkinhours_previously_today);//更新fact中变量值
+                        update(hr_attendancekiosk_checkinlast);//更新fact中变量值
+                        update(hr_attendancekiosk_checkinnew_attendance);//更新fact中变量值
+            end
+
+            //逻辑处理节点[今日时数]
+            rule "rawsfcode_04"
+            ruleflow-group "hr_attendancekiosk_checkinrawsfcode_04"
+            when
+            then
+                        update(hr_attendancekiosk_checkindefault);//更新fact中变量值
+                        update(hr_attendancekiosk_checkinemp);//更新fact中变量值
+                        update(hr_attendancekiosk_checkinhours_previously_today);//更新fact中变量值
+                        update(hr_attendancekiosk_checkinlast);//更新fact中变量值
+                        update(hr_attendancekiosk_checkinnew_attendance);//更新fact中变量值
+            end
+
+            //逻辑处理节点[今日时数]
+            rule "rawsfcode_03"
+            ruleflow-group "hr_attendancekiosk_checkinrawsfcode_03"
+            when
+            then
+                        update(hr_attendancekiosk_checkindefault);//更新fact中变量值
+                        update(hr_attendancekiosk_checkinemp);//更新fact中变量值
+                        update(hr_attendancekiosk_checkinhours_previously_today);//更新fact中变量值
+                        update(hr_attendancekiosk_checkinlast);//更新fact中变量值
+                        update(hr_attendancekiosk_checkinnew_attendance);//更新fact中变量值
+            end
+
+            //逻辑处理节点[结束]
+            rule "end_02"
+            ruleflow-group "hr_attendancekiosk_checkinend_02"
+            when
+            then
+                        update(hr_attendancekiosk_checkindefault);//更新fact中变量值
+                        update(hr_attendancekiosk_checkinemp);//更新fact中变量值
+                        update(hr_attendancekiosk_checkinhours_previously_today);//更新fact中变量值
+                        update(hr_attendancekiosk_checkinlast);//更新fact中变量值
+                        update(hr_attendancekiosk_checkinnew_attendance);//更新fact中变量值
+            end
+
+            //逻辑处理节点[结束]
+            rule "end_01"
+            ruleflow-group "hr_attendancekiosk_checkinend_01"
+            when
+            then
+                        update(hr_attendancekiosk_checkindefault);//更新fact中变量值
+                        update(hr_attendancekiosk_checkinemp);//更新fact中变量值
+                        update(hr_attendancekiosk_checkinhours_previously_today);//更新fact中变量值
+                        update(hr_attendancekiosk_checkinlast);//更新fact中变量值
+                        update(hr_attendancekiosk_checkinnew_attendance);//更新fact中变量值
+            end

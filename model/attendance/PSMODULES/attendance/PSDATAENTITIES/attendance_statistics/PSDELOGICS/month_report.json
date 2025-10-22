@@ -1,0 +1,191 @@
+{
+  "codeName" : "month_report",
+  "defaultParamName" : "Default",
+  "dynaModelFilePath" : "PSMODULES/attendance/PSDATAENTITIES/attendance_statistics/PSDELOGICS/month_report.json",
+  "logicName" : "月度统计",
+  "name" : "月度统计",
+  "getPSDELogicNodes" : [ {
+    "codeName" : "Begin",
+    "leftPos" : 200,
+    "logicNodeType" : "BEGIN",
+    "name" : "开始",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "RAWSFCODE2"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "Begin"
+      }
+    } ],
+    "topPos" : 190,
+    "parallelOutput" : true
+  }, {
+    "code" : "def _default = logic.param('Default').getReal()\r\n\r\nif (_default.get(\"n_member_id_in\") != null && _default.get(\"n_member_id_in\") != \"\") {\r\n    def person_range = _default.get(\"n_member_id_in\")\r\n    def depts = []\r\n    def persons = []\r\n    person_range.each { item ->\r\n        if (item.type == \"dept\") {\r\n            depts.add(item.id)\r\n        } else {\r\n            persons.add(item.id)\r\n        }\r\n    }\r\n    def deptStr = depts ? depts.join(\",\") : \"\"\r\n    def personStr = persons ? persons.join(\",\") : \"\"\r\n    if (deptStr != \"\" && personStr != \"\") {\r\n        _default.and().or().in('dept_id', deptStr).in('id', personStr)\r\n    } else if (deptStr != \"\" && personStr == \"\") {\r\n        _default.in('dept_id', deptStr)\r\n    } else {\r\n        _default.in('id', personStr)\r\n    }\r\n}",
+    "codeName" : "RAWSFCODE2",
+    "codeType" : "Groovy",
+    "leftPos" : 160,
+    "logicNodeType" : "RAWSFCODE",
+    "name" : "解析搜索条件",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "DEDATASET1"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "RAWSFCODE2"
+      }
+    } ],
+    "topPos" : 336
+  }, {
+    "codeName" : "DEDATASET1",
+    "getDstPSDEDataSet" : {
+      "modelref" : true,
+      "id" : "user"
+    },
+    "getDstPSDELogicParam" : {
+      "modelref" : true,
+      "id" : "Default"
+    },
+    "getDstPSDataEntity" : {
+      "modelref" : true,
+      "path" : "PSMODULES/employee_management/PSDATAENTITIES/employee.json"
+    },
+    "leftPos" : 160,
+    "logicNodeType" : "DEDATASET",
+    "name" : "查询人员",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "DEBUGPARAM_01"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "DEDATASET1"
+      }
+    } ],
+    "getRetPSDELogicParam" : {
+      "modelref" : true,
+      "id" : "emp_page"
+    },
+    "topPos" : 456
+  }, {
+    "codeName" : "LOOPSUBCALL1",
+    "getDstPSDELogicParam" : {
+      "modelref" : true,
+      "id" : "emp_temp"
+    },
+    "leftPos" : 380,
+    "logicNodeType" : "LOOPSUBCALL",
+    "name" : "循环子调用",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "RAWSFCODE1"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "LOOPSUBCALL1"
+      },
+      "subCallLink" : true
+    }, {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "END1"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "LOOPSUBCALL1"
+      }
+    } ],
+    "getSrcPSDELogicParam" : {
+      "modelref" : true,
+      "id" : "emp_page"
+    },
+    "topPos" : 456
+  }, {
+    "code" : "def _default = logic.param('Default').getReal()\r\ndef emp_temp = logic.param('emp_temp').getReal()\r\n\r\ndef n_checkin_date_gtandeq = _default.get('n_checkin_date_gtandeq')\r\ndef n_checkin_date_ltandeq = _default.get('n_checkin_date_ltandeq')\r\n\r\n//获取`考勤记录`实体运行对象\r\ndef record_runtime = sys.dataentity('attendance_record')\r\ndef record_filter = record_runtime.filter()\r\nrecord_filter.all()\r\nrecord_filter.eq('member_id', emp_temp.get(\"id\"))\r\nif (n_checkin_date_gtandeq != null && n_checkin_date_ltandeq != null) {\r\n    record_filter.gte('checkin_date', n_checkin_date_gtandeq)\r\n    record_filter.lte('checkin_date', n_checkin_date_ltandeq)\r\n}\r\n// def page = record_filter.select('')\r\n\r\nrecord_filter.setPageable(0,1000,0)\r\ndef page = record_filter.fetch()\r\n\r\n// 早退分钟数 \r\ndef leave_early_minutes = 0\r\n// 迟到时间\r\ndef late_time = 0\r\n// 加班时间 \r\ndef overtime_time = 0\r\n// 计薪时长\r\ndef billable_time = 0\r\n// 工作时长\r\ndef working_time = 0\r\n// 迟到分钟数\r\ndef late_minutes = 0\r\n// 应出勤时长\r\ndef should_attendance_time = 0\r\n// 加班小时数\r\ndef overtime_hours = 0\r\n// 早退时间\r\ndef leave_early_time = 0\r\n// 实际出勤时长（小时）\r\ndef working_hours = 0\r\n// 实际出勤天数\r\ndef actual_attendance_days = 0\r\n// 应出勤天数 \r\ndef should_attendance_days = 0\r\n// 上班缺卡 \r\ndef on_missing = 0\r\n// 下班缺卡 \r\ndef off_missing = 0\r\n// 迟到次数 \r\ndef late_times = 0\r\n// 早退次数 \r\ndef leave_early_times = 0\r\n// 旷工天数 \r\ndef absent_days = 0\r\ndef map = new HashMap()\r\n\r\nif(page != null){\r\n    //循环汇总\r\n    page.each { item ->\r\n        def checkin_date = item.get('checkin_date').toString().substring(0, 10)\r\n        map.put(checkin_date, item)\r\n        leave_early_minutes += item.get(\"leave_early_minutes\")?:0\r\n        late_time += item.get(\"late_time\")?:0\r\n        overtime_time += item.get(\"overtime_time\")?:0\r\n        working_time += item.get(\"working_time\")?:0\r\n        late_minutes += item.get(\"late_minutes\")?:0\r\n        should_attendance_time += item.get(\"should_attendance_hours\")?:0\r\n        overtime_hours += item.get(\"overtime_hours\")?:0\r\n        leave_early_time += item.get(\"leave_early_time\")?:0\r\n        working_hours += item.get(\"working_hours\")?:0\r\n        actual_attendance_days += item.get(\"actual_attendance_days\")?:0\r\n        should_attendance_days += item.get(\"should_attendance_days\")?:0\r\n        def details = item.get(\"details\")\r\n        if (details != null) {\r\n            details.each { it ->\r\n                if (it.get(\"checkin_result\") == \"ON_MISSING\") {\r\n                    on_missing++\r\n                }\r\n                if (it.get(\"checkin_result\") == \"OFF_MISSING\") {\r\n                    off_missing++\r\n                }\r\n                if (it.get(\"checkin_result\") == \"LATE\") {\r\n                    late_times++\r\n                }\r\n                if (it.get(\"checkin_result\") == \"LEAVE_EARLY\") {\r\n                    leave_early_times++\r\n                }\r\n            }\r\n        }\r\n        if (item.get(\"checkin_result\") == \"ABSENT\") {\r\n            absent_days++\r\n            billable_time += item.get(\"should_attendance_hours\")?:0\r\n        }\r\n    }\r\n    billable_time = should_attendance_time - billable_time\r\n}\r\n\r\nemp_temp.set('dept_name', emp_temp.get(\"department_name\"))\r\nemp_temp.set('attendance_data', map)\r\nemp_temp.set('member_name', emp_temp.get(\"name\"))\r\nemp_temp.set('leave_early_minutes', leave_early_minutes)\r\nemp_temp.set('late_time', late_time)\r\nemp_temp.set('overtime_time', overtime_time)\r\nemp_temp.set('billable_time', billable_time)\r\nemp_temp.set('working_time', working_time)\r\nemp_temp.set('late_minutes', late_minutes)\r\nemp_temp.set('should_attendance_time', should_attendance_time)\r\nemp_temp.set('overtime_hours', overtime_hours)\r\nemp_temp.set('leave_early_time', leave_early_time)\r\nemp_temp.set('working_hours', working_hours)\r\nemp_temp.set('actual_attendance_days', actual_attendance_days)\r\nemp_temp.set('should_attendance_days', should_attendance_days)\r\nemp_temp.set('on_missing', on_missing)\r\nemp_temp.set('off_missing', off_missing)\r\nemp_temp.set('late_times', late_times)\r\nemp_temp.set('leave_early_times', leave_early_times)\r\nemp_temp.set('absent_days', absent_days)\r\n\r\n//获取`申请`实体运行对象\r\ndef applicant_id = emp_temp.get(\"id\");\r\ndef attendance_checkin_application_runtime = sys.dataentity('attendance_checkin_application');\r\ndef attendance_checkin_application_filter = attendance_checkin_application_runtime.filter();\r\nattendance_checkin_application_filter.all();\r\nif (n_checkin_date_gtandeq != null && n_checkin_date_ltandeq != null) {\r\n    attendance_checkin_application_filter.gte('start_time', n_checkin_date_gtandeq);\r\n    attendance_checkin_application_filter.lte('start_time', n_checkin_date_ltandeq);\r\n}\r\nattendance_checkin_application_filter.eq('status', \"APPROVED\");\r\nattendance_checkin_application_filter.eq('applicant_id', applicant_id);\r\ndef attendance_checkin_application_list = attendance_checkin_application_filter.select('');\r\n\r\n// 请假时长\r\ndef leave_duration = 0;\r\n// 补卡次数\r\ndef reissue = 0;\r\n// 出差天数\r\ndef business_trip = 0;\r\n// 外出时长\r\ndef go_out_times = 0;\r\n// 年假\r\ndef annual_leave = 0;\r\n// 事假\r\ndef compassionate_leave = 0;\r\n// 调休假\r\ndef vacation_leave = 0;\r\n// 病假\r\ndef sick_leave = 0;\r\n// 育儿假\r\ndef parental_leave = 0;\r\n// 陪产假\r\ndef paternity_leave = 0;\r\n// 婚假\r\ndef marriage_holiday = 0;\r\n// 丧假\r\ndef funeral_leave = 0;\r\n// 产假\r\ndef maternity_leave = 0;\r\n// 申请加班时长(计加班费)\r\ndef pay_overtimes = 0\r\n// 申请加班时长(计调休假)\r\ndef rest_overtimes = 0\r\n\r\nif(attendance_checkin_application_list != null){\r\n    //循环汇总\r\n    attendance_checkin_application_list.each { item ->\r\n        if (item.get(\"apply_type\") == \"REISSUE\") {\r\n            reissue ++;\r\n        } else if (item.get(\"apply_type\") == \"GO_OUT\") {\r\n            go_out_times += item.get(\"hours\") ?: 0;\r\n        } else if (item.get(\"apply_type\") == \"BUSINESS_TRIP\") {\r\n            business_trip += item.get(\"days\") ?: 0;\r\n        } else if (item.get(\"apply_type\") == \"LEAVE\" && item.get(\"leave_type\") == \"annual_leave\") {\r\n            annual_leave += item.get(\"hours\") ?: 0;\r\n            leave_duration += item.get(\"hours\") ?: 0;\r\n        } else if (item.get(\"apply_type\") == \"LEAVE\" && item.get(\"leave_type\") == \"compassionate_leave\") {\r\n            compassionate_leave += item.get(\"hours\") ?: 0;\r\n            leave_duration += item.get(\"hours\") ?: 0;\r\n        } else if (item.get(\"apply_type\") == \"LEAVE\" && item.get(\"leave_type\") == \"vacation_leave\") {\r\n            vacation_leave += item.get(\"hours\") ?: 0;\r\n            leave_duration += item.get(\"hours\") ?: 0;\r\n        } else if (item.get(\"apply_type\") == \"LEAVE\" && item.get(\"leave_type\") == \"sick_leave\") {\r\n            sick_leave += item.get(\"hours\") ?: 0;\r\n            leave_duration += item.get(\"hours\") ?: 0;\r\n        } else if (item.get(\"apply_type\") == \"LEAVE\" && item.get(\"leave_type\") == \"parental_leave\") {\r\n            parental_leave += item.get(\"hours\") ?: 0;\r\n            leave_duration += item.get(\"hours\") ?: 0;\r\n        } else if (item.get(\"apply_type\") == \"LEAVE\" && item.get(\"leave_type\") == \"paternity_leave\") {\r\n            paternity_leave += item.get(\"hours\") ?: 0;\r\n            leave_duration += item.get(\"hours\") ?: 0;\r\n        } else if (item.get(\"apply_type\") == \"LEAVE\" && item.get(\"leave_type\") == \"marriage_holiday\") {\r\n            marriage_holiday += item.get(\"hours\") ?: 0;\r\n            leave_duration += item.get(\"hours\") ?: 0;\r\n        } else if (item.get(\"apply_type\") == \"LEAVE\" && item.get(\"leave_type\") == \"funeral_leave\") {\r\n            funeral_leave += item.get(\"hours\") ?: 0;\r\n            leave_duration += item.get(\"hours\") ?: 0;\r\n        } else if (item.get(\"apply_type\") == \"LEAVE\" && item.get(\"leave_type\") == \"maternity_leave\") {\r\n            maternity_leave += item.get(\"hours\") ?: 0;\r\n            leave_duration += item.get(\"hours\") ?: 0;\r\n        } else if (item.get(\"apply_type\") == \"OVERTIME\" && item.get(\"overtime_type\") == \"0\") {\r\n            pay_overtimes += item.get(\"hours\") ?: 0;\r\n        } else if (item.get(\"apply_type\") == \"OVERTIME\" && item.get(\"overtime_type\") == \"1\") {\r\n            rest_overtimes += item.get(\"hours\") ?: 0;\r\n        }\r\n    }\r\n}\r\n\r\nemp_temp.set('leave_duration', leave_duration)\r\nemp_temp.set('out_time', go_out_times)\r\nemp_temp.set('make_card_times', reissue)\r\nemp_temp.set('on_business_days', business_trip)\r\nemp_temp.set('annual_leave', annual_leave)\r\nemp_temp.set('compassionate_leave', compassionate_leave)\r\nemp_temp.set('vacation_leave', vacation_leave)\r\nemp_temp.set('sick_leave', sick_leave)\r\nemp_temp.set('parental_leave', parental_leave)\r\nemp_temp.set('paternity_leave', paternity_leave)\r\nemp_temp.set('marriage_holiday', marriage_holiday)\r\nemp_temp.set('funeral_leave', funeral_leave)\r\nemp_temp.set('maternity_leave', maternity_leave)\r\n\r\n// 加班时长(计调休假)(小时)\r\ndef rest_overtime_time = 0;\r\n// 加班时长(计加班费)(小时)\r\ndef pay_overtime_time = 0;\r\n\r\npay_overtime_time = pay_overtimes + overtime_hours\r\nrest_overtime_time = rest_overtimes + overtime_hours\r\n\r\nemp_temp.set('rest_overtime_time', rest_overtime_time)\r\nemp_temp.set('pay_overtime_time', pay_overtime_time)",
+    "codeName" : "RAWSFCODE1",
+    "codeType" : "Groovy",
+    "leftPos" : 600,
+    "logicNodeType" : "RAWSFCODE",
+    "name" : "查询考勤记录",
+    "topPos" : 456
+  }, {
+    "codeName" : "DEBUGPARAM_01",
+    "getDstPSDELogicParam" : {
+      "modelref" : true,
+      "id" : "emp_page"
+    },
+    "leftPos" : 160,
+    "logicNodeType" : "DEBUGPARAM",
+    "name" : "调试逻辑参数",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "LOOPSUBCALL1"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "DEBUGPARAM_01"
+      }
+    } ],
+    "topPos" : 620,
+    "parallelOutput" : true
+  }, {
+    "codeName" : "END1",
+    "leftPos" : 420,
+    "logicNodeType" : "END",
+    "name" : "结束",
+    "getReturnParam" : {
+      "modelref" : true,
+      "id" : "emp_page"
+    },
+    "returnType" : "LOGICPARAM",
+    "topPos" : 640,
+    "parallelOutput" : true
+  } ],
+  "getPSDELogicParams" : [ {
+    "codeName" : "Default",
+    "logicName" : "传入变量",
+    "name" : "传入变量",
+    "getParamPSDataEntity" : {
+      "modelref" : true,
+      "path" : "PSMODULES/attendance/PSDATAENTITIES/attendance_statistics.json"
+    },
+    "default" : true,
+    "filterParam" : true
+  }, {
+    "codeName" : "emp_page",
+    "logicName" : "人员分页结果",
+    "name" : "人员分页结果",
+    "getParamPSDataEntity" : {
+      "modelref" : true,
+      "path" : "PSMODULES/employee_management/PSDATAENTITIES/employee.json"
+    },
+    "entityPageParam" : true
+  }, {
+    "codeName" : "emp_temp",
+    "logicName" : "人员-循环临时变量",
+    "name" : "人员-循环临时变量",
+    "getParamPSDataEntity" : {
+      "modelref" : true,
+      "path" : "PSMODULES/employee_management/PSDATAENTITIES/employee.json"
+    },
+    "entityParam" : true
+  } ],
+  "getStartPSDELogicNode" : {
+    "modelref" : true,
+    "id" : "Begin"
+  },
+  "enableBackend" : true,
+  "enableFront" : false
+}

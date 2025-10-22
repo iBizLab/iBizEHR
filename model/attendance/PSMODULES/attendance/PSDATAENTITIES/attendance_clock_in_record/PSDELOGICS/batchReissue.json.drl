@@ -1,0 +1,140 @@
+package cn.ibizlab.attendance.logic.attendance_clock_in_recordlogic.batchreissue;
+        import java.util.Map;
+        import java.util.HashMap;
+        import com.alibaba.fastjson.JSONObject;
+        import org.springframework.util.StringUtils;
+        import org.springframework.util.ObjectUtils;
+        import cn.ibizlab.util.errors.BadRequestAlertException;
+                global cn.ibizlab.core.attendance.domain.attendance_clock_in_record attendance_clock_in_recordbatchreissuedefault;
+                global cn.ibizlab.core.employee_management.domain.user_object attendance_clock_in_recordbatchreissueallmembers;
+                global cn.ibizlab.core.employee_management.domain.user_object attendance_clock_in_recordbatchreissuedepts;
+                global cn.ibizlab.core.employee_management.domain.employee attendance_clock_in_recordbatchreissueemployees;
+                global cn.ibizlab.core.employee_management.domain.user_object attendance_clock_in_recordbatchreissuefilter;
+                global cn.ibizlab.core.employee_management.domain.employee attendance_clock_in_recordbatchreissuepersons;
+                global cn.ibizlab.core.employee_management.domain.user_object attendance_clock_in_recordbatchreissuetemp;
+                    global cn.ibizlab.core.employee_management.service.IemployeeService employeeservice;
+        global cn.ibizlab.core.attendance.service.Iattendance_clock_in_recordService iBzSysAttendance_clock_in_recordDefaultService;
+        global cn.ibizlab.util.security.AuthenticationUser curuser;
+
+
+    no-loop
+
+            //逻辑处理节点[开始]
+            rule "begin"
+            ruleflow-group "attendance_clock_in_recordbatchreissuebegin"
+            when
+            then
+            end
+
+            //逻辑处理节点[调试逻辑参数]
+            rule "debugparam_01"
+            ruleflow-group "attendance_clock_in_recordbatchreissuedebugparam_01"
+            when
+            then
+                        update(attendance_clock_in_recordbatchreissuedefault);//更新fact中变量值
+                        update(attendance_clock_in_recordbatchreissueallmembers);//更新fact中变量值
+                        update(attendance_clock_in_recordbatchreissuedepts);//更新fact中变量值
+                        update(attendance_clock_in_recordbatchreissueemployees);//更新fact中变量值
+                        update(attendance_clock_in_recordbatchreissuefilter);//更新fact中变量值
+                        update(attendance_clock_in_recordbatchreissuepersons);//更新fact中变量值
+                        update(attendance_clock_in_recordbatchreissuetemp);//更新fact中变量值
+            end
+
+            //逻辑处理节点[执行脚本代码]
+            rule "rawsfcode_01"
+            ruleflow-group "attendance_clock_in_recordbatchreissuerawsfcode_01"
+            when
+            then
+                        update(attendance_clock_in_recordbatchreissuedefault);//更新fact中变量值
+                        update(attendance_clock_in_recordbatchreissueallmembers);//更新fact中变量值
+                        update(attendance_clock_in_recordbatchreissuedepts);//更新fact中变量值
+                        update(attendance_clock_in_recordbatchreissueemployees);//更新fact中变量值
+                        update(attendance_clock_in_recordbatchreissuefilter);//更新fact中变量值
+                        update(attendance_clock_in_recordbatchreissuepersons);//更新fact中变量值
+                        update(attendance_clock_in_recordbatchreissuetemp);//更新fact中变量值
+            end
+
+            //逻辑处理节点[循环子调用]
+            rule "loopsubcall_01"
+            ruleflow-group "attendance_clock_in_recordbatchreissueloopsubcall_01"
+            when
+            then
+                        update(attendance_clock_in_recordbatchreissuedefault);//更新fact中变量值
+                        update(attendance_clock_in_recordbatchreissueallmembers);//更新fact中变量值
+                        update(attendance_clock_in_recordbatchreissuedepts);//更新fact中变量值
+                        update(attendance_clock_in_recordbatchreissueemployees);//更新fact中变量值
+                        update(attendance_clock_in_recordbatchreissuefilter);//更新fact中变量值
+                        update(attendance_clock_in_recordbatchreissuepersons);//更新fact中变量值
+                        update(attendance_clock_in_recordbatchreissuetemp);//更新fact中变量值
+            end
+
+            //逻辑处理节点[创建打卡记录]
+            rule "rawsfcode_03"
+            ruleflow-group "attendance_clock_in_recordbatchreissuerawsfcode_03"
+            when
+            then
+                        update(attendance_clock_in_recordbatchreissuedefault);//更新fact中变量值
+                        update(attendance_clock_in_recordbatchreissueallmembers);//更新fact中变量值
+                        update(attendance_clock_in_recordbatchreissuedepts);//更新fact中变量值
+                        update(attendance_clock_in_recordbatchreissueemployees);//更新fact中变量值
+                        update(attendance_clock_in_recordbatchreissuefilter);//更新fact中变量值
+                        update(attendance_clock_in_recordbatchreissuepersons);//更新fact中变量值
+                        update(attendance_clock_in_recordbatchreissuetemp);//更新fact中变量值
+            end
+
+            //逻辑处理节点[结束]
+            rule "end_01"
+            ruleflow-group "attendance_clock_in_recordbatchreissueend_01"
+            when
+            then
+                        update(attendance_clock_in_recordbatchreissuedefault);//更新fact中变量值
+                        update(attendance_clock_in_recordbatchreissueallmembers);//更新fact中变量值
+                        update(attendance_clock_in_recordbatchreissuedepts);//更新fact中变量值
+                        update(attendance_clock_in_recordbatchreissueemployees);//更新fact中变量值
+                        update(attendance_clock_in_recordbatchreissuefilter);//更新fact中变量值
+                        update(attendance_clock_in_recordbatchreissuepersons);//更新fact中变量值
+                        update(attendance_clock_in_recordbatchreissuetemp);//更新fact中变量值
+            end
+
+            //逻辑处理节点[准备参数]
+            rule "prepareparam_01"
+            ruleflow-group "attendance_clock_in_recordbatchreissueprepareparam_01"
+            when
+            then
+                            attendance_clock_in_recordbatchreissuefilter.set("n_dept_id_eq",attendance_clock_in_recordbatchreissuetemp.get("n_dept_id_eq"));
+                        update(attendance_clock_in_recordbatchreissuedefault);//更新fact中变量值
+                        update(attendance_clock_in_recordbatchreissueallmembers);//更新fact中变量值
+                        update(attendance_clock_in_recordbatchreissuedepts);//更新fact中变量值
+                        update(attendance_clock_in_recordbatchreissueemployees);//更新fact中变量值
+                        update(attendance_clock_in_recordbatchreissuefilter);//更新fact中变量值
+                        update(attendance_clock_in_recordbatchreissuepersons);//更新fact中变量值
+                        update(attendance_clock_in_recordbatchreissuetemp);//更新fact中变量值
+            end
+
+            //逻辑处理节点[实体数据集]
+            rule "dedataset_01"
+            ruleflow-group "attendance_clock_in_recordbatchreissuededataset_01"
+            when
+            then
+                        update(attendance_clock_in_recordbatchreissuedefault);//更新fact中变量值
+                        update(attendance_clock_in_recordbatchreissueallmembers);//更新fact中变量值
+                        update(attendance_clock_in_recordbatchreissuedepts);//更新fact中变量值
+                        update(attendance_clock_in_recordbatchreissueemployees);//更新fact中变量值
+                        update(attendance_clock_in_recordbatchreissuefilter);//更新fact中变量值
+                        update(attendance_clock_in_recordbatchreissuepersons);//更新fact中变量值
+                        update(attendance_clock_in_recordbatchreissuetemp);//更新fact中变量值
+            end
+
+            //逻辑处理节点[执行脚本代码]
+            rule "rawsfcode_02"
+            ruleflow-group "attendance_clock_in_recordbatchreissuerawsfcode_02"
+            when
+            then
+                        update(attendance_clock_in_recordbatchreissuedefault);//更新fact中变量值
+                        update(attendance_clock_in_recordbatchreissueallmembers);//更新fact中变量值
+                        update(attendance_clock_in_recordbatchreissuedepts);//更新fact中变量值
+                        update(attendance_clock_in_recordbatchreissueemployees);//更新fact中变量值
+                        update(attendance_clock_in_recordbatchreissuefilter);//更新fact中变量值
+                        update(attendance_clock_in_recordbatchreissuepersons);//更新fact中变量值
+                        update(attendance_clock_in_recordbatchreissuetemp);//更新fact中变量值
+            end

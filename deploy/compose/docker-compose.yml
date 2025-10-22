@@ -1,0 +1,50 @@
+include:
+  - ./docker-compose-base.yml
+services:
+  ehrservice:
+    env_file: .env
+    image: 	${IMAGE_URL}ibiz-service-runner:v8.1.0.572.22-odoo
+    container_name: ehrservice
+    ports:
+      - "${SYSTEM_APIPORT}:${SYSTEM_APIPORT}"
+    networks:
+      - agent_network
+    environment:
+      - TZ=Asia/Shanghai
+      - SPRING_CLOUD_NACOS_DISCOVERY_SERVER-ADDR=http://${NACOS_HOST}:${NACOS_PORT}
+      - SPRING_CLOUD_NACOS_CONFIG_SERVER-ADDR=http://${NACOS_HOST}:${NACOS_PORT}
+      - SPRING_CLOUD_NACOS_DISCOVERY_IP=ehrservice
+      - SERVER_PORT=${SYSTEM_APIPORT}
+      - IBIZ_SERVICEHUB_INITMODE=auto
+      - SPRING_DATASOURCE_DRIVER-CLASS-NAME=com.mysql.jdbc.Driver
+      - SPRING_DATASOURCE_PASSWORD=ehr@2024
+      - SPRING_DATASOURCE_URL=jdbc:mysql://${MYSQL_HOST}:${MYSQL_PORT}/ehr?autoReconnect=true&useUnicode=true&characterEncoding=UTF-8&useOldAliasMetadataBehavior=true&serverTimezone=GMT%2B8&allowMultiQueries=true&useSSL=false
+      - SPRING_DATASOURCE_USERNAME=ehr
+      - SETTINGS_APPDATACTX_MODELDESIGNPATH=https://open.ibizlab.cn/modeldesign/#/
+      - SETTINGS_APPDATACTX_MODELDESIGNMODE=v9
+      - JAVA_OPTS=-Xms512m -Xmx2048m -Xss256K -Dgroovy.grape.report.downloads=true
+    entrypoint: /entrypoint-waitfor.sh
+    command: ibiz-ebsx-gateway:30086
+
+
+  ehrweb:
+    env_file: .env
+    image: 	${IMAGE_URL}ibiz-cloud-web-runner:v9.0.7.41-alpha.32
+    container_name: ehrweb
+    ports:
+      - ${SYSTEM_WEBPORT}:80
+    networks:
+      - agent_network
+    environment:
+      - TZ=Asia/Shanghai  
+      - FILE_PREVIEW_ADDRESS=http://${IPADDR:-10.144.0.1}:30012
+      - CUSTOMPARAMS={"file_preview_address":"http://${IPADDR:-10.144.0.1}:30012","ENABLEMULTILOGIN":false}
+      - MOCKDCSYSTEMID=ibizehr
+      - APPNAME=桌面端
+      - APPCODE=ehrapp
+      - APICODE=ibizehr__ehrapp
+      - BASEURL=ibizehr__ehrapp
+      - PLUGINBASEURL=https://npmjs.ibizlab.cn
+      - UPLOADFILEURL=/ibizutil/upload/ibizehr
+      - DOWNLOADFILEURL=/ibizutil/download/ibizehr
+

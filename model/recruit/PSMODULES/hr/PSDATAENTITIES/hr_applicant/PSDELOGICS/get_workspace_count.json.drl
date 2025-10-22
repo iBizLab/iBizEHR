@@ -1,0 +1,184 @@
+package cn.ibizlab.hr.logic.hr_applicantlogic.get_workspace_count;
+        import java.util.Map;
+        import java.util.HashMap;
+        import com.alibaba.fastjson.JSONObject;
+        import org.springframework.util.StringUtils;
+        import org.springframework.util.ObjectUtils;
+        import cn.ibizlab.util.errors.BadRequestAlertException;
+                global cn.ibizlab.core.hr.domain.hr_applicant hr_applicantget_workspace_countdefault;
+                global java.util.Map hr_applicantget_workspace_countresult;
+        global cn.ibizlab.core.hr.service.Ihr_applicantService iBzSysHr_applicantDefaultService;
+        global cn.ibizlab.util.security.AuthenticationUser curuser;
+
+
+    no-loop
+
+            //逻辑处理节点[开始]
+            rule "begin"
+            ruleflow-group "hr_applicantget_workspace_countbegin"
+            when
+            then
+            end
+
+            //逻辑处理节点[今日初筛人数]
+            rule "rawsqlcall1"
+            ruleflow-group "hr_applicantget_workspace_countrawsqlcall1"
+            when
+            then
+                        Map param = null;
+                        String strSql="select count(1) today_to_filter_apply from hr_applicant ha where ha.STAGE_ID  = 10 and status = 1 and DATE(CREATE_DATE) = CURRENT_DATE;";
+                        java.util.List<JSONObject> entities=iBzSysHr_applicantDefaultService.select(strSql,param);//SQL调用
+                            if(entities.size()>0){
+                            JSONObject entity=entities.get(0);
+                                hr_applicantget_workspace_countresult.putAll(entity);
+                            }
+                        update(hr_applicantget_workspace_countdefault);//更新fact中变量值
+                        update(hr_applicantget_workspace_countresult);//更新fact中变量值
+            end
+
+            //逻辑处理节点[结束]
+            rule "end1"
+            ruleflow-group "hr_applicantget_workspace_countend1"
+            when
+            then
+                        update(hr_applicantget_workspace_countdefault);//更新fact中变量值
+                        update(hr_applicantget_workspace_countresult);//更新fact中变量值
+            end
+
+            //逻辑处理节点[今日面试人数]
+            rule "rawsqlcall2"
+            ruleflow-group "hr_applicantget_workspace_countrawsqlcall2"
+            when
+            then
+                        Map param = null;
+                        String strSql="select count(1) today_interview from hr_interview hi  left join hr_interview_schedule his on hi.SCHEDULE_ID = his.id where  DATE(his.START_DATE) = CURRENT_DATE;";
+                        java.util.List<JSONObject> entities=iBzSysHr_applicantDefaultService.select(strSql,param);//SQL调用
+                            if(entities.size()>0){
+                            JSONObject entity=entities.get(0);
+                                hr_applicantget_workspace_countresult.putAll(entity);
+                            }
+                        update(hr_applicantget_workspace_countdefault);//更新fact中变量值
+                        update(hr_applicantget_workspace_countresult);//更新fact中变量值
+            end
+
+            //逻辑处理节点[待筛选简历]
+            rule "rawsqlcall9"
+            ruleflow-group "hr_applicantget_workspace_countrawsqlcall9"
+            when
+            then
+                        Map param = null;
+                        String strSql="select count(1) filter_apply from hr_applicant ha where ha.STAGE_ID  = 10";
+                        java.util.List<JSONObject> entities=iBzSysHr_applicantDefaultService.select(strSql,param);//SQL调用
+                            if(entities.size()>0){
+                            JSONObject entity=entities.get(0);
+                                hr_applicantget_workspace_countresult.putAll(entity);
+                            }
+                        update(hr_applicantget_workspace_countdefault);//更新fact中变量值
+                        update(hr_applicantget_workspace_countresult);//更新fact中变量值
+            end
+
+            //逻辑处理节点[准备参数]
+            rule "prepareparam1"
+            ruleflow-group "hr_applicantget_workspace_countprepareparam1"
+            when
+            then
+                            hr_applicantget_workspace_countresult.set("to_assign_resume","0");
+                        update(hr_applicantget_workspace_countdefault);//更新fact中变量值
+                        update(hr_applicantget_workspace_countresult);//更新fact中变量值
+            end
+
+            //逻辑处理节点[待发送offer人数]
+            rule "rawsqlcall3"
+            ruleflow-group "hr_applicantget_workspace_countrawsqlcall3"
+            when
+            then
+                        Map param = null;
+                        String strSql="select count(1) to_send_offer from hr_applicant ha where (ha.STAGE_ID  = 40)";
+                        java.util.List<JSONObject> entities=iBzSysHr_applicantDefaultService.select(strSql,param);//SQL调用
+                            if(entities.size()>0){
+                            JSONObject entity=entities.get(0);
+                                hr_applicantget_workspace_countresult.putAll(entity);
+                            }
+                        update(hr_applicantget_workspace_countdefault);//更新fact中变量值
+                        update(hr_applicantget_workspace_countresult);//更新fact中变量值
+            end
+
+            //逻辑处理节点[复试待反馈]
+            rule "rawsqlcall8"
+            ruleflow-group "hr_applicantget_workspace_countrawsqlcall8"
+            when
+            then
+                        Map param = null;
+                        String strSql="SELECT COUNT(1)  AS second_feedback_pending  FROM hr_interview_feedback hif  left join hr_interview hi on hif.INTERVIEW_ID  = hi.id where  	hi.STAGE_ID  = 2   and hif.RESULT_TYPE IS NOT NULL    AND hif.RESULT_TYPE != '';";
+                        java.util.List<JSONObject> entities=iBzSysHr_applicantDefaultService.select(strSql,param);//SQL调用
+                            if(entities.size()>0){
+                            JSONObject entity=entities.get(0);
+                                hr_applicantget_workspace_countresult.putAll(entity);
+                            }
+                        update(hr_applicantget_workspace_countdefault);//更新fact中变量值
+                        update(hr_applicantget_workspace_countresult);//更新fact中变量值
+            end
+
+            //逻辑处理节点[待入职人数]
+            rule "rawsqlcall4"
+            ruleflow-group "hr_applicantget_workspace_countrawsqlcall4"
+            when
+            then
+                        Map param = null;
+                        String strSql="select count(1) to_onboard from hr_applicant ha where (ha.STAGE_ID  = 50)";
+                        java.util.List<JSONObject> entities=iBzSysHr_applicantDefaultService.select(strSql,param);//SQL调用
+                            if(entities.size()>0){
+                            JSONObject entity=entities.get(0);
+                                hr_applicantget_workspace_countresult.putAll(entity);
+                            }
+                        update(hr_applicantget_workspace_countdefault);//更新fact中变量值
+                        update(hr_applicantget_workspace_countresult);//更新fact中变量值
+            end
+
+            //逻辑处理节点[复试待面试]
+            rule "rawsqlcall7"
+            ruleflow-group "hr_applicantget_workspace_countrawsqlcall7"
+            when
+            then
+                        Map param = null;
+                        String strSql="select count(1) second_interview_pending from hr_interview hi where hi.status != 1 and hi.STAGE_ID  = 2";
+                        java.util.List<JSONObject> entities=iBzSysHr_applicantDefaultService.select(strSql,param);//SQL调用
+                            if(entities.size()>0){
+                            JSONObject entity=entities.get(0);
+                                hr_applicantget_workspace_countresult.putAll(entity);
+                            }
+                        update(hr_applicantget_workspace_countdefault);//更新fact中变量值
+                        update(hr_applicantget_workspace_countresult);//更新fact中变量值
+            end
+
+            //逻辑处理节点[初试待面试]
+            rule "rawsqlcall5"
+            ruleflow-group "hr_applicantget_workspace_countrawsqlcall5"
+            when
+            then
+                        Map param = null;
+                        String strSql="select count(1) first_interview_pending from hr_interview hi where hi.status != 1 and hi.STAGE_ID  = 1";
+                        java.util.List<JSONObject> entities=iBzSysHr_applicantDefaultService.select(strSql,param);//SQL调用
+                            if(entities.size()>0){
+                            JSONObject entity=entities.get(0);
+                                hr_applicantget_workspace_countresult.putAll(entity);
+                            }
+                        update(hr_applicantget_workspace_countdefault);//更新fact中变量值
+                        update(hr_applicantget_workspace_countresult);//更新fact中变量值
+            end
+
+            //逻辑处理节点[初试待反馈]
+            rule "rawsqlcall6"
+            ruleflow-group "hr_applicantget_workspace_countrawsqlcall6"
+            when
+            then
+                        Map param = null;
+                        String strSql="SELECT COUNT(1)  AS first_feedback_pending  FROM hr_interview_feedback hif  left join hr_interview hi on hif.INTERVIEW_ID  = hi.id where  	hi.STAGE_ID  = 1   and hif.RESULT_TYPE IS NOT NULL    AND hif.RESULT_TYPE != '';";
+                        java.util.List<JSONObject> entities=iBzSysHr_applicantDefaultService.select(strSql,param);//SQL调用
+                            if(entities.size()>0){
+                            JSONObject entity=entities.get(0);
+                                hr_applicantget_workspace_countresult.putAll(entity);
+                            }
+                        update(hr_applicantget_workspace_countdefault);//更新fact中变量值
+                        update(hr_applicantget_workspace_countresult);//更新fact中变量值
+            end

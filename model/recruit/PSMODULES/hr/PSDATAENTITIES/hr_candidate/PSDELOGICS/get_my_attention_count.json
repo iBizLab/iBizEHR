@@ -1,0 +1,118 @@
+{
+  "codeName" : "get_my_attention_count",
+  "defaultParamName" : "Default",
+  "dynaModelFilePath" : "PSMODULES/hr/PSDATAENTITIES/hr_candidate/PSDELOGICS/get_my_attention_count.json",
+  "logicName" : "获取工作台我的关注数",
+  "name" : "获取工作台我的关注数",
+  "getPSDELogicNodes" : [ {
+    "codeName" : "Begin",
+    "leftPos" : 200,
+    "logicNodeType" : "BEGIN",
+    "name" : "开始",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "RAWSQLCALL1"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "Begin"
+      }
+    } ],
+    "topPos" : 200,
+    "parallelOutput" : true
+  }, {
+    "codeName" : "RAWSQLCALL1",
+    "getDstPSDELogicParam" : {
+      "modelref" : true,
+      "id" : "result"
+    },
+    "leftPos" : 160,
+    "logicNodeType" : "RAWSQLCALL",
+    "name" : "我关注的",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "RAWSQLCALL2"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "RAWSQLCALL1"
+      }
+    } ],
+    "getPSDELogicNodeParams" : [ {
+      "name" : "用户全局对象[srfpersonid]",
+      "paramAction" : "SQLPARAM",
+      "srcFieldName" : "srfpersonid",
+      "srcValueType" : "SESSION"
+    } ],
+    "sql" : "select count(1)as my_attention  from (\r\n\tselect id, \r\n    (select count(1) from favorite where create_man=? and owner_id=t1.id ) as is_favorite\r\n\tfrom hr_applicant t1 \r\n)t  where is_favorite = 1\r\n",
+    "topPos" : 319,
+    "fillDstLogicParam" : true
+  }, {
+    "codeName" : "RAWSQLCALL2",
+    "getDstPSDELogicParam" : {
+      "modelref" : true,
+      "id" : "result"
+    },
+    "leftPos" : 160,
+    "logicNodeType" : "RAWSQLCALL",
+    "name" : "我通过的",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "END1"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "RAWSQLCALL2"
+      }
+    } ],
+    "getPSDELogicNodeParams" : [ {
+      "name" : "用户全局对象[srfuserid]",
+      "paramAction" : "SQLPARAM",
+      "srcFieldName" : "srfuserid",
+      "srcValueType" : "SESSION"
+    } ],
+    "sql" : "select\r\n\tcount(1) as my_pass\r\nfrom\r\n\thr_interview_feedback t\r\nwhere\r\n\tt.result_type = '1' and t.INTERVIEWER_ID  = ?",
+    "topPos" : 441,
+    "fillDstLogicParam" : true,
+    "parallelOutput" : true
+  }, {
+    "codeName" : "END1",
+    "leftPos" : 200,
+    "logicNodeType" : "END",
+    "name" : "结束",
+    "getReturnParam" : {
+      "modelref" : true,
+      "id" : "result"
+    },
+    "returnType" : "LOGICPARAM",
+    "topPos" : 560
+  } ],
+  "getPSDELogicParams" : [ {
+    "codeName" : "Default",
+    "logicName" : "传入变量",
+    "name" : "传入变量",
+    "getParamPSDataEntity" : {
+      "modelref" : true,
+      "path" : "PSMODULES/hr/PSDATAENTITIES/hr_candidate.json"
+    },
+    "default" : true,
+    "entityParam" : true
+  }, {
+    "codeName" : "result",
+    "logicName" : "result",
+    "name" : "result",
+    "entityParam" : true
+  } ],
+  "getStartPSDELogicNode" : {
+    "modelref" : true,
+    "id" : "Begin"
+  },
+  "enableBackend" : true,
+  "enableFront" : false
+}

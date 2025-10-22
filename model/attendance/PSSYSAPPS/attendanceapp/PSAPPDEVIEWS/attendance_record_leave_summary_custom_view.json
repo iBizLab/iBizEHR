@@ -1,0 +1,671 @@
+{
+  "accUserMode" : 2,
+  "getCapPSLanguageRes" : {
+    "lanResTag" : "DE.LNAME.ATTENDANCE_RECORD"
+  },
+  "caption" : "请假统计",
+  "codeName" : "attendance_record_leave_summary_custom_view",
+  "dynaModelFilePath" : "PSSYSAPPS/attendanceapp/PSAPPDEVIEWS/attendance_record_leave_summary_custom_view.json",
+  "name" : "attendance_recordLeaveSummaryCustomView",
+  "getPSAppDataEntity" : {
+    "modelref" : true,
+    "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/attendance_record.json"
+  },
+  "getPSAppModule" : {
+    "modelref" : true,
+    "path" : "PSSYSAPPS/attendanceapp/PSAPPMODULES/attendance.json"
+  },
+  "getPSDEViewCodeName" : "LeaveSummaryCustomView",
+  "getPSDEViewId" : "e69a52a36a1bf26e55e2c289e3f94d2c",
+  "getPSViewLayoutPanel" : {
+    "getAllPSPanelFields" : [ {
+      "id" : "leaves",
+      "viewFieldName" : "leaves"
+    }, {
+      "id" : "annual_leaves",
+      "viewFieldName" : "annual_leaves"
+    }, {
+      "id" : "compassionate_leaves",
+      "viewFieldName" : "compassionate_leaves"
+    }, {
+      "id" : "funeral_leaves",
+      "viewFieldName" : "funeral_leaves"
+    }, {
+      "id" : "marriage_holidays",
+      "viewFieldName" : "marriage_holidays"
+    }, {
+      "id" : "maternity_leaves",
+      "viewFieldName" : "maternity_leaves"
+    }, {
+      "id" : "parental_leaves",
+      "viewFieldName" : "parental_leaves"
+    }, {
+      "id" : "paternity_leaves",
+      "viewFieldName" : "paternity_leaves"
+    }, {
+      "id" : "sick_leaves",
+      "viewFieldName" : "sick_leaves"
+    }, {
+      "id" : "vacation_leaves",
+      "viewFieldName" : "vacation_leaves"
+    } ],
+    "codeName" : "usr1113171920",
+    "controlType" : "VIEWLAYOUTPANEL",
+    "layoutMode" : "FLEX",
+    "logicName" : "月底汇总个人请假统计视图布局面板",
+    "name" : "layoutpanel",
+    "getPSAppDataEntity" : {
+      "modelref" : true,
+      "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/attendance_record.json"
+    },
+    "getPSControlParam" : { },
+    "getPSLayout" : {
+      "layout" : "FLEX"
+    },
+    "getRootPSPanelItems" : [ {
+      "itemStyle" : "DEFAULT",
+      "itemType" : "CONTAINER",
+      "name" : "page_container",
+      "getPSLayout" : {
+        "dir" : "column",
+        "layout" : "FLEX"
+      },
+      "getPSLayoutPos" : {
+        "grow" : -1,
+        "layout" : "FLEX"
+      },
+      "getPSPanelItems" : [ {
+        "caption" : "单项数据容器",
+        "dataRegionType" : "SINGLEDATA",
+        "dataSourceType" : "DEACTION",
+        "itemStyle" : "DEFAULT",
+        "itemType" : "CONTAINER",
+        "name" : "container_singledata",
+        "getPSAppDEMethod" : {
+          "modelref" : true,
+          "id" : "my_attendance_summary"
+        },
+        "getPSAppDataEntity" : {
+          "modelref" : true,
+          "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/attendance_record.json"
+        },
+        "getPSLayout" : {
+          "layout" : "FLEX"
+        },
+        "getPSLayoutPos" : {
+          "grow" : -1,
+          "heightMode" : "FULL",
+          "layout" : "FLEX",
+          "widthMode" : "FULL"
+        },
+        "getPSPanelItems" : [ {
+          "caption" : "容器",
+          "itemStyle" : "DEFAULT",
+          "itemType" : "CONTAINER",
+          "name" : "containerex",
+          "getPSLayout" : {
+            "align" : "space-around",
+            "dir" : "row",
+            "layout" : "FLEX",
+            "vAlign" : "center"
+          },
+          "getPSLayoutPos" : {
+            "grow" : -1,
+            "layout" : "FLEX"
+          },
+          "getPSPanelItems" : [ {
+            "caption" : "容器",
+            "itemStyle" : "DEFAULT",
+            "itemType" : "CONTAINER",
+            "name" : "containerex11",
+            "getPSLayout" : {
+              "align" : "center",
+              "dir" : "column",
+              "layout" : "FLEX",
+              "vAlign" : "center"
+            },
+            "getPSLayoutPos" : {
+              "grow" : -1,
+              "layout" : "FLEX"
+            },
+            "getPSPanelItems" : [ {
+              "caption" : "请假时长",
+              "contentType" : "RAW",
+              "itemStyle" : "DEFAULT",
+              "itemType" : "RAWITEM",
+              "name" : "static_textex4",
+              "getPSLayoutPos" : {
+                "grow" : -1,
+                "layout" : "FLEX"
+              },
+              "getPSRawItem" : {
+                "caption" : "请假时长",
+                "contentType" : "RAW",
+                "name" : "static_textex4",
+                "predefinedType" : "STATIC_TEXT",
+                "renderMode" : "TEXT"
+              },
+              "rawContent" : "请假时长",
+              "showCaption" : true
+            }, {
+              "caption" : "文本(动态)",
+              "itemStyle" : "DEFAULT",
+              "itemType" : "FIELD",
+              "name" : "leaves",
+              "getPSEditor" : {
+                "editorType" : "SPAN",
+                "name" : "leaves",
+                "predefinedType" : "FIELD_TEXT_DYNAMIC",
+                "renderMode" : "TEXT_DYNAMIC",
+                "enableLinkView" : false
+              },
+              "getPSLayoutPos" : {
+                "grow" : -1,
+                "layout" : "FLEX"
+              },
+              "viewFieldName" : "leaves"
+            } ]
+          }, {
+            "caption" : "容器",
+            "itemStyle" : "DEFAULT",
+            "itemType" : "CONTAINER",
+            "name" : "containerex12",
+            "getPSLayout" : {
+              "align" : "center",
+              "dir" : "column",
+              "layout" : "FLEX",
+              "vAlign" : "center"
+            },
+            "getPSLayoutPos" : {
+              "grow" : -1,
+              "layout" : "FLEX"
+            },
+            "getPSPanelItems" : [ {
+              "caption" : "年假",
+              "contentType" : "RAW",
+              "itemStyle" : "DEFAULT",
+              "itemType" : "RAWITEM",
+              "name" : "static_textex5",
+              "getPSLayoutPos" : {
+                "grow" : -1,
+                "layout" : "FLEX"
+              },
+              "getPSRawItem" : {
+                "caption" : "年假",
+                "contentType" : "RAW",
+                "name" : "static_textex5",
+                "predefinedType" : "STATIC_TEXT",
+                "renderMode" : "TEXT"
+              },
+              "rawContent" : "年假",
+              "showCaption" : true
+            }, {
+              "caption" : "文本(动态)",
+              "itemStyle" : "DEFAULT",
+              "itemType" : "FIELD",
+              "name" : "annual_leaves",
+              "getPSEditor" : {
+                "editorType" : "SPAN",
+                "name" : "annual_leaves",
+                "predefinedType" : "FIELD_TEXT_DYNAMIC",
+                "renderMode" : "TEXT_DYNAMIC",
+                "enableLinkView" : false
+              },
+              "getPSLayoutPos" : {
+                "grow" : -1,
+                "layout" : "FLEX"
+              },
+              "viewFieldName" : "annual_leaves"
+            } ]
+          }, {
+            "caption" : "容器",
+            "itemStyle" : "DEFAULT",
+            "itemType" : "CONTAINER",
+            "name" : "containerex13",
+            "getPSLayout" : {
+              "align" : "center",
+              "dir" : "column",
+              "layout" : "FLEX",
+              "vAlign" : "center"
+            },
+            "getPSLayoutPos" : {
+              "grow" : -1,
+              "layout" : "FLEX"
+            },
+            "getPSPanelItems" : [ {
+              "caption" : "事假",
+              "contentType" : "RAW",
+              "itemStyle" : "DEFAULT",
+              "itemType" : "RAWITEM",
+              "name" : "static_textex",
+              "getPSLayoutPos" : {
+                "grow" : -1,
+                "layout" : "FLEX"
+              },
+              "getPSRawItem" : {
+                "caption" : "事假",
+                "contentType" : "RAW",
+                "name" : "static_textex",
+                "predefinedType" : "STATIC_TEXT",
+                "renderMode" : "TEXT"
+              },
+              "rawContent" : "事假",
+              "showCaption" : true
+            }, {
+              "caption" : "文本(动态)",
+              "itemStyle" : "DEFAULT",
+              "itemType" : "FIELD",
+              "memo" : "不包含缺陷数量",
+              "name" : "compassionate_leaves",
+              "getPSEditor" : {
+                "editorType" : "SPAN",
+                "name" : "compassionate_leaves",
+                "predefinedType" : "FIELD_TEXT_DYNAMIC",
+                "renderMode" : "TEXT_DYNAMIC",
+                "enableLinkView" : false
+              },
+              "getPSLayoutPos" : {
+                "grow" : -1,
+                "layout" : "FLEX"
+              },
+              "viewFieldName" : "compassionate_leaves"
+            } ]
+          }, {
+            "caption" : "容器",
+            "itemStyle" : "DEFAULT",
+            "itemType" : "CONTAINER",
+            "name" : "containerex14",
+            "getPSLayout" : {
+              "align" : "center",
+              "dir" : "column",
+              "layout" : "FLEX",
+              "vAlign" : "center"
+            },
+            "getPSLayoutPos" : {
+              "grow" : -1,
+              "layout" : "FLEX"
+            },
+            "getPSPanelItems" : [ {
+              "caption" : "丧假",
+              "contentType" : "RAW",
+              "itemStyle" : "DEFAULT",
+              "itemType" : "RAWITEM",
+              "name" : "static_textex1",
+              "getPSLayoutPos" : {
+                "grow" : -1,
+                "layout" : "FLEX"
+              },
+              "getPSRawItem" : {
+                "caption" : "丧假",
+                "contentType" : "RAW",
+                "name" : "static_textex1",
+                "predefinedType" : "STATIC_TEXT",
+                "renderMode" : "TEXT"
+              },
+              "rawContent" : "丧假",
+              "showCaption" : true
+            }, {
+              "caption" : "文本(动态)",
+              "itemStyle" : "DEFAULT",
+              "itemType" : "FIELD",
+              "name" : "funeral_leaves",
+              "getPSEditor" : {
+                "editorType" : "SPAN",
+                "name" : "funeral_leaves",
+                "predefinedType" : "FIELD_TEXT_DYNAMIC",
+                "renderMode" : "TEXT_DYNAMIC",
+                "enableLinkView" : false
+              },
+              "getPSLayoutPos" : {
+                "grow" : -1,
+                "layout" : "FLEX"
+              },
+              "viewFieldName" : "funeral_leaves"
+            } ]
+          }, {
+            "caption" : "容器",
+            "itemStyle" : "DEFAULT",
+            "itemType" : "CONTAINER",
+            "name" : "containerex15",
+            "getPSLayout" : {
+              "align" : "center",
+              "dir" : "column",
+              "layout" : "FLEX",
+              "vAlign" : "center"
+            },
+            "getPSLayoutPos" : {
+              "grow" : -1,
+              "layout" : "FLEX"
+            },
+            "getPSPanelItems" : [ {
+              "caption" : "婚假",
+              "contentType" : "RAW",
+              "itemStyle" : "DEFAULT",
+              "itemType" : "RAWITEM",
+              "name" : "static_text2",
+              "getPSLayoutPos" : {
+                "grow" : -1,
+                "layout" : "FLEX"
+              },
+              "getPSRawItem" : {
+                "caption" : "婚假",
+                "contentType" : "RAW",
+                "name" : "static_text2",
+                "predefinedType" : "STATIC_TEXT",
+                "renderMode" : "TEXT"
+              },
+              "rawContent" : "婚假",
+              "showCaption" : true
+            }, {
+              "caption" : "文本(动态)",
+              "itemStyle" : "DEFAULT",
+              "itemType" : "FIELD",
+              "name" : "marriage_holidays",
+              "getPSEditor" : {
+                "editorType" : "SPAN",
+                "name" : "marriage_holidays",
+                "predefinedType" : "FIELD_TEXT_DYNAMIC",
+                "renderMode" : "TEXT_DYNAMIC",
+                "enableLinkView" : false
+              },
+              "getPSLayoutPos" : {
+                "grow" : -1,
+                "layout" : "FLEX"
+              },
+              "viewFieldName" : "marriage_holidays"
+            } ]
+          }, {
+            "caption" : "容器",
+            "itemStyle" : "DEFAULT",
+            "itemType" : "CONTAINER",
+            "name" : "containerex16",
+            "getPSLayout" : {
+              "align" : "center",
+              "dir" : "column",
+              "layout" : "FLEX",
+              "vAlign" : "center"
+            },
+            "getPSLayoutPos" : {
+              "grow" : -1,
+              "layout" : "FLEX"
+            },
+            "getPSPanelItems" : [ {
+              "caption" : "产假",
+              "contentType" : "RAW",
+              "itemStyle" : "DEFAULT",
+              "itemType" : "RAWITEM",
+              "name" : "static_text3",
+              "getPSLayoutPos" : {
+                "grow" : -1,
+                "layout" : "FLEX"
+              },
+              "getPSRawItem" : {
+                "caption" : "产假",
+                "contentType" : "RAW",
+                "name" : "static_text3",
+                "predefinedType" : "STATIC_TEXT",
+                "renderMode" : "TEXT"
+              },
+              "rawContent" : "产假",
+              "showCaption" : true
+            }, {
+              "caption" : "文本(动态)",
+              "itemStyle" : "DEFAULT",
+              "itemType" : "FIELD",
+              "name" : "maternity_leaves",
+              "getPSEditor" : {
+                "editorType" : "SPAN",
+                "name" : "maternity_leaves",
+                "predefinedType" : "FIELD_TEXT_DYNAMIC",
+                "renderMode" : "TEXT_DYNAMIC",
+                "enableLinkView" : false
+              },
+              "getPSLayoutPos" : {
+                "grow" : -1,
+                "layout" : "FLEX"
+              },
+              "viewFieldName" : "maternity_leaves"
+            } ]
+          }, {
+            "caption" : "容器",
+            "itemStyle" : "DEFAULT",
+            "itemType" : "CONTAINER",
+            "name" : "containerex1",
+            "getPSLayout" : {
+              "align" : "center",
+              "dir" : "column",
+              "layout" : "FLEX",
+              "vAlign" : "center"
+            },
+            "getPSLayoutPos" : {
+              "grow" : -1,
+              "layout" : "FLEX"
+            },
+            "getPSPanelItems" : [ {
+              "caption" : "育儿假",
+              "contentType" : "RAW",
+              "itemStyle" : "DEFAULT",
+              "itemType" : "RAWITEM",
+              "name" : "static_textex6",
+              "getPSLayoutPos" : {
+                "grow" : -1,
+                "layout" : "FLEX"
+              },
+              "getPSRawItem" : {
+                "caption" : "育儿假",
+                "contentType" : "RAW",
+                "name" : "static_textex6",
+                "predefinedType" : "STATIC_TEXT",
+                "renderMode" : "TEXT"
+              },
+              "rawContent" : "育儿假",
+              "showCaption" : true
+            }, {
+              "caption" : "文本(动态)",
+              "itemStyle" : "DEFAULT",
+              "itemType" : "FIELD",
+              "name" : "parental_leaves",
+              "getPSEditor" : {
+                "editorType" : "SPAN",
+                "name" : "parental_leaves",
+                "predefinedType" : "FIELD_TEXT_DYNAMIC",
+                "renderMode" : "TEXT_DYNAMIC",
+                "enableLinkView" : false
+              },
+              "getPSLayoutPos" : {
+                "grow" : -1,
+                "layout" : "FLEX"
+              },
+              "viewFieldName" : "parental_leaves"
+            } ]
+          }, {
+            "caption" : "容器",
+            "itemStyle" : "DEFAULT",
+            "itemType" : "CONTAINER",
+            "name" : "containerex2",
+            "getPSLayout" : {
+              "align" : "center",
+              "dir" : "column",
+              "layout" : "FLEX",
+              "vAlign" : "center"
+            },
+            "getPSLayoutPos" : {
+              "grow" : -1,
+              "layout" : "FLEX"
+            },
+            "getPSPanelItems" : [ {
+              "caption" : "陪产假",
+              "contentType" : "RAW",
+              "itemStyle" : "DEFAULT",
+              "itemType" : "RAWITEM",
+              "name" : "static_textex7",
+              "getPSLayoutPos" : {
+                "grow" : -1,
+                "layout" : "FLEX"
+              },
+              "getPSRawItem" : {
+                "caption" : "陪产假",
+                "contentType" : "RAW",
+                "name" : "static_textex7",
+                "predefinedType" : "STATIC_TEXT",
+                "renderMode" : "TEXT"
+              },
+              "rawContent" : "陪产假",
+              "showCaption" : true
+            }, {
+              "caption" : "文本(动态)",
+              "itemStyle" : "DEFAULT",
+              "itemType" : "FIELD",
+              "name" : "paternity_leaves",
+              "getPSEditor" : {
+                "editorType" : "SPAN",
+                "name" : "paternity_leaves",
+                "predefinedType" : "FIELD_TEXT_DYNAMIC",
+                "renderMode" : "TEXT_DYNAMIC",
+                "enableLinkView" : false
+              },
+              "getPSLayoutPos" : {
+                "grow" : -1,
+                "layout" : "FLEX"
+              },
+              "viewFieldName" : "paternity_leaves"
+            } ]
+          }, {
+            "caption" : "容器",
+            "itemStyle" : "DEFAULT",
+            "itemType" : "CONTAINER",
+            "name" : "containerex3",
+            "getPSLayout" : {
+              "align" : "center",
+              "dir" : "column",
+              "layout" : "FLEX",
+              "vAlign" : "center"
+            },
+            "getPSLayoutPos" : {
+              "grow" : -1,
+              "layout" : "FLEX"
+            },
+            "getPSPanelItems" : [ {
+              "caption" : "病假",
+              "contentType" : "RAW",
+              "itemStyle" : "DEFAULT",
+              "itemType" : "RAWITEM",
+              "name" : "static_text8",
+              "getPSLayoutPos" : {
+                "grow" : -1,
+                "layout" : "FLEX"
+              },
+              "getPSRawItem" : {
+                "caption" : "病假",
+                "contentType" : "RAW",
+                "name" : "static_text8",
+                "predefinedType" : "STATIC_TEXT",
+                "renderMode" : "TEXT"
+              },
+              "rawContent" : "病假",
+              "showCaption" : true
+            }, {
+              "caption" : "文本(动态)",
+              "itemStyle" : "DEFAULT",
+              "itemType" : "FIELD",
+              "name" : "sick_leaves",
+              "getPSEditor" : {
+                "editorType" : "SPAN",
+                "name" : "sick_leaves",
+                "predefinedType" : "FIELD_TEXT_DYNAMIC",
+                "renderMode" : "TEXT_DYNAMIC",
+                "enableLinkView" : false
+              },
+              "getPSLayoutPos" : {
+                "grow" : -1,
+                "layout" : "FLEX"
+              },
+              "viewFieldName" : "sick_leaves"
+            } ]
+          }, {
+            "caption" : "容器",
+            "itemStyle" : "DEFAULT",
+            "itemType" : "CONTAINER",
+            "name" : "containerex4",
+            "getPSLayout" : {
+              "align" : "center",
+              "dir" : "column",
+              "layout" : "FLEX",
+              "vAlign" : "center"
+            },
+            "getPSLayoutPos" : {
+              "grow" : -1,
+              "layout" : "FLEX"
+            },
+            "getPSPanelItems" : [ {
+              "caption" : "调休假",
+              "contentType" : "RAW",
+              "itemStyle" : "DEFAULT",
+              "itemType" : "RAWITEM",
+              "name" : "static_text9",
+              "getPSLayoutPos" : {
+                "grow" : -1,
+                "layout" : "FLEX"
+              },
+              "getPSRawItem" : {
+                "caption" : "调休假",
+                "contentType" : "RAW",
+                "name" : "static_text9",
+                "predefinedType" : "STATIC_TEXT",
+                "renderMode" : "TEXT"
+              },
+              "rawContent" : "调休假",
+              "showCaption" : true
+            }, {
+              "caption" : "文本(动态)",
+              "itemStyle" : "DEFAULT",
+              "itemType" : "FIELD",
+              "name" : "vacation_leaves",
+              "getPSEditor" : {
+                "editorType" : "SPAN",
+                "name" : "vacation_leaves",
+                "predefinedType" : "FIELD_TEXT_DYNAMIC",
+                "renderMode" : "TEXT_DYNAMIC",
+                "enableLinkView" : false
+              },
+              "getPSLayoutPos" : {
+                "grow" : -1,
+                "layout" : "FLEX"
+              },
+              "viewFieldName" : "vacation_leaves"
+            } ]
+          } ]
+        } ],
+        "predefinedType" : "CONTAINER_SINGLEDATA"
+      } ]
+    } ],
+    "layoutBodyOnly" : false,
+    "layoutPanel" : true,
+    "useDefaultLayout" : false,
+    "viewProxyMode" : true,
+    "modelid" : "9aeb15098ad51878dff96920b449fab6",
+    "modeltype" : "PSSYSVIEWLAYOUTPANEL",
+    "getPSControls" : [ {
+      "getCapPSLanguageRes" : {
+        "lanResTag" : "DE.LNAME.ATTENDANCE_RECORD"
+      },
+      "caption" : "请假统计",
+      "codeName" : "leave_summary_custom_view_captionbar",
+      "controlType" : "CAPTIONBAR",
+      "name" : "captionbar",
+      "getPSAppDataEntity" : {
+        "modelref" : true,
+        "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/attendance_record.json"
+      },
+      "getPSControlParam" : { }
+    } ]
+  },
+  "refFlag" : false,
+  "title" : "请假统计",
+  "viewStyle" : "DEFAULT",
+  "viewType" : "DECUSTOMVIEW",
+  "enableDP" : true,
+  "showCaptionBar" : false,
+  "modelid" : "0f1ddaa7141c1dc66e234d0bc1e91930",
+  "modeltype" : "PSAPPDEVIEW"
+}

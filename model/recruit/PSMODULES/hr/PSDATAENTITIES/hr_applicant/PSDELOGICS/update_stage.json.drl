@@ -1,0 +1,115 @@
+package cn.ibizlab.hr.logic.hr_applicantlogic.update_stage;
+        import java.util.Map;
+        import java.util.HashMap;
+        import com.alibaba.fastjson.JSONObject;
+        import org.springframework.util.StringUtils;
+        import org.springframework.util.ObjectUtils;
+        import cn.ibizlab.util.errors.BadRequestAlertException;
+                global cn.ibizlab.core.hr.domain.hr_applicant hr_applicantupdate_stagedefault;
+                global cn.ibizlab.core.hr.domain.hr_applicant hr_applicantupdate_stagehr_applicant;
+                global cn.ibizlab.core.hr.domain.hr_recruitment_stage hr_applicantupdate_stagehr_stage;
+                global cn.ibizlab.core.hr.domain.hr_recruitment_stage hr_applicantupdate_stagepage_stage;
+                global cn.ibizlab.core.hr.domain.hr_recruitment_stage hr_applicantupdate_stagestage_filter;
+                    global cn.ibizlab.core.hr.service.Ihr_recruitment_stageService hr_recruitment_stageservice;
+                    global cn.ibizlab.core.hr.service.Ihr_applicantService hr_applicantservice;
+        global cn.ibizlab.core.hr.service.Ihr_applicantService iBzSysHr_applicantDefaultService;
+        global cn.ibizlab.util.security.AuthenticationUser curuser;
+
+
+    no-loop
+
+            //逻辑处理节点[开始]
+            rule "begin"
+            ruleflow-group "hr_applicantupdate_stagebegin"
+            when
+            then
+            end
+
+            //逻辑处理节点[抛出异常]
+            rule "throwexception1"
+            ruleflow-group "hr_applicantupdate_stagethrowexception1"
+            when
+            then
+                        update(hr_applicantupdate_stagedefault);//更新fact中变量值
+                        update(hr_applicantupdate_stagehr_applicant);//更新fact中变量值
+                        update(hr_applicantupdate_stagehr_stage);//更新fact中变量值
+                        update(hr_applicantupdate_stagepage_stage);//更新fact中变量值
+                        update(hr_applicantupdate_stagestage_filter);//更新fact中变量值
+            end
+
+            //逻辑处理节点[设置阶段序号]
+            rule "prepareparam1"
+            ruleflow-group "hr_applicantupdate_stageprepareparam1"
+            when
+            then
+                            hr_applicantupdate_stagestage_filter.set("n_sequence_eq",hr_applicantupdate_stagedefault.get("stagesequence"));
+                        update(hr_applicantupdate_stagedefault);//更新fact中变量值
+                        update(hr_applicantupdate_stagehr_applicant);//更新fact中变量值
+                        update(hr_applicantupdate_stagehr_stage);//更新fact中变量值
+                        update(hr_applicantupdate_stagepage_stage);//更新fact中变量值
+                        update(hr_applicantupdate_stagestage_filter);//更新fact中变量值
+            end
+
+            //逻辑处理节点[查询阶段]
+            rule "dedataset1"
+            ruleflow-group "hr_applicantupdate_stagededataset1"
+            when
+            then
+                        update(hr_applicantupdate_stagedefault);//更新fact中变量值
+                        update(hr_applicantupdate_stagehr_applicant);//更新fact中变量值
+                        update(hr_applicantupdate_stagehr_stage);//更新fact中变量值
+                        update(hr_applicantupdate_stagepage_stage);//更新fact中变量值
+                        update(hr_applicantupdate_stagestage_filter);//更新fact中变量值
+            end
+
+            //逻辑处理节点[准备参数]
+            rule "prepareparam2"
+            ruleflow-group "hr_applicantupdate_stageprepareparam2"
+            when
+            then
+                            hr_applicantupdate_stagehr_stage.set("",hr_applicantupdate_stagepage_stage.get("0"));
+                        update(hr_applicantupdate_stagedefault);//更新fact中变量值
+                        update(hr_applicantupdate_stagehr_applicant);//更新fact中变量值
+                        update(hr_applicantupdate_stagehr_stage);//更新fact中变量值
+                        update(hr_applicantupdate_stagepage_stage);//更新fact中变量值
+                        update(hr_applicantupdate_stagestage_filter);//更新fact中变量值
+            end
+
+            //逻辑处理节点[调试逻辑参数]
+            rule "debugparam1"
+            ruleflow-group "hr_applicantupdate_stagedebugparam1"
+            when
+            then
+                        update(hr_applicantupdate_stagedefault);//更新fact中变量值
+                        update(hr_applicantupdate_stagehr_applicant);//更新fact中变量值
+                        update(hr_applicantupdate_stagehr_stage);//更新fact中变量值
+                        update(hr_applicantupdate_stagepage_stage);//更新fact中变量值
+                        update(hr_applicantupdate_stagestage_filter);//更新fact中变量值
+            end
+
+            //逻辑处理节点[准备参数]
+            rule "prepareparam3"
+            ruleflow-group "hr_applicantupdate_stageprepareparam3"
+            when
+            then
+                            hr_applicantupdate_stagehr_applicant.set("stageid",hr_applicantupdate_stagehr_stage.get("id"));
+                            hr_applicantupdate_stagehr_applicant.set("id",hr_applicantupdate_stagedefault.get("id"));
+                        update(hr_applicantupdate_stagedefault);//更新fact中变量值
+                        update(hr_applicantupdate_stagehr_applicant);//更新fact中变量值
+                        update(hr_applicantupdate_stagehr_stage);//更新fact中变量值
+                        update(hr_applicantupdate_stagepage_stage);//更新fact中变量值
+                        update(hr_applicantupdate_stagestage_filter);//更新fact中变量值
+            end
+
+            //逻辑处理节点[更新申请阶段]
+            rule "deaction1"
+            ruleflow-group "hr_applicantupdate_stagedeaction1"
+            when
+            then
+                        hr_applicantservice.update(hr_applicantupdate_stagehr_applicant);
+                        update(hr_applicantupdate_stagedefault);//更新fact中变量值
+                        update(hr_applicantupdate_stagehr_applicant);//更新fact中变量值
+                        update(hr_applicantupdate_stagehr_stage);//更新fact中变量值
+                        update(hr_applicantupdate_stagepage_stage);//更新fact中变量值
+                        update(hr_applicantupdate_stagestage_filter);//更新fact中变量值
+            end

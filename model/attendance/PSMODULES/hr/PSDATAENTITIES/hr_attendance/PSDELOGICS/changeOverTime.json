@@ -1,0 +1,435 @@
+{
+  "codeName" : "changeOverTime",
+  "defaultParamName" : "Default",
+  "dynaModelFilePath" : "PSMODULES/hr/PSDATAENTITIES/hr_attendance/PSDELOGICS/changeOverTime.json",
+  "logicName" : "更新/创建加班记录",
+  "name" : "更新/创建加班记录",
+  "getPSDELogicNodes" : [ {
+    "codeName" : "Begin",
+    "leftPos" : 200,
+    "logicNodeType" : "BEGIN",
+    "name" : "开始",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "RAWSFCODE_01"
+      },
+      "name" : "连接名称",
+      "getPSDELogicLinkGroupCond" : {
+        "groupOP" : "AND",
+        "logicType" : "GROUP",
+        "name" : "连接条件组",
+        "getPSDELogicLinkConds" : [ {
+          "condOP" : "ISNOTNULL",
+          "dstFieldName" : "CHECK_IN",
+          "getDstLogicParam" : {
+            "modelref" : true,
+            "id" : "Default"
+          },
+          "logicType" : "SINGLE",
+          "name" : "Default[CHECK_IN] 值不为空(NotNil)"
+        }, {
+          "condOP" : "ISNOTNULL",
+          "dstFieldName" : "CHECK_OUT",
+          "getDstLogicParam" : {
+            "modelref" : true,
+            "id" : "Default"
+          },
+          "logicType" : "SINGLE",
+          "name" : "Default[CHECK_OUT] 值不为空(NotNil)"
+        } ]
+      },
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "Begin"
+      }
+    } ],
+    "topPos" : 200,
+    "parallelOutput" : true
+  }, {
+    "code" : "def _default = logic.param('Default').getReal()\r\ndef check_in = _default.get(\"check_in\")\r\ndef startOfDayFormat = new java.text.SimpleDateFormat(\"yyyy-MM-dd 00:00:00\")\r\ndef startOfDay = startOfDayFormat.format(check_in) \r\n_default.set(\"dateOnly\", startOfDay)\r\nif(!_default.get(\"overtime_hours\")){\r\n    _default.set(\"overtime_hours\", 0)\r\n}",
+    "codeName" : "RAWSFCODE_01",
+    "codeType" : "Groovy",
+    "leftPos" : 370,
+    "logicNodeType" : "RAWSFCODE",
+    "name" : "执行脚本代码",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "RAWSQLCALL_01"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "RAWSFCODE_01"
+      }
+    } ],
+    "topPos" : 198,
+    "parallelOutput" : true
+  }, {
+    "codeName" : "RAWSQLCALL_01",
+    "getDstPSDELogicParam" : {
+      "modelref" : true,
+      "id" : "over_time"
+    },
+    "leftPos" : 640,
+    "logicNodeType" : "RAWSQLCALL",
+    "name" : "获取加班记录",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "PREPAREPARAM_01"
+      },
+      "name" : "值为空时创建",
+      "getPSDELogicLinkGroupCond" : {
+        "groupOP" : "AND",
+        "logicType" : "GROUP",
+        "name" : "连接条件组",
+        "getPSDELogicLinkConds" : [ {
+          "condOP" : "ISNULL",
+          "dstFieldName" : "ID",
+          "getDstLogicParam" : {
+            "modelref" : true,
+            "id" : "over_time"
+          },
+          "logicType" : "SINGLE",
+          "name" : "over_time[ID] 值为空(Nil)"
+        } ]
+      },
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "RAWSQLCALL_01"
+      }
+    }, {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "RAWSQLCALL_02"
+      },
+      "name" : "值不为空时更新",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "RAWSQLCALL_01"
+      }
+    } ],
+    "getPSDELogicNodeParams" : [ {
+      "paramAction" : "SQLPARAM",
+      "srcFieldName" : "CHECK_IN",
+      "getSrcPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "Default"
+      },
+      "srcValueType" : "SRCDLPARAM"
+    }, {
+      "paramAction" : "SQLPARAM",
+      "srcFieldName" : "EMPLOYEE_ID",
+      "getSrcPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "Default"
+      },
+      "srcValueType" : "SRCDLPARAM"
+    } ],
+    "sql" : "select\n\t*\nfrom\n\thr_attendance_overtime\nwhere\n\t`DATE` = DATE(?) \n\tand EMPLOYEE_ID = ?\nLIMIT 1;",
+    "topPos" : 200,
+    "fillDstLogicParam" : true,
+    "ignoreResetDstLogicParam" : false
+  }, {
+    "codeName" : "PREPAREPARAM_01",
+    "leftPos" : 490,
+    "logicNodeType" : "PREPAREPARAM",
+    "name" : "准备参数",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "DEACTION_01"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "PREPAREPARAM_01"
+      }
+    } ],
+    "getPSDELogicNodeParams" : [ {
+      "dstFieldName" : "DURATION",
+      "getDstPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "over_time"
+      },
+      "paramAction" : "SETPARAMVALUE",
+      "srcFieldName" : "OVERTIME_HOURS",
+      "getSrcPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "Default"
+      },
+      "srcValueType" : "SRCDLPARAM"
+    }, {
+      "dstFieldName" : "DURATION_REAL",
+      "getDstPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "over_time"
+      },
+      "paramAction" : "SETPARAMVALUE",
+      "srcFieldName" : "OVERTIME_HOURS",
+      "getSrcPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "Default"
+      },
+      "srcValueType" : "SRCDLPARAM"
+    }, {
+      "dstFieldName" : "EMPLOYEE_ID",
+      "getDstPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "over_time"
+      },
+      "paramAction" : "SETPARAMVALUE",
+      "srcFieldName" : "EMPLOYEE_ID",
+      "getSrcPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "Default"
+      },
+      "srcValueType" : "SRCDLPARAM"
+    }, {
+      "dstFieldName" : "DATE",
+      "getDstPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "over_time"
+      },
+      "paramAction" : "SETPARAMVALUE",
+      "srcFieldName" : "dateOnly",
+      "getSrcPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "Default"
+      },
+      "srcValueType" : "SRCDLPARAM"
+    } ],
+    "topPos" : 368,
+    "parallelOutput" : true
+  }, {
+    "codeName" : "RAWSQLCALL_02",
+    "getDstPSDELogicParam" : {
+      "modelref" : true,
+      "id" : "sum_over"
+    },
+    "leftPos" : 856,
+    "logicNodeType" : "RAWSQLCALL",
+    "name" : "累加当天其他加班时长",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "PREPAREPARAM_02"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "RAWSQLCALL_02"
+      }
+    } ],
+    "getPSDELogicNodeParams" : [ {
+      "paramAction" : "SQLPARAM",
+      "srcFieldName" : "OVERTIME_HOURS",
+      "getSrcPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "Default"
+      },
+      "srcValueType" : "SRCDLPARAM"
+    }, {
+      "paramAction" : "SQLPARAM",
+      "srcFieldName" : "EMPLOYEE_ID",
+      "getSrcPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "Default"
+      },
+      "srcValueType" : "SRCDLPARAM"
+    }, {
+      "paramAction" : "SQLPARAM",
+      "srcFieldName" : "CHECK_IN",
+      "getSrcPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "Default"
+      },
+      "srcValueType" : "SRCDLPARAM"
+    }, {
+      "paramAction" : "SQLPARAM",
+      "srcFieldName" : "ID",
+      "getSrcPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "Default"
+      },
+      "srcValueType" : "SRCDLPARAM"
+    } ],
+    "sql" : "SELECT COALESCE(SUM(OVERTIME_HOURS), 0)+? AS total_overtime_hours\nFROM hr_attendance\nWHERE employee_id = ?\n  AND DATE(check_in) = DATE(?) \n  AND check_out IS NOT NULL \n  AND id != ?\n  AND OVERTIME_STATUS = 'approved'",
+    "topPos" : 368,
+    "fillDstLogicParam" : true,
+    "ignoreResetDstLogicParam" : false,
+    "parallelOutput" : true
+  }, {
+    "codeName" : "PREPAREPARAM_02",
+    "leftPos" : 856,
+    "logicNodeType" : "PREPAREPARAM",
+    "name" : "准备参数",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "DEBUGPARAM_01"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "PREPAREPARAM_02"
+      }
+    } ],
+    "getPSDELogicNodeParams" : [ {
+      "dstFieldName" : "DURATION_REAL",
+      "getDstPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "over_time"
+      },
+      "paramAction" : "SETPARAMVALUE",
+      "srcFieldName" : "total_overtime_hours",
+      "getSrcPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "sum_over"
+      },
+      "srcValueType" : "SRCDLPARAM"
+    }, {
+      "dstFieldName" : "DURATION",
+      "getDstPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "over_time"
+      },
+      "paramAction" : "SETPARAMVALUE",
+      "srcFieldName" : "total_overtime_hours",
+      "getSrcPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "sum_over"
+      },
+      "srcValueType" : "SRCDLPARAM"
+    } ],
+    "topPos" : 500,
+    "parallelOutput" : true
+  }, {
+    "codeName" : "DEACTION_01",
+    "getDstPSDEAction" : {
+      "modelref" : true,
+      "path" : "PSMODULES/hr/PSDATAENTITIES/hr_attendance_overtime/PSDEACTIONS/Create.json"
+    },
+    "getDstPSDELogicParam" : {
+      "modelref" : true,
+      "id" : "over_time"
+    },
+    "getDstPSDataEntity" : {
+      "modelref" : true,
+      "path" : "PSMODULES/hr/PSDATAENTITIES/hr_attendance_overtime.json"
+    },
+    "leftPos" : 490,
+    "logicNodeType" : "DEACTION",
+    "name" : "实体行为",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "END_01"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "DEACTION_01"
+      }
+    } ],
+    "topPos" : 510,
+    "parallelOutput" : true
+  }, {
+    "codeName" : "DEBUGPARAM_01",
+    "getDstPSDELogicParam" : {
+      "modelref" : true,
+      "id" : "over_time"
+    },
+    "leftPos" : 856,
+    "logicNodeType" : "DEBUGPARAM",
+    "name" : "调试逻辑参数",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "DEACTION_02"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "DEBUGPARAM_01"
+      }
+    } ],
+    "topPos" : 610,
+    "parallelOutput" : true
+  }, {
+    "codeName" : "DEACTION_02",
+    "getDstPSDEAction" : {
+      "modelref" : true,
+      "path" : "PSMODULES/hr/PSDATAENTITIES/hr_attendance_overtime/PSDEACTIONS/Update.json"
+    },
+    "getDstPSDELogicParam" : {
+      "modelref" : true,
+      "id" : "over_time"
+    },
+    "getDstPSDataEntity" : {
+      "modelref" : true,
+      "path" : "PSMODULES/hr/PSDATAENTITIES/hr_attendance_overtime.json"
+    },
+    "leftPos" : 800,
+    "logicNodeType" : "DEACTION",
+    "name" : "实体行为",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "END_01"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "DEACTION_02"
+      }
+    } ],
+    "topPos" : 740,
+    "parallelOutput" : true
+  }, {
+    "codeName" : "END_01",
+    "leftPos" : 584,
+    "logicNodeType" : "END",
+    "name" : "结束",
+    "getReturnParam" : {
+      "modelref" : true,
+      "id" : "Default"
+    },
+    "returnType" : "LOGICPARAM",
+    "topPos" : 744,
+    "parallelOutput" : true
+  } ],
+  "getPSDELogicParams" : [ {
+    "codeName" : "Default",
+    "logicName" : "传入变量",
+    "name" : "传入变量",
+    "getParamPSDataEntity" : {
+      "modelref" : true,
+      "path" : "PSMODULES/hr/PSDATAENTITIES/hr_attendance.json"
+    },
+    "default" : true,
+    "entityParam" : true
+  }, {
+    "codeName" : "over_time",
+    "logicName" : "加班记录",
+    "name" : "加班记录",
+    "getParamPSDataEntity" : {
+      "modelref" : true,
+      "path" : "PSMODULES/hr/PSDATAENTITIES/hr_attendance_overtime.json"
+    },
+    "entityParam" : true
+  }, {
+    "codeName" : "sum_over",
+    "logicName" : "sum_over",
+    "name" : "sum_over",
+    "entityParam" : true
+  } ],
+  "getStartPSDELogicNode" : {
+    "modelref" : true,
+    "id" : "Begin"
+  },
+  "enableBackend" : true,
+  "enableFront" : false
+}

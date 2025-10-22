@@ -1,0 +1,285 @@
+{
+  "aggMode" : "NONE",
+  "codeName" : "manager_filter_grid",
+  "columnEnableFilter" : 2,
+  "columnEnableLink" : 2,
+  "controlType" : "GRID",
+  "dynaModelFilePath" : "PSSYSAPPS/web/PSAPPDATAENTITIES/hr_candidate_filter_detail/PSGRIDS/manager_filter_grid.json",
+  "getFetchPSControlAction" : {
+    "modelref" : true,
+    "id" : "fetch",
+    "actionType" : "DEDATASET",
+    "name" : "fetch",
+    "getPSAppDEMethod" : {
+      "modelref" : true,
+      "id" : "fetch_filter_myself"
+    },
+    "getPSAppDataEntity" : {
+      "modelref" : true,
+      "path" : "PSSYSAPPS/web/PSAPPDATAENTITIES/hr_candidate_filter_detail.json"
+    }
+  },
+  "groupMode" : "NONE",
+  "logicName" : "用人经理筛选表格",
+  "minorSortDir" : "DESC",
+  "getMinorSortPSAppDEField" : {
+    "name" : "CREATE_DATE",
+    "codeName" : "create_date"
+  },
+  "getPSAppDataEntity" : {
+    "modelref" : true,
+    "path" : "PSSYSAPPS/web/PSAPPDATAENTITIES/hr_candidate_filter_detail.json"
+  },
+  "getPSDEGridColumns" : [ {
+    "align" : "LEFT",
+    "cLConvertMode" : "NONE",
+    "caption" : "候选人名称",
+    "codeName" : "candidate_display_name",
+    "columnType" : "DEFGRIDCOLUMN",
+    "dataItemName" : "candidate_display_name",
+    "excelCaption" : "候选人名称",
+    "name" : "candidate_display_name",
+    "noPrivDisplayMode" : 1,
+    "getPSAppDEField" : {
+      "name" : "CANDIDATE_DISPLAY_NAME",
+      "codeName" : "candidate_display_name"
+    },
+    "width" : 200,
+    "widthUnit" : "PX",
+    "enableSort" : true
+  }, {
+    "align" : "LEFT",
+    "cLConvertMode" : "NONE",
+    "caption" : "申请日期",
+    "codeName" : "applicant_create_date",
+    "columnType" : "DEFGRIDCOLUMN",
+    "dataItemName" : "applicant_create_date",
+    "excelCaption" : "申请日期",
+    "name" : "applicant_create_date",
+    "noPrivDisplayMode" : 1,
+    "getPSAppDEField" : {
+      "name" : "APPLICANT_CREATE_DATE",
+      "codeName" : "applicant_create_date"
+    },
+    "valueFormat" : "YYYY-MM-DD HH:mm:ss",
+    "width" : 200,
+    "widthUnit" : "PX",
+    "enableSort" : true
+  }, {
+    "align" : "LEFT",
+    "cLConvertMode" : "NONE",
+    "caption" : "应聘职位",
+    "codeName" : "job_name",
+    "columnType" : "DEFGRIDCOLUMN",
+    "dataItemName" : "job_name",
+    "excelCaption" : "应聘职位",
+    "name" : "job_name",
+    "noPrivDisplayMode" : 1,
+    "getPSAppDEField" : {
+      "name" : "JOB_NAME",
+      "codeName" : "job_name"
+    },
+    "width" : 200,
+    "widthUnit" : "PX",
+    "enableSort" : true
+  }, {
+    "align" : "LEFT",
+    "cLConvertMode" : "NONE",
+    "caption" : "渠道",
+    "codeName" : "job_platform_name",
+    "columnType" : "DEFGRIDCOLUMN",
+    "dataItemName" : "job_platform_name",
+    "excelCaption" : "渠道",
+    "name" : "job_platform_name",
+    "noPrivDisplayMode" : 1,
+    "getPSAppDEField" : {
+      "name" : "JOB_PLATFORM_NAME",
+      "codeName" : "job_platform_name"
+    },
+    "width" : 200,
+    "widthUnit" : "PX",
+    "enableSort" : true
+  }, {
+    "align" : "LEFT",
+    "cLConvertMode" : "FRONT",
+    "caption" : "状态",
+    "codeName" : "status",
+    "columnType" : "DEFGRIDCOLUMN",
+    "dataItemName" : "status",
+    "excelCaption" : "状态",
+    "name" : "status",
+    "noPrivDisplayMode" : 1,
+    "getPSAppCodeList" : {
+      "modelref" : true,
+      "path" : "PSSYSAPPS/web/PSAPPCODELISTS/hr__candidate_filter_status.json"
+    },
+    "getPSAppDEField" : {
+      "name" : "STATUS",
+      "codeName" : "status"
+    },
+    "width" : 100,
+    "widthUnit" : "PX",
+    "enableSort" : true
+  }, {
+    "align" : "LEFT",
+    "cLConvertMode" : "NONE",
+    "caption" : "备注",
+    "codeName" : "memo",
+    "columnType" : "DEFGRIDCOLUMN",
+    "dataItemName" : "memo",
+    "excelCaption" : "备注",
+    "name" : "memo",
+    "noPrivDisplayMode" : 1,
+    "getPSAppDEField" : {
+      "name" : "MEMO",
+      "codeName" : "memo"
+    },
+    "width" : 200,
+    "widthUnit" : "PX",
+    "enableSort" : true
+  } ],
+  "getPSDEGridDataItems" : [ {
+    "dataType" : 25,
+    "name" : "candidate_display_name",
+    "getPSAppDEField" : {
+      "name" : "CANDIDATE_DISPLAY_NAME",
+      "codeName" : "candidate_display_name"
+    }
+  }, {
+    "format" : "YYYY-MM-DD HH:mm:ss",
+    "dataType" : 5,
+    "name" : "applicant_create_date",
+    "getPSAppDEField" : {
+      "name" : "APPLICANT_CREATE_DATE",
+      "codeName" : "applicant_create_date"
+    }
+  }, {
+    "dataType" : 25,
+    "name" : "job_name",
+    "getPSAppDEField" : {
+      "name" : "JOB_NAME",
+      "codeName" : "job_name"
+    },
+    "scriptCode" : "return  `<span> <span style=\"color:#8599e2;padding: 5px;font-weight: 600;\">社招</span>${data.job_name} </span>`",
+    "customCode" : true
+  }, {
+    "dataType" : 25,
+    "name" : "job_platform_name",
+    "getPSAppDEField" : {
+      "name" : "JOB_PLATFORM_NAME",
+      "codeName" : "job_platform_name"
+    }
+  }, {
+    "dataType" : 25,
+    "name" : "status",
+    "getPSAppDEField" : {
+      "name" : "STATUS",
+      "codeName" : "status"
+    }
+  }, {
+    "dataType" : 25,
+    "name" : "memo",
+    "getPSAppDEField" : {
+      "name" : "MEMO",
+      "codeName" : "memo"
+    }
+  }, {
+    "format" : "YYYY-MM-DD HH:mm:ss",
+    "dataType" : 5,
+    "name" : "create_date",
+    "getPSAppDEField" : {
+      "name" : "CREATE_DATE",
+      "codeName" : "create_date"
+    }
+  }, {
+    "dataType" : 25,
+    "name" : "srfkey",
+    "getPSAppDEField" : {
+      "name" : "ID",
+      "codeName" : "id"
+    }
+  }, {
+    "dataType" : 25,
+    "name" : "srfdataaccaction",
+    "getPSAppDEField" : {
+      "name" : "ID",
+      "codeName" : "id"
+    },
+    "dataAccessAction" : true
+  }, {
+    "dataType" : 25,
+    "name" : "applicant_id",
+    "getPSAppDEField" : {
+      "name" : "APPLICANT_ID",
+      "codeName" : "applicant_id"
+    }
+  }, {
+    "dataType" : 25,
+    "name" : "candidate_filter_id",
+    "getPSAppDEField" : {
+      "name" : "CANDIDATE_FILTER_ID",
+      "codeName" : "candidate_filter_id"
+    }
+  }, {
+    "dataType" : 25,
+    "name" : "user_id",
+    "getPSAppDEField" : {
+      "name" : "USER_ID",
+      "codeName" : "user_id"
+    }
+  }, {
+    "dataType" : 25,
+    "name" : "srfmajortext",
+    "getPSAppDEField" : {
+      "name" : "NAME",
+      "codeName" : "name"
+    }
+  } ],
+  "getPSDEGridEditItems" : [ {
+    "caption" : "标识",
+    "codeName" : "srfkey",
+    "enableCond" : 3,
+    "ignoreInput" : 0,
+    "name" : "srfkey",
+    "getPSAppDEField" : {
+      "name" : "ID",
+      "codeName" : "id"
+    },
+    "getPSEditor" : {
+      "editorType" : "HIDDEN",
+      "name" : "srfkey"
+    },
+    "allowEmpty" : true
+  } ],
+  "pagingMode" : 1,
+  "pagingSize" : 20,
+  "getRemovePSControlAction" : {
+    "actionName" : "Remove",
+    "actionType" : "DEACTION",
+    "dataAccessAction" : "DELETE",
+    "name" : "remove",
+    "getPSAppDEMethod" : {
+      "modelref" : true,
+      "id" : "remove"
+    },
+    "getPSAppDataEntity" : {
+      "modelref" : true,
+      "path" : "PSSYSAPPS/web/PSAPPDATAENTITIES/hr_candidate_filter_detail.json"
+    }
+  },
+  "sortMode" : "REMOTE",
+  "hasWFDataItems" : false,
+  "enableColFilter" : false,
+  "enableCustomized" : true,
+  "enableGroup" : false,
+  "enablePagingBar" : true,
+  "enableRowEdit" : false,
+  "enableRowEditOrder" : false,
+  "enableRowNew" : false,
+  "forceFit" : false,
+  "hideHeader" : false,
+  "noSort" : false,
+  "singleSelect" : true,
+  "modelid" : "46f37ecf03aa7366424f25d9864b9c31",
+  "modeltype" : "PSDEGRID"
+}

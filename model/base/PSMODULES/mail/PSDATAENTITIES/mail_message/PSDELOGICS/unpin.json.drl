@@ -1,0 +1,47 @@
+package cn.ibizlab.mail.logic.mail_messagelogic.unpin;
+        import java.util.Map;
+        import java.util.HashMap;
+        import com.alibaba.fastjson.JSONObject;
+        import org.springframework.util.StringUtils;
+        import org.springframework.util.ObjectUtils;
+        import cn.ibizlab.util.errors.BadRequestAlertException;
+                global cn.ibizlab.core.mail.domain.mail_message mail_messageunpindefault;
+                    global cn.ibizlab.core.mail.service.Imail_messageService mail_messageservice;
+        global cn.ibizlab.core.mail.service.Imail_messageService iBzSysMail_messageDefaultService;
+        global cn.ibizlab.util.security.AuthenticationUser curuser;
+
+
+    no-loop
+
+            //逻辑处理节点[开始]
+            rule "begin"
+            ruleflow-group "mail_messageunpinbegin"
+            when
+            then
+            end
+
+            //逻辑处理节点[置空置顶时间]
+            rule "prepareparam_01"
+            ruleflow-group "mail_messageunpinprepareparam_01"
+            when
+            then
+                                mail_messageunpindefault.set("pinnedat",null);
+                        update(mail_messageunpindefault);//更新fact中变量值
+            end
+
+            //逻辑处理节点[更新]
+            rule "deaction_01"
+            ruleflow-group "mail_messageunpindeaction_01"
+            when
+            then
+                        mail_messageservice.update(mail_messageunpindefault);
+                        update(mail_messageunpindefault);//更新fact中变量值
+            end
+
+            //逻辑处理节点[结束]
+            rule "end_01"
+            ruleflow-group "mail_messageunpinend_01"
+            when
+            then
+                        update(mail_messageunpindefault);//更新fact中变量值
+            end

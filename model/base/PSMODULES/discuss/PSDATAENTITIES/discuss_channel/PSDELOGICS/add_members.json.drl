@@ -1,0 +1,104 @@
+package cn.ibizlab.discuss.logic.discuss_channellogic.add_members;
+        import java.util.Map;
+        import java.util.HashMap;
+        import com.alibaba.fastjson.JSONObject;
+        import org.springframework.util.StringUtils;
+        import org.springframework.util.ObjectUtils;
+        import cn.ibizlab.util.errors.BadRequestAlertException;
+                global cn.ibizlab.core.discuss.domain.discuss_channel discuss_channeladd_membersdefault;
+                global cn.ibizlab.core.base.domain.res_partner discuss_channeladd_memberscurrent_partner;
+                global cn.ibizlab.core.discuss.domain.discuss_channel_member discuss_channeladd_membersmember;
+                global cn.ibizlab.core.base.domain.res_partner discuss_channeladd_membersres_partners;
+                    global cn.ibizlab.core.discuss.service.Idiscuss_channel_memberService discuss_channel_memberservice;
+        global cn.ibizlab.core.discuss.service.Idiscuss_channelService iBzSysDiscuss_channelDefaultService;
+        global cn.ibizlab.util.security.AuthenticationUser curuser;
+
+
+    no-loop
+
+            //逻辑处理节点[开始]
+            rule "begin"
+            ruleflow-group "discuss_channeladd_membersbegin"
+            when
+            then
+            end
+
+            //逻辑处理节点[提取标识构造对象列表]
+            rule "rawsfcode_01"
+            ruleflow-group "discuss_channeladd_membersrawsfcode_01"
+            when
+            then
+                        update(discuss_channeladd_membersdefault);//更新fact中变量值
+                        update(discuss_channeladd_memberscurrent_partner);//更新fact中变量值
+                        update(discuss_channeladd_membersmember);//更新fact中变量值
+                        update(discuss_channeladd_membersres_partners);//更新fact中变量值
+            end
+
+            //逻辑处理节点[循环处理成员]
+            rule "loop_01"
+            ruleflow-group "discuss_channeladd_membersloop_01"
+            when
+            then
+                        update(discuss_channeladd_membersdefault);//更新fact中变量值
+                        update(discuss_channeladd_memberscurrent_partner);//更新fact中变量值
+                        update(discuss_channeladd_membersmember);//更新fact中变量值
+                        update(discuss_channeladd_membersres_partners);//更新fact中变量值
+            end
+
+            //逻辑处理节点[重新建立参数]
+            rule "renewparam_01"
+            ruleflow-group "discuss_channeladd_membersrenewparam_01"
+            when
+            then
+                        update(discuss_channeladd_membersdefault);//更新fact中变量值
+                        update(discuss_channeladd_memberscurrent_partner);//更新fact中变量值
+                        update(discuss_channeladd_membersmember);//更新fact中变量值
+                        update(discuss_channeladd_membersres_partners);//更新fact中变量值
+            end
+
+            //逻辑处理节点[准备参数]
+            rule "prepareparam_02"
+            ruleflow-group "discuss_channeladd_membersprepareparam_02"
+            when
+            then
+                            discuss_channeladd_membersmember.set("partnerid",discuss_channeladd_memberscurrent_partner.get("id"));
+                            discuss_channeladd_membersmember.set("channelid",discuss_channeladd_membersdefault.get("id"));
+                        update(discuss_channeladd_membersdefault);//更新fact中变量值
+                        update(discuss_channeladd_memberscurrent_partner);//更新fact中变量值
+                        update(discuss_channeladd_membersmember);//更新fact中变量值
+                        update(discuss_channeladd_membersres_partners);//更新fact中变量值
+            end
+
+            //逻辑处理节点[创建频道成员]
+            rule "create_member"
+            ruleflow-group "discuss_channeladd_memberscreate_member"
+            when
+            then
+                        discuss_channel_memberservice.save(discuss_channeladd_membersmember);
+                        update(discuss_channeladd_membersdefault);//更新fact中变量值
+                        update(discuss_channeladd_memberscurrent_partner);//更新fact中变量值
+                        update(discuss_channeladd_membersmember);//更新fact中变量值
+                        update(discuss_channeladd_membersres_partners);//更新fact中变量值
+            end
+
+            //逻辑处理节点[结束]
+            rule "end"
+            ruleflow-group "discuss_channeladd_membersend"
+            when
+            then
+                        update(discuss_channeladd_membersdefault);//更新fact中变量值
+                        update(discuss_channeladd_memberscurrent_partner);//更新fact中变量值
+                        update(discuss_channeladd_membersmember);//更新fact中变量值
+                        update(discuss_channeladd_membersres_partners);//更新fact中变量值
+            end
+
+            //逻辑处理节点[循环结束]
+            rule "loop_end"
+            ruleflow-group "discuss_channeladd_membersloop_end"
+            when
+            then
+                        update(discuss_channeladd_membersdefault);//更新fact中变量值
+                        update(discuss_channeladd_memberscurrent_partner);//更新fact中变量值
+                        update(discuss_channeladd_membersmember);//更新fact中变量值
+                        update(discuss_channeladd_membersres_partners);//更新fact中变量值
+            end

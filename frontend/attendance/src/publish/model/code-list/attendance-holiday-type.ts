@@ -1,0 +1,65 @@
+export default {
+  codeListTag: 'attendance__holidayType',
+  codeListType: 'STATIC',
+  codeName: 'attendance__holidayType',
+  emptyText: '未定义',
+  codeItems: [
+    {
+      codeName: 'annual_leave',
+      text: '年假',
+      value: 'annual_leave',
+      id: 'annual_leave',
+    },
+    {
+      codeName: 'compassionate_leave',
+      text: '事假',
+      value: 'compassionate_leave',
+      id: 'compassionate_leave',
+    },
+    {
+      codeName: 'vacation_leave',
+      text: '调休假',
+      value: 'vacation_leave',
+      id: 'vacation_leave',
+    },
+    {
+      codeName: 'sick_leave',
+      text: '病假',
+      value: 'sick_leave',
+      id: 'sick_leave',
+    },
+    {
+      codeName: 'parental_leave',
+      text: '育儿假',
+      value: 'parental_leave',
+      id: 'parental_leave',
+    },
+    {
+      codeName: 'paternity_leave',
+      text: '陪产假',
+      value: 'paternity_leave',
+      id: 'paternity_leave',
+    },
+    {
+      codeName: 'marriage_holiday',
+      text: '婚假',
+      value: 'marriage_holiday',
+      id: 'marriage_holiday',
+    },
+    {
+      codeName: 'funeral_leave',
+      text: '丧假',
+      value: 'funeral_leave',
+      id: 'funeral_leave',
+    },
+    {
+      codeName: 'maternity_leave',
+      text: '产假',
+      value: 'maternity_leave',
+      id: 'maternity_leave',
+    },
+  ],
+  enableCache: true,
+  name: '假期类型',
+  id: 'attendanceapp.attendance__holidaytype',
+};

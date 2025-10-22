@@ -1,0 +1,133 @@
+{
+  "codeName" : "compute_display_name",
+  "dEFLogicMode" : "COMPUTE",
+  "defaultParamName" : "Default",
+  "dynaModelFilePath" : "PSMODULES/base/PSDATAENTITIES/res_partner/PSDEFLOGICS/compute_display_name.json",
+  "logicName" : "计算显示名称",
+  "logicSubType" : "DEFIELD",
+  "name" : "计算显示名称",
+  "getPSDEField" : {
+    "name" : "DISPLAY_NAME",
+    "codeName" : "display_name"
+  },
+  "getPSDELogicNodes" : [ {
+    "codeName" : "Begin",
+    "leftPos" : 200,
+    "logicNodeType" : "BEGIN",
+    "name" : "开始",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "DELOGIC_01"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "Begin"
+      }
+    } ],
+    "topPos" : 210,
+    "parallelOutput" : true
+  }, {
+    "codeName" : "DELOGIC_01",
+    "getDstPSDELogic" : {
+      "modelref" : true,
+      "path" : "PSMODULES/base/PSDATAENTITIES/res_partner/PSDELOGICS/get_complete_name.json"
+    },
+    "getDstPSDELogicParam" : {
+      "modelref" : true,
+      "id" : "Default"
+    },
+    "getDstPSDataEntity" : {
+      "modelref" : true,
+      "path" : "PSMODULES/base/PSDATAENTITIES/res_partner.json"
+    },
+    "leftPos" : 360,
+    "logicNodeType" : "DELOGIC",
+    "name" : "获取全名",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "PREPAREPARAM_01"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "DELOGIC_01"
+      }
+    } ],
+    "topPos" : 208,
+    "parallelOutput" : true
+  }, {
+    "codeName" : "PREPAREPARAM_01",
+    "leftPos" : 360,
+    "logicNodeType" : "PREPAREPARAM",
+    "name" : "赋值显示名称",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "END_01"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "PREPAREPARAM_01"
+      }
+    } ],
+    "getPSDELogicNodeParams" : [ {
+      "dstFieldName" : "DISPLAY_NAME",
+      "getDstPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "Default"
+      },
+      "paramAction" : "SETPARAMVALUE",
+      "srcFieldName" : "NAME",
+      "getSrcPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "compute_partner"
+      },
+      "srcValueType" : "SRCDLPARAM"
+    } ],
+    "topPos" : 340,
+    "parallelOutput" : true
+  }, {
+    "codeName" : "END_01",
+    "dstFieldName" : "DISPLAY_NAME",
+    "leftPos" : 601,
+    "logicNodeType" : "END",
+    "name" : "结束",
+    "getReturnParam" : {
+      "modelref" : true,
+      "id" : "Default"
+    },
+    "returnType" : "LOGICPARAMFIELD",
+    "topPos" : 342,
+    "parallelOutput" : true
+  } ],
+  "getPSDELogicParams" : [ {
+    "codeName" : "Default",
+    "logicName" : "传入变量",
+    "name" : "传入变量",
+    "getParamPSDataEntity" : {
+      "modelref" : true,
+      "path" : "PSMODULES/base/PSDATAENTITIES/res_partner.json"
+    },
+    "default" : true,
+    "entityParam" : true
+  }, {
+    "codeName" : "compute_partner",
+    "logicName" : "计算后的联系人",
+    "name" : "计算后的联系人",
+    "getParamPSDataEntity" : {
+      "modelref" : true,
+      "path" : "PSMODULES/base/PSDATAENTITIES/res_partner.json"
+    },
+    "sessionParam" : true
+  } ],
+  "getStartPSDELogicNode" : {
+    "modelref" : true,
+    "id" : "Begin"
+  },
+  "enableBackend" : true,
+  "enableFront" : false
+}

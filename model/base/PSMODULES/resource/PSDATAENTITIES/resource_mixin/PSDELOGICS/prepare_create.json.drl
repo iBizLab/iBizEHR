@@ -1,0 +1,53 @@
+package cn.ibizlab.resource.logic.resource_mixinlogic.prepare_create;
+        import java.util.Map;
+        import java.util.HashMap;
+        import com.alibaba.fastjson.JSONObject;
+        import org.springframework.util.StringUtils;
+        import org.springframework.util.ObjectUtils;
+        import cn.ibizlab.util.errors.BadRequestAlertException;
+                global cn.ibizlab.core.resource.domain.resource_mixin resource_mixinprepare_createdefault;
+                global cn.ibizlab.core.resource.domain.resource_resource resource_mixinprepare_createresource;
+                    global cn.ibizlab.core.resource.service.Iresource_resourceService resource_resourceservice;
+        global cn.ibizlab.core.resource.service.Iresource_mixinService iBzSysResource_mixinDefaultService;
+        global cn.ibizlab.util.security.AuthenticationUser curuser;
+
+
+    no-loop
+
+            //逻辑处理节点[开始]
+            rule "begin"
+            ruleflow-group "resource_mixinprepare_createbegin"
+            when
+            then
+            end
+
+            //逻辑处理节点[准备资源数据对象]
+            rule "prepareparam_01"
+            ruleflow-group "resource_mixinprepare_createprepareparam_01"
+            when
+            then
+                            resource_mixinprepare_createresource.set("name",resource_mixinprepare_createdefault.get("name"));
+                        update(resource_mixinprepare_createdefault);//更新fact中变量值
+                        update(resource_mixinprepare_createresource);//更新fact中变量值
+            end
+
+            //逻辑处理节点[建立资源]
+            rule "deaction_01"
+            ruleflow-group "resource_mixinprepare_createdeaction_01"
+            when
+            then
+                        resource_resourceservice.create(resource_mixinprepare_createresource);
+                        update(resource_mixinprepare_createdefault);//更新fact中变量值
+                        update(resource_mixinprepare_createresource);//更新fact中变量值
+            end
+
+            //逻辑处理节点[回填数据对象]
+            rule "prepareparam_02"
+            ruleflow-group "resource_mixinprepare_createprepareparam_02"
+            when
+            then
+                            resource_mixinprepare_createdefault.set("resourceid",resource_mixinprepare_createresource.get("id"));
+                            resource_mixinprepare_createdefault.set("resourcecalendarid",resource_mixinprepare_createresource.get("calendarid"));
+                        update(resource_mixinprepare_createdefault);//更新fact中变量值
+                        update(resource_mixinprepare_createresource);//更新fact中变量值
+            end

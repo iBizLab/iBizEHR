@@ -1,0 +1,414 @@
+{
+  "cardWidth" : 250,
+  "codeName" : "manager_my_interview_data_view",
+  "controlType" : "DATAVIEW",
+  "getCreatePSControlAction" : {
+    "modelref" : true,
+    "id" : "create",
+    "actionName" : "Create",
+    "actionType" : "DEACTION",
+    "dataAccessAction" : "CREATE",
+    "name" : "create",
+    "getPSAppDEMethod" : {
+      "modelref" : true,
+      "id" : "create"
+    },
+    "getPSAppDataEntity" : {
+      "modelref" : true,
+      "path" : "PSSYSAPPS/web/PSAPPDATAENTITIES/hr_interview_feedback.json"
+    }
+  },
+  "dynaModelFilePath" : "PSSYSAPPS/web/PSAPPDATAENTITIES/hr_interview_feedback/PSDATAVIEWS/manager_my_interview_data_view.json",
+  "getFetchPSControlAction" : {
+    "modelref" : true,
+    "id" : "fetch",
+    "actionType" : "DEDATASET",
+    "name" : "fetch",
+    "getPSAppDEMethod" : {
+      "modelref" : true,
+      "id" : "fetch_interview_myself"
+    },
+    "getPSAppDataEntity" : {
+      "modelref" : true,
+      "path" : "PSSYSAPPS/web/PSAPPDATAENTITIES/hr_interview_feedback.json"
+    }
+  },
+  "getGetPSControlAction" : {
+    "modelref" : true,
+    "id" : "load",
+    "actionName" : "Get",
+    "actionType" : "DEACTION",
+    "dataAccessAction" : "READ",
+    "name" : "load",
+    "getPSAppDEMethod" : {
+      "modelref" : true,
+      "id" : "get"
+    },
+    "getPSAppDataEntity" : {
+      "modelref" : true,
+      "path" : "PSSYSAPPS/web/PSAPPDATAENTITIES/hr_interview_feedback.json"
+    }
+  },
+  "groupMode" : "NONE",
+  "getItemPSLayoutPanel" : {
+    "getAllPSPanelFields" : [ {
+      "id" : "candidate_display_name"
+    }, {
+      "id" : "stage_id",
+      "viewFieldName" : "stage_id"
+    }, {
+      "id" : "job_name"
+    }, {
+      "id" : "interview_type",
+      "viewFieldName" : "interview_type"
+    } ],
+    "codeName" : "usr0901336320",
+    "controlType" : "PANEL",
+    "dynaModelFilePath" : "PSSYSAPPS/web/PSAPPDATAENTITIES/hr_interview_feedback/PSPANELS/usr0901336320.json",
+    "layoutMode" : "TABLE_24COL",
+    "logicName" : "我的面试_卡片视图_卡片面板",
+    "getPSAppDataEntity" : {
+      "modelref" : true,
+      "path" : "PSSYSAPPS/web/PSAPPDATAENTITIES/hr_interview_feedback.json"
+    },
+    "getPSControlParam" : { },
+    "getPSLayout" : {
+      "childColMD" : 24,
+      "columnCount" : 24,
+      "layout" : "TABLE_24COL"
+    },
+    "getRootPSPanelItems" : [ {
+      "itemStyle" : "DEFAULT",
+      "itemType" : "CONTAINER",
+      "name" : "page_container",
+      "getPSLayout" : {
+        "dir" : "column",
+        "layout" : "FLEX"
+      },
+      "getPSLayoutPos" : {
+        "colMD" : 24,
+        "layout" : "TABLE_24COL"
+      },
+      "getPSPanelItems" : [ {
+        "caption" : "容器",
+        "itemStyle" : "DEFAULT",
+        "itemType" : "CONTAINER",
+        "name" : "container",
+        "getPSLayout" : {
+          "dir" : "row",
+          "layout" : "FLEX"
+        },
+        "getPSLayoutPos" : {
+          "grow" : -1,
+          "layout" : "FLEX"
+        },
+        "getPSPanelItems" : [ {
+          "caption" : "文本(动态)",
+          "itemStyle" : "DEFAULT",
+          "itemType" : "FIELD",
+          "name" : "candidate_display_name",
+          "getPSEditor" : {
+            "editorType" : "SPAN",
+            "name" : "candidate_display_name",
+            "predefinedType" : "FIELD_TEXT_DYNAMIC",
+            "renderMode" : "TEXT_DYNAMIC",
+            "enableLinkView" : false
+          },
+          "getPSLayoutPos" : {
+            "grow" : -1,
+            "layout" : "FLEX",
+            "spacingRight" : "OUTERSMALL"
+          }
+        }, {
+          "caption" : "文本(动态)",
+          "itemStyle" : "DEFAULT",
+          "itemType" : "FIELD",
+          "name" : "stage_id",
+          "getPSEditor" : {
+            "editorType" : "SPAN",
+            "name" : "stage_id",
+            "getPSAppCodeList" : {
+              "modelref" : true,
+              "path" : "PSSYSAPPS/web/PSAPPCODELISTS/hr__interview_stage.json"
+            },
+            "predefinedType" : "FIELD_TEXT_DYNAMIC",
+            "renderMode" : "TEXT_DYNAMIC",
+            "enableLinkView" : false
+          },
+          "getPSLayoutPos" : {
+            "grow" : -1,
+            "layout" : "FLEX"
+          },
+          "viewFieldName" : "stage_id",
+          "convertToCodeItemText" : true
+        } ]
+      }, {
+        "caption" : "容器",
+        "itemStyle" : "DEFAULT",
+        "itemType" : "CONTAINER",
+        "name" : "container1",
+        "getPSLayout" : {
+          "dir" : "row",
+          "layout" : "FLEX"
+        },
+        "getPSLayoutPos" : {
+          "grow" : -1,
+          "layout" : "FLEX",
+          "spacingBottom" : "OUTERMEDIUM"
+        },
+        "getPSPanelItems" : [ {
+          "caption" : "文本(动态)",
+          "itemStyle" : "DEFAULT",
+          "itemType" : "FIELD",
+          "name" : "job_name",
+          "getPSEditor" : {
+            "editorType" : "SPAN",
+            "name" : "job_name",
+            "predefinedType" : "FIELD_TEXT_DYNAMIC",
+            "renderMode" : "TEXT_DYNAMIC",
+            "enableLinkView" : false
+          },
+          "getPSLayoutPos" : {
+            "grow" : -1,
+            "layout" : "FLEX"
+          }
+        } ]
+      }, {
+        "caption" : "容器",
+        "itemStyle" : "DEFAULT",
+        "itemType" : "CONTAINER",
+        "name" : "container2",
+        "getPSLayout" : {
+          "align" : "space-between",
+          "dir" : "row",
+          "layout" : "FLEX",
+          "vAlign" : "center"
+        },
+        "getPSLayoutPos" : {
+          "grow" : -1,
+          "layout" : "FLEX"
+        },
+        "getPSPanelItems" : [ {
+          "caption" : "容器",
+          "itemStyle" : "DEFAULT",
+          "itemType" : "CONTAINER",
+          "name" : "container4",
+          "getPSLayout" : {
+            "dir" : "row",
+            "layout" : "FLEX"
+          },
+          "getPSLayoutPos" : {
+            "grow" : -1,
+            "layout" : "FLEX",
+            "spacingRight" : "OUTERMEDIUM"
+          },
+          "getPSPanelItems" : [ {
+            "caption" : "图片",
+            "contentHeight" : 14.0,
+            "contentType" : "IMAGE",
+            "height" : 14.0,
+            "itemStyle" : "DEFAULT",
+            "itemType" : "RAWITEM",
+            "name" : "static_image",
+            "getPSLayoutPos" : {
+              "grow" : -1,
+              "height" : 14,
+              "heightMode" : "PX",
+              "layout" : "FLEX",
+              "spacingRight" : "OUTERSMALL"
+            },
+            "getPSRawItem" : {
+              "contentType" : "IMAGE",
+              "name" : "static_image",
+              "getPSSysImage" : {
+                "glyph" : "xf03d@FontAwesome",
+                "cssClass" : "fa fa-video-camera"
+              },
+              "predefinedType" : "STATIC_IMAGE",
+              "rawItemHeight" : 14.0
+            },
+            "getPSSysImage" : {
+              "glyph" : "xf03d@FontAwesome",
+              "cssClass" : "fa fa-video-camera"
+            },
+            "rawItemHeight" : 14.0,
+            "showCaption" : true
+          }, {
+            "caption" : "文本(动态)",
+            "itemStyle" : "DEFAULT",
+            "itemType" : "FIELD",
+            "name" : "interview_type",
+            "getPSEditor" : {
+              "editorType" : "SPAN",
+              "name" : "interview_type",
+              "getPSAppCodeList" : {
+                "modelref" : true,
+                "path" : "PSSYSAPPS/web/PSAPPCODELISTS/hr__interview_type.json"
+              },
+              "renderMode" : "TEXT_DYNAMIC",
+              "enableLinkView" : false
+            },
+            "getPSLayoutPos" : {
+              "grow" : -1,
+              "layout" : "FLEX"
+            },
+            "viewFieldName" : "interview_type",
+            "convertToCodeItemText" : true
+          } ]
+        }, {
+          "caption" : "容器",
+          "itemStyle" : "DEFAULT",
+          "itemType" : "CONTAINER",
+          "name" : "container3",
+          "getPSLayout" : {
+            "layout" : "FLEX"
+          },
+          "getPSLayoutPos" : {
+            "grow" : -1,
+            "layout" : "FLEX"
+          },
+          "getPSPanelItems" : [ {
+            "actionType" : "UIACTION",
+            "buttonStyle" : "DEFAULT",
+            "caption" : "查看面试",
+            "itemStyle" : "DEFAULT",
+            "itemType" : "BUTTON",
+            "name" : "button_link",
+            "getPSAppViewUIAction" : {
+              "modelref" : true,
+              "id" : "itemlayoutpanel_button_link"
+            },
+            "getPSLayoutPos" : {
+              "grow" : -1,
+              "layout" : "FLEX"
+            },
+            "getPSSysCss" : {
+              "cssName" : "into_interview"
+            },
+            "getPSUIAction" : {
+              "actionTarget" : "SINGLEKEY",
+              "caption" : "面试详情",
+              "codeName" : "open_edit",
+              "getFrontPSAppView" : {
+                "modelref" : true,
+                "path" : "PSSYSAPPS/web/PSAPPDEVIEWS/hr_interview_feedback_my_interview_detail.json",
+                "viewType" : "DEEDITVIEW"
+              },
+              "frontProcessType" : "WIZARD",
+              "fullCodeName" : "hr_interview_feedback_open_edit",
+              "name" : "查看面试详情",
+              "getPSAppDataEntity" : {
+                "modelref" : true,
+                "path" : "PSSYSAPPS/web/PSAPPDATAENTITIES/hr_interview_feedback.json"
+              },
+              "uIActionMode" : "FRONT",
+              "uIActionTag" : "open_edit",
+              "uIActionType" : "DEUIACTION",
+              "id" : "open_edit@hr_interview_feedback"
+            },
+            "renderMode" : "LINK",
+            "tooltip" : "查看面试",
+            "uIActionTarget" : "SINGLEKEY",
+            "showCaption" : true
+          } ]
+        } ]
+      } ]
+    } ],
+    "name" : "itemlayoutpanel",
+    "modelid" : "a7c74c70b975aa7b3a84024737cfe814",
+    "modeltype" : "PSSYSVIEWPANEL"
+  },
+  "logicName" : "我的面试_卡片视图",
+  "getPSAppDataEntity" : {
+    "modelref" : true,
+    "path" : "PSSYSAPPS/web/PSAPPDATAENTITIES/hr_interview_feedback.json"
+  },
+  "getPSDEDataViewDataItems" : [ {
+    "dataType" : 25,
+    "name" : "srfkey",
+    "getPSAppDEField" : {
+      "name" : "ID",
+      "codeName" : "id"
+    }
+  }, {
+    "dataType" : 25,
+    "name" : "srfmajortext",
+    "getPSAppDEField" : {
+      "name" : "NAME",
+      "codeName" : "name"
+    }
+  }, {
+    "dataType" : 25,
+    "name" : "interview_id",
+    "getPSAppDEField" : {
+      "name" : "INTERVIEW_ID",
+      "codeName" : "interview_id"
+    }
+  }, {
+    "dataType" : 25,
+    "name" : "interviewer_id",
+    "getPSAppDEField" : {
+      "name" : "INTERVIEWER_ID",
+      "codeName" : "interviewer_id"
+    }
+  }, {
+    "dataType" : 25,
+    "name" : "interview_user_id",
+    "getPSAppDEField" : {
+      "name" : "INTERVIEW_USER_ID",
+      "codeName" : "interview_user_id"
+    }
+  }, {
+    "dataType" : 25,
+    "name" : "applicant_id",
+    "getPSAppDEField" : {
+      "name" : "APPLICANT_ID",
+      "codeName" : "applicant_id"
+    }
+  } ],
+  "pagingSize" : 1000,
+  "getRemovePSControlAction" : {
+    "modelref" : true,
+    "id" : "remove",
+    "actionName" : "Remove",
+    "actionType" : "DEACTION",
+    "dataAccessAction" : "DELETE",
+    "name" : "remove",
+    "getPSAppDEMethod" : {
+      "modelref" : true,
+      "id" : "remove"
+    },
+    "getPSAppDataEntity" : {
+      "modelref" : true,
+      "path" : "PSSYSAPPS/web/PSAPPDATAENTITIES/hr_interview_feedback.json"
+    }
+  },
+  "getUpdatePSControlAction" : {
+    "modelref" : true,
+    "id" : "update",
+    "actionName" : "Update",
+    "actionType" : "DEACTION",
+    "dataAccessAction" : "UPDATE",
+    "name" : "update",
+    "getPSAppDEMethod" : {
+      "modelref" : true,
+      "id" : "update"
+    },
+    "getPSAppDataEntity" : {
+      "modelref" : true,
+      "path" : "PSSYSAPPS/web/PSAPPDATAENTITIES/hr_interview_feedback.json"
+    }
+  },
+  "hasWFDataItems" : false,
+  "appendDEItems" : true,
+  "enableCardEdit" : false,
+  "enableCardEditGroup" : false,
+  "enableCardEditOrder" : false,
+  "enableCardNew" : false,
+  "enableGroup" : false,
+  "enablePagingBar" : false,
+  "noSort" : false,
+  "singleSelect" : false,
+  "modelid" : "464b4dc97083d1f2c43b9075b4b5e6dd",
+  "modeltype" : "PSDEDATAVIEW"
+}

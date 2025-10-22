@@ -1,0 +1,20 @@
+```sql
+SELECT
+t1.`AVATAR`,
+t1.`DEPARTMENT_ID`,
+t1.`DISPLAY_NAME`,
+t1.`EMAIL`,
+t1.`EMPLOYEE_NUMBER`,
+t1.`ID`,
+t1.`LOGIN`,
+t1.`MOBILE`,
+t1.`NAME`,
+t1.`ORGANIZATION_ID`,
+t1.`PASSWORD`,
+t1.`STATUS`,
+t1.`TITLE`,
+t1.`USER_ID`
+FROM `` t1 
+
+
+```

@@ -1,0 +1,380 @@
+{
+  "aggMode" : "NONE",
+  "codeName" : "Main",
+  "columnEnableFilter" : 2,
+  "columnEnableLink" : 2,
+  "controlType" : "GRID",
+  "dynaModelFilePath" : "PSSYSAPPS/ehrapp/PSAPPDATAENTITIES/mail_activity_plan_template/PSGRIDS/Main.json",
+  "getFetchPSControlAction" : {
+    "modelref" : true,
+    "id" : "fetch",
+    "actionType" : "DEDATASET",
+    "name" : "fetch",
+    "getPSAppDEMethod" : {
+      "modelref" : true,
+      "id" : "fetch_default"
+    },
+    "getPSAppDataEntity" : {
+      "modelref" : true,
+      "path" : "PSSYSAPPS/ehrapp/PSAPPDATAENTITIES/mail_activity_plan_template.json"
+    }
+  },
+  "groupMode" : "NONE",
+  "logicName" : "主表格",
+  "getMovePSControlAction" : {
+    "actionName" : "MoveOrder",
+    "actionType" : "DEACTION",
+    "name" : "move",
+    "getPSAppDEMethod" : {
+      "modelref" : true,
+      "id" : "move_order"
+    },
+    "getPSAppDataEntity" : {
+      "modelref" : true,
+      "path" : "PSSYSAPPS/ehrapp/PSAPPDATAENTITIES/mail_activity_plan_template.json"
+    }
+  },
+  "getOrderValuePSAppDEField" : {
+    "name" : "SEQUENCE",
+    "codeName" : "sequence"
+  },
+  "getPSAppDataEntity" : {
+    "modelref" : true,
+    "path" : "PSSYSAPPS/ehrapp/PSAPPDATAENTITIES/mail_activity_plan_template.json"
+  },
+  "getPSDEGridColumns" : [ {
+    "align" : "LEFT",
+    "cLConvertMode" : "NONE",
+    "getCapPSLanguageRes" : {
+      "lanResTag" : "DEF.LNAME.MAIL_ACTIVITY_PLAN_TEMPLATE.ACTIVITY_TYPE_ID"
+    },
+    "caption" : "活动类型",
+    "codeName" : "activity_type_name",
+    "columnType" : "DEFGRIDCOLUMN",
+    "dataItemName" : "activity_type_name",
+    "excelCaption" : "活动类型",
+    "name" : "activity_type_name",
+    "noPrivDisplayMode" : 1,
+    "getPSAppDEField" : {
+      "name" : "ACTIVITY_TYPE_NAME",
+      "codeName" : "activity_type_name"
+    },
+    "width" : 200,
+    "widthUnit" : "PX",
+    "enableSort" : false
+  }, {
+    "align" : "LEFT",
+    "cLConvertMode" : "NONE",
+    "getCapPSLanguageRes" : {
+      "lanResTag" : "DEF.LNAME.MAIL_ACTIVITY_PLAN_TEMPLATE.SUMMARY"
+    },
+    "caption" : "摘要",
+    "codeName" : "summary",
+    "columnType" : "DEFGRIDCOLUMN",
+    "dataItemName" : "summary",
+    "excelCaption" : "摘要",
+    "name" : "summary",
+    "noPrivDisplayMode" : 1,
+    "getPSAppDEField" : {
+      "name" : "SUMMARY",
+      "codeName" : "summary"
+    },
+    "width" : 200,
+    "widthUnit" : "PX",
+    "enableSort" : false
+  }, {
+    "align" : "LEFT",
+    "cLConvertMode" : "FRONT",
+    "getCapPSLanguageRes" : {
+      "lanResTag" : "DEF.LNAME.MAIL_ACTIVITY_PLAN_TEMPLATE.RESPONSIBLE_TYPE"
+    },
+    "caption" : "指派",
+    "codeName" : "responsible_type",
+    "columnType" : "DEFGRIDCOLUMN",
+    "dataItemName" : "responsible_type",
+    "excelCaption" : "指派",
+    "name" : "responsible_type",
+    "noPrivDisplayMode" : 1,
+    "getPSAppCodeList" : {
+      "modelref" : true,
+      "path" : "PSSYSAPPS/ehrapp/PSAPPCODELISTS/mail__mail_activity_plan_template_responsible_type.json"
+    },
+    "getPSAppDEField" : {
+      "name" : "RESPONSIBLE_TYPE",
+      "codeName" : "responsible_type"
+    },
+    "width" : 200,
+    "widthUnit" : "PX",
+    "enableSort" : false
+  }, {
+    "align" : "LEFT",
+    "cLConvertMode" : "NONE",
+    "getCapPSLanguageRes" : {
+      "lanResTag" : "DEF.LNAME.MAIL_ACTIVITY_PLAN_TEMPLATE.RESPONSIBLE_ID"
+    },
+    "caption" : "分派给",
+    "codeName" : "responsible_name",
+    "columnType" : "DEFGRIDCOLUMN",
+    "dataItemName" : "responsible_name",
+    "excelCaption" : "分派给",
+    "name" : "responsible_name",
+    "noPrivDisplayMode" : 1,
+    "getPSAppDEField" : {
+      "name" : "RESPONSIBLE_NAME",
+      "codeName" : "responsible_name"
+    },
+    "width" : 100,
+    "widthUnit" : "PX",
+    "enableSort" : false
+  }, {
+    "align" : "RIGHT",
+    "cLConvertMode" : "NONE",
+    "getCapPSLanguageRes" : {
+      "lanResTag" : "DEF.LNAME.MAIL_ACTIVITY_PLAN_TEMPLATE.DELAY_COUNT"
+    },
+    "caption" : "间隔",
+    "codeName" : "delay_count",
+    "columnType" : "DEFGRIDCOLUMN",
+    "dataItemName" : "delay_count",
+    "excelCaption" : "间隔",
+    "name" : "delay_count",
+    "noPrivDisplayMode" : 1,
+    "getPSAppDEField" : {
+      "name" : "DELAY_COUNT",
+      "codeName" : "delay_count"
+    },
+    "width" : 100,
+    "widthUnit" : "PX",
+    "enableSort" : false
+  }, {
+    "align" : "LEFT",
+    "cLConvertMode" : "FRONT",
+    "getCapPSLanguageRes" : {
+      "lanResTag" : "DEF.LNAME.MAIL_ACTIVITY_PLAN_TEMPLATE.DELAY_UNIT"
+    },
+    "caption" : "单元",
+    "codeName" : "delay_unit",
+    "columnType" : "DEFGRIDCOLUMN",
+    "dataItemName" : "delay_unit",
+    "excelCaption" : "单元",
+    "name" : "delay_unit",
+    "noPrivDisplayMode" : 1,
+    "getPSAppCodeList" : {
+      "modelref" : true,
+      "path" : "PSSYSAPPS/ehrapp/PSAPPCODELISTS/mail__mail_activity_plan_template_delay_unit.json"
+    },
+    "getPSAppDEField" : {
+      "name" : "DELAY_UNIT",
+      "codeName" : "delay_unit"
+    },
+    "width" : 100,
+    "widthUnit" : "PX",
+    "enableSort" : false
+  }, {
+    "align" : "LEFT",
+    "cLConvertMode" : "FRONT",
+    "getCapPSLanguageRes" : {
+      "lanResTag" : "DEF.LNAME.MAIL_ACTIVITY_PLAN_TEMPLATE.DELAY_FROM"
+    },
+    "caption" : "触发方式",
+    "codeName" : "delay_from",
+    "columnType" : "DEFGRIDCOLUMN",
+    "dataItemName" : "delay_from",
+    "excelCaption" : "触发方式",
+    "name" : "delay_from",
+    "noPrivDisplayMode" : 1,
+    "getPSAppCodeList" : {
+      "modelref" : true,
+      "path" : "PSSYSAPPS/ehrapp/PSAPPCODELISTS/mail__mail_activity_plan_template_delay_from.json"
+    },
+    "getPSAppDEField" : {
+      "name" : "DELAY_FROM",
+      "codeName" : "delay_from"
+    },
+    "width" : 100,
+    "widthUnit" : "PX",
+    "enableSort" : false
+  }, {
+    "align" : "RIGHT",
+    "codeName" : "uagridcolumn1",
+    "columnType" : "UAGRIDCOLUMN",
+    "name" : "uagridcolumn1",
+    "noPrivDisplayMode" : 1,
+    "getPSDEUIActionGroup" : {
+      "codeName" : "Auto83146635",
+      "name" : "通用表格界面删除界面行为组",
+      "getPSUIActionGroupDetails" : [ {
+        "actionLevel" : 200,
+        "detailType" : "DEUIACTION",
+        "name" : "u75c8830",
+        "getPSSysImage" : {
+          "glyph" : "xf014@FontAwesome",
+          "cssClass" : "fa fa-trash-o"
+        },
+        "getPSUIAction" : {
+          "actionTarget" : "MULTIKEY",
+          "getCapPSLanguageRes" : {
+            "lanResTag" : "TBB.TEXT.*.REMOVE"
+          },
+          "caption" : "删除",
+          "codeName" : "Remove",
+          "fullCodeName" : "Remove",
+          "name" : "表格界面_删除操作",
+          "getPSSysImage" : {
+            "glyph" : "xf00d@FontAwesome",
+            "cssClass" : "fa fa-remove"
+          },
+          "predefinedType" : "GRIDVIEW_REMOVEACTION",
+          "timeout" : 60000,
+          "getTooltipPSLanguageRes" : {
+            "lanResTag" : "TBB.TOOLTIP.*.REMOVE"
+          },
+          "uIActionMode" : "SYS",
+          "uIActionTag" : "Remove",
+          "uIActionType" : "DEUIACTION"
+        },
+        "getTooltipPSLanguageRes" : {
+          "lanResTag" : "TBB.TOOLTIP.*.REMOVE"
+        },
+        "addSeparator" : false,
+        "showCaption" : false,
+        "showIcon" : true
+      } ]
+    },
+    "width" : 100,
+    "widthUnit" : "PX",
+    "enableSort" : false
+  } ],
+  "getPSDEGridDataItems" : [ {
+    "dataType" : 25,
+    "name" : "activity_type_name",
+    "getPSAppDEField" : {
+      "name" : "ACTIVITY_TYPE_NAME",
+      "codeName" : "activity_type_name"
+    }
+  }, {
+    "dataType" : 25,
+    "name" : "summary",
+    "getPSAppDEField" : {
+      "name" : "SUMMARY",
+      "codeName" : "summary"
+    }
+  }, {
+    "dataType" : 25,
+    "name" : "responsible_type",
+    "getPSAppDEField" : {
+      "name" : "RESPONSIBLE_TYPE",
+      "codeName" : "responsible_type"
+    }
+  }, {
+    "dataType" : 25,
+    "name" : "responsible_name",
+    "getPSAppDEField" : {
+      "name" : "RESPONSIBLE_NAME",
+      "codeName" : "responsible_name"
+    }
+  }, {
+    "dataType" : 9,
+    "name" : "delay_count",
+    "getPSAppDEField" : {
+      "name" : "DELAY_COUNT",
+      "codeName" : "delay_count"
+    }
+  }, {
+    "dataType" : 25,
+    "name" : "delay_unit",
+    "getPSAppDEField" : {
+      "name" : "DELAY_UNIT",
+      "codeName" : "delay_unit"
+    }
+  }, {
+    "dataType" : 25,
+    "name" : "delay_from",
+    "getPSAppDEField" : {
+      "name" : "DELAY_FROM",
+      "codeName" : "delay_from"
+    }
+  }, {
+    "dataType" : 25,
+    "name" : "srfkey",
+    "getPSAppDEField" : {
+      "name" : "ID",
+      "codeName" : "id"
+    }
+  }, {
+    "dataType" : 25,
+    "name" : "srfdataaccaction",
+    "getPSAppDEField" : {
+      "name" : "ID",
+      "codeName" : "id"
+    },
+    "dataAccessAction" : true
+  }, {
+    "dataType" : 25,
+    "name" : "plan_id",
+    "getPSAppDEField" : {
+      "name" : "PLAN_ID",
+      "codeName" : "plan_id"
+    }
+  }, {
+    "dataType" : 25,
+    "name" : "activity_type_id",
+    "getPSAppDEField" : {
+      "name" : "ACTIVITY_TYPE_ID",
+      "codeName" : "activity_type_id"
+    }
+  }, {
+    "dataType" : 25,
+    "name" : "responsible_id",
+    "getPSAppDEField" : {
+      "name" : "RESPONSIBLE_ID",
+      "codeName" : "responsible_id"
+    }
+  } ],
+  "getPSDEGridEditItems" : [ {
+    "caption" : "标识",
+    "codeName" : "srfkey",
+    "enableCond" : 3,
+    "ignoreInput" : 0,
+    "name" : "srfkey",
+    "getPSAppDEField" : {
+      "name" : "ID",
+      "codeName" : "id"
+    },
+    "getPSEditor" : {
+      "editorType" : "HIDDEN",
+      "name" : "srfkey"
+    },
+    "allowEmpty" : true
+  } ],
+  "pagingSize" : 20,
+  "getRemovePSControlAction" : {
+    "actionName" : "Remove",
+    "actionType" : "DEACTION",
+    "dataAccessAction" : "DELETE",
+    "name" : "remove",
+    "getPSAppDEMethod" : {
+      "modelref" : true,
+      "id" : "remove"
+    },
+    "getPSAppDataEntity" : {
+      "modelref" : true,
+      "path" : "PSSYSAPPS/ehrapp/PSAPPDATAENTITIES/mail_activity_plan_template.json"
+    }
+  },
+  "sortMode" : "REMOTE",
+  "hasWFDataItems" : false,
+  "enableColFilter" : false,
+  "enableCustomized" : false,
+  "enableGroup" : false,
+  "enablePagingBar" : false,
+  "enableRowEdit" : false,
+  "enableRowEditOrder" : true,
+  "enableRowNew" : false,
+  "forceFit" : false,
+  "hideHeader" : false,
+  "noSort" : true,
+  "singleSelect" : true,
+  "modelid" : "70075b35ef4ff3326a49851fc5edf8dc",
+  "modeltype" : "PSDEGRID"
+}

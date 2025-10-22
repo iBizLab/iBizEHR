@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+    <definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:g="http://www.jboss.org/drools/flow/gpd" xmlns:tns="http://www.jboss.org/drools" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" expressionLanguage="http://www.mvel.org/2.0" id="Definition" name="" targetNamespace="http://www.jboss.org/drools" typeLanguage="http://www.java.com/javaTypes">
+        <process id="cn.ibizlab.core.hr.service.logic.hr_attendancechangeovertime" isClosed="false" isExecutable="true" name="hr_hr_attendance_changeovertime_ruleFlow" processType="Private" tns:packageName="cn.ibizlab.core.hr.service.logic.hr_attendancechangeovertime">
+            <extensionElements>
+                <tns:import name="java.util.Map" />
+                <tns:import name="org.springframework.util.StringUtils"/>
+                <tns:import name="cn.ibizlab.util.helper.RuleUtils"/>
+                                <tns:metaData express="" name="hr_attendancechangeovertimedefault" type="entity"/>
+                                <tns:metaData express="new cn.ibizlab.core.hr.domain.hr_attendance_overtime()" name="hr_attendancechangeovertimeover_time" type="refentity"/>
+                                <tns:metaData express="new HashMap()" name="hr_attendancechangeovertimesum_over" type="refentity"/>
+                                    <tns:metaData express="T(cn.ibizlab.util.security.SpringContextHolder).getBean(T(cn.ibizlab.core.hr.service.Ihr_attendance_overtimeService))" name="hr_attendance_overtimeservice" type="service"/>
+                    <tns:metaData express="T(cn.ibizlab.util.security.SpringContextHolder).getBean(T(cn.ibizlab.core.hr.service.Ihr_attendanceService))" name="iBzSysHr_attendanceDefaultService" type="service"/>
+                    <tns:metaData express="T(cn.ibizlab.util.security.AuthenticationUser).getAuthenticationUser()" name="curuser" type="session"/>
+                            <tns:global identifier="hr_attendancechangeovertimedefault" type="cn.ibizlab.core.hr.domain.hr_attendance" />
+                            <tns:global identifier="hr_attendancechangeovertimeover_time" type="cn.ibizlab.core.hr.domain.hr_attendance_overtime" />
+            </extensionElements>
+                        <startEvent id="begin" isInterrupting="true"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="hr_attendancechangeovertimerawsfcode_01" id="rawsfcode_01" implementation="http://www.jboss.org/drools/rule" name="执行脚本代码"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="hr_attendancechangeovertimerawsqlcall_01" id="rawsqlcall_01" implementation="http://www.jboss.org/drools/rule" name="获取加班记录"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="hr_attendancechangeovertimeprepareparam_01" id="prepareparam_01" implementation="http://www.jboss.org/drools/rule" name="准备参数"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="hr_attendancechangeovertimerawsqlcall_02" id="rawsqlcall_02" implementation="http://www.jboss.org/drools/rule" name="累加当天其他加班时长"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="hr_attendancechangeovertimeprepareparam_02" id="prepareparam_02" implementation="http://www.jboss.org/drools/rule" name="准备参数"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="hr_attendancechangeovertimedeaction_01" id="deaction_01" implementation="http://www.jboss.org/drools/rule" name="实体行为"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="hr_attendancechangeovertimedebugparam_01" id="debugparam_01" implementation="http://www.jboss.org/drools/rule" name="调试逻辑参数"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="hr_attendancechangeovertimedeaction_02" id="deaction_02" implementation="http://www.jboss.org/drools/rule" name="实体行为"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="hr_attendancechangeovertimeend_01" id="end_01" implementation="http://www.jboss.org/drools/rule" name="结束"/>
+                        <endEvent id="end_01_end" name="end"/>
+                        <sequenceFlow id="end_01_end_line" sourceRef="end_01" targetRef="end_01_end"/>
+                    <sequenceFlow id="gateway-begin_rawsfcode_01" sourceRef="gateway-begin" targetRef="rawsfcode_01">
+                            <conditionExpression  language="http://www.jboss.org/drools/rule" ><![CDATA[
+                                            $hr_attendancechangeovertimedefault:hr_attendance();
+                                            $hr_attendancechangeovertimeover_time:hr_attendance_overtime();
+                                            $hr_attendancechangeovertimesum_over:Map();
+                                    eval($hr_attendancechangeovertimedefault==hr_attendancechangeovertimedefault && $hr_attendancechangeovertimeover_time==hr_attendancechangeovertimeover_time && );
+                                eval((RuleUtils.test($hr_attendancechangeovertimedefault.get("checkIn"),"ISNOTNULL",""))&&(RuleUtils.test($hr_attendancechangeovertimedefault.get("checkOut"),"ISNOTNULL","")))
+                                ]]>
+                            </conditionExpression>
+                    </sequenceFlow>
+                    <sequenceFlow id="rawsfcode_01_rawsqlcall_01" sourceRef="rawsfcode_01" targetRef="rawsqlcall_01">
+                    </sequenceFlow>
+                    <sequenceFlow id="gateway-rawsqlcall_01_prepareparam_01" sourceRef="gateway-rawsqlcall_01" targetRef="prepareparam_01">
+                            <conditionExpression  language="http://www.jboss.org/drools/rule" ><![CDATA[
+                                            $hr_attendancechangeovertimedefault:hr_attendance();
+                                            $hr_attendancechangeovertimeover_time:hr_attendance_overtime();
+                                            $hr_attendancechangeovertimesum_over:Map();
+                                    eval($hr_attendancechangeovertimedefault==hr_attendancechangeovertimedefault && $hr_attendancechangeovertimeover_time==hr_attendancechangeovertimeover_time && );
+                                eval((RuleUtils.test($hr_attendancechangeovertimeover_time.get("id"),"ISNULL","")))
+                                ]]>
+                            </conditionExpression>
+                    </sequenceFlow>
+                    <sequenceFlow id="rawsqlcall_01_rawsqlcall_02" sourceRef="rawsqlcall_01" targetRef="rawsqlcall_02">
+                    </sequenceFlow>
+                    <sequenceFlow id="prepareparam_01_deaction_01" sourceRef="prepareparam_01" targetRef="deaction_01">
+                    </sequenceFlow>
+                    <sequenceFlow id="rawsqlcall_02_prepareparam_02" sourceRef="rawsqlcall_02" targetRef="prepareparam_02">
+                    </sequenceFlow>
+                    <sequenceFlow id="prepareparam_02_debugparam_01" sourceRef="prepareparam_02" targetRef="debugparam_01">
+                    </sequenceFlow>
+                    <sequenceFlow id="deaction_01_end_01" sourceRef="deaction_01" targetRef="end_01">
+                    </sequenceFlow>
+                    <sequenceFlow id="debugparam_01_deaction_02" sourceRef="debugparam_01" targetRef="deaction_02">
+                    </sequenceFlow>
+                    <sequenceFlow id="deaction_02_end_01" sourceRef="deaction_02" targetRef="end_01">
+                    </sequenceFlow>
+                            <exclusiveGateway id="gateway-begin" name="Gateway" gatewayDirection="Diverging" default="gateway-begin_end_line"></exclusiveGateway>
+                            <sequenceFlow id="begin_gateway-begin_gatewayline" sourceRef="begin" targetRef="gateway-begin"></sequenceFlow>
+                            <sequenceFlow id="gateway-begin_end_line" sourceRef="gateway-begin" targetRef="gateway-begin_end"/>
+                            <endEvent id="gateway-begin_end" name="end"/>
+                            <exclusiveGateway id="gateway-rawsqlcall_01" name="Gateway" gatewayDirection="Diverging" default="gateway-rawsqlcall_01_end_line"></exclusiveGateway>
+                            <sequenceFlow id="rawsqlcall_01_gateway-rawsqlcall_01_gatewayline" sourceRef="rawsqlcall_01" targetRef="gateway-rawsqlcall_01"></sequenceFlow>
+                            <sequenceFlow id="gateway-rawsqlcall_01_end_line" sourceRef="gateway-rawsqlcall_01" targetRef="gateway-rawsqlcall_01_end"/>
+                            <endEvent id="gateway-rawsqlcall_01_end" name="end"/>
+        </process>
+    </definitions>

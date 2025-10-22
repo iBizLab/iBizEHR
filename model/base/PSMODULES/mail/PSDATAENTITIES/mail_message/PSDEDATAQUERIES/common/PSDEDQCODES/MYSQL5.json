@@ -1,0 +1,99 @@
+{
+  "dBType" : "MYSQL5",
+  "name" : "MySQL5",
+  "getPSDEDataQueryCodeConds" : [ {
+    "condType" : "CUSTOM",
+    "customCond" : "( ( t1.`MESSAGE_TYPE` = 'auto_comment'  OR  t1.`MESSAGE_TYPE` = 'email'  OR  t1.`MESSAGE_TYPE` = 'comment'  OR  t1.`MESSAGE_TYPE` = 'notification' )  AND  t1.`MODEL` = #{ctx.datacontext.srfmodelname}  AND  t1.`RES_ID` = #{ctx.datacontext.mail_thread} )",
+    "name" : "查询条件"
+  } ],
+  "getPSDEDataQueryCodeExps" : [ {
+    "expression" : "t1.`AUTHOR_GUEST_ID`",
+    "name" : "AUTHOR_GUEST_ID"
+  }, {
+    "expression" : "t1.`AUTHOR_ID`",
+    "name" : "AUTHOR_ID"
+  }, {
+    "expression" : "t1.`BODY`",
+    "name" : "BODY"
+  }, {
+    "expression" : "t1.`CREATE_DATE`",
+    "name" : "CREATE_DATE"
+  }, {
+    "expression" : "t1.`CREATE_UID`",
+    "name" : "CREATE_UID"
+  }, {
+    "expression" : "t1.`DATE`",
+    "name" : "DATE"
+  }, {
+    "expression" : "t1.`EMAIL_ADD_SIGNATURE`",
+    "name" : "EMAIL_ADD_SIGNATURE"
+  }, {
+    "expression" : "t1.`EMAIL_FROM`",
+    "name" : "EMAIL_FROM"
+  }, {
+    "expression" : "t1.`EMAIL_LAYOUT_XMLID`",
+    "name" : "EMAIL_LAYOUT_XMLID"
+  }, {
+    "expression" : "t1.`ID`",
+    "name" : "ID"
+  }, {
+    "expression" : "t1.`IS_INTERNAL`",
+    "name" : "IS_INTERNAL"
+  }, {
+    "expression" : "t1.`MAIL_ACTIVITY_TYPE_ID`",
+    "name" : "MAIL_ACTIVITY_TYPE_ID"
+  }, {
+    "expression" : "t1.`MESSAGE_ID`",
+    "name" : "MESSAGE_ID"
+  }, {
+    "expression" : "t1.`MESSAGE_TYPE`",
+    "name" : "MESSAGE_TYPE"
+  }, {
+    "expression" : "t1.`MODEL`",
+    "name" : "MODEL"
+  }, {
+    "expression" : "t11.`AUTHOR_ID`",
+    "name" : "PARENT_AUTHOR_ID"
+  }, {
+    "expression" : "t11.`BODY`",
+    "name" : "PARENT_BODY"
+  }, {
+    "expression" : "t1.`PARENT_ID`",
+    "name" : "PARENT_ID"
+  }, {
+    "expression" : "t1.`PINNED_AT`",
+    "name" : "PINNED_AT"
+  }, {
+    "expression" : "t1.`RECORD_ALIAS_DOMAIN_ID`",
+    "name" : "RECORD_ALIAS_DOMAIN_ID"
+  }, {
+    "expression" : "t1.`RECORD_COMPANY_ID`",
+    "name" : "RECORD_COMPANY_ID"
+  }, {
+    "expression" : "t1.`RECORD_NAME`",
+    "name" : "RECORD_NAME"
+  }, {
+    "expression" : "t1.`REPLY_TO`",
+    "name" : "REPLY_TO"
+  }, {
+    "expression" : "t1.`REPLY_TO_FORCE_NEW`",
+    "name" : "REPLY_TO_FORCE_NEW"
+  }, {
+    "expression" : "t1.`RES_ID`",
+    "name" : "RES_ID"
+  }, {
+    "expression" : "t1.`SUBJECT`",
+    "name" : "SUBJECT"
+  }, {
+    "expression" : "t1.`SUBTYPE_ID`",
+    "name" : "SUBTYPE_ID"
+  }, {
+    "expression" : "t1.`WRITE_DATE`",
+    "name" : "WRITE_DATE"
+  }, {
+    "expression" : "t1.`WRITE_UID`",
+    "name" : "WRITE_UID"
+  } ],
+  "queryCode" : "SELECT\nt1.`AUTHOR_GUEST_ID`,\nt1.`AUTHOR_ID`,\nt1.`BODY`,\nt1.`CREATE_DATE`,\nt1.`CREATE_UID`,\nt1.`DATE`,\nt1.`EMAIL_ADD_SIGNATURE`,\nt1.`EMAIL_FROM`,\nt1.`EMAIL_LAYOUT_XMLID`,\nt1.`ID`,\nt1.`IS_INTERNAL`,\nt1.`MAIL_ACTIVITY_TYPE_ID`,\nt1.`MESSAGE_ID`,\nt1.`MESSAGE_TYPE`,\nt1.`MODEL`,\nt11.`AUTHOR_ID` AS `PARENT_AUTHOR_ID`,\nt11.`BODY` AS `PARENT_BODY`,\nt1.`PARENT_ID`,\nt1.`PINNED_AT`,\nt1.`RECORD_ALIAS_DOMAIN_ID`,\nt1.`RECORD_COMPANY_ID`,\nt1.`RECORD_NAME`,\nt1.`REPLY_TO`,\nt1.`REPLY_TO_FORCE_NEW`,\nt1.`RES_ID`,\nt1.`SUBJECT`,\nt1.`SUBTYPE_ID`,\nt1.`WRITE_DATE`,\nt1.`WRITE_UID`\nFROM `mail_message` t1 \nLEFT JOIN `mail_message` t11 ON t1.`PARENT_ID` = t11.`ID` \n",
+  "id" : "PSMODULES/mail/PSDATAENTITIES/mail_message/PSDEDATAQUERIES/common/PSDEDQCODES/MYSQL5.json"
+}

@@ -1,0 +1,89 @@
+{
+  "codeName" : "search_bar",
+  "controlStyle" : "ODOO_SEARCH_BAR",
+  "controlType" : "SEARCHBAR",
+  "dynaModelFilePath" : "PSSYSAPPS/ehrapp/PSAPPDATAENTITIES/hr_employee/PSSEARCHBARS/search_bar.json",
+  "groupMode" : "AND",
+  "logicName" : "员工搜索栏",
+  "getPSAppDataEntity" : {
+    "modelref" : true,
+    "path" : "PSSYSAPPS/ehrapp/PSAPPDATAENTITIES/hr_employee.json"
+  },
+  "getPSSearchBarGroups" : [ {
+    "caption" : "未读消息",
+    "data" : "{\"theme_model\":{\"searchconds\":[{\"condtype\":\"GROUP\",\"condop\":\"AND\",\"bnotmode\":false,\"searchconds\":[{\"condtype\":\"DEFIELD\",\"fieldname\":\"message_needaction\",\"condop\":\"EQ\",\"value\":\"1\"}]}]}}",
+    "itemType" : "GROUP",
+    "name" : "unread_messages",
+    "width" : 0.0,
+    "addSeparator" : true
+  }, {
+    "caption" : "工作中",
+    "data" : "{\"theme_model\":{\"searchconds\":[{\"condtype\":\"GROUP\",\"condop\":\"AND\",\"bnotmode\":false,\"searchconds\":[{\"condtype\":\"DEFIELD\",\"fieldname\":\"is_absent\",\"condop\":\"EQ\",\"value\":\"0\"}]}]}}",
+    "itemType" : "GROUP",
+    "name" : "working",
+    "width" : 0.0,
+    "addSeparator" : false,
+    "getUserParam" : {
+      "filterorgroup" : "group1"
+    }
+  }, {
+    "caption" : "在休假中",
+    "data" : "{\"theme_model\":{\"searchconds\":[{\"condtype\":\"GROUP\",\"condop\":\"AND\",\"bnotmode\":false,\"searchconds\":[{\"condtype\":\"DEFIELD\",\"fieldname\":\"is_absent\",\"condop\":\"EQ\",\"value\":\"1\"}]}]}}",
+    "itemType" : "GROUP",
+    "name" : "on_leave",
+    "width" : 0.0,
+    "addSeparator" : true,
+    "getUserParam" : {
+      "filterorgroup" : "group1"
+    }
+  }, {
+    "caption" : "我的团队",
+    "data" : "{\n  \"theme_model\": {\n    \"searchconds\": [\n      {\n        \"condtype\": \"GROUP\",\n        \"condop\": \"AND\",\n        \"bnotmode\": false,\n        \"searchconds\": [\n          {\n            \"condtype\": \"ITEMS\",\n            \"fieldname\": \"parent_id\",\n            \"condop\": \"EXISTS\",\n            \"searchconds\": [\n                {\n                \"condtype\": \"DEFIELD\",\n                \"fieldname\": \"work_contact_id\",\n                \"condop\": \"EQ\",\n                \"value\": \"${context.srfpartnerid}\"\n                } \n              ]\n          }\n        ]\n      }\n    ]\n  }\n}",
+    "itemType" : "GROUP",
+    "name" : "my_team",
+    "width" : 0.0,
+    "addSeparator" : false,
+    "getUserParam" : {
+      "filterorgroup" : "group2"
+    }
+  }, {
+    "caption" : "我的部门",
+    "data" : "{\"theme_model\":{\"searchconds\":[{\"condtype\":\"GROUP\",\"condop\":\"AND\",\"bnotmode\":false,\"searchconds\":[{\"condtype\":\"DEFIELD\",\"fieldname\":\"department_id\",\"condop\":\"EQ\",\"value\":\"${context.srforgsectorid}\"}]}]}}",
+    "itemType" : "GROUP",
+    "name" : "my_department",
+    "width" : 0.0,
+    "addSeparator" : true,
+    "getUserParam" : {
+      "filterorgroup" : "group2"
+    }
+  }, {
+    "caption" : "最近聘用",
+    "data" : "{\"theme_model\":{\"searchconds\":[{\"condtype\":\"GROUP\",\"condop\":\"AND\",\"bnotmode\":false,\"searchconds\":[{\"condtype\":\"DEFIELD\",\"fieldname\":\"newly_hired\",\"condop\":\"EQ\",\"value\":\"1\"}]}]}}",
+    "itemType" : "GROUP",
+    "name" : "newly_hired",
+    "width" : 0.0,
+    "addSeparator" : true
+  }, {
+    "caption" : "已归档",
+    "data" : "{\"theme_model\":{\"searchconds\":[{\"condtype\":\"GROUP\",\"condop\":\"AND\",\"bnotmode\":false,\"searchconds\":[{\"condtype\":\"DEFIELD\",\"fieldname\":\"active\",\"condop\":\"EQ\",\"value\":\"0\"}]}]}}",
+    "itemType" : "GROUP",
+    "name" : "inactive",
+    "width" : 0.0,
+    "addSeparator" : true
+  } ],
+  "getPSSysPFPlugin" : {
+    "pluginType" : "CUSTOM",
+    "pluginCode" : "ODOO_SEARCH_BAR",
+    "runtimeObject" : true
+  },
+  "quickGroupCount" : 1,
+  "quickSearchMode" : 1,
+  "quickSearchWidth" : 0,
+  "userTag" : "department_id",
+  "enableFilter" : false,
+  "enableGroup" : true,
+  "enableQuickSearch" : true,
+  "mobileSearchBar" : false,
+  "modelid" : "9ca023b12b013796aab6cab85f769654",
+  "modeltype" : "PSSYSSEARCHBAR"
+}

@@ -1,0 +1,37 @@
+{
+  "dBType" : "MYSQL5",
+  "name" : "MySQL5",
+  "getPSDEDataQueryCodeExps" : [ {
+    "expression" : "t41.`CATEGORY_ID`",
+    "name" : "CATEGORY_ID"
+  }, {
+    "expression" : "t51.`NAME`",
+    "name" : "CATEGORY_NAME"
+  }, {
+    "expression" : "t21.`NAME`",
+    "name" : "COMPANY_NAME"
+  }, {
+    "expression" : "t1.`GID`",
+    "name" : "GID"
+  }, {
+    "expression" : "t41.`NAME`",
+    "name" : "GROUP_NAME"
+  }, {
+    "expression" : "t1.`ID`",
+    "name" : "ID"
+  }, {
+    "expression" : "t11.`LOGIN`",
+    "name" : "LOGIN"
+  }, {
+    "expression" : "t1.`NAME`",
+    "name" : "NAME"
+  }, {
+    "expression" : "t1.`USER_ID`",
+    "name" : "USER_ID"
+  }, {
+    "expression" : "t31.`NAME`",
+    "name" : "USER_NAME"
+  } ],
+  "queryCode" : "SELECT\nt41.`CATEGORY_ID`,\nt51.`NAME` AS `CATEGORY_NAME`,\nt21.`NAME` AS `COMPANY_NAME`,\nt1.`GID`,\nt41.`NAME` AS `GROUP_NAME`,\nt1.`ID`,\nt11.`LOGIN`,\nt1.`NAME`,\nt1.`USER_ID`,\nt31.`NAME` AS `USER_NAME`\nFROM `res_groups_users_rel` t1 \nLEFT JOIN `res_users` t11 ON t1.`USER_ID` = t11.`ID` \nLEFT JOIN `res_company` t21 ON t11.`COMPANY_ID` = t21.`ID` \nLEFT JOIN `res_partner` t31 ON t11.`PARTNER_ID` = t31.`ID` \nLEFT JOIN `res_groups` t41 ON t1.`GID` = t41.`ID` \nLEFT JOIN `ir_module_category` t51 ON t41.`CATEGORY_ID` = t51.`ID` \n",
+  "id" : "PSMODULES/base/PSDATAENTITIES/res_groups_users_rel/PSDEDATAQUERIES/Default/PSDEDQCODES/MYSQL5.json"
+}

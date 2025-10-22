@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+    <definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:g="http://www.jboss.org/drools/flow/gpd" xmlns:tns="http://www.jboss.org/drools" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" expressionLanguage="http://www.mvel.org/2.0" id="Definition" name="" targetNamespace="http://www.jboss.org/drools" typeLanguage="http://www.java.com/javaTypes">
+        <process id="cn.ibizlab.core.hr.service.logic.hr_departmentdepartment_counter" isClosed="false" isExecutable="true" name="hr_hr_department_department_counter_ruleFlow" processType="Private" tns:packageName="cn.ibizlab.core.hr.service.logic.hr_departmentdepartment_counter">
+            <extensionElements>
+                <tns:import name="java.util.Map" />
+                <tns:import name="org.springframework.util.StringUtils"/>
+                <tns:import name="cn.ibizlab.util.helper.RuleUtils"/>
+                                <tns:metaData express="" name="hr_departmentdepartment_counterdefault" type="entity"/>
+                                <tns:metaData express="new cn.ibizlab.core.hr.domain.hr_employee()" name="hr_departmentdepartment_counteremps" type="refentity"/>
+                                <tns:metaData express="new cn.ibizlab.core.mail.domain.mail_activity_plan()" name="hr_departmentdepartment_counterplans" type="refentity"/>
+                                    <tns:metaData express="T(cn.ibizlab.util.security.SpringContextHolder).getBean(T(cn.ibizlab.core.hr.service.Ihr_departmentService))" name="hr_departmentservice" type="service"/>
+                    <tns:metaData express="T(cn.ibizlab.util.security.SpringContextHolder).getBean(T(cn.ibizlab.core.hr.service.Ihr_departmentService))" name="iBzSysHr_departmentDefaultService" type="service"/>
+                    <tns:metaData express="T(cn.ibizlab.util.security.AuthenticationUser).getAuthenticationUser()" name="curuser" type="session"/>
+                            <tns:global identifier="hr_departmentdepartment_counterdefault" type="cn.ibizlab.core.hr.domain.hr_department" />
+                            <tns:global identifier="hr_departmentdepartment_counteremps" type="cn.ibizlab.core.hr.domain.hr_employee" />
+                            <tns:global identifier="hr_departmentdepartment_counterplans" type="cn.ibizlab.core.mail.domain.mail_activity_plan" />
+            </extensionElements>
+                        <startEvent id="begin" isInterrupting="true"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="hr_departmentdepartment_counterdeaction_01" id="deaction_01" implementation="http://www.jboss.org/drools/rule" name="获取部门信息"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="hr_departmentdepartment_counterprepareparam_02" id="prepareparam_02" implementation="http://www.jboss.org/drools/rule" name="初始化数量"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="hr_departmentdepartment_counterend_01" id="end_01" implementation="http://www.jboss.org/drools/rule" name="结束"/>
+                        <endEvent id="end_01_end" name="end"/>
+                        <sequenceFlow id="end_01_end_line" sourceRef="end_01" targetRef="end_01_end"/>
+                    <sequenceFlow id="begin_prepareparam_02" sourceRef="begin" targetRef="prepareparam_02">
+                    </sequenceFlow>
+                    <sequenceFlow id="deaction_01_end_01" sourceRef="deaction_01" targetRef="end_01">
+                    </sequenceFlow>
+                    <sequenceFlow id="gateway-prepareparam_02_deaction_01" sourceRef="gateway-prepareparam_02" targetRef="deaction_01">
+                            <conditionExpression  language="http://www.jboss.org/drools/rule" ><![CDATA[
+                                            $hr_departmentdepartment_counterdefault:hr_department();
+                                            $hr_departmentdepartment_counteremps:hr_employee();
+                                            $hr_departmentdepartment_counterplans:mail_activity_plan();
+                                    eval($hr_departmentdepartment_counterdefault==hr_departmentdepartment_counterdefault && $hr_departmentdepartment_counteremps==hr_departmentdepartment_counteremps && $hr_departmentdepartment_counterplans==hr_departmentdepartment_counterplans);
+                                eval((RuleUtils.test($hr_departmentdepartment_counterdefault.get("id"),"ISNOTNULL",""))&&(RuleUtils.test($hr_departmentdepartment_counterdefault.get("id"),"NOTEQ","undefined")))
+                                ]]>
+                            </conditionExpression>
+                    </sequenceFlow>
+                    <sequenceFlow id="gateway-prepareparam_02_end_01" sourceRef="gateway-prepareparam_02" targetRef="end_01">
+                            <conditionExpression  language="http://www.jboss.org/drools/rule" ><![CDATA[
+                                            $hr_departmentdepartment_counterdefault:hr_department();
+                                            $hr_departmentdepartment_counteremps:hr_employee();
+                                            $hr_departmentdepartment_counterplans:mail_activity_plan();
+                                    eval($hr_departmentdepartment_counterdefault==hr_departmentdepartment_counterdefault && $hr_departmentdepartment_counteremps==hr_departmentdepartment_counteremps && $hr_departmentdepartment_counterplans==hr_departmentdepartment_counterplans);
+                                eval((RuleUtils.test($hr_departmentdepartment_counterdefault.get("id"),"EQ","undefined")))
+                                ]]>
+                            </conditionExpression>
+                    </sequenceFlow>
+                            <exclusiveGateway id="gateway-prepareparam_02" name="Gateway" gatewayDirection="Diverging" default="gateway-prepareparam_02_end_line"></exclusiveGateway>
+                            <sequenceFlow id="prepareparam_02_gateway-prepareparam_02_gatewayline" sourceRef="prepareparam_02" targetRef="gateway-prepareparam_02"></sequenceFlow>
+                            <sequenceFlow id="gateway-prepareparam_02_end_line" sourceRef="gateway-prepareparam_02" targetRef="gateway-prepareparam_02_end"/>
+                            <endEvent id="gateway-prepareparam_02_end" name="end"/>
+        </process>
+    </definitions>

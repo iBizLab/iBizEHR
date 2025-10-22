@@ -1,0 +1,201 @@
+package cn.ibizlab.hr.logic.hr_candidatelogic.get_my_todolist_count;
+        import java.util.Map;
+        import java.util.HashMap;
+        import com.alibaba.fastjson.JSONObject;
+        import org.springframework.util.StringUtils;
+        import org.springframework.util.ObjectUtils;
+        import cn.ibizlab.util.errors.BadRequestAlertException;
+                global cn.ibizlab.core.hr.domain.hr_candidate hr_candidateget_my_todolist_countdefault;
+                global java.util.Map hr_candidateget_my_todolist_countresult;
+        global cn.ibizlab.core.hr.service.Ihr_candidateService iBzSysHr_candidateDefaultService;
+        global cn.ibizlab.util.security.AuthenticationUser curuser;
+
+
+    no-loop
+
+            //逻辑处理节点[开始]
+            rule "begin"
+            ruleflow-group "hr_candidateget_my_todolist_countbegin"
+            when
+            then
+            end
+
+            //逻辑处理节点[今日待筛选人数]
+            rule "prepareparam1"
+            ruleflow-group "hr_candidateget_my_todolist_countprepareparam1"
+            when
+            then
+                            hr_candidateget_my_todolist_countresult.set("today_to_filter_apply","0");
+                            hr_candidateget_my_todolist_countresult.set("to_assign_resume","0");
+                        update(hr_candidateget_my_todolist_countdefault);//更新fact中变量值
+                        update(hr_candidateget_my_todolist_countresult);//更新fact中变量值
+            end
+
+            //逻辑处理节点[今日面试人数]
+            rule "rawsqlcall2"
+            ruleflow-group "hr_candidateget_my_todolist_countrawsqlcall2"
+            when
+            then
+                        Map param = null;
+                        String strSql="select count(1)as today_interview from hr_interview hi  left join hr_interview_schedule his on hi.SCHEDULE_ID = his.id where  DATE(his.START_DATE) = CURRENT_DATE;";
+                        java.util.List<JSONObject> entities=iBzSysHr_candidateDefaultService.select(strSql,param);//SQL调用
+                            if(entities.size()>0){
+                            JSONObject entity=entities.get(0);
+                                hr_candidateget_my_todolist_countresult.putAll(entity);
+                            }
+                        update(hr_candidateget_my_todolist_countdefault);//更新fact中变量值
+                        update(hr_candidateget_my_todolist_countresult);//更新fact中变量值
+            end
+
+            //逻辑处理节点[待筛选简历]
+            rule "rawsqlcall3"
+            ruleflow-group "hr_candidateget_my_todolist_countrawsqlcall3"
+            when
+            then
+                        Map param = null;
+                        String strSql="select count(1)as filter_apply from hr_applicant t inner join hr_recruitment_stage t2 on t.STAGE_ID  = t2.id where  t2.`SEQUENCE` = '20' and t.status = '1'";
+                        java.util.List<JSONObject> entities=iBzSysHr_candidateDefaultService.select(strSql,param);//SQL调用
+                            if(entities.size()>0){
+                            JSONObject entity=entities.get(0);
+                                hr_candidateget_my_todolist_countresult.putAll(entity);
+                            }
+                        update(hr_candidateget_my_todolist_countdefault);//更新fact中变量值
+                        update(hr_candidateget_my_todolist_countresult);//更新fact中变量值
+            end
+
+            //逻辑处理节点[待发送offer]
+            rule "rawsqlcall4"
+            ruleflow-group "hr_candidateget_my_todolist_countrawsqlcall4"
+            when
+            then
+                        Map param = null;
+                        String strSql="select count(1)as to_send_offer from hr_applicant t inner join hr_recruitment_stage t2 on t.STAGE_ID  = t2.id where  t2.`SEQUENCE` = '70' and t.status = '1'";
+                        java.util.List<JSONObject> entities=iBzSysHr_candidateDefaultService.select(strSql,param);//SQL调用
+                            if(entities.size()>0){
+                            JSONObject entity=entities.get(0);
+                                hr_candidateget_my_todolist_countresult.putAll(entity);
+                            }
+                        update(hr_candidateget_my_todolist_countdefault);//更新fact中变量值
+                        update(hr_candidateget_my_todolist_countresult);//更新fact中变量值
+            end
+
+            //逻辑处理节点[待入职]
+            rule "rawsqlcall5"
+            ruleflow-group "hr_candidateget_my_todolist_countrawsqlcall5"
+            when
+            then
+                        Map param = null;
+                        String strSql="select count(1)as to_onboard from hr_applicant t inner join hr_recruitment_stage t2 on t.STAGE_ID  = t2.id where  t2.`SEQUENCE` = '80' and t.status = '1'";
+                        java.util.List<JSONObject> entities=iBzSysHr_candidateDefaultService.select(strSql,param);//SQL调用
+                            if(entities.size()>0){
+                            JSONObject entity=entities.get(0);
+                                hr_candidateget_my_todolist_countresult.putAll(entity);
+                            }
+                        update(hr_candidateget_my_todolist_countdefault);//更新fact中变量值
+                        update(hr_candidateget_my_todolist_countresult);//更新fact中变量值
+            end
+
+            //逻辑处理节点[初试-待面试]
+            rule "rawsqlcall6"
+            ruleflow-group "hr_candidateget_my_todolist_countrawsqlcall6"
+            when
+            then
+                        Map param = null;
+                        String strSql="select 	count(1) as first_interview_pending from 	hr_applicant t inner join hr_recruitment_stage t2 on 	t.STAGE_ID = t2.id where 	t2.`SEQUENCE` = '40' 	and t.status = '1' 	and exists( 		select * from hr_interview t3 inner join hr_applicant_interview t4 on t3.id = t4.interview_id 			where  t3.STAGE_ID = '1' and t3.STATUS  = '1' and t4.APPLICANT_ID  = t.ID  	)";
+                        java.util.List<JSONObject> entities=iBzSysHr_candidateDefaultService.select(strSql,param);//SQL调用
+                            if(entities.size()>0){
+                            JSONObject entity=entities.get(0);
+                                hr_candidateget_my_todolist_countresult.putAll(entity);
+                            }
+                        update(hr_candidateget_my_todolist_countdefault);//更新fact中变量值
+                        update(hr_candidateget_my_todolist_countresult);//更新fact中变量值
+            end
+
+            //逻辑处理节点[初试-待反馈]
+            rule "rawsqlcall7"
+            ruleflow-group "hr_candidateget_my_todolist_countrawsqlcall7"
+            when
+            then
+                        Map param = null;
+                        String strSql="select 	count(1) as first_feedback_pending from 	hr_applicant t inner join hr_recruitment_stage t2 on 	t.STAGE_ID = t2.id where 	t2.`SEQUENCE` = '40' 	and t.status = '1' 	and  	exists( 		select * from hr_interview t3  		inner join hr_applicant_interview t4 on t3.id = t4.interview_id  		inner join hr_interview_feedback t5  on t3.id = t5.INTERVIEW_ID  		where  		t3.STAGE_ID = '1' and t3.STATUS  = '2' 		and t.id = t5.APPLICANT_ID  and t5.RESULT_TYPE  is null 	)";
+                        java.util.List<JSONObject> entities=iBzSysHr_candidateDefaultService.select(strSql,param);//SQL调用
+                            if(entities.size()>0){
+                            JSONObject entity=entities.get(0);
+                                hr_candidateget_my_todolist_countresult.putAll(entity);
+                            }
+                        update(hr_candidateget_my_todolist_countdefault);//更新fact中变量值
+                        update(hr_candidateget_my_todolist_countresult);//更新fact中变量值
+            end
+
+            //逻辑处理节点[初试-待处理]
+            rule "rawsqlcall8"
+            ruleflow-group "hr_candidateget_my_todolist_countrawsqlcall8"
+            when
+            then
+                        Map param = null;
+                        String strSql="select 	count(1) as first_process_pending from 	hr_applicant t inner join hr_recruitment_stage t2 on 	t.STAGE_ID = t2.id where 	t2.`SEQUENCE` = '40' 	and t.status = '1' 	and exists( 	    select * from( 			    select  			       t5.APPLICANT_ID, 		           count(1) as cnt  		           from hr_interview t3  				inner join hr_applicant_interview t4 on t3.id = t4.interview_id  				inner join hr_interview_feedback t5 on t3.id = t5.INTERVIEW_ID  				where  				t3.STAGE_ID = '1' and t3.STATUS = '2' 				and t5.RESULT_TYPE is null 		    	group by t5.APPLICANT_ID  	    	) as sub  	        where sub.APPLICANT_ID = t.id   	          and sub.cnt = 0       )";
+                        java.util.List<JSONObject> entities=iBzSysHr_candidateDefaultService.select(strSql,param);//SQL调用
+                            if(entities.size()>0){
+                            JSONObject entity=entities.get(0);
+                                hr_candidateget_my_todolist_countresult.putAll(entity);
+                            }
+                        update(hr_candidateget_my_todolist_countdefault);//更新fact中变量值
+                        update(hr_candidateget_my_todolist_countresult);//更新fact中变量值
+            end
+
+            //逻辑处理节点[结束]
+            rule "end1"
+            ruleflow-group "hr_candidateget_my_todolist_countend1"
+            when
+            then
+                        update(hr_candidateget_my_todolist_countdefault);//更新fact中变量值
+                        update(hr_candidateget_my_todolist_countresult);//更新fact中变量值
+            end
+
+            //逻辑处理节点[复试-待处理]
+            rule "rawsqlcall11"
+            ruleflow-group "hr_candidateget_my_todolist_countrawsqlcall11"
+            when
+            then
+                        Map param = null;
+                        String strSql="select 	count(1) as second_process_pending from 	hr_applicant t inner join hr_recruitment_stage t2 on 	t.STAGE_ID = t2.id where 	t2.`SEQUENCE` = '60' 	and t.status = '1' 	and exists( 	    select * from( 			    select  			       t5.APPLICANT_ID, 		           count(1) as cnt  		           from hr_interview t3  				inner join hr_applicant_interview t4 on t3.id = t4.interview_id  				inner join hr_interview_feedback t5 on t3.id = t5.INTERVIEW_ID  				where  				t3.STAGE_ID = '2' and t3.STATUS = '2' 				and t5.RESULT_TYPE is null 		    	group by t5.APPLICANT_ID  	    	) as sub  	        where sub.APPLICANT_ID = t.id   	          and sub.cnt = 0       )";
+                        java.util.List<JSONObject> entities=iBzSysHr_candidateDefaultService.select(strSql,param);//SQL调用
+                            if(entities.size()>0){
+                            JSONObject entity=entities.get(0);
+                                hr_candidateget_my_todolist_countresult.putAll(entity);
+                            }
+                        update(hr_candidateget_my_todolist_countdefault);//更新fact中变量值
+                        update(hr_candidateget_my_todolist_countresult);//更新fact中变量值
+            end
+
+            //逻辑处理节点[复试-待反馈]
+            rule "rawsqlcall10"
+            ruleflow-group "hr_candidateget_my_todolist_countrawsqlcall10"
+            when
+            then
+                        Map param = null;
+                        String strSql="select 	count(1) as second_feedback_pending from 	hr_applicant t inner join hr_recruitment_stage t2 on 	t.STAGE_ID = t2.id where 	t2.`SEQUENCE` = '60' 	and t.status = '1' 	and  	exists( 		select * from hr_interview t3  		inner join hr_applicant_interview t4 on t3.id = t4.interview_id  		inner join hr_interview_feedback t5  on t3.id = t5.INTERVIEW_ID  		where  		t3.STAGE_ID = '2' and t3.STATUS  = '2' 		and t.id = t5.APPLICANT_ID  and t5.RESULT_TYPE  is null 	)";
+                        java.util.List<JSONObject> entities=iBzSysHr_candidateDefaultService.select(strSql,param);//SQL调用
+                            if(entities.size()>0){
+                            JSONObject entity=entities.get(0);
+                                hr_candidateget_my_todolist_countresult.putAll(entity);
+                            }
+                        update(hr_candidateget_my_todolist_countdefault);//更新fact中变量值
+                        update(hr_candidateget_my_todolist_countresult);//更新fact中变量值
+            end
+
+            //逻辑处理节点[复试-待面试]
+            rule "rawsqlcall9"
+            ruleflow-group "hr_candidateget_my_todolist_countrawsqlcall9"
+            when
+            then
+                        Map param = null;
+                        String strSql="select 	count(1) as second_interview_pending from 	hr_applicant t inner join hr_recruitment_stage t2 on 	t.STAGE_ID = t2.id where 	t2.`SEQUENCE` = '60' 	and t.status = '1' 	and exists( 		select * from hr_interview t3 inner join hr_applicant_interview t4 on t3.id = t4.interview_id 			where  t3.STAGE_ID = '2' and t3.STATUS  = '1' and t4.APPLICANT_ID  = t.ID  	)";
+                        java.util.List<JSONObject> entities=iBzSysHr_candidateDefaultService.select(strSql,param);//SQL调用
+                            if(entities.size()>0){
+                            JSONObject entity=entities.get(0);
+                                hr_candidateget_my_todolist_countresult.putAll(entity);
+                            }
+                        update(hr_candidateget_my_todolist_countdefault);//更新fact中变量值
+                        update(hr_candidateget_my_todolist_countresult);//更新fact中变量值
+            end

@@ -1,0 +1,38 @@
+package cn.ibizlab.hr.logic.hr_attendancelogic.computeworkhour;
+        import java.util.Map;
+        import java.util.HashMap;
+        import com.alibaba.fastjson.JSONObject;
+        import org.springframework.util.StringUtils;
+        import org.springframework.util.ObjectUtils;
+        import cn.ibizlab.util.errors.BadRequestAlertException;
+                global cn.ibizlab.core.hr.domain.hr_attendance hr_attendancecomputeworkhourdefault;
+                    global cn.ibizlab.core.hr.service.Ihr_attendanceService hr_attendanceservice;
+        global cn.ibizlab.core.hr.service.Ihr_attendanceService iBzSysHr_attendanceDefaultService;
+        global cn.ibizlab.util.security.AuthenticationUser curuser;
+
+
+    no-loop
+
+            //逻辑处理节点[开始]
+            rule "begin"
+            ruleflow-group "hr_attendancecomputeworkhourbegin"
+            when
+            then
+            end
+
+            //逻辑处理节点[实体行为]
+            rule "deaction_01"
+            ruleflow-group "hr_attendancecomputeworkhourdeaction_01"
+            when
+            then
+                        hr_attendanceservice.computeWorkHour(hr_attendancecomputeworkhourdefault);
+                        update(hr_attendancecomputeworkhourdefault);//更新fact中变量值
+            end
+
+            //逻辑处理节点[结束]
+            rule "end_01"
+            ruleflow-group "hr_attendancecomputeworkhourend_01"
+            when
+            then
+                        update(hr_attendancecomputeworkhourdefault);//更新fact中变量值
+            end

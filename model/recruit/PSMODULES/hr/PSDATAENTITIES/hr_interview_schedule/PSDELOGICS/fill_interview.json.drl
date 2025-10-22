@@ -1,0 +1,76 @@
+package cn.ibizlab.hr.logic.hr_interview_schedulelogic.fill_interview;
+        import java.util.Map;
+        import java.util.HashMap;
+        import com.alibaba.fastjson.JSONObject;
+        import org.springframework.util.StringUtils;
+        import org.springframework.util.ObjectUtils;
+        import cn.ibizlab.util.errors.BadRequestAlertException;
+                global cn.ibizlab.core.hr.domain.hr_interview_schedule hr_interview_schedulefill_interviewdefault;
+                global cn.ibizlab.core.hr.domain.hr_interview hr_interview_schedulefill_interviewitem;
+                global cn.ibizlab.core.hr.domain.hr_interview hr_interview_schedulefill_interviewlist;
+        global cn.ibizlab.core.hr.service.Ihr_interview_scheduleService iBzSysHr_interview_scheduleDefaultService;
+        global cn.ibizlab.util.security.AuthenticationUser curuser;
+
+
+    no-loop
+
+            //逻辑处理节点[开始]
+            rule "begin"
+            ruleflow-group "hr_interview_schedulefill_interviewbegin"
+            when
+            then
+            end
+
+            //逻辑处理节点[调试逻辑参数]
+            rule "debugparam1"
+            ruleflow-group "hr_interview_schedulefill_interviewdebugparam1"
+            when
+            then
+                        update(hr_interview_schedulefill_interviewdefault);//更新fact中变量值
+                        update(hr_interview_schedulefill_interviewitem);//更新fact中变量值
+                        update(hr_interview_schedulefill_interviewlist);//更新fact中变量值
+            end
+
+            //逻辑处理节点[准备参数]
+            rule "prepareparam1"
+            ruleflow-group "hr_interview_schedulefill_interviewprepareparam1"
+            when
+            then
+                            hr_interview_schedulefill_interviewitem.set("stageid","1");
+                            hr_interview_schedulefill_interviewitem.set("ownerid",hr_interview_schedulefill_interviewdefault.get("owner_id"));
+                            hr_interview_schedulefill_interviewitem.set("applicantids",hr_interview_schedulefill_interviewdefault.get("hr_applicant"));
+                            hr_interview_schedulefill_interviewdefault.set("emailcontent","<p><strong>尊敬的</strong> 张三 <strong>先生/女士:</strong></p><p> &nbsp; &nbsp; &nbsp;您好! &nbsp;我司诚邀您参加 HRBP 的面试。烦请您在面试前，完成线上应聘信息表及大五性格测评，我司将做好信息保密工作。具体面试安排如下：</p><p> &nbsp; &nbsp; &nbsp;面试时间：2025年8月15日星期五 16:00</p><p> &nbsp; &nbsp; &nbsp;面试地点: 面试安排成功后会显示具体信息</p><p> &nbsp; &nbsp; &nbsp;联系人: &nbsp;梁进</p><p> &nbsp; &nbsp; &nbsp;联系电话： 0521-3769521</p>");
+                            hr_interview_schedulefill_interviewdefault.set("smscontent","尊敬的 张三 先生/女士:
+      您好!  我司诚邀您参加 HRBP 的面试。烦请您在面试前，完成线上应聘信息表及大五性格测评，我司将做好信息保密工作。具体面试安排如下：
+      面试时间：2025年8月15日星期五 16:00
+      面试地点: 面试安排成功后会显示具体信息
+      联系人:  梁进
+      联系电话： 0521-3769521");
+                            hr_interview_schedulefill_interviewitem.set("starttime","2");
+                            hr_interview_schedulefill_interviewitem.set("duration","2");
+                            hr_interview_schedulefill_interviewlist.set("",hr_interview_schedulefill_interviewitem.get(""));
+                        update(hr_interview_schedulefill_interviewdefault);//更新fact中变量值
+                        update(hr_interview_schedulefill_interviewitem);//更新fact中变量值
+                        update(hr_interview_schedulefill_interviewlist);//更新fact中变量值
+            end
+
+            //逻辑处理节点[执行脚本代码]
+            rule "rawsfcode1"
+            ruleflow-group "hr_interview_schedulefill_interviewrawsfcode1"
+            when
+            then
+                        update(hr_interview_schedulefill_interviewdefault);//更新fact中变量值
+                        update(hr_interview_schedulefill_interviewitem);//更新fact中变量值
+                        update(hr_interview_schedulefill_interviewlist);//更新fact中变量值
+            end
+
+            //逻辑处理节点[准备参数]
+            rule "prepareparam2"
+            ruleflow-group "hr_interview_schedulefill_interviewprepareparam2"
+            when
+            then
+                            hr_interview_schedulefill_interviewdefault.set("interviews",hr_interview_schedulefill_interviewlist.get(""));
+                        update(hr_interview_schedulefill_interviewdefault);//更新fact中变量值
+                        update(hr_interview_schedulefill_interviewitem);//更新fact中变量值
+                        update(hr_interview_schedulefill_interviewlist);//更新fact中变量值
+            end

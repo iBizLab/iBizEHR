@@ -1,0 +1,112 @@
+package cn.ibizlab.attendance.logic.attendance_rulelogic.fillworkdays;
+        import java.util.Map;
+        import java.util.HashMap;
+        import com.alibaba.fastjson.JSONObject;
+        import org.springframework.util.StringUtils;
+        import org.springframework.util.ObjectUtils;
+        import cn.ibizlab.util.errors.BadRequestAlertException;
+                global cn.ibizlab.core.attendance.domain.attendance_rule attendance_rulefillworkdaysdefault;
+                global cn.ibizlab.core.attendance.domain.attendance_shift attendance_rulefillworkdaysshifts;
+                global cn.ibizlab.core.attendance.domain.attendance_workday attendance_rulefillworkdaysworkday;
+                global cn.ibizlab.core.attendance.domain.attendance_workday attendance_rulefillworkdaysworkdays;
+        global cn.ibizlab.core.attendance.service.Iattendance_ruleService iBzSysAttendance_ruleDefaultService;
+        global cn.ibizlab.util.security.AuthenticationUser curuser;
+
+
+    no-loop
+
+            //逻辑处理节点[开始]
+            rule "begin"
+            ruleflow-group "attendance_rulefillworkdaysbegin"
+            when
+            then
+            end
+
+            //逻辑处理节点[固定排班/灵活打卡填充工作日]
+            rule "rawsfcode_01"
+            ruleflow-group "attendance_rulefillworkdaysrawsfcode_01"
+            when
+            then
+                        update(attendance_rulefillworkdaysdefault);//更新fact中变量值
+                        update(attendance_rulefillworkdaysshifts);//更新fact中变量值
+                        update(attendance_rulefillworkdaysworkday);//更新fact中变量值
+                        update(attendance_rulefillworkdaysworkdays);//更新fact中变量值
+            end
+
+            //逻辑处理节点[计算week、workday]
+            rule "rawsfcode_05"
+            ruleflow-group "attendance_rulefillworkdaysrawsfcode_05"
+            when
+            then
+                        update(attendance_rulefillworkdaysdefault);//更新fact中变量值
+                        update(attendance_rulefillworkdaysshifts);//更新fact中变量值
+                        update(attendance_rulefillworkdaysworkday);//更新fact中变量值
+                        update(attendance_rulefillworkdaysworkdays);//更新fact中变量值
+            end
+
+            //逻辑处理节点[准备参数]
+            rule "prepareparam_01"
+            ruleflow-group "attendance_rulefillworkdaysprepareparam_01"
+            when
+            then
+                            attendance_rulefillworkdaysshifts.set("",attendance_rulefillworkdaysdefault.get("shifts"));
+                        update(attendance_rulefillworkdaysdefault);//更新fact中变量值
+                        update(attendance_rulefillworkdaysshifts);//更新fact中变量值
+                        update(attendance_rulefillworkdaysworkday);//更新fact中变量值
+                        update(attendance_rulefillworkdaysworkdays);//更新fact中变量值
+            end
+
+            //逻辑处理节点[大小周填充工作日]
+            rule "rawsfcode_02"
+            ruleflow-group "attendance_rulefillworkdaysrawsfcode_02"
+            when
+            then
+                        update(attendance_rulefillworkdaysdefault);//更新fact中变量值
+                        update(attendance_rulefillworkdaysshifts);//更新fact中变量值
+                        update(attendance_rulefillworkdaysworkday);//更新fact中变量值
+                        update(attendance_rulefillworkdaysworkdays);//更新fact中变量值
+            end
+
+            //逻辑处理节点[调试逻辑参数]
+            rule "debugparam_01"
+            ruleflow-group "attendance_rulefillworkdaysdebugparam_01"
+            when
+            then
+                        update(attendance_rulefillworkdaysdefault);//更新fact中变量值
+                        update(attendance_rulefillworkdaysshifts);//更新fact中变量值
+                        update(attendance_rulefillworkdaysworkday);//更新fact中变量值
+                        update(attendance_rulefillworkdaysworkdays);//更新fact中变量值
+            end
+
+            //逻辑处理节点[结束]
+            rule "end_01"
+            ruleflow-group "attendance_rulefillworkdaysend_01"
+            when
+            then
+                        update(attendance_rulefillworkdaysdefault);//更新fact中变量值
+                        update(attendance_rulefillworkdaysshifts);//更新fact中变量值
+                        update(attendance_rulefillworkdaysworkday);//更新fact中变量值
+                        update(attendance_rulefillworkdaysworkdays);//更新fact中变量值
+            end
+
+            //逻辑处理节点[上a休b填充工作日]
+            rule "rawsfcode_03"
+            ruleflow-group "attendance_rulefillworkdaysrawsfcode_03"
+            when
+            then
+                        update(attendance_rulefillworkdaysdefault);//更新fact中变量值
+                        update(attendance_rulefillworkdaysshifts);//更新fact中变量值
+                        update(attendance_rulefillworkdaysworkday);//更新fact中变量值
+                        update(attendance_rulefillworkdaysworkdays);//更新fact中变量值
+            end
+
+            //逻辑处理节点[n班倒填充工作日]
+            rule "rawsfcode_04"
+            ruleflow-group "attendance_rulefillworkdaysrawsfcode_04"
+            when
+            then
+                        update(attendance_rulefillworkdaysdefault);//更新fact中变量值
+                        update(attendance_rulefillworkdaysshifts);//更新fact中变量值
+                        update(attendance_rulefillworkdaysworkday);//更新fact中变量值
+                        update(attendance_rulefillworkdaysworkdays);//更新fact中变量值
+            end

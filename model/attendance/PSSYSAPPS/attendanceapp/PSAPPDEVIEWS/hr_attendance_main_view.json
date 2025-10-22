@@ -1,0 +1,2053 @@
+{
+  "accUserMode" : 2,
+  "getCapPSLanguageRes" : {
+    "lanResTag" : "DE.LNAME.HR_ATTENDANCE"
+  },
+  "caption" : "出勤",
+  "codeName" : "hr_attendance_main_view",
+  "dynaModelFilePath" : "PSSYSAPPS/attendanceapp/PSAPPDEVIEWS/hr_attendance_main_view.json",
+  "funcViewMode" : "EDITVIEW",
+  "name" : "hr_attendancemain_view",
+  "getPSAppDataEntity" : {
+    "modelref" : true,
+    "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/hr_attendance.json"
+  },
+  "getPSAppModule" : {
+    "modelref" : true,
+    "path" : "PSSYSAPPS/attendanceapp/PSAPPMODULES/hr.json"
+  },
+  "getPSDEViewCodeName" : "main_view",
+  "getPSDEViewId" : "fb2fa2c83139edcefd9d9227ebaf32a8",
+  "getPSViewLayoutPanel" : {
+    "codeName" : "main_view_layout_new",
+    "controlType" : "VIEWLAYOUTPANEL",
+    "hookEventNames" : [ "ONMOUNTED", "ONFORMDATACHANGE" ],
+    "layoutMode" : "FLEX",
+    "logicName" : "主视图布局面板_new",
+    "name" : "layoutpanel",
+    "getPSAppDataEntity" : {
+      "modelref" : true,
+      "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/hr_attendance.json"
+    },
+    "getPSControlLogics" : [ {
+      "eventNames" : "onMounted",
+      "itemName" : "DRBAR",
+      "logicTag" : "layoutpanel",
+      "logicType" : "SCRIPT",
+      "name" : "drbar_draft_state",
+      "scriptCode" : "ibiz.uiDomainManager.get(view.context.srfsessionid).evt.on(\"stateChange\", (state, isTrusted )=> {\n    console.log(\"\");\n    const data = view.getController(\"form\").getData()[0];\n    view.getController(\"toolbar\")?.calcButtonState(data,view.model.appDataEntityId);\n});\n\nconst topContext = view.context;\nconst appEntityId = view.model.appDataEntityId;\nconst entityName = appEntityId.split('.').pop();\nconst bExist = topContext[entityName];\nconst drbar = view.getCtrl(\"DRBAR\", \"drbar\");\nif(!bExist){\n    drbar.disabled({ mode: 'BLANK' })\n    //  drbar.disabled({ mode: 'MASK' })\n}"
+    }, {
+      "eventNames" : "onFormDataChange",
+      "itemName" : "FORM",
+      "logicTag" : "layoutpanel",
+      "logicType" : "SCRIPT",
+      "name" : "logic",
+      "scriptCode" : "view.getController(\"toolbar\")?.calcButtonState(data,view.model.appDataEntityId);"
+    } ],
+    "getPSControlParam" : { },
+    "getPSLayout" : {
+      "layout" : "FLEX"
+    },
+    "getRootPSPanelItems" : [ {
+      "caption" : "容器",
+      "itemStyle" : "DEFAULT",
+      "itemType" : "CONTAINER",
+      "name" : "view_header",
+      "getPSLayout" : {
+        "align" : "space-between",
+        "dir" : "row",
+        "layout" : "FLEX",
+        "vAlign" : "center"
+      },
+      "getPSLayoutPos" : {
+        "grow" : -1,
+        "layout" : "FLEX",
+        "shrink" : 0
+      },
+      "getPSPanelItems" : [ {
+        "caption" : "容器",
+        "itemStyle" : "DEFAULT",
+        "itemType" : "CONTAINER",
+        "name" : "view_header_left",
+        "getPSLayout" : {
+          "dir" : "row",
+          "layout" : "FLEX"
+        },
+        "getPSLayoutPos" : {
+          "grow" : -1,
+          "heightMode" : "FULL",
+          "layout" : "FLEX"
+        },
+        "getPSPanelItems" : [ {
+          "caption" : "容器",
+          "itemStyle" : "DEFAULT",
+          "itemType" : "CONTAINER",
+          "name" : "container2",
+          "getPSLayout" : {
+            "align" : "center",
+            "dir" : "row",
+            "layout" : "FLEX",
+            "vAlign" : "center"
+          },
+          "getPSLayoutPos" : {
+            "grow" : -1,
+            "layout" : "FLEX"
+          },
+          "getPSPanelItems" : [ {
+            "caption" : "工具栏",
+            "itemStyle" : "DEFAULT",
+            "itemType" : "CTRLPOS",
+            "name" : "toolbar1",
+            "getPSLayoutPos" : {
+              "grow" : -1,
+              "layout" : "FLEX"
+            },
+            "showCaption" : true
+          } ]
+        }, {
+          "caption" : "容器",
+          "itemStyle" : "DEFAULT",
+          "itemType" : "CONTAINER",
+          "name" : "view_captionbar",
+          "getPSLayout" : {
+            "align" : "center",
+            "layout" : "FLEX"
+          },
+          "getPSLayoutPos" : {
+            "grow" : -1,
+            "heightMode" : "FULL",
+            "layout" : "FLEX"
+          },
+          "getPSPanelItems" : [ {
+            "caption" : "页面标题",
+            "itemStyle" : "DEFAULT",
+            "itemType" : "CTRLPOS",
+            "name" : "captionbar",
+            "getPSLayoutPos" : {
+              "grow" : -1,
+              "layout" : "FLEX"
+            },
+            "getPSSysPFPlugin" : {
+              "pluginType" : "CUSTOM",
+              "pluginCode" : "IDENTIFIER_TITLE",
+              "runtimeObject" : true
+            },
+            "userTag" : "identifier",
+            "showCaption" : true
+          } ]
+        }, {
+          "caption" : "容器",
+          "itemStyle" : "DEFAULT",
+          "itemType" : "CONTAINER",
+          "name" : "view_toolbar",
+          "getPSLayout" : {
+            "align" : "center",
+            "dir" : "row",
+            "layout" : "FLEX",
+            "vAlign" : "center"
+          },
+          "getPSLayoutPos" : {
+            "grow" : -1,
+            "heightMode" : "FULL",
+            "layout" : "FLEX"
+          },
+          "getPSPanelItems" : [ {
+            "caption" : "工具栏",
+            "itemStyle" : "DEFAULT",
+            "itemType" : "CTRLPOS",
+            "name" : "toolbar",
+            "getPSLayoutPos" : {
+              "grow" : -1,
+              "layout" : "FLEX"
+            },
+            "showCaption" : true
+          } ]
+        } ]
+      }, {
+        "caption" : "关系数据栏",
+        "itemStyle" : "DEFAULT",
+        "itemType" : "CTRLPOS",
+        "name" : "drbar",
+        "getPSLayoutPos" : {
+          "grow" : 1,
+          "layout" : "FLEX"
+        },
+        "showCaption" : true
+      } ],
+      "predefinedType" : "VIEWHEADER"
+    }, {
+      "caption" : "视图消息占位",
+      "itemStyle" : "DEFAULT",
+      "itemType" : "RAWITEM",
+      "name" : "viewmsg_pos",
+      "getPSLayoutPos" : {
+        "grow" : -1,
+        "layout" : "FLEX",
+        "shrink" : 0
+      },
+      "getPSRawItem" : {
+        "name" : "viewmsg_pos",
+        "getPSRawItemParams" : [ {
+          "key" : "POSITION",
+          "value" : "TOP"
+        } ],
+        "predefinedType" : "VIEWMSG_POS"
+      },
+      "showCaption" : true
+    }, {
+      "caption" : "栅格容器",
+      "itemStyle" : "DEFAULT",
+      "itemType" : "CONTAINER",
+      "name" : "container_grid",
+      "getPSLayout" : {
+        "layout" : "SIMPLEFLEX"
+      },
+      "getPSLayoutPos" : {
+        "grow" : -1,
+        "layout" : "FLEX"
+      },
+      "getPSPanelItems" : [ {
+        "caption" : "面板容器",
+        "itemStyle" : "DEFAULT",
+        "itemType" : "CONTAINER",
+        "name" : "container",
+        "getPSLayout" : {
+          "childColMD" : 24,
+          "columnCount" : 24,
+          "layout" : "TABLE_24COL"
+        },
+        "getPSLayoutPos" : {
+          "grow" : 8,
+          "layout" : "SIMPLEFLEX"
+        },
+        "getPSPanelItems" : [ {
+          "caption" : "容器",
+          "itemStyle" : "DEFAULT",
+          "itemType" : "CONTAINER",
+          "name" : "view_content",
+          "getPSLayout" : {
+            "layout" : "FLEX"
+          },
+          "getPSLayoutPos" : {
+            "colMD" : 24,
+            "layout" : "TABLE_24COL"
+          },
+          "getPSPanelItems" : [ {
+            "caption" : "表单",
+            "itemStyle" : "DEFAULT",
+            "itemType" : "CTRLPOS",
+            "name" : "form",
+            "getPSLayoutPos" : {
+              "grow" : 1,
+              "layout" : "FLEX",
+              "shrink" : 0
+            },
+            "showCaption" : true
+          } ],
+          "predefinedType" : "VIEWCONTENT"
+        } ]
+      }, {
+        "caption" : "面板容器",
+        "itemStyle" : "DEFAULT",
+        "itemType" : "CONTAINER",
+        "name" : "container1",
+        "getPSLayout" : {
+          "childColMD" : 24,
+          "columnCount" : 24,
+          "layout" : "TABLE_24COL"
+        },
+        "getPSLayoutPos" : {
+          "grow" : 4,
+          "layout" : "SIMPLEFLEX"
+        },
+        "getPSPanelItems" : [ {
+          "caption" : "容器",
+          "itemStyle" : "DEFAULT",
+          "itemType" : "CONTAINER",
+          "name" : "mail_thread_panel",
+          "getPSLayout" : {
+            "dir" : "column",
+            "layout" : "FLEX"
+          },
+          "getPSLayoutPos" : {
+            "colMD" : 24,
+            "heightMode" : "FULL",
+            "layout" : "TABLE_24COL"
+          },
+          "getPSPanelItems" : [ {
+            "caption" : "实体部件",
+            "itemStyle" : "DEFAULT",
+            "itemType" : "CTRLPOS",
+            "name" : "control",
+            "getPSLayoutPos" : {
+              "grow" : 1,
+              "heightMode" : "FULL",
+              "layout" : "FLEX"
+            },
+            "showCaption" : true
+          } ]
+        } ]
+      } ],
+      "predefinedType" : "CONTAINER_GRID"
+    } ],
+    "layoutBodyOnly" : false,
+    "layoutPanel" : true,
+    "useDefaultLayout" : false,
+    "viewProxyMode" : true,
+    "modelid" : "31fa7086ff6a353ca3fdf381a934b594",
+    "modeltype" : "PSSYSVIEWLAYOUTPANEL",
+    "getPSAppViewEngines" : [ {
+      "engineCat" : "VIEW",
+      "engineType" : "EditView",
+      "name" : "engine"
+    } ],
+    "getPSControls" : [ {
+      "codeName" : "main_view_toolbar",
+      "controlType" : "TOOLBAR",
+      "logicName" : "工具栏模板（默认主视图）",
+      "name" : "toolbar",
+      "getPSAppDataEntity" : {
+        "modelref" : true,
+        "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/hr_attendance.json"
+      },
+      "getPSControlParam" : {
+        "id" : "TOOLBAR"
+      },
+      "getPSDEToolbarItems" : [ {
+        "caption" : "更多",
+        "itemType" : "ITEMS",
+        "name" : "items1",
+        "getPSDEToolbarItems" : [ {
+          "groupExtractMode" : "ITEM",
+          "itemType" : "ITEMS",
+          "name" : "deuiaction2",
+          "getPSUIActionGroup" : {
+            "codeName" : "Auto90393125",
+            "name" : "通用编辑页面删除界面行为组",
+            "getPSUIActionGroupDetails" : [ {
+              "getCapPSLanguageRes" : {
+                "lanResTag" : "TBB.TEXT.EDITVIEW.REMOVEANDCLOSE"
+              },
+              "caption" : "删除并关闭",
+              "detailType" : "DEUIACTION",
+              "name" : "u157c2ca",
+              "getPSSysImage" : {
+                "glyph" : "xf00d@FontAwesome",
+                "cssClass" : "fa fa-remove"
+              },
+              "getPSUIAction" : {
+                "actionTarget" : "SINGLEKEY",
+                "getCapPSLanguageRes" : {
+                  "lanResTag" : "TBB.TEXT.EDITVIEW.REMOVEANDCLOSE"
+                },
+                "caption" : "删除并关闭",
+                "codeName" : "RemoveAndExit",
+                "fullCodeName" : "RemoveAndExit",
+                "name" : "编辑界面_删除并退出操作",
+                "getPSSysImage" : {
+                  "glyph" : "xf00d@FontAwesome",
+                  "cssClass" : "fa fa-remove"
+                },
+                "predefinedType" : "EDITVIEW_REMOVEANDEXITACTION",
+                "timeout" : 60000,
+                "getTooltipPSLanguageRes" : {
+                  "lanResTag" : "TBB.TOOLTIP.EDITVIEW.REMOVEANDCLOSE"
+                },
+                "uIActionMode" : "SYS",
+                "uIActionTag" : "RemoveAndExit",
+                "uIActionType" : "DEUIACTION"
+              },
+              "getTooltipPSLanguageRes" : {
+                "lanResTag" : "TBB.TOOLTIP.EDITVIEW.REMOVEANDCLOSE"
+              },
+              "addSeparator" : false,
+              "showCaption" : true,
+              "showIcon" : true
+            } ]
+          },
+          "showCaption" : true,
+          "showIcon" : true
+        } ],
+        "getPSSysImage" : {
+          "glyph" : "xf013@FontAwesome",
+          "cssClass" : "fa fa-cog"
+        },
+        "tooltip" : "更多",
+        "showCaption" : false,
+        "showIcon" : true
+      }, {
+        "getCapPSLanguageRes" : {
+          "lanResTag" : "TBB.TEXT.*.SAVE"
+        },
+        "caption" : "保存",
+        "groupExtractMode" : "ITEM",
+        "itemType" : "DEUIACTION",
+        "name" : "toolbar_save",
+        "noPrivDisplayMode" : 2,
+        "getPSAppViewUIAction" : {
+          "modelref" : true,
+          "id" : "toolbar_toolbar_save"
+        },
+        "getPSControlLogics" : [ {
+          "itemName" : "toolbar_save",
+          "logicTag" : "toolbar",
+          "logicType" : "SCRIPT",
+          "name" : "logic",
+          "scriptCode" : "data.id == null || view.getController(\"form\").state.modified || ibiz.uiDomainManager.get(view.context.srfsessionid).dataModification",
+          "triggerType" : "ITEMVISIBLE"
+        } ],
+        "getPSSysImage" : {
+          "glyph" : "xf0ee@FontAwesome",
+          "cssClass" : "fa fa-cloud-upload"
+        },
+        "getPSUIAction" : {
+          "getCapPSLanguageRes" : {
+            "lanResTag" : "TBB.TEXT.*.SAVE"
+          },
+          "caption" : "保存",
+          "codeName" : "Save",
+          "fullCodeName" : "Save",
+          "name" : "编辑界面_保存操作",
+          "getPSSysImage" : {
+            "glyph" : "xf0c7@FontAwesome",
+            "cssClass" : "fa fa-save"
+          },
+          "predefinedType" : "EDITVIEW_SAVEACTION",
+          "timeout" : 60000,
+          "getTooltipPSLanguageRes" : {
+            "lanResTag" : "TBB.TOOLTIP.*.SAVE"
+          },
+          "uIActionMode" : "SYS",
+          "uIActionTag" : "Save",
+          "uIActionType" : "DEUIACTION"
+        },
+        "tooltip" : "保存",
+        "getTooltipPSLanguageRes" : {
+          "lanResTag" : "TBB.TOOLTIP.*.SAVE"
+        },
+        "showCaption" : false,
+        "showIcon" : true
+      }, {
+        "caption" : "取消变更",
+        "groupExtractMode" : "ITEM",
+        "itemType" : "DEUIACTION",
+        "name" : "toolbar_cancel",
+        "noPrivDisplayMode" : 2,
+        "getPSAppViewUIAction" : {
+          "modelref" : true,
+          "id" : "toolbar_toolbar_cancel"
+        },
+        "getPSControlLogics" : [ {
+          "itemName" : "toolbar_cancel",
+          "logicTag" : "toolbar",
+          "logicType" : "SCRIPT",
+          "name" : "logic2",
+          "scriptCode" : "data.id == null || view.getController(\"form\").state.modified || ibiz.uiDomainManager.get(view.context.srfsessionid).dataModification",
+          "triggerType" : "ITEMVISIBLE"
+        } ],
+        "getPSSysImage" : {
+          "glyph" : "xf00d@FontAwesome",
+          "cssClass" : "fa fa-times"
+        },
+        "getPSUIAction" : {
+          "caption" : "取消变更",
+          "codeName" : "CancelChanges",
+          "fullCodeName" : "CancelChanges",
+          "name" : "取消变更",
+          "predefinedType" : "DATA_CANCELCHANGES",
+          "timeout" : 60000,
+          "uIActionMode" : "SYS",
+          "uIActionTag" : "CancelChanges",
+          "uIActionType" : "DEUIACTION"
+        },
+        "tooltip" : "取消变更",
+        "showCaption" : false,
+        "showIcon" : true
+      } ],
+      "xDataControlName" : "form",
+      "modelid" : "8f5624914fcfc7bbc63de650a6b2aa59",
+      "modeltype" : "PSDETOOLBAR"
+    }, {
+      "codeName" : "main_view_toolbar1",
+      "controlType" : "TOOLBAR",
+      "logicName" : "工具栏模板（嵌入编辑表单，只有一个新建按钮）",
+      "name" : "toolbar1",
+      "getPSAppDataEntity" : {
+        "modelref" : true,
+        "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/hr_attendance.json"
+      },
+      "getPSControlParam" : {
+        "id" : "TOOLBAR1"
+      },
+      "getPSDEToolbarItems" : [ {
+        "getCapPSLanguageRes" : {
+          "lanResTag" : "TBB.TEXT.*.NEW"
+        },
+        "caption" : "新建",
+        "groupExtractMode" : "ITEM",
+        "itemType" : "DEUIACTION",
+        "name" : "deuiaction2",
+        "noPrivDisplayMode" : 2,
+        "getPSAppViewUIAction" : {
+          "modelref" : true,
+          "id" : "toolbar1_deuiaction2"
+        },
+        "getPSSysImage" : {
+          "glyph" : "xf0f6@FontAwesome",
+          "cssClass" : "fa fa-file-text-o"
+        },
+        "getPSUIAction" : {
+          "getCapPSLanguageRes" : {
+            "lanResTag" : "TBB.TEXT.*.NEW"
+          },
+          "caption" : "新建",
+          "codeName" : "New",
+          "fullCodeName" : "New",
+          "name" : "编辑界面_新建操作",
+          "getPSSysImage" : {
+            "glyph" : "xf0f6@FontAwesome",
+            "cssClass" : "fa fa-file-text-o"
+          },
+          "predefinedType" : "EDITVIEW_NEWACTION",
+          "timeout" : 60000,
+          "getTooltipPSLanguageRes" : {
+            "lanResTag" : "TBB.TOOLTIP.*.NEW"
+          },
+          "uIActionMode" : "SYS",
+          "uIActionTag" : "New",
+          "uIActionType" : "DEUIACTION"
+        },
+        "tooltip" : "新建",
+        "getTooltipPSLanguageRes" : {
+          "lanResTag" : "TBB.TOOLTIP.*.NEW"
+        },
+        "showCaption" : true,
+        "showIcon" : false
+      } ],
+      "xDataControlName" : "form",
+      "modelid" : "6a271f6ceebaa5b850a3e67f7ec201b2",
+      "modeltype" : "PSDETOOLBAR"
+    }, {
+      "codeName" : "main",
+      "controlType" : "FORM",
+      "getCreatePSControlAction" : {
+        "modelref" : true,
+        "id" : "create",
+        "actionName" : "Create",
+        "actionType" : "DEACTION",
+        "dataAccessAction" : "CREATE",
+        "name" : "create",
+        "getPSAppDEMethod" : {
+          "modelref" : true,
+          "id" : "create"
+        },
+        "getPSAppDataEntity" : {
+          "modelref" : true,
+          "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/hr_attendance.json"
+        }
+      },
+      "defaultLabelWidth" : 130,
+      "dynaModelFilePath" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/hr_attendance/PSFORMS/main.json",
+      "getGetDraftFromPSControlAction" : {
+        "modelref" : true,
+        "id" : "loaddraftfrom",
+        "actionName" : "GETDRAFTFROM",
+        "actionType" : "DEACTION",
+        "dataAccessAction" : "CREATE",
+        "name" : "loaddraftfrom",
+        "getPSAppDataEntity" : {
+          "modelref" : true,
+          "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/hr_attendance.json"
+        }
+      },
+      "getGetDraftPSControlAction" : {
+        "modelref" : true,
+        "id" : "loaddraft",
+        "actionName" : "GetDraft",
+        "actionType" : "DEACTION",
+        "dataAccessAction" : "CREATE",
+        "name" : "loaddraft",
+        "getPSAppDEMethod" : {
+          "modelref" : true,
+          "id" : "get_draft"
+        },
+        "getPSAppDataEntity" : {
+          "modelref" : true,
+          "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/hr_attendance.json"
+        }
+      },
+      "getGetPSControlAction" : {
+        "modelref" : true,
+        "id" : "load",
+        "actionName" : "Get",
+        "actionType" : "DEACTION",
+        "dataAccessAction" : "READ",
+        "name" : "load",
+        "getPSAppDEMethod" : {
+          "modelref" : true,
+          "id" : "get"
+        },
+        "getPSAppDataEntity" : {
+          "modelref" : true,
+          "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/hr_attendance.json"
+        }
+      },
+      "logicName" : "主编辑表单",
+      "getPSAppDataEntity" : {
+        "modelref" : true,
+        "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/hr_attendance.json"
+      },
+      "getPSControlHandler" : {
+        "getPSHandlerActions" : [ {
+          "actionName" : "GetDraft",
+          "actionType" : "DEACTION",
+          "dataAccessAction" : "CREATE",
+          "name" : "loaddraft",
+          "getPSAppDEMethod" : {
+            "modelref" : true,
+            "id" : "get_draft"
+          },
+          "getPSAppDataEntity" : {
+            "modelref" : true,
+            "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/hr_attendance.json"
+          }
+        }, {
+          "actionName" : "GETDRAFTFROM",
+          "actionType" : "DEACTION",
+          "dataAccessAction" : "CREATE",
+          "name" : "loaddraftfrom",
+          "getPSAppDataEntity" : {
+            "modelref" : true,
+            "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/hr_attendance.json"
+          }
+        }, {
+          "actionName" : "Get",
+          "actionType" : "DEACTION",
+          "dataAccessAction" : "READ",
+          "name" : "load",
+          "getPSAppDEMethod" : {
+            "modelref" : true,
+            "id" : "get"
+          },
+          "getPSAppDataEntity" : {
+            "modelref" : true,
+            "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/hr_attendance.json"
+          }
+        }, {
+          "actionName" : "Create",
+          "actionType" : "DEACTION",
+          "dataAccessAction" : "CREATE",
+          "name" : "create",
+          "getPSAppDEMethod" : {
+            "modelref" : true,
+            "id" : "create"
+          },
+          "getPSAppDataEntity" : {
+            "modelref" : true,
+            "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/hr_attendance.json"
+          }
+        }, {
+          "actionName" : "Update",
+          "actionType" : "DEACTION",
+          "dataAccessAction" : "UPDATE",
+          "name" : "update",
+          "getPSAppDEMethod" : {
+            "modelref" : true,
+            "id" : "update"
+          },
+          "getPSAppDataEntity" : {
+            "modelref" : true,
+            "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/hr_attendance.json"
+          }
+        }, {
+          "actionName" : "Remove",
+          "actionType" : "DEACTION",
+          "dataAccessAction" : "DELETE",
+          "name" : "remove",
+          "getPSAppDEMethod" : {
+            "modelref" : true,
+            "id" : "remove"
+          },
+          "getPSAppDataEntity" : {
+            "modelref" : true,
+            "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/hr_attendance.json"
+          }
+        } ],
+        "enableDEFieldPrivilege" : false,
+        "id" : "编辑表单处理器"
+      },
+      "getPSControlParam" : {
+        "autoLoad" : true,
+        "showBusyIndicator" : true,
+        "id" : "FORM"
+      },
+      "getPSDEFormItemUpdates" : [ {
+        "codeName" : "ComputeWorkHour",
+        "name" : "计算工作/加班时间",
+        "getPSAppDEMethod" : {
+          "modelref" : true,
+          "id" : "compute_work_hour"
+        },
+        "getPSDEFIUpdateDetails" : [ {
+          "name" : "worked_hours"
+        }, {
+          "name" : "overtime_hours"
+        } ]
+      } ],
+      "getPSDEFormItems" : [ {
+        "id" : "srfupdatedate",
+        "hidden" : true,
+        "dataType" : 5,
+        "getPSAppDEField" : {
+          "name" : "WRITE_DATE",
+          "codeName" : "write_date"
+        }
+      }, {
+        "id" : "srforikey",
+        "hidden" : true,
+        "dataType" : 25
+      }, {
+        "id" : "srfkey",
+        "hidden" : true,
+        "dataType" : 25,
+        "getPSAppDEField" : {
+          "name" : "ID",
+          "codeName" : "id"
+        }
+      }, {
+        "id" : "srftempmode",
+        "hidden" : true,
+        "dataType" : 25
+      }, {
+        "id" : "srfuf",
+        "hidden" : true,
+        "dataType" : 25
+      }, {
+        "id" : "srfdeid",
+        "hidden" : true,
+        "dataType" : 25
+      }, {
+        "id" : "srfsourcekey",
+        "hidden" : true,
+        "dataType" : 25
+      }, {
+        "id" : "overtime_status",
+        "dataType" : 25,
+        "createDV" : "to_approve",
+        "getPSAppDEField" : {
+          "name" : "OVERTIME_STATUS",
+          "codeName" : "overtime_status"
+        }
+      }, {
+        "id" : "employee_name",
+        "dataType" : 25,
+        "createDVT" : "OPERATORNAME",
+        "getPSAppDEField" : {
+          "name" : "EMPLOYEE_NAME",
+          "codeName" : "employee_name"
+        }
+      }, {
+        "id" : "check_in",
+        "dataType" : 5,
+        "createDVT" : "CURTIME",
+        "getPSAppDEField" : {
+          "name" : "CHECK_IN",
+          "codeName" : "check_in"
+        }
+      }, {
+        "id" : "check_out",
+        "dataType" : 5,
+        "getPSAppDEField" : {
+          "name" : "CHECK_OUT",
+          "codeName" : "check_out"
+        }
+      }, {
+        "id" : "worked_hours",
+        "dataType" : 7,
+        "createDV" : "0.0",
+        "getPSAppDEField" : {
+          "name" : "WORKED_HOURS",
+          "codeName" : "worked_hours"
+        }
+      }, {
+        "id" : "overtime_hours",
+        "dataType" : 7,
+        "createDV" : "0.0",
+        "getPSAppDEField" : {
+          "name" : "OVERTIME_HOURS",
+          "codeName" : "overtime_hours"
+        }
+      }, {
+        "id" : "validated_overtime_hours",
+        "hidden" : true,
+        "dataType" : 7,
+        "createDV" : "0.0",
+        "getPSAppDEField" : {
+          "name" : "VALIDATED_OVERTIME_HOURS",
+          "codeName" : "validated_overtime_hours"
+        }
+      }, {
+        "id" : "employee_id",
+        "hidden" : true,
+        "dataType" : 25,
+        "createDVT" : "OPERATOR",
+        "getPSAppDEField" : {
+          "name" : "EMPLOYEE_ID",
+          "codeName" : "employee_id"
+        }
+      }, {
+        "id" : "in_mode",
+        "dataType" : 25,
+        "createDV" : "manual",
+        "updateDV" : "manual",
+        "getPSAppDEField" : {
+          "name" : "IN_MODE",
+          "codeName" : "in_mode"
+        }
+      }, {
+        "id" : "in_ip_address",
+        "dataType" : 25,
+        "getPSAppDEField" : {
+          "name" : "IN_IP_ADDRESS",
+          "codeName" : "in_ip_address"
+        }
+      }, {
+        "id" : "in_browser",
+        "dataType" : 25,
+        "getPSAppDEField" : {
+          "name" : "IN_BROWSER",
+          "codeName" : "in_browser"
+        }
+      }, {
+        "id" : "in_longitude",
+        "dataType" : 7,
+        "getPSAppDEField" : {
+          "name" : "IN_LONGITUDE",
+          "codeName" : "in_longitude"
+        }
+      }, {
+        "id" : "in_latitude",
+        "dataType" : 7,
+        "getPSAppDEField" : {
+          "name" : "IN_LATITUDE",
+          "codeName" : "in_latitude"
+        }
+      }, {
+        "id" : "out_mode",
+        "dataType" : 25,
+        "createDV" : "manual",
+        "updateDV" : "manual",
+        "getPSAppDEField" : {
+          "name" : "OUT_MODE",
+          "codeName" : "out_mode"
+        }
+      }, {
+        "id" : "out_ip_address",
+        "dataType" : 25,
+        "getPSAppDEField" : {
+          "name" : "OUT_IP_ADDRESS",
+          "codeName" : "out_ip_address"
+        }
+      }, {
+        "id" : "out_browser",
+        "dataType" : 25,
+        "getPSAppDEField" : {
+          "name" : "OUT_BROWSER",
+          "codeName" : "out_browser"
+        }
+      }, {
+        "id" : "out_longitude",
+        "dataType" : 7,
+        "getPSAppDEField" : {
+          "name" : "OUT_LONGITUDE",
+          "codeName" : "out_longitude"
+        }
+      }, {
+        "id" : "out_latitude",
+        "dataType" : 7,
+        "getPSAppDEField" : {
+          "name" : "OUT_LATITUDE",
+          "codeName" : "out_latitude"
+        }
+      }, {
+        "id" : "id",
+        "hidden" : true,
+        "dataType" : 25,
+        "getPSAppDEField" : {
+          "name" : "ID",
+          "codeName" : "id"
+        }
+      } ],
+      "getPSDEFormPages" : [ {
+        "caption" : "出勤信息",
+        "codeName" : "formpage1",
+        "detailStyle" : "DEFAULT",
+        "detailType" : "FORMPAGE",
+        "name" : "formpage1",
+        "getPSDEFormDetails" : [ {
+          "codeName" : "grouppanel1",
+          "detailStyle" : "DEFAULT",
+          "detailType" : "GROUPPANEL",
+          "name" : "grouppanel1",
+          "getPSDEFormDetails" : [ {
+            "getCapPSLanguageRes" : {
+              "lanResTag" : "DEF.LNAME.HR_ATTENDANCE.OVERTIME_STATUS"
+            },
+            "caption" : "加班状态",
+            "codeName" : "overtime_status",
+            "createDV" : "to_approve",
+            "dataType" : 25,
+            "detailStyle" : "DEFAULT",
+            "detailType" : "FORMITEM",
+            "enableCond" : 3,
+            "ignoreInput" : 0,
+            "labelPos" : "NONE",
+            "labelWidth" : 0,
+            "name" : "overtime_status",
+            "noPrivDisplayMode" : 1,
+            "getPSAppDEField" : {
+              "name" : "OVERTIME_STATUS",
+              "codeName" : "overtime_status"
+            },
+            "getPSEditor" : {
+              "editorParams" : {
+                "duration_tracking" : "duration_tracking"
+              },
+              "editorStyle" : "STATUS_BAR",
+              "editorType" : "DROPDOWNLIST",
+              "name" : "overtime_status",
+              "getPSAppCodeList" : {
+                "modelref" : true,
+                "path" : "PSSYSAPPS/attendanceapp/PSAPPCODELISTS/hr__hr_attendance_overtime_status.json"
+              },
+              "getPSSysPFPlugin" : {
+                "pluginType" : "EDITOR_CUSTOMSTYLE",
+                "pluginCode" : "ODOO_STATUS_BAR",
+                "runtimeObject" : true
+              },
+              "singleSelect" : true
+            },
+            "getPSLayoutPos" : {
+              "grow" : -1,
+              "layout" : "FLEX"
+            },
+            "allowEmpty" : true,
+            "needCodeListConfig" : true
+          } ],
+          "getPSLayout" : {
+            "align" : "space-between",
+            "dir" : "row-reverse",
+            "layout" : "FLEX"
+          },
+          "getPSLayoutPos" : {
+            "colMD" : 24,
+            "layout" : "TABLE_24COL"
+          },
+          "infoGroupMode" : false,
+          "showCaption" : false
+        }, {
+          "caption" : "基础信息",
+          "codeName" : "group_base",
+          "detailStyle" : "DEFAULT",
+          "detailType" : "GROUPPANEL",
+          "name" : "group_base",
+          "getPSDEFormDetails" : [ {
+            "codeName" : "grouppanel6",
+            "detailStyle" : "DEFAULT",
+            "detailType" : "GROUPPANEL",
+            "name" : "grouppanel6",
+            "getPSDEFormDetails" : [ {
+              "caption" : "员工",
+              "codeName" : "employee_name",
+              "createDVT" : "OPERATORNAME",
+              "dataType" : 25,
+              "detailStyle" : "DEFAULT",
+              "detailType" : "FORMITEM",
+              "enableCond" : 3,
+              "ignoreInput" : 0,
+              "itemWidth" : 390.0,
+              "labelPos" : "LEFT",
+              "labelWidth" : 130,
+              "name" : "employee_name",
+              "noPrivDisplayMode" : 1,
+              "getPSAppDEField" : {
+                "name" : "EMPLOYEE_NAME",
+                "codeName" : "employee_name"
+              },
+              "getPSDEFormItemUpdate" : {
+                "modelref" : true,
+                "id" : "ComputeWorkHour"
+              },
+              "getPSEditor" : {
+                "editorParams" : {
+                  "URL" : "/hr_employees/fetch_default",
+                  "ISSHOWTAB" : "false",
+                  "USERMAP" : "{\"id\":\"id\",\"name\":\"name\"}",
+                  "AC" : "TRUE",
+                  "USERMETHOD" : "post",
+                  "TRIGGER" : "TRUE",
+                  "PICKUPVIEW" : "FALSE"
+                },
+                "editorStyle" : "PERSONEL_SELECT_EMP",
+                "editorType" : "PICKEREX_TRIGGER",
+                "editorWidth" : 260.0,
+                "handlerType" : "PickupText",
+                "name" : "employee_name",
+                "getPSAppDEACMode" : {
+                  "modelref" : true,
+                  "id" : "Default"
+                },
+                "getPSAppDEDataSet" : {
+                  "modelref" : true,
+                  "id" : "fetch_default"
+                },
+                "getPSAppDataEntity" : {
+                  "modelref" : true,
+                  "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/hr_employee.json"
+                },
+                "getPSEditorItems" : [ {
+                  "name" : "employee_id"
+                } ],
+                "getPSSysPFPlugin" : {
+                  "pluginType" : "EDITOR_CUSTOMSTYLE",
+                  "pluginCode" : "PERSON_SELECT",
+                  "runtimeObject" : true
+                },
+                "valueItemName" : "employee_id",
+                "enableAC" : true,
+                "enablePickupView" : false,
+                "forceSelection" : true,
+                "showTrigger" : true,
+                "singleSelect" : true
+              },
+              "getPSLayoutPos" : {
+                "colLG" : 20,
+                "colMD" : 24,
+                "layout" : "TABLE_24COL"
+              },
+              "valueItemName" : "employee_id",
+              "allowEmpty" : false,
+              "showCaption" : true
+            }, {
+              "getCapPSLanguageRes" : {
+                "lanResTag" : "DEF.LNAME.HR_ATTENDANCE.CHECK_IN"
+              },
+              "caption" : "签到",
+              "codeName" : "check_in",
+              "createDVT" : "CURTIME",
+              "dataType" : 5,
+              "detailStyle" : "DEFAULT",
+              "detailType" : "FORMITEM",
+              "enableCond" : 3,
+              "ignoreInput" : 0,
+              "itemWidth" : 390.0,
+              "labelPos" : "LEFT",
+              "labelWidth" : 130,
+              "name" : "check_in",
+              "noPrivDisplayMode" : 1,
+              "getPSAppDEField" : {
+                "name" : "CHECK_IN",
+                "codeName" : "check_in"
+              },
+              "getPSDEFormItemUpdate" : {
+                "modelref" : true,
+                "id" : "ComputeWorkHour"
+              },
+              "getPSEditor" : {
+                "dateTimeFormat" : "YYYY-MM-DD HH:mm:ss",
+                "editorParams" : {
+                  "TIMEFMT" : "YYYY-MM-DD HH:mm:ss"
+                },
+                "editorType" : "DATEPICKER",
+                "editorWidth" : 260.0,
+                "name" : "check_in"
+              },
+              "getPSLayoutPos" : {
+                "colLG" : 20,
+                "colMD" : 24,
+                "layout" : "TABLE_24COL"
+              },
+              "valueFormat" : "YYYY-MM-DD HH:mm:ss",
+              "allowEmpty" : false,
+              "showCaption" : true
+            }, {
+              "getCapPSLanguageRes" : {
+                "lanResTag" : "DEF.LNAME.HR_ATTENDANCE.CHECK_OUT"
+              },
+              "caption" : "签离",
+              "codeName" : "check_out",
+              "dataType" : 5,
+              "detailStyle" : "DEFAULT",
+              "detailType" : "FORMITEM",
+              "enableCond" : 3,
+              "ignoreInput" : 0,
+              "itemWidth" : 390.0,
+              "labelPos" : "LEFT",
+              "labelWidth" : 130,
+              "name" : "check_out",
+              "noPrivDisplayMode" : 1,
+              "getPSAppDEField" : {
+                "name" : "CHECK_OUT",
+                "codeName" : "check_out"
+              },
+              "getPSDEFormItemUpdate" : {
+                "modelref" : true,
+                "id" : "ComputeWorkHour"
+              },
+              "getPSEditor" : {
+                "dateTimeFormat" : "YYYY-MM-DD HH:mm:ss",
+                "editorParams" : {
+                  "TIMEFMT" : "YYYY-MM-DD HH:mm:ss"
+                },
+                "editorType" : "DATEPICKER",
+                "editorWidth" : 260.0,
+                "name" : "check_out",
+                "placeHolder" : "目前工作中"
+              },
+              "getPSLayoutPos" : {
+                "colLG" : 20,
+                "colMD" : 24,
+                "layout" : "TABLE_24COL"
+              },
+              "valueFormat" : "YYYY-MM-DD HH:mm:ss",
+              "allowEmpty" : true,
+              "showCaption" : true
+            } ],
+            "getPSLayout" : {
+              "childColMD" : 24,
+              "columnCount" : 24,
+              "layout" : "TABLE_24COL"
+            },
+            "getPSLayoutPos" : {
+              "colLG" : 12,
+              "colMD" : 12,
+              "layout" : "TABLE_24COL"
+            },
+            "infoGroupMode" : false,
+            "showCaption" : false
+          }, {
+            "codeName" : "grouppanel7",
+            "detailStyle" : "DEFAULT",
+            "detailType" : "GROUPPANEL",
+            "name" : "grouppanel7",
+            "getPSDEFormDetails" : [ {
+              "getCapPSLanguageRes" : {
+                "lanResTag" : "DEF.LNAME.HR_ATTENDANCE.WORKED_HOURS"
+              },
+              "caption" : "已工作时间",
+              "codeName" : "worked_hours",
+              "createDV" : "0.0",
+              "dataType" : 7,
+              "detailStyle" : "DEFAULT",
+              "detailType" : "FORMITEM",
+              "enableCond" : 0,
+              "ignoreInput" : 0,
+              "itemWidth" : 280.0,
+              "labelPos" : "LEFT",
+              "labelWidth" : 130,
+              "name" : "worked_hours",
+              "noPrivDisplayMode" : 1,
+              "getPSAppDEField" : {
+                "name" : "WORKED_HOURS",
+                "codeName" : "worked_hours"
+              },
+              "getPSEditor" : {
+                "editorType" : "NUMBER",
+                "editorWidth" : 150.0,
+                "name" : "worked_hours",
+                "precision" : 2
+              },
+              "getPSLayoutPos" : {
+                "colLG" : 12,
+                "colMD" : 24,
+                "layout" : "TABLE_24COL"
+              },
+              "allowEmpty" : true,
+              "showCaption" : true
+            }, {
+              "codeName" : "grouppanel8",
+              "detailStyle" : "DEFAULT",
+              "detailType" : "GROUPPANEL",
+              "name" : "grouppanel8",
+              "getPSDEFormDetails" : [ {
+                "getCapPSLanguageRes" : {
+                  "lanResTag" : "DEF.LNAME.HR_ATTENDANCE.OVERTIME_HOURS"
+                },
+                "caption" : "加班时间",
+                "codeName" : "overtime_hours",
+                "createDV" : "0.0",
+                "dataType" : 7,
+                "detailStyle" : "DEFAULT",
+                "detailType" : "FORMITEM",
+                "enableCond" : 3,
+                "ignoreInput" : 0,
+                "itemWidth" : 280.0,
+                "labelPos" : "LEFT",
+                "labelWidth" : 130,
+                "name" : "overtime_hours",
+                "noPrivDisplayMode" : 1,
+                "getPSAppDEField" : {
+                  "name" : "OVERTIME_HOURS",
+                  "codeName" : "overtime_hours"
+                },
+                "getPSEditor" : {
+                  "editorType" : "NUMBER",
+                  "editorWidth" : 150.0,
+                  "name" : "overtime_hours",
+                  "precision" : 2
+                },
+                "getPSLayoutPos" : {
+                  "colLG" : 12,
+                  "colMD" : 24,
+                  "layout" : "TABLE_24COL"
+                },
+                "allowEmpty" : true,
+                "showCaption" : true
+              }, {
+                "actionType" : "UIACTION",
+                "caption" : "批准",
+                "codeName" : "button1",
+                "detailStyle" : "DEFAULT",
+                "detailType" : "BUTTON",
+                "name" : "button1",
+                "getPSAppViewUIAction" : {
+                  "modelref" : true,
+                  "id" : "form_button1"
+                },
+                "getPSControlLogics" : [ {
+                  "itemName" : "button1",
+                  "logicTag" : "form",
+                  "logicType" : "SCRIPT",
+                  "name" : "button1",
+                  "scriptCode" : "!ctrl.state.modified",
+                  "triggerType" : "ITEMVISIBLE"
+                } ],
+                "getPSDEFDGroupLogics" : [ {
+                  "groupOP" : "AND",
+                  "logicCat" : "PANELVISIBLE",
+                  "logicType" : "GROUP",
+                  "getPSDEFDLogics" : [ {
+                    "condOP" : "ISNOTNULL",
+                    "dEFDName" : "check_out",
+                    "logicType" : "SINGLE",
+                    "name" : "check_out值不为空(NotNil)"
+                  }, {
+                    "groupOP" : "OR",
+                    "logicType" : "GROUP",
+                    "name" : "OR",
+                    "getPSDEFDLogics" : [ {
+                      "condOP" : "EQ",
+                      "dEFDName" : "overtime_status",
+                      "logicType" : "SINGLE",
+                      "name" : "overtime_status等于(=) to_approve",
+                      "value" : "to_approve"
+                    }, {
+                      "condOP" : "EQ",
+                      "dEFDName" : "overtime_status",
+                      "logicType" : "SINGLE",
+                      "name" : "overtime_status等于(=) refused",
+                      "value" : "refused"
+                    } ],
+                    "notMode" : false
+                  } ],
+                  "relatedDetailNames" : [ "check_out", "overtime_status" ],
+                  "notMode" : false
+                } ],
+                "getPSLayoutPos" : {
+                  "colLG" : 4,
+                  "colMD" : 4,
+                  "layout" : "TABLE_24COL"
+                },
+                "getPSSysImage" : {
+                  "glyph" : "xf00c@FontAwesome",
+                  "cssClass" : "fa fa-check"
+                },
+                "getPSUIAction" : {
+                  "actionTarget" : "SINGLEDATA",
+                  "caption" : "批准",
+                  "codeName" : "approveOverTime",
+                  "frontProcessType" : "OTHER",
+                  "fullCodeName" : "hr_attendance_approveOverTime",
+                  "memo" : "编辑页",
+                  "name" : "加班审批-批准",
+                  "getNextPSUIAction" : {
+                    "modelref" : true,
+                    "id" : "Save"
+                  },
+                  "getPSAppDEMethod" : {
+                    "modelref" : true,
+                    "id" : "update"
+                  },
+                  "getPSAppDataEntity" : {
+                    "modelref" : true,
+                    "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/hr_attendance.json"
+                  },
+                  "getPSSysImage" : {
+                    "glyph" : "xf00c@FontAwesome",
+                    "cssClass" : "fa fa-check"
+                  },
+                  "scriptCode" : "ctrl.setDataValue('overtime_status', \"approved\");",
+                  "uIActionMode" : "FRONT",
+                  "uIActionTag" : "approveOverTime",
+                  "uIActionType" : "DEUIACTION",
+                  "id" : "approveOverTime@hr_attendance"
+                },
+                "tooltip" : "批准",
+                "uIActionTarget" : "SINGLEDATA",
+                "showCaption" : true
+              }, {
+                "actionType" : "UIACTION",
+                "caption" : "拒绝",
+                "codeName" : "button2",
+                "detailStyle" : "DEFAULT",
+                "detailType" : "BUTTON",
+                "name" : "button2",
+                "getPSAppViewUIAction" : {
+                  "modelref" : true,
+                  "id" : "form_button2"
+                },
+                "getPSControlLogics" : [ {
+                  "itemName" : "button2",
+                  "logicTag" : "form",
+                  "logicType" : "SCRIPT",
+                  "name" : "button2",
+                  "scriptCode" : "!ctrl.state.modified",
+                  "triggerType" : "ITEMVISIBLE"
+                } ],
+                "getPSDEFDGroupLogics" : [ {
+                  "groupOP" : "AND",
+                  "logicCat" : "PANELVISIBLE",
+                  "logicType" : "GROUP",
+                  "getPSDEFDLogics" : [ {
+                    "condOP" : "ISNOTNULL",
+                    "dEFDName" : "check_out",
+                    "logicType" : "SINGLE",
+                    "name" : "check_out值不为空(NotNil)"
+                  }, {
+                    "groupOP" : "OR",
+                    "logicType" : "GROUP",
+                    "name" : "OR",
+                    "getPSDEFDLogics" : [ {
+                      "condOP" : "EQ",
+                      "dEFDName" : "overtime_status",
+                      "logicType" : "SINGLE",
+                      "name" : "overtime_status等于(=) approved",
+                      "value" : "approved"
+                    }, {
+                      "condOP" : "EQ",
+                      "dEFDName" : "overtime_status",
+                      "logicType" : "SINGLE",
+                      "name" : "overtime_status等于(=) to_approve",
+                      "value" : "to_approve"
+                    } ],
+                    "notMode" : false
+                  } ],
+                  "relatedDetailNames" : [ "check_out", "overtime_status" ],
+                  "notMode" : false
+                } ],
+                "getPSLayoutPos" : {
+                  "colLG" : 4,
+                  "colMD" : 4,
+                  "layout" : "TABLE_24COL"
+                },
+                "getPSSysImage" : {
+                  "glyph" : "xf00d@FontAwesome",
+                  "cssClass" : "fa fa-times"
+                },
+                "getPSUIAction" : {
+                  "actionTarget" : "SINGLEDATA",
+                  "caption" : "拒绝",
+                  "codeName" : "refusedOverTime",
+                  "frontProcessType" : "OTHER",
+                  "fullCodeName" : "hr_attendance_refusedOverTime",
+                  "memo" : "编辑页",
+                  "name" : "加班审批-拒绝",
+                  "getNextPSUIAction" : {
+                    "modelref" : true,
+                    "id" : "Save"
+                  },
+                  "getPSAppDEMethod" : {
+                    "modelref" : true,
+                    "id" : "update"
+                  },
+                  "getPSAppDataEntity" : {
+                    "modelref" : true,
+                    "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/hr_attendance.json"
+                  },
+                  "getPSSysImage" : {
+                    "glyph" : "xf00d@FontAwesome",
+                    "cssClass" : "fa fa-times"
+                  },
+                  "scriptCode" : "ctrl.setDataValue('overtime_status', \"refused\");\r\nconsole.log(\"数据\"+data)\r\n",
+                  "uIActionMode" : "FRONT",
+                  "uIActionTag" : "refusedOverTime",
+                  "uIActionType" : "DEUIACTION",
+                  "id" : "refusedOverTime@hr_attendance"
+                },
+                "tooltip" : "拒绝",
+                "uIActionTarget" : "SINGLEDATA",
+                "showCaption" : true
+              }, {
+                "getCapPSLanguageRes" : {
+                  "lanResTag" : "DEF.LNAME.HR_ATTENDANCE.VALIDATED_OVERTIME_HOURS"
+                },
+                "caption" : "加班时间",
+                "codeName" : "validated_overtime_hours",
+                "createDV" : "0.0",
+                "dataType" : 7,
+                "detailStyle" : "DEFAULT",
+                "detailType" : "FORMITEM",
+                "enableCond" : 3,
+                "ignoreInput" : 0,
+                "labelPos" : "LEFT",
+                "labelWidth" : 130,
+                "name" : "validated_overtime_hours",
+                "noPrivDisplayMode" : 1,
+                "getPSAppDEField" : {
+                  "name" : "VALIDATED_OVERTIME_HOURS",
+                  "codeName" : "validated_overtime_hours"
+                },
+                "getPSEditor" : {
+                  "editorType" : "HIDDEN",
+                  "name" : "validated_overtime_hours"
+                },
+                "getPSLayoutPos" : {
+                  "colMD" : 24,
+                  "layout" : "TABLE_24COL"
+                },
+                "allowEmpty" : true,
+                "hidden" : true
+              } ],
+              "getPSLayout" : {
+                "childColMD" : 24,
+                "columnCount" : 24,
+                "layout" : "TABLE_24COL"
+              },
+              "getPSLayoutPos" : {
+                "colMD" : 24,
+                "layout" : "TABLE_24COL"
+              },
+              "infoGroupMode" : false,
+              "showCaption" : false
+            } ],
+            "getPSLayout" : {
+              "childColMD" : 24,
+              "columnCount" : 24,
+              "layout" : "TABLE_24COL"
+            },
+            "getPSLayoutPos" : {
+              "colLG" : 12,
+              "colMD" : 12,
+              "layout" : "TABLE_24COL"
+            },
+            "infoGroupMode" : false,
+            "showCaption" : false
+          }, {
+            "caption" : "员工",
+            "codeName" : "employee_id",
+            "createDVT" : "OPERATOR",
+            "dataType" : 25,
+            "detailStyle" : "DEFAULT",
+            "detailType" : "FORMITEM",
+            "enableCond" : 3,
+            "ignoreInput" : 0,
+            "labelPos" : "LEFT",
+            "labelWidth" : 130,
+            "name" : "employee_id",
+            "noPrivDisplayMode" : 1,
+            "getPSAppDEField" : {
+              "name" : "EMPLOYEE_ID",
+              "codeName" : "employee_id"
+            },
+            "getPSEditor" : {
+              "editorType" : "HIDDEN",
+              "name" : "employee_id"
+            },
+            "getPSLayoutPos" : {
+              "colLG" : 12,
+              "colMD" : 12,
+              "layout" : "TABLE_24COL"
+            },
+            "allowEmpty" : true,
+            "hidden" : true
+          } ],
+          "getPSLayout" : {
+            "childColLG" : 12,
+            "childColMD" : 12,
+            "columnCount" : 24,
+            "layout" : "TABLE_24COL"
+          },
+          "getPSLayoutPos" : {
+            "colMD" : 24,
+            "layout" : "TABLE_24COL"
+          },
+          "infoGroupMode" : false,
+          "showCaption" : false
+        }, {
+          "caption" : "签到",
+          "codeName" : "grouppanel2",
+          "detailStyle" : "DEFAULT",
+          "detailType" : "GROUPPANEL",
+          "name" : "grouppanel2",
+          "getPSDEFormDetails" : [ {
+            "getCapPSLanguageRes" : {
+              "lanResTag" : "DEF.LNAME.HR_ATTENDANCE.IN_MODE"
+            },
+            "caption" : "模式",
+            "codeName" : "in_mode",
+            "createDV" : "manual",
+            "dataType" : 25,
+            "detailStyle" : "DEFAULT",
+            "detailType" : "FORMITEM",
+            "enableCond" : 0,
+            "ignoreInput" : 3,
+            "labelPos" : "LEFT",
+            "labelWidth" : 130,
+            "name" : "in_mode",
+            "noPrivDisplayMode" : 1,
+            "getPSAppDEField" : {
+              "name" : "IN_MODE",
+              "codeName" : "in_mode"
+            },
+            "getPSEditor" : {
+              "editorType" : "SPAN",
+              "name" : "in_mode",
+              "getPSAppCodeList" : {
+                "modelref" : true,
+                "path" : "PSSYSAPPS/attendanceapp/PSAPPCODELISTS/hr__hr_attendance_in_mode.json"
+              },
+              "enableLinkView" : false
+            },
+            "getPSLayoutPos" : {
+              "colLG" : 12,
+              "colMD" : 12,
+              "layout" : "TABLE_24COL"
+            },
+            "updateDV" : "manual",
+            "allowEmpty" : true,
+            "convertToCodeItemText" : true,
+            "showCaption" : true
+          }, {
+            "codeName" : "grouppanel4",
+            "detailStyle" : "DEFAULT",
+            "detailType" : "GROUPPANEL",
+            "name" : "grouppanel4",
+            "getPSDEFDGroupLogics" : [ {
+              "groupOP" : "AND",
+              "logicCat" : "PANELVISIBLE",
+              "logicType" : "GROUP",
+              "getPSDEFDLogics" : [ {
+                "condOP" : "EQ",
+                "dEFDName" : "in_mode",
+                "logicType" : "SINGLE",
+                "name" : "in_mode等于(=) technical",
+                "value" : "technical"
+              } ],
+              "relatedDetailNames" : [ "in_mode" ],
+              "notMode" : false
+            } ],
+            "getPSDEFormDetails" : [ {
+              "getCapPSLanguageRes" : {
+                "lanResTag" : "DEF.LNAME.HR_ATTENDANCE.IN_IP_ADDRESS"
+              },
+              "caption" : "IP地址",
+              "codeName" : "in_ip_address",
+              "dataType" : 25,
+              "detailStyle" : "DEFAULT",
+              "detailType" : "FORMITEM",
+              "enableCond" : 3,
+              "ignoreInput" : 0,
+              "labelPos" : "LEFT",
+              "labelWidth" : 130,
+              "name" : "in_ip_address",
+              "noPrivDisplayMode" : 1,
+              "getPSAppDEField" : {
+                "name" : "IN_IP_ADDRESS",
+                "codeName" : "in_ip_address"
+              },
+              "getPSEditor" : {
+                "editorType" : "TEXTBOX",
+                "maxLength" : 500,
+                "name" : "in_ip_address"
+              },
+              "getPSLayoutPos" : {
+                "colLG" : 12,
+                "colMD" : 12,
+                "layout" : "TABLE_24COL"
+              },
+              "allowEmpty" : true,
+              "showCaption" : true
+            }, {
+              "getCapPSLanguageRes" : {
+                "lanResTag" : "DEF.LNAME.HR_ATTENDANCE.IN_BROWSER"
+              },
+              "caption" : "浏览器",
+              "codeName" : "in_browser",
+              "dataType" : 25,
+              "detailStyle" : "DEFAULT",
+              "detailType" : "FORMITEM",
+              "enableCond" : 3,
+              "ignoreInput" : 0,
+              "labelPos" : "LEFT",
+              "labelWidth" : 130,
+              "name" : "in_browser",
+              "noPrivDisplayMode" : 1,
+              "getPSAppDEField" : {
+                "name" : "IN_BROWSER",
+                "codeName" : "in_browser"
+              },
+              "getPSEditor" : {
+                "editorType" : "TEXTBOX",
+                "maxLength" : 500,
+                "name" : "in_browser"
+              },
+              "getPSLayoutPos" : {
+                "colLG" : 12,
+                "colMD" : 12,
+                "layout" : "TABLE_24COL"
+              },
+              "allowEmpty" : true,
+              "showCaption" : true
+            }, {
+              "getCapPSLanguageRes" : {
+                "lanResTag" : "DEF.LNAME.HR_ATTENDANCE.IN_LONGITUDE"
+              },
+              "caption" : "经度",
+              "codeName" : "in_longitude",
+              "dataType" : 7,
+              "detailStyle" : "DEFAULT",
+              "detailType" : "FORMITEM",
+              "enableCond" : 3,
+              "ignoreInput" : 0,
+              "labelPos" : "LEFT",
+              "labelWidth" : 130,
+              "name" : "in_longitude",
+              "noPrivDisplayMode" : 1,
+              "getPSAppDEField" : {
+                "name" : "IN_LONGITUDE",
+                "codeName" : "in_longitude"
+              },
+              "getPSEditor" : {
+                "editorType" : "TEXTBOX",
+                "name" : "in_longitude"
+              },
+              "getPSLayoutPos" : {
+                "colLG" : 12,
+                "colMD" : 12,
+                "layout" : "TABLE_24COL"
+              },
+              "allowEmpty" : true,
+              "showCaption" : true
+            }, {
+              "getCapPSLanguageRes" : {
+                "lanResTag" : "DEF.LNAME.HR_ATTENDANCE.IN_LATITUDE"
+              },
+              "caption" : "纬度",
+              "codeName" : "in_latitude",
+              "dataType" : 7,
+              "detailStyle" : "DEFAULT",
+              "detailType" : "FORMITEM",
+              "enableCond" : 3,
+              "ignoreInput" : 0,
+              "labelPos" : "LEFT",
+              "labelWidth" : 130,
+              "name" : "in_latitude",
+              "noPrivDisplayMode" : 1,
+              "getPSAppDEField" : {
+                "name" : "IN_LATITUDE",
+                "codeName" : "in_latitude"
+              },
+              "getPSEditor" : {
+                "editorType" : "TEXTBOX",
+                "name" : "in_latitude"
+              },
+              "getPSLayoutPos" : {
+                "colLG" : 12,
+                "colMD" : 12,
+                "layout" : "TABLE_24COL"
+              },
+              "allowEmpty" : true,
+              "showCaption" : true
+            } ],
+            "getPSLayout" : {
+              "childColLG" : 12,
+              "childColMD" : 12,
+              "columnCount" : 24,
+              "layout" : "TABLE_24COL"
+            },
+            "getPSLayoutPos" : {
+              "colLG" : 24,
+              "colMD" : 24,
+              "layout" : "TABLE_24COL"
+            },
+            "infoGroupMode" : false,
+            "showCaption" : false
+          } ],
+          "getPSLayout" : {
+            "childColLG" : 12,
+            "childColMD" : 12,
+            "columnCount" : 24,
+            "layout" : "TABLE_24COL"
+          },
+          "getPSLayoutPos" : {
+            "colMD" : 24,
+            "layout" : "TABLE_24COL"
+          },
+          "infoGroupMode" : false,
+          "showCaption" : true
+        }, {
+          "caption" : "签离",
+          "codeName" : "grouppanel3",
+          "detailStyle" : "DEFAULT",
+          "detailType" : "GROUPPANEL",
+          "name" : "grouppanel3",
+          "getPSDEFDGroupLogics" : [ {
+            "groupOP" : "AND",
+            "logicCat" : "PANELVISIBLE",
+            "logicType" : "GROUP",
+            "getPSDEFDLogics" : [ {
+              "condOP" : "ISNOTNULL",
+              "dEFDName" : "check_out",
+              "logicType" : "SINGLE",
+              "name" : "check_out值不为空(NotNil)"
+            } ],
+            "relatedDetailNames" : [ "check_out" ],
+            "notMode" : false
+          } ],
+          "getPSDEFormDetails" : [ {
+            "getCapPSLanguageRes" : {
+              "lanResTag" : "DEF.LNAME.HR_ATTENDANCE.OUT_MODE"
+            },
+            "caption" : "模式",
+            "codeName" : "out_mode",
+            "createDV" : "manual",
+            "dataType" : 25,
+            "detailStyle" : "DEFAULT",
+            "detailType" : "FORMITEM",
+            "enableCond" : 3,
+            "ignoreInput" : 3,
+            "labelPos" : "LEFT",
+            "labelWidth" : 130,
+            "name" : "out_mode",
+            "noPrivDisplayMode" : 1,
+            "getPSAppDEField" : {
+              "name" : "OUT_MODE",
+              "codeName" : "out_mode"
+            },
+            "getPSEditor" : {
+              "editorType" : "SPAN",
+              "name" : "out_mode",
+              "getPSAppCodeList" : {
+                "modelref" : true,
+                "path" : "PSSYSAPPS/attendanceapp/PSAPPCODELISTS/hr__hr_attendance_out_mode.json"
+              },
+              "enableLinkView" : false
+            },
+            "getPSLayoutPos" : {
+              "colLG" : 12,
+              "colMD" : 12,
+              "layout" : "TABLE_24COL"
+            },
+            "updateDV" : "manual",
+            "allowEmpty" : true,
+            "convertToCodeItemText" : true,
+            "showCaption" : true
+          }, {
+            "codeName" : "grouppanel5",
+            "detailStyle" : "DEFAULT",
+            "detailType" : "GROUPPANEL",
+            "name" : "grouppanel5",
+            "getPSDEFDGroupLogics" : [ {
+              "groupOP" : "AND",
+              "logicCat" : "PANELVISIBLE",
+              "logicType" : "GROUP",
+              "getPSDEFDLogics" : [ {
+                "condOP" : "EQ",
+                "dEFDName" : "in_mode",
+                "logicType" : "SINGLE",
+                "name" : "in_mode等于(=) technical",
+                "value" : "technical"
+              } ],
+              "relatedDetailNames" : [ "in_mode" ],
+              "notMode" : false
+            } ],
+            "getPSDEFormDetails" : [ {
+              "getCapPSLanguageRes" : {
+                "lanResTag" : "DEF.LNAME.HR_ATTENDANCE.OUT_IP_ADDRESS"
+              },
+              "caption" : "IP地址",
+              "codeName" : "out_ip_address",
+              "dataType" : 25,
+              "detailStyle" : "DEFAULT",
+              "detailType" : "FORMITEM",
+              "enableCond" : 3,
+              "ignoreInput" : 0,
+              "labelPos" : "LEFT",
+              "labelWidth" : 130,
+              "name" : "out_ip_address",
+              "noPrivDisplayMode" : 1,
+              "getPSAppDEField" : {
+                "name" : "OUT_IP_ADDRESS",
+                "codeName" : "out_ip_address"
+              },
+              "getPSEditor" : {
+                "editorType" : "TEXTBOX",
+                "maxLength" : 500,
+                "name" : "out_ip_address"
+              },
+              "getPSLayoutPos" : {
+                "colLG" : 12,
+                "colMD" : 12,
+                "layout" : "TABLE_24COL"
+              },
+              "allowEmpty" : true,
+              "showCaption" : true
+            }, {
+              "getCapPSLanguageRes" : {
+                "lanResTag" : "DEF.LNAME.HR_ATTENDANCE.OUT_BROWSER"
+              },
+              "caption" : "浏览器",
+              "codeName" : "out_browser",
+              "dataType" : 25,
+              "detailStyle" : "DEFAULT",
+              "detailType" : "FORMITEM",
+              "enableCond" : 3,
+              "ignoreInput" : 0,
+              "labelPos" : "LEFT",
+              "labelWidth" : 130,
+              "name" : "out_browser",
+              "noPrivDisplayMode" : 1,
+              "getPSAppDEField" : {
+                "name" : "OUT_BROWSER",
+                "codeName" : "out_browser"
+              },
+              "getPSEditor" : {
+                "editorType" : "TEXTBOX",
+                "maxLength" : 500,
+                "name" : "out_browser"
+              },
+              "getPSLayoutPos" : {
+                "colLG" : 12,
+                "colMD" : 12,
+                "layout" : "TABLE_24COL"
+              },
+              "allowEmpty" : true,
+              "showCaption" : true
+            }, {
+              "getCapPSLanguageRes" : {
+                "lanResTag" : "DEF.LNAME.HR_ATTENDANCE.OUT_LONGITUDE"
+              },
+              "caption" : "经度",
+              "codeName" : "out_longitude",
+              "dataType" : 7,
+              "detailStyle" : "DEFAULT",
+              "detailType" : "FORMITEM",
+              "enableCond" : 3,
+              "ignoreInput" : 0,
+              "labelPos" : "LEFT",
+              "labelWidth" : 130,
+              "name" : "out_longitude",
+              "noPrivDisplayMode" : 1,
+              "getPSAppDEField" : {
+                "name" : "OUT_LONGITUDE",
+                "codeName" : "out_longitude"
+              },
+              "getPSEditor" : {
+                "editorType" : "TEXTBOX",
+                "name" : "out_longitude"
+              },
+              "getPSLayoutPos" : {
+                "colLG" : 12,
+                "colMD" : 12,
+                "layout" : "TABLE_24COL"
+              },
+              "allowEmpty" : true,
+              "showCaption" : true
+            }, {
+              "getCapPSLanguageRes" : {
+                "lanResTag" : "DEF.LNAME.HR_ATTENDANCE.OUT_LATITUDE"
+              },
+              "caption" : "纬度",
+              "codeName" : "out_latitude",
+              "dataType" : 7,
+              "detailStyle" : "DEFAULT",
+              "detailType" : "FORMITEM",
+              "enableCond" : 3,
+              "ignoreInput" : 0,
+              "labelPos" : "LEFT",
+              "labelWidth" : 130,
+              "name" : "out_latitude",
+              "noPrivDisplayMode" : 1,
+              "getPSAppDEField" : {
+                "name" : "OUT_LATITUDE",
+                "codeName" : "out_latitude"
+              },
+              "getPSEditor" : {
+                "editorType" : "TEXTBOX",
+                "name" : "out_latitude"
+              },
+              "getPSLayoutPos" : {
+                "colLG" : 12,
+                "colMD" : 12,
+                "layout" : "TABLE_24COL"
+              },
+              "allowEmpty" : true,
+              "showCaption" : true
+            } ],
+            "getPSLayout" : {
+              "childColLG" : 12,
+              "childColMD" : 12,
+              "columnCount" : 24,
+              "layout" : "TABLE_24COL"
+            },
+            "getPSLayoutPos" : {
+              "colLG" : 24,
+              "colMD" : 24,
+              "layout" : "TABLE_24COL"
+            },
+            "infoGroupMode" : false,
+            "showCaption" : false
+          } ],
+          "getPSLayout" : {
+            "childColLG" : 12,
+            "childColMD" : 12,
+            "columnCount" : 24,
+            "layout" : "TABLE_24COL"
+          },
+          "getPSLayoutPos" : {
+            "colMD" : 24,
+            "layout" : "TABLE_24COL"
+          },
+          "infoGroupMode" : false,
+          "showCaption" : true
+        }, {
+          "getCapPSLanguageRes" : {
+            "lanResTag" : "DEF.LNAME.HR_ATTENDANCE.ID"
+          },
+          "caption" : "标识",
+          "codeName" : "id",
+          "dataType" : 25,
+          "detailStyle" : "DEFAULT",
+          "detailType" : "FORMITEM",
+          "enableCond" : 3,
+          "ignoreInput" : 0,
+          "labelPos" : "LEFT",
+          "labelWidth" : 130,
+          "name" : "id",
+          "noPrivDisplayMode" : 1,
+          "getPSAppDEField" : {
+            "name" : "ID",
+            "codeName" : "id"
+          },
+          "getPSEditor" : {
+            "editorType" : "HIDDEN",
+            "name" : "id"
+          },
+          "getPSLayoutPos" : {
+            "colMD" : 24,
+            "layout" : "TABLE_24COL"
+          },
+          "allowEmpty" : true,
+          "hidden" : true
+        } ],
+        "getPSLayout" : {
+          "childColMD" : 24,
+          "columnCount" : 24,
+          "layout" : "TABLE_24COL"
+        },
+        "infoGroupMode" : false
+      } ],
+      "getPSLayout" : {
+        "childColMD" : 24,
+        "columnCount" : 24,
+        "layout" : "TABLE_24COL"
+      },
+      "getRemovePSControlAction" : {
+        "modelref" : true,
+        "id" : "remove",
+        "actionName" : "Remove",
+        "actionType" : "DEACTION",
+        "dataAccessAction" : "DELETE",
+        "name" : "remove",
+        "getPSAppDEMethod" : {
+          "modelref" : true,
+          "id" : "remove"
+        },
+        "getPSAppDataEntity" : {
+          "modelref" : true,
+          "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/hr_attendance.json"
+        }
+      },
+      "tabHeaderPos" : "TOP",
+      "getUpdatePSControlAction" : {
+        "modelref" : true,
+        "id" : "update",
+        "actionName" : "Update",
+        "actionType" : "DEACTION",
+        "dataAccessAction" : "UPDATE",
+        "name" : "update",
+        "getPSAppDEMethod" : {
+          "modelref" : true,
+          "id" : "update"
+        },
+        "getPSAppDataEntity" : {
+          "modelref" : true,
+          "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/hr_attendance.json"
+        }
+      },
+      "noTabHeader" : true,
+      "name" : "form",
+      "modelid" : "55989e05ccba6deba8a561e71d6f4f78",
+      "modeltype" : "PSDEFORM_EDITFORM"
+    }, {
+      "codeName" : "main_view_control",
+      "controlType" : "VIEWPANEL",
+      "getEmbeddedPSAppDEView" : {
+        "modelref" : true,
+        "path" : "PSSYSAPPS/attendanceapp/PSAPPDEVIEWS/mail_thread_component_view.json",
+        "viewType" : "DESUBAPPREFVIEW"
+      },
+      "name" : "control",
+      "getPSAppDataEntity" : {
+        "modelref" : true,
+        "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/hr_attendance.json"
+      },
+      "getPSControlParam" : { }
+    }, {
+      "codeName" : "main_view_datainfobar",
+      "controlType" : "DATAINFOBAR",
+      "name" : "datainfobar",
+      "getPSAppDataEntity" : {
+        "modelref" : true,
+        "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/hr_attendance.json"
+      },
+      "getPSControlParam" : {
+        "id" : "datainfobar"
+      }
+    }, {
+      "getCapPSLanguageRes" : {
+        "lanResTag" : "DE.LNAME.HR_ATTENDANCE"
+      },
+      "caption" : "出勤",
+      "codeName" : "main_view_captionbar",
+      "controlType" : "CAPTIONBAR",
+      "name" : "captionbar",
+      "getPSAppDataEntity" : {
+        "modelref" : true,
+        "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/hr_attendance.json"
+      },
+      "getPSControlParam" : { }
+    } ]
+  },
+  "title" : "出勤编辑视图",
+  "getTitlePSLanguageRes" : {
+    "lanResTag" : "PAGE.TITLE.HR_ATTENDANCE.EDITVIEW"
+  },
+  "viewStyle" : "DEFAULT",
+  "viewType" : "DEEDITVIEW",
+  "xDataControlName" : "form",
+  "enableDP" : true,
+  "showDataInfoBar" : true,
+  "modelid" : "c14fc3675d1c727d0f6f4fcf4fa436ac",
+  "modeltype" : "PSAPPDEVIEW"
+}

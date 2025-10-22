@@ -1,0 +1,14 @@
+```sql
+SELECT
+t1.`DESCRIPTION`,
+t1.`ENABLE`,
+t1.`ID`,
+t1.`NAME`,
+t1.`ORGANIZATION_NUMBER`,
+t1.`PID`,
+t1.`SHORT_NAME`,
+t1.`SORT`
+FROM `` t1 
+
+
+```

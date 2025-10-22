@@ -1,0 +1,146 @@
+package cn.ibizlab.attendance.logic.attendance_rulelogic.generateresource;
+        import java.util.Map;
+        import java.util.HashMap;
+        import com.alibaba.fastjson.JSONObject;
+        import org.springframework.util.StringUtils;
+        import org.springframework.util.ObjectUtils;
+        import cn.ibizlab.util.errors.BadRequestAlertException;
+                global cn.ibizlab.core.attendance.domain.attendance_rule attendance_rulegenerateresourcedefault;
+                global cn.ibizlab.core.hr.domain.hr_employee attendance_rulegenerateresourcefilter;
+                global cn.ibizlab.core.hr.domain.hr_employee attendance_rulegenerateresourceemp;
+                global cn.ibizlab.core.hr.domain.hr_employee attendance_rulegenerateresourceemppage;
+                global cn.ibizlab.core.attendance.domain.attendance_group_shift_member attendance_rulegenerateresourcemembers;
+                global cn.ibizlab.core.resource.domain.resource_resource attendance_rulegenerateresourceresource;
+                global cn.ibizlab.core.resource.domain.resource_resource attendance_rulegenerateresourceret;
+                global cn.ibizlab.core.attendance.domain.attendance_group_shift_member attendance_rulegenerateresourcetemp;
+                    global cn.ibizlab.core.hr.service.Ihr_employeeService hr_employeeservice;
+        global cn.ibizlab.core.attendance.service.Iattendance_ruleService iBzSysAttendance_ruleDefaultService;
+        global cn.ibizlab.util.security.AuthenticationUser curuser;
+
+
+    no-loop
+
+            //逻辑处理节点[开始]
+            rule "begin"
+            ruleflow-group "attendance_rulegenerateresourcebegin"
+            when
+            then
+            end
+
+            //逻辑处理节点[准备参数]
+            rule "prepareparam_01"
+            ruleflow-group "attendance_rulegenerateresourceprepareparam_01"
+            when
+            then
+                            attendance_rulegenerateresourcemembers.set("",attendance_rulegenerateresourcedefault.get("members"));
+                        update(attendance_rulegenerateresourcedefault);//更新fact中变量值
+                        update(attendance_rulegenerateresourcefilter);//更新fact中变量值
+                        update(attendance_rulegenerateresourceemp);//更新fact中变量值
+                        update(attendance_rulegenerateresourceemppage);//更新fact中变量值
+                        update(attendance_rulegenerateresourcemembers);//更新fact中变量值
+                        update(attendance_rulegenerateresourceresource);//更新fact中变量值
+                        update(attendance_rulegenerateresourceret);//更新fact中变量值
+                        update(attendance_rulegenerateresourcetemp);//更新fact中变量值
+            end
+
+            //逻辑处理节点[循环子调用]
+            rule "loopsubcall_01"
+            ruleflow-group "attendance_rulegenerateresourceloopsubcall_01"
+            when
+            then
+                        update(attendance_rulegenerateresourcedefault);//更新fact中变量值
+                        update(attendance_rulegenerateresourcefilter);//更新fact中变量值
+                        update(attendance_rulegenerateresourceemp);//更新fact中变量值
+                        update(attendance_rulegenerateresourceemppage);//更新fact中变量值
+                        update(attendance_rulegenerateresourcemembers);//更新fact中变量值
+                        update(attendance_rulegenerateresourceresource);//更新fact中变量值
+                        update(attendance_rulegenerateresourceret);//更新fact中变量值
+                        update(attendance_rulegenerateresourcetemp);//更新fact中变量值
+            end
+
+            //逻辑处理节点[准备参数]
+            rule "prepareparam_02"
+            ruleflow-group "attendance_rulegenerateresourceprepareparam_02"
+            when
+            then
+                            attendance_rulegenerateresourcefilter.set("n_id_eq",attendance_rulegenerateresourcetemp.get("userid"));
+                        update(attendance_rulegenerateresourcedefault);//更新fact中变量值
+                        update(attendance_rulegenerateresourcefilter);//更新fact中变量值
+                        update(attendance_rulegenerateresourceemp);//更新fact中变量值
+                        update(attendance_rulegenerateresourceemppage);//更新fact中变量值
+                        update(attendance_rulegenerateresourcemembers);//更新fact中变量值
+                        update(attendance_rulegenerateresourceresource);//更新fact中变量值
+                        update(attendance_rulegenerateresourceret);//更新fact中变量值
+                        update(attendance_rulegenerateresourcetemp);//更新fact中变量值
+            end
+
+            //逻辑处理节点[查询人员信息]
+            rule "dedataset_01"
+            ruleflow-group "attendance_rulegenerateresourcededataset_01"
+            when
+            then
+                        update(attendance_rulegenerateresourcedefault);//更新fact中变量值
+                        update(attendance_rulegenerateresourcefilter);//更新fact中变量值
+                        update(attendance_rulegenerateresourceemp);//更新fact中变量值
+                        update(attendance_rulegenerateresourceemppage);//更新fact中变量值
+                        update(attendance_rulegenerateresourcemembers);//更新fact中变量值
+                        update(attendance_rulegenerateresourceresource);//更新fact中变量值
+                        update(attendance_rulegenerateresourceret);//更新fact中变量值
+                        update(attendance_rulegenerateresourcetemp);//更新fact中变量值
+            end
+
+            //逻辑处理节点[准备参数]
+            rule "prepareparam_03"
+            ruleflow-group "attendance_rulegenerateresourceprepareparam_03"
+            when
+            then
+                            attendance_rulegenerateresourceemp.set("",attendance_rulegenerateresourceemppage.get("0"));
+                        update(attendance_rulegenerateresourcedefault);//更新fact中变量值
+                        update(attendance_rulegenerateresourcefilter);//更新fact中变量值
+                        update(attendance_rulegenerateresourceemp);//更新fact中变量值
+                        update(attendance_rulegenerateresourceemppage);//更新fact中变量值
+                        update(attendance_rulegenerateresourcemembers);//更新fact中变量值
+                        update(attendance_rulegenerateresourceresource);//更新fact中变量值
+                        update(attendance_rulegenerateresourceret);//更新fact中变量值
+                        update(attendance_rulegenerateresourcetemp);//更新fact中变量值
+            end
+
+            //逻辑处理节点[更新人员关联工作时间]
+            rule "rawsqlcall_02"
+            ruleflow-group "attendance_rulegenerateresourcerawsqlcall_02"
+            when
+            then
+    Map param =new HashMap();
+        param.put("param0",attendance_rulegenerateresourcedefault.get("id"));
+        param.put("param1",attendance_rulegenerateresourceemp.get("id"));
+    String strSql="UPDATE hr_employee SET RESOURCE_CALENDAR_ID = #{et.param0} WHERE ID = #{et.param1}";
+                        iBzSysAttendance_ruleDefaultService.execute(strSql,param);//SQL调用
+                        update(attendance_rulegenerateresourcedefault);//更新fact中变量值
+                        update(attendance_rulegenerateresourcefilter);//更新fact中变量值
+                        update(attendance_rulegenerateresourceemp);//更新fact中变量值
+                        update(attendance_rulegenerateresourceemppage);//更新fact中变量值
+                        update(attendance_rulegenerateresourcemembers);//更新fact中变量值
+                        update(attendance_rulegenerateresourceresource);//更新fact中变量值
+                        update(attendance_rulegenerateresourceret);//更新fact中变量值
+                        update(attendance_rulegenerateresourcetemp);//更新fact中变量值
+            end
+
+            //逻辑处理节点[更新资源关联工作时间]
+            rule "rawsqlcall_01"
+            ruleflow-group "attendance_rulegenerateresourcerawsqlcall_01"
+            when
+            then
+    Map param =new HashMap();
+        param.put("param0",attendance_rulegenerateresourcedefault.get("id"));
+        param.put("param1",attendance_rulegenerateresourceemp.get("resourceid"));
+    String strSql="UPDATE resource_resource  SET CALENDAR_ID = #{et.param0} WHERE ID = #{et.param1}";
+                        iBzSysAttendance_ruleDefaultService.execute(strSql,param);//SQL调用
+                        update(attendance_rulegenerateresourcedefault);//更新fact中变量值
+                        update(attendance_rulegenerateresourcefilter);//更新fact中变量值
+                        update(attendance_rulegenerateresourceemp);//更新fact中变量值
+                        update(attendance_rulegenerateresourceemppage);//更新fact中变量值
+                        update(attendance_rulegenerateresourcemembers);//更新fact中变量值
+                        update(attendance_rulegenerateresourceresource);//更新fact中变量值
+                        update(attendance_rulegenerateresourceret);//更新fact中变量值
+                        update(attendance_rulegenerateresourcetemp);//更新fact中变量值
+            end

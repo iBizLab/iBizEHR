@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+    <definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:g="http://www.jboss.org/drools/flow/gpd" xmlns:tns="http://www.jboss.org/drools" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" expressionLanguage="http://www.mvel.org/2.0" id="Definition" name="" targetNamespace="http://www.jboss.org/drools" typeLanguage="http://www.java.com/javaTypes">
+        <process id="cn.ibizlab.core.hr.service.logic.hr_ideaidea_status_count" isClosed="false" isExecutable="true" name="hr_hr_idea_idea_status_count_ruleFlow" processType="Private" tns:packageName="cn.ibizlab.core.hr.service.logic.hr_ideaidea_status_count">
+            <extensionElements>
+                <tns:import name="java.util.Map" />
+                <tns:import name="org.springframework.util.StringUtils"/>
+                <tns:import name="cn.ibizlab.util.helper.RuleUtils"/>
+                                <tns:metaData express="" name="hr_ideaidea_status_countdefault" type="entity"/>
+                                <tns:metaData express="new HashMap()" name="hr_ideaidea_status_countresult" type="refentity"/>
+                    <tns:metaData express="T(cn.ibizlab.util.security.SpringContextHolder).getBean(T(cn.ibizlab.core.hr.service.Ihr_ideaService))" name="iBzSysHr_ideaDefaultService" type="service"/>
+                    <tns:metaData express="T(cn.ibizlab.util.security.AuthenticationUser).getAuthenticationUser()" name="curuser" type="session"/>
+                            <tns:global identifier="hr_ideaidea_status_countdefault" type="cn.ibizlab.core.hr.domain.hr_idea" />
+            </extensionElements>
+                        <startEvent id="begin" isInterrupting="true"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="hr_ideaidea_status_countrawsqlcall_01" id="rawsqlcall_01" implementation="http://www.jboss.org/drools/rule" name="草稿阶段"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="hr_ideaidea_status_countrawsqlcall_02" id="rawsqlcall_02" implementation="http://www.jboss.org/drools/rule" name="未进行阶段"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="hr_ideaidea_status_countrawsqlcall_03" id="rawsqlcall_03" implementation="http://www.jboss.org/drools/rule" name="进行中阶段"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="hr_ideaidea_status_countrawsqlcall_04" id="rawsqlcall_04" implementation="http://www.jboss.org/drools/rule" name="已完成阶段"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="hr_ideaidea_status_countrawsqlcall_05" id="rawsqlcall_05" implementation="http://www.jboss.org/drools/rule" name="已暂停阶段"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="hr_ideaidea_status_countrawsqlcall_06" id="rawsqlcall_06" implementation="http://www.jboss.org/drools/rule" name="已取消阶段"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="hr_ideaidea_status_countrawsqlcall_07" id="rawsqlcall_07" implementation="http://www.jboss.org/drools/rule" name="已超期阶段"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="hr_ideaidea_status_countend_01" id="end_01" implementation="http://www.jboss.org/drools/rule" name="结束"/>
+                        <endEvent id="end_01_end" name="end"/>
+                        <sequenceFlow id="end_01_end_line" sourceRef="end_01" targetRef="end_01_end"/>
+                    <sequenceFlow id="begin_rawsqlcall_01" sourceRef="begin" targetRef="rawsqlcall_01">
+                    </sequenceFlow>
+                    <sequenceFlow id="rawsqlcall_01_rawsqlcall_02" sourceRef="rawsqlcall_01" targetRef="rawsqlcall_02">
+                    </sequenceFlow>
+                    <sequenceFlow id="rawsqlcall_02_rawsqlcall_03" sourceRef="rawsqlcall_02" targetRef="rawsqlcall_03">
+                    </sequenceFlow>
+                    <sequenceFlow id="rawsqlcall_03_rawsqlcall_04" sourceRef="rawsqlcall_03" targetRef="rawsqlcall_04">
+                    </sequenceFlow>
+                    <sequenceFlow id="rawsqlcall_04_rawsqlcall_05" sourceRef="rawsqlcall_04" targetRef="rawsqlcall_05">
+                    </sequenceFlow>
+                    <sequenceFlow id="rawsqlcall_05_rawsqlcall_06" sourceRef="rawsqlcall_05" targetRef="rawsqlcall_06">
+                    </sequenceFlow>
+                    <sequenceFlow id="rawsqlcall_06_rawsqlcall_07" sourceRef="rawsqlcall_06" targetRef="rawsqlcall_07">
+                    </sequenceFlow>
+                    <sequenceFlow id="rawsqlcall_07_end_01" sourceRef="rawsqlcall_07" targetRef="end_01">
+                    </sequenceFlow>
+        </process>
+    </definitions>

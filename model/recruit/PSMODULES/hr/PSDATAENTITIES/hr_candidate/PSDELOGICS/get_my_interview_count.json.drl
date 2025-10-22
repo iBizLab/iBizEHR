@@ -1,0 +1,64 @@
+package cn.ibizlab.hr.logic.hr_candidatelogic.get_my_interview_count;
+        import java.util.Map;
+        import java.util.HashMap;
+        import com.alibaba.fastjson.JSONObject;
+        import org.springframework.util.StringUtils;
+        import org.springframework.util.ObjectUtils;
+        import cn.ibizlab.util.errors.BadRequestAlertException;
+                global cn.ibizlab.core.hr.domain.hr_candidate hr_candidateget_my_interview_countdefault;
+                global java.util.Map hr_candidateget_my_interview_countresult;
+        global cn.ibizlab.core.hr.service.Ihr_candidateService iBzSysHr_candidateDefaultService;
+        global cn.ibizlab.util.security.AuthenticationUser curuser;
+
+
+    no-loop
+
+            //逻辑处理节点[开始]
+            rule "begin"
+            ruleflow-group "hr_candidateget_my_interview_countbegin"
+            when
+            then
+            end
+
+            //逻辑处理节点[直接sql调用]
+            rule "rawsqlcall1"
+            ruleflow-group "hr_candidateget_my_interview_countrawsqlcall1"
+            when
+            then
+    Map param =new HashMap();
+        param.put("param0",curuser.getSessionParams().get("srfuserid"));
+    String strSql="select 	count(1) as current from 	hr_interview_feedback t1 left join hr_interview t2 on 	t1.interview_id = t2.id left join hr_interview_schedule t3 on 	t2.schedule_id = t3.id where 	t3.start_date = current_date and t1.INTERVIEWER_ID  = #{et.param0}";
+                        java.util.List<JSONObject> entities=iBzSysHr_candidateDefaultService.select(strSql,param);//SQL调用
+                            if(entities.size()>0){
+                            JSONObject entity=entities.get(0);
+                                hr_candidateget_my_interview_countresult.putAll(entity);
+                            }
+                        update(hr_candidateget_my_interview_countdefault);//更新fact中变量值
+                        update(hr_candidateget_my_interview_countresult);//更新fact中变量值
+            end
+
+            //逻辑处理节点[直接sql调用]
+            rule "rawsqlcall2"
+            ruleflow-group "hr_candidateget_my_interview_countrawsqlcall2"
+            when
+            then
+    Map param =new HashMap();
+        param.put("param0",curuser.getSessionParams().get("srfuserid"));
+    String strSql="select 	count(1) as after from 	hr_interview_feedback t1 left join hr_interview t2 on 	t1.interview_id = t2.id left join hr_interview_schedule t3 on 	t2.schedule_id = t3.id where 	t3.start_date > current_date 	and t1.INTERVIEWER_ID = #{et.param0}";
+                        java.util.List<JSONObject> entities=iBzSysHr_candidateDefaultService.select(strSql,param);//SQL调用
+                            if(entities.size()>0){
+                            JSONObject entity=entities.get(0);
+                                hr_candidateget_my_interview_countresult.putAll(entity);
+                            }
+                        update(hr_candidateget_my_interview_countdefault);//更新fact中变量值
+                        update(hr_candidateget_my_interview_countresult);//更新fact中变量值
+            end
+
+            //逻辑处理节点[结束]
+            rule "end1"
+            ruleflow-group "hr_candidateget_my_interview_countend1"
+            when
+            then
+                        update(hr_candidateget_my_interview_countdefault);//更新fact中变量值
+                        update(hr_candidateget_my_interview_countresult);//更新fact中变量值
+            end

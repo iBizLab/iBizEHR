@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+    <definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:g="http://www.jboss.org/drools/flow/gpd" xmlns:tns="http://www.jboss.org/drools" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" expressionLanguage="http://www.mvel.org/2.0" id="Definition" name="" targetNamespace="http://www.jboss.org/drools" typeLanguage="http://www.java.com/javaTypes">
+        <process id="cn.ibizlab.core.hr.service.logic.hr_attendancekiosk_checkin" isClosed="false" isExecutable="true" name="hr_hr_attendance_kiosk_checkin_ruleFlow" processType="Private" tns:packageName="cn.ibizlab.core.hr.service.logic.hr_attendancekiosk_checkin">
+            <extensionElements>
+                <tns:import name="java.util.Map" />
+                <tns:import name="org.springframework.util.StringUtils"/>
+                <tns:import name="cn.ibizlab.util.helper.RuleUtils"/>
+                                <tns:metaData express="" name="hr_attendancekiosk_checkindefault" type="entity"/>
+                                <tns:metaData express="new cn.ibizlab.core.hr.domain.hr_employee()" name="hr_attendancekiosk_checkinemp" type="refentity"/>
+                                <tns:metaData express="new HashMap()" name="hr_attendancekiosk_checkinhours_previously_today" type="refentity"/>
+                                <tns:metaData express="new cn.ibizlab.core.hr.domain.hr_attendance()" name="hr_attendancekiosk_checkinlast" type="refentity"/>
+                                <tns:metaData express="new cn.ibizlab.core.hr.domain.hr_attendance()" name="hr_attendancekiosk_checkinnew_attendance" type="refentity"/>
+                                    <tns:metaData express="T(cn.ibizlab.util.security.SpringContextHolder).getBean(T(cn.ibizlab.core.hr.service.Ihr_employeeService))" name="hr_employeeservice" type="service"/>
+                                    <tns:metaData express="T(cn.ibizlab.util.security.SpringContextHolder).getBean(T(cn.ibizlab.core.hr.service.Ihr_attendanceService))" name="hr_attendanceservice" type="service"/>
+                    <tns:metaData express="T(cn.ibizlab.util.security.SpringContextHolder).getBean(T(cn.ibizlab.core.hr.service.Ihr_attendanceService))" name="iBzSysHr_attendanceDefaultService" type="service"/>
+                    <tns:metaData express="T(cn.ibizlab.util.security.AuthenticationUser).getAuthenticationUser()" name="curuser" type="session"/>
+                            <tns:global identifier="hr_attendancekiosk_checkindefault" type="cn.ibizlab.core.hr.domain.hr_attendance" />
+                            <tns:global identifier="hr_attendancekiosk_checkinemp" type="cn.ibizlab.core.hr.domain.hr_employee" />
+                            <tns:global identifier="hr_attendancekiosk_checkinlast" type="cn.ibizlab.core.hr.domain.hr_attendance" />
+                            <tns:global identifier="hr_attendancekiosk_checkinnew_attendance" type="cn.ibizlab.core.hr.domain.hr_attendance" />
+            </extensionElements>
+                        <startEvent id="begin" isInterrupting="true"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="hr_attendancekiosk_checkinprepareparam_01" id="prepareparam_01" implementation="http://www.jboss.org/drools/rule" name="准备参数"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="hr_attendancekiosk_checkindeaction_05" id="deaction_05" implementation="http://www.jboss.org/drools/rule" name="获取人员数据"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="hr_attendancekiosk_checkinrawsqlcall_01" id="rawsqlcall_01" implementation="http://www.jboss.org/drools/rule" name="获取最近一次考勤记录"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="hr_attendancekiosk_checkinrawsqlcall_02" id="rawsqlcall_02" implementation="http://www.jboss.org/drools/rule" name="计算今日时时数"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="hr_attendancekiosk_checkindebugparam_01" id="debugparam_01" implementation="http://www.jboss.org/drools/rule" name="调试逻辑参数"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="hr_attendancekiosk_checkinrawsfcode_02" id="rawsfcode_02" implementation="http://www.jboss.org/drools/rule" name="构造出勤"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="hr_attendancekiosk_checkinrawsfcode_01" id="rawsfcode_01" implementation="http://www.jboss.org/drools/rule" name="构造出勤"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="hr_attendancekiosk_checkindeaction_01" id="deaction_01" implementation="http://www.jboss.org/drools/rule" name="计算工作时间"/>
+                        <endEvent id="deaction_01_end" name="end"/>
+                        <sequenceFlow id="deaction_01_end_line" sourceRef="deaction_01" targetRef="deaction_01_end"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="hr_attendancekiosk_checkindeaction_04" id="deaction_04" implementation="http://www.jboss.org/drools/rule" name="实体行为"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="hr_attendancekiosk_checkindeaction_02" id="deaction_02" implementation="http://www.jboss.org/drools/rule" name="实体行为"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="hr_attendancekiosk_checkindeaction_03" id="deaction_03" implementation="http://www.jboss.org/drools/rule" name="计算工作时间"/>
+                        <endEvent id="deaction_03_end" name="end"/>
+                        <sequenceFlow id="deaction_03_end_line" sourceRef="deaction_03" targetRef="deaction_03_end"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="hr_attendancekiosk_checkinrawsfcode_04" id="rawsfcode_04" implementation="http://www.jboss.org/drools/rule" name="今日时数"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="hr_attendancekiosk_checkinrawsfcode_03" id="rawsfcode_03" implementation="http://www.jboss.org/drools/rule" name="今日时数"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="hr_attendancekiosk_checkinend_02" id="end_02" implementation="http://www.jboss.org/drools/rule" name="结束"/>
+                        <endEvent id="end_02_end" name="end"/>
+                        <sequenceFlow id="end_02_end_line" sourceRef="end_02" targetRef="end_02_end"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="hr_attendancekiosk_checkinend_01" id="end_01" implementation="http://www.jboss.org/drools/rule" name="结束"/>
+                        <endEvent id="end_01_end" name="end"/>
+                        <sequenceFlow id="end_01_end_line" sourceRef="end_01" targetRef="end_01_end"/>
+                    <sequenceFlow id="begin_prepareparam_01" sourceRef="begin" targetRef="prepareparam_01">
+                    </sequenceFlow>
+                    <sequenceFlow id="prepareparam_01_deaction_05" sourceRef="prepareparam_01" targetRef="deaction_05">
+                    </sequenceFlow>
+                    <sequenceFlow id="deaction_05_rawsqlcall_01" sourceRef="deaction_05" targetRef="rawsqlcall_01">
+                    </sequenceFlow>
+                    <sequenceFlow id="rawsqlcall_01_rawsqlcall_02" sourceRef="rawsqlcall_01" targetRef="rawsqlcall_02">
+                    </sequenceFlow>
+                    <sequenceFlow id="gateway-rawsqlcall_02_rawsfcode_01" sourceRef="gateway-rawsqlcall_02" targetRef="rawsfcode_01">
+                            <conditionExpression  language="http://www.jboss.org/drools/rule" ><![CDATA[
+                                            $hr_attendancekiosk_checkindefault:hr_attendance();
+                                            $hr_attendancekiosk_checkinemp:hr_employee();
+                                            $hr_attendancekiosk_checkinhours_previously_today:Map();
+                                            $hr_attendancekiosk_checkinlast:hr_attendance();
+                                            $hr_attendancekiosk_checkinnew_attendance:hr_attendance();
+                                    eval($hr_attendancekiosk_checkindefault==hr_attendancekiosk_checkindefault && $hr_attendancekiosk_checkinemp==hr_attendancekiosk_checkinemp && $hr_attendancekiosk_checkinlast==hr_attendancekiosk_checkinlast && $hr_attendancekiosk_checkinnew_attendance==hr_attendancekiosk_checkinnew_attendance);
+                                eval((RuleUtils.test($hr_attendancekiosk_checkinlast.get(""),"ISNOTNULL",""))&&(RuleUtils.test($hr_attendancekiosk_checkinlast.get("checkIn"),"ISNOTNULL",""))&&(RuleUtils.test($hr_attendancekiosk_checkinlast.get("checkOut"),"ISNULL","")))
+                                ]]>
+                            </conditionExpression>
+                    </sequenceFlow>
+                    <sequenceFlow id="rawsqlcall_02_rawsfcode_02" sourceRef="rawsqlcall_02" targetRef="rawsfcode_02">
+                    </sequenceFlow>
+                    <sequenceFlow id="debugparam_01_deaction_04" sourceRef="debugparam_01" targetRef="deaction_04">
+                    </sequenceFlow>
+                    <sequenceFlow id="rawsfcode_02_debugparam_01" sourceRef="rawsfcode_02" targetRef="debugparam_01">
+                    </sequenceFlow>
+                    <sequenceFlow id="rawsfcode_01_deaction_02" sourceRef="rawsfcode_01" targetRef="deaction_02">
+                    </sequenceFlow>
+                    <sequenceFlow id="deaction_04_rawsfcode_04" sourceRef="deaction_04" targetRef="rawsfcode_04">
+                    </sequenceFlow>
+                    <sequenceFlow id="deaction_02_rawsfcode_03" sourceRef="deaction_02" targetRef="rawsfcode_03">
+                    </sequenceFlow>
+                    <sequenceFlow id="rawsfcode_04_end_02" sourceRef="rawsfcode_04" targetRef="end_02">
+                    </sequenceFlow>
+                    <sequenceFlow id="rawsfcode_03_end_01" sourceRef="rawsfcode_03" targetRef="end_01">
+                    </sequenceFlow>
+                            <exclusiveGateway id="gateway-rawsqlcall_02" name="Gateway" gatewayDirection="Diverging" default="gateway-rawsqlcall_02_end_line"></exclusiveGateway>
+                            <sequenceFlow id="rawsqlcall_02_gateway-rawsqlcall_02_gatewayline" sourceRef="rawsqlcall_02" targetRef="gateway-rawsqlcall_02"></sequenceFlow>
+                            <sequenceFlow id="gateway-rawsqlcall_02_end_line" sourceRef="gateway-rawsqlcall_02" targetRef="gateway-rawsqlcall_02_end"/>
+                            <endEvent id="gateway-rawsqlcall_02_end" name="end"/>
+        </process>
+    </definitions>

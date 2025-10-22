@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+    <definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:g="http://www.jboss.org/drools/flow/gpd" xmlns:tns="http://www.jboss.org/drools" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" expressionLanguage="http://www.mvel.org/2.0" id="Definition" name="" targetNamespace="http://www.jboss.org/drools" typeLanguage="http://www.java.com/javaTypes">
+        <process id="cn.ibizlab.core.attendance.service.logic.attendance_clock_in_recordrecord" isClosed="false" isExecutable="true" name="attendance_attendance_clock_in_record_record_ruleFlow" processType="Private" tns:packageName="cn.ibizlab.core.attendance.service.logic.attendance_clock_in_recordrecord">
+            <extensionElements>
+                <tns:import name="java.util.Map" />
+                <tns:import name="org.springframework.util.StringUtils"/>
+                <tns:import name="cn.ibizlab.util.helper.RuleUtils"/>
+                                <tns:metaData express="" name="attendance_clock_in_recordrecorddefault" type="entity"/>
+                                <tns:metaData express="new cn.ibizlab.core.employee_management.domain.employee()" name="attendance_clock_in_recordrecordemp_page" type="refentity"/>
+                                <tns:metaData express="new cn.ibizlab.core.employee_management.domain.employee()" name="attendance_clock_in_recordrecordemp_temp" type="refentity"/>
+                                <tns:metaData express="new cn.ibizlab.core.attendance.domain.attendance_clock_in_record()" name="attendance_clock_in_recordrecordnewrecords" type="refentity"/>
+                                    <tns:metaData express="T(cn.ibizlab.util.security.SpringContextHolder).getBean(T(cn.ibizlab.core.employee_management.service.IemployeeService))" name="employeeservice" type="service"/>
+                    <tns:metaData express="T(cn.ibizlab.util.security.SpringContextHolder).getBean(T(cn.ibizlab.core.attendance.service.Iattendance_clock_in_recordService))" name="iBzSysAttendance_clock_in_recordDefaultService" type="service"/>
+                    <tns:metaData express="T(cn.ibizlab.util.security.AuthenticationUser).getAuthenticationUser()" name="curuser" type="session"/>
+                            <tns:global identifier="attendance_clock_in_recordrecorddefault" type="cn.ibizlab.core.attendance.domain.attendance_clock_in_record" />
+                            <tns:global identifier="attendance_clock_in_recordrecordemp_page" type="cn.ibizlab.core.employee_management.domain.employee" />
+                            <tns:global identifier="attendance_clock_in_recordrecordemp_temp" type="cn.ibizlab.core.employee_management.domain.employee" />
+                            <tns:global identifier="attendance_clock_in_recordrecordnewrecords" type="cn.ibizlab.core.attendance.domain.attendance_clock_in_record" />
+            </extensionElements>
+                        <startEvent id="begin" isInterrupting="true"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="attendance_clock_in_recordrecorddebugparam_01" id="debugparam_01" implementation="http://www.jboss.org/drools/rule" name="调试逻辑参数"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="attendance_clock_in_recordrecordrawsfcode_01" id="rawsfcode_01" implementation="http://www.jboss.org/drools/rule" name="执行脚本代码"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="attendance_clock_in_recordrecordend_01" id="end_01" implementation="http://www.jboss.org/drools/rule" name="结束"/>
+                        <endEvent id="end_01_end" name="end"/>
+                        <sequenceFlow id="end_01_end_line" sourceRef="end_01" targetRef="end_01_end"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="attendance_clock_in_recordrecordrawsfcode2" id="rawsfcode2" implementation="http://www.jboss.org/drools/rule" name="解析搜索条件"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="attendance_clock_in_recordrecorddedataset1" id="dedataset1" implementation="http://www.jboss.org/drools/rule" name="查询人员"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="attendance_clock_in_recordrecordloopsubcall1" id="loopsubcall1" implementation="http://www.jboss.org/drools/rule" name="循环子调用"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="attendance_clock_in_recordrecordrawsfcode1" id="rawsfcode1" implementation="http://www.jboss.org/drools/rule" name="获取打卡记录"/>
+                        <endEvent id="rawsfcode1_end" name="end"/>
+                        <sequenceFlow id="rawsfcode1_end_line" sourceRef="rawsfcode1" targetRef="rawsfcode1_end"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="attendance_clock_in_recordrecordend1" id="end1" implementation="http://www.jboss.org/drools/rule" name="结束"/>
+                        <endEvent id="end1_end" name="end"/>
+                        <sequenceFlow id="end1_end_line" sourceRef="end1" targetRef="end1_end"/>
+                    <sequenceFlow id="begin_rawsfcode_01" sourceRef="begin" targetRef="rawsfcode_01">
+                    </sequenceFlow>
+                    <sequenceFlow id="debugparam_01_end_01" sourceRef="debugparam_01" targetRef="end_01">
+                    </sequenceFlow>
+                    <sequenceFlow id="rawsfcode_01_debugparam_01" sourceRef="rawsfcode_01" targetRef="debugparam_01">
+                    </sequenceFlow>
+                    <sequenceFlow id="rawsfcode2_dedataset1" sourceRef="rawsfcode2" targetRef="dedataset1">
+                    </sequenceFlow>
+                    <sequenceFlow id="dedataset1_loopsubcall1" sourceRef="dedataset1" targetRef="loopsubcall1">
+                    </sequenceFlow>
+                    <sequenceFlow id="loopsubcall1_rawsfcode1" sourceRef="loopsubcall1" targetRef="rawsfcode1">
+                    </sequenceFlow>
+                    <sequenceFlow id="loopsubcall1_end1" sourceRef="loopsubcall1" targetRef="end1">
+                    </sequenceFlow>
+        </process>
+    </definitions>

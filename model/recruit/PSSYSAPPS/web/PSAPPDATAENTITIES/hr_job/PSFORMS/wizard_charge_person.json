@@ -1,0 +1,407 @@
+{
+  "codeName" : "wizard_charge_person",
+  "controlType" : "FORM",
+  "defaultLabelWidth" : 130,
+  "dynaModelFilePath" : "PSSYSAPPS/web/PSAPPDATAENTITIES/hr_job/PSFORMS/wizard_charge_person.json",
+  "formFuncMode" : "WIZARDFORM",
+  "getGetPSControlAction" : {
+    "modelref" : true,
+    "id" : "load",
+    "actionName" : "GetTemp",
+    "actionType" : "DEACTION",
+    "name" : "load",
+    "getPSAppDEMethod" : {
+      "modelref" : true,
+      "id" : "GetTemp"
+    },
+    "getPSAppDataEntity" : {
+      "modelref" : true,
+      "path" : "PSSYSAPPS/web/PSAPPDATAENTITIES/hr_job.json"
+    }
+  },
+  "getGoBackPSControlAction" : {
+    "modelref" : true,
+    "id" : "goback",
+    "actionName" : "GetDraft",
+    "actionType" : "DEACTION",
+    "name" : "goback",
+    "getPSAppDEMethod" : {
+      "modelref" : true,
+      "id" : "get_draft"
+    },
+    "getPSAppDataEntity" : {
+      "modelref" : true,
+      "path" : "PSSYSAPPS/web/PSAPPDATAENTITIES/hr_job.json"
+    }
+  },
+  "hookEventNames" : [ "SAVE", "LOAD" ],
+  "logicName" : "负责人（向导）",
+  "getPSAppDataEntity" : {
+    "modelref" : true,
+    "path" : "PSSYSAPPS/web/PSAPPDATAENTITIES/hr_job.json"
+  },
+  "getPSControlLogics" : [ {
+    "eventNames" : "SAVE",
+    "logicTag" : "wizardpanel_form_charge_person",
+    "logicType" : "CUSTOM",
+    "name" : "wizardpanel_formsave"
+  }, {
+    "eventNames" : "LOAD",
+    "logicTag" : "wizardpanel_form_charge_person",
+    "logicType" : "CUSTOM",
+    "name" : "wizardpanel_formload"
+  } ],
+  "getPSDEFormItems" : [ {
+    "id" : "srfupdatedate",
+    "hidden" : true,
+    "dataType" : 5,
+    "getPSAppDEField" : {
+      "name" : "WRITE_DATE",
+      "codeName" : "write_date"
+    }
+  }, {
+    "id" : "srforikey",
+    "hidden" : true,
+    "dataType" : 25
+  }, {
+    "id" : "srfkey",
+    "hidden" : true,
+    "dataType" : 25,
+    "getPSAppDEField" : {
+      "name" : "ID",
+      "codeName" : "id"
+    }
+  }, {
+    "id" : "srfmajortext",
+    "hidden" : true,
+    "dataType" : 25,
+    "getPSAppDEField" : {
+      "name" : "NAME",
+      "codeName" : "name"
+    }
+  }, {
+    "id" : "srftempmode",
+    "hidden" : true,
+    "dataType" : 25
+  }, {
+    "id" : "srfuf",
+    "hidden" : true,
+    "dataType" : 25
+  }, {
+    "id" : "srfdeid",
+    "hidden" : true,
+    "dataType" : 25
+  }, {
+    "id" : "srfsourcekey",
+    "hidden" : true,
+    "dataType" : 25
+  }, {
+    "id" : "owner_id",
+    "dataType" : 25,
+    "getPSAppDEField" : {
+      "name" : "OWNER_ID",
+      "codeName" : "owner_id"
+    }
+  }, {
+    "id" : "assistant_uid",
+    "dataType" : 25,
+    "getPSAppDEField" : {
+      "name" : "ASSISTANT_UID",
+      "codeName" : "assistant_uid"
+    }
+  }, {
+    "id" : "manager_uid",
+    "dataType" : 25,
+    "getPSAppDEField" : {
+      "name" : "MANAGER_UID",
+      "codeName" : "manager_uid"
+    }
+  }, {
+    "id" : "interviewer_uid",
+    "dataType" : 25,
+    "getPSAppDEField" : {
+      "name" : "INTERVIEWER_UID",
+      "codeName" : "interviewer_uid"
+    }
+  }, {
+    "id" : "id",
+    "hidden" : true,
+    "dataType" : 25,
+    "getPSAppDEField" : {
+      "name" : "ID",
+      "codeName" : "id"
+    }
+  } ],
+  "getPSDEFormPages" : [ {
+    "caption" : "基本信息",
+    "codeName" : "formpage1",
+    "detailStyle" : "DEFAULT",
+    "detailType" : "FORMPAGE",
+    "name" : "formpage1",
+    "getPSDEFormDetails" : [ {
+      "caption" : "负责人",
+      "codeName" : "group1",
+      "detailStyle" : "DEFAULT",
+      "detailType" : "GROUPPANEL",
+      "name" : "group1",
+      "getPSDEFormDetails" : [ {
+        "caption" : "招聘负责人",
+        "codeName" : "owner_id",
+        "dataType" : 25,
+        "detailStyle" : "DEFAULT",
+        "detailType" : "FORMITEM",
+        "enableCond" : 3,
+        "ignoreInput" : 0,
+        "labelPos" : "LEFT",
+        "labelWidth" : 130,
+        "name" : "owner_id",
+        "noPrivDisplayMode" : 1,
+        "getPSAppDEField" : {
+          "name" : "OWNER_ID",
+          "codeName" : "owner_id"
+        },
+        "getPSEditor" : {
+          "editorType" : "TEXTBOX",
+          "maxLength" : 100,
+          "name" : "owner_id",
+          "getPSEditorItems" : [ {
+            "name" : "owner_id",
+            "getPSAppDEACMode" : {
+              "modelref" : true,
+              "id" : "Default"
+            },
+            "getPSAppDEDataSet" : {
+              "modelref" : true,
+              "id" : "fetch_default"
+            },
+            "getPSAppDataEntity" : {
+              "modelref" : true,
+              "path" : "PSSYSAPPS/web/PSAPPDATAENTITIES/hr_employee.json"
+            }
+          } ]
+        },
+        "getPSLayoutPos" : {
+          "colMD" : 24,
+          "layout" : "TABLE_24COL"
+        },
+        "valueItemName" : "owner_id",
+        "allowEmpty" : true,
+        "showCaption" : true
+      }, {
+        "caption" : "招聘协助人",
+        "codeName" : "assistant_uid",
+        "dataType" : 25,
+        "detailStyle" : "DEFAULT",
+        "detailType" : "FORMITEM",
+        "enableCond" : 3,
+        "ignoreInput" : 0,
+        "labelPos" : "LEFT",
+        "labelWidth" : 130,
+        "name" : "assistant_uid",
+        "noPrivDisplayMode" : 1,
+        "getPSAppDEField" : {
+          "name" : "ASSISTANT_UID",
+          "codeName" : "assistant_uid"
+        },
+        "getPSEditor" : {
+          "editorParams" : {
+            "PICKUPVIEW" : "TRUE"
+          },
+          "editorType" : "ADDRESSPICKUP",
+          "name" : "assistant_uid",
+          "getPSAppDEACMode" : {
+            "modelref" : true,
+            "id" : "Default"
+          },
+          "getPSAppDEDataSet" : {
+            "modelref" : true,
+            "id" : "fetch_default"
+          },
+          "getPSAppDataEntity" : {
+            "modelref" : true,
+            "path" : "PSSYSAPPS/web/PSAPPDATAENTITIES/hr_employee.json"
+          },
+          "enableAC" : false,
+          "enablePickupView" : true,
+          "forceSelection" : true,
+          "showTrigger" : true
+        },
+        "getPSLayoutPos" : {
+          "colMD" : 24,
+          "layout" : "TABLE_24COL"
+        },
+        "allowEmpty" : true,
+        "showCaption" : true
+      }, {
+        "caption" : "用人经理",
+        "codeName" : "manager_uid",
+        "dataType" : 25,
+        "detailStyle" : "DEFAULT",
+        "detailType" : "FORMITEM",
+        "enableCond" : 3,
+        "ignoreInput" : 0,
+        "labelPos" : "LEFT",
+        "labelWidth" : 130,
+        "name" : "manager_uid",
+        "noPrivDisplayMode" : 1,
+        "getPSAppDEField" : {
+          "name" : "MANAGER_UID",
+          "codeName" : "manager_uid"
+        },
+        "getPSEditor" : {
+          "editorParams" : {
+            "PICKUPVIEW" : "TRUE"
+          },
+          "editorType" : "ADDRESSPICKUP",
+          "name" : "manager_uid",
+          "getPSAppDEACMode" : {
+            "modelref" : true,
+            "id" : "Default"
+          },
+          "getPSAppDEDataSet" : {
+            "modelref" : true,
+            "id" : "fetch_default"
+          },
+          "getPSAppDataEntity" : {
+            "modelref" : true,
+            "path" : "PSSYSAPPS/web/PSAPPDATAENTITIES/hr_employee.json"
+          },
+          "enableAC" : false,
+          "enablePickupView" : true,
+          "forceSelection" : true,
+          "showTrigger" : true
+        },
+        "getPSLayoutPos" : {
+          "colMD" : 24,
+          "layout" : "TABLE_24COL"
+        },
+        "allowEmpty" : true,
+        "showCaption" : true
+      }, {
+        "caption" : "面试官",
+        "codeName" : "interviewer_uid",
+        "dataType" : 25,
+        "detailStyle" : "DEFAULT",
+        "detailType" : "FORMITEM",
+        "enableCond" : 3,
+        "ignoreInput" : 0,
+        "labelPos" : "LEFT",
+        "labelWidth" : 130,
+        "name" : "interviewer_uid",
+        "noPrivDisplayMode" : 1,
+        "getPSAppDEField" : {
+          "name" : "INTERVIEWER_UID",
+          "codeName" : "interviewer_uid"
+        },
+        "getPSEditor" : {
+          "editorParams" : {
+            "PICKUPVIEW" : "TRUE"
+          },
+          "editorType" : "ADDRESSPICKUP",
+          "name" : "interviewer_uid",
+          "getPSAppDEACMode" : {
+            "modelref" : true,
+            "id" : "Default"
+          },
+          "getPSAppDEDataSet" : {
+            "modelref" : true,
+            "id" : "fetch_default"
+          },
+          "getPSAppDataEntity" : {
+            "modelref" : true,
+            "path" : "PSSYSAPPS/web/PSAPPDATAENTITIES/hr_employee.json"
+          },
+          "enableAC" : false,
+          "enablePickupView" : true,
+          "forceSelection" : true,
+          "showTrigger" : true
+        },
+        "getPSLayoutPos" : {
+          "colMD" : 24,
+          "layout" : "TABLE_24COL"
+        },
+        "allowEmpty" : true,
+        "showCaption" : true
+      } ],
+      "getPSLayout" : {
+        "childColMD" : 24,
+        "columnCount" : 24,
+        "layout" : "TABLE_24COL"
+      },
+      "getPSLayoutPos" : {
+        "colMD" : 24,
+        "layout" : "TABLE_24COL"
+      },
+      "infoGroupMode" : false,
+      "showCaption" : true
+    }, {
+      "caption" : "标识",
+      "codeName" : "id",
+      "dataType" : 25,
+      "detailStyle" : "DEFAULT",
+      "detailType" : "FORMITEM",
+      "enableCond" : 3,
+      "ignoreInput" : 0,
+      "labelPos" : "LEFT",
+      "labelWidth" : 130,
+      "name" : "id",
+      "noPrivDisplayMode" : 1,
+      "getPSAppDEField" : {
+        "name" : "ID",
+        "codeName" : "id"
+      },
+      "getPSEditor" : {
+        "editorType" : "HIDDEN",
+        "name" : "id"
+      },
+      "getPSLayoutPos" : {
+        "colMD" : 24,
+        "layout" : "TABLE_24COL"
+      },
+      "allowEmpty" : true,
+      "hidden" : true
+    } ],
+    "getPSLayout" : {
+      "childColMD" : 24,
+      "columnCount" : 24,
+      "layout" : "TABLE_24COL"
+    },
+    "infoGroupMode" : false
+  } ],
+  "getPSDEWizardForm" : {
+    "formTag" : "charge_person",
+    "name" : "负责人",
+    "getPSDEFormName" : "负责人（向导）",
+    "getPSDEWizardStep" : {
+      "modelref" : true,
+      "id" : "负责人"
+    },
+    "stepActions" : [ "PREV", "FINISH" ],
+    "stepTag" : "charge_person",
+    "firstForm" : false
+  },
+  "getPSLayout" : {
+    "childColMD" : 24,
+    "columnCount" : 24,
+    "layout" : "TABLE_24COL"
+  },
+  "tabHeaderPos" : "TOP",
+  "getUpdatePSControlAction" : {
+    "modelref" : true,
+    "id" : "update",
+    "actionName" : "UpdateTemp",
+    "actionType" : "DEACTION",
+    "name" : "update",
+    "getPSAppDEMethod" : {
+      "modelref" : true,
+      "id" : "UpdateTemp"
+    },
+    "getPSAppDataEntity" : {
+      "modelref" : true,
+      "path" : "PSSYSAPPS/web/PSAPPDATAENTITIES/hr_job.json"
+    }
+  },
+  "noTabHeader" : true,
+  "modelid" : "e678cbe5cb72ba7138b1ee5595b80222",
+  "modeltype" : "PSDEFORM_EDITFORM"
+}

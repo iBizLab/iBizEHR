@@ -1,0 +1,83 @@
+{
+  "codeName" : "my_candidate_filter",
+  "controlStyle" : "CARD",
+  "controlType" : "SEARCHBAR",
+  "dynaModelFilePath" : "PSSYSAPPS/web/PSAPPDATAENTITIES/hr_candidate_filter_detail/PSSEARCHBARS/my_candidate_filter.json",
+  "logicName" : "简历筛选",
+  "getPSAppCounterRef" : {
+    "modelref" : true,
+    "id" : "95a8333f0b8b213bfdd8a83d86eb161c"
+  },
+  "getPSAppCounterRefs" : [ {
+    "getPSAppCounter" : {
+      "codeName" : "my_filter_count",
+      "counterType" : "DEDR",
+      "dynaModelFilePath" : "PSSYSAPPS/web/PSAPPCOUNTERS/my_filter_count.json",
+      "getGetPSAppDEAction" : {
+        "modelref" : true,
+        "id" : "my_filter_count"
+      },
+      "name" : "用人经理-简历筛选-搜索栏计数器",
+      "getPSAppDataEntity" : {
+        "modelref" : true,
+        "path" : "PSSYSAPPS/web/PSAPPDATAENTITIES/hr_candidate_filter_detail.json"
+      },
+      "timer" : 60000,
+      "uniqueTag" : "my_filter_count"
+    },
+    "tag" : "95a8333f0b8b213bfdd8a83d86eb161c",
+    "uniqueTag" : "my_filter_count",
+    "id" : "95a8333f0b8b213bfdd8a83d86eb161c"
+  } ],
+  "getPSAppDataEntity" : {
+    "modelref" : true,
+    "path" : "PSSYSAPPS/web/PSAPPDATAENTITIES/hr_candidate_filter_detail.json"
+  },
+  "getPSSearchBarGroups" : [ {
+    "caption" : "待筛选的候选人",
+    "counterId" : "todo",
+    "data" : "{\"theme_model\":{\"searchconds\":[{\"condtype\":\"GROUP\",\"condop\":\"AND\",\"bnotmode\":false,\"searchconds\":[{\"condtype\":\"DEFIELD\",\"fieldname\":\"status\",\"condop\":\"EQ\",\"value\":\"1\"}]}]}}",
+    "itemType" : "GROUP",
+    "name" : "todo",
+    "width" : 0.0,
+    "addSeparator" : false
+  }, {
+    "caption" : "可面试的候选人",
+    "counterId" : "doing",
+    "data" : "{\"theme_model\":{\"searchconds\":[{\"condtype\":\"GROUP\",\"condop\":\"AND\",\"bnotmode\":false,\"searchconds\":[{\"condtype\":\"DEFIELD\",\"fieldname\":\"status\",\"condop\":\"ISNULL\",\"value\":\"\"}]}]}}",
+    "itemType" : "GROUP",
+    "name" : "doing",
+    "width" : 0.0,
+    "addSeparator" : false
+  }, {
+    "caption" : "已推荐的候选人",
+    "counterId" : "recommend",
+    "data" : "{\"theme_model\":{\"searchconds\":[{\"condtype\":\"GROUP\",\"condop\":\"AND\",\"bnotmode\":false,\"searchconds\":[{\"condtype\":\"DEFIELD\",\"fieldname\":\"status\",\"condop\":\"ISNULL\",\"value\":\"\"}]}]}}",
+    "itemType" : "GROUP",
+    "name" : "recommend",
+    "width" : 0.0,
+    "addSeparator" : false
+  }, {
+    "caption" : "筛选记录",
+    "counterId" : "done",
+    "data" : "{\"theme_model\":{\"searchconds\":[{\"condtype\":\"GROUP\",\"condop\":\"AND\",\"bnotmode\":false,\"searchconds\":[{\"condtype\":\"DEFIELD\",\"fieldname\":\"status\",\"condop\":\"NOTEQ\",\"value\":\"1\"},{\"condtype\":\"DEFIELD\",\"fieldname\":\"status\",\"condop\":\"ISNOTNULL\",\"value\":\"\"}]}]}}",
+    "itemType" : "GROUP",
+    "name" : "done",
+    "width" : 0.0,
+    "addSeparator" : false
+  } ],
+  "getPSSysPFPlugin" : {
+    "pluginType" : "SEARCHBAR_RENDER",
+    "pluginCode" : "CARD",
+    "runtimeObject" : true
+  },
+  "quickGroupCount" : -1,
+  "quickSearchMode" : 0,
+  "quickSearchWidth" : 0,
+  "enableFilter" : false,
+  "enableGroup" : true,
+  "enableQuickSearch" : false,
+  "mobileSearchBar" : false,
+  "modelid" : "5dce2df2a48ab2ec14e078265ce3b699",
+  "modeltype" : "PSSYSSEARCHBAR"
+}

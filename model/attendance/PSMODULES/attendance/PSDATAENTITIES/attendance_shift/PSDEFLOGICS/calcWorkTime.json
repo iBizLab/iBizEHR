@@ -1,0 +1,17 @@
+{
+  "codeName" : "calcWorkTime",
+  "dEFLogicMode" : "COMPUTE",
+  "defaultParamName" : "DEFAULT",
+  "dynaModelFilePath" : "PSMODULES/attendance/PSDATAENTITIES/attendance_shift/PSDEFLOGICS/calcWorkTime.json",
+  "logicName" : "计算上下班时间",
+  "logicSubType" : "DEFIELD",
+  "name" : "计算上下班时间",
+  "getPSDEField" : {
+    "name" : "WORK_TIME",
+    "codeName" : "work_time"
+  },
+  "scriptCode" : "if (data != null && data.scopes != null ) {\n    function timeToMinutes(timeStr) {\n        const parts = timeStr.split(':');\n        const hours = parseInt(parts[0], 10);\n        const minutes = parseInt(parts[1], 10);\n        return hours * 60 + minutes;\n    }\n    \n    var scopes = data.scopes\n    var worktimeParts = [];\n    scopes.forEach(scope => {\n        var start = scope.start_base_time.substring(0, 5);\n        const startMinutes = timeToMinutes(scope.start_base_time);\n        const endMinutes = timeToMinutes(scope.end_base_time);\n        if(scope.next_tag === \"1,0\"||scope.next_tag === \"1,1\"){\n            start = \"次日\" + start;\n        }\n        var end = scope.end_base_time.substring(0, 5);\n        if(scope.next_tag === \"0,1\"||scope.next_tag === \"1,1\" || startMinutes >= endMinutes){\n            end = \"次日\" + end;\n        }\n        worktimeParts.push(start + '-' + end);\n    })\n    data.work_time = worktimeParts.join('/');\n}",
+  "customCode" : true,
+  "enableBackend" : false,
+  "enableFront" : true
+}

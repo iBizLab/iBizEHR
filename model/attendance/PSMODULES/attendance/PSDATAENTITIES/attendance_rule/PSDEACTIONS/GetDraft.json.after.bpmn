@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+    <definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:g="http://www.jboss.org/drools/flow/gpd" xmlns:tns="http://www.jboss.org/drools" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" expressionLanguage="http://www.mvel.org/2.0" id="Definition" name="" targetNamespace="http://www.jboss.org/drools" typeLanguage="http://www.java.com/javaTypes">
+        <process id="cn.ibizlab.core.attendance.attendance_rule.getdraft.afterLogic" isClosed="false" isExecutable="true" name="attendance_attendance_rule_getdraft_afterLogic" processType="Private" tns:packageName="cn.ibizlab.core.attendance.attendance_rule.getdraft.afterLogic">
+            <extensionElements>
+                <tns:import name="java.util.Map"/>
+                <tns:import name="org.springframework.util.StringUtils"/>
+                <tns:import name="cn.ibizlab.util.helper.RuleUtils"/>
+                <tns:import name="cn.ibizlab.core.attendance.domain.attendance_rule"/>
+            </extensionElements>
+                <startEvent id="begin" isInterrupting="true"/>
+                <endEvent id="prepareparam1_end" name="end"/>
+                            <callActivity activiti:exclusive="true" calledElement="cn.ibizlab.core.attendance.service.logic.attendance_rulefillshift" id="c96837a163b2cc3601efffd555e2493d" name="fillShift.json.bpmn"/>
+                        <sequenceFlow id="begin_c96837a163b2cc3601efffd555e2493d" sourceRef="begin" targetRef="c96837a163b2cc3601efffd555e2493d"/>
+                            <callActivity activiti:exclusive="true" calledElement="cn.ibizlab.core.attendance.service.logic.attendance_rulefillworkdays" id="f5bba1c83623ca9e9490f47c8f0eda52" name="fillWorkDays.json.bpmn"/>
+                        <sequenceFlow id="c96837a163b2cc3601efffd555e2493d_f5bba1c83623ca9e9490f47c8f0eda52" sourceRef="c96837a163b2cc3601efffd555e2493d" targetRef="f5bba1c83623ca9e9490f47c8f0eda52"/>
+                            <callActivity activiti:exclusive="true" calledElement="cn.ibizlab.core.attendance.service.logic.attendance_rulefillgroupshift" id="4ca7eb775b2ff52eed398a875aa8386c" name="fillGroupShift.json.bpmn"/>
+                        <sequenceFlow id="f5bba1c83623ca9e9490f47c8f0eda52_4ca7eb775b2ff52eed398a875aa8386c" sourceRef="f5bba1c83623ca9e9490f47c8f0eda52" targetRef="4ca7eb775b2ff52eed398a875aa8386c"/>
+                            <callActivity activiti:exclusive="true" calledElement="cn.ibizlab.core.attendance.service.logic.attendance_rulecalcother" id="7373edbae3326aa49783f7c3ca644903" name="calcOther.json.bpmn"/>
+                        <sequenceFlow id="4ca7eb775b2ff52eed398a875aa8386c_7373edbae3326aa49783f7c3ca644903" sourceRef="4ca7eb775b2ff52eed398a875aa8386c" targetRef="7373edbae3326aa49783f7c3ca644903"/>
+                            <sequenceFlow id="7373edbae3326aa49783f7c3ca644903_prepareparam1_end" sourceRef="7373edbae3326aa49783f7c3ca644903" targetRef="prepareparam1_end"/>
+        </process>
+    </definitions>

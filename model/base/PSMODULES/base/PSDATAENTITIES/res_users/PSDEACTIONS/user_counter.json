@@ -1,0 +1,26 @@
+{
+  "actionMode" : "CUSTOM",
+  "actionType" : "SCRIPT",
+  "codeName" : "user_counter",
+  "dataAccessAction" : "READ",
+  "dynaModelFilePath" : "PSMODULES/base/PSDATAENTITIES/res_users/PSDEACTIONS/user_counter.json",
+  "logicName" : "用户计数器",
+  "name" : "user_counter",
+  "getPSDEActionInput" : {
+    "name" : "User_counterInput",
+    "getPSDEMethodDTO" : {
+      "modelref" : true,
+      "id" : "res_users_dto"
+    },
+    "type" : "DTO"
+  },
+  "getPSDEActionReturn" : {
+    "name" : "User_counterResult",
+    "getPSDEMethodDTO" : {
+      "modelref" : true,
+      "id" : "res_users_counter_dto"
+    },
+    "type" : "DTO"
+  },
+  "scriptCode" : "//Groovy\r\ndef last = entity.callEntity()\r\nif(entity.getId() != null || entity.getId() != \"undefined\"){\r\n\tlast.rawSelect(true);\r\n}\r\nreturn last;"
+}

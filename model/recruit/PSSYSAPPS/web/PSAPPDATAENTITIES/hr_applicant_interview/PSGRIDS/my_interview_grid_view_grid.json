@@ -1,0 +1,245 @@
+{
+  "aggMode" : "NONE",
+  "codeName" : "my_interview_grid_view_grid",
+  "columnEnableFilter" : 2,
+  "columnEnableLink" : 2,
+  "controlType" : "GRID",
+  "dynaModelFilePath" : "PSSYSAPPS/web/PSAPPDATAENTITIES/hr_applicant_interview/PSGRIDS/my_interview_grid_view_grid.json",
+  "getFetchPSControlAction" : {
+    "modelref" : true,
+    "id" : "fetch",
+    "actionType" : "DEDATASET",
+    "name" : "fetch",
+    "getPSAppDEMethod" : {
+      "modelref" : true,
+      "id" : "fetch_default"
+    },
+    "getPSAppDataEntity" : {
+      "modelref" : true,
+      "path" : "PSSYSAPPS/web/PSAPPDATAENTITIES/hr_applicant_interview.json"
+    }
+  },
+  "groupMode" : "NONE",
+  "logicName" : "我的面试表格_表格",
+  "getPSAppDataEntity" : {
+    "modelref" : true,
+    "path" : "PSSYSAPPS/web/PSAPPDATAENTITIES/hr_applicant_interview.json"
+  },
+  "getPSDEGridColumns" : [ {
+    "align" : "LEFT",
+    "cLConvertMode" : "NONE",
+    "caption" : "候选人姓名",
+    "codeName" : "candidate_display_name",
+    "columnType" : "DEFGRIDCOLUMN",
+    "dataItemName" : "candidate_display_name",
+    "excelCaption" : "候选人姓名",
+    "name" : "candidate_display_name",
+    "noPrivDisplayMode" : 1,
+    "getPSAppDEField" : {
+      "name" : "CANDIDATE_DISPLAY_NAME",
+      "codeName" : "candidate_display_name"
+    },
+    "width" : 200,
+    "widthUnit" : "PX",
+    "enableSort" : true
+  }, {
+    "align" : "LEFT",
+    "cLConvertMode" : "NONE",
+    "caption" : "应聘职位",
+    "codeName" : "job_name",
+    "columnType" : "DEFGRIDCOLUMN",
+    "dataItemName" : "job_name",
+    "excelCaption" : "应聘职位",
+    "name" : "job_name",
+    "noPrivDisplayMode" : 1,
+    "getPSAppDEField" : {
+      "name" : "JOB_NAME",
+      "codeName" : "job_name"
+    },
+    "width" : 200,
+    "widthUnit" : "PX",
+    "enableSort" : true
+  }, {
+    "align" : "LEFT",
+    "cLConvertMode" : "NONE",
+    "caption" : "面试时间",
+    "codeName" : "start_date",
+    "columnType" : "DEFGRIDCOLUMN",
+    "dataItemName" : "start_date",
+    "excelCaption" : "面试时间",
+    "name" : "start_date",
+    "noPrivDisplayMode" : 1,
+    "getPSAppDEField" : {
+      "name" : "START_DATE",
+      "codeName" : "start_date"
+    },
+    "valueFormat" : "YYYY-MM-DD",
+    "width" : 200,
+    "widthUnit" : "PX",
+    "enableSort" : true
+  }, {
+    "align" : "LEFT",
+    "cLConvertMode" : "FRONT",
+    "caption" : "面试时间",
+    "codeName" : "start_time",
+    "columnType" : "DEFGRIDCOLUMN",
+    "dataItemName" : "start_time",
+    "excelCaption" : "面试时间",
+    "name" : "start_time",
+    "noPrivDisplayMode" : 1,
+    "getPSAppCodeList" : {
+      "modelref" : true,
+      "path" : "PSSYSAPPS/web/PSAPPCODELISTS/hr__interview_start_time.json"
+    },
+    "getPSAppDEField" : {
+      "name" : "START_TIME",
+      "codeName" : "start_time"
+    },
+    "width" : 200,
+    "widthUnit" : "PX",
+    "enableSort" : true
+  }, {
+    "align" : "LEFT",
+    "cLConvertMode" : "FRONT",
+    "caption" : "面试阶段",
+    "codeName" : "stage_id",
+    "columnType" : "DEFGRIDCOLUMN",
+    "dataItemName" : "stage_id",
+    "excelCaption" : "面试阶段",
+    "name" : "stage_id",
+    "noPrivDisplayMode" : 1,
+    "getPSAppCodeList" : {
+      "modelref" : true,
+      "path" : "PSSYSAPPS/web/PSAPPCODELISTS/hr__interview_stage.json"
+    },
+    "getPSAppDEField" : {
+      "name" : "STAGE_ID",
+      "codeName" : "stage_id"
+    },
+    "width" : 200,
+    "widthUnit" : "PX",
+    "enableSort" : true
+  } ],
+  "getPSDEGridDataItems" : [ {
+    "dataType" : 25,
+    "name" : "candidate_display_name",
+    "getPSAppDEField" : {
+      "name" : "CANDIDATE_DISPLAY_NAME",
+      "codeName" : "candidate_display_name"
+    }
+  }, {
+    "dataType" : 25,
+    "name" : "job_name",
+    "getPSAppDEField" : {
+      "name" : "JOB_NAME",
+      "codeName" : "job_name"
+    },
+    "scriptCode" : "return  `<span> <span style=\"color:#8599e2;padding: 5px;font-weight: 600;\">社招</span>${data.job_name} </span>`",
+    "customCode" : true
+  }, {
+    "format" : "YYYY-MM-DD",
+    "dataType" : 5,
+    "name" : "start_date",
+    "getPSAppDEField" : {
+      "name" : "START_DATE",
+      "codeName" : "start_date"
+    }
+  }, {
+    "dataType" : 25,
+    "name" : "start_time",
+    "getPSAppDEField" : {
+      "name" : "START_TIME",
+      "codeName" : "start_time"
+    }
+  }, {
+    "dataType" : 25,
+    "name" : "stage_id",
+    "getPSAppDEField" : {
+      "name" : "STAGE_ID",
+      "codeName" : "stage_id"
+    }
+  }, {
+    "dataType" : 25,
+    "name" : "srfkey",
+    "getPSAppDEField" : {
+      "name" : "ID",
+      "codeName" : "id"
+    }
+  }, {
+    "dataType" : 25,
+    "name" : "srfdataaccaction",
+    "getPSAppDEField" : {
+      "name" : "ID",
+      "codeName" : "id"
+    },
+    "dataAccessAction" : true
+  }, {
+    "dataType" : 25,
+    "name" : "applicant_id",
+    "getPSAppDEField" : {
+      "name" : "APPLICANT_ID",
+      "codeName" : "applicant_id"
+    }
+  }, {
+    "dataType" : 25,
+    "name" : "interview_id",
+    "getPSAppDEField" : {
+      "name" : "INTERVIEW_ID",
+      "codeName" : "interview_id"
+    }
+  }, {
+    "dataType" : 25,
+    "name" : "srfmajortext",
+    "getPSAppDEField" : {
+      "name" : "NAME",
+      "codeName" : "name"
+    }
+  } ],
+  "getPSDEGridEditItems" : [ {
+    "caption" : "标识",
+    "codeName" : "srfkey",
+    "enableCond" : 3,
+    "ignoreInput" : 0,
+    "name" : "srfkey",
+    "getPSAppDEField" : {
+      "name" : "ID",
+      "codeName" : "id"
+    },
+    "getPSEditor" : {
+      "editorType" : "HIDDEN",
+      "name" : "srfkey"
+    },
+    "allowEmpty" : true
+  } ],
+  "pagingMode" : 1,
+  "pagingSize" : 20,
+  "getRemovePSControlAction" : {
+    "actionName" : "Remove",
+    "actionType" : "DEACTION",
+    "dataAccessAction" : "DELETE",
+    "name" : "remove",
+    "getPSAppDEMethod" : {
+      "modelref" : true,
+      "id" : "remove"
+    },
+    "getPSAppDataEntity" : {
+      "modelref" : true,
+      "path" : "PSSYSAPPS/web/PSAPPDATAENTITIES/hr_applicant_interview.json"
+    }
+  },
+  "sortMode" : "REMOTE",
+  "hasWFDataItems" : false,
+  "enableColFilter" : false,
+  "enableCustomized" : true,
+  "enableGroup" : false,
+  "enablePagingBar" : true,
+  "enableRowEdit" : false,
+  "enableRowEditOrder" : false,
+  "enableRowNew" : false,
+  "forceFit" : false,
+  "hideHeader" : false,
+  "noSort" : false,
+  "singleSelect" : false,
+  "modelid" : "1995eeb08c8b407269f231bab183ac35",
+  "modeltype" : "PSDEGRID"
+}

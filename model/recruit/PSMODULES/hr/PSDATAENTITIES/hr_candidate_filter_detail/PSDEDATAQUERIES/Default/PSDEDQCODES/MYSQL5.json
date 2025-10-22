@@ -1,0 +1,94 @@
+{
+  "dBType" : "MYSQL5",
+  "name" : "MySQL5",
+  "getPSDEDataQueryCodeExps" : [ {
+    "expression" : "t21.`ADDRESS`",
+    "name" : "ADDRESS"
+  }, {
+    "expression" : "t21.`CREATE_DATE`",
+    "name" : "APPLICANT_CREATE_DATE"
+  }, {
+    "expression" : "t1.`APPLICANT_ID`",
+    "name" : "APPLICANT_ID"
+  }, {
+    "expression" : "t21.`CANDIDATE_DISPLAY_NAME`",
+    "name" : "CANDIDATE_DISPLAY_NAME"
+  }, {
+    "expression" : "t1.`CANDIDATE_FILTER_ID`",
+    "name" : "CANDIDATE_FILTER_ID"
+  }, {
+    "expression" : "t51.`NAME`",
+    "name" : "CANDIDATE_NAME"
+  }, {
+    "expression" : "t1.`CONTENT`",
+    "name" : "CONTENT"
+  }, {
+    "expression" : "t1.`CREATE_DATE`",
+    "name" : "CREATE_DATE"
+  }, {
+    "expression" : "t1.`CREATE_UID`",
+    "name" : "CREATE_UID"
+  }, {
+    "expression" : "t21.`EDUCATION`",
+    "name" : "EDUCATION"
+  }, {
+    "expression" : "t21.`EMAIL_FROM`",
+    "name" : "EMAIL_FROM"
+  }, {
+    "expression" : "t21.`EXPERIENCE`",
+    "name" : "EXPERIENCE"
+  }, {
+    "expression" : "t1.`FEEDBACK_INFORMATION`",
+    "name" : "FEEDBACK_INFORMATION"
+  }, {
+    "expression" : "t1.`ID`",
+    "name" : "ID"
+  }, {
+    "expression" : "t31.`NAME`",
+    "name" : "JOB_NAME"
+  }, {
+    "expression" : "t41.`NAME`",
+    "name" : "JOB_PLATFORM_NAME"
+  }, {
+    "expression" : "t21.`LAST_EDU_ACADEMIC_DEGREE`",
+    "name" : "LAST_EDU_ACADEMIC_DEGREE"
+  }, {
+    "expression" : "t21.`LAST_EDU_SCHOOL`",
+    "name" : "LAST_EDU_SCHOOL"
+  }, {
+    "expression" : "t1.`MEMO`",
+    "name" : "MEMO"
+  }, {
+    "expression" : "t21.`MOBILE_PHONE`",
+    "name" : "MOBILE_PHONE"
+  }, {
+    "expression" : "t1.`NAME`",
+    "name" : "NAME"
+  }, {
+    "expression" : "t31.`PRIORITY_ID`",
+    "name" : "PRIORITY_ID"
+  }, {
+    "expression" : "t61.`NAME`",
+    "name" : "STAGE_NAME"
+  }, {
+    "expression" : "t1.`STATUS`",
+    "name" : "STATUS"
+  }, {
+    "expression" : "t1.`TYPE`",
+    "name" : "TYPE"
+  }, {
+    "expression" : "t1.`USER_ID`",
+    "name" : "USER_ID"
+  }, {
+    "expression" : "t11.`NAME`",
+    "name" : "USER_NAME"
+  }, {
+    "expression" : "t1.`WRITE_DATE`",
+    "name" : "WRITE_DATE"
+  }, {
+    "expression" : "t1.`WRITE_UID`",
+    "name" : "WRITE_UID"
+  } ],
+  "queryCode" : "SELECT\nt21.`ADDRESS`,\nt21.`CREATE_DATE` AS `APPLICANT_CREATE_DATE`,\nt1.`APPLICANT_ID`,\nt21.`CANDIDATE_DISPLAY_NAME`,\nt1.`CANDIDATE_FILTER_ID`,\nt51.`NAME` AS `CANDIDATE_NAME`,\nt1.`CONTENT`,\nt1.`CREATE_DATE`,\nt1.`CREATE_UID`,\nt21.`EDUCATION`,\nt21.`EMAIL_FROM`,\nt21.`EXPERIENCE`,\nt1.`FEEDBACK_INFORMATION`,\nt1.`ID`,\nt31.`NAME` AS `JOB_NAME`,\nt41.`NAME` AS `JOB_PLATFORM_NAME`,\nt21.`LAST_EDU_ACADEMIC_DEGREE`,\nt21.`LAST_EDU_SCHOOL`,\nt1.`MEMO`,\nt21.`MOBILE_PHONE`,\nt1.`NAME`,\nt31.`PRIORITY_ID`,\nt61.`NAME` AS `STAGE_NAME`,\nt1.`STATUS`,\nt1.`TYPE`,\nt1.`USER_ID`,\nt11.`NAME` AS `USER_NAME`,\nt1.`WRITE_DATE`,\nt1.`WRITE_UID`\nFROM `hr_candidate_filter_detail` t1 \nLEFT JOIN `hr_employee` t11 ON t1.`USER_ID` = t11.`ID` \nLEFT JOIN `hr_applicant` t21 ON t1.`APPLICANT_ID` = t21.`ID` \nLEFT JOIN `hr_job` t31 ON t21.`JOB_ID` = t31.`ID` \nLEFT JOIN `hr_job_platform` t41 ON t21.`JOB_PLATFORM_ID` = t41.`ID` \nLEFT JOIN `hr_candidate` t51 ON t21.`CANDIDATE_ID` = t51.`ID` \nLEFT JOIN `hr_recruitment_stage` t61 ON t21.`STAGE_ID` = t61.`ID` \n",
+  "id" : "PSMODULES/hr/PSDATAENTITIES/hr_candidate_filter_detail/PSDEDATAQUERIES/Default/PSDEDQCODES/MYSQL5.json"
+}

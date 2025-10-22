@@ -1,0 +1,66 @@
+{
+  "dBType" : "MYSQL5",
+  "name" : "MySQL5",
+  "getPSDEDataQueryCodeConds" : [ {
+    "condType" : "CUSTOM",
+    "customCond" : "( t11.start_date < current_date )",
+    "name" : "查询条件"
+  } ],
+  "getPSDEDataQueryCodeExps" : [ {
+    "expression" : "t11.`ADDRESS_ID`",
+    "name" : "ADDRESS_ID"
+  }, {
+    "expression" : "t1.`CREATE_DATE`",
+    "name" : "CREATE_DATE"
+  }, {
+    "expression" : "t1.`CREATE_UID`",
+    "name" : "CREATE_UID"
+  }, {
+    "expression" : "t1.`DURATION`",
+    "name" : "DURATION"
+  }, {
+    "expression" : "t1.`ID`",
+    "name" : "ID"
+  }, {
+    "expression" : "t1.`INTERVIEWERS`",
+    "name" : "INTERVIEWERS"
+  }, {
+    "expression" : "t11.`INTERVIEW_TYPE`",
+    "name" : "INTERVIEW_TYPE"
+  }, {
+    "expression" : "t1.`MEETING_ID`",
+    "name" : "MEETING_ID"
+  }, {
+    "expression" : "t1.`NAME`",
+    "name" : "NAME"
+  }, {
+    "expression" : "t1.`OWNER_ID`",
+    "name" : "OWNER_ID"
+  }, {
+    "expression" : "t21.`NAME`",
+    "name" : "OWNER_NAME"
+  }, {
+    "expression" : "t1.`SCHEDULE_ID`",
+    "name" : "SCHEDULE_ID"
+  }, {
+    "expression" : "t1.`STAGE_ID`",
+    "name" : "STAGE_ID"
+  }, {
+    "expression" : "t11.`START_DATE`",
+    "name" : "START_DATE"
+  }, {
+    "expression" : "t1.`START_TIME`",
+    "name" : "START_TIME"
+  }, {
+    "expression" : "t1.`STATUS`",
+    "name" : "STATUS"
+  }, {
+    "expression" : "t1.`WRITE_DATE`",
+    "name" : "WRITE_DATE"
+  }, {
+    "expression" : "t1.`WRITE_UID`",
+    "name" : "WRITE_UID"
+  } ],
+  "queryCode" : "SELECT\nt11.`ADDRESS_ID`,\nt1.`CREATE_DATE`,\nt1.`CREATE_UID`,\nt1.`DURATION`,\nt1.`ID`,\nt1.`INTERVIEWERS`,\nt11.`INTERVIEW_TYPE`,\nt1.`MEETING_ID`,\nt1.`NAME`,\nt1.`OWNER_ID`,\nt21.`NAME` AS `OWNER_NAME`,\nt1.`SCHEDULE_ID`,\nt1.`STAGE_ID`,\nt11.`START_DATE`,\nt1.`START_TIME`,\nt1.`STATUS`,\nt1.`WRITE_DATE`,\nt1.`WRITE_UID`\nFROM `hr_interview` t1 \nLEFT JOIN `hr_interview_schedule` t11 ON t1.`SCHEDULE_ID` = t11.`ID` \nLEFT JOIN `hr_employee` t21 ON t1.`OWNER_ID` = t21.`ID` \n",
+  "id" : "PSMODULES/hr/PSDATAENTITIES/hr_interview/PSDEDATAQUERIES/before_interview/PSDEDQCODES/MYSQL5.json"
+}

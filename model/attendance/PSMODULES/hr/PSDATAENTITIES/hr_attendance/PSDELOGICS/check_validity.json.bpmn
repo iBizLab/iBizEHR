@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+    <definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:g="http://www.jboss.org/drools/flow/gpd" xmlns:tns="http://www.jboss.org/drools" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" expressionLanguage="http://www.mvel.org/2.0" id="Definition" name="" targetNamespace="http://www.jboss.org/drools" typeLanguage="http://www.java.com/javaTypes">
+        <process id="cn.ibizlab.core.hr.service.logic.hr_attendancecheck_validity" isClosed="false" isExecutable="true" name="hr_hr_attendance_check_validity_ruleFlow" processType="Private" tns:packageName="cn.ibizlab.core.hr.service.logic.hr_attendancecheck_validity">
+            <extensionElements>
+                <tns:import name="java.util.Map" />
+                <tns:import name="org.springframework.util.StringUtils"/>
+                <tns:import name="cn.ibizlab.util.helper.RuleUtils"/>
+                                <tns:metaData express="" name="hr_attendancecheck_validitydefault" type="entity"/>
+                                <tns:metaData express="new cn.ibizlab.core.hr.domain.hr_attendance()" name="hr_attendancecheck_validitybefore_check_in" type="refentity"/>
+                                <tns:metaData express="new cn.ibizlab.core.hr.domain.hr_attendance()" name="hr_attendancecheck_validitybefore_check_out" type="refentity"/>
+                                <tns:metaData express="new HashMap()" name="hr_attendancecheck_validityerrormessage" type="refentity"/>
+                                <tns:metaData express="new cn.ibizlab.core.hr.domain.hr_attendance()" name="hr_attendancecheck_validityno_check_out" type="refentity"/>
+                    <tns:metaData express="T(cn.ibizlab.util.security.SpringContextHolder).getBean(T(cn.ibizlab.core.hr.service.Ihr_attendanceService))" name="iBzSysHr_attendanceDefaultService" type="service"/>
+                    <tns:metaData express="T(cn.ibizlab.util.security.AuthenticationUser).getAuthenticationUser()" name="curuser" type="session"/>
+                            <tns:global identifier="hr_attendancecheck_validitydefault" type="cn.ibizlab.core.hr.domain.hr_attendance" />
+                            <tns:global identifier="hr_attendancecheck_validitybefore_check_in" type="cn.ibizlab.core.hr.domain.hr_attendance" />
+                            <tns:global identifier="hr_attendancecheck_validitybefore_check_out" type="cn.ibizlab.core.hr.domain.hr_attendance" />
+                            <tns:global identifier="hr_attendancecheck_validityno_check_out" type="cn.ibizlab.core.hr.domain.hr_attendance" />
+            </extensionElements>
+                        <startEvent id="begin" isInterrupting="true"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="hr_attendancecheck_validityrawsqlcall_01" id="rawsqlcall_01" implementation="http://www.jboss.org/drools/rule" name="查询check_in之前且最近的考勤记录"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="hr_attendancecheck_validityprepareparam_01" id="prepareparam_01" implementation="http://www.jboss.org/drools/rule" name="构造异常参数"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="hr_attendancecheck_validityrawsqlcall_02" id="rawsqlcall_02" implementation="http://www.jboss.org/drools/rule" name="获取其他未签退的记录"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="hr_attendancecheck_validityrawsqlcall_03" id="rawsqlcall_03" implementation="http://www.jboss.org/drools/rule" name="获取签退时间之前的记录"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="hr_attendancecheck_validityprepareparam_03" id="prepareparam_03" implementation="http://www.jboss.org/drools/rule" name="构造异常参数"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="hr_attendancecheck_validityprepareparam_02" id="prepareparam_02" implementation="http://www.jboss.org/drools/rule" name="构造异常参数"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="hr_attendancecheck_validitythrowexception_01" id="throwexception_01" implementation="http://www.jboss.org/drools/rule" name="抛出异常"/>
+                        <endEvent id="throwexception_01_end" name="end"/>
+                        <sequenceFlow id="throwexception_01_end_line" sourceRef="throwexception_01" targetRef="throwexception_01_end"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="hr_attendancecheck_validitythrowexception_03" id="throwexception_03" implementation="http://www.jboss.org/drools/rule" name="抛出异常"/>
+                        <endEvent id="throwexception_03_end" name="end"/>
+                        <sequenceFlow id="throwexception_03_end_line" sourceRef="throwexception_03" targetRef="throwexception_03_end"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="hr_attendancecheck_validitythrowexception_02" id="throwexception_02" implementation="http://www.jboss.org/drools/rule" name="抛出异常"/>
+                        <endEvent id="throwexception_02_end" name="end"/>
+                        <sequenceFlow id="throwexception_02_end_line" sourceRef="throwexception_02" targetRef="throwexception_02_end"/>
+                    <sequenceFlow id="begin_rawsqlcall_01" sourceRef="begin" targetRef="rawsqlcall_01">
+                    </sequenceFlow>
+                    <sequenceFlow id="gateway-rawsqlcall_01_prepareparam_01" sourceRef="gateway-rawsqlcall_01" targetRef="prepareparam_01">
+                            <conditionExpression  language="http://www.jboss.org/drools/rule" ><![CDATA[
+                                            $hr_attendancecheck_validitydefault:hr_attendance();
+                                            $hr_attendancecheck_validitybefore_check_in:hr_attendance();
+                                            $hr_attendancecheck_validitybefore_check_out:hr_attendance();
+                                            $hr_attendancecheck_validityerrormessage:Map();
+                                            $hr_attendancecheck_validityno_check_out:hr_attendance();
+                                    eval($hr_attendancecheck_validitydefault==hr_attendancecheck_validitydefault && $hr_attendancecheck_validitybefore_check_in==hr_attendancecheck_validitybefore_check_in && $hr_attendancecheck_validitybefore_check_out==hr_attendancecheck_validitybefore_check_out && $hr_attendancecheck_validityno_check_out==hr_attendancecheck_validityno_check_out);
+                                eval((RuleUtils.test($hr_attendancecheck_validitybefore_check_in.get(""),"ISNOTNULL",""))&&(RuleUtils.test($hr_attendancecheck_validitybefore_check_in.get("checkOut"),"ISNOTNULL",""))&&(RuleUtils.test($hr_attendancecheck_validitybefore_check_in.get("checkOut"),"GT","check_in")))
+                                ]]>
+                            </conditionExpression>
+                    </sequenceFlow>
+                    <sequenceFlow id="gateway-rawsqlcall_01_rawsqlcall_02" sourceRef="gateway-rawsqlcall_01" targetRef="rawsqlcall_02">
+                            <conditionExpression  language="http://www.jboss.org/drools/rule" ><![CDATA[
+                                            $hr_attendancecheck_validitydefault:hr_attendance();
+                                            $hr_attendancecheck_validitybefore_check_in:hr_attendance();
+                                            $hr_attendancecheck_validitybefore_check_out:hr_attendance();
+                                            $hr_attendancecheck_validityerrormessage:Map();
+                                            $hr_attendancecheck_validityno_check_out:hr_attendance();
+                                    eval($hr_attendancecheck_validitydefault==hr_attendancecheck_validitydefault && $hr_attendancecheck_validitybefore_check_in==hr_attendancecheck_validitybefore_check_in && $hr_attendancecheck_validitybefore_check_out==hr_attendancecheck_validitybefore_check_out && $hr_attendancecheck_validityno_check_out==hr_attendancecheck_validityno_check_out);
+                                eval((RuleUtils.test($hr_attendancecheck_validitydefault.get("checkOut"),"ISNULL","")))
+                                ]]>
+                            </conditionExpression>
+                    </sequenceFlow>
+                    <sequenceFlow id="rawsqlcall_01_rawsqlcall_03" sourceRef="rawsqlcall_01" targetRef="rawsqlcall_03">
+                    </sequenceFlow>
+                    <sequenceFlow id="prepareparam_01_throwexception_01" sourceRef="prepareparam_01" targetRef="throwexception_01">
+                    </sequenceFlow>
+                    <sequenceFlow id="gateway-rawsqlcall_02_prepareparam_02" sourceRef="gateway-rawsqlcall_02" targetRef="prepareparam_02">
+                            <conditionExpression  language="http://www.jboss.org/drools/rule" ><![CDATA[
+                                            $hr_attendancecheck_validitydefault:hr_attendance();
+                                            $hr_attendancecheck_validitybefore_check_in:hr_attendance();
+                                            $hr_attendancecheck_validitybefore_check_out:hr_attendance();
+                                            $hr_attendancecheck_validityerrormessage:Map();
+                                            $hr_attendancecheck_validityno_check_out:hr_attendance();
+                                    eval($hr_attendancecheck_validitydefault==hr_attendancecheck_validitydefault && $hr_attendancecheck_validitybefore_check_in==hr_attendancecheck_validitybefore_check_in && $hr_attendancecheck_validitybefore_check_out==hr_attendancecheck_validitybefore_check_out && $hr_attendancecheck_validityno_check_out==hr_attendancecheck_validityno_check_out);
+                                eval((RuleUtils.test($hr_attendancecheck_validityno_check_out.get(""),"ISNOTNULL",""))&&(RuleUtils.test($hr_attendancecheck_validityno_check_out.get("id"),"ISNOTNULL","")))
+                                ]]>
+                            </conditionExpression>
+                    </sequenceFlow>
+                    <sequenceFlow id="gateway-rawsqlcall_03_prepareparam_03" sourceRef="gateway-rawsqlcall_03" targetRef="prepareparam_03">
+                            <conditionExpression  language="http://www.jboss.org/drools/rule" ><![CDATA[
+                                            $hr_attendancecheck_validitydefault:hr_attendance();
+                                            $hr_attendancecheck_validitybefore_check_in:hr_attendance();
+                                            $hr_attendancecheck_validitybefore_check_out:hr_attendance();
+                                            $hr_attendancecheck_validityerrormessage:Map();
+                                            $hr_attendancecheck_validityno_check_out:hr_attendance();
+                                    eval($hr_attendancecheck_validitydefault==hr_attendancecheck_validitydefault && $hr_attendancecheck_validitybefore_check_in==hr_attendancecheck_validitybefore_check_in && $hr_attendancecheck_validitybefore_check_out==hr_attendancecheck_validitybefore_check_out && $hr_attendancecheck_validityno_check_out==hr_attendancecheck_validityno_check_out);
+                                eval((RuleUtils.test($hr_attendancecheck_validitybefore_check_out.get(""),"ISNOTNULL",""))&&(RuleUtils.test($hr_attendancecheck_validitybefore_check_out.get("id"),"ISNOTNULL",""))&&(RuleUtils.test($hr_attendancecheck_validitybefore_check_in.get("id"),"NOTEQ","id")))
+                                ]]>
+                            </conditionExpression>
+                    </sequenceFlow>
+                    <sequenceFlow id="prepareparam_03_throwexception_03" sourceRef="prepareparam_03" targetRef="throwexception_03">
+                    </sequenceFlow>
+                    <sequenceFlow id="prepareparam_02_throwexception_02" sourceRef="prepareparam_02" targetRef="throwexception_02">
+                    </sequenceFlow>
+                            <exclusiveGateway id="gateway-rawsqlcall_01" name="Gateway" gatewayDirection="Diverging" default="gateway-rawsqlcall_01_end_line"></exclusiveGateway>
+                            <sequenceFlow id="rawsqlcall_01_gateway-rawsqlcall_01_gatewayline" sourceRef="rawsqlcall_01" targetRef="gateway-rawsqlcall_01"></sequenceFlow>
+                            <sequenceFlow id="gateway-rawsqlcall_01_end_line" sourceRef="gateway-rawsqlcall_01" targetRef="gateway-rawsqlcall_01_end"/>
+                            <endEvent id="gateway-rawsqlcall_01_end" name="end"/>
+                            <exclusiveGateway id="gateway-rawsqlcall_02" name="Gateway" gatewayDirection="Diverging" default="gateway-rawsqlcall_02_end_line"></exclusiveGateway>
+                            <sequenceFlow id="rawsqlcall_02_gateway-rawsqlcall_02_gatewayline" sourceRef="rawsqlcall_02" targetRef="gateway-rawsqlcall_02"></sequenceFlow>
+                            <sequenceFlow id="gateway-rawsqlcall_02_end_line" sourceRef="gateway-rawsqlcall_02" targetRef="gateway-rawsqlcall_02_end"/>
+                            <endEvent id="gateway-rawsqlcall_02_end" name="end"/>
+                            <exclusiveGateway id="gateway-rawsqlcall_03" name="Gateway" gatewayDirection="Diverging" default="gateway-rawsqlcall_03_end_line"></exclusiveGateway>
+                            <sequenceFlow id="rawsqlcall_03_gateway-rawsqlcall_03_gatewayline" sourceRef="rawsqlcall_03" targetRef="gateway-rawsqlcall_03"></sequenceFlow>
+                            <sequenceFlow id="gateway-rawsqlcall_03_end_line" sourceRef="gateway-rawsqlcall_03" targetRef="gateway-rawsqlcall_03_end"/>
+                            <endEvent id="gateway-rawsqlcall_03_end" name="end"/>
+        </process>
+    </definitions>

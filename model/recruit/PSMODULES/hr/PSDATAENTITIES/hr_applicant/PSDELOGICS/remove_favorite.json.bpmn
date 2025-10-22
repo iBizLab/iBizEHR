@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+    <definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:g="http://www.jboss.org/drools/flow/gpd" xmlns:tns="http://www.jboss.org/drools" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" expressionLanguage="http://www.mvel.org/2.0" id="Definition" name="" targetNamespace="http://www.jboss.org/drools" typeLanguage="http://www.java.com/javaTypes">
+        <process id="cn.ibizlab.core.hr.service.logic.hr_applicantremove_favorite" isClosed="false" isExecutable="true" name="hr_hr_applicant_remove_favorite_ruleFlow" processType="Private" tns:packageName="cn.ibizlab.core.hr.service.logic.hr_applicantremove_favorite">
+            <extensionElements>
+                <tns:import name="java.util.Map" />
+                <tns:import name="org.springframework.util.StringUtils"/>
+                <tns:import name="cn.ibizlab.util.helper.RuleUtils"/>
+                                <tns:metaData express="" name="hr_applicantremove_favoritedefault" type="entity"/>
+                                <tns:metaData express="new cn.ibizlab.core.base.domain.favorite()" name="hr_applicantremove_favoritefavorite" type="refentity"/>
+                                <tns:metaData express="new cn.ibizlab.core.base.domain.favorite()" name="hr_applicantremove_favoritefavorite_file" type="refentity"/>
+                                <tns:metaData express="new cn.ibizlab.core.base.domain.favorite()" name="hr_applicantremove_favoritefavorite_list" type="refentity"/>
+                                    <tns:metaData express="T(cn.ibizlab.util.security.SpringContextHolder).getBean(T(cn.ibizlab.core.base.service.IfavoriteService))" name="favoriteservice" type="service"/>
+                    <tns:metaData express="T(cn.ibizlab.util.security.SpringContextHolder).getBean(T(cn.ibizlab.core.hr.service.Ihr_applicantService))" name="iBzSysHr_applicantDefaultService" type="service"/>
+                    <tns:metaData express="T(cn.ibizlab.util.security.AuthenticationUser).getAuthenticationUser()" name="curuser" type="session"/>
+                            <tns:global identifier="hr_applicantremove_favoritedefault" type="cn.ibizlab.core.hr.domain.hr_applicant" />
+                            <tns:global identifier="hr_applicantremove_favoritefavorite" type="cn.ibizlab.core.base.domain.favorite" />
+                            <tns:global identifier="hr_applicantremove_favoritefavorite_file" type="cn.ibizlab.core.base.domain.favorite" />
+                            <tns:global identifier="hr_applicantremove_favoritefavorite_list" type="cn.ibizlab.core.base.domain.favorite" />
+            </extensionElements>
+                        <startEvent id="begin" isInterrupting="true"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="hr_applicantremove_favoriteprepareparam1" id="prepareparam1" implementation="http://www.jboss.org/drools/rule" name="准备参数"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="hr_applicantremove_favoritedebugparam2" id="debugparam2" implementation="http://www.jboss.org/drools/rule" name="调试逻辑参数"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="hr_applicantremove_favoriteend1" id="end1" implementation="http://www.jboss.org/drools/rule" name="结束"/>
+                        <endEvent id="end1_end" name="end"/>
+                        <sequenceFlow id="end1_end_line" sourceRef="end1" targetRef="end1_end"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="hr_applicantremove_favoritededataquery1" id="dedataquery1" implementation="http://www.jboss.org/drools/rule" name="实体数据查询"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="hr_applicantremove_favoritedebugparam1" id="debugparam1" implementation="http://www.jboss.org/drools/rule" name="调试逻辑参数******"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="hr_applicantremove_favoritedeaction1" id="deaction1" implementation="http://www.jboss.org/drools/rule" name="实体行为"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="hr_applicantremove_favoriterawsfcode1" id="rawsfcode1" implementation="http://www.jboss.org/drools/rule" name="执行脚本代码"/>
+                        <endEvent id="rawsfcode1_end" name="end"/>
+                        <sequenceFlow id="rawsfcode1_end_line" sourceRef="rawsfcode1" targetRef="rawsfcode1_end"/>
+                    <sequenceFlow id="begin_prepareparam1" sourceRef="begin" targetRef="prepareparam1">
+                    </sequenceFlow>
+                    <sequenceFlow id="prepareparam1_debugparam2" sourceRef="prepareparam1" targetRef="debugparam2">
+                    </sequenceFlow>
+                    <sequenceFlow id="debugparam2_dedataquery1" sourceRef="debugparam2" targetRef="dedataquery1">
+                    </sequenceFlow>
+                    <sequenceFlow id="dedataquery1_debugparam1" sourceRef="dedataquery1" targetRef="debugparam1">
+                    </sequenceFlow>
+                    <sequenceFlow id="debugparam1_deaction1" sourceRef="debugparam1" targetRef="deaction1">
+                    </sequenceFlow>
+                    <sequenceFlow id="deaction1_end1" sourceRef="deaction1" targetRef="end1">
+                    </sequenceFlow>
+        </process>
+    </definitions>

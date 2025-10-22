@@ -1,0 +1,336 @@
+{
+  "accUserMode" : 2,
+  "getCapPSLanguageRes" : {
+    "lanResTag" : "DE.LNAME.HR_EMPLOYEE"
+  },
+  "caption" : "员工",
+  "codeName" : "hr_employee_main_view",
+  "dynaModelFilePath" : "PSSYSAPPS/attendanceapp/PSAPPDEVIEWS/hr_employee_main_view.json",
+  "funcViewMode" : "EDITVIEW",
+  "name" : "hr_employeemain_view",
+  "openMode" : "INDEXVIEWTAB",
+  "getPSAppDataEntity" : {
+    "modelref" : true,
+    "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/hr_employee.json"
+  },
+  "getPSAppModule" : {
+    "modelref" : true,
+    "path" : "PSSYSAPPS/attendanceapp/PSAPPMODULES/hr.json"
+  },
+  "getPSDEViewCodeName" : "main_view",
+  "getPSDEViewId" : "d14b1f91415ca41e8cb5bc48376f459b",
+  "getPSViewLayoutPanel" : {
+    "codeName" : "main_view_layout_new",
+    "controlType" : "VIEWLAYOUTPANEL",
+    "hookEventNames" : [ "ONMOUNTED", "ONFORMDATACHANGE" ],
+    "layoutMode" : "FLEX",
+    "logicName" : "主视图布局面板_new",
+    "name" : "layoutpanel",
+    "getPSAppDataEntity" : {
+      "modelref" : true,
+      "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/hr_employee.json"
+    },
+    "getPSControlLogics" : [ {
+      "eventNames" : "onMounted",
+      "itemName" : "DRBAR",
+      "logicTag" : "layoutpanel",
+      "logicType" : "SCRIPT",
+      "name" : "drbar_draft_state",
+      "scriptCode" : "ibiz.uiDomainManager.get(view.context.srfsessionid).evt.on(\"stateChange\", (state, isTrusted )=> {\n    console.log(\"\");\n    const data = view.getController(\"form\").getData()[0];\n    view.getController(\"toolbar\")?.calcButtonState(data,view.model.appDataEntityId);\n});\n\nconst topContext = view.context;\nconst appEntityId = view.model.appDataEntityId;\nconst entityName = appEntityId.split('.').pop();\nconst bExist = topContext[entityName];\nconst drbar = view.getCtrl(\"DRBAR\", \"drbar\");\nif(!bExist){\n    drbar.disabled({ mode: 'BLANK' })\n    //  drbar.disabled({ mode: 'MASK' })\n}"
+    }, {
+      "eventNames" : "onFormDataChange",
+      "itemName" : "FORM",
+      "logicTag" : "layoutpanel",
+      "logicType" : "SCRIPT",
+      "name" : "logic",
+      "scriptCode" : "view.getController(\"toolbar\")?.calcButtonState(data,view.model.appDataEntityId);"
+    } ],
+    "getPSControlParam" : { },
+    "getPSLayout" : {
+      "layout" : "FLEX"
+    },
+    "getRootPSPanelItems" : [ {
+      "caption" : "容器",
+      "itemStyle" : "DEFAULT",
+      "itemType" : "CONTAINER",
+      "name" : "view_header",
+      "getPSLayout" : {
+        "align" : "space-between",
+        "dir" : "row",
+        "layout" : "FLEX",
+        "vAlign" : "center"
+      },
+      "getPSLayoutPos" : {
+        "grow" : -1,
+        "layout" : "FLEX",
+        "shrink" : 0
+      },
+      "getPSPanelItems" : [ {
+        "caption" : "容器",
+        "itemStyle" : "DEFAULT",
+        "itemType" : "CONTAINER",
+        "name" : "view_header_left",
+        "getPSLayout" : {
+          "dir" : "row",
+          "layout" : "FLEX"
+        },
+        "getPSLayoutPos" : {
+          "grow" : -1,
+          "heightMode" : "FULL",
+          "layout" : "FLEX"
+        },
+        "getPSPanelItems" : [ {
+          "caption" : "容器",
+          "itemStyle" : "DEFAULT",
+          "itemType" : "CONTAINER",
+          "name" : "container2",
+          "getPSLayout" : {
+            "align" : "center",
+            "dir" : "row",
+            "layout" : "FLEX",
+            "vAlign" : "center"
+          },
+          "getPSLayoutPos" : {
+            "grow" : -1,
+            "layout" : "FLEX"
+          },
+          "getPSPanelItems" : [ {
+            "caption" : "工具栏",
+            "itemStyle" : "DEFAULT",
+            "itemType" : "CTRLPOS",
+            "name" : "toolbar1",
+            "getPSLayoutPos" : {
+              "grow" : -1,
+              "layout" : "FLEX"
+            },
+            "showCaption" : true
+          } ]
+        }, {
+          "caption" : "容器",
+          "itemStyle" : "DEFAULT",
+          "itemType" : "CONTAINER",
+          "name" : "view_captionbar",
+          "getPSLayout" : {
+            "align" : "center",
+            "layout" : "FLEX"
+          },
+          "getPSLayoutPos" : {
+            "grow" : -1,
+            "heightMode" : "FULL",
+            "layout" : "FLEX"
+          },
+          "getPSPanelItems" : [ {
+            "caption" : "页面标题",
+            "itemStyle" : "DEFAULT",
+            "itemType" : "CTRLPOS",
+            "name" : "captionbar",
+            "getPSLayoutPos" : {
+              "grow" : -1,
+              "layout" : "FLEX"
+            },
+            "getPSSysPFPlugin" : {
+              "pluginType" : "CUSTOM",
+              "pluginCode" : "IDENTIFIER_TITLE",
+              "runtimeObject" : true
+            },
+            "userTag" : "identifier",
+            "showCaption" : true
+          } ]
+        }, {
+          "caption" : "容器",
+          "itemStyle" : "DEFAULT",
+          "itemType" : "CONTAINER",
+          "name" : "view_toolbar",
+          "getPSLayout" : {
+            "align" : "center",
+            "dir" : "row",
+            "layout" : "FLEX",
+            "vAlign" : "center"
+          },
+          "getPSLayoutPos" : {
+            "grow" : -1,
+            "heightMode" : "FULL",
+            "layout" : "FLEX"
+          },
+          "getPSPanelItems" : [ {
+            "caption" : "工具栏",
+            "itemStyle" : "DEFAULT",
+            "itemType" : "CTRLPOS",
+            "name" : "toolbar",
+            "getPSLayoutPos" : {
+              "grow" : -1,
+              "layout" : "FLEX"
+            },
+            "showCaption" : true
+          } ]
+        } ]
+      }, {
+        "caption" : "关系数据栏",
+        "itemStyle" : "DEFAULT",
+        "itemType" : "CTRLPOS",
+        "name" : "drbar",
+        "getPSLayoutPos" : {
+          "grow" : 1,
+          "layout" : "FLEX"
+        },
+        "showCaption" : true
+      } ],
+      "predefinedType" : "VIEWHEADER"
+    }, {
+      "caption" : "视图消息占位",
+      "itemStyle" : "DEFAULT",
+      "itemType" : "RAWITEM",
+      "name" : "viewmsg_pos",
+      "getPSLayoutPos" : {
+        "grow" : -1,
+        "layout" : "FLEX",
+        "shrink" : 0
+      },
+      "getPSRawItem" : {
+        "name" : "viewmsg_pos",
+        "getPSRawItemParams" : [ {
+          "key" : "POSITION",
+          "value" : "TOP"
+        } ],
+        "predefinedType" : "VIEWMSG_POS"
+      },
+      "showCaption" : true
+    }, {
+      "caption" : "栅格容器",
+      "itemStyle" : "DEFAULT",
+      "itemType" : "CONTAINER",
+      "name" : "container_grid",
+      "getPSLayout" : {
+        "layout" : "SIMPLEFLEX"
+      },
+      "getPSLayoutPos" : {
+        "grow" : -1,
+        "layout" : "FLEX"
+      },
+      "getPSPanelItems" : [ {
+        "caption" : "面板容器",
+        "itemStyle" : "DEFAULT",
+        "itemType" : "CONTAINER",
+        "name" : "container",
+        "getPSLayout" : {
+          "childColMD" : 24,
+          "columnCount" : 24,
+          "layout" : "TABLE_24COL"
+        },
+        "getPSLayoutPos" : {
+          "grow" : 8,
+          "layout" : "SIMPLEFLEX"
+        },
+        "getPSPanelItems" : [ {
+          "caption" : "容器",
+          "itemStyle" : "DEFAULT",
+          "itemType" : "CONTAINER",
+          "name" : "view_content",
+          "getPSLayout" : {
+            "layout" : "FLEX"
+          },
+          "getPSLayoutPos" : {
+            "colMD" : 24,
+            "layout" : "TABLE_24COL"
+          },
+          "getPSPanelItems" : [ {
+            "caption" : "表单",
+            "itemStyle" : "DEFAULT",
+            "itemType" : "CTRLPOS",
+            "name" : "form",
+            "getPSLayoutPos" : {
+              "grow" : 1,
+              "layout" : "FLEX",
+              "shrink" : 0
+            },
+            "showCaption" : true
+          } ],
+          "predefinedType" : "VIEWCONTENT"
+        } ]
+      }, {
+        "caption" : "面板容器",
+        "itemStyle" : "DEFAULT",
+        "itemType" : "CONTAINER",
+        "name" : "container1",
+        "getPSLayout" : {
+          "childColMD" : 24,
+          "columnCount" : 24,
+          "layout" : "TABLE_24COL"
+        },
+        "getPSLayoutPos" : {
+          "grow" : 4,
+          "layout" : "SIMPLEFLEX"
+        },
+        "getPSPanelItems" : [ {
+          "caption" : "容器",
+          "itemStyle" : "DEFAULT",
+          "itemType" : "CONTAINER",
+          "name" : "mail_thread_panel",
+          "getPSLayout" : {
+            "dir" : "column",
+            "layout" : "FLEX"
+          },
+          "getPSLayoutPos" : {
+            "colMD" : 24,
+            "heightMode" : "FULL",
+            "layout" : "TABLE_24COL"
+          },
+          "getPSPanelItems" : [ {
+            "caption" : "实体部件",
+            "itemStyle" : "DEFAULT",
+            "itemType" : "CTRLPOS",
+            "name" : "control",
+            "getPSLayoutPos" : {
+              "grow" : 1,
+              "heightMode" : "FULL",
+              "layout" : "FLEX"
+            },
+            "showCaption" : true
+          } ]
+        } ]
+      } ],
+      "predefinedType" : "CONTAINER_GRID"
+    } ],
+    "layoutBodyOnly" : false,
+    "layoutPanel" : true,
+    "useDefaultLayout" : false,
+    "viewProxyMode" : true,
+    "modelid" : "31fa7086ff6a353ca3fdf381a934b594",
+    "modeltype" : "PSSYSVIEWLAYOUTPANEL",
+    "getPSControls" : [ {
+      "codeName" : "main_view_control",
+      "controlType" : "VIEWPANEL",
+      "getEmbeddedPSAppDEView" : {
+        "modelref" : true,
+        "path" : "PSSYSAPPS/attendanceapp/PSAPPDEVIEWS/mail_thread_component_view.json",
+        "viewType" : "DESUBAPPREFVIEW"
+      },
+      "name" : "control",
+      "getPSAppDataEntity" : {
+        "modelref" : true,
+        "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/hr_employee.json"
+      },
+      "getPSControlParam" : { }
+    }, {
+      "getCapPSLanguageRes" : {
+        "lanResTag" : "DE.LNAME.HR_EMPLOYEE"
+      },
+      "caption" : "员工",
+      "codeName" : "main_view_captionbar",
+      "controlType" : "CAPTIONBAR",
+      "name" : "captionbar",
+      "getPSAppDataEntity" : {
+        "modelref" : true,
+        "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/hr_employee.json"
+      },
+      "getPSControlParam" : { }
+    } ]
+  },
+  "priority" : 100,
+  "title" : "员工编辑视图",
+  "viewStyle" : "DEFAULT",
+  "viewType" : "DESUBAPPREFVIEW",
+  "enableDP" : true,
+  "modelid" : "3115fde847df5a914d4d64cdf6873185",
+  "modeltype" : "PSAPPDEVIEW"
+}

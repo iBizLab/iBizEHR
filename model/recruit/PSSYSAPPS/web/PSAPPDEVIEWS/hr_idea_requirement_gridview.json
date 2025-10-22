@@ -1,0 +1,1109 @@
+{
+  "accUserMode" : 2,
+  "getCapPSLanguageRes" : {
+    "lanResTag" : "DE.LNAME.HR_IDEA"
+  },
+  "caption" : "招聘需求",
+  "codeName" : "hr_idea_requirement_gridview",
+  "dynaModelFilePath" : "PSSYSAPPS/web/PSAPPDEVIEWS/hr_idea_requirement_gridview.json",
+  "gridRowActiveMode" : 2,
+  "name" : "hr_idearequirement_gridview",
+  "getPSAppDataEntity" : {
+    "modelref" : true,
+    "path" : "PSSYSAPPS/web/PSAPPDATAENTITIES/hr_idea.json"
+  },
+  "getPSAppModule" : {
+    "modelref" : true,
+    "path" : "PSSYSAPPS/web/PSAPPMODULES/base.json"
+  },
+  "getPSDEViewCodeName" : "requirement_gridview",
+  "getPSDEViewId" : "650ca9bb6e48841d5ecdf2e5e7fb1366",
+  "getPSViewLayoutPanel" : {
+    "codeName" : "usr0828536818",
+    "controlType" : "VIEWLAYOUTPANEL",
+    "layoutMode" : "FLEX",
+    "logicName" : "requirement_gridview表格视图布局",
+    "name" : "layoutpanel",
+    "getPSAppDataEntity" : {
+      "modelref" : true,
+      "path" : "PSSYSAPPS/web/PSAPPDATAENTITIES/hr_idea.json"
+    },
+    "getPSControlParam" : { },
+    "getPSLayout" : {
+      "layout" : "FLEX"
+    },
+    "getRootPSPanelItems" : [ {
+      "caption" : "滚动条容器",
+      "itemStyle" : "DEFAULT",
+      "itemType" : "CONTAINER",
+      "name" : "container_scroll",
+      "getPSLayout" : {
+        "layout" : "BORDER"
+      },
+      "getPSLayoutPos" : {
+        "grow" : -1,
+        "layout" : "FLEX"
+      },
+      "getPSPanelItems" : [ {
+        "caption" : "面板容器",
+        "contentWidth" : 300.0,
+        "itemStyle" : "DEFAULT",
+        "itemType" : "CONTAINER",
+        "name" : "container_scroll_left",
+        "getPSLayout" : {
+          "layout" : "BORDER"
+        },
+        "getPSLayoutPos" : {
+          "layout" : "BORDER",
+          "layoutPos" : "WEST",
+          "width" : 300,
+          "widthMode" : "PX"
+        },
+        "getPSPanelItems" : [ {
+          "caption" : "搜索栏",
+          "itemStyle" : "DEFAULT",
+          "itemType" : "CTRLPOS",
+          "name" : "searchbar",
+          "getPSLayoutPos" : {
+            "layout" : "BORDER",
+            "layoutPos" : "CENTER"
+          },
+          "showCaption" : true
+        } ],
+        "predefinedType" : "CONTAINER_SCROLL_LEFT",
+        "width" : 300.0,
+        "showCaption" : true
+      }, {
+        "caption" : "面板容器",
+        "itemStyle" : "DEFAULT",
+        "itemType" : "CONTAINER",
+        "name" : "container_scroll_main",
+        "getPSLayout" : {
+          "layout" : "BORDER"
+        },
+        "getPSLayoutPos" : {
+          "layout" : "BORDER",
+          "layoutPos" : "CENTER"
+        },
+        "getPSPanelItems" : [ {
+          "caption" : "搜索栏",
+          "itemStyle" : "DEFAULT",
+          "itemType" : "CTRLPOS",
+          "name" : "searchbar1",
+          "getPSLayoutPos" : {
+            "layout" : "BORDER",
+            "layoutPos" : "CENTER"
+          },
+          "showCaption" : true
+        }, {
+          "caption" : "表格",
+          "itemStyle" : "DEFAULT",
+          "itemType" : "CTRLPOS",
+          "name" : "grid",
+          "getPSLayoutPos" : {
+            "layout" : "BORDER",
+            "layoutPos" : "CENTER"
+          },
+          "showCaption" : true
+        } ],
+        "predefinedType" : "CONTAINER_SCROLL_MAIN",
+        "showCaption" : true
+      } ],
+      "predefinedType" : "CONTAINER_SCROLL"
+    } ],
+    "layoutBodyOnly" : false,
+    "layoutPanel" : true,
+    "useDefaultLayout" : false,
+    "viewProxyMode" : true,
+    "modelid" : "9546ab99ef27eeaac755d449b40c87ed",
+    "modeltype" : "PSSYSVIEWLAYOUTPANEL",
+    "getPSAppViewEngines" : [ {
+      "engineCat" : "VIEW",
+      "engineType" : "GridView",
+      "name" : "engine"
+    }, {
+      "engineCat" : "CTRL",
+      "engineType" : "CtrlLoadTrigger",
+      "name" : "engine_searchbar1_default",
+      "getPSUIEngineParams" : [ {
+        "ctrlName" : "searchbar1",
+        "name" : "CTRL",
+        "paramType" : "CTRL"
+      }, {
+        "ctrlName" : "grid",
+        "name" : "TRIGGER",
+        "paramType" : "CTRL"
+      } ]
+    } ],
+    "getPSAppViewLogics" : [ {
+      "logicTrigger" : "CUSTOM",
+      "logicType" : "APPUILOGIC",
+      "name" : "newdata",
+      "getPSAppUILogic" : {
+        "actionAfterWizard" : "DEFAULT",
+        "logicType" : "PREDEFINED",
+        "name" : "新建数据",
+        "getNewDataPSAppView" : {
+          "getRefPSAppView" : {
+            "modelref" : true,
+            "path" : "PSSYSAPPS/web/PSAPPDEVIEWS/hr_idea_edit_view.json",
+            "viewType" : "DEEDITVIEW"
+          }
+        },
+        "getPSAppUILogicRefViews" : [ {
+          "getRefPSAppView" : {
+            "modelref" : true,
+            "path" : "PSSYSAPPS/web/PSAPPDEVIEWS/hr_idea_edit_view.json",
+            "viewType" : "DEEDITVIEW"
+          }
+        } ],
+        "viewLogicType" : "APP_NEWDATA",
+        "batchAddOnly" : false,
+        "enableBatchAdd" : false,
+        "enableWizardAdd" : false
+      }
+    }, {
+      "logicTrigger" : "CUSTOM",
+      "logicType" : "APPUILOGIC",
+      "name" : "opendata",
+      "getPSAppUILogic" : {
+        "logicType" : "PREDEFINED",
+        "name" : "打开数据",
+        "getOpenDataPSAppView" : {
+          "getRefPSAppView" : {
+            "modelref" : true,
+            "path" : "PSSYSAPPS/web/PSAPPDEVIEWS/hr_idea_redirect_view.json",
+            "viewType" : "DEREDIRECTVIEW"
+          }
+        },
+        "getPSAppUILogicRefViews" : [ {
+          "getRefPSAppView" : {
+            "modelref" : true,
+            "path" : "PSSYSAPPS/web/PSAPPDEVIEWS/hr_idea_redirect_view.json",
+            "viewType" : "DEREDIRECTVIEW"
+          }
+        } ],
+        "viewLogicType" : "APP_OPENDATA",
+        "editMode" : true
+      }
+    } ],
+    "getPSAppViewRefs" : [ {
+      "name" : "NEWDATA",
+      "realTitle" : "招聘需求编辑视图",
+      "getRealTitlePSLanguageRes" : {
+        "lanResTag" : "PAGE.TITLE.HR_IDEA.EDITVIEW"
+      },
+      "getRefPSAppView" : {
+        "modelref" : true,
+        "path" : "PSSYSAPPS/web/PSAPPDEVIEWS/hr_idea_edit_view.json",
+        "viewType" : "DEEDITVIEW"
+      }
+    }, {
+      "name" : "EDITDATA",
+      "realTitle" : "招聘需求数据重定向视图",
+      "getRealTitlePSLanguageRes" : {
+        "lanResTag" : "PAGE.TITLE.HR_IDEA.REDIRECTVIEW"
+      },
+      "getRefPSAppView" : {
+        "modelref" : true,
+        "path" : "PSSYSAPPS/web/PSAPPDEVIEWS/hr_idea_redirect_view.json",
+        "viewType" : "DEREDIRECTVIEW"
+      }
+    } ],
+    "getPSControls" : [ {
+      "codeName" : "requirement_gridview_tabtoolbar",
+      "controlType" : "TOOLBAR",
+      "logicName" : "招聘需求表格_工具栏",
+      "name" : "tabtoolbar",
+      "getPSAppDataEntity" : {
+        "modelref" : true,
+        "path" : "PSSYSAPPS/web/PSAPPDATAENTITIES/hr_idea.json"
+      },
+      "getPSControlParam" : {
+        "ctrlParams" : {
+          "TELEPORTFLAG" : "true"
+        },
+        "id" : "TABTOOLBAR"
+      },
+      "getPSDEToolbarItems" : [ {
+        "caption" : "新建",
+        "groupExtractMode" : "ITEM",
+        "itemType" : "DEUIACTION",
+        "name" : "deuiaction1",
+        "noPrivDisplayMode" : 2,
+        "getPSAppViewUIAction" : {
+          "modelref" : true,
+          "id" : "tabtoolbar_deuiaction1"
+        },
+        "getPSUIAction" : {
+          "actionTarget" : "NONE",
+          "caption" : "新建招聘需求",
+          "codeName" : "Create",
+          "getFrontPSAppView" : {
+            "modelref" : true,
+            "path" : "PSSYSAPPS/web/PSAPPDEVIEWS/hr_idea_create_view.json",
+            "viewType" : "DEEDITVIEW"
+          },
+          "frontProcessType" : "WIZARD",
+          "fullCodeName" : "hr_idea_Create",
+          "name" : "新建招聘需求",
+          "getPSAppDataEntity" : {
+            "modelref" : true,
+            "path" : "PSSYSAPPS/web/PSAPPDATAENTITIES/hr_idea.json"
+          },
+          "getPSNavigateContexts" : [ {
+            "key" : "JOB_NAME2",
+            "name" : "JOB_NAME2",
+            "value" : "job_name",
+            "rawValue" : false
+          }, {
+            "key" : "IDENTIFER2",
+            "name" : "IDENTIFER2",
+            "value" : "identifier",
+            "rawValue" : false
+          } ],
+          "getPSNavigateParams" : [ {
+            "key" : "job_name",
+            "name" : "job_name",
+            "value" : "job_name",
+            "rawValue" : false
+          }, {
+            "key" : "identifer",
+            "name" : "identifer",
+            "value" : "identifier",
+            "rawValue" : false
+          } ],
+          "uIActionMode" : "FRONT",
+          "uIActionTag" : "Create",
+          "uIActionType" : "DEUIACTION",
+          "id" : "Create@hr_idea"
+        },
+        "tooltip" : "新建",
+        "uIActionTarget" : "NONE",
+        "showCaption" : true,
+        "showIcon" : true
+      } ],
+      "xDataControlName" : "grid",
+      "modelid" : "4b10f3c846e3cfe89f2e9f761324bb08",
+      "modeltype" : "PSDETOOLBAR"
+    }, {
+      "codeName" : "usr08286618_search_form",
+      "controlType" : "SEARCHFORM",
+      "defaultLabelWidth" : 130,
+      "dynaModelFilePath" : "PSSYSAPPS/web/PSAPPDATAENTITIES/hr_idea/PSSEARCHFORMS/usr08286618_search_form.json",
+      "logicName" : "招聘需求表格_搜索表单",
+      "getPSAppDataEntity" : {
+        "modelref" : true,
+        "path" : "PSSYSAPPS/web/PSAPPDATAENTITIES/hr_idea.json"
+      },
+      "getPSControlHandler" : {
+        "getPSHandlerActions" : [ {
+          "actionType" : "FILTERACTION",
+          "name" : "load",
+          "getPSAppDEMethod" : {
+            "modelref" : true,
+            "id" : "FilterGet"
+          },
+          "getPSAppDataEntity" : {
+            "modelref" : true,
+            "path" : "PSSYSAPPS/web/PSAPPDATAENTITIES/hr_idea.json"
+          }
+        }, {
+          "actionType" : "FILTERACTION",
+          "name" : "loaddraft",
+          "getPSAppDEMethod" : {
+            "modelref" : true,
+            "id" : "FilterGetDraft"
+          },
+          "getPSAppDataEntity" : {
+            "modelref" : true,
+            "path" : "PSSYSAPPS/web/PSAPPDATAENTITIES/hr_idea.json"
+          }
+        }, {
+          "actionType" : "FILTERACTION",
+          "name" : "search",
+          "getPSAppDEMethod" : {
+            "modelref" : true,
+            "id" : "FilterSearch"
+          },
+          "getPSAppDataEntity" : {
+            "modelref" : true,
+            "path" : "PSSYSAPPS/web/PSAPPDATAENTITIES/hr_idea.json"
+          }
+        } ],
+        "enableDEFieldPrivilege" : false,
+        "id" : "搜索表单处理器"
+      },
+      "getPSControlParam" : {
+        "autoLoad" : true,
+        "showBusyIndicator" : true,
+        "id" : "SEARCHFORM"
+      },
+      "getPSDEFormPages" : [ {
+        "caption" : "常规条件",
+        "codeName" : "formpage1",
+        "detailStyle" : "DEFAULT",
+        "detailType" : "FORMPAGE",
+        "name" : "formpage1",
+        "getPSLayout" : {
+          "childColMD" : 24,
+          "columnCount" : 24,
+          "layout" : "TABLE_24COL"
+        },
+        "infoGroupMode" : false
+      } ],
+      "getPSLayout" : {
+        "childColMD" : 24,
+        "columnCount" : 24,
+        "layout" : "TABLE_24COL"
+      },
+      "searchButtonStyle" : "DEFAULT",
+      "tabHeaderPos" : "TOP",
+      "enableAdvanceSearch" : false,
+      "enableAutoSearch" : false,
+      "enableFilterSave" : false,
+      "noTabHeader" : true,
+      "name" : "searchform",
+      "modelid" : "d8527bde2b08e3b2ffb3bdf789f122ba",
+      "modeltype" : "PSDEFORM_SEARCHFORM"
+    }, {
+      "aggMode" : "NONE",
+      "codeName" : "base",
+      "columnEnableFilter" : 2,
+      "columnEnableLink" : 2,
+      "controlType" : "GRID",
+      "getCreatePSControlAction" : {
+        "actionName" : "Create",
+        "actionType" : "DEACTION",
+        "dataAccessAction" : "CREATE",
+        "name" : "create",
+        "getPSAppDEMethod" : {
+          "modelref" : true,
+          "id" : "create"
+        },
+        "getPSAppDataEntity" : {
+          "modelref" : true,
+          "path" : "PSSYSAPPS/web/PSAPPDATAENTITIES/hr_idea.json"
+        }
+      },
+      "dynaModelFilePath" : "PSSYSAPPS/web/PSAPPDATAENTITIES/hr_idea/PSGRIDS/base.json",
+      "getFetchPSControlAction" : {
+        "modelref" : true,
+        "id" : "fetch",
+        "actionType" : "DEDATASET",
+        "name" : "fetch",
+        "getPSAppDEMethod" : {
+          "modelref" : true,
+          "id" : "fetch_default"
+        },
+        "getPSAppDataEntity" : {
+          "modelref" : true,
+          "path" : "PSSYSAPPS/web/PSAPPDATAENTITIES/hr_idea.json"
+        }
+      },
+      "getGetDraftPSControlAction" : {
+        "actionName" : "GetDraft",
+        "actionType" : "DEACTION",
+        "dataAccessAction" : "CREATE",
+        "name" : "loaddraft",
+        "getPSAppDEMethod" : {
+          "modelref" : true,
+          "id" : "get_draft"
+        },
+        "getPSAppDataEntity" : {
+          "modelref" : true,
+          "path" : "PSSYSAPPS/web/PSAPPDATAENTITIES/hr_idea.json"
+        }
+      },
+      "getGetPSControlAction" : {
+        "actionName" : "Get",
+        "actionType" : "DEACTION",
+        "dataAccessAction" : "READ",
+        "name" : "load",
+        "getPSAppDEMethod" : {
+          "modelref" : true,
+          "id" : "get"
+        },
+        "getPSAppDataEntity" : {
+          "modelref" : true,
+          "path" : "PSSYSAPPS/web/PSAPPDATAENTITIES/hr_idea.json"
+        }
+      },
+      "groupMode" : "NONE",
+      "logicName" : "通用_表格",
+      "getPSAppDataEntity" : {
+        "modelref" : true,
+        "path" : "PSSYSAPPS/web/PSAPPDATAENTITIES/hr_idea.json"
+      },
+      "getPSControlHandler" : {
+        "getPSHandlerActions" : [ {
+          "actionName" : "Get",
+          "actionType" : "DEACTION",
+          "dataAccessAction" : "READ",
+          "name" : "load",
+          "getPSAppDEMethod" : {
+            "modelref" : true,
+            "id" : "get"
+          },
+          "getPSAppDataEntity" : {
+            "modelref" : true,
+            "path" : "PSSYSAPPS/web/PSAPPDATAENTITIES/hr_idea.json"
+          }
+        }, {
+          "actionName" : "Create",
+          "actionType" : "DEACTION",
+          "dataAccessAction" : "CREATE",
+          "name" : "create",
+          "getPSAppDEMethod" : {
+            "modelref" : true,
+            "id" : "create"
+          },
+          "getPSAppDataEntity" : {
+            "modelref" : true,
+            "path" : "PSSYSAPPS/web/PSAPPDATAENTITIES/hr_idea.json"
+          }
+        }, {
+          "actionName" : "Update",
+          "actionType" : "DEACTION",
+          "dataAccessAction" : "UPDATE",
+          "name" : "update",
+          "getPSAppDEMethod" : {
+            "modelref" : true,
+            "id" : "update"
+          },
+          "getPSAppDataEntity" : {
+            "modelref" : true,
+            "path" : "PSSYSAPPS/web/PSAPPDATAENTITIES/hr_idea.json"
+          }
+        }, {
+          "actionName" : "Remove",
+          "actionType" : "DEACTION",
+          "dataAccessAction" : "DELETE",
+          "name" : "remove",
+          "getPSAppDEMethod" : {
+            "modelref" : true,
+            "id" : "remove"
+          },
+          "getPSAppDataEntity" : {
+            "modelref" : true,
+            "path" : "PSSYSAPPS/web/PSAPPDATAENTITIES/hr_idea.json"
+          }
+        }, {
+          "actionName" : "GetDraft",
+          "actionType" : "DEACTION",
+          "dataAccessAction" : "CREATE",
+          "name" : "loaddraft",
+          "getPSAppDEMethod" : {
+            "modelref" : true,
+            "id" : "get_draft"
+          },
+          "getPSAppDataEntity" : {
+            "modelref" : true,
+            "path" : "PSSYSAPPS/web/PSAPPDATAENTITIES/hr_idea.json"
+          }
+        }, {
+          "actionType" : "DEDATASET",
+          "name" : "fetch",
+          "getPSAppDEMethod" : {
+            "modelref" : true,
+            "id" : "fetch_default"
+          },
+          "getPSAppDataEntity" : {
+            "modelref" : true,
+            "path" : "PSSYSAPPS/web/PSAPPDATAENTITIES/hr_idea.json"
+          }
+        } ],
+        "userDRAction" : "READ",
+        "enableDEFieldPrivilege" : false,
+        "id" : "数据表格处理器"
+      },
+      "getPSControlParam" : {
+        "autoLoad" : true,
+        "showBusyIndicator" : true,
+        "id" : "GRID"
+      },
+      "getPSDEGridColumns" : [ {
+        "align" : "LEFT",
+        "cLConvertMode" : "NONE",
+        "caption" : "基本资料",
+        "codeName" : "job_name",
+        "columnType" : "DEFGRIDCOLUMN",
+        "dataItemName" : "job_name",
+        "excelCaption" : "基本资料",
+        "name" : "job_name",
+        "noPrivDisplayMode" : 1,
+        "getPSAppDEField" : {
+          "name" : "JOB_NAME",
+          "codeName" : "job_name"
+        },
+        "width" : 200,
+        "widthUnit" : "PX",
+        "enableSort" : true
+      }, {
+        "align" : "LEFT",
+        "cLConvertMode" : "NONE",
+        "caption" : "需求部门",
+        "codeName" : "department_code",
+        "columnType" : "DEFGRIDCOLUMN",
+        "dataItemName" : "department_code",
+        "excelCaption" : "需求部门",
+        "name" : "department_code",
+        "noPrivDisplayMode" : 1,
+        "getPSAppDEField" : {
+          "name" : "DEPARTMENT_CODE",
+          "codeName" : "department_code"
+        },
+        "width" : 200,
+        "widthUnit" : "PX",
+        "enableSort" : true
+      }, {
+        "align" : "LEFT",
+        "cLConvertMode" : "NONE",
+        "caption" : "关联职位",
+        "codeName" : "connected_jobs",
+        "columnType" : "DEFGRIDCOLUMN",
+        "dataItemName" : "connected_jobs",
+        "excelCaption" : "关联职位",
+        "name" : "connected_jobs",
+        "noPrivDisplayMode" : 1,
+        "objectIdField" : "id",
+        "objectNameField" : "name",
+        "getPSAppDEField" : {
+          "name" : "CONNECTED_JOBS",
+          "codeName" : "connected_jobs"
+        },
+        "valueType" : "OBJECTS",
+        "width" : 100,
+        "widthUnit" : "PX",
+        "enableSort" : false
+      }, {
+        "align" : "LEFT",
+        "cLConvertMode" : "NONE",
+        "caption" : "需求人数",
+        "codeName" : "need_number",
+        "columnType" : "DEFGRIDCOLUMN",
+        "dataItemName" : "need_number",
+        "excelCaption" : "需求人数",
+        "name" : "need_number",
+        "noPrivDisplayMode" : 1,
+        "getPSAppDEField" : {
+          "name" : "NEED_NUMBER",
+          "codeName" : "need_number"
+        },
+        "width" : 200,
+        "widthUnit" : "PX",
+        "enableSort" : true
+      }, {
+        "align" : "LEFT",
+        "cLConvertMode" : "NONE",
+        "caption" : "招聘需求负责人",
+        "codeName" : "manager_employee_ids",
+        "columnType" : "DEFGRIDCOLUMN",
+        "dataItemName" : "manager_employee_ids",
+        "excelCaption" : "招聘需求负责人",
+        "name" : "manager_employee_ids",
+        "noPrivDisplayMode" : 1,
+        "getPSAppDEField" : {
+          "name" : "MANAGER_EMPLOYEE_IDS",
+          "codeName" : "manager_employee_ids"
+        },
+        "width" : 200,
+        "widthUnit" : "PX",
+        "enableSort" : true
+      }, {
+        "align" : "LEFT",
+        "cLConvertMode" : "NONE",
+        "caption" : "招聘开始时间",
+        "codeName" : "date_from",
+        "columnType" : "DEFGRIDCOLUMN",
+        "dataItemName" : "date_from",
+        "excelCaption" : "招聘开始时间",
+        "memo" : "起始日期",
+        "name" : "date_from",
+        "noPrivDisplayMode" : 1,
+        "getPSAppDEField" : {
+          "name" : "DATE_FROM",
+          "codeName" : "date_from"
+        },
+        "valueFormat" : "YYYY-MM-DD",
+        "width" : 200,
+        "widthUnit" : "PX",
+        "enableSort" : true
+      }, {
+        "align" : "LEFT",
+        "cLConvertMode" : "NONE",
+        "caption" : "招聘结束时间",
+        "codeName" : "date_to",
+        "columnType" : "DEFGRIDCOLUMN",
+        "dataItemName" : "date_to",
+        "excelCaption" : "招聘结束时间",
+        "name" : "date_to",
+        "noPrivDisplayMode" : 1,
+        "getPSAppDEField" : {
+          "name" : "DATE_TO",
+          "codeName" : "date_to"
+        },
+        "valueFormat" : "YYYY-MM-DD",
+        "width" : 200,
+        "widthUnit" : "PX",
+        "enableSort" : true
+      } ],
+      "getPSDEGridDataItems" : [ {
+        "dataType" : 25,
+        "name" : "job_name",
+        "getPSAppDEField" : {
+          "name" : "JOB_NAME",
+          "codeName" : "job_name"
+        },
+        "scriptCode" : "return  `<span style=\"padding: 5px;font-weight: 600;\">${data.job_name}(${data.identifier}) </span>`",
+        "customCode" : true
+      }, {
+        "dataType" : 25,
+        "name" : "department_code",
+        "getPSAppDEField" : {
+          "name" : "DEPARTMENT_CODE",
+          "codeName" : "department_code"
+        }
+      }, {
+        "dataType" : 21,
+        "name" : "connected_jobs",
+        "getPSAppDEField" : {
+          "name" : "CONNECTED_JOBS",
+          "codeName" : "connected_jobs"
+        },
+        "valueType" : "OBJECTS"
+      }, {
+        "dataType" : 9,
+        "name" : "need_number",
+        "getPSAppDEField" : {
+          "name" : "NEED_NUMBER",
+          "codeName" : "need_number"
+        }
+      }, {
+        "dataType" : 25,
+        "name" : "manager_employee_ids",
+        "getPSAppDEField" : {
+          "name" : "MANAGER_EMPLOYEE_IDS",
+          "codeName" : "manager_employee_ids"
+        }
+      }, {
+        "format" : "YYYY-MM-DD",
+        "dataType" : 5,
+        "name" : "date_from",
+        "getPSAppDEField" : {
+          "name" : "DATE_FROM",
+          "codeName" : "date_from"
+        }
+      }, {
+        "format" : "YYYY-MM-DD",
+        "dataType" : 5,
+        "name" : "date_to",
+        "getPSAppDEField" : {
+          "name" : "DATE_TO",
+          "codeName" : "date_to"
+        }
+      }, {
+        "dataType" : 25,
+        "name" : "srfkey",
+        "getPSAppDEField" : {
+          "name" : "ID",
+          "codeName" : "id"
+        }
+      }, {
+        "dataType" : 25,
+        "name" : "srfdataaccaction",
+        "getPSAppDEField" : {
+          "name" : "ID",
+          "codeName" : "id"
+        },
+        "dataAccessAction" : true
+      }, {
+        "dataType" : 25,
+        "name" : "srfmajortext",
+        "getPSAppDEField" : {
+          "name" : "NAME",
+          "codeName" : "name"
+        }
+      } ],
+      "getPSDEGridEditItems" : [ {
+        "caption" : "标识",
+        "codeName" : "srfkey",
+        "enableCond" : 3,
+        "ignoreInput" : 0,
+        "name" : "srfkey",
+        "getPSAppDEField" : {
+          "name" : "ID",
+          "codeName" : "id"
+        },
+        "getPSEditor" : {
+          "editorType" : "HIDDEN",
+          "name" : "srfkey"
+        },
+        "allowEmpty" : true
+      } ],
+      "pagingMode" : 1,
+      "pagingSize" : 20,
+      "getRemovePSControlAction" : {
+        "actionName" : "Remove",
+        "actionType" : "DEACTION",
+        "dataAccessAction" : "DELETE",
+        "name" : "remove",
+        "getPSAppDEMethod" : {
+          "modelref" : true,
+          "id" : "remove"
+        },
+        "getPSAppDataEntity" : {
+          "modelref" : true,
+          "path" : "PSSYSAPPS/web/PSAPPDATAENTITIES/hr_idea.json"
+        }
+      },
+      "sortMode" : "REMOTE",
+      "getUpdatePSControlAction" : {
+        "actionName" : "Update",
+        "actionType" : "DEACTION",
+        "dataAccessAction" : "UPDATE",
+        "name" : "update",
+        "getPSAppDEMethod" : {
+          "modelref" : true,
+          "id" : "update"
+        },
+        "getPSAppDataEntity" : {
+          "modelref" : true,
+          "path" : "PSSYSAPPS/web/PSAPPDATAENTITIES/hr_idea.json"
+        }
+      },
+      "hasWFDataItems" : false,
+      "enableColFilter" : false,
+      "enableCustomized" : true,
+      "enableGroup" : false,
+      "enablePagingBar" : true,
+      "enableRowEdit" : true,
+      "enableRowEditOrder" : false,
+      "enableRowNew" : true,
+      "forceFit" : false,
+      "hideHeader" : false,
+      "noSort" : false,
+      "singleSelect" : false,
+      "name" : "grid",
+      "modelid" : "1940b0522d5e37033c529357aebbd098",
+      "modeltype" : "PSDEGRID"
+    }, {
+      "codeName" : "searchbar_idea",
+      "controlStyle" : "CARD",
+      "controlType" : "SEARCHBAR",
+      "dynaModelFilePath" : "PSSYSAPPS/web/PSAPPDATAENTITIES/hr_idea/PSSEARCHBARS/searchbar_idea.json",
+      "logicName" : "searchbar_idea",
+      "getPSAppCounterRef" : {
+        "modelref" : true,
+        "id" : "80efdcf740681182f4c2480e59ccc61e"
+      },
+      "getPSAppCounterRefs" : [ {
+        "getPSAppCounter" : {
+          "codeName" : "idea_status_count",
+          "counterType" : "DEDR",
+          "dynaModelFilePath" : "PSSYSAPPS/web/PSAPPCOUNTERS/idea_status_count.json",
+          "getGetPSAppDEAction" : {
+            "modelref" : true,
+            "id" : "idea_status_count"
+          },
+          "name" : "招聘需求搜索栏计数器",
+          "getPSAppDataEntity" : {
+            "modelref" : true,
+            "path" : "PSSYSAPPS/web/PSAPPDATAENTITIES/hr_idea.json"
+          },
+          "timer" : 60000,
+          "uniqueTag" : "idea_status_count"
+        },
+        "tag" : "80efdcf740681182f4c2480e59ccc61e",
+        "uniqueTag" : "idea_status_count",
+        "id" : "80efdcf740681182f4c2480e59ccc61e"
+      } ],
+      "getPSAppDataEntity" : {
+        "modelref" : true,
+        "path" : "PSSYSAPPS/web/PSAPPDATAENTITIES/hr_idea.json"
+      },
+      "getPSControlParam" : {
+        "id" : "SEARCHBAR1"
+      },
+      "getPSSearchBarGroups" : [ {
+        "caption" : "草稿",
+        "counterId" : "draft",
+        "data" : "{\"theme_model\":{\"searchconds\":[{\"condtype\":\"GROUP\",\"condop\":\"AND\",\"bnotmode\":false,\"searchconds\":[{\"condtype\":\"DEFIELD\",\"fieldname\":\"status\",\"condop\":\"EQ\",\"value\":\"draft\"}]}]}}",
+        "itemType" : "GROUP",
+        "name" : "draft",
+        "width" : 0.0,
+        "addSeparator" : false
+      }, {
+        "caption" : "未进行",
+        "counterId" : "unstart",
+        "data" : "{\"theme_model\":{\"searchconds\":[{\"condtype\":\"GROUP\",\"condop\":\"AND\",\"bnotmode\":false,\"searchconds\":[{\"condtype\":\"DEFIELD\",\"fieldname\":\"status\",\"condop\":\"EQ\",\"value\":\"unstart\"}]}]}}",
+        "itemType" : "GROUP",
+        "name" : "unstart",
+        "width" : 0.0,
+        "addSeparator" : false
+      }, {
+        "caption" : "进行中",
+        "counterId" : "ongoing",
+        "data" : "{\"theme_model\":{\"searchconds\":[{\"condtype\":\"GROUP\",\"condop\":\"AND\",\"bnotmode\":false,\"searchconds\":[{\"condtype\":\"DEFIELD\",\"fieldname\":\"status\",\"condop\":\"EQ\",\"value\":\"ongoing\"}]}]}}",
+        "itemType" : "GROUP",
+        "name" : "ongoing",
+        "width" : 0.0,
+        "addSeparator" : false
+      }, {
+        "caption" : "已暂停",
+        "counterId" : "suspend",
+        "data" : "{\"theme_model\":{\"searchconds\":[{\"condtype\":\"GROUP\",\"condop\":\"AND\",\"bnotmode\":false,\"searchconds\":[{\"condtype\":\"DEFIELD\",\"fieldname\":\"status\",\"condop\":\"EQ\",\"value\":\"suspend\"}]}]}}",
+        "itemType" : "GROUP",
+        "name" : "suspend",
+        "width" : 0.0,
+        "addSeparator" : false
+      }, {
+        "caption" : "已完成",
+        "counterId" : "complete",
+        "data" : "{\"theme_model\":{\"searchconds\":[{\"condtype\":\"GROUP\",\"condop\":\"AND\",\"bnotmode\":false,\"searchconds\":[{\"condtype\":\"DEFIELD\",\"fieldname\":\"status\",\"condop\":\"EQ\",\"value\":\"complete\"}]}]}}",
+        "itemType" : "GROUP",
+        "name" : "complete",
+        "width" : 0.0,
+        "addSeparator" : false
+      }, {
+        "caption" : "已取消",
+        "counterId" : "canceled",
+        "data" : "{\"theme_model\":{\"searchconds\":[{\"condtype\":\"GROUP\",\"condop\":\"AND\",\"bnotmode\":false,\"searchconds\":[{\"condtype\":\"DEFIELD\",\"fieldname\":\"status\",\"condop\":\"EQ\",\"value\":\"canceled\"}]}]}}",
+        "itemType" : "GROUP",
+        "name" : "canceled",
+        "width" : 0.0,
+        "addSeparator" : false
+      }, {
+        "caption" : "已超期",
+        "counterId" : "timeout",
+        "data" : "{\"theme_model\":{\"searchconds\":[{\"condtype\":\"GROUP\",\"condop\":\"AND\",\"bnotmode\":false,\"searchconds\":[{\"condtype\":\"DEFIELD\",\"fieldname\":\"status\",\"condop\":\"EQ\",\"value\":\"timeout\"}]}]}}",
+        "itemType" : "GROUP",
+        "name" : "timeout",
+        "width" : 0.0,
+        "addSeparator" : false
+      } ],
+      "getPSSysPFPlugin" : {
+        "pluginType" : "SEARCHBAR_RENDER",
+        "pluginCode" : "CARD",
+        "runtimeObject" : true
+      },
+      "quickGroupCount" : -1,
+      "quickSearchMode" : 0,
+      "quickSearchWidth" : 0,
+      "enableFilter" : false,
+      "enableGroup" : true,
+      "enableQuickSearch" : false,
+      "mobileSearchBar" : false,
+      "name" : "searchbar1",
+      "modelid" : "59e90549852ac19a38e80c29aa93267a",
+      "modeltype" : "PSSYSSEARCHBAR"
+    }, {
+      "codeName" : "grid_searchbar",
+      "controlStyle" : "FILTER_SEARCHBAR",
+      "controlType" : "SEARCHBAR",
+      "dynaModelFilePath" : "PSSYSAPPS/web/PSAPPDATAENTITIES/hr_idea/PSSEARCHBARS/grid_searchbar.json",
+      "logicName" : "主界面搜索栏",
+      "getPSAppDataEntity" : {
+        "modelref" : true,
+        "path" : "PSSYSAPPS/web/PSAPPDATAENTITIES/hr_idea.json"
+      },
+      "getPSControlParam" : {
+        "id" : "SEARCHBAR"
+      },
+      "getPSSearchBarFilters" : [ {
+        "caption" : "招聘需求编号",
+        "dataType" : 25,
+        "itemType" : "FILTER",
+        "labelPos" : "NONE",
+        "labelWidth" : 0,
+        "name" : "IDENTIFIER",
+        "getPSAppDEField" : {
+          "name" : "IDENTIFIER",
+          "codeName" : "identifier"
+        },
+        "getPSDEFSearchMode" : {
+          "codeName" : "N_IDENTIFIER_EQ",
+          "name" : "N_IDENTIFIER_EQ",
+          "stdDataType" : 25,
+          "valueOP" : "EQ"
+        },
+        "getPSEditor" : {
+          "editorType" : "TEXTBOX",
+          "name" : "IDENTIFIER"
+        },
+        "allowEmpty" : true,
+        "emptyCaption" : false,
+        "hidden" : false,
+        "showCaption" : false,
+        "getUserParam" : {
+          "defaultShow" : "true"
+        }
+      }, {
+        "caption" : "创建时间",
+        "dataType" : 5,
+        "itemType" : "FILTER",
+        "itemWidth" : 100.0,
+        "labelPos" : "NONE",
+        "labelWidth" : 0,
+        "name" : "CREATE",
+        "getPSAppDEField" : {
+          "name" : "CREATE_DATE",
+          "codeName" : "create_date"
+        },
+        "getPSEditor" : {
+          "dateTimeFormat" : "YYYY-MM-DD",
+          "editorParams" : {
+            "TIMEFMT" : "YYYY-MM-DD"
+          },
+          "editorType" : "DATEPICKEREX_NOTIME",
+          "editorWidth" : 100.0,
+          "name" : "CREATE"
+        },
+        "allowEmpty" : true,
+        "emptyCaption" : false,
+        "hidden" : false,
+        "showCaption" : false,
+        "getUserParam" : {
+          "defaultShow" : "true"
+        }
+      }, {
+        "caption" : "招聘结束时间",
+        "dataType" : 5,
+        "itemType" : "FILTER",
+        "itemWidth" : 100.0,
+        "labelPos" : "NONE",
+        "labelWidth" : 0,
+        "name" : "DATETO",
+        "getPSAppDEField" : {
+          "name" : "DATE_TO",
+          "codeName" : "date_to"
+        },
+        "getPSEditor" : {
+          "dateTimeFormat" : "YYYY-MM-DD",
+          "editorParams" : {
+            "TIMEFMT" : "YYYY-MM-DD"
+          },
+          "editorType" : "DATEPICKEREX_NOTIME",
+          "editorWidth" : 100.0,
+          "name" : "DATETO"
+        },
+        "allowEmpty" : true,
+        "emptyCaption" : false,
+        "hidden" : false,
+        "showCaption" : false,
+        "getUserParam" : {
+          "defaultShow" : "true"
+        }
+      }, {
+        "caption" : "需求部门",
+        "dataType" : 25,
+        "itemType" : "FILTER",
+        "labelPos" : "NONE",
+        "labelWidth" : 0,
+        "name" : "DEPARTMENT",
+        "getPSAppDEField" : {
+          "name" : "DEPARTMENT_CODE",
+          "codeName" : "department_code"
+        },
+        "getPSEditor" : {
+          "editorParams" : {
+            "AC" : "TRUE",
+            "PICKUPVIEW" : "TRUE"
+          },
+          "editorType" : "PICKER",
+          "name" : "DEPARTMENT",
+          "enableAC" : true,
+          "enablePickupView" : true,
+          "forceSelection" : true,
+          "showTrigger" : true,
+          "singleSelect" : true
+        },
+        "allowEmpty" : true,
+        "emptyCaption" : false,
+        "hidden" : false,
+        "showCaption" : false,
+        "getUserParam" : {
+          "defaultShow" : "true"
+        }
+      }, {
+        "dataType" : 5,
+        "itemType" : "FILTER",
+        "itemWidth" : 100.0,
+        "labelPos" : "NONE",
+        "labelWidth" : 0,
+        "name" : "DATEFROM",
+        "getPSAppDEField" : {
+          "name" : "DATE_FROM",
+          "codeName" : "date_from"
+        },
+        "getPSEditor" : {
+          "dateTimeFormat" : "YYYY-MM-DD",
+          "editorParams" : {
+            "TIMEFMT" : "YYYY-MM-DD"
+          },
+          "editorType" : "DATEPICKEREX_NOTIME",
+          "editorWidth" : 100.0,
+          "name" : "DATEFROM"
+        },
+        "allowEmpty" : true,
+        "emptyCaption" : false,
+        "hidden" : false,
+        "showCaption" : false,
+        "getUserParam" : {
+          "defaultShow" : "true"
+        }
+      } ],
+      "getPSSearchBarGroups" : [ {
+        "caption" : "所有需求",
+        "itemType" : "GROUP",
+        "name" : "all",
+        "userTag" : "PUBLIC",
+        "width" : 0.0,
+        "addSeparator" : false
+      } ],
+      "getPSSysPFPlugin" : {
+        "pluginType" : "CUSTOM",
+        "pluginCode" : "FILTER_SEARCHBAR",
+        "runtimeObject" : true
+      },
+      "quickGroupCount" : -1,
+      "quickSearchMode" : 1,
+      "quickSearchWidth" : 0,
+      "enableFilter" : true,
+      "enableGroup" : true,
+      "enableQuickSearch" : true,
+      "mobileSearchBar" : false,
+      "name" : "searchbar",
+      "modelid" : "9772223d86c15e137471fda364edc7be",
+      "modeltype" : "PSSYSSEARCHBAR"
+    }, {
+      "getCapPSLanguageRes" : {
+        "lanResTag" : "DE.LNAME.HR_IDEA"
+      },
+      "caption" : "招聘需求",
+      "codeName" : "requirement_gridview_captionbar",
+      "controlType" : "CAPTIONBAR",
+      "name" : "captionbar",
+      "getPSAppDataEntity" : {
+        "modelref" : true,
+        "path" : "PSSYSAPPS/web/PSAPPDATAENTITIES/hr_idea.json"
+      },
+      "getPSControlParam" : { }
+    } ]
+  },
+  "title" : "招聘需求表格",
+  "viewStyle" : "DEFAULT",
+  "viewType" : "DEGRIDVIEW",
+  "xDataControlName" : "grid",
+  "enableDP" : true,
+  "enableExport" : true,
+  "enableFilter" : true,
+  "enableImport" : true,
+  "enableQuickSearch" : true,
+  "enableRowEdit" : true,
+  "enableSearch" : true,
+  "rowEditDefault" : false,
+  "showCaptionBar" : false,
+  "modelid" : "30d5a7eae2c2a0a33f01fba221ff36ca",
+  "modeltype" : "PSAPPDEVIEW"
+}

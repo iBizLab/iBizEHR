@@ -1,0 +1,98 @@
+package cn.ibizlab.hr.logic.hr_interview_feedbacklogic.my_interview_count;
+        import java.util.Map;
+        import java.util.HashMap;
+        import com.alibaba.fastjson.JSONObject;
+        import org.springframework.util.StringUtils;
+        import org.springframework.util.ObjectUtils;
+        import cn.ibizlab.util.errors.BadRequestAlertException;
+                global cn.ibizlab.core.hr.domain.hr_interview_feedback hr_interview_feedbackmy_interview_countdefault;
+                global java.util.Map hr_interview_feedbackmy_interview_countresult;
+        global cn.ibizlab.core.hr.service.Ihr_interview_feedbackService iBzSysHr_interview_feedbackDefaultService;
+        global cn.ibizlab.util.security.AuthenticationUser curuser;
+
+
+    no-loop
+
+            //逻辑处理节点[开始]
+            rule "begin"
+            ruleflow-group "hr_interview_feedbackmy_interview_countbegin"
+            when
+            then
+            end
+
+            //逻辑处理节点[今后的面试]
+            rule "rawsqlcall_01"
+            ruleflow-group "hr_interview_feedbackmy_interview_countrawsqlcall_01"
+            when
+            then
+    Map param =new HashMap();
+        param.put("param0",curuser.getSessionParams().get("srfuserid"));
+    String strSql="SELECT COUNT(1) todo_count FROM hr_interview_feedback hif left join hr_interview hi on hif.INTERVIEW_ID  = hi.id left join hr_interview_schedule his  on hi.SCHEDULE_ID  = his.id where his.START_DATE >= CURRENT_DATE and hif.INTERVIEWER_ID  = #{et.param0}";
+                        java.util.List<JSONObject> entities=iBzSysHr_interview_feedbackDefaultService.select(strSql,param);//SQL调用
+                            if(entities.size()>0){
+                            JSONObject entity=entities.get(0);
+                                hr_interview_feedbackmy_interview_countresult.putAll(entity);
+                            }
+                        update(hr_interview_feedbackmy_interview_countdefault);//更新fact中变量值
+                        update(hr_interview_feedbackmy_interview_countresult);//更新fact中变量值
+            end
+
+            //逻辑处理节点[待反馈的面试]
+            rule "rawsqlcall_02"
+            ruleflow-group "hr_interview_feedbackmy_interview_countrawsqlcall_02"
+            when
+            then
+    Map param =new HashMap();
+        param.put("param0",curuser.getSessionParams().get("srfuserid"));
+    String strSql="SELECT COUNT(1) as undo_count FROM hr_interview_feedback hif  left join hr_interview hi on hif.INTERVIEW_ID  = hi.id WHERE (hif.RESULT_TYPE IS NULL OR hif.RESULT_TYPE = '') and hif.INTERVIEWER_ID  = #{et.param0} and hi.STATUS  = 2;";
+                        java.util.List<JSONObject> entities=iBzSysHr_interview_feedbackDefaultService.select(strSql,param);//SQL调用
+                            if(entities.size()>0){
+                            JSONObject entity=entities.get(0);
+                                hr_interview_feedbackmy_interview_countresult.putAll(entity);
+                            }
+                        update(hr_interview_feedbackmy_interview_countdefault);//更新fact中变量值
+                        update(hr_interview_feedbackmy_interview_countresult);//更新fact中变量值
+            end
+
+            //逻辑处理节点[已反馈的面试]
+            rule "rawsqlcall_03"
+            ruleflow-group "hr_interview_feedbackmy_interview_countrawsqlcall_03"
+            when
+            then
+    Map param =new HashMap();
+        param.put("param0",curuser.getSessionParams().get("srfuserid"));
+    String strSql="SELECT COUNT(1) as done_count FROM hr_interview_feedback hif  WHERE hif.RESULT_TYPE IS NOT NULL    AND TRIM(hif.RESULT_TYPE) != '' and hif.INTERVIEWER_ID  = #{et.param0};";
+                        java.util.List<JSONObject> entities=iBzSysHr_interview_feedbackDefaultService.select(strSql,param);//SQL调用
+                            if(entities.size()>0){
+                            JSONObject entity=entities.get(0);
+                                hr_interview_feedbackmy_interview_countresult.putAll(entity);
+                            }
+                        update(hr_interview_feedbackmy_interview_countdefault);//更新fact中变量值
+                        update(hr_interview_feedbackmy_interview_countresult);//更新fact中变量值
+            end
+
+            //逻辑处理节点[已失效的面试]
+            rule "rawsqlcall_04"
+            ruleflow-group "hr_interview_feedbackmy_interview_countrawsqlcall_04"
+            when
+            then
+    Map param =new HashMap();
+        param.put("param0",curuser.getSessionParams().get("srfuserid"));
+    String strSql="SELECT COUNT(1) AS expire_count FROM hr_interview_feedback hif  left join hr_interview hi on hif.INTERVIEW_ID  = hi.id left join hr_interview_schedule his  on hi.SCHEDULE_ID  = his.id WHERE his.START_DATE < CURRENT_DATE    AND (hif.RESULT_TYPE IS NULL OR TRIM(hif.RESULT_TYPE) = '') and hif.INTERVIEWER_ID  = #{et.param0};";
+                        java.util.List<JSONObject> entities=iBzSysHr_interview_feedbackDefaultService.select(strSql,param);//SQL调用
+                            if(entities.size()>0){
+                            JSONObject entity=entities.get(0);
+                                hr_interview_feedbackmy_interview_countresult.putAll(entity);
+                            }
+                        update(hr_interview_feedbackmy_interview_countdefault);//更新fact中变量值
+                        update(hr_interview_feedbackmy_interview_countresult);//更新fact中变量值
+            end
+
+            //逻辑处理节点[结束]
+            rule "end_01"
+            ruleflow-group "hr_interview_feedbackmy_interview_countend_01"
+            when
+            then
+                        update(hr_interview_feedbackmy_interview_countdefault);//更新fact中变量值
+                        update(hr_interview_feedbackmy_interview_countresult);//更新fact中变量值
+            end

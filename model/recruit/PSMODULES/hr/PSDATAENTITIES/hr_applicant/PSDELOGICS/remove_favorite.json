@@ -1,0 +1,236 @@
+{
+  "codeName" : "remove_favorite",
+  "defaultParamName" : "Default",
+  "dynaModelFilePath" : "PSMODULES/hr/PSDATAENTITIES/hr_applicant/PSDELOGICS/remove_favorite.json",
+  "logicName" : "取消星标",
+  "name" : "取消星标",
+  "getPSDELogicNodes" : [ {
+    "codeName" : "Begin",
+    "leftPos" : 200,
+    "logicNodeType" : "BEGIN",
+    "name" : "开始",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "PREPAREPARAM1"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "Begin"
+      }
+    } ],
+    "topPos" : 100,
+    "parallelOutput" : true
+  }, {
+    "codeName" : "PREPAREPARAM1",
+    "leftPos" : 160,
+    "logicNodeType" : "PREPAREPARAM",
+    "name" : "准备参数",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "DEBUGPARAM2"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "PREPAREPARAM1"
+      }
+    } ],
+    "getPSDELogicNodeParams" : [ {
+      "dstFieldName" : "N_CREATE_MAN_EQ",
+      "getDstPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "favorite_file"
+      },
+      "name" : "用户全局对象[srfuserid] ==> favorite_file[N_CREATE_MAN_EQ]",
+      "paramAction" : "SETPARAMVALUE",
+      "srcFieldName" : "srfuserid",
+      "srcValueType" : "SESSION"
+    }, {
+      "dstFieldName" : "N_OWNER_ID_EQ",
+      "getDstPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "favorite_file"
+      },
+      "name" : "Default[id] ==> favorite_file[N_OWNER_ID_EQ]",
+      "paramAction" : "SETPARAMVALUE",
+      "srcFieldName" : "id",
+      "getSrcPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "Default"
+      },
+      "srcValueType" : "SRCDLPARAM"
+    }, {
+      "dstFieldName" : "N_OWNER_TYPE_EQ",
+      "getDstPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "favorite_file"
+      },
+      "name" : "直接值[hr_applicant] ==> favorite_file[N_OWNER_TYPE_EQ]",
+      "paramAction" : "SETPARAMVALUE",
+      "srcValue" : "hr_applicant",
+      "srcValueType" : "SRCVALUE"
+    } ],
+    "topPos" : 216
+  }, {
+    "codeName" : "DEBUGPARAM2",
+    "getDstPSDELogicParam" : {
+      "modelref" : true,
+      "id" : "favorite_file"
+    },
+    "leftPos" : 160,
+    "logicNodeType" : "DEBUGPARAM",
+    "name" : "调试逻辑参数",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "DEDATAQUERY1"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "DEBUGPARAM2"
+      }
+    } ],
+    "topPos" : 314
+  }, {
+    "codeName" : "END1",
+    "leftPos" : 730,
+    "logicNodeType" : "END",
+    "name" : "结束",
+    "topPos" : 443
+  }, {
+    "codeName" : "DEDATAQUERY1",
+    "getDstPSDELogicParam" : {
+      "modelref" : true,
+      "id" : "favorite_file"
+    },
+    "getDstPSDataEntity" : {
+      "modelref" : true,
+      "path" : "PSMODULES/base/PSDATAENTITIES/favorite.json"
+    },
+    "leftPos" : 160,
+    "logicNodeType" : "DEDATAQUERY",
+    "name" : "实体数据查询",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "DEBUGPARAM1"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "DEDATAQUERY1"
+      }
+    } ],
+    "getRetPSDELogicParam" : {
+      "modelref" : true,
+      "id" : "favorite_list"
+    },
+    "topPos" : 451
+  }, {
+    "codeName" : "DEBUGPARAM1",
+    "getDstPSDELogicParam" : {
+      "modelref" : true,
+      "id" : "favorite_list"
+    },
+    "leftPos" : 348,
+    "logicNodeType" : "DEBUGPARAM",
+    "name" : "调试逻辑参数******",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "DEACTION1"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "DEBUGPARAM1"
+      }
+    } ],
+    "topPos" : 451
+  }, {
+    "codeName" : "DEACTION1",
+    "getDstPSDEAction" : {
+      "modelref" : true,
+      "path" : "PSMODULES/base/PSDATAENTITIES/favorite/PSDEACTIONS/Remove.json"
+    },
+    "getDstPSDELogicParam" : {
+      "modelref" : true,
+      "id" : "favorite_list"
+    },
+    "getDstPSDataEntity" : {
+      "modelref" : true,
+      "path" : "PSMODULES/base/PSDATAENTITIES/favorite.json"
+    },
+    "leftPos" : 530,
+    "logicNodeType" : "DEACTION",
+    "name" : "实体行为",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "END1"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "DEACTION1"
+      }
+    } ],
+    "topPos" : 451
+  }, {
+    "code" : "// 获取favorite数据实体\r\ndef favorite = sys.dataentity('FAVORITE');\r\n// 获取默认参数\r\ndef defaultParam = logic.param('default').getReal();\r\n\r\n// 从default参数中获取所需属性值\r\ndef id = defaultParam.get(\"id\")\r\ndef srfuserId = defaultParam.get(\"srfuserid\")\r\ndef hrApplicant = defaultParam.get(\"hr_applicant\")\r\n\r\n// 创建查询参数对象\r\ndef queryParam = new net.ibizsys.util.QueryParam();\r\n\r\n// 添加多条件组合查询（同时满足三个条件）\r\nqueryParam.addFilter(\"OWNER_ID\", \"=\", id);          // 匹配OWNER_ID\r\nqueryParam.addFilter(\"CREATE_MAN\", \"=\", srfuserId); // 匹配创建人\r\nqueryParam.addFilter(\"OWNER_TYPE\", \"=\", hrApplicant); // 匹配类型\r\n\r\n// 执行查询获取符合条件的记录\r\ndef favoriteList = favorite.query(queryParam);\r\n\r\n// 如果查询到记录，则删除\r\nif(favoriteList != null && !favoriteList.isEmpty()) {\r\n    // 获取第一条记录的ID（如果有多个符合条件的记录，可根据实际需求处理）\r\n    def deleteId = favoriteList.get(0).get(\"id\");\r\n    // 执行删除操作\r\n    favorite.delete(deleteId);\r\n}\r\n",
+    "codeName" : "RAWSFCODE1",
+    "codeType" : "Groovy",
+    "leftPos" : 160,
+    "logicNodeType" : "RAWSFCODE",
+    "name" : "执行脚本代码",
+    "topPos" : 661
+  } ],
+  "getPSDELogicParams" : [ {
+    "codeName" : "Default",
+    "logicName" : "传入变量",
+    "name" : "传入变量",
+    "getParamPSDataEntity" : {
+      "modelref" : true,
+      "path" : "PSMODULES/hr/PSDATAENTITIES/hr_applicant.json"
+    },
+    "default" : true,
+    "entityParam" : true
+  }, {
+    "codeName" : "favorite",
+    "logicName" : "星标",
+    "name" : "星标",
+    "getParamPSDataEntity" : {
+      "modelref" : true,
+      "path" : "PSMODULES/base/PSDATAENTITIES/favorite.json"
+    },
+    "entityParam" : true
+  }, {
+    "codeName" : "favorite_file",
+    "logicName" : "星标过滤",
+    "name" : "星标过滤",
+    "getParamPSDataEntity" : {
+      "modelref" : true,
+      "path" : "PSMODULES/base/PSDATAENTITIES/favorite.json"
+    },
+    "filterParam" : true
+  }, {
+    "codeName" : "favorite_list",
+    "logicName" : "星标列表",
+    "name" : "星标列表",
+    "getParamPSDataEntity" : {
+      "modelref" : true,
+      "path" : "PSMODULES/base/PSDATAENTITIES/favorite.json"
+    },
+    "entityListParam" : true
+  } ],
+  "getStartPSDELogicNode" : {
+    "modelref" : true,
+    "id" : "Begin"
+  },
+  "enableBackend" : true,
+  "enableFront" : false
+}

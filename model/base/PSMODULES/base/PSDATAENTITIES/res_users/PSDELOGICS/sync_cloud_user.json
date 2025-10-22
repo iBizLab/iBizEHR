@@ -1,0 +1,249 @@
+{
+  "codeName" : "sync_cloud_user",
+  "defaultParamName" : "Default",
+  "dynaModelFilePath" : "PSMODULES/base/PSDATAENTITIES/res_users/PSDELOGICS/sync_cloud_user.json",
+  "logicName" : "cloud用户同步",
+  "name" : "cloud用户同步",
+  "getPSDELogicNodes" : [ {
+    "codeName" : "Begin",
+    "leftPos" : 200,
+    "logicNodeType" : "BEGIN",
+    "name" : "开始",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "PREPAREPARAM_01"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "Begin"
+      }
+    } ],
+    "topPos" : 280,
+    "parallelOutput" : true
+  }, {
+    "codeName" : "PREPAREPARAM_02",
+    "leftPos" : 816,
+    "logicNodeType" : "PREPAREPARAM",
+    "name" : "补充参数",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "DEACTION_02"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "PREPAREPARAM_02"
+      }
+    } ],
+    "getPSDELogicNodeParams" : [ {
+      "dstFieldName" : "ORGANIZATION_ID",
+      "getDstPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "cloud_proxy_user"
+      },
+      "paramAction" : "SETPARAMVALUE",
+      "srcFieldName" : "srforgid",
+      "srcValueType" : "SESSION"
+    } ],
+    "topPos" : 300,
+    "parallelOutput" : true
+  }, {
+    "codeName" : "PREPAREPARAM_01",
+    "leftPos" : 160,
+    "logicNodeType" : "PREPAREPARAM",
+    "name" : "设置关联ID",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "DEACTION_01"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "PREPAREPARAM_01"
+      }
+    } ],
+    "getPSDELogicNodeParams" : [ {
+      "dstFieldName" : "ID",
+      "getDstPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "cloud_proxy_user"
+      },
+      "paramAction" : "SETPARAMVALUE",
+      "srcFieldName" : "ID",
+      "getSrcPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "Default"
+      },
+      "srcValueType" : "SRCDLPARAM"
+    } ],
+    "topPos" : 422,
+    "parallelOutput" : true
+  }, {
+    "codeName" : "DEACTION_01",
+    "getDstPSDEAction" : {
+      "modelref" : true,
+      "path" : "PSMODULES/cloud_proxy/PSDATAENTITIES/cloud_proxy_user/PSDEACTIONS/CheckKey.json"
+    },
+    "getDstPSDELogicParam" : {
+      "modelref" : true,
+      "id" : "cloud_proxy_user"
+    },
+    "getDstPSDataEntity" : {
+      "modelref" : true,
+      "path" : "PSMODULES/cloud_proxy/PSDATAENTITIES/cloud_proxy_user.json"
+    },
+    "leftPos" : 410,
+    "logicNodeType" : "DEACTION",
+    "name" : "检查cloud用户数据",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "COPYPARAM_01"
+      },
+      "name" : "连接名称",
+      "getPSDELogicLinkGroupCond" : {
+        "groupOP" : "AND",
+        "logicType" : "GROUP",
+        "name" : "连接条件组",
+        "getPSDELogicLinkConds" : [ {
+          "condOP" : "EQ",
+          "getDstLogicParam" : {
+            "modelref" : true,
+            "id" : "exist_cloud_user"
+          },
+          "logicType" : "SINGLE",
+          "name" : "exist_cloud_user 等于(=) 0",
+          "paramValue" : "0"
+        } ]
+      },
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "DEACTION_01"
+      }
+    }, {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "END_01"
+      },
+      "name" : "异常忽略同步",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "DEACTION_01"
+      },
+      "catchLink" : true
+    } ],
+    "getRetPSDELogicParam" : {
+      "modelref" : true,
+      "id" : "exist_cloud_user"
+    },
+    "topPos" : 422,
+    "parallelOutput" : true
+  }, {
+    "codeName" : "COPYPARAM_01",
+    "getDstPSDELogicParam" : {
+      "modelref" : true,
+      "id" : "cloud_proxy_user"
+    },
+    "leftPos" : 680,
+    "logicNodeType" : "COPYPARAM",
+    "name" : "拷贝参数",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "PREPAREPARAM_02"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "COPYPARAM_01"
+      }
+    } ],
+    "getSrcPSDELogicParam" : {
+      "modelref" : true,
+      "id" : "Default"
+    },
+    "topPos" : 422,
+    "copyIfNotExists" : true,
+    "parallelOutput" : true
+  }, {
+    "codeName" : "DEACTION_02",
+    "getDstPSDEAction" : {
+      "modelref" : true,
+      "path" : "PSMODULES/cloud_proxy/PSDATAENTITIES/cloud_proxy_user/PSDEACTIONS/Create.json"
+    },
+    "getDstPSDELogicParam" : {
+      "modelref" : true,
+      "id" : "cloud_proxy_user"
+    },
+    "getDstPSDataEntity" : {
+      "modelref" : true,
+      "path" : "PSMODULES/cloud_proxy/PSDATAENTITIES/cloud_proxy_user.json"
+    },
+    "leftPos" : 936,
+    "logicNodeType" : "DEACTION",
+    "name" : "同步建立cloud用户",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "END_02"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "DEACTION_02"
+      }
+    } ],
+    "topPos" : 422,
+    "parallelOutput" : true
+  }, {
+    "codeName" : "END_02",
+    "leftPos" : 1193,
+    "logicNodeType" : "END",
+    "name" : "结束",
+    "topPos" : 424,
+    "parallelOutput" : true
+  }, {
+    "codeName" : "END_01",
+    "leftPos" : 480,
+    "logicNodeType" : "END",
+    "name" : "结束",
+    "topPos" : 600,
+    "parallelOutput" : true
+  } ],
+  "getPSDELogicParams" : [ {
+    "codeName" : "Default",
+    "logicName" : "传入变量",
+    "name" : "传入变量",
+    "getParamPSDataEntity" : {
+      "modelref" : true,
+      "path" : "PSMODULES/base/PSDATAENTITIES/res_users.json"
+    },
+    "default" : true,
+    "entityParam" : true
+  }, {
+    "codeName" : "cloud_proxy_user",
+    "logicName" : "cloud代理用户",
+    "name" : "cloud代理用户",
+    "getParamPSDataEntity" : {
+      "modelref" : true,
+      "path" : "PSMODULES/cloud_proxy/PSDATAENTITIES/cloud_proxy_user.json"
+    },
+    "entityParam" : true
+  }, {
+    "codeName" : "exist_cloud_user",
+    "logicName" : "是否存在cloud用户",
+    "name" : "是否存在cloud用户",
+    "stdDataType" : 9,
+    "simpleParam" : true
+  } ],
+  "getStartPSDELogicNode" : {
+    "modelref" : true,
+    "id" : "Begin"
+  },
+  "enableBackend" : true,
+  "enableFront" : false
+}

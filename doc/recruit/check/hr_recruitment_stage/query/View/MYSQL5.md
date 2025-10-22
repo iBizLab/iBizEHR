@@ -1,0 +1,21 @@
+```sql
+SELECT
+t1.`COLOR`,
+t1.`CREATE_DATE`,
+t1.`CREATE_UID`,
+t1.`FOLD`,
+t1.`HIRED_STAGE`,
+t1.`ID`,
+t1.`LEGEND_BLOCKED`,
+t1.`LEGEND_DONE`,
+t1.`LEGEND_NORMAL`,
+t1.`NAME`,
+t1.`REQUIREMENTS`,
+t1.`SEQUENCE`,
+t1.`STATUS`,
+t1.`WRITE_DATE`,
+t1.`WRITE_UID`
+FROM `hr_recruitment_stage` t1 
+
+
+```

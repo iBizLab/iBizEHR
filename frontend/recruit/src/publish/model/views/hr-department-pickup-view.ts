@@ -1,0 +1,67 @@
+export default {
+  funcViewMode: 'PICKUPVIEW',
+  deviewCodeName: 'PickupView',
+  deviewId: 'c81a1175c5cdf8b2621bf1e2f69095ef',
+  accUserMode: 2,
+  capLanguageRes: {
+    lanResTag: 'DE.LNAME.HR_DEPARTMENT',
+  },
+  caption: '部门',
+  codeName: 'hr_department_pickup_view',
+  appDataEntityId: 'web.hr_department',
+  appViewEngines: [
+    {
+      engineCat: 'VIEW',
+      engineType: 'PickupView',
+      id: 'engine',
+    },
+  ],
+  controls: [
+    {
+      embeddedAppDEViewId: 'web.hr_department_pickup_grid_view',
+      codeName: 'pickup_view_pickupviewpanel',
+      controlType: 'PICKUPVIEWPANEL',
+      appDataEntityId: 'web.hr_department',
+      controlParam: {
+        id: 'pickupviewpanel',
+      },
+      name: 'pickupviewpanel',
+      id: 'pickup_view_pickupviewpanel',
+    },
+    {
+      capLanguageRes: {
+        lanResTag: 'DE.LNAME.HR_DEPARTMENT',
+      },
+      caption: '部门',
+      codeName: 'pickup_view_captionbar',
+      controlType: 'CAPTIONBAR',
+      appDataEntityId: 'web.hr_department',
+      controlParam: {},
+      name: 'captionbar',
+      id: 'pickup_view_captionbar',
+    },
+  ],
+  viewLayoutPanel: {
+    layoutBodyOnly: true,
+    useDefaultLayout: true,
+    layoutPanel: true,
+    codeName: 'layoutpanel',
+    controlStyle: 'APPDEPICKUPVIEW',
+    controlType: 'VIEWLAYOUTPANEL',
+    appDataEntityId: 'web.hr_department',
+    controlParam: {},
+    id: 'layoutpanel',
+  },
+  title: '部门数据选择视图',
+  titleLanguageRes: {
+    lanResTag: 'PAGE.TITLE.HR_DEPARTMENT.PICKUPVIEW',
+  },
+  viewStyle: 'DEFAULT',
+  viewType: 'DEPICKUPVIEW',
+  enableDP: true,
+  showCaptionBar: false,
+  modelId: '4b7bf4afd1888d720a455f4e8af8a3bd',
+  modelType: 'PSAPPDEVIEW',
+  name: 'hr_departmentPickupView',
+  id: 'web.hr_department_pickup_view',
+};

@@ -1,0 +1,11 @@
+```sql
+SELECT
+t1.`AUTHORITY`,
+t1.`DCSYSTEMID`,
+t1.`GLOBALFLAG`,
+t1.`ID`,
+t1.`NAME`
+FROM `` t1 
+
+
+```

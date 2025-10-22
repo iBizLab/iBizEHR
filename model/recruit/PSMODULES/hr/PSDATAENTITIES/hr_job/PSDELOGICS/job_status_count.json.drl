@@ -1,0 +1,62 @@
+package cn.ibizlab.hr.logic.hr_joblogic.job_status_count;
+        import java.util.Map;
+        import java.util.HashMap;
+        import com.alibaba.fastjson.JSONObject;
+        import org.springframework.util.StringUtils;
+        import org.springframework.util.ObjectUtils;
+        import cn.ibizlab.util.errors.BadRequestAlertException;
+                global cn.ibizlab.core.hr.domain.hr_job hr_jobjob_status_countdefault;
+                global java.util.Map hr_jobjob_status_countresult;
+        global cn.ibizlab.core.hr.service.Ihr_jobService iBzSysHr_jobDefaultService;
+        global cn.ibizlab.util.security.AuthenticationUser curuser;
+
+
+    no-loop
+
+            //逻辑处理节点[开始]
+            rule "begin"
+            ruleflow-group "hr_jobjob_status_countbegin"
+            when
+            then
+            end
+
+            //逻辑处理节点[招聘中职位]
+            rule "rawsqlcall1"
+            ruleflow-group "hr_jobjob_status_countrawsqlcall1"
+            when
+            then
+                        Map param = null;
+                        String strSql="select count(1) as open from hr_job where status = 'open'";
+                        java.util.List<JSONObject> entities=iBzSysHr_jobDefaultService.select(strSql,param);//SQL调用
+                            if(entities.size()>0){
+                            JSONObject entity=entities.get(0);
+                                hr_jobjob_status_countresult.putAll(entity);
+                            }
+                        update(hr_jobjob_status_countdefault);//更新fact中变量值
+                        update(hr_jobjob_status_countresult);//更新fact中变量值
+            end
+
+            //逻辑处理节点[已结束职位]
+            rule "rawsqlcall2"
+            ruleflow-group "hr_jobjob_status_countrawsqlcall2"
+            when
+            then
+                        Map param = null;
+                        String strSql="select count(1) as closed from hr_job where status = 'closed'";
+                        java.util.List<JSONObject> entities=iBzSysHr_jobDefaultService.select(strSql,param);//SQL调用
+                            if(entities.size()>0){
+                            JSONObject entity=entities.get(0);
+                                hr_jobjob_status_countresult.putAll(entity);
+                            }
+                        update(hr_jobjob_status_countdefault);//更新fact中变量值
+                        update(hr_jobjob_status_countresult);//更新fact中变量值
+            end
+
+            //逻辑处理节点[结束]
+            rule "end1"
+            ruleflow-group "hr_jobjob_status_countend1"
+            when
+            then
+                        update(hr_jobjob_status_countdefault);//更新fact中变量值
+                        update(hr_jobjob_status_countresult);//更新fact中变量值
+            end

@@ -1,0 +1,26 @@
+```sql
+SELECT
+t1.`APPLICANT_ID`,
+t1.`COMPANY`,
+t1.`CREATE_DATE`,
+t1.`CREATE_UID`,
+t1.`DEPARTMENT`,
+t1.`END_DATE`,
+t1.`ID`,
+t1.`INDUSTRY`,
+t1.`JOB_NAME`,
+t1.`LEADER`,
+t1.`LOCATION`,
+t1.`NAME`,
+t1.`NOW`,
+t1.`REASON_FOR_LEAVING`,
+t1.`SALARY`,
+t1.`START_DATE`,
+t1.`SUMMARY`,
+t1.`UNDERLING_NUMBER`,
+t1.`WRITE_DATE`,
+t1.`WRITE_UID`
+FROM `hr_candidate_experience` t1 
+
+
+```

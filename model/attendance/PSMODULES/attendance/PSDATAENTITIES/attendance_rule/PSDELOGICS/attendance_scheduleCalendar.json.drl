@@ -1,0 +1,126 @@
+package cn.ibizlab.attendance.logic.attendance_rulelogic.attendance_schedulecalendar;
+        import java.util.Map;
+        import java.util.HashMap;
+        import com.alibaba.fastjson.JSONObject;
+        import org.springframework.util.StringUtils;
+        import org.springframework.util.ObjectUtils;
+        import cn.ibizlab.util.errors.BadRequestAlertException;
+                global cn.ibizlab.core.attendance.domain.attendance_rule attendance_ruleattendance_schedulecalendardefault;
+                global cn.ibizlab.core.resource.domain.resource_calendar_leaves attendance_ruleattendance_schedulecalendarfilter;
+                global cn.ibizlab.core.resource.domain.resource_calendar_leaves attendance_ruleattendance_schedulecalendarlastrldata;
+                global cn.ibizlab.core.resource.domain.resource_calendar_leaves attendance_ruleattendance_schedulecalendarleaves;
+                    global cn.ibizlab.core.resource.service.Iresource_calendar_leavesService resource_calendar_leavesservice;
+        global cn.ibizlab.core.attendance.service.Iattendance_ruleService iBzSysAttendance_ruleDefaultService;
+        global cn.ibizlab.util.security.AuthenticationUser curuser;
+
+
+    no-loop
+
+            //逻辑处理节点[开始]
+            rule "begin"
+            ruleflow-group "attendance_ruleattendance_schedulecalendarbegin"
+            when
+            then
+            end
+
+            //逻辑处理节点[实体数据集]
+            rule "dedataset_01"
+            ruleflow-group "attendance_ruleattendance_schedulecalendardedataset_01"
+            when
+            then
+                        update(attendance_ruleattendance_schedulecalendardefault);//更新fact中变量值
+                        update(attendance_ruleattendance_schedulecalendarfilter);//更新fact中变量值
+                        update(attendance_ruleattendance_schedulecalendarlastrldata);//更新fact中变量值
+                        update(attendance_ruleattendance_schedulecalendarleaves);//更新fact中变量值
+            end
+
+            //逻辑处理节点[调试逻辑参数]
+            rule "debugparam_02"
+            ruleflow-group "attendance_ruleattendance_schedulecalendardebugparam_02"
+            when
+            then
+                        update(attendance_ruleattendance_schedulecalendardefault);//更新fact中变量值
+                        update(attendance_ruleattendance_schedulecalendarfilter);//更新fact中变量值
+                        update(attendance_ruleattendance_schedulecalendarlastrldata);//更新fact中变量值
+                        update(attendance_ruleattendance_schedulecalendarleaves);//更新fact中变量值
+            end
+
+            //逻辑处理节点[固定排班/灵活打卡]
+            rule "rawsfcode_03"
+            ruleflow-group "attendance_ruleattendance_schedulecalendarrawsfcode_03"
+            when
+            then
+                        update(attendance_ruleattendance_schedulecalendardefault);//更新fact中变量值
+                        update(attendance_ruleattendance_schedulecalendarfilter);//更新fact中变量值
+                        update(attendance_ruleattendance_schedulecalendarlastrldata);//更新fact中变量值
+                        update(attendance_ruleattendance_schedulecalendarleaves);//更新fact中变量值
+            end
+
+            //逻辑处理节点[n班倒-休息日相同]
+            rule "rawsfcode_06"
+            ruleflow-group "attendance_ruleattendance_schedulecalendarrawsfcode_06"
+            when
+            then
+                        update(attendance_ruleattendance_schedulecalendardefault);//更新fact中变量值
+                        update(attendance_ruleattendance_schedulecalendarfilter);//更新fact中变量值
+                        update(attendance_ruleattendance_schedulecalendarlastrldata);//更新fact中变量值
+                        update(attendance_ruleattendance_schedulecalendarleaves);//更新fact中变量值
+            end
+
+            //逻辑处理节点[准备参数]
+            rule "prepareparam_01"
+            ruleflow-group "attendance_ruleattendance_schedulecalendarprepareparam_01"
+            when
+            then
+                            attendance_ruleattendance_schedulecalendarfilter.set("n_date_from_ltandeq",attendance_ruleattendance_schedulecalendardefault.get("n_date_from_ltandeq"));
+                            attendance_ruleattendance_schedulecalendarfilter.set("n_date_to_gtandeq",attendance_ruleattendance_schedulecalendardefault.get("n_date_to_gtandeq"));
+                            attendance_ruleattendance_schedulecalendarfilter.set("size","1000");
+                        update(attendance_ruleattendance_schedulecalendardefault);//更新fact中变量值
+                        update(attendance_ruleattendance_schedulecalendarfilter);//更新fact中变量值
+                        update(attendance_ruleattendance_schedulecalendarlastrldata);//更新fact中变量值
+                        update(attendance_ruleattendance_schedulecalendarleaves);//更新fact中变量值
+            end
+
+            //逻辑处理节点[根据holiday配置确定lastrldata]
+            rule "rawsfcode_05"
+            ruleflow-group "attendance_ruleattendance_schedulecalendarrawsfcode_05"
+            when
+            then
+                        update(attendance_ruleattendance_schedulecalendardefault);//更新fact中变量值
+                        update(attendance_ruleattendance_schedulecalendarfilter);//更新fact中变量值
+                        update(attendance_ruleattendance_schedulecalendarlastrldata);//更新fact中变量值
+                        update(attendance_ruleattendance_schedulecalendarleaves);//更新fact中变量值
+            end
+
+            //逻辑处理节点[获取当月法定节假日]
+            rule "rawsfcode_07"
+            ruleflow-group "attendance_ruleattendance_schedulecalendarrawsfcode_07"
+            when
+            then
+                        update(attendance_ruleattendance_schedulecalendardefault);//更新fact中变量值
+                        update(attendance_ruleattendance_schedulecalendarfilter);//更新fact中变量值
+                        update(attendance_ruleattendance_schedulecalendarlastrldata);//更新fact中变量值
+                        update(attendance_ruleattendance_schedulecalendarleaves);//更新fact中变量值
+            end
+
+            //逻辑处理节点[大小周]
+            rule "rawsfcode_04"
+            ruleflow-group "attendance_ruleattendance_schedulecalendarrawsfcode_04"
+            when
+            then
+                        update(attendance_ruleattendance_schedulecalendardefault);//更新fact中变量值
+                        update(attendance_ruleattendance_schedulecalendarfilter);//更新fact中变量值
+                        update(attendance_ruleattendance_schedulecalendarlastrldata);//更新fact中变量值
+                        update(attendance_ruleattendance_schedulecalendarleaves);//更新fact中变量值
+            end
+
+            //逻辑处理节点[结束]
+            rule "end_01"
+            ruleflow-group "attendance_ruleattendance_schedulecalendarend_01"
+            when
+            then
+                        update(attendance_ruleattendance_schedulecalendardefault);//更新fact中变量值
+                        update(attendance_ruleattendance_schedulecalendarfilter);//更新fact中变量值
+                        update(attendance_ruleattendance_schedulecalendarlastrldata);//更新fact中变量值
+                        update(attendance_ruleattendance_schedulecalendarleaves);//更新fact中变量值
+            end

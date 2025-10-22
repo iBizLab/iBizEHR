@@ -1,0 +1,67 @@
+export default {
+  funcViewMode: 'PICKUPVIEW',
+  deviewCodeName: 'PickupView',
+  deviewId: '360ae043dcce9bb1509cd9d206e5c951',
+  accUserMode: 2,
+  capLanguageRes: {
+    lanResTag: 'DE.LNAME.HR_JOB_PLATFORM',
+  },
+  caption: '招聘平台',
+  codeName: 'hr_job_platform_pickup_view',
+  appDataEntityId: 'web.hr_job_platform',
+  appViewEngines: [
+    {
+      engineCat: 'VIEW',
+      engineType: 'PickupView',
+      id: 'engine',
+    },
+  ],
+  controls: [
+    {
+      embeddedAppDEViewId: 'web.hr_job_platform_pickup_grid_view',
+      codeName: 'pickup_view_pickupviewpanel',
+      controlType: 'PICKUPVIEWPANEL',
+      appDataEntityId: 'web.hr_job_platform',
+      controlParam: {
+        id: 'pickupviewpanel',
+      },
+      name: 'pickupviewpanel',
+      id: 'pickup_view_pickupviewpanel',
+    },
+    {
+      capLanguageRes: {
+        lanResTag: 'DE.LNAME.HR_JOB_PLATFORM',
+      },
+      caption: '招聘平台',
+      codeName: 'pickup_view_captionbar',
+      controlType: 'CAPTIONBAR',
+      appDataEntityId: 'web.hr_job_platform',
+      controlParam: {},
+      name: 'captionbar',
+      id: 'pickup_view_captionbar',
+    },
+  ],
+  viewLayoutPanel: {
+    layoutBodyOnly: true,
+    useDefaultLayout: true,
+    layoutPanel: true,
+    codeName: 'layoutpanel',
+    controlStyle: 'APPDEPICKUPVIEW',
+    controlType: 'VIEWLAYOUTPANEL',
+    appDataEntityId: 'web.hr_job_platform',
+    controlParam: {},
+    id: 'layoutpanel',
+  },
+  title: '招聘平台数据选择视图',
+  titleLanguageRes: {
+    lanResTag: 'PAGE.TITLE.HR_JOB_PLATFORM.PICKUPVIEW',
+  },
+  viewStyle: 'DEFAULT',
+  viewType: 'DEPICKUPVIEW',
+  enableDP: true,
+  showCaptionBar: false,
+  modelId: 'afb03b74e02cc8d494a26f9e084e0755',
+  modelType: 'PSAPPDEVIEW',
+  name: 'hr_job_platformPickupView',
+  id: 'web.hr_job_platform_pickup_view',
+};

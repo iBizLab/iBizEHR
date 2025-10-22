@@ -1,0 +1,902 @@
+{
+  "codeName" : "Personal",
+  "controlType" : "FORM",
+  "getCreatePSControlAction" : {
+    "modelref" : true,
+    "id" : "create",
+    "actionName" : "Create",
+    "actionType" : "DEACTION",
+    "dataAccessAction" : "CREATE",
+    "name" : "create",
+    "getPSAppDEMethod" : {
+      "modelref" : true,
+      "id" : "create"
+    },
+    "getPSAppDataEntity" : {
+      "modelref" : true,
+      "path" : "PSSYSAPPS/ehrapp/PSAPPDATAENTITIES/res_users.json"
+    }
+  },
+  "defaultLabelWidth" : 130,
+  "dynaModelFilePath" : "PSSYSAPPS/ehrapp/PSAPPDATAENTITIES/res_users/PSFORMS/Personal.json",
+  "getGetDraftFromPSControlAction" : {
+    "modelref" : true,
+    "id" : "loaddraftfrom",
+    "actionName" : "GETDRAFTFROM",
+    "actionType" : "DEACTION",
+    "dataAccessAction" : "CREATE",
+    "name" : "loaddraftfrom",
+    "getPSAppDataEntity" : {
+      "modelref" : true,
+      "path" : "PSSYSAPPS/ehrapp/PSAPPDATAENTITIES/res_users.json"
+    }
+  },
+  "getGetDraftPSControlAction" : {
+    "modelref" : true,
+    "id" : "loaddraft",
+    "actionName" : "GetDraft",
+    "actionType" : "DEACTION",
+    "dataAccessAction" : "CREATE",
+    "name" : "loaddraft",
+    "getPSAppDEMethod" : {
+      "modelref" : true,
+      "id" : "get_draft"
+    },
+    "getPSAppDataEntity" : {
+      "modelref" : true,
+      "path" : "PSSYSAPPS/ehrapp/PSAPPDATAENTITIES/res_users.json"
+    }
+  },
+  "getGetPSControlAction" : {
+    "modelref" : true,
+    "id" : "load",
+    "actionName" : "Get",
+    "actionType" : "DEACTION",
+    "dataAccessAction" : "READ",
+    "name" : "load",
+    "getPSAppDEMethod" : {
+      "modelref" : true,
+      "id" : "get"
+    },
+    "getPSAppDataEntity" : {
+      "modelref" : true,
+      "path" : "PSSYSAPPS/ehrapp/PSAPPDATAENTITIES/res_users.json"
+    }
+  },
+  "hookEventNames" : [ "ONFORMDATACHANGE" ],
+  "logicName" : "个人用户实体主视图_表单",
+  "getPSAppDataEntity" : {
+    "modelref" : true,
+    "path" : "PSSYSAPPS/ehrapp/PSAPPDATAENTITIES/res_users.json"
+  },
+  "getPSControlLogics" : [ {
+    "eventNames" : "onFormDataChange",
+    "logicTag" : "form",
+    "logicType" : "SCRIPT",
+    "name" : "data_change",
+    "scriptCode" : "console.log(\"数据变更了\");\nconsole.log(\"view\",view);\n\nvar toolBarCtrl = view.getCtrl(\"TOOLBAR\", \"toolbar\");\nif (toolBarCtrl) {\n  toolBarCtrl.state.visible = false;\n}"
+  } ],
+  "getPSDEFormItems" : [ {
+    "id" : "srfupdatedate",
+    "hidden" : true,
+    "dataType" : 5,
+    "getPSAppDEField" : {
+      "name" : "WRITE_DATE",
+      "codeName" : "write_date"
+    }
+  }, {
+    "id" : "srforikey",
+    "hidden" : true,
+    "dataType" : 25
+  }, {
+    "id" : "srfkey",
+    "hidden" : true,
+    "dataType" : 25,
+    "getPSAppDEField" : {
+      "name" : "ID",
+      "codeName" : "id"
+    }
+  }, {
+    "id" : "srfmajortext",
+    "hidden" : true,
+    "dataType" : 25,
+    "getPSAppDEField" : {
+      "name" : "NAME",
+      "codeName" : "name"
+    }
+  }, {
+    "id" : "srftempmode",
+    "hidden" : true,
+    "dataType" : 25
+  }, {
+    "id" : "srfuf",
+    "hidden" : true,
+    "dataType" : 25
+  }, {
+    "id" : "srfdeid",
+    "hidden" : true,
+    "dataType" : 25
+  }, {
+    "id" : "srfsourcekey",
+    "hidden" : true,
+    "dataType" : 25
+  }, {
+    "id" : "name",
+    "dataType" : 25,
+    "getPSAppDEField" : {
+      "name" : "NAME",
+      "codeName" : "name"
+    }
+  }, {
+    "id" : "login",
+    "dataType" : 25,
+    "getPSAppDEField" : {
+      "name" : "LOGIN",
+      "codeName" : "login"
+    }
+  }, {
+    "id" : "partner_name",
+    "dataType" : 25,
+    "getPSAppDEField" : {
+      "name" : "PARTNER_NAME",
+      "codeName" : "partner_name"
+    }
+  }, {
+    "id" : "tz",
+    "dataType" : 25,
+    "getPSAppDEField" : {
+      "name" : "TZ",
+      "codeName" : "tz"
+    }
+  }, {
+    "id" : "tour_enabled",
+    "dataType" : 9,
+    "getPSAppDEField" : {
+      "name" : "TOUR_ENABLED",
+      "codeName" : "tour_enabled"
+    }
+  }, {
+    "id" : "notification_type",
+    "dataType" : 25,
+    "getPSAppDEField" : {
+      "name" : "NOTIFICATION_TYPE",
+      "codeName" : "notification_type"
+    }
+  }, {
+    "id" : "odoobot_state",
+    "dataType" : 25,
+    "getPSAppDEField" : {
+      "name" : "ODOOBOT_STATE",
+      "codeName" : "odoobot_state"
+    }
+  }, {
+    "id" : "signature",
+    "dataType" : 21,
+    "getPSAppDEField" : {
+      "name" : "SIGNATURE",
+      "codeName" : "signature"
+    }
+  }, {
+    "id" : "calendar_default_privacy",
+    "dataType" : 25,
+    "getPSAppDEField" : {
+      "name" : "CALENDAR_DEFAULT_PRIVACY",
+      "codeName" : "calendar_default_privacy"
+    }
+  }, {
+    "id" : "totp_enabled",
+    "dataType" : 9,
+    "getPSAppDEField" : {
+      "name" : "TOTP_ENABLED",
+      "codeName" : "totp_enabled"
+    }
+  }, {
+    "id" : "partner_id",
+    "hidden" : true,
+    "dataType" : 25,
+    "getPSAppDEField" : {
+      "name" : "PARTNER_ID",
+      "codeName" : "partner_id"
+    }
+  }, {
+    "id" : "id",
+    "hidden" : true,
+    "dataType" : 25,
+    "getPSAppDEField" : {
+      "name" : "ID",
+      "codeName" : "id"
+    }
+  } ],
+  "getPSDEFormPages" : [ {
+    "caption" : "用户信息",
+    "codeName" : "formpage_all",
+    "detailStyle" : "DEFAULT",
+    "detailType" : "FORMPAGE",
+    "name" : "formpage_all",
+    "getPSDEFormDetails" : [ {
+      "caption" : "用户身份",
+      "codeName" : "group1",
+      "detailStyle" : "DEFAULT",
+      "detailType" : "GROUPPANEL",
+      "name" : "group1",
+      "getPSDEFormDetails" : [ {
+        "getCapPSLanguageRes" : {
+          "lanResTag" : "DEF.LNAME.RES_USERS.NAME"
+        },
+        "caption" : "名称",
+        "codeName" : "name",
+        "dataType" : 25,
+        "detailStyle" : "DEFAULT",
+        "detailType" : "FORMITEM",
+        "enableCond" : 3,
+        "ignoreInput" : 0,
+        "labelPos" : "TOP",
+        "labelWidth" : 130,
+        "name" : "name",
+        "noPrivDisplayMode" : 1,
+        "getPSAppDEField" : {
+          "name" : "NAME",
+          "codeName" : "name"
+        },
+        "getPSEditor" : {
+          "editorType" : "TEXTBOX",
+          "maxLength" : 200,
+          "name" : "name",
+          "placeHolder" : "e.g. John Doe"
+        },
+        "getPSLayoutPos" : {
+          "colMD" : 24,
+          "layout" : "TABLE_24COL"
+        },
+        "allowEmpty" : true,
+        "showCaption" : true
+      }, {
+        "getCapPSLanguageRes" : {
+          "lanResTag" : "DEF.LNAME.RES_USERS.LOGIN"
+        },
+        "caption" : "电子邮件地址",
+        "codeName" : "login",
+        "dataType" : 25,
+        "detailStyle" : "DEFAULT",
+        "detailType" : "FORMITEM",
+        "enableCond" : 3,
+        "ignoreInput" : 0,
+        "inputTip" : "登录系统用户名",
+        "labelPos" : "TOP",
+        "labelWidth" : 130,
+        "name" : "login",
+        "noPrivDisplayMode" : 1,
+        "getPSAppDEField" : {
+          "name" : "LOGIN",
+          "codeName" : "login"
+        },
+        "getPSEditor" : {
+          "editorType" : "TEXTBOX",
+          "maxLength" : 500,
+          "name" : "login",
+          "placeHolder" : "例如：email@yourcompany.com"
+        },
+        "getPSLayoutPos" : {
+          "colMD" : 24,
+          "layout" : "TABLE_24COL"
+        },
+        "allowEmpty" : false,
+        "enableInputTip" : true,
+        "showCaption" : true
+      }, {
+        "getCapPSLanguageRes" : {
+          "lanResTag" : "DEF.LNAME.RES_USERS.PARTNER_ID"
+        },
+        "caption" : "相关合作伙伴",
+        "codeName" : "partner_name",
+        "dataType" : 25,
+        "detailStyle" : "DEFAULT",
+        "detailType" : "FORMITEM",
+        "enableCond" : 3,
+        "ignoreInput" : 0,
+        "labelPos" : "LEFT",
+        "labelWidth" : 100,
+        "name" : "partner_name",
+        "noPrivDisplayMode" : 1,
+        "getPSAppDEField" : {
+          "name" : "PARTNER_NAME",
+          "codeName" : "partner_name"
+        },
+        "getPSDEFDGroupLogics" : [ {
+          "groupOP" : "AND",
+          "logicCat" : "PANELVISIBLE",
+          "logicType" : "GROUP",
+          "getPSDEFDLogics" : [ {
+            "condOP" : "ISNOTNULL",
+            "dEFDName" : "partner_id",
+            "logicType" : "SINGLE",
+            "name" : "partner_id值不为空(NotNil)"
+          } ],
+          "relatedDetailNames" : [ "partner_id" ],
+          "notMode" : false
+        } ],
+        "getPSEditor" : {
+          "editorParams" : {
+            "EDITABLE" : "FALSE",
+            "LINKVIEW" : "TRUE",
+            "AC" : "FALSE",
+            "TRIGGER" : "FALSE",
+            "PICKUPVIEW" : "FALSE"
+          },
+          "editorType" : "PICKEREX_LINKONLY",
+          "getLinkPSAppView" : {
+            "modelref" : true,
+            "path" : "PSSYSAPPS/ehrapp/PSAPPDEVIEWS/res_partnermain_view.json",
+            "viewType" : "DEEDITVIEW"
+          },
+          "name" : "partner_name",
+          "getPSEditorItems" : [ {
+            "name" : "partner_id"
+          } ],
+          "valueItemName" : "partner_id",
+          "editable" : false,
+          "enableAC" : false,
+          "enableLinkView" : true,
+          "enablePickupView" : false,
+          "forceSelection" : true,
+          "showTrigger" : false,
+          "singleSelect" : true
+        },
+        "getPSLayoutPos" : {
+          "colMD" : 24,
+          "layout" : "TABLE_24COL"
+        },
+        "valueItemName" : "partner_id",
+        "allowEmpty" : true,
+        "showCaption" : true
+      } ],
+      "getPSLayout" : {
+        "childColMD" : 24,
+        "columnCount" : 24,
+        "layout" : "TABLE_24COL"
+      },
+      "getPSLayoutPos" : {
+        "colMD" : 24,
+        "layout" : "TABLE_24COL"
+      },
+      "infoGroupMode" : false,
+      "showCaption" : false
+    }, {
+      "codeName" : "tabpanel1",
+      "detailStyle" : "DEFAULT",
+      "detailType" : "TABPANEL",
+      "name" : "tabpanel1",
+      "getPSDEFormTabPages" : [ {
+        "caption" : "首选项",
+        "codeName" : "tabpage2",
+        "detailStyle" : "DEFAULT",
+        "detailType" : "TABPAGE",
+        "name" : "tabpage2",
+        "getPSDEFormDetails" : [ {
+          "caption" : "本地化",
+          "codeName" : "group3",
+          "detailStyle" : "DEFAULT",
+          "detailType" : "GROUPPANEL",
+          "name" : "group3",
+          "getPSDEFormDetails" : [ {
+            "getCapPSLanguageRes" : {
+              "lanResTag" : "DEF.LNAME.RES_USERS.TZ"
+            },
+            "caption" : "时区",
+            "codeName" : "tz",
+            "dataType" : 25,
+            "detailStyle" : "DEFAULT",
+            "detailType" : "FORMITEM",
+            "enableCond" : 3,
+            "ignoreInput" : 0,
+            "labelPos" : "LEFT",
+            "labelWidth" : 130,
+            "name" : "tz",
+            "noPrivDisplayMode" : 1,
+            "getPSAppDEField" : {
+              "name" : "TZ",
+              "codeName" : "tz"
+            },
+            "getPSEditor" : {
+              "editorType" : "DROPDOWNLIST",
+              "name" : "tz",
+              "getPSAppCodeList" : {
+                "modelref" : true,
+                "path" : "PSSYSAPPS/ehrapp/PSAPPCODELISTS/base__res_partner_tz.json"
+              },
+              "singleSelect" : true
+            },
+            "getPSLayoutPos" : {
+              "colMD" : 24,
+              "layout" : "TABLE_24COL"
+            },
+            "allowEmpty" : true,
+            "needCodeListConfig" : true,
+            "showCaption" : true
+          }, {
+            "getCapPSLanguageRes" : {
+              "lanResTag" : "DEF.LNAME.RES_USERS.TOUR_ENABLED"
+            },
+            "caption" : "新手入门",
+            "codeName" : "tour_enabled",
+            "dataType" : 9,
+            "detailStyle" : "DEFAULT",
+            "detailType" : "FORMITEM",
+            "enableCond" : 3,
+            "ignoreInput" : 0,
+            "labelPos" : "LEFT",
+            "labelWidth" : 130,
+            "name" : "tour_enabled",
+            "noPrivDisplayMode" : 1,
+            "getPSAppDEField" : {
+              "name" : "TOUR_ENABLED",
+              "codeName" : "tour_enabled"
+            },
+            "getPSEditor" : {
+              "editorType" : "SWITCH",
+              "name" : "tour_enabled"
+            },
+            "getPSLayoutPos" : {
+              "colMD" : 24,
+              "layout" : "TABLE_24COL"
+            },
+            "allowEmpty" : true,
+            "showCaption" : true
+          }, {
+            "getCapPSLanguageRes" : {
+              "lanResTag" : "DEF.LNAME.RES_USERS.NOTIFICATION_TYPE"
+            },
+            "caption" : "通知",
+            "codeName" : "notification_type",
+            "dataType" : 25,
+            "detailStyle" : "DEFAULT",
+            "detailType" : "FORMITEM",
+            "enableCond" : 3,
+            "ignoreInput" : 0,
+            "labelPos" : "LEFT",
+            "labelWidth" : 130,
+            "name" : "notification_type",
+            "noPrivDisplayMode" : 1,
+            "getPSAppDEField" : {
+              "name" : "NOTIFICATION_TYPE",
+              "codeName" : "notification_type"
+            },
+            "getPSEditor" : {
+              "editorType" : "CHECKBOXLIST",
+              "name" : "notification_type",
+              "getPSAppCodeList" : {
+                "modelref" : true,
+                "path" : "PSSYSAPPS/ehrapp/PSAPPCODELISTS/base__res_users_notification_type.json"
+              }
+            },
+            "getPSLayoutPos" : {
+              "colMD" : 24,
+              "layout" : "TABLE_24COL"
+            },
+            "allowEmpty" : false,
+            "needCodeListConfig" : true,
+            "showCaption" : true
+          }, {
+            "getCapPSLanguageRes" : {
+              "lanResTag" : "DEF.LNAME.RES_USERS.ODOOBOT_STATE"
+            },
+            "caption" : "小秘书状态",
+            "codeName" : "odoobot_state",
+            "dataType" : 25,
+            "detailStyle" : "DEFAULT",
+            "detailType" : "FORMITEM",
+            "enableCond" : 3,
+            "ignoreInput" : 0,
+            "labelPos" : "LEFT",
+            "labelWidth" : 130,
+            "name" : "odoobot_state",
+            "noPrivDisplayMode" : 1,
+            "getPSAppDEField" : {
+              "name" : "ODOOBOT_STATE",
+              "codeName" : "odoobot_state"
+            },
+            "getPSEditor" : {
+              "editorType" : "DROPDOWNLIST",
+              "name" : "odoobot_state",
+              "getPSAppCodeList" : {
+                "modelref" : true,
+                "path" : "PSSYSAPPS/ehrapp/PSAPPCODELISTS/base__res_users_odoobot_state.json"
+              },
+              "singleSelect" : true
+            },
+            "getPSLayoutPos" : {
+              "colMD" : 24,
+              "layout" : "TABLE_24COL"
+            },
+            "allowEmpty" : true,
+            "needCodeListConfig" : true,
+            "showCaption" : true
+          }, {
+            "getCapPSLanguageRes" : {
+              "lanResTag" : "DEF.LNAME.RES_USERS.SIGNATURE"
+            },
+            "caption" : "电子邮件签名",
+            "codeName" : "signature",
+            "dataType" : 21,
+            "detailStyle" : "DEFAULT",
+            "detailType" : "FORMITEM",
+            "enableCond" : 3,
+            "ignoreInput" : 0,
+            "itemHeight" : 200.0,
+            "labelPos" : "LEFT",
+            "labelWidth" : 130,
+            "name" : "signature",
+            "noPrivDisplayMode" : 1,
+            "getPSAppDEField" : {
+              "name" : "SIGNATURE",
+              "codeName" : "signature"
+            },
+            "getPSEditor" : {
+              "editorHeight" : 200.0,
+              "editorType" : "HTMLEDITOR",
+              "name" : "signature"
+            },
+            "getPSLayoutPos" : {
+              "colMD" : 24,
+              "layout" : "TABLE_24COL"
+            },
+            "allowEmpty" : true,
+            "showCaption" : true
+          }, {
+            "getCapPSLanguageRes" : {
+              "lanResTag" : "DEF.LNAME.RES_USERS.CALENDAR_DEFAULT_PRIVACY"
+            },
+            "caption" : "日历默认隐私",
+            "codeName" : "calendar_default_privacy",
+            "dataType" : 25,
+            "detailStyle" : "DEFAULT",
+            "detailType" : "FORMITEM",
+            "enableCond" : 0,
+            "ignoreInput" : 0,
+            "labelPos" : "LEFT",
+            "labelWidth" : 130,
+            "name" : "calendar_default_privacy",
+            "noPrivDisplayMode" : 1,
+            "getPSAppDEField" : {
+              "name" : "CALENDAR_DEFAULT_PRIVACY",
+              "codeName" : "calendar_default_privacy"
+            },
+            "getPSEditor" : {
+              "editorType" : "DROPDOWNLIST",
+              "name" : "calendar_default_privacy",
+              "getPSAppCodeList" : {
+                "modelref" : true,
+                "path" : "PSSYSAPPS/ehrapp/PSAPPCODELISTS/base__res_users_calendar_default_privacy.json"
+              },
+              "singleSelect" : true
+            },
+            "getPSLayoutPos" : {
+              "colMD" : 24,
+              "layout" : "TABLE_24COL"
+            },
+            "allowEmpty" : true,
+            "needCodeListConfig" : true,
+            "showCaption" : true
+          } ],
+          "getPSLayout" : {
+            "childColMD" : 24,
+            "columnCount" : 24,
+            "layout" : "TABLE_24COL"
+          },
+          "getPSLayoutPos" : {
+            "colMD" : 24,
+            "layout" : "TABLE_24COL"
+          },
+          "infoGroupMode" : false,
+          "showCaption" : true
+        } ],
+        "getPSLayout" : {
+          "childColMD" : 24,
+          "columnCount" : 24,
+          "layout" : "TABLE_24COL"
+        },
+        "infoGroupMode" : false,
+        "showCaption" : true
+      }, {
+        "caption" : "账户安全",
+        "codeName" : "tabpage4",
+        "detailStyle" : "DEFAULT",
+        "detailType" : "TABPAGE",
+        "name" : "tabpage4",
+        "getPSDEFormDetails" : [ {
+          "codeName" : "group5",
+          "detailStyle" : "DEFAULT",
+          "detailType" : "GROUPPANEL",
+          "name" : "group5",
+          "getPSDEFormDetails" : [ {
+            "caption" : "密码管理",
+            "codeName" : "grouppanel14",
+            "detailStyle" : "DEFAULT",
+            "detailType" : "GROUPPANEL",
+            "name" : "grouppanel14",
+            "getPSDEFormDetails" : [ {
+              "actionType" : "UIACTION",
+              "caption" : "修改密码",
+              "codeName" : "button2",
+              "detailStyle" : "DEFAULT",
+              "detailType" : "BUTTON",
+              "name" : "button2",
+              "getPSAppViewUIAction" : {
+                "modelref" : true,
+                "id" : "form_button2"
+              },
+              "getPSLayoutPos" : {
+                "grow" : -1,
+                "layout" : "FLEX"
+              },
+              "getPSUIAction" : {
+                "actionTarget" : "SINGLEKEY",
+                "caption" : "修改密码",
+                "codeName" : "open_chg_pwd_view",
+                "getFrontPSAppView" : {
+                  "modelref" : true,
+                  "path" : "PSSYSAPPS/ehrapp/PSAPPDEVIEWS/res_userschg_pwd_view.json",
+                  "viewType" : "DEEDITVIEW"
+                },
+                "frontProcessType" : "WIZARD",
+                "fullCodeName" : "res_users_open_chg_pwd_view",
+                "name" : "打开密码修改视图",
+                "getPSAppDataEntity" : {
+                  "modelref" : true,
+                  "path" : "PSSYSAPPS/ehrapp/PSAPPDATAENTITIES/res_users.json"
+                },
+                "uIActionMode" : "FRONT",
+                "uIActionTag" : "open_chg_pwd_view",
+                "uIActionType" : "DEUIACTION",
+                "id" : "open_chg_pwd_view@res_users"
+              },
+              "tooltip" : "修改密码",
+              "uIActionTarget" : "SINGLEKEY",
+              "showCaption" : true
+            } ],
+            "getPSLayout" : {
+              "dir" : "row",
+              "layout" : "FLEX"
+            },
+            "getPSLayoutPos" : {
+              "colMD" : 24,
+              "layout" : "TABLE_24COL"
+            },
+            "infoGroupMode" : false,
+            "showCaption" : true
+          }, {
+            "getCapPSLanguageRes" : {
+              "lanResTag" : "DEF.LNAME.RES_USERS.TOTP_ENABLED"
+            },
+            "caption" : "双重身份验证",
+            "codeName" : "totp_enabled",
+            "dataType" : 9,
+            "detailStyle" : "DEFAULT",
+            "detailType" : "FORMITEM",
+            "enableCond" : 0,
+            "ignoreInput" : 0,
+            "labelPos" : "LEFT",
+            "labelWidth" : 130,
+            "name" : "totp_enabled",
+            "noPrivDisplayMode" : 1,
+            "getPSAppDEField" : {
+              "name" : "TOTP_ENABLED",
+              "codeName" : "totp_enabled"
+            },
+            "getPSEditor" : {
+              "editorType" : "SWITCH",
+              "name" : "totp_enabled"
+            },
+            "getPSLayoutPos" : {
+              "colLG" : 20,
+              "colMD" : 24,
+              "layout" : "TABLE_24COL"
+            },
+            "allowEmpty" : true,
+            "showCaption" : true
+          }, {
+            "actionType" : "UIACTION",
+            "caption" : "邀请使用2FA",
+            "codeName" : "button1",
+            "detailStyle" : "DEFAULT",
+            "detailType" : "BUTTON",
+            "name" : "button1",
+            "getPSAppViewUIAction" : {
+              "modelref" : true,
+              "id" : "form_button1"
+            },
+            "getPSLayoutPos" : {
+              "colLG" : 4,
+              "colMD" : 24,
+              "layout" : "TABLE_24COL"
+            },
+            "getPSSysImage" : {
+              "glyph" : "xf021@FontAwesome",
+              "cssClass" : "fa fa-refresh"
+            },
+            "getPSUIAction" : {
+              "actionTarget" : "SINGLEKEY",
+              "caption" : "刷新",
+              "codeName" : "Refresh",
+              "fullCodeName" : "Refresh",
+              "name" : "编辑界面_刷新操作",
+              "getPSSysImage" : {
+                "glyph" : "xf021@FontAwesome",
+                "cssClass" : "fa fa-refresh"
+              },
+              "predefinedType" : "EDITVIEW_REFRESHACTION",
+              "timeout" : 60000,
+              "uIActionMode" : "SYS",
+              "uIActionTag" : "Refresh",
+              "uIActionType" : "DEUIACTION"
+            },
+            "tooltip" : "邀请使用2FA",
+            "uIActionTarget" : "SINGLEKEY",
+            "showCaption" : true
+          }, {
+            "codeName" : "rawitem1",
+            "contentType" : "RAW",
+            "detailStyle" : "DEFAULT",
+            "detailType" : "RAWITEM",
+            "name" : "rawitem1",
+            "getPSLayoutPos" : {
+              "colMD" : 24,
+              "layout" : "TABLE_24COL"
+            },
+            "getPSRawItem" : {
+              "caption" : "双因素认证（“2FA”）是一种双重认证系统 第一个是您的密码，第二个是您从一个专门的移动应用程序获得的代码。 常用的包括 Authy、Google Authenticator 或 Microsoft Authenticator。",
+              "contentType" : "RAW",
+              "name" : "rawitem1",
+              "rawItemHeight" : -1.0,
+              "rawItemWidth" : -1.0
+            },
+            "rawContent" : "双因素认证（“2FA”）是一种双重认证系统 第一个是您的密码，第二个是您从一个专门的移动应用程序获得的代码。 常用的包括 Authy、Google Authenticator 或 Microsoft Authenticator。",
+            "rawItemHeight" : -1.0,
+            "rawItemWidth" : -1.0,
+            "showCaption" : true
+          } ],
+          "getPSLayout" : {
+            "childColMD" : 24,
+            "columnCount" : 24,
+            "layout" : "TABLE_24COL"
+          },
+          "getPSLayoutPos" : {
+            "colMD" : 24,
+            "layout" : "TABLE_24COL"
+          },
+          "infoGroupMode" : false,
+          "showCaption" : false
+        } ],
+        "getPSLayout" : {
+          "childColMD" : 24,
+          "columnCount" : 24,
+          "layout" : "TABLE_24COL"
+        },
+        "infoGroupMode" : false,
+        "showCaption" : true
+      }, {
+        "caption" : "Oauth",
+        "codeName" : "tabpage3",
+        "detailStyle" : "DEFAULT",
+        "detailType" : "TABPAGE",
+        "name" : "tabpage3",
+        "getPSLayout" : {
+          "childColMD" : 24,
+          "columnCount" : 24,
+          "layout" : "TABLE_24COL"
+        },
+        "infoGroupMode" : false,
+        "showCaption" : true
+      } ],
+      "getPSLayoutPos" : {
+        "colMD" : 24,
+        "layout" : "TABLE_24COL"
+      }
+    }, {
+      "getCapPSLanguageRes" : {
+        "lanResTag" : "DEF.LNAME.RES_USERS.PARTNER_ID"
+      },
+      "caption" : "相关合作伙伴",
+      "codeName" : "partner_id",
+      "dataType" : 25,
+      "detailStyle" : "DEFAULT",
+      "detailType" : "FORMITEM",
+      "enableCond" : 3,
+      "ignoreInput" : 0,
+      "labelPos" : "LEFT",
+      "labelWidth" : 130,
+      "name" : "partner_id",
+      "noPrivDisplayMode" : 1,
+      "getPSAppDEField" : {
+        "name" : "PARTNER_ID",
+        "codeName" : "partner_id"
+      },
+      "getPSEditor" : {
+        "editorType" : "HIDDEN",
+        "name" : "partner_id"
+      },
+      "getPSLayoutPos" : {
+        "colMD" : 24,
+        "layout" : "TABLE_24COL"
+      },
+      "allowEmpty" : true,
+      "hidden" : true
+    }, {
+      "getCapPSLanguageRes" : {
+        "lanResTag" : "DEF.LNAME.RES_USERS.ID"
+      },
+      "caption" : "标识",
+      "codeName" : "id",
+      "dataType" : 25,
+      "detailStyle" : "DEFAULT",
+      "detailType" : "FORMITEM",
+      "enableCond" : 3,
+      "ignoreInput" : 0,
+      "labelPos" : "LEFT",
+      "labelWidth" : 130,
+      "name" : "id",
+      "noPrivDisplayMode" : 1,
+      "getPSAppDEField" : {
+        "name" : "ID",
+        "codeName" : "id"
+      },
+      "getPSEditor" : {
+        "editorType" : "HIDDEN",
+        "name" : "id"
+      },
+      "getPSLayoutPos" : {
+        "colMD" : 24,
+        "layout" : "TABLE_24COL"
+      },
+      "allowEmpty" : true,
+      "hidden" : true
+    } ],
+    "getPSLayout" : {
+      "childColMD" : 24,
+      "columnCount" : 24,
+      "layout" : "TABLE_24COL"
+    },
+    "infoGroupMode" : false
+  } ],
+  "getPSLayout" : {
+    "childColMD" : 24,
+    "columnCount" : 24,
+    "layout" : "TABLE_24COL"
+  },
+  "getRemovePSControlAction" : {
+    "modelref" : true,
+    "id" : "remove",
+    "actionName" : "Remove",
+    "actionType" : "DEACTION",
+    "dataAccessAction" : "DELETE",
+    "name" : "remove",
+    "getPSAppDEMethod" : {
+      "modelref" : true,
+      "id" : "remove"
+    },
+    "getPSAppDataEntity" : {
+      "modelref" : true,
+      "path" : "PSSYSAPPS/ehrapp/PSAPPDATAENTITIES/res_users.json"
+    }
+  },
+  "tabHeaderPos" : "TOP",
+  "getUpdatePSControlAction" : {
+    "modelref" : true,
+    "id" : "update",
+    "actionName" : "Update",
+    "actionType" : "DEACTION",
+    "dataAccessAction" : "UPDATE",
+    "name" : "update",
+    "getPSAppDEMethod" : {
+      "modelref" : true,
+      "id" : "update"
+    },
+    "getPSAppDataEntity" : {
+      "modelref" : true,
+      "path" : "PSSYSAPPS/ehrapp/PSAPPDATAENTITIES/res_users.json"
+    }
+  },
+  "noTabHeader" : true,
+  "modelid" : "826838e5f6823946f19760a759df2de9",
+  "modeltype" : "PSDEFORM_EDITFORM"
+}

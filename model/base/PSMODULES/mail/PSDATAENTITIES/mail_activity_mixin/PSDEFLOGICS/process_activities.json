@@ -1,0 +1,127 @@
+{
+  "codeName" : "process_activities",
+  "dEFLogicMode" : "COMPUTE",
+  "defaultParamName" : "Default",
+  "dynaModelFilePath" : "PSMODULES/mail/PSDATAENTITIES/mail_activity_mixin/PSDEFLOGICS/process_activities.json",
+  "logicName" : "处理活动状态",
+  "logicSubType" : "DEFIELD",
+  "name" : "处理活动状态",
+  "getPSDEField" : {
+    "name" : "ACTIVITY_STATE",
+    "codeName" : "activity_state"
+  },
+  "getPSDELogicNodes" : [ {
+    "codeName" : "Begin",
+    "leftPos" : 20,
+    "logicNodeType" : "BEGIN",
+    "name" : "开始",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "BINDPARAM_01"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "Begin"
+      }
+    } ],
+    "topPos" : 212,
+    "parallelOutput" : true
+  }, {
+    "codeName" : "BINDPARAM_01",
+    "getDstPSDELogicParam" : {
+      "modelref" : true,
+      "id" : "activities"
+    },
+    "leftPos" : 160,
+    "logicNodeType" : "BINDPARAM",
+    "name" : "绑定参数",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "RAWSFCODE_01"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "BINDPARAM_01"
+      }
+    } ],
+    "srcFieldName" : "ACTIVITIES",
+    "getSrcPSDELogicParam" : {
+      "modelref" : true,
+      "id" : "Default"
+    },
+    "topPos" : 210,
+    "parallelOutput" : true
+  }, {
+    "code" : "def activitiesList = logic.param(\"activities\").getReal()\r\ndef _default = logic.param(\"default\").getReal()\r\ndef states = activitiesList.collect { it.get(\"state\") } as Set\r\n\r\nif (states.contains(\"overdue\")) {\r\n    _default.set(\"activity_state\", \"overdue\")\r\n} else if (states.contains(\"today\")) {\r\n    _default.set(\"activity_state\", \"today\")\r\n} else if (states.contains(\"planned\")) {\r\n    _default.set(\"activity_state\",\"planned\")\r\n} else {\r\n    _default.reset(\"activity_state\")\r\n}",
+    "codeName" : "RAWSFCODE_01",
+    "codeType" : "Groovy",
+    "leftPos" : 359,
+    "logicNodeType" : "RAWSFCODE",
+    "name" : "执行脚本代码",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "END"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "RAWSFCODE_01"
+      }
+    } ],
+    "topPos" : 210,
+    "parallelOutput" : true
+  }, {
+    "codeName" : "END",
+    "dstFieldName" : "activity_state",
+    "leftPos" : 640,
+    "logicNodeType" : "END",
+    "name" : "结束",
+    "getReturnParam" : {
+      "modelref" : true,
+      "id" : "Default"
+    },
+    "returnType" : "LOGICPARAMFIELD",
+    "topPos" : 212,
+    "parallelOutput" : true
+  } ],
+  "getPSDELogicParams" : [ {
+    "codeName" : "Default",
+    "logicName" : "传入变量",
+    "name" : "传入变量",
+    "getParamPSDataEntity" : {
+      "modelref" : true,
+      "path" : "PSMODULES/mail/PSDATAENTITIES/mail_activity_mixin.json"
+    },
+    "default" : true,
+    "entityParam" : true
+  }, {
+    "codeName" : "activities",
+    "logicName" : "activities",
+    "name" : "activities",
+    "getParamPSDataEntity" : {
+      "modelref" : true,
+      "path" : "PSMODULES/mail/PSDATAENTITIES/mail_activity.json"
+    },
+    "entityListParam" : true
+  }, {
+    "codeName" : "currentActivity",
+    "logicName" : "当前活动项",
+    "name" : "当前活动项",
+    "getParamPSDataEntity" : {
+      "modelref" : true,
+      "path" : "PSMODULES/mail/PSDATAENTITIES/mail_activity.json"
+    },
+    "entityParam" : true
+  } ],
+  "getStartPSDELogicNode" : {
+    "modelref" : true,
+    "id" : "Begin"
+  },
+  "enableBackend" : true,
+  "enableFront" : false
+}

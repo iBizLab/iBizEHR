@@ -1,0 +1,1008 @@
+{
+  "accUserMode" : 2,
+  "getCapPSLanguageRes" : {
+    "lanResTag" : "DE.LNAME.MAIL_ACTIVITY_SCHEDULE"
+  },
+  "caption" : "安排活动",
+  "codeName" : "mail_activity_schedulequick_create_view",
+  "dynaModelFilePath" : "PSSYSAPPS/ehrapp/PSAPPDEVIEWS/mail_activity_schedulequick_create_view.json",
+  "height" : 500,
+  "memo" : "系统自动添加",
+  "name" : "mail_activity_schedulequick_create_view",
+  "openMode" : "POPUPMODAL",
+  "getPSAppDataEntity" : {
+    "modelref" : true,
+    "path" : "PSSYSAPPS/ehrapp/PSAPPDATAENTITIES/mail_activity_schedule.json"
+  },
+  "getPSAppModule" : {
+    "modelref" : true,
+    "path" : "PSSYSAPPS/ehrapp/PSAPPMODULES/mail.json"
+  },
+  "getPSAppViewEngines" : [ {
+    "engineCat" : "VIEW",
+    "engineType" : "EditView",
+    "name" : "engine"
+  } ],
+  "getPSControls" : [ {
+    "codeName" : "quick_create_viewtoolbar",
+    "controlType" : "TOOLBAR",
+    "logicName" : "新建视图工具栏",
+    "name" : "toolbar",
+    "getPSAppDataEntity" : {
+      "modelref" : true,
+      "path" : "PSSYSAPPS/ehrapp/PSAPPDATAENTITIES/mail_activity_schedule.json"
+    },
+    "getPSControlParam" : {
+      "id" : "TOOLBAR"
+    },
+    "getPSDEToolbarItems" : [ {
+      "caption" : "安排",
+      "groupExtractMode" : "ITEM",
+      "itemType" : "DEUIACTION",
+      "name" : "deuiaction1",
+      "noPrivDisplayMode" : 2,
+      "getPSAppViewUIAction" : {
+        "modelref" : true,
+        "id" : "toolbar_deuiaction1"
+      },
+      "getPSUIAction" : {
+        "actionTarget" : "SINGLEDATA",
+        "caption" : "安排",
+        "codeName" : "schedule_activities",
+        "dialogResult" : "OK",
+        "fullCodeName" : "mail_activity_schedule_schedule_activities",
+        "name" : "安排",
+        "getPSAppDEMethod" : {
+          "modelref" : true,
+          "id" : "action_schedule_activities"
+        },
+        "getPSAppDEUILogic" : {
+          "modelref" : true,
+          "id" : "refresh_activity_message"
+        },
+        "getPSAppDataEntity" : {
+          "modelref" : true,
+          "path" : "PSSYSAPPS/ehrapp/PSAPPDATAENTITIES/mail_activity_schedule.json"
+        },
+        "getPSNavigateParams" : [ {
+          "key" : "ignoredirtycheck",
+          "name" : "ignoredirtycheck",
+          "value" : "true",
+          "rawValue" : true
+        } ],
+        "successMsg" : "活动已安排！",
+        "timeout" : 60000,
+        "uIActionMode" : "BACKEND",
+        "uIActionParamJO" : {
+          "ignoredirtycheck" : "true"
+        },
+        "uIActionTag" : "schedule_activities",
+        "uIActionType" : "DEUIACTION",
+        "uILogicAttachMode" : "AFTER",
+        "closeEditView" : true,
+        "closePopupView" : true,
+        "enableConfirm" : true,
+        "id" : "schedule_activities@mail_activity_schedule"
+      },
+      "tooltip" : "安排",
+      "uIActionTarget" : "SINGLEDATA",
+      "showCaption" : true,
+      "showIcon" : true
+    }, {
+      "caption" : "安排并标记完成",
+      "groupExtractMode" : "ITEM",
+      "itemType" : "DEUIACTION",
+      "name" : "deuiaction2",
+      "noPrivDisplayMode" : 2,
+      "getPSAppViewUIAction" : {
+        "modelref" : true,
+        "id" : "toolbar_deuiaction2"
+      },
+      "getPSControlLogics" : [ {
+        "itemName" : "deuiaction2",
+        "logicTag" : "toolbar",
+        "logicType" : "SCRIPT",
+        "name" : "chaining_type_logic",
+        "scriptCode" : "data.chaining_type  != \"trigger\"",
+        "triggerType" : "ITEMVISIBLE"
+      } ],
+      "getPSUIAction" : {
+        "actionTarget" : "SINGLEDATA",
+        "caption" : "安排并标记完成",
+        "codeName" : "schedule_activities_done",
+        "dialogResult" : "OK",
+        "fullCodeName" : "mail_activity_schedule_schedule_activities_done",
+        "name" : "安排并标记完成",
+        "getPSAppDEMethod" : {
+          "modelref" : true,
+          "id" : "schedule_activities_done"
+        },
+        "getPSAppDEUILogic" : {
+          "modelref" : true,
+          "id" : "refresh_activity_message"
+        },
+        "getPSAppDataEntity" : {
+          "modelref" : true,
+          "path" : "PSSYSAPPS/ehrapp/PSAPPDATAENTITIES/mail_activity_schedule.json"
+        },
+        "getPSNavigateParams" : [ {
+          "key" : "srfpartnerid",
+          "name" : "srfpartnerid",
+          "value" : "srfpartnerid",
+          "rawValue" : false
+        }, {
+          "key" : "srfuserid",
+          "name" : "srfuserid",
+          "value" : "srfuserid",
+          "rawValue" : false
+        }, {
+          "key" : "ignoredirtycheck",
+          "name" : "ignoredirtycheck",
+          "value" : "true",
+          "rawValue" : true
+        } ],
+        "successMsg" : "活动已完成！",
+        "timeout" : 60000,
+        "uIActionMode" : "BACKEND",
+        "uIActionParamJO" : {
+          "ignoredirtycheck" : "true"
+        },
+        "uIActionTag" : "schedule_activities_done",
+        "uIActionType" : "DEUIACTION",
+        "uILogicAttachMode" : "AFTER",
+        "closeEditView" : true,
+        "closePopupView" : true,
+        "enableConfirm" : true,
+        "id" : "schedule_activities_done@mail_activity_schedule"
+      },
+      "tooltip" : "安排并标记完成",
+      "uIActionTarget" : "SINGLEDATA",
+      "showCaption" : true,
+      "showIcon" : true
+    }, {
+      "caption" : "完成并安排下一个",
+      "groupExtractMode" : "ITEM",
+      "itemType" : "DEUIACTION",
+      "name" : "deuiaction4",
+      "noPrivDisplayMode" : 2,
+      "getPSAppViewUIAction" : {
+        "modelref" : true,
+        "id" : "toolbar_deuiaction4"
+      },
+      "getPSUIAction" : {
+        "actionTarget" : "SINGLEDATA",
+        "caption" : "完成并安排下一个",
+        "codeName" : "done_and_schedule",
+        "frontProcessType" : "WIZARD",
+        "fullCodeName" : "mail_activity_schedule_done_and_schedule",
+        "name" : "完成并安排下一个",
+        "getPSAppDEMethod" : {
+          "modelref" : true,
+          "id" : "schedule_activities_done"
+        },
+        "getPSAppDEUILogic" : {
+          "modelref" : true,
+          "id" : "done_next"
+        },
+        "getPSAppDataEntity" : {
+          "modelref" : true,
+          "path" : "PSSYSAPPS/ehrapp/PSAPPDATAENTITIES/mail_activity_schedule.json"
+        },
+        "getPSNavigateParams" : [ {
+          "key" : "ignoredirtycheck",
+          "name" : "ignoredirtycheck",
+          "value" : "true",
+          "rawValue" : true
+        } ],
+        "successMsg" : "活动已完成！安排下一个",
+        "uIActionMode" : "FRONT",
+        "uIActionParamJO" : {
+          "ignoredirtycheck" : "true"
+        },
+        "uIActionTag" : "done_and_schedule",
+        "uIActionType" : "DEUIACTION",
+        "uILogicAttachMode" : "REPLACE",
+        "id" : "done_and_schedule@mail_activity_schedule"
+      },
+      "tooltip" : "完成并安排下一个",
+      "uIActionTarget" : "SINGLEDATA",
+      "showCaption" : true,
+      "showIcon" : true
+    } ],
+    "xDataControlName" : "form",
+    "modelid" : "657616a17eaccd4fe6a7fc960abc4706",
+    "modeltype" : "PSDETOOLBAR"
+  }, {
+    "codeName" : "quick_edit",
+    "controlType" : "FORM",
+    "getCreatePSControlAction" : {
+      "modelref" : true,
+      "id" : "create",
+      "actionName" : "Create",
+      "actionType" : "DEACTION",
+      "dataAccessAction" : "CREATE",
+      "name" : "create",
+      "getPSAppDEMethod" : {
+        "modelref" : true,
+        "id" : "create"
+      },
+      "getPSAppDataEntity" : {
+        "modelref" : true,
+        "path" : "PSSYSAPPS/ehrapp/PSAPPDATAENTITIES/mail_activity_schedule.json"
+      }
+    },
+    "defaultLabelWidth" : 130,
+    "dynaModelFilePath" : "PSSYSAPPS/ehrapp/PSAPPDATAENTITIES/mail_activity_schedule/PSFORMS/quick_edit.json",
+    "getGetDraftFromPSControlAction" : {
+      "modelref" : true,
+      "id" : "loaddraftfrom",
+      "actionName" : "GETDRAFTFROM",
+      "actionType" : "DEACTION",
+      "dataAccessAction" : "CREATE",
+      "name" : "loaddraftfrom",
+      "getPSAppDataEntity" : {
+        "modelref" : true,
+        "path" : "PSSYSAPPS/ehrapp/PSAPPDATAENTITIES/mail_activity_schedule.json"
+      }
+    },
+    "getGetDraftPSControlAction" : {
+      "modelref" : true,
+      "id" : "loaddraft",
+      "actionName" : "GetDraft",
+      "actionType" : "DEACTION",
+      "dataAccessAction" : "CREATE",
+      "name" : "loaddraft",
+      "getPSAppDEMethod" : {
+        "modelref" : true,
+        "id" : "get_draft"
+      },
+      "getPSAppDataEntity" : {
+        "modelref" : true,
+        "path" : "PSSYSAPPS/ehrapp/PSAPPDATAENTITIES/mail_activity_schedule.json"
+      }
+    },
+    "getGetPSControlAction" : {
+      "modelref" : true,
+      "id" : "load",
+      "actionName" : "Get",
+      "actionType" : "DEACTION",
+      "dataAccessAction" : "READ",
+      "name" : "load",
+      "getPSAppDEMethod" : {
+        "modelref" : true,
+        "id" : "get"
+      },
+      "getPSAppDataEntity" : {
+        "modelref" : true,
+        "path" : "PSSYSAPPS/ehrapp/PSAPPDATAENTITIES/mail_activity_schedule.json"
+      }
+    },
+    "hookEventNames" : [ "ONLOADDRAFTSUCCESS" ],
+    "logicName" : "快速编辑表单",
+    "getPSAppDataEntity" : {
+      "modelref" : true,
+      "path" : "PSSYSAPPS/ehrapp/PSAPPDATAENTITIES/mail_activity_schedule.json"
+    },
+    "getPSControlHandler" : {
+      "getPSHandlerActions" : [ {
+        "actionName" : "GetDraft",
+        "actionType" : "DEACTION",
+        "dataAccessAction" : "CREATE",
+        "name" : "loaddraft",
+        "getPSAppDEMethod" : {
+          "modelref" : true,
+          "id" : "get_draft"
+        },
+        "getPSAppDataEntity" : {
+          "modelref" : true,
+          "path" : "PSSYSAPPS/ehrapp/PSAPPDATAENTITIES/mail_activity_schedule.json"
+        }
+      }, {
+        "actionName" : "GETDRAFTFROM",
+        "actionType" : "DEACTION",
+        "dataAccessAction" : "CREATE",
+        "name" : "loaddraftfrom",
+        "getPSAppDataEntity" : {
+          "modelref" : true,
+          "path" : "PSSYSAPPS/ehrapp/PSAPPDATAENTITIES/mail_activity_schedule.json"
+        }
+      }, {
+        "actionName" : "Get",
+        "actionType" : "DEACTION",
+        "dataAccessAction" : "READ",
+        "name" : "load",
+        "getPSAppDEMethod" : {
+          "modelref" : true,
+          "id" : "get"
+        },
+        "getPSAppDataEntity" : {
+          "modelref" : true,
+          "path" : "PSSYSAPPS/ehrapp/PSAPPDATAENTITIES/mail_activity_schedule.json"
+        }
+      }, {
+        "actionName" : "Create",
+        "actionType" : "DEACTION",
+        "dataAccessAction" : "CREATE",
+        "name" : "create",
+        "getPSAppDEMethod" : {
+          "modelref" : true,
+          "id" : "create"
+        },
+        "getPSAppDataEntity" : {
+          "modelref" : true,
+          "path" : "PSSYSAPPS/ehrapp/PSAPPDATAENTITIES/mail_activity_schedule.json"
+        }
+      }, {
+        "actionName" : "Update",
+        "actionType" : "DEACTION",
+        "dataAccessAction" : "UPDATE",
+        "name" : "update",
+        "getPSAppDEMethod" : {
+          "modelref" : true,
+          "id" : "update"
+        },
+        "getPSAppDataEntity" : {
+          "modelref" : true,
+          "path" : "PSSYSAPPS/ehrapp/PSAPPDATAENTITIES/mail_activity_schedule.json"
+        }
+      }, {
+        "actionName" : "Remove",
+        "actionType" : "DEACTION",
+        "dataAccessAction" : "DELETE",
+        "name" : "remove",
+        "getPSAppDEMethod" : {
+          "modelref" : true,
+          "id" : "remove"
+        },
+        "getPSAppDataEntity" : {
+          "modelref" : true,
+          "path" : "PSSYSAPPS/ehrapp/PSAPPDATAENTITIES/mail_activity_schedule.json"
+        }
+      } ],
+      "enableDEFieldPrivilege" : false,
+      "id" : "编辑表单处理器"
+    },
+    "getPSControlLogics" : [ {
+      "eventNames" : "onLoadDraftSuccess",
+      "logicTag" : "form",
+      "logicType" : "SCRIPT",
+      "name" : "fill_act_type",
+      "scriptCode" : "const app = ibiz.hub.getApp(context.srfappid);\r\nconst deService = await app.deService.getService(context, \"ehrapp.mail_activity_type\");\r\nconst result = await deService.fetchDefault(context);\r\nconst actType = result.data?.[0]; \r\n\r\nif (!actType) {\r\n    console.log('Result is empty or not an array');\r\n    return;\r\n}\r\n\r\nObject.assign(data[0], {\r\n    activity_type_id: actType.id,\r\n    summary: actType.summary,\r\n    note: actType.default_note,\r\n    chaining_type: actType.chaining_type,\r\n});\r\n\r\n\r\n\r\n"
+    } ],
+    "getPSControlParam" : {
+      "autoLoad" : true,
+      "showBusyIndicator" : true,
+      "id" : "FORM"
+    },
+    "getPSDEFormItemUpdates" : [ {
+      "codeName" : "onchange_activity_type",
+      "name" : "onchange_activity_type",
+      "getPSDEFIUpdateDetails" : [ {
+        "name" : "activity_user_name"
+      } ],
+      "scriptCode" : "//控制工具栏显隐\r\nconst toolbar = view.getController(\"toolbar\");\r\nif (toolbar) {\r\n    if(data.chaining_type === 'trigger'){\r\n            toolbar.state.buttonsState.deuiaction2.visible = false;\r\n        }else{\r\n            toolbar.state.buttonsState.deuiaction2.visible = true;\r\n        }\r\n}\r\n\r\n  data.activity_user_id=context.srfuserid;\r\n  data.activity_user_name=context.srfusername;\r\n//根据活动类型回写数据\r\nvar activityTypeId=data.activity_type_id;\r\nif (activityTypeId) {\r\n    const activityTypeObj={};\r\n    activityTypeObj.id = activityTypeId;\r\n    const app = ibiz.hub.getApp(context.srfappid);\r\n    //计算date_deadline\r\n    const deService = await app.deService.getService(\r\n        context,\r\n        'ehrapp.mail_activity_type', \r\n    );\r\n    const result = await  deService.exec('get_date_deadline', context, activityTypeObj);\r\n    if(result.data.actual_deadline){\r\n        data.date_deadline=result.data.actual_deadline;\r\n    }\r\n}\r\n\r\n\r\n\r\n",
+      "customCode" : true
+    } ],
+    "getPSDEFormItems" : [ {
+      "id" : "srfupdatedate",
+      "hidden" : true,
+      "dataType" : 5,
+      "getPSAppDEField" : {
+        "name" : "WRITE_DATE",
+        "codeName" : "write_date"
+      }
+    }, {
+      "id" : "srforikey",
+      "hidden" : true,
+      "dataType" : 25
+    }, {
+      "id" : "srfkey",
+      "hidden" : true,
+      "dataType" : 25,
+      "getPSAppDEField" : {
+        "name" : "ID",
+        "codeName" : "id"
+      }
+    }, {
+      "id" : "srftempmode",
+      "hidden" : true,
+      "dataType" : 25
+    }, {
+      "id" : "srfuf",
+      "hidden" : true,
+      "dataType" : 25
+    }, {
+      "id" : "srfdeid",
+      "hidden" : true,
+      "dataType" : 25
+    }, {
+      "id" : "srfsourcekey",
+      "hidden" : true,
+      "dataType" : 25
+    }, {
+      "id" : "activity_type_name",
+      "dataType" : 25,
+      "getPSAppDEField" : {
+        "name" : "ACTIVITY_TYPE_NAME",
+        "codeName" : "activity_type_name"
+      }
+    }, {
+      "id" : "date_deadline",
+      "dataType" : 5,
+      "getPSAppDEField" : {
+        "name" : "DATE_DEADLINE",
+        "codeName" : "date_deadline"
+      }
+    }, {
+      "id" : "summary",
+      "dataType" : 25,
+      "getPSAppDEField" : {
+        "name" : "SUMMARY",
+        "codeName" : "summary"
+      }
+    }, {
+      "id" : "activity_user_name",
+      "dataType" : 25,
+      "getPSAppDEField" : {
+        "name" : "ACTIVITY_USER_NAME",
+        "codeName" : "activity_user_name"
+      }
+    }, {
+      "id" : "note",
+      "dataType" : 21,
+      "getPSAppDEField" : {
+        "name" : "NOTE",
+        "codeName" : "note"
+      }
+    }, {
+      "id" : "res_ids",
+      "hidden" : true,
+      "dataType" : 21,
+      "createDVT" : "APPDATA",
+      "createDV" : "mail_activity_mixin",
+      "getPSAppDEField" : {
+        "name" : "RES_IDS",
+        "codeName" : "res_ids"
+      }
+    }, {
+      "id" : "res_model",
+      "hidden" : true,
+      "dataType" : 25,
+      "createDVT" : "APPDATA",
+      "createDV" : "srfmodelname",
+      "getPSAppDEField" : {
+        "name" : "RES_MODEL",
+        "codeName" : "res_model"
+      }
+    }, {
+      "id" : "activity_type_id",
+      "hidden" : true,
+      "dataType" : 25,
+      "getPSAppDEField" : {
+        "name" : "ACTIVITY_TYPE_ID",
+        "codeName" : "activity_type_id"
+      }
+    }, {
+      "id" : "activity_user_id",
+      "hidden" : true,
+      "dataType" : 25,
+      "getPSAppDEField" : {
+        "name" : "ACTIVITY_USER_ID",
+        "codeName" : "activity_user_id"
+      }
+    }, {
+      "id" : "id",
+      "hidden" : true,
+      "dataType" : 25,
+      "getPSAppDEField" : {
+        "name" : "ID",
+        "codeName" : "id"
+      }
+    } ],
+    "getPSDEFormPages" : [ {
+      "caption" : "基本信息",
+      "codeName" : "formpage1",
+      "detailStyle" : "DEFAULT",
+      "detailType" : "FORMPAGE",
+      "name" : "formpage1",
+      "getPSDEFormDetails" : [ {
+        "caption" : "活动日程计划向导基本信息",
+        "codeName" : "group1",
+        "detailStyle" : "DEFAULT",
+        "detailType" : "GROUPPANEL",
+        "name" : "group1",
+        "getPSDEFormDetails" : [ {
+          "getCapPSLanguageRes" : {
+            "lanResTag" : "DEF.LNAME.MAIL_ACTIVITY_SCHEDULE.ACTIVITY_TYPE_ID"
+          },
+          "caption" : "活动类型",
+          "codeName" : "activity_type_name",
+          "dataType" : 25,
+          "detailStyle" : "DEFAULT",
+          "detailType" : "FORMITEM",
+          "enableCond" : 3,
+          "ignoreInput" : 0,
+          "labelPos" : "LEFT",
+          "labelWidth" : 130,
+          "name" : "activity_type_name",
+          "noPrivDisplayMode" : 1,
+          "getPSAppDEField" : {
+            "name" : "ACTIVITY_TYPE_NAME",
+            "codeName" : "activity_type_name"
+          },
+          "getPSDEFDGroupLogics" : [ {
+            "groupOP" : "AND",
+            "logicCat" : "SCRIPTCODE_CHANGE",
+            "logicType" : "GROUP",
+            "getPSDEFDLogics" : [ {
+              "logicType" : "SINGLE",
+              "name" : " data.activity_type_name=111"
+            } ],
+            "notMode" : false
+          } ],
+          "getPSDEFormItemUpdate" : {
+            "modelref" : true,
+            "id" : "onchange_activity_type"
+          },
+          "getPSEditor" : {
+            "editorParams" : {
+              "AC" : "TRUE",
+              "PICKUPVIEW" : "TRUE"
+            },
+            "editorType" : "PICKER",
+            "handlerType" : "PickupText",
+            "name" : "activity_type_name",
+            "getPSAppDEACMode" : {
+              "modelref" : true,
+              "id" : "search_act_data"
+            },
+            "getPSAppDEDataSet" : {
+              "modelref" : true,
+              "id" : "fetch_default"
+            },
+            "getPSAppDataEntity" : {
+              "modelref" : true,
+              "path" : "PSSYSAPPS/ehrapp/PSAPPDATAENTITIES/mail_activity_type.json"
+            },
+            "getPSEditorItems" : [ {
+              "name" : "activity_type_id"
+            } ],
+            "getPickupPSAppView" : {
+              "modelref" : true,
+              "path" : "PSSYSAPPS/ehrapp/PSAPPDEVIEWS/mail_activity_typePickupView.json",
+              "viewType" : "DEPICKUPVIEW"
+            },
+            "valueItemName" : "activity_type_id",
+            "enableAC" : true,
+            "enablePickupView" : true,
+            "forceSelection" : true,
+            "showTrigger" : true,
+            "singleSelect" : true
+          },
+          "getPSLayoutPos" : {
+            "colLG" : 12,
+            "colMD" : 24,
+            "layout" : "TABLE_24COL"
+          },
+          "valueItemName" : "activity_type_id",
+          "allowEmpty" : true,
+          "showCaption" : true
+        }, {
+          "getCapPSLanguageRes" : {
+            "lanResTag" : "DEF.LNAME.MAIL_ACTIVITY_SCHEDULE.DATE_DEADLINE"
+          },
+          "caption" : "到期日期",
+          "codeName" : "date_deadline",
+          "dataType" : 5,
+          "detailStyle" : "DEFAULT",
+          "detailType" : "FORMITEM",
+          "enableCond" : 3,
+          "ignoreInput" : 0,
+          "itemWidth" : 230.0,
+          "labelPos" : "LEFT",
+          "labelWidth" : 130,
+          "name" : "date_deadline",
+          "noPrivDisplayMode" : 1,
+          "getPSAppDEField" : {
+            "name" : "DATE_DEADLINE",
+            "codeName" : "date_deadline"
+          },
+          "getPSEditor" : {
+            "dateTimeFormat" : "YYYY-MM-DD",
+            "editorParams" : {
+              "TIMEFMT" : "YYYY-MM-DD"
+            },
+            "editorType" : "DATEPICKEREX_NOTIME",
+            "editorWidth" : 100.0,
+            "name" : "date_deadline"
+          },
+          "getPSLayoutPos" : {
+            "colLG" : 12,
+            "colMD" : 24,
+            "layout" : "TABLE_24COL"
+          },
+          "valueFormat" : "YYYY-MM-DD",
+          "allowEmpty" : false,
+          "showCaption" : true
+        }, {
+          "getCapPSLanguageRes" : {
+            "lanResTag" : "DEF.LNAME.MAIL_ACTIVITY_SCHEDULE.SUMMARY"
+          },
+          "caption" : "摘要",
+          "codeName" : "summary",
+          "dataType" : 25,
+          "detailStyle" : "DEFAULT",
+          "detailType" : "FORMITEM",
+          "enableCond" : 3,
+          "ignoreInput" : 0,
+          "labelPos" : "LEFT",
+          "labelWidth" : 130,
+          "name" : "summary",
+          "noPrivDisplayMode" : 1,
+          "getPSAppDEField" : {
+            "name" : "SUMMARY",
+            "codeName" : "summary"
+          },
+          "getPSEditor" : {
+            "editorType" : "TEXTBOX",
+            "maxLength" : 500,
+            "name" : "summary",
+            "placeHolder" : "例如.讨论提案"
+          },
+          "getPSLayoutPos" : {
+            "colLG" : 12,
+            "colMD" : 24,
+            "layout" : "TABLE_24COL"
+          },
+          "allowEmpty" : true,
+          "showCaption" : true
+        }, {
+          "getCapPSLanguageRes" : {
+            "lanResTag" : "DEF.LNAME.MAIL_ACTIVITY_SCHEDULE.ACTIVITY_USER_ID"
+          },
+          "caption" : "分派给",
+          "codeName" : "activity_user_name",
+          "dataType" : 25,
+          "detailStyle" : "DEFAULT",
+          "detailType" : "FORMITEM",
+          "enableCond" : 3,
+          "ignoreInput" : 0,
+          "labelPos" : "LEFT",
+          "labelWidth" : 130,
+          "name" : "activity_user_name",
+          "noPrivDisplayMode" : 1,
+          "getPSAppDEField" : {
+            "name" : "ACTIVITY_USER_NAME",
+            "codeName" : "activity_user_name"
+          },
+          "getPSEditor" : {
+            "editorParams" : {
+              "AC" : "TRUE",
+              "PICKUPVIEW" : "TRUE"
+            },
+            "editorType" : "PICKER",
+            "handlerType" : "PickupText",
+            "getLinkPSAppView" : {
+              "modelref" : true,
+              "path" : "PSSYSAPPS/ehrapp/PSAPPDEVIEWS/res_usersedit_view.json",
+              "viewType" : "DEOPTVIEW"
+            },
+            "name" : "activity_user_name",
+            "getPSAppDEACMode" : {
+              "modelref" : true,
+              "id" : "Default"
+            },
+            "getPSAppDEDataSet" : {
+              "modelref" : true,
+              "id" : "fetch_default"
+            },
+            "getPSAppDataEntity" : {
+              "modelref" : true,
+              "path" : "PSSYSAPPS/ehrapp/PSAPPDATAENTITIES/res_users.json"
+            },
+            "getPSEditorItems" : [ {
+              "name" : "activity_user_id"
+            } ],
+            "getPickupPSAppView" : {
+              "modelref" : true,
+              "path" : "PSSYSAPPS/ehrapp/PSAPPDEVIEWS/res_usersPickupView.json",
+              "viewType" : "DEPICKUPVIEW"
+            },
+            "valueItemName" : "activity_user_id",
+            "enableAC" : true,
+            "enablePickupView" : true,
+            "forceSelection" : true,
+            "showTrigger" : true,
+            "singleSelect" : true
+          },
+          "getPSLayoutPos" : {
+            "colLG" : 12,
+            "colMD" : 24,
+            "layout" : "TABLE_24COL"
+          },
+          "valueItemName" : "activity_user_id",
+          "allowEmpty" : false,
+          "showCaption" : true
+        }, {
+          "getCapPSLanguageRes" : {
+            "lanResTag" : "DEF.LNAME.MAIL_ACTIVITY_SCHEDULE.NOTE"
+          },
+          "caption" : "备注",
+          "codeName" : "note",
+          "dataType" : 21,
+          "detailStyle" : "DEFAULT",
+          "detailType" : "FORMITEM",
+          "enableCond" : 3,
+          "ignoreInput" : 0,
+          "itemHeight" : 200.0,
+          "labelPos" : "NONE",
+          "labelWidth" : 0,
+          "name" : "note",
+          "noPrivDisplayMode" : 1,
+          "getPSAppDEField" : {
+            "name" : "NOTE",
+            "codeName" : "note"
+          },
+          "getPSEditor" : {
+            "editorHeight" : 200.0,
+            "editorType" : "HTMLEDITOR",
+            "name" : "note",
+            "placeHolder" : "记录一个备注..."
+          },
+          "getPSLayoutPos" : {
+            "colMD" : 24,
+            "layout" : "TABLE_24COL"
+          },
+          "allowEmpty" : true
+        } ],
+        "getPSLayout" : {
+          "childColMD" : 24,
+          "columnCount" : 24,
+          "layout" : "TABLE_24COL"
+        },
+        "getPSLayoutPos" : {
+          "colMD" : 24,
+          "layout" : "TABLE_24COL"
+        },
+        "infoGroupMode" : false,
+        "showCaption" : false
+      }, {
+        "getCapPSLanguageRes" : {
+          "lanResTag" : "DEF.LNAME.MAIL_ACTIVITY_SCHEDULE.RES_IDS"
+        },
+        "caption" : "文档 ID",
+        "codeName" : "res_ids",
+        "createDV" : "mail_activity_mixin",
+        "createDVT" : "APPDATA",
+        "dataType" : 21,
+        "detailStyle" : "DEFAULT",
+        "detailType" : "FORMITEM",
+        "enableCond" : 3,
+        "ignoreInput" : 0,
+        "labelPos" : "LEFT",
+        "labelWidth" : 130,
+        "name" : "res_ids",
+        "noPrivDisplayMode" : 1,
+        "getPSAppDEField" : {
+          "name" : "RES_IDS",
+          "codeName" : "res_ids"
+        },
+        "getPSEditor" : {
+          "editorType" : "HIDDEN",
+          "name" : "res_ids"
+        },
+        "getPSLayoutPos" : {
+          "colMD" : 24,
+          "layout" : "TABLE_24COL"
+        },
+        "allowEmpty" : true,
+        "hidden" : true
+      }, {
+        "getCapPSLanguageRes" : {
+          "lanResTag" : "DEF.LNAME.MAIL_ACTIVITY_SCHEDULE.RES_MODEL"
+        },
+        "caption" : "模型",
+        "codeName" : "res_model",
+        "createDV" : "srfmodelname",
+        "createDVT" : "APPDATA",
+        "dataType" : 25,
+        "detailStyle" : "DEFAULT",
+        "detailType" : "FORMITEM",
+        "enableCond" : 3,
+        "ignoreInput" : 0,
+        "labelPos" : "LEFT",
+        "labelWidth" : 130,
+        "name" : "res_model",
+        "noPrivDisplayMode" : 1,
+        "getPSAppDEField" : {
+          "name" : "RES_MODEL",
+          "codeName" : "res_model"
+        },
+        "getPSEditor" : {
+          "editorType" : "HIDDEN",
+          "name" : "res_model"
+        },
+        "getPSLayoutPos" : {
+          "colMD" : 24,
+          "layout" : "TABLE_24COL"
+        },
+        "allowEmpty" : true,
+        "hidden" : true
+      }, {
+        "getCapPSLanguageRes" : {
+          "lanResTag" : "DEF.LNAME.MAIL_ACTIVITY_SCHEDULE.ACTIVITY_TYPE_ID"
+        },
+        "caption" : "活动类型",
+        "codeName" : "activity_type_id",
+        "dataType" : 25,
+        "detailStyle" : "DEFAULT",
+        "detailType" : "FORMITEM",
+        "enableCond" : 3,
+        "ignoreInput" : 0,
+        "labelPos" : "LEFT",
+        "labelWidth" : 130,
+        "name" : "activity_type_id",
+        "noPrivDisplayMode" : 1,
+        "getPSAppDEField" : {
+          "name" : "ACTIVITY_TYPE_ID",
+          "codeName" : "activity_type_id"
+        },
+        "getPSEditor" : {
+          "editorType" : "HIDDEN",
+          "name" : "activity_type_id"
+        },
+        "getPSLayoutPos" : {
+          "colMD" : 24,
+          "layout" : "TABLE_24COL"
+        },
+        "allowEmpty" : true,
+        "hidden" : true
+      }, {
+        "getCapPSLanguageRes" : {
+          "lanResTag" : "DEF.LNAME.MAIL_ACTIVITY_SCHEDULE.ACTIVITY_USER_ID"
+        },
+        "caption" : "分派给",
+        "codeName" : "activity_user_id",
+        "dataType" : 25,
+        "detailStyle" : "DEFAULT",
+        "detailType" : "FORMITEM",
+        "enableCond" : 3,
+        "ignoreInput" : 0,
+        "labelPos" : "LEFT",
+        "labelWidth" : 130,
+        "name" : "activity_user_id",
+        "noPrivDisplayMode" : 1,
+        "getPSAppDEField" : {
+          "name" : "ACTIVITY_USER_ID",
+          "codeName" : "activity_user_id"
+        },
+        "getPSEditor" : {
+          "editorType" : "HIDDEN",
+          "name" : "activity_user_id"
+        },
+        "getPSLayoutPos" : {
+          "colMD" : 24,
+          "layout" : "TABLE_24COL"
+        },
+        "allowEmpty" : true,
+        "hidden" : true
+      }, {
+        "getCapPSLanguageRes" : {
+          "lanResTag" : "DEF.LNAME.MAIL_ACTIVITY_SCHEDULE.ID"
+        },
+        "caption" : "标识",
+        "codeName" : "id",
+        "dataType" : 25,
+        "detailStyle" : "DEFAULT",
+        "detailType" : "FORMITEM",
+        "enableCond" : 3,
+        "ignoreInput" : 0,
+        "labelPos" : "LEFT",
+        "labelWidth" : 130,
+        "name" : "id",
+        "noPrivDisplayMode" : 1,
+        "getPSAppDEField" : {
+          "name" : "ID",
+          "codeName" : "id"
+        },
+        "getPSEditor" : {
+          "editorType" : "HIDDEN",
+          "name" : "id"
+        },
+        "getPSLayoutPos" : {
+          "colMD" : 24,
+          "layout" : "TABLE_24COL"
+        },
+        "allowEmpty" : true,
+        "hidden" : true
+      } ],
+      "getPSLayout" : {
+        "childColMD" : 24,
+        "columnCount" : 24,
+        "layout" : "TABLE_24COL"
+      },
+      "infoGroupMode" : false
+    } ],
+    "getPSLayout" : {
+      "childColMD" : 24,
+      "columnCount" : 24,
+      "layout" : "TABLE_24COL"
+    },
+    "getRemovePSControlAction" : {
+      "modelref" : true,
+      "id" : "remove",
+      "actionName" : "Remove",
+      "actionType" : "DEACTION",
+      "dataAccessAction" : "DELETE",
+      "name" : "remove",
+      "getPSAppDEMethod" : {
+        "modelref" : true,
+        "id" : "remove"
+      },
+      "getPSAppDataEntity" : {
+        "modelref" : true,
+        "path" : "PSSYSAPPS/ehrapp/PSAPPDATAENTITIES/mail_activity_schedule.json"
+      }
+    },
+    "tabHeaderPos" : "TOP",
+    "getUpdatePSControlAction" : {
+      "modelref" : true,
+      "id" : "update",
+      "actionName" : "Update",
+      "actionType" : "DEACTION",
+      "dataAccessAction" : "UPDATE",
+      "name" : "update",
+      "getPSAppDEMethod" : {
+        "modelref" : true,
+        "id" : "update"
+      },
+      "getPSAppDataEntity" : {
+        "modelref" : true,
+        "path" : "PSSYSAPPS/ehrapp/PSAPPDATAENTITIES/mail_activity_schedule.json"
+      }
+    },
+    "noTabHeader" : true,
+    "name" : "form",
+    "modelid" : "707dd46a6e9e4dfbc49fe71cccb62be7",
+    "modeltype" : "PSDEFORM_EDITFORM"
+  }, {
+    "getCapPSLanguageRes" : {
+      "lanResTag" : "DE.LNAME.MAIL_ACTIVITY_SCHEDULE"
+    },
+    "caption" : "安排活动",
+    "codeName" : "quick_create_viewcaptionbar",
+    "controlType" : "CAPTIONBAR",
+    "name" : "captionbar",
+    "getPSAppDataEntity" : {
+      "modelref" : true,
+      "path" : "PSSYSAPPS/ehrapp/PSAPPDATAENTITIES/mail_activity_schedule.json"
+    },
+    "getPSControlParam" : { }
+  } ],
+  "getPSDEViewCodeName" : "quick_create_view",
+  "getPSDEViewId" : "408c6d90104b90cd2d35329462338162",
+  "getPSViewLayoutPanel" : {
+    "codeName" : "layoutpanel",
+    "controlStyle" : "APPDEEDITVIEW",
+    "controlType" : "VIEWLAYOUTPANEL",
+    "name" : "layoutpanel",
+    "getPSAppDataEntity" : {
+      "modelref" : true,
+      "path" : "PSSYSAPPS/ehrapp/PSAPPDATAENTITIES/mail_activity_schedule.json"
+    },
+    "getPSControlParam" : { },
+    "layoutBodyOnly" : true,
+    "layoutPanel" : true,
+    "useDefaultLayout" : true
+  },
+  "refFlag" : false,
+  "title" : "活动日程计划向导",
+  "viewStyle" : "DEFAULT",
+  "viewType" : "DEEDITVIEW",
+  "width" : 800,
+  "xDataControlName" : "form",
+  "enableDP" : true,
+  "showDataInfoBar" : false,
+  "modelid" : "2307576ff6264ddf5bf484818f9ef8cc",
+  "modeltype" : "PSAPPDEVIEW"
+}

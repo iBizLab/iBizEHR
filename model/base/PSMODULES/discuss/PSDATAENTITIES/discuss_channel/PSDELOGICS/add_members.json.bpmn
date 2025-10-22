@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+    <definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:g="http://www.jboss.org/drools/flow/gpd" xmlns:tns="http://www.jboss.org/drools" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" expressionLanguage="http://www.mvel.org/2.0" id="Definition" name="" targetNamespace="http://www.jboss.org/drools" typeLanguage="http://www.java.com/javaTypes">
+        <process id="cn.ibizlab.core.discuss.service.logic.discuss_channeladd_members" isClosed="false" isExecutable="true" name="discuss_discuss_channel_add_members_ruleFlow" processType="Private" tns:packageName="cn.ibizlab.core.discuss.service.logic.discuss_channeladd_members">
+            <extensionElements>
+                <tns:import name="java.util.Map" />
+                <tns:import name="org.springframework.util.StringUtils"/>
+                <tns:import name="cn.ibizlab.util.helper.RuleUtils"/>
+                                <tns:metaData express="" name="discuss_channeladd_membersdefault" type="entity"/>
+                                <tns:metaData express="new cn.ibizlab.core.base.domain.res_partner()" name="discuss_channeladd_memberscurrent_partner" type="refentity"/>
+                                <tns:metaData express="new cn.ibizlab.core.discuss.domain.discuss_channel_member()" name="discuss_channeladd_membersmember" type="refentity"/>
+                                <tns:metaData express="new cn.ibizlab.core.base.domain.res_partner()" name="discuss_channeladd_membersres_partners" type="refentity"/>
+                                    <tns:metaData express="T(cn.ibizlab.util.security.SpringContextHolder).getBean(T(cn.ibizlab.core.discuss.service.Idiscuss_channel_memberService))" name="discuss_channel_memberservice" type="service"/>
+                    <tns:metaData express="T(cn.ibizlab.util.security.SpringContextHolder).getBean(T(cn.ibizlab.core.discuss.service.Idiscuss_channelService))" name="iBzSysDiscuss_channelDefaultService" type="service"/>
+                    <tns:metaData express="T(cn.ibizlab.util.security.AuthenticationUser).getAuthenticationUser()" name="curuser" type="session"/>
+                            <tns:global identifier="discuss_channeladd_membersdefault" type="cn.ibizlab.core.discuss.domain.discuss_channel" />
+                            <tns:global identifier="discuss_channeladd_memberscurrent_partner" type="cn.ibizlab.core.base.domain.res_partner" />
+                            <tns:global identifier="discuss_channeladd_membersmember" type="cn.ibizlab.core.discuss.domain.discuss_channel_member" />
+                            <tns:global identifier="discuss_channeladd_membersres_partners" type="cn.ibizlab.core.base.domain.res_partner" />
+            </extensionElements>
+                        <startEvent id="begin" isInterrupting="true"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="discuss_channeladd_membersrawsfcode_01" id="rawsfcode_01" implementation="http://www.jboss.org/drools/rule" name="提取标识构造对象列表"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="discuss_channeladd_membersloop_01" id="loop_01" implementation="http://www.jboss.org/drools/rule" name="循环处理成员"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="discuss_channeladd_membersrenewparam_01" id="renewparam_01" implementation="http://www.jboss.org/drools/rule" name="重新建立参数"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="discuss_channeladd_membersprepareparam_02" id="prepareparam_02" implementation="http://www.jboss.org/drools/rule" name="准备参数"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="discuss_channeladd_memberscreate_member" id="create_member" implementation="http://www.jboss.org/drools/rule" name="创建频道成员"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="discuss_channeladd_membersend" id="end" implementation="http://www.jboss.org/drools/rule" name="结束"/>
+                        <endEvent id="end_end" name="end"/>
+                        <sequenceFlow id="end_end_line" sourceRef="end" targetRef="end_end"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="discuss_channeladd_membersloop_end" id="loop_end" implementation="http://www.jboss.org/drools/rule" name="循环结束"/>
+                        <endEvent id="loop_end_end" name="end"/>
+                        <sequenceFlow id="loop_end_end_line" sourceRef="loop_end" targetRef="loop_end_end"/>
+                    <sequenceFlow id="begin_rawsfcode_01" sourceRef="begin" targetRef="rawsfcode_01">
+                    </sequenceFlow>
+                    <sequenceFlow id="rawsfcode_01_loop_01" sourceRef="rawsfcode_01" targetRef="loop_01">
+                    </sequenceFlow>
+                    <sequenceFlow id="loop_01_renewparam_01" sourceRef="loop_01" targetRef="renewparam_01">
+                    </sequenceFlow>
+                    <sequenceFlow id="loop_01_end" sourceRef="loop_01" targetRef="end">
+                    </sequenceFlow>
+                    <sequenceFlow id="renewparam_01_prepareparam_02" sourceRef="renewparam_01" targetRef="prepareparam_02">
+                    </sequenceFlow>
+                    <sequenceFlow id="prepareparam_02_create_member" sourceRef="prepareparam_02" targetRef="create_member">
+                    </sequenceFlow>
+                    <sequenceFlow id="create_member_loop_end" sourceRef="create_member" targetRef="loop_end">
+                    </sequenceFlow>
+        </process>
+    </definitions>

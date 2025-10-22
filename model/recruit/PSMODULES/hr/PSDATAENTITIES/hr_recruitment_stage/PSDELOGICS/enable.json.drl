@@ -1,0 +1,47 @@
+package cn.ibizlab.hr.logic.hr_recruitment_stagelogic.enable;
+        import java.util.Map;
+        import java.util.HashMap;
+        import com.alibaba.fastjson.JSONObject;
+        import org.springframework.util.StringUtils;
+        import org.springframework.util.ObjectUtils;
+        import cn.ibizlab.util.errors.BadRequestAlertException;
+                global cn.ibizlab.core.hr.domain.hr_recruitment_stage hr_recruitment_stageenabledefault;
+                    global cn.ibizlab.core.hr.service.Ihr_recruitment_stageService hr_recruitment_stageservice;
+        global cn.ibizlab.core.hr.service.Ihr_recruitment_stageService iBzSysHr_recruitment_stageDefaultService;
+        global cn.ibizlab.util.security.AuthenticationUser curuser;
+
+
+    no-loop
+
+            //逻辑处理节点[开始]
+            rule "begin"
+            ruleflow-group "hr_recruitment_stageenablebegin"
+            when
+            then
+            end
+
+            //逻辑处理节点[设置状态为启用]
+            rule "prepareparam1"
+            ruleflow-group "hr_recruitment_stageenableprepareparam1"
+            when
+            then
+                            hr_recruitment_stageenabledefault.set("status","1");
+                        update(hr_recruitment_stageenabledefault);//更新fact中变量值
+            end
+
+            //逻辑处理节点[更新状态]
+            rule "deaction1"
+            ruleflow-group "hr_recruitment_stageenabledeaction1"
+            when
+            then
+                        hr_recruitment_stageservice.update(hr_recruitment_stageenabledefault);
+                        update(hr_recruitment_stageenabledefault);//更新fact中变量值
+            end
+
+            //逻辑处理节点[结束]
+            rule "end1"
+            ruleflow-group "hr_recruitment_stageenableend1"
+            when
+            then
+                        update(hr_recruitment_stageenabledefault);//更新fact中变量值
+            end

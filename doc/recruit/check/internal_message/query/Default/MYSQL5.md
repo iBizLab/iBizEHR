@@ -1,0 +1,21 @@
+```sql
+SELECT
+t1.`CONTENT_TYPE`,
+t1.`CREATE_MAN`,
+t1.`CREATE_TIME`,
+t1.`ID`,
+t1.`MESSAGE_TYPE`,
+t1.`MOBILE_URL`,
+t1.`NAME`,
+t1.`OWNER_TYPE`,
+t1.`RECEIVER`,
+t1.`STATUS`,
+t1.`SYSTEM_TAG`,
+t1.`TITLE`,
+t1.`UPDATE_MAN`,
+t1.`UPDATE_TIME`,
+t1.`URL`
+FROM `` t1 
+
+
+```

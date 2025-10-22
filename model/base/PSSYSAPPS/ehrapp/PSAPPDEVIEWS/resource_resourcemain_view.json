@@ -1,0 +1,1142 @@
+{
+  "accUserMode" : 2,
+  "getCapPSLanguageRes" : {
+    "lanResTag" : "DE.LNAME.RESOURCE_RESOURCE"
+  },
+  "caption" : "资源",
+  "codeName" : "resource_resourcemain_view",
+  "dynaModelFilePath" : "PSSYSAPPS/ehrapp/PSAPPDEVIEWS/resource_resourcemain_view.json",
+  "funcViewMode" : "EDITVIEW",
+  "memo" : "系统自动添加",
+  "name" : "resource_resourcemain_view",
+  "getPSAppDataEntity" : {
+    "modelref" : true,
+    "path" : "PSSYSAPPS/ehrapp/PSAPPDATAENTITIES/resource_resource.json"
+  },
+  "getPSAppModule" : {
+    "modelref" : true,
+    "path" : "PSSYSAPPS/ehrapp/PSAPPMODULES/resource.json"
+  },
+  "getPSDEViewCodeName" : "main_view",
+  "getPSDEViewId" : "7a18016339c8fafb4ed70e172c7bc09a",
+  "getPSViewLayoutPanel" : {
+    "codeName" : "main_view_layout_nocomment",
+    "controlType" : "VIEWLAYOUTPANEL",
+    "hookEventNames" : [ "ONMOUNTED", "ONFORMDATACHANGE" ],
+    "layoutMode" : "FLEX",
+    "logicName" : "主视图布局面板_无讨论",
+    "name" : "layoutpanel",
+    "getPSAppDataEntity" : {
+      "modelref" : true,
+      "path" : "PSSYSAPPS/ehrapp/PSAPPDATAENTITIES/resource_resource.json"
+    },
+    "getPSControlLogics" : [ {
+      "eventNames" : "onMounted",
+      "logicTag" : "layoutpanel",
+      "logicType" : "SCRIPT",
+      "name" : "init_domain_state_change",
+      "scriptCode" : "ibiz.uiDomainManager.get(view.context.srfsessionid).evt.on(\"stateChange\", (state, isTrusted )=> {\r\n    console.log(\"\");\r\n    const data = view.getController(\"form\").getData()[0];\r\n    view.getController(\"toolbar\")?.calcButtonState(data,view.model.appDataEntityId);\r\n});"
+    }, {
+      "eventNames" : "onFormDataChange",
+      "itemName" : "FORM",
+      "logicTag" : "layoutpanel",
+      "logicType" : "SCRIPT",
+      "name" : "logic",
+      "scriptCode" : "view.getController(\"toolbar\")?.calcButtonState(data,view.model.appDataEntityId);"
+    } ],
+    "getPSControlParam" : { },
+    "getPSLayout" : {
+      "layout" : "FLEX"
+    },
+    "getRootPSPanelItems" : [ {
+      "caption" : "容器",
+      "itemStyle" : "DEFAULT",
+      "itemType" : "CONTAINER",
+      "name" : "view_header",
+      "getPSLayout" : {
+        "align" : "space-between",
+        "dir" : "row",
+        "layout" : "FLEX",
+        "vAlign" : "center"
+      },
+      "getPSLayoutPos" : {
+        "grow" : -1,
+        "layout" : "FLEX",
+        "shrink" : 0
+      },
+      "getPSPanelItems" : [ {
+        "caption" : "容器",
+        "itemStyle" : "DEFAULT",
+        "itemType" : "CONTAINER",
+        "name" : "view_header_left",
+        "getPSLayout" : {
+          "dir" : "row",
+          "layout" : "FLEX"
+        },
+        "getPSLayoutPos" : {
+          "grow" : -1,
+          "heightMode" : "FULL",
+          "layout" : "FLEX"
+        },
+        "getPSPanelItems" : [ {
+          "caption" : "容器",
+          "itemStyle" : "DEFAULT",
+          "itemType" : "CONTAINER",
+          "name" : "container",
+          "getPSLayout" : {
+            "align" : "center",
+            "dir" : "row",
+            "layout" : "FLEX",
+            "vAlign" : "center"
+          },
+          "getPSLayoutPos" : {
+            "grow" : -1,
+            "layout" : "FLEX"
+          },
+          "getPSPanelItems" : [ {
+            "caption" : "工具栏",
+            "itemStyle" : "DEFAULT",
+            "itemType" : "CTRLPOS",
+            "name" : "toolbar1",
+            "getPSLayoutPos" : {
+              "grow" : -1,
+              "layout" : "FLEX"
+            },
+            "showCaption" : true
+          } ]
+        }, {
+          "caption" : "容器",
+          "itemStyle" : "DEFAULT",
+          "itemType" : "CONTAINER",
+          "name" : "view_captionbar",
+          "getPSLayout" : {
+            "align" : "center",
+            "layout" : "FLEX"
+          },
+          "getPSLayoutPos" : {
+            "grow" : -1,
+            "heightMode" : "FULL",
+            "layout" : "FLEX"
+          },
+          "getPSPanelItems" : [ {
+            "caption" : "页面标题",
+            "itemStyle" : "DEFAULT",
+            "itemType" : "CTRLPOS",
+            "name" : "captionbar",
+            "getPSLayoutPos" : {
+              "grow" : -1,
+              "layout" : "FLEX"
+            },
+            "getPSSysPFPlugin" : {
+              "pluginType" : "CUSTOM",
+              "pluginCode" : "IDENTIFIER_TITLE",
+              "runtimeObject" : true
+            },
+            "userTag" : "name",
+            "showCaption" : true
+          } ]
+        }, {
+          "caption" : "容器",
+          "itemStyle" : "DEFAULT",
+          "itemType" : "CONTAINER",
+          "name" : "view_toolbar",
+          "getPSLayout" : {
+            "align" : "center",
+            "dir" : "row",
+            "layout" : "FLEX",
+            "vAlign" : "center"
+          },
+          "getPSLayoutPos" : {
+            "grow" : -1,
+            "heightMode" : "FULL",
+            "layout" : "FLEX"
+          },
+          "getPSPanelItems" : [ {
+            "caption" : "工具栏",
+            "itemStyle" : "DEFAULT",
+            "itemType" : "CTRLPOS",
+            "name" : "toolbar",
+            "getPSLayoutPos" : {
+              "grow" : -1,
+              "layout" : "FLEX"
+            },
+            "showCaption" : true
+          } ]
+        } ]
+      } ],
+      "predefinedType" : "VIEWHEADER"
+    }, {
+      "caption" : "视图消息占位",
+      "itemStyle" : "DEFAULT",
+      "itemType" : "RAWITEM",
+      "name" : "viewmsg_pos",
+      "getPSLayoutPos" : {
+        "grow" : -1,
+        "layout" : "FLEX",
+        "shrink" : 0
+      },
+      "getPSRawItem" : {
+        "name" : "viewmsg_pos",
+        "getPSRawItemParams" : [ {
+          "key" : "POSITION",
+          "value" : "TOP"
+        } ],
+        "predefinedType" : "VIEWMSG_POS"
+      },
+      "showCaption" : true
+    }, {
+      "caption" : "容器",
+      "itemStyle" : "DEFAULT",
+      "itemType" : "CONTAINER",
+      "name" : "view_content",
+      "getPSLayout" : {
+        "layout" : "FLEX"
+      },
+      "getPSLayoutPos" : {
+        "grow" : 1,
+        "layout" : "FLEX"
+      },
+      "getPSPanelItems" : [ {
+        "caption" : "栅格容器",
+        "itemStyle" : "DEFAULT",
+        "itemType" : "CONTAINER",
+        "name" : "container_grid",
+        "getPSLayout" : {
+          "layout" : "SIMPLEFLEX"
+        },
+        "getPSLayoutPos" : {
+          "grow" : -1,
+          "layout" : "FLEX"
+        },
+        "getPSPanelItems" : [ {
+          "caption" : "面板容器",
+          "itemStyle" : "DEFAULT",
+          "itemType" : "CONTAINER",
+          "name" : "container3",
+          "getPSLayout" : {
+            "childColMD" : 24,
+            "columnCount" : 24,
+            "layout" : "TABLE_24COL"
+          },
+          "getPSLayoutPos" : {
+            "grow" : 8,
+            "layout" : "SIMPLEFLEX"
+          },
+          "getPSPanelItems" : [ {
+            "caption" : "表单",
+            "itemStyle" : "DEFAULT",
+            "itemType" : "CTRLPOS",
+            "name" : "form",
+            "getPSLayoutPos" : {
+              "colMD" : 24,
+              "layout" : "TABLE_24COL"
+            },
+            "showCaption" : true
+          } ]
+        }, {
+          "caption" : "面板容器",
+          "itemStyle" : "DEFAULT",
+          "itemType" : "CONTAINER",
+          "name" : "container4",
+          "getPSLayout" : {
+            "childColMD" : 24,
+            "columnCount" : 24,
+            "layout" : "TABLE_24COL"
+          },
+          "getPSLayoutPos" : {
+            "grow" : 4,
+            "layout" : "SIMPLEFLEX"
+          }
+        } ],
+        "predefinedType" : "CONTAINER_GRID"
+      } ],
+      "predefinedType" : "VIEWCONTENT"
+    } ],
+    "layoutBodyOnly" : false,
+    "layoutPanel" : true,
+    "useDefaultLayout" : false,
+    "viewProxyMode" : true,
+    "modelid" : "ef3f9bc56161de3135f01329747f91a3",
+    "modeltype" : "PSSYSVIEWLAYOUTPANEL",
+    "getPSAppViewEngines" : [ {
+      "engineCat" : "VIEW",
+      "engineType" : "EditView",
+      "name" : "engine"
+    } ],
+    "getPSControls" : [ {
+      "codeName" : "main_viewtoolbar",
+      "controlType" : "TOOLBAR",
+      "logicName" : "工具栏模板（嵌入编辑表单，只有一个保存按钮）",
+      "name" : "toolbar",
+      "getPSAppDataEntity" : {
+        "modelref" : true,
+        "path" : "PSSYSAPPS/ehrapp/PSAPPDATAENTITIES/resource_resource.json"
+      },
+      "getPSControlParam" : {
+        "id" : "TOOLBAR"
+      },
+      "getPSDEToolbarItems" : [ {
+        "getCapPSLanguageRes" : {
+          "lanResTag" : "TBB.TEXT.*.SAVE"
+        },
+        "caption" : "保存",
+        "groupExtractMode" : "ITEM",
+        "itemType" : "DEUIACTION",
+        "name" : "tbitem1",
+        "noPrivDisplayMode" : 2,
+        "getPSAppViewUIAction" : {
+          "modelref" : true,
+          "id" : "toolbar_tbitem1"
+        },
+        "getPSSysImage" : {
+          "glyph" : "xf0c7@FontAwesome",
+          "cssClass" : "fa fa-save"
+        },
+        "getPSUIAction" : {
+          "getCapPSLanguageRes" : {
+            "lanResTag" : "TBB.TEXT.*.SAVE"
+          },
+          "caption" : "保存",
+          "codeName" : "Save",
+          "fullCodeName" : "Save",
+          "name" : "编辑界面_保存操作",
+          "getPSSysImage" : {
+            "glyph" : "xf0c7@FontAwesome",
+            "cssClass" : "fa fa-save"
+          },
+          "predefinedType" : "EDITVIEW_SAVEACTION",
+          "timeout" : 60000,
+          "getTooltipPSLanguageRes" : {
+            "lanResTag" : "TBB.TOOLTIP.*.SAVE"
+          },
+          "uIActionMode" : "SYS",
+          "uIActionTag" : "Save",
+          "uIActionType" : "DEUIACTION"
+        },
+        "tooltip" : "保存",
+        "getTooltipPSLanguageRes" : {
+          "lanResTag" : "TBB.TOOLTIP.*.SAVE"
+        },
+        "showCaption" : true,
+        "showIcon" : true
+      } ],
+      "xDataControlName" : "form",
+      "modelid" : "25823041a044e2dfc60cdebdb06ebd82",
+      "modeltype" : "PSDETOOLBAR"
+    }, {
+      "codeName" : "Main",
+      "controlType" : "FORM",
+      "getCreatePSControlAction" : {
+        "modelref" : true,
+        "id" : "create",
+        "actionName" : "Create",
+        "actionType" : "DEACTION",
+        "dataAccessAction" : "CREATE",
+        "name" : "create",
+        "getPSAppDEMethod" : {
+          "modelref" : true,
+          "id" : "create"
+        },
+        "getPSAppDataEntity" : {
+          "modelref" : true,
+          "path" : "PSSYSAPPS/ehrapp/PSAPPDATAENTITIES/resource_resource.json"
+        }
+      },
+      "defaultLabelWidth" : 130,
+      "dynaModelFilePath" : "PSSYSAPPS/ehrapp/PSAPPDATAENTITIES/resource_resource/PSFORMS/Main.json",
+      "getGetDraftFromPSControlAction" : {
+        "modelref" : true,
+        "id" : "loaddraftfrom",
+        "actionName" : "GETDRAFTFROM",
+        "actionType" : "DEACTION",
+        "dataAccessAction" : "CREATE",
+        "name" : "loaddraftfrom",
+        "getPSAppDataEntity" : {
+          "modelref" : true,
+          "path" : "PSSYSAPPS/ehrapp/PSAPPDATAENTITIES/resource_resource.json"
+        }
+      },
+      "getGetDraftPSControlAction" : {
+        "modelref" : true,
+        "id" : "loaddraft",
+        "actionName" : "GetDraft",
+        "actionType" : "DEACTION",
+        "dataAccessAction" : "CREATE",
+        "name" : "loaddraft",
+        "getPSAppDEMethod" : {
+          "modelref" : true,
+          "id" : "get_draft"
+        },
+        "getPSAppDataEntity" : {
+          "modelref" : true,
+          "path" : "PSSYSAPPS/ehrapp/PSAPPDATAENTITIES/resource_resource.json"
+        }
+      },
+      "getGetPSControlAction" : {
+        "modelref" : true,
+        "id" : "load",
+        "actionName" : "Get",
+        "actionType" : "DEACTION",
+        "dataAccessAction" : "READ",
+        "name" : "load",
+        "getPSAppDEMethod" : {
+          "modelref" : true,
+          "id" : "get"
+        },
+        "getPSAppDataEntity" : {
+          "modelref" : true,
+          "path" : "PSSYSAPPS/ehrapp/PSAPPDATAENTITIES/resource_resource.json"
+        }
+      },
+      "logicName" : "主编辑表单",
+      "getPSAppDataEntity" : {
+        "modelref" : true,
+        "path" : "PSSYSAPPS/ehrapp/PSAPPDATAENTITIES/resource_resource.json"
+      },
+      "getPSControlHandler" : {
+        "getPSHandlerActions" : [ {
+          "actionName" : "GetDraft",
+          "actionType" : "DEACTION",
+          "dataAccessAction" : "CREATE",
+          "name" : "loaddraft",
+          "getPSAppDEMethod" : {
+            "modelref" : true,
+            "id" : "get_draft"
+          },
+          "getPSAppDataEntity" : {
+            "modelref" : true,
+            "path" : "PSSYSAPPS/ehrapp/PSAPPDATAENTITIES/resource_resource.json"
+          }
+        }, {
+          "actionName" : "GETDRAFTFROM",
+          "actionType" : "DEACTION",
+          "dataAccessAction" : "CREATE",
+          "name" : "loaddraftfrom",
+          "getPSAppDataEntity" : {
+            "modelref" : true,
+            "path" : "PSSYSAPPS/ehrapp/PSAPPDATAENTITIES/resource_resource.json"
+          }
+        }, {
+          "actionName" : "Get",
+          "actionType" : "DEACTION",
+          "dataAccessAction" : "READ",
+          "name" : "load",
+          "getPSAppDEMethod" : {
+            "modelref" : true,
+            "id" : "get"
+          },
+          "getPSAppDataEntity" : {
+            "modelref" : true,
+            "path" : "PSSYSAPPS/ehrapp/PSAPPDATAENTITIES/resource_resource.json"
+          }
+        }, {
+          "actionName" : "Create",
+          "actionType" : "DEACTION",
+          "dataAccessAction" : "CREATE",
+          "name" : "create",
+          "getPSAppDEMethod" : {
+            "modelref" : true,
+            "id" : "create"
+          },
+          "getPSAppDataEntity" : {
+            "modelref" : true,
+            "path" : "PSSYSAPPS/ehrapp/PSAPPDATAENTITIES/resource_resource.json"
+          }
+        }, {
+          "actionName" : "Update",
+          "actionType" : "DEACTION",
+          "dataAccessAction" : "UPDATE",
+          "name" : "update",
+          "getPSAppDEMethod" : {
+            "modelref" : true,
+            "id" : "update"
+          },
+          "getPSAppDataEntity" : {
+            "modelref" : true,
+            "path" : "PSSYSAPPS/ehrapp/PSAPPDATAENTITIES/resource_resource.json"
+          }
+        }, {
+          "actionName" : "Remove",
+          "actionType" : "DEACTION",
+          "dataAccessAction" : "DELETE",
+          "name" : "remove",
+          "getPSAppDEMethod" : {
+            "modelref" : true,
+            "id" : "remove"
+          },
+          "getPSAppDataEntity" : {
+            "modelref" : true,
+            "path" : "PSSYSAPPS/ehrapp/PSAPPDATAENTITIES/resource_resource.json"
+          }
+        } ],
+        "enableDEFieldPrivilege" : false,
+        "id" : "编辑表单处理器"
+      },
+      "getPSControlParam" : {
+        "autoLoad" : true,
+        "showBusyIndicator" : true,
+        "ctrlParams" : {
+          "EDITMODE" : "hover"
+        },
+        "id" : "FORM"
+      },
+      "getPSDEFormItems" : [ {
+        "id" : "srfupdatedate",
+        "hidden" : true,
+        "dataType" : 5,
+        "getPSAppDEField" : {
+          "name" : "WRITE_DATE",
+          "codeName" : "write_date"
+        }
+      }, {
+        "id" : "srforikey",
+        "hidden" : true,
+        "dataType" : 25
+      }, {
+        "id" : "srfkey",
+        "hidden" : true,
+        "dataType" : 25,
+        "getPSAppDEField" : {
+          "name" : "ID",
+          "codeName" : "id"
+        }
+      }, {
+        "id" : "srfmajortext",
+        "hidden" : true,
+        "dataType" : 25,
+        "getPSAppDEField" : {
+          "name" : "NAME",
+          "codeName" : "name"
+        }
+      }, {
+        "id" : "srftempmode",
+        "hidden" : true,
+        "dataType" : 25
+      }, {
+        "id" : "srfuf",
+        "hidden" : true,
+        "dataType" : 25
+      }, {
+        "id" : "srfdeid",
+        "hidden" : true,
+        "dataType" : 25
+      }, {
+        "id" : "srfsourcekey",
+        "hidden" : true,
+        "dataType" : 25
+      }, {
+        "id" : "name",
+        "dataType" : 25,
+        "getPSAppDEField" : {
+          "name" : "NAME",
+          "codeName" : "name"
+        }
+      }, {
+        "id" : "company_name",
+        "dataType" : 25,
+        "getPSAppDEField" : {
+          "name" : "COMPANY_NAME",
+          "codeName" : "company_name"
+        }
+      }, {
+        "id" : "user_name",
+        "dataType" : 25,
+        "getPSAppDEField" : {
+          "name" : "USER_NAME",
+          "codeName" : "user_name"
+        }
+      }, {
+        "id" : "calendar_name",
+        "dataType" : 25,
+        "getPSAppDEField" : {
+          "name" : "CALENDAR_NAME",
+          "codeName" : "calendar_name"
+        }
+      }, {
+        "id" : "resource_type",
+        "dataType" : 25,
+        "getPSAppDEField" : {
+          "name" : "RESOURCE_TYPE",
+          "codeName" : "resource_type"
+        }
+      }, {
+        "id" : "time_efficiency",
+        "dataType" : 7,
+        "getPSAppDEField" : {
+          "name" : "TIME_EFFICIENCY",
+          "codeName" : "time_efficiency"
+        }
+      }, {
+        "id" : "company_id",
+        "hidden" : true,
+        "dataType" : 25,
+        "getPSAppDEField" : {
+          "name" : "COMPANY_ID",
+          "codeName" : "company_id"
+        }
+      }, {
+        "id" : "calendar_id",
+        "hidden" : true,
+        "dataType" : 25,
+        "getPSAppDEField" : {
+          "name" : "CALENDAR_ID",
+          "codeName" : "calendar_id"
+        }
+      }, {
+        "id" : "user_id",
+        "hidden" : true,
+        "dataType" : 25,
+        "getPSAppDEField" : {
+          "name" : "USER_ID",
+          "codeName" : "user_id"
+        }
+      }, {
+        "id" : "id",
+        "hidden" : true,
+        "dataType" : 25,
+        "getPSAppDEField" : {
+          "name" : "ID",
+          "codeName" : "id"
+        }
+      } ],
+      "getPSDEFormPages" : [ {
+        "getCapPSLanguageRes" : {
+          "lanResTag" : "CONTROL.DEFORM.RESOURCE_RESOURCE.MAIN.FORMPAGE.FORMPAGE1"
+        },
+        "caption" : "基本信息",
+        "codeName" : "formpage1",
+        "detailStyle" : "DEFAULT",
+        "detailType" : "FORMPAGE",
+        "name" : "formpage1",
+        "getPSDEFormDetails" : [ {
+          "getCapPSLanguageRes" : {
+            "lanResTag" : "CONTROL.DEFORM.RESOURCE_RESOURCE.MAIN.GROUPPANEL.GROUP1"
+          },
+          "caption" : "资源基本信息",
+          "codeName" : "group1",
+          "detailStyle" : "DEFAULT",
+          "detailType" : "GROUPPANEL",
+          "name" : "group1",
+          "getPSDEFormDetails" : [ {
+            "getCapPSLanguageRes" : {
+              "lanResTag" : "DEF.LNAME.RESOURCE_RESOURCE.NAME"
+            },
+            "caption" : "名称",
+            "codeName" : "name",
+            "dataType" : 25,
+            "detailStyle" : "DEFAULT",
+            "detailType" : "FORMITEM",
+            "enableCond" : 3,
+            "ignoreInput" : 0,
+            "labelPos" : "LEFT",
+            "labelWidth" : 130,
+            "name" : "name",
+            "noPrivDisplayMode" : 1,
+            "getPSAppDEField" : {
+              "name" : "NAME",
+              "codeName" : "name"
+            },
+            "getPSEditor" : {
+              "editorType" : "TEXTBOX",
+              "maxLength" : 200,
+              "name" : "name"
+            },
+            "getPSLayoutPos" : {
+              "colLG" : 12,
+              "colMD" : 24,
+              "layout" : "TABLE_24COL"
+            },
+            "allowEmpty" : true,
+            "showCaption" : true
+          }, {
+            "getCapPSLanguageRes" : {
+              "lanResTag" : "DEF.LNAME.RESOURCE_RESOURCE.COMPANY_ID"
+            },
+            "caption" : "公司",
+            "codeName" : "company_name",
+            "dataType" : 25,
+            "detailStyle" : "DEFAULT",
+            "detailType" : "FORMITEM",
+            "enableCond" : 3,
+            "ignoreInput" : 0,
+            "labelPos" : "LEFT",
+            "labelWidth" : 130,
+            "name" : "company_name",
+            "noPrivDisplayMode" : 1,
+            "getPSAppDEField" : {
+              "name" : "COMPANY_NAME",
+              "codeName" : "company_name"
+            },
+            "getPSEditor" : {
+              "editorParams" : {
+                "AC" : "TRUE",
+                "PICKUPVIEW" : "TRUE"
+              },
+              "editorType" : "PICKER",
+              "handlerType" : "PickupText",
+              "name" : "company_name",
+              "getPSAppDEACMode" : {
+                "modelref" : true,
+                "id" : "Default"
+              },
+              "getPSAppDEDataSet" : {
+                "modelref" : true,
+                "id" : "fetch_default"
+              },
+              "getPSAppDataEntity" : {
+                "modelref" : true,
+                "path" : "PSSYSAPPS/ehrapp/PSAPPDATAENTITIES/res_company.json"
+              },
+              "getPSEditorItems" : [ {
+                "name" : "company_id"
+              } ],
+              "getPickupPSAppView" : {
+                "modelref" : true,
+                "path" : "PSSYSAPPS/ehrapp/PSAPPDEVIEWS/res_companyPickupView.json",
+                "viewType" : "DEPICKUPVIEW"
+              },
+              "valueItemName" : "company_id",
+              "enableAC" : true,
+              "enablePickupView" : true,
+              "forceSelection" : true,
+              "showTrigger" : true,
+              "singleSelect" : true
+            },
+            "getPSLayoutPos" : {
+              "colLG" : 12,
+              "colMD" : 24,
+              "layout" : "TABLE_24COL"
+            },
+            "valueItemName" : "company_id",
+            "allowEmpty" : true,
+            "showCaption" : true
+          }, {
+            "getCapPSLanguageRes" : {
+              "lanResTag" : "DEF.LNAME.RESOURCE_RESOURCE.USER_ID"
+            },
+            "caption" : "用户",
+            "codeName" : "user_name",
+            "dataType" : 25,
+            "detailStyle" : "DEFAULT",
+            "detailType" : "FORMITEM",
+            "enableCond" : 3,
+            "ignoreInput" : 0,
+            "labelPos" : "LEFT",
+            "labelWidth" : 130,
+            "name" : "user_name",
+            "noPrivDisplayMode" : 1,
+            "getPSAppDEField" : {
+              "name" : "USER_NAME",
+              "codeName" : "user_name"
+            },
+            "getPSEditor" : {
+              "editorParams" : {
+                "AC" : "TRUE",
+                "PICKUPVIEW" : "TRUE"
+              },
+              "editorType" : "PICKER",
+              "handlerType" : "PickupText",
+              "name" : "user_name",
+              "getPSAppDEACMode" : {
+                "modelref" : true,
+                "id" : "Default"
+              },
+              "getPSAppDEDataSet" : {
+                "modelref" : true,
+                "id" : "fetch_default"
+              },
+              "getPSAppDataEntity" : {
+                "modelref" : true,
+                "path" : "PSSYSAPPS/ehrapp/PSAPPDATAENTITIES/res_users.json"
+              },
+              "getPSEditorItems" : [ {
+                "name" : "user_id"
+              } ],
+              "getPickupPSAppView" : {
+                "modelref" : true,
+                "path" : "PSSYSAPPS/ehrapp/PSAPPDEVIEWS/res_usersPickupView.json",
+                "viewType" : "DEPICKUPVIEW"
+              },
+              "valueItemName" : "user_id",
+              "enableAC" : true,
+              "enablePickupView" : true,
+              "forceSelection" : true,
+              "showTrigger" : true,
+              "singleSelect" : true
+            },
+            "getPSLayoutPos" : {
+              "colLG" : 12,
+              "colMD" : 24,
+              "layout" : "TABLE_24COL"
+            },
+            "valueItemName" : "user_id",
+            "allowEmpty" : true,
+            "showCaption" : true
+          }, {
+            "getCapPSLanguageRes" : {
+              "lanResTag" : "DEF.LNAME.RESOURCE_RESOURCE.CALENDAR_ID"
+            },
+            "caption" : "工时",
+            "codeName" : "calendar_name",
+            "dataType" : 25,
+            "detailStyle" : "DEFAULT",
+            "detailType" : "FORMITEM",
+            "enableCond" : 3,
+            "ignoreInput" : 0,
+            "labelPos" : "LEFT",
+            "labelWidth" : 130,
+            "name" : "calendar_name",
+            "noPrivDisplayMode" : 1,
+            "getPSAppDEField" : {
+              "name" : "CALENDAR_NAME",
+              "codeName" : "calendar_name"
+            },
+            "getPSEditor" : {
+              "editorParams" : {
+                "AC" : "TRUE",
+                "PICKUPVIEW" : "TRUE"
+              },
+              "editorType" : "PICKER",
+              "handlerType" : "PickupText",
+              "name" : "calendar_name",
+              "getPSAppDEACMode" : {
+                "modelref" : true,
+                "id" : "Default"
+              },
+              "getPSAppDEDataSet" : {
+                "modelref" : true,
+                "id" : "fetch_default"
+              },
+              "getPSAppDataEntity" : {
+                "modelref" : true,
+                "path" : "PSSYSAPPS/ehrapp/PSAPPDATAENTITIES/resource_calendar.json"
+              },
+              "getPSEditorItems" : [ {
+                "name" : "calendar_id"
+              } ],
+              "getPickupPSAppView" : {
+                "modelref" : true,
+                "path" : "PSSYSAPPS/ehrapp/PSAPPDEVIEWS/resource_calendarPickupView.json",
+                "viewType" : "DEPICKUPVIEW"
+              },
+              "valueItemName" : "calendar_id",
+              "enableAC" : true,
+              "enablePickupView" : true,
+              "forceSelection" : true,
+              "showTrigger" : true,
+              "singleSelect" : true
+            },
+            "getPSLayoutPos" : {
+              "colLG" : 12,
+              "colMD" : 24,
+              "layout" : "TABLE_24COL"
+            },
+            "valueItemName" : "calendar_id",
+            "allowEmpty" : true,
+            "showCaption" : true
+          }, {
+            "getCapPSLanguageRes" : {
+              "lanResTag" : "DEF.LNAME.RESOURCE_RESOURCE.RESOURCE_TYPE"
+            },
+            "caption" : "类型",
+            "codeName" : "resource_type",
+            "dataType" : 25,
+            "detailStyle" : "DEFAULT",
+            "detailType" : "FORMITEM",
+            "enableCond" : 3,
+            "ignoreInput" : 0,
+            "labelPos" : "LEFT",
+            "labelWidth" : 130,
+            "name" : "resource_type",
+            "noPrivDisplayMode" : 1,
+            "getPSAppDEField" : {
+              "name" : "RESOURCE_TYPE",
+              "codeName" : "resource_type"
+            },
+            "getPSEditor" : {
+              "editorType" : "DROPDOWNLIST",
+              "name" : "resource_type",
+              "getPSAppCodeList" : {
+                "modelref" : true,
+                "path" : "PSSYSAPPS/ehrapp/PSAPPCODELISTS/resource__resource_resource_resource_type.json"
+              },
+              "singleSelect" : true
+            },
+            "getPSLayoutPos" : {
+              "colLG" : 12,
+              "colMD" : 24,
+              "layout" : "TABLE_24COL"
+            },
+            "allowEmpty" : false,
+            "needCodeListConfig" : true,
+            "showCaption" : true
+          }, {
+            "getCapPSLanguageRes" : {
+              "lanResTag" : "DEF.LNAME.RESOURCE_RESOURCE.TIME_EFFICIENCY"
+            },
+            "caption" : "效率因子",
+            "codeName" : "time_efficiency",
+            "dataType" : 7,
+            "detailStyle" : "DEFAULT",
+            "detailType" : "FORMITEM",
+            "enableCond" : 3,
+            "ignoreInput" : 0,
+            "labelPos" : "LEFT",
+            "labelWidth" : 130,
+            "name" : "time_efficiency",
+            "noPrivDisplayMode" : 1,
+            "getPSAppDEField" : {
+              "name" : "TIME_EFFICIENCY",
+              "codeName" : "time_efficiency"
+            },
+            "getPSEditor" : {
+              "editorType" : "TEXTBOX",
+              "name" : "time_efficiency"
+            },
+            "getPSLayoutPos" : {
+              "colLG" : 12,
+              "colMD" : 24,
+              "layout" : "TABLE_24COL"
+            },
+            "allowEmpty" : false,
+            "showCaption" : true
+          } ],
+          "getPSLayout" : {
+            "childColMD" : 24,
+            "columnCount" : 24,
+            "layout" : "TABLE_24COL"
+          },
+          "getPSLayoutPos" : {
+            "colMD" : 24,
+            "layout" : "TABLE_24COL"
+          },
+          "infoGroupMode" : false,
+          "showCaption" : false
+        }, {
+          "getCapPSLanguageRes" : {
+            "lanResTag" : "DEF.LNAME.RESOURCE_RESOURCE.COMPANY_ID"
+          },
+          "caption" : "公司",
+          "codeName" : "company_id",
+          "dataType" : 25,
+          "detailStyle" : "DEFAULT",
+          "detailType" : "FORMITEM",
+          "enableCond" : 3,
+          "ignoreInput" : 0,
+          "labelPos" : "LEFT",
+          "labelWidth" : 130,
+          "name" : "company_id",
+          "noPrivDisplayMode" : 1,
+          "getPSAppDEField" : {
+            "name" : "COMPANY_ID",
+            "codeName" : "company_id"
+          },
+          "getPSEditor" : {
+            "editorType" : "HIDDEN",
+            "name" : "company_id"
+          },
+          "getPSLayoutPos" : {
+            "colMD" : 24,
+            "layout" : "TABLE_24COL"
+          },
+          "allowEmpty" : true,
+          "hidden" : true
+        }, {
+          "getCapPSLanguageRes" : {
+            "lanResTag" : "DEF.LNAME.RESOURCE_RESOURCE.CALENDAR_ID"
+          },
+          "caption" : "工时",
+          "codeName" : "calendar_id",
+          "dataType" : 25,
+          "detailStyle" : "DEFAULT",
+          "detailType" : "FORMITEM",
+          "enableCond" : 3,
+          "ignoreInput" : 0,
+          "labelPos" : "LEFT",
+          "labelWidth" : 130,
+          "name" : "calendar_id",
+          "noPrivDisplayMode" : 1,
+          "getPSAppDEField" : {
+            "name" : "CALENDAR_ID",
+            "codeName" : "calendar_id"
+          },
+          "getPSEditor" : {
+            "editorType" : "HIDDEN",
+            "name" : "calendar_id"
+          },
+          "getPSLayoutPos" : {
+            "colMD" : 24,
+            "layout" : "TABLE_24COL"
+          },
+          "allowEmpty" : true,
+          "hidden" : true
+        }, {
+          "getCapPSLanguageRes" : {
+            "lanResTag" : "DEF.LNAME.RESOURCE_RESOURCE.USER_ID"
+          },
+          "caption" : "用户",
+          "codeName" : "user_id",
+          "dataType" : 25,
+          "detailStyle" : "DEFAULT",
+          "detailType" : "FORMITEM",
+          "enableCond" : 3,
+          "ignoreInput" : 0,
+          "labelPos" : "LEFT",
+          "labelWidth" : 130,
+          "name" : "user_id",
+          "noPrivDisplayMode" : 1,
+          "getPSAppDEField" : {
+            "name" : "USER_ID",
+            "codeName" : "user_id"
+          },
+          "getPSEditor" : {
+            "editorType" : "HIDDEN",
+            "name" : "user_id"
+          },
+          "getPSLayoutPos" : {
+            "colMD" : 24,
+            "layout" : "TABLE_24COL"
+          },
+          "allowEmpty" : true,
+          "hidden" : true
+        }, {
+          "getCapPSLanguageRes" : {
+            "lanResTag" : "DEF.LNAME.RESOURCE_RESOURCE.ID"
+          },
+          "caption" : "标识",
+          "codeName" : "id",
+          "dataType" : 25,
+          "detailStyle" : "DEFAULT",
+          "detailType" : "FORMITEM",
+          "enableCond" : 3,
+          "ignoreInput" : 0,
+          "labelPos" : "LEFT",
+          "labelWidth" : 130,
+          "name" : "id",
+          "noPrivDisplayMode" : 1,
+          "getPSAppDEField" : {
+            "name" : "ID",
+            "codeName" : "id"
+          },
+          "getPSEditor" : {
+            "editorType" : "HIDDEN",
+            "name" : "id"
+          },
+          "getPSLayoutPos" : {
+            "colMD" : 24,
+            "layout" : "TABLE_24COL"
+          },
+          "allowEmpty" : true,
+          "hidden" : true
+        } ],
+        "getPSLayout" : {
+          "childColMD" : 24,
+          "columnCount" : 24,
+          "layout" : "TABLE_24COL"
+        },
+        "infoGroupMode" : false
+      } ],
+      "getPSLayout" : {
+        "childColMD" : 24,
+        "columnCount" : 24,
+        "layout" : "TABLE_24COL"
+      },
+      "getRemovePSControlAction" : {
+        "modelref" : true,
+        "id" : "remove",
+        "actionName" : "Remove",
+        "actionType" : "DEACTION",
+        "dataAccessAction" : "DELETE",
+        "name" : "remove",
+        "getPSAppDEMethod" : {
+          "modelref" : true,
+          "id" : "remove"
+        },
+        "getPSAppDataEntity" : {
+          "modelref" : true,
+          "path" : "PSSYSAPPS/ehrapp/PSAPPDATAENTITIES/resource_resource.json"
+        }
+      },
+      "tabHeaderPos" : "TOP",
+      "getUpdatePSControlAction" : {
+        "modelref" : true,
+        "id" : "update",
+        "actionName" : "Update",
+        "actionType" : "DEACTION",
+        "dataAccessAction" : "UPDATE",
+        "name" : "update",
+        "getPSAppDEMethod" : {
+          "modelref" : true,
+          "id" : "update"
+        },
+        "getPSAppDataEntity" : {
+          "modelref" : true,
+          "path" : "PSSYSAPPS/ehrapp/PSAPPDATAENTITIES/resource_resource.json"
+        }
+      },
+      "noTabHeader" : true,
+      "name" : "form",
+      "modelid" : "acd4d5da8a45306fca612722684258df",
+      "modeltype" : "PSDEFORM_EDITFORM"
+    }, {
+      "codeName" : "main_viewdatainfobar",
+      "controlType" : "DATAINFOBAR",
+      "name" : "datainfobar",
+      "getPSAppDataEntity" : {
+        "modelref" : true,
+        "path" : "PSSYSAPPS/ehrapp/PSAPPDATAENTITIES/resource_resource.json"
+      },
+      "getPSControlParam" : {
+        "id" : "datainfobar"
+      }
+    }, {
+      "getCapPSLanguageRes" : {
+        "lanResTag" : "DE.LNAME.RESOURCE_RESOURCE"
+      },
+      "caption" : "资源",
+      "codeName" : "main_viewcaptionbar",
+      "controlType" : "CAPTIONBAR",
+      "name" : "captionbar",
+      "getPSAppDataEntity" : {
+        "modelref" : true,
+        "path" : "PSSYSAPPS/ehrapp/PSAPPDATAENTITIES/resource_resource.json"
+      },
+      "getPSControlParam" : { }
+    } ]
+  },
+  "title" : "资源编辑视图",
+  "viewStyle" : "DEFAULT",
+  "viewType" : "DEEDITVIEW",
+  "xDataControlName" : "form",
+  "enableDP" : true,
+  "showDataInfoBar" : true,
+  "modelid" : "68fd20d2580fa43f506918dd0751bbf0",
+  "modeltype" : "PSAPPDEVIEW",
+  "getPSAppDERSPaths" : [ [ {
+    "actionRSMode" : 1,
+    "codeName" : "resource_resources",
+    "dataRSMode" : 0,
+    "majorDECodeName" : "resource_calendar",
+    "majorDEName" : "RESOURCE_CALENDAR",
+    "getMajorPSAppDataEntity" : {
+      "modelref" : true,
+      "path" : "PSSYSAPPS/ehrapp/PSAPPDATAENTITIES/resource_calendar.json"
+    },
+    "minorDECodeName" : "resource_resource",
+    "minorDEName" : "RESOURCE_RESOURCE",
+    "getMinorPSAppDataEntity" : {
+      "modelref" : true,
+      "path" : "PSSYSAPPS/ehrapp/PSAPPDATAENTITIES/resource_resource.json"
+    },
+    "name" : "资源工作时间-资源",
+    "getParentPSAppDEField" : {
+      "name" : "CALENDAR_ID",
+      "codeName" : "calendar_id"
+    },
+    "getParentTextPSAppDEField" : {
+      "name" : "CALENDAR_NAME",
+      "codeName" : "calendar_name"
+    },
+    "rSMode" : 2
+  } ] ]
+}

@@ -1,0 +1,29 @@
+package cn.ibizlab.mail.logic.mail_messagelogic.after_create_notify;
+        import java.util.Map;
+        import java.util.HashMap;
+        import com.alibaba.fastjson.JSONObject;
+        import org.springframework.util.StringUtils;
+        import org.springframework.util.ObjectUtils;
+        import cn.ibizlab.util.errors.BadRequestAlertException;
+                global cn.ibizlab.core.mail.domain.mail_message mail_messageafter_create_notifydefault;
+                    global cn.ibizlab.core.mail.service.Imail_messageService mail_messageservice;
+        global cn.ibizlab.core.mail.service.Imail_messageService iBzSysMail_messageDefaultService;
+        global cn.ibizlab.util.security.AuthenticationUser curuser;
+
+
+    no-loop
+
+            //逻辑处理节点[开始]
+            rule "begin"
+            ruleflow-group "mail_messageafter_create_notifybegin"
+            when
+            then
+            end
+
+            //逻辑处理节点[评论通知]
+            rule "denotify"
+            ruleflow-group "mail_messageafter_create_notifydenotify"
+            when
+            then
+                        update(mail_messageafter_create_notifydefault);//更新fact中变量值
+            end

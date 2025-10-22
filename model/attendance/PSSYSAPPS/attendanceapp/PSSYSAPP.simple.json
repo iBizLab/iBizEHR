@@ -1,0 +1,980 @@
+{
+  "name" : "attendanceapp",
+  "simple" : "true",
+  "getAllPSAppPFPluginRefs" : [ {
+    "name" : "odoo人员信息",
+    "getPSSysPFPlugin" : {
+      "pluginType" : "EDITOR_CUSTOMSTYLE",
+      "pluginCode" : "ODOO_PERSONNEL_INFO",
+      "runtimeObject" : true
+    },
+    "pluginCode" : "ODOO_PERSONNEL_INFO",
+    "pluginType" : "EDITOR_CUSTOMSTYLE",
+    "rTObjectName" : "IBizOdooPersonalInfo",
+    "rTObjectRepo" : "@ibiz-template-odoo/odoo-personal-info@0.1.8-alpha.308",
+    "refMode" : "EDITORSTYPE",
+    "runtimeObject" : true
+  }, {
+    "name" : "odoo分组表格",
+    "getPSSysPFPlugin" : {
+      "pluginType" : "GRID_RENDER",
+      "pluginCode" : "ODOO_GROUP_GRID",
+      "runtimeObject" : true,
+      "pluginParams" : {
+        "replaceglobal" : "true"
+      }
+    },
+    "pluginCode" : "ODOO_GROUP_GRID",
+    "pluginParams" : {
+      "replaceglobal" : "true"
+    },
+    "pluginType" : "GRID_RENDER",
+    "rTObjectName" : "IBizOdooGroupGrid",
+    "rTObjectRepo" : "@ibiz-template-odoo/odoo-group-grid@0.1.8-alpha.311",
+    "refMode" : "CONTROL",
+    "refTag" : "GRID",
+    "runtimeObject" : true
+  }, {
+    "name" : "odoo状态栏",
+    "getPSSysPFPlugin" : {
+      "pluginType" : "EDITOR_CUSTOMSTYLE",
+      "pluginCode" : "ODOO_STATUS_BAR",
+      "runtimeObject" : true
+    },
+    "pluginCode" : "ODOO_STATUS_BAR",
+    "pluginType" : "EDITOR_CUSTOMSTYLE",
+    "rTObjectName" : "IBizOdooStatusBar",
+    "rTObjectRepo" : "@ibiz-template-odoo/odoo-status-bar@0.1.8-alpha.276",
+    "refMode" : "EDITORSTYPE",
+    "runtimeObject" : true
+  }, {
+    "name" : "odoo风格搜索栏",
+    "getPSSysPFPlugin" : {
+      "pluginType" : "CUSTOM",
+      "pluginCode" : "ODOO_SEARCH_BAR",
+      "runtimeObject" : true
+    },
+    "pluginCode" : "ODOO_SEARCH_BAR",
+    "pluginType" : "CUSTOM",
+    "rTObjectName" : "IBizStyleSearchBarControl",
+    "rTObjectRepo" : "@ibiz-template-odoo/odoo-search-bar@0.1.8-alpha.279",
+    "refMode" : "CONTROL",
+    "refTag" : "SEARCHBAR",
+    "runtimeObject" : true
+  }, {
+    "name" : "人员树",
+    "getPSSysPFPlugin" : {
+      "pluginType" : "TREE_RENDER",
+      "pluginCode" : "PEOPLE",
+      "runtimeObject" : true
+    },
+    "pluginCode" : "PEOPLE",
+    "pluginType" : "TREE_RENDER",
+    "rTObjectName" : "PeopleTree",
+    "rTObjectRepo" : "@ibiz-template-odoo/checkin-people-tree@0.1.8-alpha.291",
+    "refMode" : "CONTROL",
+    "refTag" : "TREEVIEW",
+    "runtimeObject" : true
+  }, {
+    "name" : "人员选择",
+    "getPSSysPFPlugin" : {
+      "pluginType" : "EDITOR_CUSTOMSTYLE",
+      "pluginCode" : "PERSON_SELECT",
+      "runtimeObject" : true
+    },
+    "pluginCode" : "PERSON_SELECT",
+    "pluginType" : "EDITOR_CUSTOMSTYLE",
+    "rTObjectName" : "IBizPersonelSelect",
+    "rTObjectRepo" : "@ibiz-template-plm/person-select@0.0.3-alpha.159",
+    "refMode" : "EDITORSTYPE",
+    "runtimeObject" : true
+  }, {
+    "name" : "分组标题",
+    "getPSSysPFPlugin" : {
+      "pluginType" : "FORM_USERCONTROL",
+      "pluginCode" : "GROUP_TITLE",
+      "runtimeObject" : true
+    },
+    "pluginCode" : "GROUP_TITLE",
+    "pluginType" : "FORM_USERCONTROL",
+    "rTObjectName" : "groupTitle",
+    "rTObjectRepo" : "@ibiz-template-odoo/checkin-group-title@0.1.8-alpha.292",
+    "refMode" : "CONTROLITEM",
+    "refTag" : "FORM",
+    "refTag2" : "RAWITEM",
+    "runtimeObject" : true
+  }, {
+    "name" : "分页卡片",
+    "getPSSysPFPlugin" : {
+      "pluginType" : "DATAVIEW_RENDER",
+      "pluginCode" : "TAB_CARD",
+      "runtimeObject" : true
+    },
+    "pluginCode" : "TAB_CARD",
+    "pluginType" : "DATAVIEW_RENDER",
+    "rTObjectName" : "tabcard",
+    "rTObjectRepo" : "@ibiz-template-odoo/checkin-tab-card@0.1.8-alpha.291",
+    "refMode" : "CONTROL",
+    "refTag" : "DATAVIEW",
+    "runtimeObject" : true
+  }, {
+    "name" : "动态月度表格",
+    "getPSSysPFPlugin" : {
+      "pluginType" : "GRID_RENDER",
+      "pluginCode" : "MONTH",
+      "runtimeObject" : true
+    },
+    "pluginCode" : "MONTH",
+    "pluginType" : "GRID_RENDER",
+    "rTObjectName" : "MonthGrid",
+    "rTObjectRepo" : "@ibiz-template-odoo/checkin-month-grid@0.1.8-alpha.307",
+    "refMode" : "CONTROL",
+    "refTag" : "GRID",
+    "runtimeObject" : true
+  }, {
+    "name" : "排班表格",
+    "getPSSysPFPlugin" : {
+      "pluginType" : "GRID_RENDER",
+      "pluginCode" : "CHECKIN",
+      "runtimeObject" : true
+    },
+    "pluginCode" : "CHECKIN",
+    "pluginType" : "GRID_RENDER",
+    "rTObjectName" : "IBizCheckInGrid",
+    "rTObjectRepo" : "@ibiz-template-odoo/checkin-grid@0.1.8-alpha.312",
+    "refMode" : "CONTROL",
+    "refTag" : "GRID",
+    "runtimeObject" : true
+  }, {
+    "name" : "时间范围增强",
+    "getPSSysPFPlugin" : {
+      "pluginType" : "EDITOR_CUSTOMSTYLE",
+      "pluginCode" : "DATE_RANGE_EX",
+      "runtimeObject" : true
+    },
+    "pluginCode" : "DATE_RANGE_EX",
+    "pluginType" : "EDITOR_CUSTOMSTYLE",
+    "rTObjectName" : "daterangeex",
+    "rTObjectRepo" : "@ibiz-template-odoo/checkin-date-range-ex@0.1.8-alpha.289",
+    "refMode" : "EDITORSTYPE",
+    "runtimeObject" : true
+  }, {
+    "name" : "时间选择（可指定禁用小时和分钟）",
+    "getPSSysPFPlugin" : {
+      "pluginType" : "EDITOR_CUSTOMSTYLE",
+      "pluginCode" : "TIME_PICKER",
+      "runtimeObject" : true
+    },
+    "pluginCode" : "TIME_PICKER",
+    "pluginType" : "EDITOR_CUSTOMSTYLE",
+    "rTObjectName" : "timepicker",
+    "rTObjectRepo" : "@ibiz-template-odoo/checkin-time-picker@0.1.8-alpha.292",
+    "refMode" : "EDITORSTYPE",
+    "runtimeObject" : true
+  }, {
+    "name" : "组排班表格",
+    "getPSSysPFPlugin" : {
+      "pluginType" : "EDITOR_CUSTOMSTYLE",
+      "pluginCode" : "ATTENDANCE_GROUP_SHIFTS",
+      "runtimeObject" : true
+    },
+    "pluginCode" : "ATTENDANCE_GROUP_SHIFTS",
+    "pluginType" : "EDITOR_CUSTOMSTYLE",
+    "rTObjectName" : "groupshifts",
+    "rTObjectRepo" : "@ibiz-template-odoo/group-shifts@0.1.8-alpha.295",
+    "refMode" : "EDITORSTYPE",
+    "runtimeObject" : true
+  }, {
+    "name" : "编号标题栏",
+    "getPSSysPFPlugin" : {
+      "pluginType" : "CUSTOM",
+      "pluginCode" : "IDENTIFIER_TITLE",
+      "runtimeObject" : true
+    },
+    "pluginCode" : "IDENTIFIER_TITLE",
+    "pluginType" : "CUSTOM",
+    "rTObjectName" : "IBizIdentifierTitle",
+    "rTObjectRepo" : "@ibiz-template-plm/identifier-title@0.0.3-alpha.138",
+    "refMode" : "CONTROLITEM",
+    "refTag" : "VIEWLAYOUTPANEL",
+    "refTag2" : "CTRLPOS",
+    "runtimeObject" : true
+  }, {
+    "name" : "考勤组排班多数据表单",
+    "getPSSysPFPlugin" : {
+      "pluginType" : "FORM_USERCONTROL",
+      "pluginCode" : "ATTENDANCE_GROUP_SHIFTS_MDCTRL",
+      "runtimeObject" : true
+    },
+    "pluginCode" : "ATTENDANCE_GROUP_SHIFTS_MDCTRL",
+    "pluginType" : "FORM_USERCONTROL",
+    "rTObjectName" : "groupshiftsmdctrl",
+    "rTObjectRepo" : "@ibiz-template-odoo/group-shifts-mdctrl@0.1.8-alpha.293",
+    "refMode" : "CONTROLITEM",
+    "refTag" : "FORM",
+    "refTag2" : "MDCTRL",
+    "runtimeObject" : true
+  }, {
+    "name" : "节假日日历",
+    "getPSSysPFPlugin" : {
+      "pluginType" : "EDITOR_CUSTOMSTYLE",
+      "pluginCode" : "HOLIDAY_CALENDAR",
+      "runtimeObject" : true
+    },
+    "pluginCode" : "HOLIDAY_CALENDAR",
+    "pluginType" : "EDITOR_CUSTOMSTYLE",
+    "rTObjectName" : "holidayCalendar",
+    "rTObjectRepo" : "@ibiz-template-odoo/checkin-holiday-calendar@0.1.8-alpha.296",
+    "refMode" : "EDITORSTYPE",
+    "runtimeObject" : true
+  }, {
+    "name" : "表单日历",
+    "getPSSysPFPlugin" : {
+      "pluginType" : "EDITOR_CUSTOMSTYLE",
+      "pluginCode" : "CUSTOM_FORM_CALENDAR",
+      "runtimeObject" : true
+    },
+    "pluginCode" : "CUSTOM_FORM_CALENDAR",
+    "pluginType" : "EDITOR_CUSTOMSTYLE",
+    "rTObjectName" : "formcalendar",
+    "rTObjectRepo" : "@ibiz-template-odoo/checkin-form-calendar@0.1.8-alpha.291",
+    "refMode" : "EDITORSTYPE",
+    "runtimeObject" : true
+  }, {
+    "name" : "透视表",
+    "getPSSysPFPlugin" : {
+      "pluginType" : "CUSTOM",
+      "pluginCode" : "PIVOTTABLE",
+      "runtimeObject" : true
+    },
+    "pluginCode" : "PIVOTTABLE",
+    "pluginType" : "CUSTOM",
+    "rTObjectName" : "IBizPivotTable",
+    "rTObjectRepo" : "@ibiz-template-plugin/pivottable@1.1.0",
+    "refMode" : "CONTROL",
+    "refTag" : "GRID",
+    "runtimeObject" : true
+  } ],
+  "getAllPSAppDEUIActions" : [ {
+    "caption" : "添加全部",
+    "codeName" : "AddAll",
+    "fullCodeName" : "AddAll",
+    "name" : "添加全部数据（数据选择）",
+    "predefinedType" : "UTIL_ADDALL",
+    "timeout" : 60000,
+    "uIActionMode" : "SYS",
+    "uIActionTag" : "AddAll",
+    "uIActionType" : "DEUIACTION"
+  }, {
+    "caption" : "添加选中",
+    "codeName" : "AddSelection",
+    "fullCodeName" : "AddSelection",
+    "name" : "添加选中数据（数据选择）",
+    "predefinedType" : "UTIL_ADDSELECTION",
+    "timeout" : 60000,
+    "uIActionMode" : "SYS",
+    "uIActionTag" : "AddSelection",
+    "uIActionType" : "DEUIACTION"
+  }, {
+    "caption" : "取消",
+    "codeName" : "Cancel",
+    "fullCodeName" : "Cancel",
+    "name" : "视图_取消",
+    "predefinedType" : "VIEW_CANCELACTION",
+    "timeout" : 60000,
+    "uIActionMode" : "SYS",
+    "uIActionTag" : "Cancel",
+    "uIActionType" : "DEUIACTION"
+  }, {
+    "caption" : "取消变更",
+    "codeName" : "CancelChanges",
+    "fullCodeName" : "CancelChanges",
+    "name" : "取消变更",
+    "predefinedType" : "DATA_CANCELCHANGES",
+    "timeout" : 60000,
+    "uIActionMode" : "SYS",
+    "uIActionTag" : "CancelChanges",
+    "uIActionType" : "DEUIACTION"
+  }, {
+    "actionTarget" : "SINGLEKEY",
+    "getCapPSLanguageRes" : {
+      "lanResTag" : "TBB.TEXT.*.COPY"
+    },
+    "caption" : "拷贝",
+    "codeName" : "Copy",
+    "fullCodeName" : "Copy",
+    "name" : "编辑界面_拷贝操作",
+    "getPSSysImage" : {
+      "glyph" : "xf0c5@FontAwesome",
+      "cssClass" : "fa fa-copy"
+    },
+    "predefinedType" : "EDITVIEW_COPYACTION",
+    "timeout" : 60000,
+    "getTooltipPSLanguageRes" : {
+      "lanResTag" : "TBB.TOOLTIP.*.COPY"
+    },
+    "uIActionMode" : "SYS",
+    "uIActionTag" : "Copy",
+    "uIActionType" : "DEUIACTION"
+  }, {
+    "actionTarget" : "SINGLEKEY",
+    "getCapPSLanguageRes" : {
+      "lanResTag" : "TBB.TEXT.*.COPY"
+    },
+    "caption" : "拷贝",
+    "codeName" : "Copy",
+    "fullCodeName" : "Copy",
+    "name" : "表格界面_拷贝操作",
+    "getPSSysImage" : {
+      "glyph" : "xf0c5@FontAwesome",
+      "cssClass" : "fa fa-copy"
+    },
+    "predefinedType" : "GRIDVIEW_COPYACTION",
+    "timeout" : 60000,
+    "getTooltipPSLanguageRes" : {
+      "lanResTag" : "TBB.TOOLTIP.*.COPY"
+    },
+    "uIActionMode" : "SYS",
+    "uIActionTag" : "Copy",
+    "uIActionType" : "DEUIACTION"
+  }, {
+    "caption" : "建立数据",
+    "codeName" : "CreateObject",
+    "fullCodeName" : "CreateObject",
+    "name" : "建立数据",
+    "predefinedType" : "DATA_CREATEOBJECT",
+    "timeout" : 60000,
+    "uIActionMode" : "SYS",
+    "uIActionTag" : "CreateObject",
+    "uIActionType" : "DEUIACTION"
+  }, {
+    "actionTarget" : "SINGLEKEY",
+    "getCapPSLanguageRes" : {
+      "lanResTag" : "TBB.TEXT.*.EDIT"
+    },
+    "caption" : "编辑",
+    "codeName" : "Edit",
+    "fullCodeName" : "Edit",
+    "name" : "表格界面_编辑操作",
+    "getPSSysImage" : {
+      "glyph" : "xf044@FontAwesome",
+      "cssClass" : "fa fa-edit"
+    },
+    "predefinedType" : "GRIDVIEW_EDITACTION",
+    "timeout" : 60000,
+    "getTooltipPSLanguageRes" : {
+      "lanResTag" : "TBB.TOOLTIP.*.EDIT"
+    },
+    "uIActionMode" : "SYS",
+    "uIActionTag" : "Edit",
+    "uIActionType" : "DEUIACTION"
+  }, {
+    "getCapPSLanguageRes" : {
+      "lanResTag" : "TBB.TEXT.EDITVIEW.CLOSE"
+    },
+    "caption" : "关闭",
+    "codeName" : "Exit",
+    "fullCodeName" : "Exit",
+    "name" : "编辑界面_退出操作",
+    "getPSSysImage" : {
+      "glyph" : "xf08b@FontAwesome",
+      "cssClass" : "fa fa-sign-out"
+    },
+    "predefinedType" : "EDITVIEW_EXITACTION",
+    "timeout" : 60000,
+    "getTooltipPSLanguageRes" : {
+      "lanResTag" : "TBB.TOOLTIP.EDITVIEW.CLOSE"
+    },
+    "uIActionMode" : "SYS",
+    "uIActionTag" : "Exit",
+    "uIActionType" : "DEUIACTION"
+  }, {
+    "getCapPSLanguageRes" : {
+      "lanResTag" : "TBB.TEXT.*.EXPORT"
+    },
+    "caption" : "导出",
+    "codeName" : "ExportExcel",
+    "fullCodeName" : "ExportExcel",
+    "name" : "表格界面_导出操作（Excel）",
+    "predefinedType" : "GRIDVIEW_EXPORTACTION",
+    "timeout" : 60000,
+    "getTooltipPSLanguageRes" : {
+      "lanResTag" : "TBB.TOOLTIP.*.EXPORT"
+    },
+    "uIActionMode" : "SYS",
+    "uIActionTag" : "ExportExcel",
+    "uIActionType" : "DEUIACTION"
+  }, {
+    "caption" : "完成",
+    "codeName" : "Finish",
+    "fullCodeName" : "Finish",
+    "name" : "完成（向导）",
+    "predefinedType" : "UTIL_FINISH",
+    "timeout" : 60000,
+    "uIActionMode" : "SYS",
+    "uIActionTag" : "Finish",
+    "uIActionType" : "DEUIACTION"
+  }, {
+    "actionTarget" : "SINGLEKEY",
+    "caption" : "第一个记录",
+    "codeName" : "FirstRecord",
+    "fullCodeName" : "FirstRecord",
+    "name" : "编辑界面_第一个记录",
+    "getPSSysImage" : {
+      "glyph" : "xf049@FontAwesome",
+      "cssClass" : "fa fa-fast-backward"
+    },
+    "predefinedType" : "EDITVIEW_FIRSTRECORDACTION",
+    "timeout" : 60000,
+    "uIActionMode" : "SYS",
+    "uIActionTag" : "FirstRecord",
+    "uIActionType" : "DEUIACTION"
+  }, {
+    "caption" : "实体界面行为组1（新模式）",
+    "codeName" : "Group001",
+    "fullCodeName" : "Group001",
+    "name" : "实体界面行为组1（新模式）",
+    "predefinedType" : "VIEW_DEBHGROUPEX001",
+    "uIActionMode" : "SYS",
+    "uIActionTag" : "Group001",
+    "uIActionType" : "DEUIACTION",
+    "group" : true
+  }, {
+    "getCapPSLanguageRes" : {
+      "lanResTag" : "TBB.TEXT.*.HELP"
+    },
+    "caption" : "帮助",
+    "codeName" : "Help",
+    "fullCodeName" : "Help",
+    "name" : "编辑界面_帮助操作",
+    "getPSSysImage" : {
+      "glyph" : "xf128@FontAwesome",
+      "cssClass" : "fa fa-question"
+    },
+    "predefinedType" : "EDITVIEW_HELPACTION",
+    "timeout" : 60000,
+    "getTooltipPSLanguageRes" : {
+      "lanResTag" : "TBB.TOOLTIP.*.HELP"
+    },
+    "uIActionMode" : "SYS",
+    "uIActionTag" : "Help",
+    "uIActionType" : "DEUIACTION"
+  }, {
+    "caption" : "数据导入",
+    "codeName" : "Import",
+    "fullCodeName" : "Import",
+    "name" : "表格界面_数据导入栏",
+    "getPSSysImage" : {
+      "glyph" : "xf093@FontAwesome",
+      "cssClass" : "fa fa-upload"
+    },
+    "predefinedType" : "GRIDVIEW_IMPORTBAR",
+    "timeout" : 60000,
+    "uIActionMode" : "SYS",
+    "uIActionTag" : "Import",
+    "uIActionType" : "DEUIACTION"
+  }, {
+    "actionTarget" : "SINGLEKEY",
+    "caption" : "最后一个记录",
+    "codeName" : "LastRecord",
+    "fullCodeName" : "LastRecord",
+    "name" : "编辑界面_最后一个记录",
+    "getPSSysImage" : {
+      "glyph" : "xf050@FontAwesome",
+      "cssClass" : "fa fa-fast-forward"
+    },
+    "predefinedType" : "EDITVIEW_LASTRECORDACTION",
+    "timeout" : 60000,
+    "uIActionMode" : "SYS",
+    "uIActionTag" : "LastRecord",
+    "uIActionType" : "DEUIACTION"
+  }, {
+    "caption" : "登录",
+    "codeName" : "Login",
+    "fullCodeName" : "Login",
+    "name" : "应用登录",
+    "predefinedType" : "APP_LOGIN",
+    "timeout" : 60000,
+    "uIActionMode" : "SYS",
+    "uIActionTag" : "Login",
+    "uIActionType" : "DEUIACTION"
+  }, {
+    "caption" : "登出",
+    "codeName" : "Logout",
+    "fullCodeName" : "Logout",
+    "name" : "应用登出",
+    "predefinedType" : "APP_LOGOUT",
+    "timeout" : 60000,
+    "uIActionMode" : "SYS",
+    "uIActionTag" : "Logout",
+    "uIActionType" : "DEUIACTION"
+  }, {
+    "getCapPSLanguageRes" : {
+      "lanResTag" : "TBB.TEXT.*.NEW"
+    },
+    "caption" : "新建",
+    "codeName" : "New",
+    "fullCodeName" : "New",
+    "name" : "编辑界面_新建操作",
+    "getPSSysImage" : {
+      "glyph" : "xf0f6@FontAwesome",
+      "cssClass" : "fa fa-file-text-o"
+    },
+    "predefinedType" : "EDITVIEW_NEWACTION",
+    "timeout" : 60000,
+    "getTooltipPSLanguageRes" : {
+      "lanResTag" : "TBB.TOOLTIP.*.NEW"
+    },
+    "uIActionMode" : "SYS",
+    "uIActionTag" : "New",
+    "uIActionType" : "DEUIACTION"
+  }, {
+    "getCapPSLanguageRes" : {
+      "lanResTag" : "TBB.TEXT.*.NEW"
+    },
+    "caption" : "新建",
+    "codeName" : "New",
+    "fullCodeName" : "New",
+    "name" : "表格界面_新建操作",
+    "getPSSysImage" : {
+      "glyph" : "xf0f6@FontAwesome",
+      "cssClass" : "fa fa-file-text-o"
+    },
+    "predefinedType" : "GRIDVIEW_NEWACTION",
+    "timeout" : 60000,
+    "getTooltipPSLanguageRes" : {
+      "lanResTag" : "TBB.TOOLTIP.*.NEW"
+    },
+    "uIActionMode" : "SYS",
+    "uIActionTag" : "New",
+    "uIActionType" : "DEUIACTION"
+  }, {
+    "caption" : "新建行",
+    "codeName" : "NewRow",
+    "fullCodeName" : "NewRow",
+    "name" : "表格界面_新建行",
+    "getPSSysImage" : {
+      "glyph" : "xf067@FontAwesome",
+      "cssClass" : "fa fa-plus"
+    },
+    "predefinedType" : "GRIDVIEW_NEWROWACTION",
+    "timeout" : 60000,
+    "uIActionMode" : "SYS",
+    "uIActionTag" : "NewRow",
+    "uIActionType" : "DEUIACTION"
+  }, {
+    "actionTarget" : "SINGLEKEY",
+    "caption" : "下一个记录",
+    "codeName" : "NextRecord",
+    "fullCodeName" : "NextRecord",
+    "name" : "编辑界面_下一个记录",
+    "getPSSysImage" : {
+      "glyph" : "xf051@FontAwesome",
+      "cssClass" : "fa fa-step-forward"
+    },
+    "predefinedType" : "EDITVIEW_NEXTRECORDACTION",
+    "timeout" : 60000,
+    "uIActionMode" : "SYS",
+    "uIActionTag" : "NextRecord",
+    "uIActionType" : "DEUIACTION"
+  }, {
+    "caption" : "下一步",
+    "codeName" : "NextStep",
+    "fullCodeName" : "NextStep",
+    "name" : "下一步（向导）",
+    "predefinedType" : "UTIL_NEXTSTEP",
+    "timeout" : 60000,
+    "uIActionMode" : "SYS",
+    "uIActionTag" : "NextStep",
+    "uIActionType" : "DEUIACTION"
+  }, {
+    "caption" : "否",
+    "codeName" : "No",
+    "fullCodeName" : "No",
+    "name" : "视图_否",
+    "predefinedType" : "VIEW_NOACTION",
+    "timeout" : 60000,
+    "uIActionMode" : "SYS",
+    "uIActionTag" : "No",
+    "uIActionType" : "DEUIACTION"
+  }, {
+    "caption" : "确定",
+    "codeName" : "Ok",
+    "fullCodeName" : "Ok",
+    "name" : "视图_确定",
+    "predefinedType" : "VIEW_OKACTION",
+    "timeout" : 60000,
+    "uIActionMode" : "SYS",
+    "uIActionTag" : "Ok",
+    "uIActionType" : "DEUIACTION"
+  }, {
+    "actionTarget" : "SINGLEKEY",
+    "caption" : "上一个记录",
+    "codeName" : "PrevRecord",
+    "fullCodeName" : "PrevRecord",
+    "name" : "编辑界面_上一个记录",
+    "getPSSysImage" : {
+      "glyph" : "xf048@FontAwesome",
+      "cssClass" : "fa fa-step-backward"
+    },
+    "predefinedType" : "EDITVIEW_PREVRECORDACTION",
+    "timeout" : 60000,
+    "uIActionMode" : "SYS",
+    "uIActionTag" : "PrevRecord",
+    "uIActionType" : "DEUIACTION"
+  }, {
+    "caption" : "上一步",
+    "codeName" : "PrevStep",
+    "fullCodeName" : "PrevStep",
+    "name" : "上一步（向导）",
+    "predefinedType" : "UTIL_PREVSTEP",
+    "timeout" : 60000,
+    "uIActionMode" : "SYS",
+    "uIActionTag" : "PrevStep",
+    "uIActionType" : "DEUIACTION"
+  }, {
+    "actionTarget" : "SINGLEKEY",
+    "getCapPSLanguageRes" : {
+      "lanResTag" : "TBB.TEXT.*.PRINT"
+    },
+    "caption" : "打印",
+    "codeName" : "Print",
+    "fullCodeName" : "Print",
+    "name" : "编辑界面_打印操作",
+    "getPSSysImage" : {
+      "glyph" : "xf02f@FontAwesome",
+      "cssClass" : "fa fa-print"
+    },
+    "predefinedType" : "EDITVIEW_PRINTACTION",
+    "timeout" : 60000,
+    "getTooltipPSLanguageRes" : {
+      "lanResTag" : "TBB.TOOLTIP.*.PRINT"
+    },
+    "uIActionMode" : "SYS",
+    "uIActionTag" : "Print",
+    "uIActionType" : "DEUIACTION"
+  }, {
+    "actionTarget" : "MULTIKEY",
+    "getCapPSLanguageRes" : {
+      "lanResTag" : "TBB.TEXT.*.PRINT"
+    },
+    "caption" : "打印",
+    "codeName" : "Print",
+    "fullCodeName" : "Print",
+    "name" : "表格界面_打印操作",
+    "getPSSysImage" : {
+      "glyph" : "xf02f@FontAwesome",
+      "cssClass" : "fa fa-print"
+    },
+    "predefinedType" : "GRIDVIEW_PRINTACTION",
+    "timeout" : 60000,
+    "getTooltipPSLanguageRes" : {
+      "lanResTag" : "TBB.TOOLTIP.*.PRINT"
+    },
+    "uIActionMode" : "SYS",
+    "uIActionTag" : "Print",
+    "uIActionType" : "DEUIACTION"
+  }, {
+    "actionTarget" : "MULTIKEY",
+    "getCapPSLanguageRes" : {
+      "lanResTag" : "TBB.TEXT.*.REMOVE"
+    },
+    "caption" : "删除",
+    "codeName" : "Remove",
+    "fullCodeName" : "Remove",
+    "name" : "表格界面_删除操作",
+    "getPSSysImage" : {
+      "glyph" : "xf00d@FontAwesome",
+      "cssClass" : "fa fa-remove"
+    },
+    "predefinedType" : "GRIDVIEW_REMOVEACTION",
+    "timeout" : 60000,
+    "getTooltipPSLanguageRes" : {
+      "lanResTag" : "TBB.TOOLTIP.*.REMOVE"
+    },
+    "uIActionMode" : "SYS",
+    "uIActionTag" : "Remove",
+    "uIActionType" : "DEUIACTION"
+  }, {
+    "caption" : "移除全部",
+    "codeName" : "RemoveAll",
+    "fullCodeName" : "RemoveAll",
+    "name" : "移除全部数据（数据选择）",
+    "predefinedType" : "UTIL_REMOVEALL",
+    "timeout" : 60000,
+    "uIActionMode" : "SYS",
+    "uIActionTag" : "RemoveAll",
+    "uIActionType" : "DEUIACTION"
+  }, {
+    "actionTarget" : "SINGLEKEY",
+    "getCapPSLanguageRes" : {
+      "lanResTag" : "TBB.TEXT.EDITVIEW.REMOVEANDCLOSE"
+    },
+    "caption" : "删除并关闭",
+    "codeName" : "RemoveAndExit",
+    "fullCodeName" : "RemoveAndExit",
+    "name" : "编辑界面_删除并退出操作",
+    "getPSSysImage" : {
+      "glyph" : "xf00d@FontAwesome",
+      "cssClass" : "fa fa-remove"
+    },
+    "predefinedType" : "EDITVIEW_REMOVEANDEXITACTION",
+    "timeout" : 60000,
+    "getTooltipPSLanguageRes" : {
+      "lanResTag" : "TBB.TOOLTIP.EDITVIEW.REMOVEANDCLOSE"
+    },
+    "uIActionMode" : "SYS",
+    "uIActionTag" : "RemoveAndExit",
+    "uIActionType" : "DEUIACTION"
+  }, {
+    "caption" : "删除数据",
+    "codeName" : "RemoveObject",
+    "fullCodeName" : "RemoveObject",
+    "name" : "删除数据",
+    "predefinedType" : "DATA_REMOVEOBJECT",
+    "timeout" : 60000,
+    "uIActionMode" : "SYS",
+    "uIActionTag" : "RemoveObject",
+    "uIActionType" : "DEUIACTION"
+  }, {
+    "caption" : "移除选中",
+    "codeName" : "RemoveSelection",
+    "fullCodeName" : "RemoveSelection",
+    "name" : "移除选中数据（数据选择）",
+    "predefinedType" : "UTIL_REMOVESELECTION",
+    "timeout" : 60000,
+    "uIActionMode" : "SYS",
+    "uIActionTag" : "RemoveSelection",
+    "uIActionType" : "DEUIACTION"
+  }, {
+    "caption" : "重置",
+    "codeName" : "Reset",
+    "fullCodeName" : "Reset",
+    "name" : "重置（搜索栏）",
+    "predefinedType" : "UTIL_RESET",
+    "timeout" : 60000,
+    "uIActionMode" : "SYS",
+    "uIActionTag" : "Reset",
+    "uIActionType" : "DEUIACTION"
+  }, {
+    "getCapPSLanguageRes" : {
+      "lanResTag" : "TBB.TEXT.*.SAVE"
+    },
+    "caption" : "保存",
+    "codeName" : "Save",
+    "fullCodeName" : "Save",
+    "name" : "编辑界面_保存操作",
+    "getPSSysImage" : {
+      "glyph" : "xf0c7@FontAwesome",
+      "cssClass" : "fa fa-save"
+    },
+    "predefinedType" : "EDITVIEW_SAVEACTION",
+    "timeout" : 60000,
+    "getTooltipPSLanguageRes" : {
+      "lanResTag" : "TBB.TOOLTIP.*.SAVE"
+    },
+    "uIActionMode" : "SYS",
+    "uIActionTag" : "Save",
+    "uIActionType" : "DEUIACTION"
+  }, {
+    "getCapPSLanguageRes" : {
+      "lanResTag" : "TBB.TEXT.EDITVIEW.SAVEANDCLOSE"
+    },
+    "caption" : "保存并关闭",
+    "codeName" : "SaveAndExit",
+    "fullCodeName" : "SaveAndExit",
+    "name" : "编辑界面_保存并退出操作",
+    "getPSSysImage" : {
+      "cssClass" : "sx-tb-saveandclose"
+    },
+    "predefinedType" : "EDITVIEW_SAVEANDEXITACTION",
+    "timeout" : 60000,
+    "getTooltipPSLanguageRes" : {
+      "lanResTag" : "TBB.TOOLTIP.EDITVIEW.SAVEANDCLOSE"
+    },
+    "uIActionMode" : "SYS",
+    "uIActionTag" : "SaveAndExit",
+    "uIActionType" : "DEUIACTION"
+  }, {
+    "getCapPSLanguageRes" : {
+      "lanResTag" : "TBB.TEXT.EDITVIEW.SAVEANDNEW"
+    },
+    "caption" : "保存并新建",
+    "codeName" : "SaveAndNew",
+    "fullCodeName" : "SaveAndNew",
+    "name" : "编辑界面_保存并新建操作",
+    "getPSSysImage" : {
+      "cssClass" : "sx-tb-saveandnew"
+    },
+    "predefinedType" : "EDITVIEW_SAVEANDNEWACTION",
+    "timeout" : 60000,
+    "getTooltipPSLanguageRes" : {
+      "lanResTag" : "TBB.TOOLTIP.EDITVIEW.SAVEANDNEW"
+    },
+    "uIActionMode" : "SYS",
+    "uIActionTag" : "SaveAndNew",
+    "uIActionType" : "DEUIACTION"
+  }, {
+    "getCapPSLanguageRes" : {
+      "lanResTag" : "TBB.TEXT.*.STARTWF"
+    },
+    "caption" : "开始流程",
+    "codeName" : "SaveAndStart",
+    "fullCodeName" : "SaveAndStart",
+    "name" : "编辑界面_保存并开始流程操作",
+    "getPSSysImage" : {
+      "glyph" : "xf04b@FontAwesome",
+      "cssClass" : "fa fa-play"
+    },
+    "predefinedType" : "EDITVIEW_SAVEANDSTARTWFACTION",
+    "timeout" : 60000,
+    "getTooltipPSLanguageRes" : {
+      "lanResTag" : "TBB.TOOLTIP.*.STARTWF"
+    },
+    "uIActionMode" : "SYS",
+    "uIActionTag" : "SaveAndStart",
+    "uIActionType" : "DEUIACTION"
+  }, {
+    "caption" : "保存变更",
+    "codeName" : "SaveChanges",
+    "fullCodeName" : "SaveChanges",
+    "name" : "保存变更",
+    "predefinedType" : "DATA_SAVECHANGES",
+    "timeout" : 60000,
+    "uIActionMode" : "SYS",
+    "uIActionTag" : "SaveChanges",
+    "uIActionType" : "DEUIACTION"
+  }, {
+    "caption" : "搜索",
+    "codeName" : "Search",
+    "fullCodeName" : "Search",
+    "name" : "搜索（搜索栏）",
+    "predefinedType" : "UTIL_SEARCH",
+    "timeout" : 60000,
+    "uIActionMode" : "SYS",
+    "uIActionTag" : "Search",
+    "uIActionType" : "DEUIACTION"
+  }, {
+    "caption" : "同步数据",
+    "codeName" : "Synchronize",
+    "fullCodeName" : "Synchronize",
+    "name" : "同步数据",
+    "predefinedType" : "DATA_SYNCHRONIZE",
+    "timeout" : 60000,
+    "uIActionMode" : "SYS",
+    "uIActionTag" : "Synchronize",
+    "uIActionType" : "DEUIACTION"
+  }, {
+    "caption" : "行编辑",
+    "codeName" : "ToggleRowEdit",
+    "fullCodeName" : "ToggleRowEdit",
+    "name" : "表格界面_行编辑开关操作",
+    "getPSSysImage" : {
+      "glyph" : "xf0ce@FontAwesome",
+      "cssClass" : "fa fa-table"
+    },
+    "predefinedType" : "GRIDVIEW_ROWEDITACTION",
+    "timeout" : 60000,
+    "uIActionMode" : "SYS",
+    "uIActionTag" : "ToggleRowEdit",
+    "uIActionType" : "DEUIACTION",
+    "enableToggleMode" : true
+  }, {
+    "actionTarget" : "SINGLEKEY",
+    "getCapPSLanguageRes" : {
+      "lanResTag" : "TBB.TEXT.*.VIEW"
+    },
+    "caption" : "查看",
+    "codeName" : "View",
+    "fullCodeName" : "View",
+    "name" : "表格界面_查看操作",
+    "getPSSysImage" : {
+      "glyph" : "xf044@FontAwesome",
+      "cssClass" : "fa fa-edit"
+    },
+    "predefinedType" : "GRIDVIEW_VIEWACTION",
+    "timeout" : 60000,
+    "getTooltipPSLanguageRes" : {
+      "lanResTag" : "TBB.TOOLTIP.*.VIEW"
+    },
+    "uIActionMode" : "SYS",
+    "uIActionTag" : "View",
+    "uIActionType" : "DEUIACTION"
+  }, {
+    "actionTarget" : "SINGLEKEY",
+    "getCapPSLanguageRes" : {
+      "lanResTag" : "TBB.TEXT.*.VIEWWFSTEP"
+    },
+    "caption" : "当前流程步骤",
+    "codeName" : "ViewWFStep",
+    "fullCodeName" : "ViewWFStep",
+    "name" : "编辑界面_查看当前流程步骤用户操作",
+    "getPSSysImage" : {
+      "cssClass" : "sx-tb-stepactor"
+    },
+    "predefinedType" : "EDITVIEW_VIEWWFSTEPACTORACTION",
+    "timeout" : 60000,
+    "uIActionMode" : "SYS",
+    "uIActionTag" : "ViewWFStep",
+    "uIActionType" : "DEUIACTION"
+  }, {
+    "caption" : "是",
+    "codeName" : "Yes",
+    "fullCodeName" : "Yes",
+    "name" : "视图_是",
+    "predefinedType" : "VIEW_YESACTION",
+    "timeout" : 60000,
+    "uIActionMode" : "SYS",
+    "uIActionTag" : "Yes",
+    "uIActionType" : "DEUIACTION"
+  }, {
+    "actionTarget" : "NONE",
+    "caption" : "搜索",
+    "codeName" : "searchButtonClick",
+    "frontProcessType" : "OTHER",
+    "fullCodeName" : "searchButtonClick",
+    "name" : "搜索表单搜索",
+    "scriptCode" : "const n_checkin_date_gtandeq = ctrl.data.n_checkin_date_gtandeq;\r\nconst n_checkin_date_ltandeq = ctrl.data.n_checkin_date_ltandeq;\r\nview.params.n_checkin_date_gtandeq = n_checkin_date_gtandeq\r\nview.params.n_checkin_date_ltandeq = n_checkin_date_ltandeq\r\n// const n_checkin_time_gtandeq = ctrl.data.n_checkin_time_gtandeq;\r\n// const n_checkin_time_ltandeq = ctrl.data.n_checkin_time_ltandeq;\r\n// view.params.n_checkin_time_gtandeq = n_checkin_time_gtandeq\r\n// view.params.n_checkin_time_ltandeq = n_checkin_time_ltandeq\r\nctrl.onSearchButtonClick()",
+    "uIActionMode" : "FRONT",
+    "uIActionTag" : "searchButtonClick",
+    "uIActionType" : "DEUIACTION",
+    "globalUIAction" : true
+  }, {
+    "caption" : "实体界面行为组1",
+    "codeName" : "实体界面行为组1",
+    "fullCodeName" : "实体界面行为组1",
+    "name" : "实体界面行为组1",
+    "predefinedType" : "VIEW_DEBHGROUP001",
+    "uIActionMode" : "SYS",
+    "uIActionTag" : "ae6d784c04f360d59200ca287aec8f01",
+    "uIActionType" : "DEUIACTION",
+    "group" : true,
+    "id" : "ae6d784c04f360d59200ca287aec8f01"
+  }, {
+    "caption" : "实体界面行为组2",
+    "codeName" : "实体界面行为组2",
+    "fullCodeName" : "实体界面行为组2",
+    "name" : "实体界面行为组2",
+    "predefinedType" : "VIEW_DEBHGROUP002",
+    "uIActionMode" : "SYS",
+    "uIActionTag" : "d25a9e58be16f27e8e61f784a1c74ea5",
+    "uIActionType" : "DEUIACTION",
+    "group" : true,
+    "id" : "d25a9e58be16f27e8e61f784a1c74ea5"
+  }, {
+    "caption" : "实体界面行为组3",
+    "codeName" : "实体界面行为组3",
+    "fullCodeName" : "实体界面行为组3",
+    "name" : "实体界面行为组3",
+    "predefinedType" : "VIEW_DEBHGROUP003",
+    "uIActionMode" : "SYS",
+    "uIActionTag" : "756758c15b45c9cfa60a87492b52f269",
+    "uIActionType" : "DEUIACTION",
+    "group" : true,
+    "id" : "756758c15b45c9cfa60a87492b52f269"
+  } ],
+  "cache" : {
+    "getPSAppViews" : [ ]
+  },
+  "id" : "PSSYSAPPS/attendanceapp/PSSYSAPP.json"
+}

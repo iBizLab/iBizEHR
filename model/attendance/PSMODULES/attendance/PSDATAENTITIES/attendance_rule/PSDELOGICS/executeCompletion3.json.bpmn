@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+    <definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:g="http://www.jboss.org/drools/flow/gpd" xmlns:tns="http://www.jboss.org/drools" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" expressionLanguage="http://www.mvel.org/2.0" id="Definition" name="" targetNamespace="http://www.jboss.org/drools" typeLanguage="http://www.java.com/javaTypes">
+        <process id="cn.ibizlab.core.attendance.service.logic.attendance_ruleexecutecompletion3" isClosed="false" isExecutable="true" name="attendance_attendance_rule_executecompletion3_ruleFlow" processType="Private" tns:packageName="cn.ibizlab.core.attendance.service.logic.attendance_ruleexecutecompletion3">
+            <extensionElements>
+                <tns:import name="java.util.Map" />
+                <tns:import name="org.springframework.util.StringUtils"/>
+                <tns:import name="cn.ibizlab.util.helper.RuleUtils"/>
+                                <tns:metaData express="" name="attendance_ruleexecutecompletion3default" type="entity"/>
+                                <tns:metaData express="new cn.ibizlab.core.attendance.domain.attendance_rule()" name="attendance_ruleexecutecompletion3rule" type="refentity"/>
+                                <tns:metaData express="new cn.ibizlab.core.attendance.domain.attendance_activate_rule()" name="attendance_ruleexecutecompletion3rulefilter" type="refentity"/>
+                                <tns:metaData express="new cn.ibizlab.core.attendance.domain.attendance_activate_rule()" name="attendance_ruleexecutecompletion3rules" type="refentity"/>
+                                <tns:metaData express="new cn.ibizlab.core.attendance.domain.attendance_shift()" name="attendance_ruleexecutecompletion3shifts" type="refentity"/>
+                                <tns:metaData express="new cn.ibizlab.core.attendance.domain.attendance_activate_rule()" name="attendance_ruleexecutecompletion3temp" type="refentity"/>
+                                    <tns:metaData express="T(cn.ibizlab.util.security.SpringContextHolder).getBean(T(cn.ibizlab.core.attendance.service.Iattendance_ruleService))" name="attendance_ruleservice" type="service"/>
+                    <tns:metaData express="T(cn.ibizlab.util.security.SpringContextHolder).getBean(T(cn.ibizlab.core.attendance.service.Iattendance_ruleService))" name="iBzSysAttendance_ruleDefaultService" type="service"/>
+                    <tns:metaData express="T(cn.ibizlab.util.security.AuthenticationUser).getAuthenticationUser()" name="curuser" type="session"/>
+                            <tns:global identifier="attendance_ruleexecutecompletion3default" type="cn.ibizlab.core.attendance.domain.attendance_rule" />
+                            <tns:global identifier="attendance_ruleexecutecompletion3rule" type="cn.ibizlab.core.attendance.domain.attendance_rule" />
+                            <tns:global identifier="attendance_ruleexecutecompletion3rulefilter" type="cn.ibizlab.core.attendance.domain.attendance_activate_rule" />
+                            <tns:global identifier="attendance_ruleexecutecompletion3rules" type="cn.ibizlab.core.attendance.domain.attendance_activate_rule" />
+                            <tns:global identifier="attendance_ruleexecutecompletion3shifts" type="cn.ibizlab.core.attendance.domain.attendance_shift" />
+                            <tns:global identifier="attendance_ruleexecutecompletion3temp" type="cn.ibizlab.core.attendance.domain.attendance_activate_rule" />
+            </extensionElements>
+                        <startEvent id="begin" isInterrupting="true"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="attendance_ruleexecutecompletion3rawsqlcall1" id="rawsqlcall1" implementation="http://www.jboss.org/drools/rule" name="需补全排班的规则"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="attendance_ruleexecutecompletion3loopsubcall_01" id="loopsubcall_01" implementation="http://www.jboss.org/drools/rule" name="循环子调用"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="attendance_ruleexecutecompletion3rawsfcode2" id="rawsfcode2" implementation="http://www.jboss.org/drools/rule" name="执行脚本代码"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="attendance_ruleexecutecompletion3delogic_01" id="delogic_01" implementation="http://www.jboss.org/drools/rule" name="按限制时间补全规则"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="attendance_ruleexecutecompletion3end_01" id="end_01" implementation="http://www.jboss.org/drools/rule" name="结束"/>
+                        <endEvent id="end_01_end" name="end"/>
+                        <sequenceFlow id="end_01_end_line" sourceRef="end_01" targetRef="end_01_end"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="attendance_ruleexecutecompletion3prepareparam1" id="prepareparam1" implementation="http://www.jboss.org/drools/rule" name="准备参数"/>
+                        <endEvent id="prepareparam1_end" name="end"/>
+                        <sequenceFlow id="prepareparam1_end_line" sourceRef="prepareparam1" targetRef="prepareparam1_end"/>
+                    <sequenceFlow id="begin_rawsqlcall1" sourceRef="begin" targetRef="rawsqlcall1">
+                    </sequenceFlow>
+                    <sequenceFlow id="rawsqlcall1_loopsubcall_01" sourceRef="rawsqlcall1" targetRef="loopsubcall_01">
+                    </sequenceFlow>
+                    <sequenceFlow id="loopsubcall_01_rawsfcode2" sourceRef="loopsubcall_01" targetRef="rawsfcode2">
+                    </sequenceFlow>
+                    <sequenceFlow id="loopsubcall_01_end_01" sourceRef="loopsubcall_01" targetRef="end_01">
+                    </sequenceFlow>
+                    <sequenceFlow id="rawsfcode2_delogic_01" sourceRef="rawsfcode2" targetRef="delogic_01">
+                    </sequenceFlow>
+                    <sequenceFlow id="delogic_01_prepareparam1" sourceRef="delogic_01" targetRef="prepareparam1">
+                    </sequenceFlow>
+        </process>
+    </definitions>

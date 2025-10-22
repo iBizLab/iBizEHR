@@ -1,0 +1,370 @@
+{
+  "codeName" : "fillWorkDays",
+  "defaultParamName" : "Default",
+  "dynaModelFilePath" : "PSMODULES/attendance/PSDATAENTITIES/attendance_rule/PSDELOGICS/fillWorkDays.json",
+  "logicName" : "填充工作日",
+  "name" : "填充工作日",
+  "getPSDELogicNodes" : [ {
+    "codeName" : "Begin",
+    "leftPos" : -110,
+    "logicNodeType" : "BEGIN",
+    "name" : "开始",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "RAWSFCODE_05"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "Begin"
+      }
+    } ],
+    "topPos" : 198,
+    "parallelOutput" : true
+  }, {
+    "code" : "def _default = logic.param('Default').getReal();\ndef shifts = logic.param('shifts').getReal();\ndef defaultShift = shifts.find { it.default_flag == 1 }\nif(defaultShift){\n    def workdays = _default.get(\"workdays\") ? _default.get(\"workdays\") : [];\n    def selection = _default.get(\"workday\") ?_default.get(\"workday\"):\"\"\n\n  // 获取已存在的 workday\n    def existingDays = workdays.collect { it.name as Integer }\n\n    def fillWorkdays = []\n    (1..7).each { i ->  \n        if (!existingDays.contains(i)) {\n            def workday = [\n                name  : i.toString(),\n                day_number : i,\n                shift_id : selection.contains(i.toString())?defaultShift.id:null\n        ]\n            fillWorkdays << workday\n        }\n    }\n\n    // 合并后排序\n    def combinedWorkdays = (workdays + fillWorkdays).sort { \n        it.day_number\n    }    \n    \n    // // 为每个工作日填充工作时间\n    // combinedWorkdays = combinedWorkdays.collect { workday ->\n    //     def worktimeParts = []\n \n    //     if (workday.shift_id != null && defaultShift?.scopes) {\n    //         // 创建时间格式化工具 (HH:mm 格式)\n    //         def timeFormat = new java.text.SimpleDateFormat(\"HH:mm\")\n    //         defaultShift.scopes.each { scope ->\n    //             // 安全处理时间戳\n    //             def start = scope.start_base_time ? timeFormat.format(scope.start_base_time) : \"\"\n    //             def end = scope.end_base_time ? timeFormat.format(scope.end_base_time) : \"\"\n    //             if (start && end) worktimeParts << \"${start}-${end}\"\n    //         }\n    //     }\n \n    //     // 构建工作时间字符串\n    //     workday.work_time = worktimeParts.isEmpty() ? \"休息日\" : worktimeParts.join('/')\n    //     return workday\n    // }\n    \n    _default.set(\"workdays\", combinedWorkdays)\n}",
+    "codeName" : "RAWSFCODE_01",
+    "codeType" : "Groovy",
+    "leftPos" : 520,
+    "logicNodeType" : "RAWSFCODE",
+    "name" : "固定排班/灵活打卡填充工作日",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "DEBUGPARAM_01"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "RAWSFCODE_01"
+      }
+    } ],
+    "topPos" : 96,
+    "parallelOutput" : true
+  }, {
+    "code" : "def _default = logic.param('Default').getReal()\r\ndef workday = _default.get(\"workday\")?: \"\"\r\ndef schedule_type = _default.get(\"schedule_type\")\r\ndef workdays = _default.get(\"workdays\")\r\n\r\n//固定排班、灵活打卡>workday\r\nif (workday == \"\" && \r\n    workdays != null&&\r\n    ( schedule_type == \"fixed\" || schedule_type == \"flexible\")) \r\n{\r\n        workday = workdays\r\n                .findAll { it.shift_id != null } \r\n                .sort { a, b -> a.day_number <=> b.day_number }\r\n                .collect { it.day_number } \r\n                .join(',')\r\n\r\n        _default.set(\"workday\",workday)    \r\n}\r\n\r\n//计算工作日week1\r\ndef week1 = _default.get(\"week1\")?: \"\"\r\nif (week1 == \"\"&& workdays != null) {\r\n    if(schedule_type == \"alternate_week\" ){\r\n        week1 = workdays\r\n                .findAll { it.shift_id != null && it.day_number < 8} \r\n                .sort { a, b -> a.day_number <=> b.day_number }\r\n                .collect { it.day_number } \r\n                .join(',')\r\n    }\r\n    if(schedule_type == \"class_inversion\") {\r\n         week1 = workdays\r\n                .findAll { it.id != null && it.day_number < 8} \r\n                .sort { a, b -> a.day_number <=> b.day_number }\r\n                .collect { it.day_number } \r\n                .join(',')\r\n    }\r\n    _default.set(\"week1\",week1)    \r\n}\r\n//计算工作日week2\r\ndef week2 = _default.get(\"week2\")?: \"\"\r\nif (week2 == \"\"&& workdays != null) {\r\n    if(schedule_type == \"alternate_week\" ){\r\n        week2 = workdays\r\n                .findAll { it.shift_id != null && 7<it.day_number && it.day_number < 15} \r\n                .sort { a, b -> a.day_number <=> b.day_number }\r\n                .collect { it.day_number } \r\n                .join(',')\r\n    }\r\n    if(schedule_type == \"class_inversion\") {\r\n         week2 = workdays\r\n                .findAll { it.id != null && 7<it.day_number && it.day_number < 15} \r\n                .sort { a, b -> a.day_number <=> b.day_number }\r\n                .collect { it.day_number } \r\n                .join(',')\r\n    }\r\n    _default.set(\"week2\",week2)    \r\n\r\n}\r\n\r\n//计算工作日week3\r\ndef week3 = _default.get(\"week3\")?: \"\"\r\nif (week3 == \"\" && schedule_type == \"class_inversion\" && workdays != null) {\r\n    week3 = workdays\r\n        .findAll { it.id != null && 14<it.day_number && it.day_number < 22} \r\n        .sort { a, b -> a.day_number <=> b.day_number }\r\n        .collect { it.day_number } \r\n        .join(',')\r\n    _default.set(\"week3\",week3) \r\n}\r\n//计算工作日week4\r\ndef week4 = _default.get(\"week4\")?: \"\"\r\nif (week4 == \"\" && schedule_type == \"class_inversion\"&& workdays != null) {\r\n    week4 = workdays\r\n        .findAll { it.id != null && 21<it.day_number && it.day_number < 29} \r\n        .sort { a, b -> a.day_number <=> b.day_number }\r\n        .collect { it.day_number } \r\n        .join(',')\r\n    _default.set(\"week4\",week4) \r\n\r\n}\r\n\r\n\r\n",
+    "codeName" : "RAWSFCODE_05",
+    "codeType" : "Groovy",
+    "leftPos" : 56,
+    "logicNodeType" : "RAWSFCODE",
+    "name" : "计算week、workday",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "PREPAREPARAM_01"
+      },
+      "name" : "连接名称",
+      "getPSDELogicLinkGroupCond" : {
+        "groupOP" : "AND",
+        "logicType" : "GROUP",
+        "name" : "连接条件组",
+        "getPSDELogicLinkConds" : [ {
+          "condOP" : "NOTEQ",
+          "dstFieldName" : "SCHEDULE_TYPE",
+          "getDstLogicParam" : {
+            "modelref" : true,
+            "id" : "Default"
+          },
+          "logicType" : "SINGLE",
+          "name" : "Default[SCHEDULE_TYPE] 不等于(<>) manual",
+          "paramValue" : "manual"
+        }, {
+          "condOP" : "NOTEQ",
+          "dstFieldName" : "SCHEDULE_TYPE",
+          "getDstLogicParam" : {
+            "modelref" : true,
+            "id" : "Default"
+          },
+          "logicType" : "SINGLE",
+          "name" : "Default[SCHEDULE_TYPE] 不等于(<>) free",
+          "paramValue" : "free"
+        } ]
+      },
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "RAWSFCODE_05"
+      }
+    } ],
+    "topPos" : 196,
+    "parallelOutput" : true
+  }, {
+    "codeName" : "PREPAREPARAM_01",
+    "leftPos" : 320,
+    "logicNodeType" : "PREPAREPARAM",
+    "name" : "准备参数",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "RAWSFCODE_01"
+      },
+      "name" : "连接名称",
+      "getPSDELogicLinkGroupCond" : {
+        "groupOP" : "AND",
+        "logicType" : "GROUP",
+        "name" : "连接条件组",
+        "getPSDELogicLinkConds" : [ {
+          "groupOP" : "OR",
+          "logicType" : "GROUP",
+          "name" : "OR",
+          "getPSDELogicLinkConds" : [ {
+            "condOP" : "EQ",
+            "dstFieldName" : "SCHEDULE_TYPE",
+            "getDstLogicParam" : {
+              "modelref" : true,
+              "id" : "Default"
+            },
+            "logicType" : "SINGLE",
+            "name" : "Default[SCHEDULE_TYPE] 等于(=) flexible",
+            "paramValue" : "flexible"
+          }, {
+            "condOP" : "EQ",
+            "dstFieldName" : "SCHEDULE_TYPE",
+            "getDstLogicParam" : {
+              "modelref" : true,
+              "id" : "Default"
+            },
+            "logicType" : "SINGLE",
+            "name" : "Default[SCHEDULE_TYPE] 等于(=) fixed",
+            "paramValue" : "fixed"
+          } ]
+        } ]
+      },
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "PREPAREPARAM_01"
+      }
+    }, {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "RAWSFCODE_02"
+      },
+      "name" : "连接名称",
+      "getPSDELogicLinkGroupCond" : {
+        "groupOP" : "AND",
+        "logicType" : "GROUP",
+        "name" : "连接条件组",
+        "getPSDELogicLinkConds" : [ {
+          "condOP" : "EQ",
+          "dstFieldName" : "SCHEDULE_TYPE",
+          "getDstLogicParam" : {
+            "modelref" : true,
+            "id" : "Default"
+          },
+          "logicType" : "SINGLE",
+          "name" : "Default[SCHEDULE_TYPE] 等于(=) alternate_week",
+          "paramValue" : "alternate_week"
+        } ]
+      },
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "PREPAREPARAM_01"
+      }
+    }, {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "RAWSFCODE_03"
+      },
+      "name" : "连接名称",
+      "getPSDELogicLinkGroupCond" : {
+        "groupOP" : "AND",
+        "logicType" : "GROUP",
+        "name" : "连接条件组",
+        "getPSDELogicLinkConds" : [ {
+          "condOP" : "EQ",
+          "dstFieldName" : "SCHEDULE_TYPE",
+          "getDstLogicParam" : {
+            "modelref" : true,
+            "id" : "Default"
+          },
+          "logicType" : "SINGLE",
+          "name" : "Default[SCHEDULE_TYPE] 等于(=) work_rest",
+          "paramValue" : "work_rest"
+        } ]
+      },
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "PREPAREPARAM_01"
+      }
+    }, {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "RAWSFCODE_04"
+      },
+      "name" : "连接名称",
+      "getPSDELogicLinkGroupCond" : {
+        "groupOP" : "AND",
+        "logicType" : "GROUP",
+        "name" : "连接条件组",
+        "getPSDELogicLinkConds" : [ {
+          "condOP" : "EQ",
+          "dstFieldName" : "SCHEDULE_TYPE",
+          "getDstLogicParam" : {
+            "modelref" : true,
+            "id" : "Default"
+          },
+          "logicType" : "SINGLE",
+          "name" : "Default[SCHEDULE_TYPE] 等于(=) class_inversion",
+          "paramValue" : "class_inversion"
+        } ]
+      },
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "PREPAREPARAM_01"
+      }
+    } ],
+    "getPSDELogicNodeParams" : [ {
+      "getDstPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "shifts"
+      },
+      "paramAction" : "BINDPARAM",
+      "srcFieldName" : "shifts",
+      "getSrcPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "Default"
+      },
+      "srcValueType" : "SRCDLPARAM"
+    } ],
+    "topPos" : 196,
+    "parallelOutput" : true
+  }, {
+    "code" : "def _default = logic.param('Default').getReal();\ndef shifts = logic.param('shifts').getReal();\ndef defaultShift = shifts.find { it.default_flag == 1 }\nif(defaultShift){\n    def workdays = _default.get(\"workdays\") ? _default.get(\"workdays\") : [];\n    def big_week = _default.get(\"week1\") ?_default.get(\"week1\"):\"\";\n    def small_week = _default.get(\"week2\") ?_default.get(\"week2\"):\"\";\n    def selection = big_week+\",\"+small_week\n\n  // 获取已存在的 workday\n    def existingDays = workdays.collect { it.day_number }\n\n    def fillWorkdays = []\n    (1..14).each { i ->  \n        if (!existingDays.contains(i)) {\n            def workday = [\n                name  : i.toString(),\n                day_number : i,\n                shift_id : selection.contains(i.toString())?defaultShift.id:null\n        ]\n            fillWorkdays << workday\n        }\n    }\n\n    // 合并后排序\n    def combinedWorkdays = (workdays + fillWorkdays).sort { \n        it.day_number \n    }    \n    _default.set(\"workdays\", combinedWorkdays)\n}",
+    "codeName" : "RAWSFCODE_02",
+    "codeType" : "Groovy",
+    "leftPos" : 520,
+    "logicNodeType" : "RAWSFCODE",
+    "name" : "大小周填充工作日",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "DEBUGPARAM_01"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "RAWSFCODE_02"
+      }
+    } ],
+    "topPos" : 196,
+    "parallelOutput" : true
+  }, {
+    "codeName" : "DEBUGPARAM_01",
+    "getDstPSDELogicParam" : {
+      "modelref" : true,
+      "id" : "Default"
+    },
+    "leftPos" : 720,
+    "logicNodeType" : "DEBUGPARAM",
+    "name" : "调试逻辑参数",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "END_01"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "DEBUGPARAM_01"
+      }
+    } ],
+    "topPos" : 196,
+    "parallelOutput" : true
+  }, {
+    "codeName" : "END_01",
+    "leftPos" : 926,
+    "logicNodeType" : "END",
+    "name" : "结束",
+    "getReturnParam" : {
+      "modelref" : true,
+      "id" : "Default"
+    },
+    "returnType" : "LOGICPARAM",
+    "topPos" : 200,
+    "parallelOutput" : true
+  }, {
+    "code" : "def _default = logic.param('Default').getReal();\ndef shifts = logic.param('shifts').getReal();\ndef defaultShift = shifts.find { it.default_flag == 1 }\nif(defaultShift){\n    def work = _default.get(\"work\") ?_default.get(\"work\"):5;\n    def rest = _default.get(\"rest\") ?_default.get(\"rest\"):2;\n    def num = work+rest;\n\n    def fillWorkdays = [];\n    (1..num).each { i ->  \n        def workday = [\n            name  : \"第\"+i+\"天\",\n            day_number : i,\n            title : \"工作/休息\"\n        ]\n        fillWorkdays << workday\n    }\n\n    _default.set(\"workdays\", fillWorkdays)\n}",
+    "codeName" : "RAWSFCODE_03",
+    "codeType" : "Groovy",
+    "leftPos" : 520,
+    "logicNodeType" : "RAWSFCODE",
+    "name" : "上A休B填充工作日",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "DEBUGPARAM_01"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "RAWSFCODE_03"
+      }
+    } ],
+    "topPos" : 310,
+    "parallelOutput" : true
+  }, {
+    "code" : "def _default = logic.param('Default').getReal();\ndef shifts = logic.param('shifts').getReal();\ndef same_restday = _default.same_restday;\nif(shifts){\n    def title = shifts.collect { it.name }.join('/')\n    def fillWorkdays = []\n    //休息日相同\n    if(same_restday ==1){\n        def workdays = _default.get(\"workdays\") ?: []\n        def week1 = _default.get(\"week1\") ?: \"\"\n        def week2 = _default.get(\"week2\") ?: \"\"\n        def week3 = _default.get(\"week3\") ?: \"\"\n        def week4 = _default.get(\"week4\") ?: \"\"\n        def selection = [week1, week2, week3, week4].join(',').split(',')  \n\n        // 获取已存在的 workday\n        def existingDays = workdays.collect { it.day_number }\n\n        (1..28).each { i ->\n            if (!existingDays.contains(i)) {\n                def workday = [\n                    name: i.toString(),\n                    day_number: i,\n                    title: selection.contains(i.toString()) ? title : \"休息\"  \n                ]\n                fillWorkdays << workday\n            }else{\n                // 为已存在的workday填充title\n                def existingWorkday = workdays.find { it.day_number == i }\n                if (existingWorkday) {\n                    existingWorkday.title = title\n                }\n        }\n\n        // 合并后排序\n        def combinedWorkdays = (workdays + fillWorkdays).sort { \n            it.day_number \n        }    \n        _default.set(\"workdays\", combinedWorkdays)\n    }\n    }\n    //休息日不同\n    if(same_restday ==0 ){\n        title = title+\"/休息\"  \n        if( _default.get(\"workdays\") == null){\n            def inversion_days = _default.inversion_days\n            if(inversion_days){\n                (1..inversion_days).each { i ->\n                    def workday = [\n                        name  : \"第\"+i+\"天\",\n                        day_number: i,\n                        title: title,\n                        rule_id : _default.id\n                    ]\n                    fillWorkdays << workday\n                }\n                _default.set(\"workdays\", fillWorkdays)\n        }\n        }else{\n            _default.get(\"workdays\").each{ w ->\n                w.title =title\n            }           \n        }\n    }\n}",
+    "codeName" : "RAWSFCODE_04",
+    "codeType" : "Groovy",
+    "leftPos" : 520,
+    "logicNodeType" : "RAWSFCODE",
+    "name" : "N班倒填充工作日",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "DEBUGPARAM_01"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "RAWSFCODE_04"
+      }
+    } ],
+    "topPos" : 435,
+    "parallelOutput" : true
+  } ],
+  "getPSDELogicParams" : [ {
+    "codeName" : "Default",
+    "logicName" : "传入变量",
+    "name" : "传入变量",
+    "getParamPSDataEntity" : {
+      "modelref" : true,
+      "path" : "PSMODULES/attendance/PSDATAENTITIES/attendance_rule.json"
+    },
+    "default" : true,
+    "entityParam" : true
+  }, {
+    "codeName" : "shifts",
+    "logicName" : "shifts",
+    "name" : "shifts",
+    "getParamPSDataEntity" : {
+      "modelref" : true,
+      "path" : "PSMODULES/attendance/PSDATAENTITIES/attendance_shift.json"
+    },
+    "entityListParam" : true
+  }, {
+    "codeName" : "workDay",
+    "logicName" : "workDay",
+    "name" : "workDay",
+    "getParamPSDataEntity" : {
+      "modelref" : true,
+      "path" : "PSMODULES/attendance/PSDATAENTITIES/attendance_workday.json"
+    },
+    "entityParam" : true
+  }, {
+    "codeName" : "workDays",
+    "logicName" : "workDays",
+    "name" : "workDays",
+    "getParamPSDataEntity" : {
+      "modelref" : true,
+      "path" : "PSMODULES/attendance/PSDATAENTITIES/attendance_workday.json"
+    },
+    "entityListParam" : true
+  } ],
+  "getStartPSDELogicNode" : {
+    "modelref" : true,
+    "id" : "Begin"
+  },
+  "enableBackend" : true,
+  "enableFront" : false
+}

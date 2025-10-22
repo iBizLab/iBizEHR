@@ -1,0 +1,68 @@
+{
+  "codeName" : "usr0822616060",
+  "controlStyle" : "CARD",
+  "controlType" : "SEARCHBAR",
+  "dynaModelFilePath" : "PSSYSAPPS/web/PSAPPDATAENTITIES/hr_offer_approval/PSSEARCHBARS/usr0822616060.json",
+  "logicName" : "grid_searchbar",
+  "getPSAppCounterRef" : {
+    "modelref" : true,
+    "id" : "3afe790902a7f6e592c02979bc0ce8e7"
+  },
+  "getPSAppCounterRefs" : [ {
+    "getPSAppCounter" : {
+      "codeName" : "my_offer_count",
+      "counterType" : "DEDR",
+      "dynaModelFilePath" : "PSSYSAPPS/web/PSAPPCOUNTERS/my_offer_count.json",
+      "getGetPSAppDEAction" : {
+        "modelref" : true,
+        "id" : "my_offer_count"
+      },
+      "name" : "用人经理-我的offer-搜索栏计数器",
+      "getPSAppDataEntity" : {
+        "modelref" : true,
+        "path" : "PSSYSAPPS/web/PSAPPDATAENTITIES/hr_offer_approval.json"
+      },
+      "timer" : 60000,
+      "uniqueTag" : "my_offer_count"
+    },
+    "tag" : "3afe790902a7f6e592c02979bc0ce8e7",
+    "uniqueTag" : "my_offer_count",
+    "id" : "3afe790902a7f6e592c02979bc0ce8e7"
+  } ],
+  "getPSAppDataEntity" : {
+    "modelref" : true,
+    "path" : "PSSYSAPPS/web/PSAPPDATAENTITIES/hr_offer_approval.json"
+  },
+  "getPSSearchBarGroups" : [ {
+    "caption" : "待审核",
+    "counterId" : "pending",
+    "data" : "{\"theme_model\":{\"searchconds\":[{\"condtype\":\"GROUP\",\"condop\":\"AND\",\"bnotmode\":false,\"searchconds\":[{\"condtype\":\"DEFIELD\",\"fieldname\":\"period\",\"condop\":\"EQ\",\"value\":\"pending\"}]}]}}",
+    "itemType" : "GROUP",
+    "name" : "pending",
+    "width" : 0.0,
+    "addSeparator" : false,
+    "defaultGroup" : true
+  }, {
+    "caption" : "已审批",
+    "counterId" : "past",
+    "data" : "{\"theme_model\":{\"searchconds\":[{\"condtype\":\"GROUP\",\"condop\":\"AND\",\"bnotmode\":false,\"searchconds\":[{\"condtype\":\"DEFIELD\",\"fieldname\":\"period\",\"condop\":\"EQ\",\"value\":\"past\"}]}]}}",
+    "itemType" : "GROUP",
+    "name" : "past",
+    "width" : 0.0,
+    "addSeparator" : false
+  } ],
+  "getPSSysPFPlugin" : {
+    "pluginType" : "SEARCHBAR_RENDER",
+    "pluginCode" : "CARD",
+    "runtimeObject" : true
+  },
+  "quickGroupCount" : -1,
+  "quickSearchMode" : 0,
+  "quickSearchWidth" : 0,
+  "enableFilter" : false,
+  "enableGroup" : true,
+  "enableQuickSearch" : false,
+  "mobileSearchBar" : false,
+  "modelid" : "039b762b401e9e152b7dd61d25422da1",
+  "modeltype" : "PSSYSSEARCHBAR"
+}

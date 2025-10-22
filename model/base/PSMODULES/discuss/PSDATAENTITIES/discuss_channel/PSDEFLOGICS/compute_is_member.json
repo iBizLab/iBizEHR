@@ -1,0 +1,311 @@
+{
+  "codeName" : "compute_is_member",
+  "dEFLogicMode" : "COMPUTE",
+  "defaultParamName" : "Default",
+  "dynaModelFilePath" : "PSMODULES/discuss/PSDATAENTITIES/discuss_channel/PSDEFLOGICS/compute_is_member.json",
+  "logicName" : "计算是否是频道的成员",
+  "logicSubType" : "DEFIELD",
+  "name" : "计算是否是频道的成员",
+  "getPSDEField" : {
+    "name" : "IS_MEMBER",
+    "codeName" : "is_member"
+  },
+  "getPSDELogicNodes" : [ {
+    "codeName" : "Begin",
+    "leftPos" : 300,
+    "logicNodeType" : "BEGIN",
+    "name" : "开始",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "PREPAREPARAM_01"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "Begin"
+      }
+    } ],
+    "topPos" : 180,
+    "parallelOutput" : true
+  }, {
+    "codeName" : "PREPAREPARAM_01",
+    "leftPos" : 260,
+    "logicNodeType" : "PREPAREPARAM",
+    "name" : "非成员",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "BINDPARAM_01"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "PREPAREPARAM_01"
+      }
+    } ],
+    "getPSDELogicNodeParams" : [ {
+      "dstFieldName" : "IS_MEMBER",
+      "getDstPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "Default"
+      },
+      "paramAction" : "SETPARAMVALUE",
+      "srcValue" : "0",
+      "srcValueType" : "SRCVALUE"
+    } ],
+    "topPos" : 290,
+    "parallelOutput" : true
+  }, {
+    "codeName" : "PREPAREPARAM_03",
+    "logicNodeType" : "PREPAREPARAM",
+    "name" : "当前用户",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "LOOPSUBCALL_01"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "PREPAREPARAM_03"
+      }
+    } ],
+    "getPSDELogicNodeParams" : [ {
+      "dstFieldName" : "PARTNER_ID",
+      "getDstPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "cur_member"
+      },
+      "paramAction" : "SETPARAMVALUE",
+      "srcFieldName" : "srfpartnerid",
+      "srcValueType" : "SESSION"
+    } ],
+    "topPos" : 400,
+    "parallelOutput" : true
+  }, {
+    "codeName" : "BINDPARAM_01",
+    "getDstPSDELogicParam" : {
+      "modelref" : true,
+      "id" : "channel_members"
+    },
+    "leftPos" : 260,
+    "logicNodeType" : "BINDPARAM",
+    "name" : "绑定参数",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "PREPAREPARAM_03"
+      },
+      "name" : "连接名称",
+      "getPSDELogicLinkGroupCond" : {
+        "groupOP" : "AND",
+        "logicType" : "GROUP",
+        "name" : "连接条件组",
+        "getPSDELogicLinkConds" : [ {
+          "condOP" : "GT",
+          "dstFieldName" : "size",
+          "getDstLogicParam" : {
+            "modelref" : true,
+            "id" : "channel_members"
+          },
+          "logicType" : "SINGLE",
+          "name" : "channel_members[size] 大于(>) 0",
+          "paramValue" : "0"
+        } ]
+      },
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "BINDPARAM_01"
+      }
+    }, {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "END_01"
+      },
+      "name" : "连接名称",
+      "getPSDELogicLinkGroupCond" : {
+        "groupOP" : "AND",
+        "logicType" : "GROUP",
+        "name" : "连接条件组",
+        "getPSDELogicLinkConds" : [ {
+          "groupOP" : "AND",
+          "logicType" : "GROUP",
+          "name" : "AND [取反]",
+          "getPSDELogicLinkConds" : [ {
+            "condOP" : "GT",
+            "dstFieldName" : "size",
+            "getDstLogicParam" : {
+              "modelref" : true,
+              "id" : "channel_members"
+            },
+            "logicType" : "SINGLE",
+            "name" : "channel_members[size] 大于(>) 0",
+            "paramValue" : "0"
+          } ],
+          "notMode" : true
+        } ]
+      },
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "BINDPARAM_01"
+      }
+    } ],
+    "srcFieldName" : "CHANNEL_MEMBERS",
+    "getSrcPSDELogicParam" : {
+      "modelref" : true,
+      "id" : "Default"
+    },
+    "topPos" : 400,
+    "parallelOutput" : true
+  }, {
+    "codeName" : "LOOPSUBCALL_01",
+    "getDstPSDELogicParam" : {
+      "modelref" : true,
+      "id" : "channel_member"
+    },
+    "logicNodeType" : "LOOPSUBCALL",
+    "name" : "循环子调用",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "PREPAREPARAM_02"
+      },
+      "name" : "连接名称",
+      "getPSDELogicLinkGroupCond" : {
+        "groupOP" : "AND",
+        "logicType" : "GROUP",
+        "name" : "连接条件组",
+        "getPSDELogicLinkConds" : [ {
+          "condOP" : "EQ",
+          "dstFieldName" : "PARTNER_ID",
+          "getDstLogicParam" : {
+            "modelref" : true,
+            "id" : "channel_member"
+          },
+          "logicType" : "SINGLE",
+          "name" : "channel_member[PARTNER_ID] 等于(=) PARTNER_ID",
+          "paramType" : "SRCENTITYFIELD",
+          "paramValue" : "PARTNER_ID",
+          "getSrcLogicParam" : {
+            "modelref" : true,
+            "id" : "cur_member"
+          }
+        } ]
+      },
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "LOOPSUBCALL_01"
+      },
+      "subCallLink" : true
+    }, {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "END_01"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "LOOPSUBCALL_01"
+      }
+    } ],
+    "getSrcPSDELogicParam" : {
+      "modelref" : true,
+      "id" : "channel_members"
+    },
+    "topPos" : 530,
+    "parallelOutput" : true
+  }, {
+    "codeName" : "END_01",
+    "dstFieldName" : "IS_MEMBER",
+    "leftPos" : 547,
+    "logicNodeType" : "END",
+    "name" : "结束",
+    "getReturnParam" : {
+      "modelref" : true,
+      "id" : "Default"
+    },
+    "returnType" : "LOGICPARAMFIELD",
+    "topPos" : 606,
+    "parallelOutput" : true
+  }, {
+    "codeName" : "PREPAREPARAM_02",
+    "logicNodeType" : "PREPAREPARAM",
+    "name" : "成员",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "END_02"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "PREPAREPARAM_02"
+      }
+    } ],
+    "getPSDELogicNodeParams" : [ {
+      "dstFieldName" : "IS_MEMBER",
+      "getDstPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "Default"
+      },
+      "paramAction" : "SETPARAMVALUE",
+      "srcValue" : "1",
+      "srcValueType" : "SRCVALUE"
+    } ],
+    "topPos" : 662,
+    "parallelOutput" : true
+  }, {
+    "codeName" : "END_02",
+    "leftPos" : 40,
+    "logicNodeType" : "END",
+    "name" : "结束",
+    "returnType" : "BREAK",
+    "topPos" : 794,
+    "parallelOutput" : true
+  } ],
+  "getPSDELogicParams" : [ {
+    "codeName" : "Default",
+    "logicName" : "传入变量",
+    "name" : "传入变量",
+    "getParamPSDataEntity" : {
+      "modelref" : true,
+      "path" : "PSMODULES/discuss/PSDATAENTITIES/discuss_channel.json"
+    },
+    "default" : true,
+    "entityParam" : true
+  }, {
+    "codeName" : "channel_member",
+    "logicName" : "频道成员",
+    "name" : "频道成员",
+    "getParamPSDataEntity" : {
+      "modelref" : true,
+      "path" : "PSMODULES/discuss/PSDATAENTITIES/discuss_channel_member.json"
+    },
+    "entityParam" : true
+  }, {
+    "codeName" : "channel_members",
+    "logicName" : "所有的频道成员",
+    "name" : "所有的频道成员",
+    "getParamPSDataEntity" : {
+      "modelref" : true,
+      "path" : "PSMODULES/discuss/PSDATAENTITIES/discuss_channel_member.json"
+    },
+    "entityListParam" : true
+  }, {
+    "codeName" : "cur_member",
+    "logicName" : "当前用户",
+    "name" : "当前用户",
+    "getParamPSDataEntity" : {
+      "modelref" : true,
+      "path" : "PSMODULES/discuss/PSDATAENTITIES/discuss_channel_member.json"
+    },
+    "entityParam" : true
+  } ],
+  "getStartPSDELogicNode" : {
+    "modelref" : true,
+    "id" : "Begin"
+  },
+  "enableBackend" : true,
+  "enableFront" : false
+}

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+    <definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:g="http://www.jboss.org/drools/flow/gpd" xmlns:tns="http://www.jboss.org/drools" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" expressionLanguage="http://www.mvel.org/2.0" id="Definition" name="" targetNamespace="http://www.jboss.org/drools" typeLanguage="http://www.java.com/javaTypes">
+        <process id="cn.ibizlab.core.base.service.logic.res_usersprepare_create" isClosed="false" isExecutable="true" name="base_res_users_prepare_create_ruleFlow" processType="Private" tns:packageName="cn.ibizlab.core.base.service.logic.res_usersprepare_create">
+            <extensionElements>
+                <tns:import name="java.util.Map" />
+                <tns:import name="org.springframework.util.StringUtils"/>
+                <tns:import name="cn.ibizlab.util.helper.RuleUtils"/>
+                                <tns:metaData express="" name="res_usersprepare_createdefault" type="entity"/>
+                                <tns:metaData express="new HashMap()" name="res_usersprepare_createdefault_user" type="refentity"/>
+                    <tns:metaData express="T(cn.ibizlab.util.security.SpringContextHolder).getBean(T(cn.ibizlab.core.base.service.Ires_usersService))" name="iBzSysRes_usersDefaultService" type="service"/>
+                    <tns:metaData express="T(cn.ibizlab.util.security.AuthenticationUser).getAuthenticationUser()" name="curuser" type="session"/>
+                            <tns:global identifier="res_usersprepare_createdefault" type="cn.ibizlab.core.base.domain.res_users" />
+            </extensionElements>
+                        <startEvent id="begin" isInterrupting="true"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="res_usersprepare_createcopyparam_01" id="copyparam_01" implementation="http://www.jboss.org/drools/rule" name="拷贝参数"/>
+                        <endEvent id="copyparam_01_end" name="end"/>
+                        <sequenceFlow id="copyparam_01_end_line" sourceRef="copyparam_01" targetRef="copyparam_01_end"/>
+                    <sequenceFlow id="gateway-begin_copyparam_01" sourceRef="gateway-begin" targetRef="copyparam_01">
+                            <conditionExpression  language="http://www.jboss.org/drools/rule" ><![CDATA[
+                                            $res_usersprepare_createdefault:res_users();
+                                            $res_usersprepare_createdefault_user:Map();
+                                    eval($res_usersprepare_createdefault==res_usersprepare_createdefault && );
+                                eval((RuleUtils.test($res_usersprepare_createdefault.get("login"),"ISNULL","")))
+                                ]]>
+                            </conditionExpression>
+                    </sequenceFlow>
+                            <exclusiveGateway id="gateway-begin" name="Gateway" gatewayDirection="Diverging" default="gateway-begin_end_line"></exclusiveGateway>
+                            <sequenceFlow id="begin_gateway-begin_gatewayline" sourceRef="begin" targetRef="gateway-begin"></sequenceFlow>
+                            <sequenceFlow id="gateway-begin_end_line" sourceRef="gateway-begin" targetRef="gateway-begin_end"/>
+                            <endEvent id="gateway-begin_end" name="end"/>
+        </process>
+    </definitions>

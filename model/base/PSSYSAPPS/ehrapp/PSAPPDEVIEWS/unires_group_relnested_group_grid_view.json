@@ -1,0 +1,726 @@
+{
+  "accUserMode" : 2,
+  "getCapPSLanguageRes" : {
+    "lanResTag" : "DE.LNAME.UNIRES_GROUP_REL"
+  },
+  "caption" : "权限组关联统一资源",
+  "codeName" : "unires_group_relnested_group_grid_view",
+  "dynaModelFilePath" : "PSSYSAPPS/ehrapp/PSAPPDEVIEWS/unires_group_relnested_group_grid_view.json",
+  "gridRowActiveMode" : 0,
+  "memo" : "系统自动添加",
+  "name" : "unires_group_relnested_group_grid_view",
+  "getPSAppDataEntity" : {
+    "modelref" : true,
+    "path" : "PSSYSAPPS/ehrapp/PSAPPDATAENTITIES/unires_group_rel.json"
+  },
+  "getPSAppModule" : {
+    "modelref" : true,
+    "path" : "PSSYSAPPS/ehrapp/PSAPPMODULES/base_extend.json"
+  },
+  "getPSAppViewParams" : [ {
+    "key" : "PROPERTYMAP",
+    "name" : "PROPERTYMAP",
+    "value" : "res_code:res_code,name:unires_name,id:unires_id"
+  } ],
+  "getPSDEViewCodeName" : "nested_group_grid_view",
+  "getPSDEViewId" : "64e307991729d440969573c42ac43af7",
+  "getPSViewLayoutPanel" : {
+    "codeName" : "Auto94410878",
+    "controlType" : "VIEWLAYOUTPANEL",
+    "layoutMode" : "FLEX",
+    "logicName" : "表格视图布局_工具栏置底部",
+    "name" : "layoutpanel",
+    "getPSAppDataEntity" : {
+      "modelref" : true,
+      "path" : "PSSYSAPPS/ehrapp/PSAPPDATAENTITIES/unires_group_rel.json"
+    },
+    "getPSControlParam" : { },
+    "getPSLayout" : {
+      "layout" : "FLEX"
+    },
+    "getRootPSPanelItems" : [ {
+      "itemStyle" : "DEFAULT",
+      "itemType" : "CONTAINER",
+      "name" : "view_searchform",
+      "getPSLayout" : {
+        "dir" : "column",
+        "layout" : "FLEX"
+      },
+      "getPSLayoutPos" : {
+        "grow" : -1,
+        "layout" : "FLEX",
+        "shrink" : 0
+      },
+      "getPSPanelItems" : [ {
+        "caption" : "搜索表单",
+        "itemStyle" : "DEFAULT",
+        "itemType" : "CTRLPOS",
+        "name" : "searchform",
+        "getPSLayoutPos" : {
+          "grow" : -1,
+          "layout" : "FLEX"
+        },
+        "showCaption" : true
+      } ]
+    }, {
+      "caption" : "容器",
+      "itemStyle" : "DEFAULT",
+      "itemType" : "CONTAINER",
+      "name" : "view_content",
+      "getPSLayout" : {
+        "layout" : "FLEX"
+      },
+      "getPSLayoutPos" : {
+        "grow" : 1,
+        "layout" : "FLEX"
+      },
+      "getPSPanelItems" : [ {
+        "caption" : "表格",
+        "itemStyle" : "DEFAULT",
+        "itemType" : "CTRLPOS",
+        "name" : "grid",
+        "getPSLayoutPos" : {
+          "grow" : 1,
+          "layout" : "FLEX"
+        },
+        "showCaption" : true
+      } ],
+      "predefinedType" : "VIEWCONTENT"
+    }, {
+      "caption" : "容器",
+      "itemStyle" : "DEFAULT",
+      "itemType" : "CONTAINER",
+      "name" : "view_header",
+      "getPSLayout" : {
+        "align" : "space-between",
+        "dir" : "row",
+        "layout" : "FLEX",
+        "vAlign" : "center"
+      },
+      "getPSLayoutPos" : {
+        "grow" : -1,
+        "layout" : "FLEX",
+        "shrink" : 0
+      },
+      "getPSPanelItems" : [ {
+        "caption" : "容器",
+        "itemStyle" : "DEFAULT",
+        "itemType" : "CONTAINER",
+        "name" : "view_header_left",
+        "getPSLayout" : {
+          "dir" : "row",
+          "layout" : "FLEX"
+        },
+        "getPSLayoutPos" : {
+          "grow" : -1,
+          "heightMode" : "FULL",
+          "layout" : "FLEX"
+        },
+        "getPSPanelItems" : [ {
+          "caption" : "容器",
+          "itemStyle" : "DEFAULT",
+          "itemType" : "CONTAINER",
+          "name" : "view_toolbar",
+          "getPSLayout" : {
+            "align" : "center",
+            "layout" : "FLEX"
+          },
+          "getPSLayoutPos" : {
+            "grow" : -1,
+            "heightMode" : "FULL",
+            "layout" : "FLEX",
+            "spacingLeft" : "OUTERLARGE"
+          },
+          "getPSPanelItems" : [ {
+            "caption" : "工具栏",
+            "itemStyle" : "DEFAULT",
+            "itemType" : "CTRLPOS",
+            "name" : "toolbar",
+            "getPSLayoutPos" : {
+              "grow" : -1,
+              "layout" : "FLEX"
+            },
+            "showCaption" : true
+          } ]
+        } ]
+      } ],
+      "predefinedType" : "VIEWHEADER"
+    } ],
+    "layoutBodyOnly" : true,
+    "layoutPanel" : true,
+    "useDefaultLayout" : false,
+    "viewProxyMode" : true,
+    "modelid" : "a13eeb1a845a3db03d246911b7ccb2bf",
+    "modeltype" : "PSSYSVIEWLAYOUTPANEL",
+    "getPSAppViewEngines" : [ {
+      "engineCat" : "VIEW",
+      "engineType" : "GridView",
+      "name" : "engine"
+    } ],
+    "getPSAppViewLogics" : [ {
+      "logicTrigger" : "CUSTOM",
+      "logicType" : "APPUILOGIC",
+      "name" : "newdata",
+      "getPSAppUILogic" : {
+        "actionAfterWizard" : "DEFAULT",
+        "logicType" : "PREDEFINED",
+        "name" : "新建数据",
+        "getNewDataPSAppView" : {
+          "getRefPSAppView" : {
+            "modelref" : true,
+            "path" : "PSSYSAPPS/ehrapp/PSAPPDEVIEWS/unires_group_relEditView.json",
+            "viewType" : "DEEDITVIEW"
+          }
+        },
+        "getPSAppDataEntity" : {
+          "modelref" : true,
+          "path" : "PSSYSAPPS/ehrapp/PSAPPDATAENTITIES/unires_group_rel.json"
+        },
+        "getPSAppUILogicRefViews" : [ {
+          "getRefPSAppView" : {
+            "modelref" : true,
+            "path" : "PSSYSAPPS/ehrapp/PSAPPDEVIEWS/unires_group_relEditView.json",
+            "viewType" : "DEEDITVIEW"
+          }
+        } ],
+        "viewLogicType" : "APP_NEWDATA",
+        "batchAddOnly" : false,
+        "enableBatchAdd" : true,
+        "enableWizardAdd" : false
+      }
+    }, {
+      "logicTrigger" : "CUSTOM",
+      "logicType" : "APPUILOGIC",
+      "name" : "opendata",
+      "getPSAppUILogic" : {
+        "logicType" : "PREDEFINED",
+        "name" : "打开数据",
+        "getOpenDataPSAppView" : {
+          "getRefPSAppView" : {
+            "modelref" : true,
+            "path" : "PSSYSAPPS/ehrapp/PSAPPDEVIEWS/unires_group_relEditView.json",
+            "viewType" : "DEEDITVIEW"
+          }
+        },
+        "getPSAppUILogicRefViews" : [ {
+          "getRefPSAppView" : {
+            "modelref" : true,
+            "path" : "PSSYSAPPS/ehrapp/PSAPPDEVIEWS/unires_group_relEditView.json",
+            "viewType" : "DEEDITVIEW"
+          }
+        } ],
+        "viewLogicType" : "APP_OPENDATA",
+        "editMode" : true
+      }
+    } ],
+    "getPSAppViewRefs" : [ {
+      "name" : "NEWDATA",
+      "realTitle" : "权限组关联统一资源编辑视图",
+      "getRefPSAppView" : {
+        "modelref" : true,
+        "path" : "PSSYSAPPS/ehrapp/PSAPPDEVIEWS/unires_group_relEditView.json",
+        "viewType" : "DEEDITVIEW"
+      }
+    }, {
+      "name" : "EDITDATA",
+      "realTitle" : "权限组关联统一资源编辑视图",
+      "getRefPSAppView" : {
+        "modelref" : true,
+        "path" : "PSSYSAPPS/ehrapp/PSAPPDEVIEWS/unires_group_relEditView.json",
+        "viewType" : "DEEDITVIEW"
+      }
+    }, {
+      "name" : "MPICKUPVIEW:IR_UNIRES"
+    }, {
+      "name" : "MPICKUPVIEW:RES_GROUPS"
+    } ],
+    "getPSControls" : [ {
+      "aggMode" : "NONE",
+      "codeName" : "group",
+      "columnEnableFilter" : 2,
+      "columnEnableLink" : 2,
+      "controlType" : "GRID",
+      "dynaModelFilePath" : "PSSYSAPPS/ehrapp/PSAPPDATAENTITIES/unires_group_rel/PSGRIDS/group.json",
+      "getFetchPSControlAction" : {
+        "modelref" : true,
+        "id" : "fetch",
+        "actionType" : "DEDATASET",
+        "name" : "fetch",
+        "getPSAppDEMethod" : {
+          "modelref" : true,
+          "id" : "FetchDefault"
+        },
+        "getPSAppDataEntity" : {
+          "modelref" : true,
+          "path" : "PSSYSAPPS/ehrapp/PSAPPDATAENTITIES/unires_group_rel.json"
+        }
+      },
+      "groupMode" : "NONE",
+      "logicName" : "嵌入权限组表格",
+      "getPSAppDataEntity" : {
+        "modelref" : true,
+        "path" : "PSSYSAPPS/ehrapp/PSAPPDATAENTITIES/unires_group_rel.json"
+      },
+      "getPSControlHandler" : {
+        "getPSHandlerActions" : [ {
+          "actionName" : "Get",
+          "actionType" : "DEACTION",
+          "dataAccessAction" : "READ",
+          "name" : "load",
+          "getPSAppDEMethod" : {
+            "modelref" : true,
+            "id" : "Get"
+          },
+          "getPSAppDataEntity" : {
+            "modelref" : true,
+            "path" : "PSSYSAPPS/ehrapp/PSAPPDATAENTITIES/unires_group_rel.json"
+          }
+        }, {
+          "actionName" : "Create",
+          "actionType" : "DEACTION",
+          "dataAccessAction" : "CREATE",
+          "name" : "create",
+          "getPSAppDEMethod" : {
+            "modelref" : true,
+            "id" : "Create"
+          },
+          "getPSAppDataEntity" : {
+            "modelref" : true,
+            "path" : "PSSYSAPPS/ehrapp/PSAPPDATAENTITIES/unires_group_rel.json"
+          }
+        }, {
+          "actionName" : "Update",
+          "actionType" : "DEACTION",
+          "dataAccessAction" : "UPDATE",
+          "name" : "update",
+          "getPSAppDEMethod" : {
+            "modelref" : true,
+            "id" : "Update"
+          },
+          "getPSAppDataEntity" : {
+            "modelref" : true,
+            "path" : "PSSYSAPPS/ehrapp/PSAPPDATAENTITIES/unires_group_rel.json"
+          }
+        }, {
+          "actionName" : "Remove",
+          "actionType" : "DEACTION",
+          "dataAccessAction" : "DELETE",
+          "name" : "remove",
+          "getPSAppDEMethod" : {
+            "modelref" : true,
+            "id" : "Remove"
+          },
+          "getPSAppDataEntity" : {
+            "modelref" : true,
+            "path" : "PSSYSAPPS/ehrapp/PSAPPDATAENTITIES/unires_group_rel.json"
+          }
+        }, {
+          "actionName" : "GetDraft",
+          "actionType" : "DEACTION",
+          "dataAccessAction" : "CREATE",
+          "name" : "loaddraft",
+          "getPSAppDEMethod" : {
+            "modelref" : true,
+            "id" : "GetDraft"
+          },
+          "getPSAppDataEntity" : {
+            "modelref" : true,
+            "path" : "PSSYSAPPS/ehrapp/PSAPPDATAENTITIES/unires_group_rel.json"
+          }
+        }, {
+          "actionType" : "DEDATASET",
+          "name" : "fetch",
+          "getPSAppDEMethod" : {
+            "modelref" : true,
+            "id" : "FetchDefault"
+          },
+          "getPSAppDataEntity" : {
+            "modelref" : true,
+            "path" : "PSSYSAPPS/ehrapp/PSAPPDATAENTITIES/unires_group_rel.json"
+          }
+        } ],
+        "userDRAction" : "READ",
+        "enableDEFieldPrivilege" : false,
+        "id" : "数据表格处理器"
+      },
+      "getPSControlParam" : {
+        "autoLoad" : true,
+        "showBusyIndicator" : true,
+        "id" : "GRID"
+      },
+      "getPSDEGridColumns" : [ {
+        "align" : "LEFT",
+        "cLConvertMode" : "NONE",
+        "caption" : "名称",
+        "codeName" : "unires_name",
+        "columnType" : "DEFGRIDCOLUMN",
+        "dataItemName" : "unires_name",
+        "excelCaption" : "名称",
+        "name" : "unires_name",
+        "noPrivDisplayMode" : 1,
+        "getPSAppDEField" : {
+          "name" : "UNIRES_NAME",
+          "codeName" : "unires_name"
+        },
+        "width" : 380,
+        "widthUnit" : "PX",
+        "enableSort" : true,
+        "getUserParam" : {
+          "SRFNAVCTX.srfsessionid" : ""
+        }
+      }, {
+        "align" : "LEFT",
+        "cLConvertMode" : "NONE",
+        "caption" : "资源代码",
+        "codeName" : "res_code",
+        "columnType" : "DEFGRIDCOLUMN",
+        "dataItemName" : "res_code",
+        "excelCaption" : "资源代码",
+        "name" : "res_code",
+        "noPrivDisplayMode" : 1,
+        "getPSAppDEField" : {
+          "name" : "RES_CODE",
+          "codeName" : "res_code"
+        },
+        "width" : 300,
+        "widthUnit" : "PX",
+        "enableSort" : true
+      }, {
+        "align" : "RIGHT",
+        "codeName" : "uagridcolumn1",
+        "columnType" : "UAGRIDCOLUMN",
+        "name" : "uagridcolumn1",
+        "noPrivDisplayMode" : 1,
+        "getPSDEUIActionGroup" : {
+          "codeName" : "Auto83146635",
+          "name" : "通用表格界面删除界面行为组",
+          "getPSUIActionGroupDetails" : [ {
+            "actionLevel" : 200,
+            "detailType" : "DEUIACTION",
+            "name" : "u75c8830",
+            "getPSSysImage" : {
+              "glyph" : "xf014@FontAwesome",
+              "cssClass" : "fa fa-trash-o"
+            },
+            "getPSUIAction" : {
+              "actionTarget" : "MULTIKEY",
+              "getCapPSLanguageRes" : {
+                "lanResTag" : "TBB.TEXT.*.REMOVE"
+              },
+              "caption" : "删除",
+              "codeName" : "Remove",
+              "fullCodeName" : "Remove",
+              "name" : "表格界面_删除操作",
+              "getPSSysImage" : {
+                "glyph" : "xf00d@FontAwesome",
+                "cssClass" : "fa fa-remove"
+              },
+              "predefinedType" : "GRIDVIEW_REMOVEACTION",
+              "timeout" : 60000,
+              "getTooltipPSLanguageRes" : {
+                "lanResTag" : "TBB.TOOLTIP.*.REMOVE"
+              },
+              "uIActionMode" : "SYS",
+              "uIActionTag" : "Remove",
+              "uIActionType" : "DEUIACTION"
+            },
+            "getTooltipPSLanguageRes" : {
+              "lanResTag" : "TBB.TOOLTIP.*.REMOVE"
+            },
+            "addSeparator" : false,
+            "showCaption" : false,
+            "showIcon" : true
+          } ]
+        },
+        "width" : 100,
+        "widthUnit" : "PX",
+        "enableSort" : false
+      } ],
+      "getPSDEGridDataItems" : [ {
+        "dataType" : 25,
+        "name" : "unires_name",
+        "getPSAppDEField" : {
+          "name" : "UNIRES_NAME",
+          "codeName" : "unires_name"
+        }
+      }, {
+        "dataType" : 25,
+        "name" : "res_code",
+        "getPSAppDEField" : {
+          "name" : "RES_CODE",
+          "codeName" : "res_code"
+        }
+      }, {
+        "dataType" : 25,
+        "name" : "unires_id",
+        "getPSAppDEField" : {
+          "name" : "UNIRES_ID",
+          "codeName" : "unires_id"
+        }
+      }, {
+        "dataType" : 25,
+        "name" : "gid",
+        "getPSAppDEField" : {
+          "name" : "GID",
+          "codeName" : "gid"
+        }
+      }, {
+        "dataType" : 25,
+        "name" : "srfkey",
+        "getPSAppDEField" : {
+          "name" : "ID",
+          "codeName" : "id"
+        }
+      }, {
+        "dataType" : 25,
+        "name" : "srfdataaccaction",
+        "getPSAppDEField" : {
+          "name" : "ID",
+          "codeName" : "id"
+        },
+        "dataAccessAction" : true
+      }, {
+        "dataType" : 25,
+        "name" : "srfmajortext",
+        "getPSAppDEField" : {
+          "name" : "NAME",
+          "codeName" : "name"
+        }
+      } ],
+      "getPSDEGridEditItems" : [ {
+        "caption" : "标识",
+        "codeName" : "srfkey",
+        "enableCond" : 3,
+        "ignoreInput" : 0,
+        "name" : "srfkey",
+        "getPSAppDEField" : {
+          "name" : "ID",
+          "codeName" : "id"
+        },
+        "getPSEditor" : {
+          "editorType" : "HIDDEN",
+          "name" : "srfkey"
+        },
+        "allowEmpty" : true
+      } ],
+      "pagingSize" : 20,
+      "getRemovePSControlAction" : {
+        "actionName" : "Remove",
+        "actionType" : "DEACTION",
+        "dataAccessAction" : "DELETE",
+        "name" : "remove",
+        "getPSAppDEMethod" : {
+          "modelref" : true,
+          "id" : "Remove"
+        },
+        "getPSAppDataEntity" : {
+          "modelref" : true,
+          "path" : "PSSYSAPPS/ehrapp/PSAPPDATAENTITIES/unires_group_rel.json"
+        }
+      },
+      "sortMode" : "REMOTE",
+      "hasWFDataItems" : false,
+      "enableColFilter" : false,
+      "enableCustomized" : false,
+      "enableGroup" : false,
+      "enablePagingBar" : false,
+      "enableRowEdit" : false,
+      "enableRowEditOrder" : false,
+      "enableRowNew" : false,
+      "forceFit" : false,
+      "hideHeader" : false,
+      "noSort" : false,
+      "singleSelect" : true,
+      "name" : "grid",
+      "modelid" : "d8374b0a2b6917999ce9421f4e4c2619",
+      "modeltype" : "PSDEGRID"
+    }, {
+      "codeName" : "nested_group_grid_viewtoolbar",
+      "controlType" : "TOOLBAR",
+      "logicName" : "权限组关联统一资源实体工具栏",
+      "name" : "toolbar",
+      "getPSAppDataEntity" : {
+        "modelref" : true,
+        "path" : "PSSYSAPPS/ehrapp/PSAPPDATAENTITIES/unires_group_rel.json"
+      },
+      "getPSControlParam" : {
+        "id" : "TOOLBAR"
+      },
+      "getPSDEToolbarItems" : [ {
+        "getCapPSLanguageRes" : {
+          "lanResTag" : "TBB.TEXT.*.NEW"
+        },
+        "caption" : "添加行",
+        "groupExtractMode" : "ITEM",
+        "itemType" : "DEUIACTION",
+        "name" : "deuiaction1",
+        "noPrivDisplayMode" : 2,
+        "getPSAppViewUIAction" : {
+          "modelref" : true,
+          "id" : "toolbar_deuiaction1"
+        },
+        "getPSSysImage" : {
+          "glyph" : "xf0f6@FontAwesome",
+          "cssClass" : "fa fa-file-text-o"
+        },
+        "getPSUIAction" : {
+          "getCapPSLanguageRes" : {
+            "lanResTag" : "TBB.TEXT.*.NEW"
+          },
+          "caption" : "新建",
+          "codeName" : "New",
+          "fullCodeName" : "New",
+          "name" : "表格界面_新建操作",
+          "getPSSysImage" : {
+            "glyph" : "xf0f6@FontAwesome",
+            "cssClass" : "fa fa-file-text-o"
+          },
+          "predefinedType" : "GRIDVIEW_NEWACTION",
+          "timeout" : 60000,
+          "getTooltipPSLanguageRes" : {
+            "lanResTag" : "TBB.TOOLTIP.*.NEW"
+          },
+          "uIActionMode" : "SYS",
+          "uIActionTag" : "New",
+          "uIActionType" : "DEUIACTION"
+        },
+        "tooltip" : "添加行",
+        "getTooltipPSLanguageRes" : {
+          "lanResTag" : "TBB.TOOLTIP.*.NEW"
+        },
+        "showCaption" : true,
+        "showIcon" : false
+      } ],
+      "xDataControlName" : "grid",
+      "modelid" : "d5183f9d6a001c6c6658bb660647e5a0",
+      "modeltype" : "PSDETOOLBAR"
+    }, {
+      "codeName" : "Default",
+      "controlType" : "SEARCHFORM",
+      "defaultLabelWidth" : 130,
+      "dynaModelFilePath" : "PSSYSAPPS/ehrapp/PSAPPDATAENTITIES/unires_group_rel/PSSEARCHFORMS/Default.json",
+      "logicName" : "默认搜索表单",
+      "getPSAppDataEntity" : {
+        "modelref" : true,
+        "path" : "PSSYSAPPS/ehrapp/PSAPPDATAENTITIES/unires_group_rel.json"
+      },
+      "getPSControlHandler" : {
+        "getPSHandlerActions" : [ {
+          "actionType" : "FILTERACTION",
+          "name" : "load",
+          "getPSAppDEMethod" : {
+            "modelref" : true,
+            "id" : "FilterGet"
+          },
+          "getPSAppDataEntity" : {
+            "modelref" : true,
+            "path" : "PSSYSAPPS/ehrapp/PSAPPDATAENTITIES/unires_group_rel.json"
+          }
+        }, {
+          "actionType" : "FILTERACTION",
+          "name" : "loaddraft",
+          "getPSAppDEMethod" : {
+            "modelref" : true,
+            "id" : "FilterGetDraft"
+          },
+          "getPSAppDataEntity" : {
+            "modelref" : true,
+            "path" : "PSSYSAPPS/ehrapp/PSAPPDATAENTITIES/unires_group_rel.json"
+          }
+        }, {
+          "actionType" : "FILTERACTION",
+          "name" : "search",
+          "getPSAppDEMethod" : {
+            "modelref" : true,
+            "id" : "FilterSearch"
+          },
+          "getPSAppDataEntity" : {
+            "modelref" : true,
+            "path" : "PSSYSAPPS/ehrapp/PSAPPDATAENTITIES/unires_group_rel.json"
+          }
+        } ],
+        "enableDEFieldPrivilege" : false,
+        "id" : "搜索表单处理器"
+      },
+      "getPSControlParam" : {
+        "autoLoad" : true,
+        "showBusyIndicator" : true,
+        "id" : "SEARCHFORM"
+      },
+      "getPSDEFormPages" : [ {
+        "getCapPSLanguageRes" : {
+          "lanResTag" : "CONTROL.DEFORM.UNIRES_GROUP_REL.DEFAULT.FORMPAGE.FORMPAGE1"
+        },
+        "caption" : "常规条件",
+        "codeName" : "formpage1",
+        "detailStyle" : "DEFAULT",
+        "detailType" : "FORMPAGE",
+        "name" : "formpage1",
+        "getPSLayout" : {
+          "childColMD" : 24,
+          "columnCount" : 24,
+          "layout" : "TABLE_24COL"
+        },
+        "infoGroupMode" : false
+      } ],
+      "getPSLayout" : {
+        "childColMD" : 24,
+        "columnCount" : 24,
+        "layout" : "TABLE_24COL"
+      },
+      "searchButtonStyle" : "DEFAULT",
+      "tabHeaderPos" : "TOP",
+      "enableAdvanceSearch" : false,
+      "enableAutoSearch" : false,
+      "enableFilterSave" : false,
+      "noTabHeader" : true,
+      "name" : "searchform",
+      "modelid" : "51a6c48d95687a34d43065e83906e2d0",
+      "modeltype" : "PSDEFORM_SEARCHFORM"
+    }, {
+      "controlType" : "SEARCHBAR",
+      "name" : "searchbar",
+      "getPSAppDataEntity" : {
+        "modelref" : true,
+        "path" : "PSSYSAPPS/ehrapp/PSAPPDATAENTITIES/unires_group_rel.json"
+      },
+      "getPSControlParam" : {
+        "id" : "searchbar"
+      },
+      "quickGroupCount" : -1,
+      "quickSearchMode" : 1,
+      "quickSearchWidth" : 0,
+      "enableFilter" : false,
+      "enableGroup" : false,
+      "enableQuickSearch" : true,
+      "mobileSearchBar" : false
+    }, {
+      "getCapPSLanguageRes" : {
+        "lanResTag" : "DE.LNAME.UNIRES_GROUP_REL"
+      },
+      "caption" : "权限组关联统一资源",
+      "codeName" : "nested_group_grid_viewcaptionbar",
+      "controlType" : "CAPTIONBAR",
+      "name" : "captionbar",
+      "getPSAppDataEntity" : {
+        "modelref" : true,
+        "path" : "PSSYSAPPS/ehrapp/PSAPPDATAENTITIES/unires_group_rel.json"
+      },
+      "getPSControlParam" : { }
+    } ]
+  },
+  "title" : "权限组关联统一资源",
+  "viewStyle" : "DEFAULT",
+  "viewType" : "DEGRIDVIEW",
+  "xDataControlName" : "grid",
+  "enableDP" : true,
+  "enableExport" : true,
+  "enableFilter" : true,
+  "enableImport" : true,
+  "enableQuickSearch" : true,
+  "enableRowEdit" : false,
+  "enableSearch" : true,
+  "rowEditDefault" : false,
+  "modelid" : "15051e5b229fb9da5e7e4fc52179ed25",
+  "modeltype" : "PSAPPDEVIEW"
+}

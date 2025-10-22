@@ -1,0 +1,124 @@
+{
+  "codeName" : "my_dept",
+  "defaultParamName" : "Default",
+  "dynaModelFilePath" : "PSMODULES/employee_management/PSDATAENTITIES/user_object/PSDELOGICS/my_dept.json",
+  "logicName" : "我的部门",
+  "name" : "我的部门",
+  "getPSDELogicNodes" : [ {
+    "codeName" : "Begin",
+    "leftPos" : 200,
+    "logicNodeType" : "BEGIN",
+    "name" : "开始",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "RAWSFCODE1"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "Begin"
+      }
+    } ],
+    "topPos" : 80,
+    "parallelOutput" : true
+  }, {
+    "code" : "def _default = logic.param('Default').getReal()\r\ndef filter = logic.param('filter').getReal()\r\n\r\nfilter.all()\r\ndef reserver14 = _default.get(\"reserver14\")\r\ndef dept = _default.get(\"srfpdept\")\r\n\r\nif (reserver14 == 1 || dept == null || dept == \"\") {\r\n    filter.nvl('parent_id')\r\n} else {\r\n    filter.eq('id', dept)\r\n}",
+    "codeName" : "RAWSFCODE1",
+    "codeType" : "Groovy",
+    "leftPos" : 160,
+    "logicNodeType" : "RAWSFCODE",
+    "name" : "执行脚本代码",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "DEDATASET1"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "RAWSFCODE1"
+      }
+    } ],
+    "topPos" : 207
+  }, {
+    "codeName" : "DEDATASET1",
+    "getDstPSDEDataSet" : {
+      "modelref" : true,
+      "id" : "dept"
+    },
+    "getDstPSDELogicParam" : {
+      "modelref" : true,
+      "id" : "filter"
+    },
+    "getDstPSDataEntity" : {
+      "modelref" : true,
+      "path" : "PSMODULES/employee_management/PSDATAENTITIES/department.json"
+    },
+    "leftPos" : 160,
+    "logicNodeType" : "DEDATASET",
+    "name" : "实体数据集",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "END1"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "DEDATASET1"
+      }
+    } ],
+    "getRetPSDELogicParam" : {
+      "modelref" : true,
+      "id" : "page"
+    },
+    "topPos" : 339
+  }, {
+    "codeName" : "END1",
+    "leftPos" : 200,
+    "logicNodeType" : "END",
+    "name" : "结束",
+    "getReturnParam" : {
+      "modelref" : true,
+      "id" : "page"
+    },
+    "returnType" : "LOGICPARAM",
+    "topPos" : 469
+  } ],
+  "getPSDELogicParams" : [ {
+    "codeName" : "Default",
+    "logicName" : "传入变量",
+    "name" : "传入变量",
+    "getParamPSDataEntity" : {
+      "modelref" : true,
+      "path" : "PSMODULES/employee_management/PSDATAENTITIES/user_object.json"
+    },
+    "default" : true,
+    "filterParam" : true
+  }, {
+    "codeName" : "filter",
+    "logicName" : "filter",
+    "name" : "filter",
+    "getParamPSDataEntity" : {
+      "modelref" : true,
+      "path" : "PSMODULES/employee_management/PSDATAENTITIES/department.json"
+    },
+    "filterParam" : true
+  }, {
+    "codeName" : "page",
+    "logicName" : "page",
+    "name" : "page",
+    "getParamPSDataEntity" : {
+      "modelref" : true,
+      "path" : "PSMODULES/employee_management/PSDATAENTITIES/department.json"
+    },
+    "entityPageParam" : true
+  } ],
+  "getStartPSDELogicNode" : {
+    "modelref" : true,
+    "id" : "Begin"
+  },
+  "enableBackend" : true,
+  "enableFront" : false
+}

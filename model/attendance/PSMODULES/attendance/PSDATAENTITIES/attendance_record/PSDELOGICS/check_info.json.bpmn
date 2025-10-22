@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+    <definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:g="http://www.jboss.org/drools/flow/gpd" xmlns:tns="http://www.jboss.org/drools" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" expressionLanguage="http://www.mvel.org/2.0" id="Definition" name="" targetNamespace="http://www.jboss.org/drools" typeLanguage="http://www.java.com/javaTypes">
+        <process id="cn.ibizlab.core.attendance.service.logic.attendance_recordcheck_info" isClosed="false" isExecutable="true" name="attendance_attendance_record_check_info_ruleFlow" processType="Private" tns:packageName="cn.ibizlab.core.attendance.service.logic.attendance_recordcheck_info">
+            <extensionElements>
+                <tns:import name="java.util.Map" />
+                <tns:import name="org.springframework.util.StringUtils"/>
+                <tns:import name="cn.ibizlab.util.helper.RuleUtils"/>
+                                <tns:metaData express="" name="attendance_recordcheck_infodefault" type="entity"/>
+                                <tns:metaData express="new cn.ibizlab.core.attendance.domain.attendance_record_detail()" name="attendance_recordcheck_infodetails" type="refentity"/>
+                                <tns:metaData express="new HashMap()" name="attendance_recordcheck_inforesult" type="refentity"/>
+                                <tns:metaData express="new cn.ibizlab.core.attendance.domain.attendance_record_detail()" name="attendance_recordcheck_infotemp" type="refentity"/>
+                                    <tns:metaData express="T(cn.ibizlab.util.security.SpringContextHolder).getBean(T(cn.ibizlab.core.attendance.service.Iattendance_recordService))" name="attendance_recordservice" type="service"/>
+                    <tns:metaData express="T(cn.ibizlab.util.security.SpringContextHolder).getBean(T(cn.ibizlab.core.attendance.service.Iattendance_recordService))" name="iBzSysAttendance_recordDefaultService" type="service"/>
+                    <tns:metaData express="T(cn.ibizlab.util.security.AuthenticationUser).getAuthenticationUser()" name="curuser" type="session"/>
+                            <tns:global identifier="attendance_recordcheck_infodefault" type="cn.ibizlab.core.attendance.domain.attendance_record" />
+                            <tns:global identifier="attendance_recordcheck_infodetails" type="cn.ibizlab.core.attendance.domain.attendance_record_detail" />
+                            <tns:global identifier="attendance_recordcheck_infotemp" type="cn.ibizlab.core.attendance.domain.attendance_record_detail" />
+            </extensionElements>
+                        <startEvent id="begin" isInterrupting="true"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="attendance_recordcheck_infobindparam1" id="bindparam1" implementation="http://www.jboss.org/drools/rule" name="绑定考勤记录详情"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="attendance_recordcheck_infoloopsubcall1" id="loopsubcall1" implementation="http://www.jboss.org/drools/rule" name="循环子调用"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="attendance_recordcheck_infoprepareparam1" id="prepareparam1" implementation="http://www.jboss.org/drools/rule" name="准备考勤记录标识"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="attendance_recordcheck_infodeaction1" id="deaction1" implementation="http://www.jboss.org/drools/rule" name="获取考勤记录"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="attendance_recordcheck_infoprepareparam2" id="prepareparam2" implementation="http://www.jboss.org/drools/rule" name="姓名、考勤日期赋值"/>
+                        <endEvent id="prepareparam2_end" name="end"/>
+                        <sequenceFlow id="prepareparam2_end_line" sourceRef="prepareparam2" targetRef="prepareparam2_end"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="attendance_recordcheck_inforawsfcode1" id="rawsfcode1" implementation="http://www.jboss.org/drools/rule" name="排序"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="attendance_recordcheck_infoprepareparam3" id="prepareparam3" implementation="http://www.jboss.org/drools/rule" name="设置返回结果"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="attendance_recordcheck_infoend1" id="end1" implementation="http://www.jboss.org/drools/rule" name="结束"/>
+                        <endEvent id="end1_end" name="end"/>
+                        <sequenceFlow id="end1_end_line" sourceRef="end1" targetRef="end1_end"/>
+                    <sequenceFlow id="begin_bindparam1" sourceRef="begin" targetRef="bindparam1">
+                    </sequenceFlow>
+                    <sequenceFlow id="bindparam1_loopsubcall1" sourceRef="bindparam1" targetRef="loopsubcall1">
+                    </sequenceFlow>
+                    <sequenceFlow id="loopsubcall1_rawsfcode1" sourceRef="loopsubcall1" targetRef="rawsfcode1">
+                    </sequenceFlow>
+                    <sequenceFlow id="loopsubcall1_prepareparam1" sourceRef="loopsubcall1" targetRef="prepareparam1">
+                    </sequenceFlow>
+                    <sequenceFlow id="prepareparam1_deaction1" sourceRef="prepareparam1" targetRef="deaction1">
+                    </sequenceFlow>
+                    <sequenceFlow id="deaction1_prepareparam2" sourceRef="deaction1" targetRef="prepareparam2">
+                    </sequenceFlow>
+                    <sequenceFlow id="rawsfcode1_prepareparam3" sourceRef="rawsfcode1" targetRef="prepareparam3">
+                    </sequenceFlow>
+                    <sequenceFlow id="prepareparam3_end1" sourceRef="prepareparam3" targetRef="end1">
+                    </sequenceFlow>
+        </process>
+    </definitions>

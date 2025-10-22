@@ -1,0 +1,151 @@
+package cn.ibizlab.mail.logic.mail_activity_schedulelogic.schedule_activities_done;
+        import java.util.Map;
+        import java.util.HashMap;
+        import com.alibaba.fastjson.JSONObject;
+        import org.springframework.util.StringUtils;
+        import org.springframework.util.ObjectUtils;
+        import cn.ibizlab.util.errors.BadRequestAlertException;
+                global cn.ibizlab.core.mail.domain.mail_activity_schedule mail_activity_scheduleschedule_activities_donedefault;
+                global cn.ibizlab.core.mail.domain.mail_activity mail_activity_scheduleschedule_activities_donemail_activity;
+                global cn.ibizlab.core.mail.domain.mail_activity mail_activity_scheduleschedule_activities_donenext_activity;
+                global cn.ibizlab.core.mail.domain.mail_activity_schedule mail_activity_scheduleschedule_activities_doneoriginal_default;
+                    global cn.ibizlab.core.mail.service.Imail_activity_scheduleService mail_activity_scheduleservice;
+                    global cn.ibizlab.core.mail.service.Imail_activityService mail_activityservice;
+        global cn.ibizlab.core.mail.service.Imail_activity_scheduleService iBzSysMail_activity_scheduleDefaultService;
+        global cn.ibizlab.util.security.AuthenticationUser curuser;
+
+
+    no-loop
+
+            //逻辑处理节点[开始]
+            rule "begin"
+            ruleflow-group "mail_activity_scheduleschedule_activities_donebegin"
+            when
+            then
+            end
+
+            //逻辑处理节点[拷贝参数]
+            rule "copyparam_01"
+            ruleflow-group "mail_activity_scheduleschedule_activities_donecopyparam_01"
+            when
+            then
+                        update(mail_activity_scheduleschedule_activities_donedefault);//更新fact中变量值
+                        update(mail_activity_scheduleschedule_activities_donemail_activity);//更新fact中变量值
+                        update(mail_activity_scheduleschedule_activities_donenext_activity);//更新fact中变量值
+                        update(mail_activity_scheduleschedule_activities_doneoriginal_default);//更新fact中变量值
+            end
+
+            //逻辑处理节点[新建活动日程计划向导]
+            rule "deaction_01"
+            ruleflow-group "mail_activity_scheduleschedule_activities_donedeaction_01"
+            when
+            then
+                        mail_activity_scheduleservice.create(mail_activity_scheduleschedule_activities_donedefault);
+                        update(mail_activity_scheduleschedule_activities_donedefault);//更新fact中变量值
+                        update(mail_activity_scheduleschedule_activities_donemail_activity);//更新fact中变量值
+                        update(mail_activity_scheduleschedule_activities_donenext_activity);//更新fact中变量值
+                        update(mail_activity_scheduleschedule_activities_doneoriginal_default);//更新fact中变量值
+            end
+
+            //逻辑处理节点[填充活动数据]
+            rule "prepareparam_01"
+            ruleflow-group "mail_activity_scheduleschedule_activities_doneprepareparam_01"
+            when
+            then
+                            mail_activity_scheduleschedule_activities_donemail_activity.set("activitytypeid",mail_activity_scheduleschedule_activities_donedefault.get("activitytypeid"));
+                            mail_activity_scheduleschedule_activities_donemail_activity.set("automated","0");
+                            mail_activity_scheduleschedule_activities_donemail_activity.set("summary",mail_activity_scheduleschedule_activities_donedefault.get("summary"));
+                            mail_activity_scheduleschedule_activities_donemail_activity.set("note",mail_activity_scheduleschedule_activities_donedefault.get("note"));
+                            mail_activity_scheduleschedule_activities_donemail_activity.set("userid",mail_activity_scheduleschedule_activities_donedefault.get("activityuserid"));
+                            mail_activity_scheduleschedule_activities_donemail_activity.set("datedeadline",mail_activity_scheduleschedule_activities_donedefault.get("datedeadline"));
+                            mail_activity_scheduleschedule_activities_donemail_activity.set("resid",mail_activity_scheduleschedule_activities_donedefault.get("resids"));
+                            mail_activity_scheduleschedule_activities_donemail_activity.set("resmodel",mail_activity_scheduleschedule_activities_donedefault.get("resmodel"));
+                        update(mail_activity_scheduleschedule_activities_donedefault);//更新fact中变量值
+                        update(mail_activity_scheduleschedule_activities_donemail_activity);//更新fact中变量值
+                        update(mail_activity_scheduleschedule_activities_donenext_activity);//更新fact中变量值
+                        update(mail_activity_scheduleschedule_activities_doneoriginal_default);//更新fact中变量值
+            end
+
+            //逻辑处理节点[准备完成活动参数]
+            rule "prepareparam_02"
+            ruleflow-group "mail_activity_scheduleschedule_activities_doneprepareparam_02"
+            when
+            then
+                            mail_activity_scheduleschedule_activities_donemail_activity.set("mail_activity_mixin",mail_activity_scheduleschedule_activities_donedefault.get("resids"));
+                            mail_activity_scheduleschedule_activities_donemail_activity.set("srfmodelname",mail_activity_scheduleschedule_activities_donedefault.get("resmodel"));
+                            mail_activity_scheduleschedule_activities_donemail_activity.set("srfpartnerid",mail_activity_scheduleschedule_activities_doneoriginal_default.get("srfpartnerid"));
+                            mail_activity_scheduleschedule_activities_donemail_activity.set("srfuserid",mail_activity_scheduleschedule_activities_doneoriginal_default.get("srfuserid"));
+                        update(mail_activity_scheduleschedule_activities_donedefault);//更新fact中变量值
+                        update(mail_activity_scheduleschedule_activities_donemail_activity);//更新fact中变量值
+                        update(mail_activity_scheduleschedule_activities_donenext_activity);//更新fact中变量值
+                        update(mail_activity_scheduleschedule_activities_doneoriginal_default);//更新fact中变量值
+            end
+
+            //逻辑处理节点[新建活动]
+            rule "deaction_02"
+            ruleflow-group "mail_activity_scheduleschedule_activities_donedeaction_02"
+            when
+            then
+                        mail_activityservice.create(mail_activity_scheduleschedule_activities_donemail_activity);
+                        update(mail_activity_scheduleschedule_activities_donedefault);//更新fact中变量值
+                        update(mail_activity_scheduleschedule_activities_donemail_activity);//更新fact中变量值
+                        update(mail_activity_scheduleschedule_activities_donenext_activity);//更新fact中变量值
+                        update(mail_activity_scheduleschedule_activities_doneoriginal_default);//更新fact中变量值
+            end
+
+            //逻辑处理节点[获取活动re_name]
+            rule "rawsfcode_01"
+            ruleflow-group "mail_activity_scheduleschedule_activities_donerawsfcode_01"
+            when
+            then
+                        update(mail_activity_scheduleschedule_activities_donedefault);//更新fact中变量值
+                        update(mail_activity_scheduleschedule_activities_donemail_activity);//更新fact中变量值
+                        update(mail_activity_scheduleschedule_activities_donenext_activity);//更新fact中变量值
+                        update(mail_activity_scheduleschedule_activities_doneoriginal_default);//更新fact中变量值
+            end
+
+            //逻辑处理节点[查看next_act]
+            rule "debugparam_01"
+            ruleflow-group "mail_activity_scheduleschedule_activities_donedebugparam_01"
+            when
+            then
+                        update(mail_activity_scheduleschedule_activities_donedefault);//更新fact中变量值
+                        update(mail_activity_scheduleschedule_activities_donemail_activity);//更新fact中变量值
+                        update(mail_activity_scheduleschedule_activities_donenext_activity);//更新fact中变量值
+                        update(mail_activity_scheduleschedule_activities_doneoriginal_default);//更新fact中变量值
+            end
+
+            //逻辑处理节点[填充下一个活动的id]
+            rule "prepareparam_03"
+            ruleflow-group "mail_activity_scheduleschedule_activities_doneprepareparam_03"
+            when
+            then
+                            mail_activity_scheduleschedule_activities_donedefault.set("next_act_id",mail_activity_scheduleschedule_activities_donenext_activity.get("next_act_id"));
+                        update(mail_activity_scheduleschedule_activities_donedefault);//更新fact中变量值
+                        update(mail_activity_scheduleschedule_activities_donemail_activity);//更新fact中变量值
+                        update(mail_activity_scheduleschedule_activities_donenext_activity);//更新fact中变量值
+                        update(mail_activity_scheduleschedule_activities_doneoriginal_default);//更新fact中变量值
+            end
+
+            //逻辑处理节点[结束]
+            rule "end_01"
+            ruleflow-group "mail_activity_scheduleschedule_activities_doneend_01"
+            when
+            then
+                        update(mail_activity_scheduleschedule_activities_donedefault);//更新fact中变量值
+                        update(mail_activity_scheduleschedule_activities_donemail_activity);//更新fact中变量值
+                        update(mail_activity_scheduleschedule_activities_donenext_activity);//更新fact中变量值
+                        update(mail_activity_scheduleschedule_activities_doneoriginal_default);//更新fact中变量值
+            end
+
+            //逻辑处理节点[完成活动]
+            rule "deaction_03"
+            ruleflow-group "mail_activity_scheduleschedule_activities_donedeaction_03"
+            when
+            then
+                        mail_activityservice.action_done(mail_activity_scheduleschedule_activities_donemail_activity);
+                        update(mail_activity_scheduleschedule_activities_donedefault);//更新fact中变量值
+                        update(mail_activity_scheduleschedule_activities_donemail_activity);//更新fact中变量值
+                        update(mail_activity_scheduleschedule_activities_donenext_activity);//更新fact中变量值
+                        update(mail_activity_scheduleschedule_activities_doneoriginal_default);//更新fact中变量值
+            end

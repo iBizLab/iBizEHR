@@ -1,0 +1,80 @@
+package cn.ibizlab.hr.logic.hr_employeelogic.before_create;
+        import java.util.Map;
+        import java.util.HashMap;
+        import com.alibaba.fastjson.JSONObject;
+        import org.springframework.util.StringUtils;
+        import org.springframework.util.ObjectUtils;
+        import cn.ibizlab.util.errors.BadRequestAlertException;
+                global cn.ibizlab.core.hr.domain.hr_employee hr_employeebefore_createdefault;
+                global java.util.Map hr_employeebefore_createemployees;
+                global java.util.Map hr_employeebefore_createfilter;
+                global cn.ibizlab.core.base.domain.res_partner hr_employeebefore_createpartner;
+                global cn.ibizlab.core.base.domain.res_users hr_employeebefore_createuser;
+                    global cn.ibizlab.core.base.service.Ires_partnerService res_partnerservice;
+        global cn.ibizlab.core.hr.service.Ihr_employeeService iBzSysHr_employeeDefaultService;
+        global cn.ibizlab.util.security.AuthenticationUser curuser;
+
+
+    no-loop
+
+            //逻辑处理节点[开始]
+            rule "begin"
+            ruleflow-group "hr_employeebefore_createbegin"
+            when
+            then
+            end
+
+            //逻辑处理节点[准备联系人对象]
+            rule "prepareparam_01"
+            ruleflow-group "hr_employeebefore_createprepareparam_01"
+            when
+            then
+                            hr_employeebefore_createpartner.set("email",hr_employeebefore_createdefault.get("workemail"));
+                            hr_employeebefore_createpartner.set("mobile",hr_employeebefore_createdefault.get("mobilephone"));
+                            hr_employeebefore_createpartner.set("name",hr_employeebefore_createdefault.get("name"));
+                            hr_employeebefore_createpartner.set("companyid",hr_employeebefore_createdefault.get("companyid"));
+                            hr_employeebefore_createpartner.set("companyname",hr_employeebefore_createdefault.get("companyname"));
+                        update(hr_employeebefore_createdefault);//更新fact中变量值
+                        update(hr_employeebefore_createemployees);//更新fact中变量值
+                        update(hr_employeebefore_createfilter);//更新fact中变量值
+                        update(hr_employeebefore_createpartner);//更新fact中变量值
+                        update(hr_employeebefore_createuser);//更新fact中变量值
+            end
+
+            //逻辑处理节点[创建联系人]
+            rule "deaction_01"
+            ruleflow-group "hr_employeebefore_createdeaction_01"
+            when
+            then
+                        res_partnerservice.create(hr_employeebefore_createpartner);
+                        update(hr_employeebefore_createdefault);//更新fact中变量值
+                        update(hr_employeebefore_createemployees);//更新fact中变量值
+                        update(hr_employeebefore_createfilter);//更新fact中变量值
+                        update(hr_employeebefore_createpartner);//更新fact中变量值
+                        update(hr_employeebefore_createuser);//更新fact中变量值
+            end
+
+            //逻辑处理节点[回填work_contact_id]
+            rule "prepareparam_02"
+            ruleflow-group "hr_employeebefore_createprepareparam_02"
+            when
+            then
+                            hr_employeebefore_createdefault.set("workcontactid",hr_employeebefore_createpartner.get("id"));
+                        update(hr_employeebefore_createdefault);//更新fact中变量值
+                        update(hr_employeebefore_createemployees);//更新fact中变量值
+                        update(hr_employeebefore_createfilter);//更新fact中变量值
+                        update(hr_employeebefore_createpartner);//更新fact中变量值
+                        update(hr_employeebefore_createuser);//更新fact中变量值
+            end
+
+            //逻辑处理节点[结束]
+            rule "end_01"
+            ruleflow-group "hr_employeebefore_createend_01"
+            when
+            then
+                        update(hr_employeebefore_createdefault);//更新fact中变量值
+                        update(hr_employeebefore_createemployees);//更新fact中变量值
+                        update(hr_employeebefore_createfilter);//更新fact中变量值
+                        update(hr_employeebefore_createpartner);//更新fact中变量值
+                        update(hr_employeebefore_createuser);//更新fact中变量值
+            end

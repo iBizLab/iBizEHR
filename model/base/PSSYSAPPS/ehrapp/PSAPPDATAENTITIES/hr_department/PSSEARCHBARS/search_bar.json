@@ -1,0 +1,41 @@
+{
+  "codeName" : "search_bar",
+  "controlStyle" : "ODOO_SEARCH_BAR",
+  "controlType" : "SEARCHBAR",
+  "dynaModelFilePath" : "PSSYSAPPS/ehrapp/PSAPPDATAENTITIES/hr_department/PSSEARCHBARS/search_bar.json",
+  "groupMode" : "AND",
+  "logicName" : "部门搜索栏",
+  "getPSAppDataEntity" : {
+    "modelref" : true,
+    "path" : "PSSYSAPPS/ehrapp/PSAPPDATAENTITIES/hr_department.json"
+  },
+  "getPSSearchBarGroups" : [ {
+    "caption" : "未读消息",
+    "data" : "{\"theme_model\":{\"searchconds\":[{\"condtype\":\"GROUP\",\"condop\":\"AND\",\"bnotmode\":false,\"searchconds\":[{\"condtype\":\"DEFIELD\",\"fieldname\":\"message_needaction\",\"condop\":\"EQ\",\"value\":\"1\"}]}]}}",
+    "itemType" : "GROUP",
+    "name" : "unread_messages",
+    "width" : 0.0,
+    "addSeparator" : false
+  }, {
+    "caption" : "已归档",
+    "data" : "{\"theme_model\":{\"searchconds\":[{\"condtype\":\"GROUP\",\"condop\":\"AND\",\"bnotmode\":false,\"searchconds\":[{\"condtype\":\"DEFIELD\",\"fieldname\":\"active\",\"condop\":\"EQ\",\"value\":\"0\"}]}]}}",
+    "itemType" : "GROUP",
+    "name" : "inactive",
+    "width" : 0.0,
+    "addSeparator" : true
+  } ],
+  "getPSSysPFPlugin" : {
+    "pluginType" : "CUSTOM",
+    "pluginCode" : "ODOO_SEARCH_BAR",
+    "runtimeObject" : true
+  },
+  "quickGroupCount" : 1,
+  "quickSearchMode" : 1,
+  "quickSearchWidth" : 0,
+  "enableFilter" : false,
+  "enableGroup" : true,
+  "enableQuickSearch" : true,
+  "mobileSearchBar" : false,
+  "modelid" : "fe1465672509663ee6331742a8f483a2",
+  "modeltype" : "PSSYSSEARCHBAR"
+}

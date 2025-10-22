@@ -1,0 +1,46 @@
+package cn.ibizlab.hr.logic.hr_applicantlogic.add_candidate_oppriv;
+        import java.util.Map;
+        import java.util.HashMap;
+        import com.alibaba.fastjson.JSONObject;
+        import org.springframework.util.StringUtils;
+        import org.springframework.util.ObjectUtils;
+        import cn.ibizlab.util.errors.BadRequestAlertException;
+                global cn.ibizlab.core.hr.domain.hr_applicant hr_applicantadd_candidate_opprivdefault;
+        global cn.ibizlab.core.hr.service.Ihr_applicantService iBzSysHr_applicantDefaultService;
+        global cn.ibizlab.util.security.AuthenticationUser curuser;
+
+
+    no-loop
+
+            //逻辑处理节点[开始]
+            rule "begin"
+            ruleflow-group "hr_applicantadd_candidate_opprivbegin"
+            when
+            then
+            end
+
+            //逻辑处理节点[准备参数]
+            rule "prepareparam1"
+            ruleflow-group "hr_applicantadd_candidate_opprivprepareparam1"
+            when
+            then
+                            hr_applicantadd_candidate_opprivdefault.set("srfdataaccaction","STATE20");
+                        update(hr_applicantadd_candidate_opprivdefault);//更新fact中变量值
+            end
+
+            //逻辑处理节点[准备参数]
+            rule "prepareparam2"
+            ruleflow-group "hr_applicantadd_candidate_opprivprepareparam2"
+            when
+            then
+                                hr_applicantadd_candidate_opprivdefault.set("srfdataaccaction",null);
+                        update(hr_applicantadd_candidate_opprivdefault);//更新fact中变量值
+            end
+
+            //逻辑处理节点[结束]
+            rule "end1"
+            ruleflow-group "hr_applicantadd_candidate_opprivend1"
+            when
+            then
+                        update(hr_applicantadd_candidate_opprivdefault);//更新fact中变量值
+            end

@@ -1,0 +1,470 @@
+{
+  "codeName" : "attendance_scheduleCalendar",
+  "defaultParamName" : "Default",
+  "dynaModelFilePath" : "PSMODULES/attendance/PSDATAENTITIES/attendance_rule/PSDELOGICS/attendance_scheduleCalendar.json",
+  "logicName" : "计算日历排班",
+  "name" : "计算日历排班",
+  "getPSDELogicNodes" : [ {
+    "codeName" : "Begin",
+    "leftPos" : 890,
+    "logicNodeType" : "BEGIN",
+    "name" : "开始",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "RAWSFCODE_07"
+      },
+      "name" : "连接名称",
+      "getPSDELogicLinkGroupCond" : {
+        "groupOP" : "AND",
+        "logicType" : "GROUP",
+        "name" : "连接条件组",
+        "getPSDELogicLinkConds" : [ {
+          "condOP" : "ISNOTNULL",
+          "dstFieldName" : "rq",
+          "getDstLogicParam" : {
+            "modelref" : true,
+            "id" : "Default"
+          },
+          "logicType" : "SINGLE",
+          "name" : "Default[rq] 值不为空(NotNil)"
+        } ]
+      },
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "Begin"
+      }
+    } ],
+    "topPos" : -350,
+    "parallelOutput" : true
+  }, {
+    "codeName" : "DEDATASET_01",
+    "getDstPSDEDataSet" : {
+      "modelref" : true,
+      "id" : "public"
+    },
+    "getDstPSDELogicParam" : {
+      "modelref" : true,
+      "id" : "Filter"
+    },
+    "getDstPSDataEntity" : {
+      "modelref" : true,
+      "path" : "PSMODULES/resource/PSDATAENTITIES/resource_calendar_leaves.json"
+    },
+    "leftPos" : 850,
+    "logicNodeType" : "DEDATASET",
+    "name" : "实体数据集",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "RAWSFCODE_05"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "DEDATASET_01"
+      }
+    } ],
+    "getRetPSDELogicParam" : {
+      "modelref" : true,
+      "id" : "leaves"
+    },
+    "topPos" : 90
+  }, {
+    "codeName" : "DEBUGPARAM_02",
+    "getDstPSDELogicParam" : {
+      "modelref" : true,
+      "id" : "lastRldata"
+    },
+    "leftPos" : 850,
+    "logicNodeType" : "DEBUGPARAM",
+    "name" : "调试逻辑参数",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "END_01"
+      },
+      "name" : "上A休B/N班倒-休息日不同",
+      "getPSDELogicLinkGroupCond" : {
+        "groupOP" : "AND",
+        "logicType" : "GROUP",
+        "name" : "连接条件组",
+        "getPSDELogicLinkConds" : [ {
+          "groupOP" : "OR",
+          "logicType" : "GROUP",
+          "name" : "OR",
+          "getPSDELogicLinkConds" : [ {
+            "condOP" : "EQ",
+            "dstFieldName" : "SCHEDULE_TYPE",
+            "getDstLogicParam" : {
+              "modelref" : true,
+              "id" : "Default"
+            },
+            "logicType" : "SINGLE",
+            "name" : "Default[SCHEDULE_TYPE] 等于(=) work_rest",
+            "paramValue" : "work_rest"
+          }, {
+            "groupOP" : "OR",
+            "logicType" : "GROUP",
+            "name" : "OR",
+            "getPSDELogicLinkConds" : [ {
+              "condOP" : "EQ",
+              "dstFieldName" : "SCHEDULE_TYPE",
+              "getDstLogicParam" : {
+                "modelref" : true,
+                "id" : "Default"
+              },
+              "logicType" : "SINGLE",
+              "name" : "Default[SCHEDULE_TYPE] 等于(=) class_inversion",
+              "paramValue" : "class_inversion"
+            }, {
+              "condOP" : "EQ",
+              "dstFieldName" : "SAME_RESTDAY",
+              "getDstLogicParam" : {
+                "modelref" : true,
+                "id" : "Default"
+              },
+              "logicType" : "SINGLE",
+              "name" : "Default[SAME_RESTDAY] 等于(=) 0",
+              "paramValue" : "0"
+            } ]
+          } ]
+        } ]
+      },
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "DEBUGPARAM_02"
+      }
+    }, {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "RAWSFCODE_04"
+      },
+      "name" : "大小周",
+      "getPSDELogicLinkGroupCond" : {
+        "groupOP" : "AND",
+        "logicType" : "GROUP",
+        "name" : "连接条件组",
+        "getPSDELogicLinkConds" : [ {
+          "condOP" : "EQ",
+          "dstFieldName" : "SCHEDULE_TYPE",
+          "getDstLogicParam" : {
+            "modelref" : true,
+            "id" : "Default"
+          },
+          "logicType" : "SINGLE",
+          "name" : "Default[SCHEDULE_TYPE] 等于(=) alternate_week",
+          "paramValue" : "alternate_week"
+        } ]
+      },
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "DEBUGPARAM_02"
+      }
+    }, {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "RAWSFCODE_06"
+      },
+      "name" : "连接名称",
+      "getPSDELogicLinkGroupCond" : {
+        "groupOP" : "AND",
+        "logicType" : "GROUP",
+        "name" : "连接条件组",
+        "getPSDELogicLinkConds" : [ {
+          "condOP" : "EQ",
+          "dstFieldName" : "SCHEDULE_TYPE",
+          "getDstLogicParam" : {
+            "modelref" : true,
+            "id" : "Default"
+          },
+          "logicType" : "SINGLE",
+          "name" : "Default[SCHEDULE_TYPE] 等于(=) class_inversion",
+          "paramValue" : "class_inversion"
+        }, {
+          "condOP" : "EQ",
+          "dstFieldName" : "SAME_RESTDAY",
+          "getDstLogicParam" : {
+            "modelref" : true,
+            "id" : "Default"
+          },
+          "logicType" : "SINGLE",
+          "name" : "Default[SAME_RESTDAY] 等于(=) 1",
+          "paramValue" : "1"
+        } ]
+      },
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "DEBUGPARAM_02"
+      }
+    }, {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "RAWSFCODE_03"
+      },
+      "name" : "连接名称",
+      "getPSDELogicLinkGroupCond" : {
+        "groupOP" : "AND",
+        "logicType" : "GROUP",
+        "name" : "连接条件组",
+        "getPSDELogicLinkConds" : [ {
+          "groupOP" : "OR",
+          "logicType" : "GROUP",
+          "name" : "OR",
+          "getPSDELogicLinkConds" : [ {
+            "condOP" : "EQ",
+            "dstFieldName" : "SCHEDULE_TYPE",
+            "getDstLogicParam" : {
+              "modelref" : true,
+              "id" : "Default"
+            },
+            "logicType" : "SINGLE",
+            "name" : "Default[SCHEDULE_TYPE] 等于(=) fixed",
+            "paramValue" : "fixed"
+          }, {
+            "condOP" : "EQ",
+            "dstFieldName" : "SCHEDULE_TYPE",
+            "getDstLogicParam" : {
+              "modelref" : true,
+              "id" : "Default"
+            },
+            "logicType" : "SINGLE",
+            "name" : "Default[SCHEDULE_TYPE] 等于(=) flexible",
+            "paramValue" : "flexible"
+          } ]
+        } ]
+      },
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "DEBUGPARAM_02"
+      }
+    } ],
+    "topPos" : 380,
+    "parallelOutput" : true
+  }, {
+    "code" : "//计算排班\r\ndef _default = logic.param('Default').getReal()\r\ndef schedule_type = _default.get(\"schedule_type\")\r\ndef workdays = _default.get(\"workdays\")\r\ndef shifts = _default.get(\"shifts\")\r\ndef inversion_cycle = _default.get(\"inversion_cycle\")\r\ndef inversion_count = _default.get(\"inversion_count\")\r\ndef same_restday = _default.get(\"same_restday\")\r\ndef inversion_days = _default.get(\"inversion_days\")\r\ndef rest = _default.get(\"rest\")\r\ndef work = _default.get(\"reworkst\")\r\ndef biweekly_cycle = _default.get(\"biweekly_cycle\")\r\ndef rq = _default.get(\"rq\")\r\n\r\ndef lastRldata = logic.param('lastRldata').getReal()\r\n\r\n// 解析传入月份并计算起止时间\r\ndef sdf = new java.text.SimpleDateFormat(\"yyyy-MM-dd\")\r\ndef rqDateFormat = new java.text.SimpleDateFormat(\"yyyy-MM\")\r\ndef rqDate = rqDateFormat.parse(rq)\r\n\r\nCalendar cal = Calendar.getInstance()\r\ncal.setTime(rqDate)\r\n\r\n// 设置当月第一天\r\ncal.set(Calendar.DAY_OF_MONTH, 1)\r\nDate startOfMonth = cal.getTime()\r\n\r\n// 设置下个月第一天并回退一天得到当月最后一天\r\ncal.add(Calendar.MONTH, 1)\r\ncal.set(Calendar.DAY_OF_MONTH, 1)\r\ncal.add(Calendar.DAY_OF_MONTH, -1)\r\nDate endOfMonth = cal.getTime()\r\n\r\ndef startCal = Calendar.getInstance()\r\nstartCal.setTime(startOfMonth)\r\n\r\ndef endCal = Calendar.getInstance()\r\nendCal.setTime(endOfMonth)\r\n\r\n\r\n// 判断是否工作日\r\ndef judgeWork = { Date checkinDate, List workdaysParam, List activeShiftsParam ->\r\n        // 1. 确定当前日期是周几（1-7对应周一到周日）\r\n        def calendarInner = Calendar.getInstance()\r\n    calendarInner.setTime(checkinDate)\r\n    int dayOfWeek = calendarInner.get(Calendar.DAY_OF_WEEK)\r\n    int dayNumber = (dayOfWeek == Calendar.SUNDAY) ? 7 : dayOfWeek - 1\r\n    // print \"班次数据, ${activeShiftsParam}!\"\r\n    // print \"工作日数据, ${workdaysParam}!\"\r\n    // print \"日期数据, ${checkinDate}!\"\r\n\r\n    // 2. 查找匹配的工作日配置\r\n    def workdayConfig = workdaysParam.find { it.day_number == dayNumber }\r\n\r\n// 3. 未找到工作日配置时返回空班次\r\nif (!workdayConfig || !workdayConfig.shift_id) {\r\n    return 0\r\n}\r\n\r\n// 4. 查找对应的班次信息\r\ndef shift = activeShiftsParam.find { it.id == workdayConfig.shift_id }\r\n\r\n// 5. 未找到班次时返回空班次\r\nif (!shift) {\r\n    return 0\r\n\r\n}\r\n\r\nreturn 1;\r\n}\r\n\r\n// 遍历日期区间\r\nwhile (!startCal.after(endCal)) {\r\n    def checkinDate = startCal.getTime()\r\n    def day = lastRldata.find { it.date_to >= checkinDate && it.date_from <= checkinDate }\r\n\r\n    if(day == null){\r\n        def res = judgeWork(checkinDate, workdays, shifts)\r\n        if(res==0){\r\n            def restday = sys.entity('resource_calendar_leaves')\r\n            restday.set(\"date\",sdf.format(checkinDate))\r\n            restday.set(\"iswork\",0)\r\n            lastRldata.add(restday)\r\n        }\r\n    }\r\n\r\n    startCal.add(Calendar.DAY_OF_MONTH, 1)\r\n}\r\n",
+    "codeName" : "RAWSFCODE_03",
+    "codeType" : "Groovy",
+    "leftPos" : 469,
+    "logicNodeType" : "RAWSFCODE",
+    "name" : "固定排班/灵活打卡",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "END_01"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "RAWSFCODE_03"
+      }
+    } ],
+    "topPos" : 540,
+    "parallelOutput" : true
+  }, {
+    "code" : "def _default = logic.param('Default').getReal()\r\ndef schedule_type = _default.get(\"schedule_type\")\r\ndef workdays = _default.get(\"workdays\")\r\ndef shifts = _default.get(\"shifts\")\r\ndef inversion_cycle = _default.get(\"inversion_cycle\")\r\ndef inversion_count = _default.get(\"inversion_count\")\r\ndef same_restday = _default.get(\"same_restday\")\r\ndef inversion_days = _default.get(\"inversion_days\")\r\ndef rest = _default.get(\"rest\")\r\ndef work = _default.get(\"reworkst\")\r\ndef biweekly_cycle = _default.get(\"biweekly_cycle\")\r\ndef rq = _default.get(\"rq\")\r\n\r\ndef lastRldata = logic.param('lastRldata').getReal()\r\n\r\n// 解析传入月份并计算起止时间\r\ndef sdf = new java.text.SimpleDateFormat(\"yyyy-MM-dd\")\r\ndef rqDateFormat = new java.text.SimpleDateFormat(\"yyyy-MM\")\r\ndef rqDate = rqDateFormat.parse(rq)\r\n\r\nCalendar cal = Calendar.getInstance()\r\ncal.setTime(rqDate)\r\n\r\n// 设置当月第一天\r\ncal.set(Calendar.DAY_OF_MONTH, 1)\r\nDate startOfMonth = cal.getTime()\r\n\r\n// 设置下个月第一天并回退一天得到当月最后一天\r\ncal.add(Calendar.MONTH, 1)\r\ncal.set(Calendar.DAY_OF_MONTH, 1)\r\ncal.add(Calendar.DAY_OF_MONTH, -1)\r\nDate endOfMonth = cal.getTime()\r\n\r\ndef startCal = Calendar.getInstance()\r\nstartCal.setTime(startOfMonth)\r\n\r\ndef endCal = Calendar.getInstance()\r\nendCal.setTime(endOfMonth)\r\n\r\n// 计算周期天数（N班倒*7天）\r\nint cycleDays = inversion_cycle * 7\r\n\r\n// 预处理工作日数据：建立周期映射表（仅保留1~cycleDays的配置）\r\ndef validWorkdays = workdays.findAll { it.day_number <= cycleDays }\r\ndef cycleMap = [:]\r\nvalidWorkdays.each { \r\n    cycleMap[it.day_number] = it \r\n}\r\n\r\n// 计算当月第一天对应的周期基准日（最近的前序周一）\r\nCalendar baseDateCal = Calendar.getInstance()\r\nbaseDateCal.setTime(startOfMonth)\r\n// 计算需要回退的天数（1=周日,2=周一,...,7=周六）\r\nint daysToSubtract = (baseDateCal.get(Calendar.DAY_OF_WEEK) - 2 + 7) % 7\r\nif (daysToSubtract > 0) {\r\n    baseDateCal.add(Calendar.DAY_OF_MONTH, -daysToSubtract)\r\n}\r\nDate baseDate = baseDateCal.getTime()\r\n\r\n// 遍历当月每一天\r\nwhile (!startCal.after(endCal)) {\r\n    Date checkinDate = startCal.getTime()\r\n    \r\n    // 计算相对于基准日的天数偏移\r\n    long offsetMillis = checkinDate.getTime() - baseDate.getTime()\r\n    int offsetDays = (offsetMillis / (24 * 60 * 60 * 1000)) as int\r\n    \r\n    // 计算周期位置（1-based）\r\n    int dayInCycle = (offsetDays % cycleDays) + 1\r\n\r\n    // 查找工作配置\r\n    def workdayConfig = cycleMap[dayInCycle]\r\n    \r\n    // 判断是否为休息日\r\n    boolean isRestDay = (workdayConfig == null) || \r\n                       (workdayConfig.title == \"休息\")\r\n    \r\n    // 如果是休息日且未记录，则添加到结果集\r\n    if (isRestDay) {\r\n        def day = lastRldata.find { it.date_to >= checkinDate && it.date_from <= checkinDate }\r\n        if (day == null) {\r\n            def restday = sys.entity('resource_calendar_leaves')\r\n            restday.set(\"date\",sdf.format(checkinDate))\r\n            restday.set(\"iswork\",0)\r\n            lastRldata.add(restday)\r\n        }\r\n    }\r\n    \r\n    startCal.add(Calendar.DAY_OF_MONTH, 1)\r\n}",
+    "codeName" : "RAWSFCODE_06",
+    "codeType" : "Groovy",
+    "leftPos" : 685,
+    "logicNodeType" : "RAWSFCODE",
+    "name" : "N班倒-休息日相同",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "END_01"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "RAWSFCODE_06"
+      }
+    } ],
+    "topPos" : 540,
+    "parallelOutput" : true
+  }, {
+    "codeName" : "PREPAREPARAM_01",
+    "leftPos" : 850,
+    "logicNodeType" : "PREPAREPARAM",
+    "name" : "准备参数",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "DEDATASET_01"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "PREPAREPARAM_01"
+      }
+    } ],
+    "getPSDELogicNodeParams" : [ {
+      "dstFieldName" : "N_DATE_FROM_LTANDEQ",
+      "getDstPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "Filter"
+      },
+      "paramAction" : "SETPARAMVALUE",
+      "srcFieldName" : "N_DATE_FROM_LTANDEQ",
+      "getSrcPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "Default"
+      },
+      "srcValueType" : "SRCDLPARAM"
+    }, {
+      "dstFieldName" : "N_DATE_TO_GTANDEQ",
+      "getDstPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "Filter"
+      },
+      "paramAction" : "SETPARAMVALUE",
+      "srcFieldName" : "N_DATE_TO_GTANDEQ",
+      "getSrcPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "Default"
+      },
+      "srcValueType" : "SRCDLPARAM"
+    }, {
+      "dstFieldName" : "size",
+      "getDstPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "Filter"
+      },
+      "paramAction" : "SETPARAMVALUE",
+      "srcValue" : "1000",
+      "srcValueType" : "SRCVALUE"
+    } ],
+    "topPos" : -74,
+    "parallelOutput" : true
+  }, {
+    "code" : "def curRldata = logic.param('leaves').getReal()\r\ndef lastRldata = logic.param('lastRldata').getReal()\r\ndef _default = logic.param('Default').getReal()\r\ndef holiday = _default.get(\"holiday\")\r\ndef startOfMonth = _default.get(\"startOfMonth\")\r\n\r\nif(curRldata && holiday && startOfMonth){\r\n    def sdf = new java.text.SimpleDateFormat(\"yyyy-MM-dd\")\r\n    \r\n    curRldata.each{ i ->\r\n        def holiday_type = i.get(\"holiday_type\")?: \"\"\r\n        \r\n        if(holiday.contains(holiday_type)){\r\n            def startDate = i.get(\"date_from\")\r\n            def endDate = i.get(\"date_to\")\r\n\r\n            if (startDate && endDate) {\r\n                // 日期范围调整逻辑\r\n                if(startOfMonth.after(startDate)){\r\n                    startDate = startOfMonth\r\n                }\r\n                \r\n                // 确保结束日期不小于开始日期\r\n                if(endDate.before(startDate)) return\r\n\r\n                // 使用Calendar进行日期遍历\r\n                Calendar cal = Calendar.getInstance()\r\n                cal.setTime(startDate)\r\n                \r\n                while (!cal.getTime().after(endDate)) {  \r\n                    def restday = sys.entity('resource_calendar_leaves')\r\n                    restday.set(\"date\", sdf.format(cal.getTime()))\r\n                    restday.set(\"iswork\", 0)\r\n                    restday.set(\"name\", i.get(\"name\"))\r\n                    lastRldata.add(restday)\r\n                    \r\n                    cal.add(Calendar.DATE, 1) \r\n                }\r\n            }\r\n        }\r\n    }\r\n}",
+    "codeName" : "RAWSFCODE_05",
+    "codeType" : "Groovy",
+    "leftPos" : 850,
+    "logicNodeType" : "RAWSFCODE",
+    "name" : "根据holiday配置确定lastRldata",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "DEBUGPARAM_02"
+      },
+      "name" : "返回指定月份",
+      "getPSDELogicLinkGroupCond" : {
+        "groupOP" : "AND",
+        "logicType" : "GROUP",
+        "name" : "连接条件组",
+        "getPSDELogicLinkConds" : [ {
+          "condOP" : "ISNOTNULL",
+          "dstFieldName" : "rq",
+          "getDstLogicParam" : {
+            "modelref" : true,
+            "id" : "Default"
+          },
+          "logicType" : "SINGLE",
+          "name" : "Default[rq] 值不为空(NotNil)"
+        } ]
+      },
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "RAWSFCODE_05"
+      }
+    } ],
+    "topPos" : 220,
+    "parallelOutput" : true
+  }, {
+    "code" : "def _filter = logic.param('Filter').getReal()\r\n\r\ndef dateFormat = new java.text.SimpleDateFormat(\"yyyy-MM-dd\")\r\n\r\ndef _default = logic.param('Default').getReal()\r\ndef rqStr = _default.get(\"rq\")\r\n\r\ndef yearMonthStr = rqStr.substring(0, 7)\r\n_default.set(\"rq\", yearMonthStr)\r\ndef rqDateFormat = new java.text.SimpleDateFormat(\"yyyy-MM\")\r\ndef rqDate = rqDateFormat.parse(yearMonthStr)\r\n\r\nCalendar cal = Calendar.getInstance()\r\ncal.setTime(rqDate)\r\n\r\n// 设置当月第一天\r\ncal.set(Calendar.DAY_OF_MONTH, 1)\r\nDate startOfMonth = cal.getTime()\r\n\r\n// 设置下个月第一天并回退一天得到当月最后一天\r\ncal.add(Calendar.MONTH, 1)\r\ncal.set(Calendar.DAY_OF_MONTH, 1)\r\ncal.add(Calendar.DAY_OF_MONTH, -1)\r\nDate endOfMonth = cal.getTime()\r\n\r\n// 设置过滤条件（格式化为yyyy-MM-dd）\r\n_default.set(\"N_DATE_FROM_LTANDEQ\", dateFormat.format(endOfMonth))\r\n_default.set(\"N_DATE_TO_GTANDEQ\", dateFormat.format(startOfMonth))\r\n_default.set(\"startOfMonth\",startOfMonth)",
+    "codeName" : "RAWSFCODE_07",
+    "codeType" : "Groovy",
+    "leftPos" : 850,
+    "logicNodeType" : "RAWSFCODE",
+    "name" : "获取当月法定节假日",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "PREPAREPARAM_01"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "RAWSFCODE_07"
+      }
+    } ],
+    "topPos" : -194,
+    "parallelOutput" : true
+  }, {
+    "code" : "//计算排班\r\ndef _default = logic.param('Default').getReal()\r\ndef schedule_type = _default.get(\"schedule_type\")\r\ndef workdays = _default.get(\"workdays\")\r\ndef shifts = _default.get(\"shifts\")\r\ndef inversion_cycle = _default.get(\"inversion_cycle\")\r\ndef inversion_count = _default.get(\"inversion_count\")\r\ndef same_restday = _default.get(\"same_restday\")\r\ndef inversion_days = _default.get(\"inversion_days\")\r\ndef rest = _default.get(\"rest\")\r\ndef work = _default.get(\"reworkst\")\r\ndef biweekly_cycle = _default.get(\"biweekly_cycle\")\r\ndef rq = _default.get(\"rq\")\r\n\r\ndef lastRldata = logic.param('lastRldata').getReal()\r\n\r\n\r\n\r\n// 解析传入月份并计算起止时间\r\ndef sdf = new java.text.SimpleDateFormat(\"yyyy-MM-dd\")\r\ndef rqDateFormat = new java.text.SimpleDateFormat(\"yyyy-MM\")\r\ndef rqDate = rqDateFormat.parse(rq)\r\n\r\nCalendar cal = Calendar.getInstance()\r\ncal.setTime(rqDate)\r\n\r\n// 设置当月第一天\r\ncal.set(Calendar.DAY_OF_MONTH, 1)\r\nDate startOfMonth = cal.getTime()\r\n\r\n// 设置下个月第一天并回退一天得到当月最后一天\r\ncal.add(Calendar.MONTH, 1)\r\ncal.set(Calendar.DAY_OF_MONTH, 1)\r\ncal.add(Calendar.DAY_OF_MONTH, -1)\r\nDate endOfMonth = cal.getTime()\r\n\r\ndef startCal = Calendar.getInstance()\r\nstartCal.setTime(startOfMonth)\r\n\r\n\r\ndef endCal = Calendar.getInstance()\r\nendCal.setTime(endOfMonth)\r\n\r\n// 判断是否工作日\r\ndef judgeWork = { Date checkinDate, List workdaysParam, List activeShiftsParam ->\r\n        // 1. 确定当前日期是周几（1-7对应周一到周日）\r\n        def calendarInner = Calendar.getInstance()\r\n    calendarInner.setTime(checkinDate)\r\n    int dayOfWeek = calendarInner.get(Calendar.DAY_OF_WEEK)\r\n    int dayNumber = (dayOfWeek == Calendar.SUNDAY) ? 7 : dayOfWeek - 1\r\n    // print \"所在周的第一天, ${startOfMonth}!\"\r\n    // print \"日期数据, ${checkinDate}!\"\r\n    // 大/小周计算逻辑\r\n    // 计算起始日期所在周的第一天（周一）\r\n    def effectCal = Calendar.getInstance()\r\n    effectCal.setTime(startOfMonth)\r\n    effectCal.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY)\r\n\r\n    // 计算检查日期所在周的第一天（周一）\r\n    def checkinCal = Calendar.getInstance()\r\n    checkinCal.setTime(checkinDate)\r\n    checkinCal.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY)\r\n\r\n    // 计算周数差（生效日期所在周为第1周）\r\n    long diffMillis = checkinCal.getTimeInMillis() - effectCal.getTimeInMillis()\r\n    int weekNumber = (int)(diffMillis / (7 * 24 * 60 * 60 * 1000)) + 1\r\n\r\n    // 判断当前是大周还是小周\r\n    boolean isBigWeek = false\r\n    if (biweekly_cycle == \"big_small\") {\r\n    isBigWeek = (weekNumber % 2 == 1)  // 奇数周为大周\r\n} else if (biweekly_cycle == \"small_big\") {\r\n    isBigWeek = (weekNumber % 2 == 0)  // 偶数周为大周\r\n}\r\n\r\n// 调整day_number（小周时+7）\r\nint adjustedDayNumber = isBigWeek ? dayNumber : dayNumber + 7\r\n\r\n// 2. 查找匹配的工作日配置（直接匹配调整后的day_number）\r\ndef workdayConfig = workdaysParam.find {\r\n    it.day_number == adjustedDayNumber\r\n}\r\n\r\n// 3. 未找到工作日配置时返回空班次\r\nif (!workdayConfig || !workdayConfig.shift_id) {\r\n    // print \"未找到工作日配置时返回空班次, ${workdayConfig}!\"\r\n    return 0\r\n}\r\n\r\n// 4. 查找对应的班次信息\r\ndef shift = activeShiftsParam.find { it.id == workdayConfig.shift_id }\r\n\r\n// 5. 未找到班次时返回空班次\r\nif (!shift) {\r\n    // print \"未找到班次时返回空班次, ${shift}!\"\r\n    return 0\r\n}\r\n\r\n// 6. 返回班次数据\r\n// print \"返回班次数据, ${shift}!\"\r\nreturn 1\r\n}\r\n\r\n\r\n// 遍历日期区间\r\nwhile (!startCal.after(endCal)) {\r\n    def checkinDate = startCal.getTime()\r\n    def day = lastRldata.find { it.date_to >= checkinDate && it.date_from <= checkinDate }\r\n    if (day == null) {\r\n        def res = judgeWork(checkinDate, workdays, shifts)\r\n        if(res==0){\r\n            def restday = sys.entity('resource_calendar_leaves')\r\n            restday.set(\"date\",sdf.format(checkinDate))\r\n            restday.set(\"iswork\",0)\r\n            lastRldata.add(restday)\r\n        }\r\n    }\r\n\r\n    startCal.add(Calendar.DAY_OF_MONTH, 1)\r\n}\r\n",
+    "codeName" : "RAWSFCODE_04",
+    "codeType" : "Groovy",
+    "leftPos" : 1120,
+    "logicNodeType" : "RAWSFCODE",
+    "name" : "大小周",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "END_01"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "RAWSFCODE_04"
+      }
+    } ],
+    "topPos" : 540,
+    "parallelOutput" : true
+  }, {
+    "codeName" : "END_01",
+    "leftPos" : 1004,
+    "logicNodeType" : "END",
+    "name" : "结束",
+    "getReturnParam" : {
+      "modelref" : true,
+      "id" : "lastRldata"
+    },
+    "returnType" : "LOGICPARAM",
+    "topPos" : 700,
+    "parallelOutput" : true
+  } ],
+  "getPSDELogicParams" : [ {
+    "codeName" : "Default",
+    "logicName" : "传入变量",
+    "name" : "传入变量",
+    "getParamPSDataEntity" : {
+      "modelref" : true,
+      "path" : "PSMODULES/attendance/PSDATAENTITIES/attendance_rule.json"
+    },
+    "default" : true,
+    "filterParam" : true
+  }, {
+    "codeName" : "Filter",
+    "logicName" : "Filter",
+    "name" : "Filter",
+    "getParamPSDataEntity" : {
+      "modelref" : true,
+      "path" : "PSMODULES/resource/PSDATAENTITIES/resource_calendar_leaves.json"
+    },
+    "filterParam" : true
+  }, {
+    "codeName" : "lastRldata",
+    "logicName" : "lastRldata",
+    "name" : "lastRldata",
+    "getParamPSDataEntity" : {
+      "modelref" : true,
+      "path" : "PSMODULES/resource/PSDATAENTITIES/resource_calendar_leaves.json"
+    },
+    "entityListParam" : true
+  }, {
+    "codeName" : "leaves",
+    "logicName" : "leaves",
+    "name" : "leaves",
+    "getParamPSDataEntity" : {
+      "modelref" : true,
+      "path" : "PSMODULES/resource/PSDATAENTITIES/resource_calendar_leaves.json"
+    },
+    "entityListParam" : true
+  } ],
+  "getStartPSDELogicNode" : {
+    "modelref" : true,
+    "id" : "Begin"
+  },
+  "enableBackend" : true,
+  "enableFront" : false
+}

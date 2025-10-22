@@ -1,0 +1,87 @@
+package cn.ibizlab.attendance.logic.attendance_rulelogic.fillgroupshift;
+        import java.util.Map;
+        import java.util.HashMap;
+        import com.alibaba.fastjson.JSONObject;
+        import org.springframework.util.StringUtils;
+        import org.springframework.util.ObjectUtils;
+        import cn.ibizlab.util.errors.BadRequestAlertException;
+                global cn.ibizlab.core.attendance.domain.attendance_rule attendance_rulefillgroupshiftdefault;
+                global cn.ibizlab.core.attendance.domain.attendance_group_shift attendance_rulefillgroupshiftgroupshift;
+                global cn.ibizlab.core.attendance.domain.attendance_group_shift attendance_rulefillgroupshiftgroupshifts;
+        global cn.ibizlab.core.attendance.service.Iattendance_ruleService iBzSysAttendance_ruleDefaultService;
+        global cn.ibizlab.util.security.AuthenticationUser curuser;
+
+
+    no-loop
+
+            //逻辑处理节点[开始]
+            rule "begin"
+            ruleflow-group "attendance_rulefillgroupshiftbegin"
+            when
+            then
+            end
+
+            //逻辑处理节点[准备参数]
+            rule "prepareparam_02"
+            ruleflow-group "attendance_rulefillgroupshiftprepareparam_02"
+            when
+            then
+                            attendance_rulefillgroupshiftdefault.set("group_shifts",attendance_rulefillgroupshiftgroupshifts.get(""));
+                        update(attendance_rulefillgroupshiftdefault);//更新fact中变量值
+                        update(attendance_rulefillgroupshiftgroupshift);//更新fact中变量值
+                        update(attendance_rulefillgroupshiftgroupshifts);//更新fact中变量值
+            end
+
+            //逻辑处理节点[n班倒-休息日相同]
+            rule "rawsfcode_04"
+            ruleflow-group "attendance_rulefillgroupshiftrawsfcode_04"
+            when
+            then
+                        update(attendance_rulefillgroupshiftdefault);//更新fact中变量值
+                        update(attendance_rulefillgroupshiftgroupshift);//更新fact中变量值
+                        update(attendance_rulefillgroupshiftgroupshifts);//更新fact中变量值
+            end
+
+            //逻辑处理节点[准备组排班数据]
+            rule "prepareparam_01"
+            ruleflow-group "attendance_rulefillgroupshiftprepareparam_01"
+            when
+            then
+                            attendance_rulefillgroupshiftgroupshift.set("allcompany","false");
+                            attendance_rulefillgroupshiftgroupshift.set("ordernum","1");
+                            attendance_rulefillgroupshiftgroupshifts.set("",attendance_rulefillgroupshiftgroupshift.get(""));
+                            attendance_rulefillgroupshiftdefault.set("group_shifts",attendance_rulefillgroupshiftgroupshifts.get(""));
+                        update(attendance_rulefillgroupshiftdefault);//更新fact中变量值
+                        update(attendance_rulefillgroupshiftgroupshift);//更新fact中变量值
+                        update(attendance_rulefillgroupshiftgroupshifts);//更新fact中变量值
+            end
+
+            //逻辑处理节点[上a休b/n班倒-休息日不同]
+            rule "rawsfcode_03"
+            ruleflow-group "attendance_rulefillgroupshiftrawsfcode_03"
+            when
+            then
+                        update(attendance_rulefillgroupshiftdefault);//更新fact中变量值
+                        update(attendance_rulefillgroupshiftgroupshift);//更新fact中变量值
+                        update(attendance_rulefillgroupshiftgroupshifts);//更新fact中变量值
+            end
+
+            //逻辑处理节点[生成标识]
+            rule "rawsfcode_01"
+            ruleflow-group "attendance_rulefillgroupshiftrawsfcode_01"
+            when
+            then
+                        update(attendance_rulefillgroupshiftdefault);//更新fact中变量值
+                        update(attendance_rulefillgroupshiftgroupshift);//更新fact中变量值
+                        update(attendance_rulefillgroupshiftgroupshifts);//更新fact中变量值
+            end
+
+            //逻辑处理节点[结束]
+            rule "end_01"
+            ruleflow-group "attendance_rulefillgroupshiftend_01"
+            when
+            then
+                        update(attendance_rulefillgroupshiftdefault);//更新fact中变量值
+                        update(attendance_rulefillgroupshiftgroupshift);//更新fact中变量值
+                        update(attendance_rulefillgroupshiftgroupshifts);//更新fact中变量值
+            end

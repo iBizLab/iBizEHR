@@ -1,0 +1,750 @@
+{
+  "codeName" : "wizard_information",
+  "controlType" : "FORM",
+  "defaultLabelWidth" : 130,
+  "dynaModelFilePath" : "PSSYSAPPS/web/PSAPPDATAENTITIES/hr_job/PSFORMS/wizard_information.json",
+  "formFuncMode" : "WIZARDFORM",
+  "getGetPSControlAction" : {
+    "modelref" : true,
+    "id" : "load",
+    "actionName" : "GetTemp",
+    "actionType" : "DEACTION",
+    "name" : "load",
+    "getPSAppDEMethod" : {
+      "modelref" : true,
+      "id" : "GetTemp"
+    },
+    "getPSAppDataEntity" : {
+      "modelref" : true,
+      "path" : "PSSYSAPPS/web/PSAPPDATAENTITIES/hr_job.json"
+    }
+  },
+  "hookEventNames" : [ "SAVE", "LOAD" ],
+  "logicName" : "职位信息（向导）",
+  "getPSAppDataEntity" : {
+    "modelref" : true,
+    "path" : "PSSYSAPPS/web/PSAPPDATAENTITIES/hr_job.json"
+  },
+  "getPSControlLogics" : [ {
+    "eventNames" : "SAVE",
+    "logicTag" : "wizardpanel_form_information",
+    "logicType" : "CUSTOM",
+    "name" : "wizardpanel_formsave"
+  }, {
+    "eventNames" : "LOAD",
+    "logicTag" : "wizardpanel_form_information",
+    "logicType" : "CUSTOM",
+    "name" : "wizardpanel_formload"
+  } ],
+  "getPSDEFormItems" : [ {
+    "id" : "srfupdatedate",
+    "hidden" : true,
+    "dataType" : 5,
+    "getPSAppDEField" : {
+      "name" : "WRITE_DATE",
+      "codeName" : "write_date"
+    }
+  }, {
+    "id" : "srforikey",
+    "hidden" : true,
+    "dataType" : 25
+  }, {
+    "id" : "srfkey",
+    "hidden" : true,
+    "dataType" : 25,
+    "getPSAppDEField" : {
+      "name" : "ID",
+      "codeName" : "id"
+    }
+  }, {
+    "id" : "srfmajortext",
+    "hidden" : true,
+    "dataType" : 25,
+    "getPSAppDEField" : {
+      "name" : "NAME",
+      "codeName" : "name"
+    }
+  }, {
+    "id" : "srftempmode",
+    "hidden" : true,
+    "dataType" : 25
+  }, {
+    "id" : "srfuf",
+    "hidden" : true,
+    "dataType" : 25
+  }, {
+    "id" : "srfdeid",
+    "hidden" : true,
+    "dataType" : 25
+  }, {
+    "id" : "srfsourcekey",
+    "hidden" : true,
+    "dataType" : 25
+  }, {
+    "id" : "name",
+    "dataType" : 25,
+    "createDVT" : "APPDATA",
+    "createDV" : "job_name",
+    "updateDVT" : "APPDATA",
+    "updateDV" : "job_name",
+    "getPSAppDEField" : {
+      "name" : "NAME",
+      "codeName" : "name"
+    }
+  }, {
+    "id" : "department_id",
+    "dataType" : 25,
+    "createDVT" : "APPDATA",
+    "createDV" : "department_code",
+    "updateDVT" : "APPDATA",
+    "updateDV" : "department_code",
+    "getPSAppDEField" : {
+      "name" : "DEPARTMENT_ID",
+      "codeName" : "department_id"
+    }
+  }, {
+    "id" : "job_type",
+    "dataType" : 25,
+    "getPSAppDEField" : {
+      "name" : "JOB_TYPE",
+      "codeName" : "job_type"
+    }
+  }, {
+    "id" : "category",
+    "dataType" : 25,
+    "createDVT" : "APPDATA",
+    "createDV" : "management_rank_ids",
+    "updateDVT" : "APPDATA",
+    "updateDV" : "management_rank_ids",
+    "getPSAppDEField" : {
+      "name" : "CATEGORY",
+      "codeName" : "category"
+    }
+  }, {
+    "id" : "address_id",
+    "dataType" : 25,
+    "getPSAppDEField" : {
+      "name" : "ADDRESS_ID",
+      "codeName" : "address_id"
+    }
+  }, {
+    "id" : "experience",
+    "dataType" : 25,
+    "createDV" : "4",
+    "updateDV" : "4",
+    "getPSAppDEField" : {
+      "name" : "EXPERIENCE",
+      "codeName" : "experience"
+    }
+  }, {
+    "id" : "min_salary",
+    "dataType" : 9,
+    "getPSAppDEField" : {
+      "name" : "MIN_SALARY",
+      "codeName" : "min_salary"
+    }
+  }, {
+    "id" : "max_salary",
+    "dataType" : 9,
+    "getPSAppDEField" : {
+      "name" : "MAX_SALARY",
+      "codeName" : "max_salary"
+    }
+  }, {
+    "id" : "expected_employees",
+    "dataType" : 9,
+    "createDVT" : "APPDATA",
+    "createDV" : "need_number",
+    "updateDVT" : "APPDATA",
+    "updateDV" : "need_number",
+    "getPSAppDEField" : {
+      "name" : "EXPECTED_EMPLOYEES",
+      "codeName" : "expected_employees"
+    }
+  }, {
+    "id" : "function_type",
+    "dataType" : 25,
+    "createDV" : "10",
+    "updateDV" : "10",
+    "getPSAppDEField" : {
+      "name" : "FUNCTION_TYPE",
+      "codeName" : "function_type"
+    }
+  }, {
+    "id" : "job_rank_ids",
+    "dataType" : 25,
+    "getPSAppDEField" : {
+      "name" : "JOB_RANK_IDS",
+      "codeName" : "job_rank_ids"
+    }
+  }, {
+    "id" : "education",
+    "dataType" : 25,
+    "createDV" : "5",
+    "updateDV" : "5",
+    "getPSAppDEField" : {
+      "name" : "EDUCATION",
+      "codeName" : "education"
+    }
+  }, {
+    "id" : "description",
+    "dataType" : 21,
+    "getPSAppDEField" : {
+      "name" : "DESCRIPTION",
+      "codeName" : "description"
+    }
+  }, {
+    "id" : "id",
+    "hidden" : true,
+    "dataType" : 25,
+    "getPSAppDEField" : {
+      "name" : "ID",
+      "codeName" : "id"
+    }
+  } ],
+  "getPSDEFormPages" : [ {
+    "caption" : "基本信息",
+    "codeName" : "formpage1",
+    "detailStyle" : "DEFAULT",
+    "detailType" : "FORMPAGE",
+    "name" : "formpage1",
+    "getPSDEFormDetails" : [ {
+      "caption" : "填写职位信息",
+      "codeName" : "group1",
+      "detailStyle" : "DEFAULT",
+      "detailType" : "GROUPPANEL",
+      "name" : "group1",
+      "getPSDEFormDetails" : [ {
+        "caption" : "职位名称",
+        "codeName" : "name",
+        "createDV" : "job_name",
+        "createDVT" : "APPDATA",
+        "dataType" : 25,
+        "detailStyle" : "DEFAULT",
+        "detailType" : "FORMITEM",
+        "enableCond" : 3,
+        "ignoreInput" : 0,
+        "labelPos" : "TOP",
+        "labelWidth" : 130,
+        "name" : "name",
+        "noPrivDisplayMode" : 1,
+        "getPSAppDEField" : {
+          "name" : "NAME",
+          "codeName" : "name"
+        },
+        "getPSEditor" : {
+          "editorType" : "TEXTBOX",
+          "maxLength" : 200,
+          "name" : "name"
+        },
+        "getPSLayoutPos" : {
+          "colLG" : 24,
+          "colMD" : 24,
+          "layout" : "TABLE_24COL"
+        },
+        "updateDV" : "job_name",
+        "updateDVT" : "APPDATA",
+        "allowEmpty" : false,
+        "showCaption" : true
+      }, {
+        "caption" : "部门",
+        "codeName" : "department_id",
+        "createDV" : "department_code",
+        "createDVT" : "APPDATA",
+        "dataType" : 25,
+        "detailStyle" : "DEFAULT",
+        "detailType" : "FORMITEM",
+        "enableCond" : 3,
+        "ignoreInput" : 0,
+        "labelPos" : "TOP",
+        "labelWidth" : 130,
+        "name" : "department_id",
+        "noPrivDisplayMode" : 1,
+        "getPSAppDEField" : {
+          "name" : "DEPARTMENT_ID",
+          "codeName" : "department_id"
+        },
+        "getPSEditor" : {
+          "editorParams" : {
+            "AC" : "TRUE",
+            "PICKUPVIEW" : "TRUE"
+          },
+          "editorType" : "PICKER",
+          "handlerType" : "PickupText",
+          "name" : "department_id",
+          "getPSAppDEACMode" : {
+            "modelref" : true,
+            "id" : "Default"
+          },
+          "getPSAppDEDataSet" : {
+            "modelref" : true,
+            "id" : "fetch_default"
+          },
+          "getPSAppDataEntity" : {
+            "modelref" : true,
+            "path" : "PSSYSAPPS/web/PSAPPDATAENTITIES/hr_department.json"
+          },
+          "enableAC" : true,
+          "enablePickupView" : true,
+          "forceSelection" : true,
+          "showTrigger" : true,
+          "singleSelect" : true
+        },
+        "getPSLayoutPos" : {
+          "colLG" : 12,
+          "colMD" : 12,
+          "layout" : "TABLE_24COL"
+        },
+        "updateDV" : "department_code",
+        "updateDVT" : "APPDATA",
+        "allowEmpty" : false,
+        "showCaption" : true
+      }, {
+        "caption" : "职位性质",
+        "codeName" : "job_type",
+        "dataType" : 25,
+        "detailStyle" : "DEFAULT",
+        "detailType" : "FORMITEM",
+        "enableCond" : 3,
+        "ignoreInput" : 0,
+        "labelPos" : "TOP",
+        "labelWidth" : 130,
+        "name" : "job_type",
+        "noPrivDisplayMode" : 1,
+        "getPSAppDEField" : {
+          "name" : "JOB_TYPE",
+          "codeName" : "job_type"
+        },
+        "getPSEditor" : {
+          "editorType" : "RADIOBUTTONLIST",
+          "name" : "job_type",
+          "getPSAppCodeList" : {
+            "modelref" : true,
+            "path" : "PSSYSAPPS/web/PSAPPCODELISTS/base__job_type.json"
+          }
+        },
+        "getPSLayoutPos" : {
+          "colLG" : 12,
+          "colMD" : 12,
+          "layout" : "TABLE_24COL"
+        },
+        "allowEmpty" : false,
+        "needCodeListConfig" : true,
+        "showCaption" : true
+      }, {
+        "caption" : "职位类别",
+        "codeName" : "category",
+        "createDV" : "management_rank_ids",
+        "createDVT" : "APPDATA",
+        "dataType" : 25,
+        "detailStyle" : "DEFAULT",
+        "detailType" : "FORMITEM",
+        "enableCond" : 3,
+        "ignoreInput" : 0,
+        "labelPos" : "TOP",
+        "labelWidth" : 130,
+        "name" : "category",
+        "noPrivDisplayMode" : 1,
+        "getPSAppDEField" : {
+          "name" : "CATEGORY",
+          "codeName" : "category"
+        },
+        "getPSEditor" : {
+          "editorType" : "TEXTBOX",
+          "maxLength" : 100,
+          "name" : "category"
+        },
+        "getPSLayoutPos" : {
+          "colLG" : 12,
+          "colMD" : 12,
+          "layout" : "TABLE_24COL"
+        },
+        "updateDV" : "management_rank_ids",
+        "updateDVT" : "APPDATA",
+        "allowEmpty" : true,
+        "showCaption" : true
+      }, {
+        "caption" : "工作地点",
+        "codeName" : "address_id",
+        "dataType" : 25,
+        "detailStyle" : "DEFAULT",
+        "detailType" : "FORMITEM",
+        "enableCond" : 3,
+        "ignoreInput" : 0,
+        "labelPos" : "TOP",
+        "labelWidth" : 130,
+        "name" : "address_id",
+        "noPrivDisplayMode" : 1,
+        "getPSAppDEField" : {
+          "name" : "ADDRESS_ID",
+          "codeName" : "address_id"
+        },
+        "getPSEditor" : {
+          "editorParams" : {
+            "AC" : "TRUE",
+            "PICKUPVIEW" : "TRUE"
+          },
+          "editorType" : "PICKER",
+          "handlerType" : "PickupText",
+          "name" : "address_id",
+          "getPSAppDEACMode" : {
+            "modelref" : true,
+            "id" : "Default"
+          },
+          "getPSAppDEDataSet" : {
+            "modelref" : true,
+            "id" : "fetch_default"
+          },
+          "getPSAppDataEntity" : {
+            "modelref" : true,
+            "path" : "PSSYSAPPS/web/PSAPPDATAENTITIES/hr_work_location.json"
+          },
+          "enableAC" : true,
+          "enablePickupView" : true,
+          "forceSelection" : true,
+          "showTrigger" : true,
+          "singleSelect" : true
+        },
+        "getPSLayoutPos" : {
+          "colLG" : 12,
+          "colMD" : 12,
+          "layout" : "TABLE_24COL"
+        },
+        "allowEmpty" : false,
+        "showCaption" : true
+      }, {
+        "caption" : "工作经验",
+        "codeName" : "experience",
+        "createDV" : "4",
+        "dataType" : 25,
+        "detailStyle" : "DEFAULT",
+        "detailType" : "FORMITEM",
+        "enableCond" : 3,
+        "ignoreInput" : 0,
+        "labelPos" : "TOP",
+        "labelWidth" : 130,
+        "name" : "experience",
+        "noPrivDisplayMode" : 1,
+        "getPSAppDEField" : {
+          "name" : "EXPERIENCE",
+          "codeName" : "experience"
+        },
+        "getPSEditor" : {
+          "editorType" : "DROPDOWNLIST",
+          "name" : "experience",
+          "getPSAppCodeList" : {
+            "modelref" : true,
+            "path" : "PSSYSAPPS/web/PSAPPCODELISTS/base__job_experience.json"
+          },
+          "singleSelect" : true
+        },
+        "getPSLayoutPos" : {
+          "colLG" : 12,
+          "colMD" : 12,
+          "layout" : "TABLE_24COL"
+        },
+        "updateDV" : "4",
+        "allowEmpty" : true,
+        "needCodeListConfig" : true,
+        "showCaption" : true
+      }, {
+        "caption" : "薪资范围",
+        "codeName" : "min_salary",
+        "dataType" : 9,
+        "detailStyle" : "DEFAULT",
+        "detailType" : "FORMITEM",
+        "enableCond" : 3,
+        "ignoreInput" : 0,
+        "labelPos" : "TOP",
+        "labelWidth" : 130,
+        "name" : "min_salary",
+        "noPrivDisplayMode" : 1,
+        "getPSAppDEField" : {
+          "name" : "MIN_SALARY",
+          "codeName" : "min_salary"
+        },
+        "getPSEditor" : {
+          "editorType" : "TEXTBOX",
+          "name" : "min_salary"
+        },
+        "getPSLayoutPos" : {
+          "colLG" : 6,
+          "colMD" : 6,
+          "layout" : "TABLE_24COL"
+        },
+        "allowEmpty" : true,
+        "showCaption" : true
+      }, {
+        "caption" : "最高薪资",
+        "codeName" : "max_salary",
+        "dataType" : 9,
+        "detailStyle" : "DEFAULT",
+        "detailType" : "FORMITEM",
+        "enableCond" : 3,
+        "ignoreInput" : 0,
+        "labelPos" : "TOP",
+        "labelWidth" : 130,
+        "name" : "max_salary",
+        "noPrivDisplayMode" : 1,
+        "getPSAppDEField" : {
+          "name" : "MAX_SALARY",
+          "codeName" : "max_salary"
+        },
+        "getPSEditor" : {
+          "editorType" : "TEXTBOX",
+          "name" : "max_salary"
+        },
+        "getPSLayoutPos" : {
+          "colLG" : 6,
+          "colMD" : 6,
+          "layout" : "TABLE_24COL"
+        },
+        "allowEmpty" : true,
+        "showCaption" : true
+      }, {
+        "caption" : "招聘人数",
+        "codeName" : "expected_employees",
+        "createDV" : "need_number",
+        "createDVT" : "APPDATA",
+        "dataType" : 9,
+        "detailStyle" : "DEFAULT",
+        "detailType" : "FORMITEM",
+        "enableCond" : 3,
+        "ignoreInput" : 0,
+        "labelPos" : "TOP",
+        "labelWidth" : 130,
+        "name" : "expected_employees",
+        "noPrivDisplayMode" : 1,
+        "getPSAppDEField" : {
+          "name" : "EXPECTED_EMPLOYEES",
+          "codeName" : "expected_employees"
+        },
+        "getPSEditor" : {
+          "editorType" : "TEXTBOX",
+          "name" : "expected_employees"
+        },
+        "getPSLayoutPos" : {
+          "colLG" : 12,
+          "colMD" : 12,
+          "layout" : "TABLE_24COL"
+        },
+        "updateDV" : "need_number",
+        "updateDVT" : "APPDATA",
+        "allowEmpty" : false,
+        "showCaption" : true
+      }, {
+        "caption" : "职能类型",
+        "codeName" : "function_type",
+        "createDV" : "10",
+        "dataType" : 25,
+        "detailStyle" : "DEFAULT",
+        "detailType" : "FORMITEM",
+        "enableCond" : 3,
+        "ignoreInput" : 0,
+        "labelPos" : "TOP",
+        "labelWidth" : 130,
+        "name" : "function_type",
+        "noPrivDisplayMode" : 1,
+        "getPSAppDEField" : {
+          "name" : "FUNCTION_TYPE",
+          "codeName" : "function_type"
+        },
+        "getPSEditor" : {
+          "editorType" : "DROPDOWNLIST",
+          "name" : "function_type",
+          "getPSAppCodeList" : {
+            "modelref" : true,
+            "path" : "PSSYSAPPS/web/PSAPPCODELISTS/base__functional_type.json"
+          },
+          "singleSelect" : true
+        },
+        "getPSLayoutPos" : {
+          "colLG" : 12,
+          "colMD" : 12,
+          "layout" : "TABLE_24COL"
+        },
+        "updateDV" : "10",
+        "allowEmpty" : true,
+        "needCodeListConfig" : true,
+        "showCaption" : true
+      }, {
+        "caption" : "职位级别",
+        "codeName" : "job_rank_ids",
+        "dataType" : 25,
+        "detailStyle" : "DEFAULT",
+        "detailType" : "FORMITEM",
+        "enableCond" : 3,
+        "ignoreInput" : 0,
+        "labelPos" : "TOP",
+        "labelWidth" : 130,
+        "name" : "job_rank_ids",
+        "noPrivDisplayMode" : 1,
+        "getPSAppDEField" : {
+          "name" : "JOB_RANK_IDS",
+          "codeName" : "job_rank_ids"
+        },
+        "getPSEditor" : {
+          "editorType" : "TEXTBOX",
+          "maxLength" : 100,
+          "name" : "job_rank_ids"
+        },
+        "getPSLayoutPos" : {
+          "colLG" : 12,
+          "colMD" : 12,
+          "layout" : "TABLE_24COL"
+        },
+        "allowEmpty" : true,
+        "showCaption" : true
+      }, {
+        "caption" : "学历要求",
+        "codeName" : "education",
+        "createDV" : "5",
+        "dataType" : 25,
+        "detailStyle" : "DEFAULT",
+        "detailType" : "FORMITEM",
+        "enableCond" : 3,
+        "ignoreInput" : 0,
+        "labelPos" : "TOP",
+        "labelWidth" : 130,
+        "name" : "education",
+        "noPrivDisplayMode" : 1,
+        "getPSAppDEField" : {
+          "name" : "EDUCATION",
+          "codeName" : "education"
+        },
+        "getPSEditor" : {
+          "editorType" : "DROPDOWNLIST",
+          "name" : "education",
+          "getPSAppCodeList" : {
+            "modelref" : true,
+            "path" : "PSSYSAPPS/web/PSAPPCODELISTS/base__job_education.json"
+          },
+          "singleSelect" : true
+        },
+        "getPSLayoutPos" : {
+          "colLG" : 12,
+          "colMD" : 12,
+          "layout" : "TABLE_24COL"
+        },
+        "updateDV" : "5",
+        "allowEmpty" : true,
+        "needCodeListConfig" : true,
+        "showCaption" : true
+      }, {
+        "caption" : "职位描述",
+        "codeName" : "description",
+        "dataType" : 21,
+        "detailStyle" : "DEFAULT",
+        "detailType" : "FORMITEM",
+        "enableCond" : 3,
+        "ignoreInput" : 0,
+        "itemHeight" : 220.0,
+        "labelPos" : "TOP",
+        "labelWidth" : 130,
+        "name" : "description",
+        "noPrivDisplayMode" : 1,
+        "getPSAppDEField" : {
+          "name" : "DESCRIPTION",
+          "codeName" : "description"
+        },
+        "getPSEditor" : {
+          "editorHeight" : 200.0,
+          "editorParams" : {
+            "HEIGHT" : "200"
+          },
+          "editorType" : "TEXTAREA_10",
+          "maxLength" : 1048576,
+          "name" : "description",
+          "showMaxLength" : true
+        },
+        "getPSLayoutPos" : {
+          "colLG" : 24,
+          "colMD" : 12,
+          "layout" : "TABLE_24COL"
+        },
+        "allowEmpty" : true,
+        "showCaption" : true
+      } ],
+      "getPSLayout" : {
+        "childColLG" : 12,
+        "childColMD" : 12,
+        "columnCount" : 24,
+        "layout" : "TABLE_24COL"
+      },
+      "getPSLayoutPos" : {
+        "colMD" : 24,
+        "layout" : "TABLE_24COL"
+      },
+      "infoGroupMode" : false,
+      "showCaption" : true
+    }, {
+      "caption" : "标识",
+      "codeName" : "id",
+      "dataType" : 25,
+      "detailStyle" : "DEFAULT",
+      "detailType" : "FORMITEM",
+      "enableCond" : 3,
+      "ignoreInput" : 0,
+      "labelPos" : "LEFT",
+      "labelWidth" : 130,
+      "name" : "id",
+      "noPrivDisplayMode" : 1,
+      "getPSAppDEField" : {
+        "name" : "ID",
+        "codeName" : "id"
+      },
+      "getPSEditor" : {
+        "editorType" : "HIDDEN",
+        "name" : "id"
+      },
+      "getPSLayoutPos" : {
+        "colMD" : 24,
+        "layout" : "TABLE_24COL"
+      },
+      "allowEmpty" : true,
+      "hidden" : true
+    } ],
+    "getPSLayout" : {
+      "childColMD" : 24,
+      "columnCount" : 24,
+      "layout" : "TABLE_24COL"
+    },
+    "infoGroupMode" : false
+  } ],
+  "getPSDEWizardForm" : {
+    "formTag" : "information",
+    "name" : "职位信息",
+    "getPSDEFormName" : "职位信息（向导）",
+    "getPSDEWizardStep" : {
+      "modelref" : true,
+      "id" : "职位信息"
+    },
+    "stepActions" : [ "NEXT" ],
+    "stepTag" : "information",
+    "firstForm" : true
+  },
+  "getPSLayout" : {
+    "childColMD" : 24,
+    "columnCount" : 24,
+    "layout" : "TABLE_24COL"
+  },
+  "tabHeaderPos" : "TOP",
+  "getUpdatePSControlAction" : {
+    "modelref" : true,
+    "id" : "update",
+    "actionName" : "UpdateTemp",
+    "actionType" : "DEACTION",
+    "name" : "update",
+    "getPSAppDEMethod" : {
+      "modelref" : true,
+      "id" : "UpdateTemp"
+    },
+    "getPSAppDataEntity" : {
+      "modelref" : true,
+      "path" : "PSSYSAPPS/web/PSAPPDATAENTITIES/hr_job.json"
+    }
+  },
+  "noTabHeader" : true,
+  "modelid" : "8340c80bbaede70ee607a103532fd5a7",
+  "modeltype" : "PSDEFORM_EDITFORM"
+}

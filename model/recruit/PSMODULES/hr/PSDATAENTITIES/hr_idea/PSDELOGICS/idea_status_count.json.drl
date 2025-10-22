@@ -1,0 +1,142 @@
+package cn.ibizlab.hr.logic.hr_idealogic.idea_status_count;
+        import java.util.Map;
+        import java.util.HashMap;
+        import com.alibaba.fastjson.JSONObject;
+        import org.springframework.util.StringUtils;
+        import org.springframework.util.ObjectUtils;
+        import cn.ibizlab.util.errors.BadRequestAlertException;
+                global cn.ibizlab.core.hr.domain.hr_idea hr_ideaidea_status_countdefault;
+                global java.util.Map hr_ideaidea_status_countresult;
+        global cn.ibizlab.core.hr.service.Ihr_ideaService iBzSysHr_ideaDefaultService;
+        global cn.ibizlab.util.security.AuthenticationUser curuser;
+
+
+    no-loop
+
+            //逻辑处理节点[开始]
+            rule "begin"
+            ruleflow-group "hr_ideaidea_status_countbegin"
+            when
+            then
+            end
+
+            //逻辑处理节点[草稿阶段]
+            rule "rawsqlcall_01"
+            ruleflow-group "hr_ideaidea_status_countrawsqlcall_01"
+            when
+            then
+                        Map param = null;
+                        String strSql="select count(1) as draft from hr_idea thi where status = 'draft'";
+                        java.util.List<JSONObject> entities=iBzSysHr_ideaDefaultService.select(strSql,param);//SQL调用
+                            if(entities.size()>0){
+                            JSONObject entity=entities.get(0);
+                                hr_ideaidea_status_countresult.putAll(entity);
+                            }
+                        update(hr_ideaidea_status_countdefault);//更新fact中变量值
+                        update(hr_ideaidea_status_countresult);//更新fact中变量值
+            end
+
+            //逻辑处理节点[未进行阶段]
+            rule "rawsqlcall_02"
+            ruleflow-group "hr_ideaidea_status_countrawsqlcall_02"
+            when
+            then
+                        Map param = null;
+                        String strSql="select count(1) as unstart from hr_idea thi where status = 'unstart'";
+                        java.util.List<JSONObject> entities=iBzSysHr_ideaDefaultService.select(strSql,param);//SQL调用
+                            if(entities.size()>0){
+                            JSONObject entity=entities.get(0);
+                                hr_ideaidea_status_countresult.putAll(entity);
+                            }
+                        update(hr_ideaidea_status_countdefault);//更新fact中变量值
+                        update(hr_ideaidea_status_countresult);//更新fact中变量值
+            end
+
+            //逻辑处理节点[进行中阶段]
+            rule "rawsqlcall_03"
+            ruleflow-group "hr_ideaidea_status_countrawsqlcall_03"
+            when
+            then
+                        Map param = null;
+                        String strSql="select  count(1) as ongoing from hr_idea thi where status = 'ongoing'";
+                        java.util.List<JSONObject> entities=iBzSysHr_ideaDefaultService.select(strSql,param);//SQL调用
+                            if(entities.size()>0){
+                            JSONObject entity=entities.get(0);
+                                hr_ideaidea_status_countresult.putAll(entity);
+                            }
+                        update(hr_ideaidea_status_countdefault);//更新fact中变量值
+                        update(hr_ideaidea_status_countresult);//更新fact中变量值
+            end
+
+            //逻辑处理节点[已完成阶段]
+            rule "rawsqlcall_04"
+            ruleflow-group "hr_ideaidea_status_countrawsqlcall_04"
+            when
+            then
+                        Map param = null;
+                        String strSql="select  count(1) as complete from hr_idea thi where status = 'complete'";
+                        java.util.List<JSONObject> entities=iBzSysHr_ideaDefaultService.select(strSql,param);//SQL调用
+                            if(entities.size()>0){
+                            JSONObject entity=entities.get(0);
+                                hr_ideaidea_status_countresult.putAll(entity);
+                            }
+                        update(hr_ideaidea_status_countdefault);//更新fact中变量值
+                        update(hr_ideaidea_status_countresult);//更新fact中变量值
+            end
+
+            //逻辑处理节点[已暂停阶段]
+            rule "rawsqlcall_05"
+            ruleflow-group "hr_ideaidea_status_countrawsqlcall_05"
+            when
+            then
+                        Map param = null;
+                        String strSql="select  count(1) as suspend from hr_idea thi where status = 'suspend'";
+                        java.util.List<JSONObject> entities=iBzSysHr_ideaDefaultService.select(strSql,param);//SQL调用
+                            if(entities.size()>0){
+                            JSONObject entity=entities.get(0);
+                                hr_ideaidea_status_countresult.putAll(entity);
+                            }
+                        update(hr_ideaidea_status_countdefault);//更新fact中变量值
+                        update(hr_ideaidea_status_countresult);//更新fact中变量值
+            end
+
+            //逻辑处理节点[已取消阶段]
+            rule "rawsqlcall_06"
+            ruleflow-group "hr_ideaidea_status_countrawsqlcall_06"
+            when
+            then
+                        Map param = null;
+                        String strSql="select  count(1) as canceled from hr_idea thi where status = 'canceled'";
+                        java.util.List<JSONObject> entities=iBzSysHr_ideaDefaultService.select(strSql,param);//SQL调用
+                            if(entities.size()>0){
+                            JSONObject entity=entities.get(0);
+                                hr_ideaidea_status_countresult.putAll(entity);
+                            }
+                        update(hr_ideaidea_status_countdefault);//更新fact中变量值
+                        update(hr_ideaidea_status_countresult);//更新fact中变量值
+            end
+
+            //逻辑处理节点[已超期阶段]
+            rule "rawsqlcall_07"
+            ruleflow-group "hr_ideaidea_status_countrawsqlcall_07"
+            when
+            then
+                        Map param = null;
+                        String strSql="select  count(1) as timeout from hr_idea thi where status = 'timeout'";
+                        java.util.List<JSONObject> entities=iBzSysHr_ideaDefaultService.select(strSql,param);//SQL调用
+                            if(entities.size()>0){
+                            JSONObject entity=entities.get(0);
+                                hr_ideaidea_status_countresult.putAll(entity);
+                            }
+                        update(hr_ideaidea_status_countdefault);//更新fact中变量值
+                        update(hr_ideaidea_status_countresult);//更新fact中变量值
+            end
+
+            //逻辑处理节点[结束]
+            rule "end_01"
+            ruleflow-group "hr_ideaidea_status_countend_01"
+            when
+            then
+                        update(hr_ideaidea_status_countdefault);//更新fact中变量值
+                        update(hr_ideaidea_status_countresult);//更新fact中变量值
+            end

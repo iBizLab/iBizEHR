@@ -1,0 +1,19 @@
+```sql
+SELECT
+t21.`CANDIDATE_DISPLAY_NAME`,
+t1.`CREATE_DATE`,
+t1.`CREATE_UID`,
+t1.`FEEDBACK_STATUS`,
+t1.`HR_OFFER_ID`,
+t1.`ID`,
+t1.`NAME`,
+t1.`SEND_TIME`,
+t1.`SEND_TYPE`,
+t1.`WRITE_DATE`,
+t1.`WRITE_UID`
+FROM `hr_offer_history` t1 
+LEFT JOIN `hr_offer` t11 ON t1.`HR_OFFER_ID` = t11.`ID` 
+LEFT JOIN `hr_applicant` t21 ON t11.`APPLICANT_ID` = t21.`ID` 
+
+
+```

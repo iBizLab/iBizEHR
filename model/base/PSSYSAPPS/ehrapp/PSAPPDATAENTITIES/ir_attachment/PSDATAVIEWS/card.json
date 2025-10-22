@@ -1,0 +1,414 @@
+{
+  "cardHeight" : 70,
+  "codeName" : "card",
+  "controlType" : "DATAVIEW",
+  "getCreatePSControlAction" : {
+    "modelref" : true,
+    "id" : "create",
+    "actionName" : "Create",
+    "actionType" : "DEACTION",
+    "dataAccessAction" : "CREATE",
+    "name" : "create",
+    "getPSAppDEMethod" : {
+      "modelref" : true,
+      "id" : "create"
+    },
+    "getPSAppDataEntity" : {
+      "modelref" : true,
+      "path" : "PSSYSAPPS/ehrapp/PSAPPDATAENTITIES/ir_attachment.json"
+    }
+  },
+  "dynaModelFilePath" : "PSSYSAPPS/ehrapp/PSAPPDATAENTITIES/ir_attachment/PSDATAVIEWS/card.json",
+  "getFetchPSControlAction" : {
+    "modelref" : true,
+    "id" : "fetch",
+    "actionType" : "DEDATASET",
+    "name" : "fetch",
+    "getPSAppDEMethod" : {
+      "modelref" : true,
+      "id" : "fetch_common_by_model"
+    },
+    "getPSAppDataEntity" : {
+      "modelref" : true,
+      "path" : "PSSYSAPPS/ehrapp/PSAPPDATAENTITIES/ir_attachment.json"
+    }
+  },
+  "getGetPSControlAction" : {
+    "modelref" : true,
+    "id" : "load",
+    "actionName" : "Get",
+    "actionType" : "DEACTION",
+    "dataAccessAction" : "READ",
+    "name" : "load",
+    "getPSAppDEMethod" : {
+      "modelref" : true,
+      "id" : "get"
+    },
+    "getPSAppDataEntity" : {
+      "modelref" : true,
+      "path" : "PSSYSAPPS/ehrapp/PSAPPDATAENTITIES/ir_attachment.json"
+    }
+  },
+  "groupMode" : "NONE",
+  "getItemPSLayoutPanel" : {
+    "getAllPSPanelFields" : [ {
+      "id" : "name",
+      "viewFieldName" : "name"
+    }, {
+      "id" : "id",
+      "hidden" : true,
+      "viewFieldName" : "ID"
+    } ],
+    "codeName" : "Usr1022229433",
+    "controlType" : "PANEL",
+    "dynaModelFilePath" : "PSSYSAPPS/ehrapp/PSAPPDATAENTITIES/ir_attachment/PSPANELS/Usr1022229433.json",
+    "hookEventNames" : [ "ONCLICK" ],
+    "layoutMode" : "TABLE_24COL",
+    "logicName" : "附件卡片项面板",
+    "getPSAppDataEntity" : {
+      "modelref" : true,
+      "path" : "PSSYSAPPS/ehrapp/PSAPPDATAENTITIES/ir_attachment.json"
+    },
+    "getPSControlLogics" : [ {
+      "eventNames" : "onClick",
+      "itemName" : "remove_attchment",
+      "logicTag" : "itemlayoutpanel",
+      "logicType" : "APPDEUILOGIC",
+      "name" : "delete_attach",
+      "getPSAppDEUILogic" : {
+        "modelref" : true,
+        "id" : "delete_attachment"
+      },
+      "getPSAppDataEntity" : {
+        "modelref" : true,
+        "path" : "PSSYSAPPS/ehrapp/PSAPPDATAENTITIES/ir_attachment.json"
+      }
+    }, {
+      "eventNames" : "onClick",
+      "itemName" : "dowload_attchment",
+      "logicTag" : "itemlayoutpanel",
+      "logicType" : "APPDEUIACTION",
+      "name" : "download_attach",
+      "getPSAppDEUIAction" : {
+        "actionTarget" : "SINGLEDATA",
+        "caption" : "下载",
+        "codeName" : "download",
+        "frontProcessType" : "OTHER",
+        "fullCodeName" : "ir_attachment_download",
+        "name" : "附件下载",
+        "getPSAppDataEntity" : {
+          "modelref" : true,
+          "path" : "PSSYSAPPS/ehrapp/PSAPPDATAENTITIES/ir_attachment.json"
+        },
+        "getPSNavigateParams" : [ {
+          "key" : "fileid",
+          "name" : "fileid",
+          "value" : "file_id",
+          "rawValue" : false
+        }, {
+          "key" : "filename",
+          "name" : "filename",
+          "value" : "name",
+          "rawValue" : false
+        } ],
+        "getPSSysImage" : {
+          "glyph" : "xf019@FontAwesome",
+          "cssClass" : "fa fa-download"
+        },
+        "scriptCode" : "const file = data[0];\r\nconst otherParams = {};\r\n// 如果有folder则以业务数据中folder作为目录 \r\nif (file && file.folder) otherParams.osscat = file.folder;\r\n// 计算下载地址\r\nconst { downloadUrl } = ibiz.util.file.calcFileUpDownUrl(context, params, file, otherParams);\r\nconst url = downloadUrl.replace('%fileId%', file.file_id);\r\n// 构建下载凭证参数（实体标识和主键标识）\r\nconst downloadTicketParams = {\r\n\tappEntityTag: params.srfmodelname ? `ehrapp.${params.srfmodelname}` : null,\r\n}\r\n// 下载文件\r\nibiz.util.file.fileDownload(url, file.name, {\r\n  context,\r\n  params,\r\n  data: file,\r\n  file: { fileId: file.file_id, ...file },\r\n  extraParams: {},\r\n  downloadTicketParams,\r\n});",
+        "tooltip" : "下载当前附件",
+        "uIActionMode" : "FRONT",
+        "uIActionTag" : "download",
+        "uIActionType" : "DEUIACTION",
+        "id" : "download@ir_attachment"
+      }
+    } ],
+    "getPSControlParam" : { },
+    "getPSLayout" : {
+      "childColMD" : 24,
+      "columnCount" : 24,
+      "layout" : "TABLE_24COL"
+    },
+    "getRootPSPanelItems" : [ {
+      "itemStyle" : "DEFAULT",
+      "itemType" : "CONTAINER",
+      "name" : "page_container",
+      "getPSLayout" : {
+        "dir" : "column",
+        "layout" : "FLEX"
+      },
+      "getPSLayoutPos" : {
+        "colMD" : 24,
+        "layout" : "TABLE_24COL"
+      },
+      "getPSPanelItems" : [ {
+        "caption" : "容器",
+        "itemStyle" : "DEFAULT",
+        "itemType" : "CONTAINER",
+        "name" : "container",
+        "getPSLayout" : {
+          "align" : "space-between",
+          "dir" : "row",
+          "layout" : "FLEX",
+          "vAlign" : "center"
+        },
+        "getPSLayoutPos" : {
+          "grow" : -1,
+          "layout" : "FLEX"
+        },
+        "getPSPanelItems" : [ {
+          "caption" : "容器",
+          "itemStyle" : "DEFAULT",
+          "itemType" : "CONTAINER",
+          "name" : "container1",
+          "getPSLayout" : {
+            "align" : "flex-start",
+            "dir" : "row",
+            "layout" : "FLEX",
+            "vAlign" : "center"
+          },
+          "getPSLayoutPos" : {
+            "grow" : 1,
+            "layout" : "FLEX"
+          },
+          "getPSPanelItems" : [ {
+            "caption" : "图片",
+            "contentType" : "IMAGE",
+            "itemStyle" : "DEFAULT",
+            "itemType" : "RAWITEM",
+            "name" : "static_image",
+            "getPSLayoutPos" : {
+              "grow" : -1,
+              "layout" : "FLEX"
+            },
+            "getPSRawItem" : {
+              "contentType" : "IMAGE",
+              "name" : "static_image",
+              "getPSSysImage" : {
+                "rawContent" : "<svg xmlns=\"http://www.w3.org/2000/svg\" class=\"icon design-iconfont\" viewBox=\"0 0 1024 1024\" width=\"24\" height=\"24\">\n  <path d=\"M300.053794 0h423.892412c200.032053 0 300.053794 100.021741 300.053794 300.053794v423.892412c0 200.032053-100.021741 300.053794-300.053794 300.053794H300.053794C100.021741 1023.988572 0 923.966831 0 723.934778v-423.880984C0 100.021741 100.021741 0 300.053794 0z\" fill=\"#598BFC\" opacity=\".15\"></path>\n  <path d=\"M709.900648 336.864812h-191.883572c-7.017065 0-13.542706-3.645674-17.211237-9.62275l-43.725226-41.828105a34.641899 34.641899 0 0 0-29.508242-16.479816h-110.695908c-43.725226 0-79.164831 35.416748-79.16483 79.09626v310.876531c0 42.136673 34.182476 76.296291 76.364862 76.30772h395.835582c42.170958 0 76.364862-34.171047 76.364862-76.30772V413.172532c0-42.136673-34.193904-76.30772-76.376291-76.30772z\" fill=\"#598BFC\"></path>\n  <path d=\"M335.436256 437.800828h353.116059c13.336994 0 20.011205 6.857066 20.011205 20.571199s-6.674211 20.571199-20.011205 20.571199H335.436256c-13.336994 0-20.011205-6.857066-20.011205-20.571199s6.674211-20.571199 20.011205-20.571199z\" fill=\"#FFF\"></path>\n</svg>"
+              },
+              "predefinedType" : "STATIC_IMAGE"
+            },
+            "getPSSysImage" : {
+              "rawContent" : "<svg xmlns=\"http://www.w3.org/2000/svg\" class=\"icon design-iconfont\" viewBox=\"0 0 1024 1024\" width=\"24\" height=\"24\">\n  <path d=\"M300.053794 0h423.892412c200.032053 0 300.053794 100.021741 300.053794 300.053794v423.892412c0 200.032053-100.021741 300.053794-300.053794 300.053794H300.053794C100.021741 1023.988572 0 923.966831 0 723.934778v-423.880984C0 100.021741 100.021741 0 300.053794 0z\" fill=\"#598BFC\" opacity=\".15\"></path>\n  <path d=\"M709.900648 336.864812h-191.883572c-7.017065 0-13.542706-3.645674-17.211237-9.62275l-43.725226-41.828105a34.641899 34.641899 0 0 0-29.508242-16.479816h-110.695908c-43.725226 0-79.164831 35.416748-79.16483 79.09626v310.876531c0 42.136673 34.182476 76.296291 76.364862 76.30772h395.835582c42.170958 0 76.364862-34.171047 76.364862-76.30772V413.172532c0-42.136673-34.193904-76.30772-76.376291-76.30772z\" fill=\"#598BFC\"></path>\n  <path d=\"M335.436256 437.800828h353.116059c13.336994 0 20.011205 6.857066 20.011205 20.571199s-6.674211 20.571199-20.011205 20.571199H335.436256c-13.336994 0-20.011205-6.857066-20.011205-20.571199s6.674211-20.571199 20.011205-20.571199z\" fill=\"#FFF\"></path>\n</svg>"
+            },
+            "showCaption" : true
+          }, {
+            "caption" : "文本(动态)",
+            "itemStyle" : "DEFAULT",
+            "itemType" : "FIELD",
+            "name" : "name",
+            "getPSEditor" : {
+              "editorType" : "SPAN",
+              "name" : "name",
+              "predefinedType" : "FIELD_TEXT_DYNAMIC",
+              "renderMode" : "TEXT_DYNAMIC",
+              "wrapMode" : "WRAP",
+              "enableLinkView" : false
+            },
+            "getPSLayoutPos" : {
+              "grow" : -1,
+              "layout" : "FLEX",
+              "spacingLeft" : "OUTERSMALL"
+            },
+            "viewFieldName" : "name"
+          } ]
+        }, {
+          "caption" : "容器",
+          "itemStyle" : "DEFAULT",
+          "itemType" : "CONTAINER",
+          "name" : "container2",
+          "getPSLayout" : {
+            "align" : "space-between",
+            "dir" : "column",
+            "layout" : "FLEX",
+            "vAlign" : "center"
+          },
+          "getPSLayoutPos" : {
+            "grow" : -1,
+            "layout" : "FLEX",
+            "spacingLeft" : "OUTERSMALL"
+          },
+          "getPSPanelItems" : [ {
+            "caption" : "删除",
+            "contentType" : "IMAGE",
+            "itemStyle" : "DEFAULT",
+            "itemType" : "RAWITEM",
+            "name" : "remove_attchment",
+            "getPSLayoutPos" : {
+              "grow" : -1,
+              "layout" : "FLEX"
+            },
+            "getPSRawItem" : {
+              "contentType" : "IMAGE",
+              "name" : "remove_attchment",
+              "getPSSysImage" : {
+                "glyph" : "xf00d@FontAwesome",
+                "cssClass" : "fa fa-remove"
+              },
+              "predefinedType" : "STATIC_IMAGE"
+            },
+            "getPSSysImage" : {
+              "glyph" : "xf00d@FontAwesome",
+              "cssClass" : "fa fa-remove"
+            },
+            "showCaption" : true
+          }, {
+            "caption" : "图片",
+            "contentType" : "IMAGE",
+            "itemStyle" : "DEFAULT",
+            "itemType" : "RAWITEM",
+            "name" : "dowload_attchment",
+            "getPSLayoutPos" : {
+              "grow" : -1,
+              "layout" : "FLEX"
+            },
+            "getPSRawItem" : {
+              "contentType" : "IMAGE",
+              "name" : "dowload_attchment",
+              "getPSSysImage" : {
+                "glyph" : "xf019@FontAwesome",
+                "cssClass" : "fa fa-download"
+              },
+              "predefinedType" : "STATIC_IMAGE"
+            },
+            "getPSSysImage" : {
+              "glyph" : "xf019@FontAwesome",
+              "cssClass" : "fa fa-download"
+            },
+            "showCaption" : true
+          } ]
+        } ]
+      } ]
+    }, {
+      "caption" : "文本框",
+      "itemType" : "FIELD",
+      "name" : "id",
+      "getPSEditor" : {
+        "editorType" : "HIDDEN",
+        "name" : "id"
+      },
+      "getPSLayoutPos" : {
+        "colMD" : 24,
+        "layout" : "TABLE_24COL"
+      },
+      "viewFieldName" : "ID",
+      "hidden" : true
+    } ],
+    "name" : "itemlayoutpanel",
+    "modelid" : "4c00a481d88b57108ef8750d6b960ada",
+    "modeltype" : "PSSYSVIEWPANEL"
+  },
+  "logicName" : "附件卡片",
+  "getPSAppDataEntity" : {
+    "modelref" : true,
+    "path" : "PSSYSAPPS/ehrapp/PSAPPDATAENTITIES/ir_attachment.json"
+  },
+  "getPSControlNavContexts" : [ {
+    "key" : "MAIL_THREAD",
+    "name" : "MAIL_THREAD",
+    "value" : "mail_thread",
+    "rawValue" : false
+  } ],
+  "getPSDEDataViewDataItems" : [ {
+    "dataType" : 25,
+    "name" : "name",
+    "getPSAppDEField" : {
+      "name" : "NAME",
+      "codeName" : "name"
+    }
+  }, {
+    "dataType" : 25,
+    "name" : "id",
+    "getPSAppDEField" : {
+      "name" : "ID",
+      "codeName" : "id"
+    }
+  }, {
+    "dataType" : 25,
+    "name" : "srfkey",
+    "getPSAppDEField" : {
+      "name" : "ID",
+      "codeName" : "id"
+    }
+  }, {
+    "dataType" : 25,
+    "name" : "srfmajortext",
+    "getPSAppDEField" : {
+      "name" : "NAME",
+      "codeName" : "name"
+    }
+  } ],
+  "getPSDEDataViewItems" : [ {
+    "getCapPSLanguageRes" : {
+      "lanResTag" : "DEF.LNAME.IR_ATTACHMENT.NAME"
+    },
+    "caption" : "名称",
+    "dataItemName" : "name",
+    "itemType" : "DATAITEM",
+    "name" : "NAME",
+    "getPSAppDEField" : {
+      "name" : "NAME",
+      "codeName" : "name"
+    },
+    "enableSort" : false
+  }, {
+    "getCapPSLanguageRes" : {
+      "lanResTag" : "DEF.LNAME.IR_ATTACHMENT.ID"
+    },
+    "caption" : "标识",
+    "dataItemName" : "id",
+    "itemType" : "DATAITEM",
+    "name" : "ID",
+    "getPSAppDEField" : {
+      "name" : "ID",
+      "codeName" : "id"
+    },
+    "enableSort" : false
+  } ],
+  "pagingSize" : 1000,
+  "getRemovePSControlAction" : {
+    "modelref" : true,
+    "id" : "remove",
+    "actionName" : "Remove",
+    "actionType" : "DEACTION",
+    "dataAccessAction" : "DELETE",
+    "name" : "remove",
+    "getPSAppDEMethod" : {
+      "modelref" : true,
+      "id" : "remove"
+    },
+    "getPSAppDataEntity" : {
+      "modelref" : true,
+      "path" : "PSSYSAPPS/ehrapp/PSAPPDATAENTITIES/ir_attachment.json"
+    }
+  },
+  "getUpdatePSControlAction" : {
+    "modelref" : true,
+    "id" : "update",
+    "actionName" : "Update",
+    "actionType" : "DEACTION",
+    "dataAccessAction" : "UPDATE",
+    "name" : "update",
+    "getPSAppDEMethod" : {
+      "modelref" : true,
+      "id" : "update"
+    },
+    "getPSAppDataEntity" : {
+      "modelref" : true,
+      "path" : "PSSYSAPPS/ehrapp/PSAPPDATAENTITIES/ir_attachment.json"
+    }
+  },
+  "hasWFDataItems" : false,
+  "appendDEItems" : false,
+  "enableCardEdit" : false,
+  "enableCardEditGroup" : false,
+  "enableCardEditOrder" : false,
+  "enableCardNew" : false,
+  "enableGroup" : false,
+  "enablePagingBar" : false,
+  "noSort" : true,
+  "singleSelect" : true,
+  "modelid" : "8a08023c6fe403701aae5b46147519b0",
+  "modeltype" : "PSDEDATAVIEW"
+}

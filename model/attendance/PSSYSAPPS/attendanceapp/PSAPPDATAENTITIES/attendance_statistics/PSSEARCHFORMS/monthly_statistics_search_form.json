@@ -1,0 +1,237 @@
+{
+  "codeName" : "monthly_statistics_search_form",
+  "controlType" : "SEARCHFORM",
+  "defaultLabelWidth" : 130,
+  "dynaModelFilePath" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/attendance_statistics/PSSEARCHFORMS/monthly_statistics_search_form.json",
+  "hookEventNames" : [ "ONCHANGE" ],
+  "logicName" : "月度统计表格视图_搜索表单",
+  "getPSAppDataEntity" : {
+    "modelref" : true,
+    "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/attendance_statistics.json"
+  },
+  "getPSControlLogics" : [ {
+    "eventNames" : "onChange",
+    "itemName" : "base_info",
+    "logicTag" : "searchform",
+    "logicType" : "SCRIPT",
+    "name" : "base_info",
+    "scriptCode" : "const grid = view.getController('grid');\r\nconst value = data[0].base_info || '';\r\nconst values = value.split(',').filter(item => item !== \"\");\r\nconst cols = ['member_name', 'employee_num', 'dept_name', 'title', 'xqsyr', 'gys_infoname'];\r\ncols.forEach(key => {\r\n    const item = grid.state.columnStates.find(x => x.key === key);\r\n    console.log(\"隐藏表格列\"+grid)\r\n    if (values.includes(key)) {\r\n        item.hidden = false;\r\n    } else {\r\n        item.hidden = true;\r\n    }\r\n});"
+  }, {
+    "eventNames" : "onChange",
+    "itemName" : "attendance",
+    "logicTag" : "searchform",
+    "logicType" : "SCRIPT",
+    "name" : "attendance",
+    "scriptCode" : "const grid = view.getController('grid');\r\nconst value = data[0].attendance || '';\r\nconst values = value.split(',').filter(item => item !== \"\");\r\nconst cols = ['should_attendance_days', 'actual_attendance_days', 'should_attendance_time', 'working_hours', 'billable_time', 'pay_overtime_time', 'rest_overtime_time'];\r\ncols.forEach(key => {\r\n    const item = grid.state.columnStates.find(x => x.key === key);\r\n    if(item){\r\n        if (values.includes(key)) {\r\n            item.hidden = false;\r\n        } else {\r\n            item.hidden = true;\r\n        }\r\n    }\r\n});"
+  }, {
+    "eventNames" : "onChange",
+    "itemName" : "abnormal",
+    "logicTag" : "searchform",
+    "logicType" : "SCRIPT",
+    "name" : "abnormal",
+    "scriptCode" : "const grid = view.getController('grid');\r\nconst value = data[0].abnormal || '';\r\nconst values = value.split(',').filter(item => item !== \"\");\r\nconst cols = ['late_times', 'late_duration', 'leave_early', 'leave_early_duration', 'on_missing', 'off_missing', 'absent_days', 'on_business_days', 'out_time', 'make_card_times', 'out_work_times'];\r\ncols.forEach(key => {\r\n    const item = grid.state.columnStates.find(x => x.key === key);\r\n    if(item){\r\n        if (values.includes(key)) {\r\n            item.hidden = false;\r\n        } else {\r\n            item.hidden = true;\r\n        }\r\n    }\r\n});"
+  }, {
+    "eventNames" : "onChange",
+    "itemName" : "daily",
+    "logicTag" : "searchform",
+    "logicType" : "SCRIPT",
+    "name" : "daily",
+    "scriptCode" : "const grid = view.getController('grid');\r\nconst value = data[0].daily || '';\r\ngrid.toggleCustomColumn(value === 'daily');\r\n"
+  }, {
+    "eventNames" : "onChange",
+    "itemName" : "leave",
+    "logicTag" : "searchform",
+    "logicType" : "SCRIPT",
+    "name" : "leave",
+    "scriptCode" : "const grid = view.getController('grid');\r\nconst value = data[0].leave || '';\r\nconst values = value.split(',').filter(item => item !== \"\");\r\nconst cols = ['leave_duration', 'annual_leave', 'vacation_leave', 'sick_leave', 'parental_leave', 'paternity_leave', 'marriage_holiday', 'funeral_leave', 'maternity_leave', 'compassionate_leave'];\r\ncols.forEach(key => {\r\n    const item = grid.state.columnStates.find(x => x.key === key);\r\n    if(item){\r\n        if (values.includes(key)) {\r\n            item.hidden = false;\r\n        } else {\r\n            item.hidden = true;\r\n        }\r\n    }\r\n});"
+  } ],
+  "getPSDEFormItems" : [ {
+    "id" : "base_info",
+    "dataType" : 25,
+    "createDV" : "member_name,employee_num,dept_name"
+  }, {
+    "id" : "attendance",
+    "dataType" : 25,
+    "createDV" : "should_attendance_days,actual_attendance_days,should_attendance,working_hours,billable"
+  }, {
+    "id" : "abnormal",
+    "dataType" : 25,
+    "createDV" : "late_times,late_duration,leave_early,leave_early_duration"
+  }, {
+    "id" : "leave",
+    "dataType" : 25,
+    "createDV" : "leave_duration"
+  }, {
+    "id" : "daily",
+    "dataType" : 25
+  } ],
+  "getPSDEFormPages" : [ {
+    "caption" : "常规条件",
+    "codeName" : "formpage1",
+    "detailStyle" : "DEFAULT",
+    "detailType" : "FORMPAGE",
+    "name" : "formpage1",
+    "getPSDEFormDetails" : [ {
+      "caption" : "基本信息",
+      "codeName" : "base_info",
+      "createDV" : "member_name,employee_num,dept_name",
+      "dataType" : 25,
+      "detailStyle" : "DEFAULT",
+      "detailType" : "FORMITEM",
+      "enableCond" : 3,
+      "ignoreInput" : 0,
+      "labelPos" : "LEFT",
+      "labelWidth" : 130,
+      "name" : "base_info",
+      "noPrivDisplayMode" : 1,
+      "getPSEditor" : {
+        "editorParams" : {
+          "DEFAULTDISABLEDLIST" : "[\"member_name\"]"
+        },
+        "editorType" : "CHECKBOXLIST",
+        "name" : "base_info",
+        "getPSAppCodeList" : {
+          "modelref" : true,
+          "path" : "PSSYSAPPS/attendanceapp/PSAPPCODELISTS/attendance__base_info.json"
+        }
+      },
+      "getPSLayoutPos" : {
+        "colMD" : 24,
+        "layout" : "TABLE_24COL"
+      },
+      "allowEmpty" : true,
+      "needCodeListConfig" : true,
+      "showCaption" : true
+    }, {
+      "caption" : "出勤统计",
+      "codeName" : "attendance",
+      "createDV" : "should_attendance_days,actual_attendance_days,should_attendance,working_hours,billable",
+      "dataType" : 25,
+      "detailStyle" : "DEFAULT",
+      "detailType" : "FORMITEM",
+      "enableCond" : 3,
+      "ignoreInput" : 0,
+      "labelPos" : "LEFT",
+      "labelWidth" : 130,
+      "name" : "attendance",
+      "noPrivDisplayMode" : 1,
+      "getPSEditor" : {
+        "editorType" : "CHECKBOXLIST",
+        "name" : "attendance",
+        "getPSAppCodeList" : {
+          "modelref" : true,
+          "path" : "PSSYSAPPS/attendanceapp/PSAPPCODELISTS/attendance__attendance_statistics.json"
+        }
+      },
+      "getPSLayoutPos" : {
+        "colMD" : 24,
+        "layout" : "TABLE_24COL"
+      },
+      "allowEmpty" : true,
+      "needCodeListConfig" : true,
+      "showCaption" : true
+    }, {
+      "caption" : "异常统计",
+      "codeName" : "abnormal",
+      "createDV" : "late_times,late_duration,leave_early,leave_early_duration",
+      "dataType" : 25,
+      "detailStyle" : "DEFAULT",
+      "detailType" : "FORMITEM",
+      "enableCond" : 3,
+      "ignoreInput" : 0,
+      "labelPos" : "LEFT",
+      "labelWidth" : 130,
+      "name" : "abnormal",
+      "noPrivDisplayMode" : 1,
+      "getPSEditor" : {
+        "editorType" : "CHECKBOXLIST",
+        "name" : "abnormal",
+        "getPSAppCodeList" : {
+          "modelref" : true,
+          "path" : "PSSYSAPPS/attendanceapp/PSAPPCODELISTS/attendance__abnormal_statistics.json"
+        }
+      },
+      "getPSLayoutPos" : {
+        "colMD" : 24,
+        "layout" : "TABLE_24COL"
+      },
+      "allowEmpty" : true,
+      "needCodeListConfig" : true,
+      "showCaption" : true
+    }, {
+      "caption" : "请假统计",
+      "codeName" : "leave",
+      "createDV" : "leave_duration",
+      "dataType" : 25,
+      "detailStyle" : "DEFAULT",
+      "detailType" : "FORMITEM",
+      "enableCond" : 3,
+      "ignoreInput" : 0,
+      "labelPos" : "LEFT",
+      "labelWidth" : 130,
+      "name" : "leave",
+      "noPrivDisplayMode" : 1,
+      "getPSEditor" : {
+        "editorType" : "CHECKBOXLIST",
+        "name" : "leave",
+        "getPSAppCodeList" : {
+          "modelref" : true,
+          "path" : "PSSYSAPPS/attendanceapp/PSAPPCODELISTS/attendance__leave_application_statistics.json"
+        }
+      },
+      "getPSLayoutPos" : {
+        "colMD" : 24,
+        "layout" : "TABLE_24COL"
+      },
+      "allowEmpty" : true,
+      "needCodeListConfig" : true,
+      "showCaption" : true
+    }, {
+      "caption" : "每日统计",
+      "codeName" : "daily",
+      "dataType" : 25,
+      "detailStyle" : "DEFAULT",
+      "detailType" : "FORMITEM",
+      "enableCond" : 3,
+      "ignoreInput" : 0,
+      "labelPos" : "LEFT",
+      "labelWidth" : 130,
+      "name" : "daily",
+      "noPrivDisplayMode" : 1,
+      "getPSEditor" : {
+        "editorType" : "CHECKBOXLIST",
+        "name" : "daily",
+        "getPSAppCodeList" : {
+          "modelref" : true,
+          "path" : "PSSYSAPPS/attendanceapp/PSAPPCODELISTS/attendance__daily_statistics.json"
+        }
+      },
+      "getPSLayoutPos" : {
+        "colMD" : 24,
+        "layout" : "TABLE_24COL"
+      },
+      "allowEmpty" : true,
+      "needCodeListConfig" : true,
+      "showCaption" : true
+    } ],
+    "getPSLayout" : {
+      "childColMD" : 24,
+      "columnCount" : 24,
+      "layout" : "TABLE_24COL"
+    },
+    "infoGroupMode" : false
+  } ],
+  "getPSLayout" : {
+    "childColMD" : 24,
+    "columnCount" : 24,
+    "layout" : "TABLE_24COL"
+  },
+  "searchButtonStyle" : "NONE",
+  "tabHeaderPos" : "TOP",
+  "enableAdvanceSearch" : false,
+  "enableAutoSearch" : true,
+  "enableFilterSave" : false,
+  "noTabHeader" : true,
+  "modelid" : "e75e612cebf232dd535c9095358fa2c1",
+  "modeltype" : "PSDEFORM_SEARCHFORM"
+}

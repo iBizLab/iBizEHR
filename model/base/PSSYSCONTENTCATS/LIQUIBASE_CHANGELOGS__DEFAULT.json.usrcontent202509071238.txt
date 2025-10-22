@@ -1,0 +1,17 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:pro="http://www.liquibase.org/xml/ns/pro" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/pro http://www.liquibase.org/xml/ns/pro/liquibase-pro-4.6.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.6.xsd">
+    <changeSet author="heying" id="UsrContent202509071238"  failOnError="false">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <sqlCheck expectedResult="1">
+                    SELECT COUNT(*) FROM res_company WHERE id = '000000'
+                </sqlCheck>
+            </not>
+        </preConditions>
+        <sql>
+            INSERT INTO res_company (ID,CODE,NAME,ACTIVE) select  '000000','000000', '默认单位', 1 from dual where not exists(select 1 from res_company where id = '000000');
+INSERT INTO res_users (ACTIVE, COMPANY_ID,   DISPLAY_NAME, ID, LOGIN,   PARTNER_ID) select  1, '000000',  '管理员', 'demo_admin', 'demo_admin', 'demo_admin' from dual where not exists(select 1 from res_users where id = 'demo_admin');
+INSERT INTO res_partner (ACTIVE, AUTOPOST_BILLS, COMPANY_ID, COMPANY_NAME,     EMAIL,  ID,   NAME,   TYPE ) select  1,  'ask', '000000', '默认单位',  'demo_admin@ibizlab.cn',   'demo_admin',   '管理员',  'contact'  from dual where not exists(select 1 from res_partner where id = 'demo_admin');
+        </sql>
+    </changeSet>
+</databaseChangeLog>

@@ -1,0 +1,83 @@
+{
+  "codeName" : "my_interview_list",
+  "controlStyle" : "CARD",
+  "controlType" : "SEARCHBAR",
+  "dynaModelFilePath" : "PSSYSAPPS/web/PSAPPDATAENTITIES/hr_interview_feedback/PSSEARCHBARS/my_interview_list.json",
+  "logicName" : "我的面试列表搜索栏",
+  "getPSAppCounterRef" : {
+    "modelref" : true,
+    "id" : "bf000e393a4cf5805b2f603e693a329e"
+  },
+  "getPSAppCounterRefs" : [ {
+    "getPSAppCounter" : {
+      "codeName" : "my_interview_count",
+      "counterType" : "DEDR",
+      "dynaModelFilePath" : "PSSYSAPPS/web/PSAPPCOUNTERS/my_interview_count.json",
+      "getGetPSAppDEAction" : {
+        "modelref" : true,
+        "id" : "my_interview_count"
+      },
+      "name" : "用人经理-我的面试-搜索栏计数器",
+      "getPSAppDataEntity" : {
+        "modelref" : true,
+        "path" : "PSSYSAPPS/web/PSAPPDATAENTITIES/hr_interview_feedback.json"
+      },
+      "timer" : 60000,
+      "uniqueTag" : "my_interview_count"
+    },
+    "tag" : "bf000e393a4cf5805b2f603e693a329e",
+    "uniqueTag" : "my_interview_count",
+    "id" : "bf000e393a4cf5805b2f603e693a329e"
+  } ],
+  "getPSAppDataEntity" : {
+    "modelref" : true,
+    "path" : "PSSYSAPPS/web/PSAPPDATAENTITIES/hr_interview_feedback.json"
+  },
+  "getPSSearchBarGroups" : [ {
+    "caption" : "今后的面试",
+    "counterId" : "todo_count",
+    "data" : "{\"theme_model\":{\"searchconds\":[{\"condtype\":\"GROUP\",\"condop\":\"AND\",\"bnotmode\":false,\"searchconds\":[{\"condtype\":\"DEFIELD\",\"fieldname\":\"daycalc\",\"condop\":\"GTANDEQ\",\"value\":\"0\"}]}]}}",
+    "itemType" : "GROUP",
+    "name" : "todo",
+    "width" : 0.0,
+    "addSeparator" : false
+  }, {
+    "caption" : "待反馈的面试",
+    "counterId" : "undo_count",
+    "data" : "{\"theme_model\":{\"searchconds\":[{\"condtype\":\"GROUP\",\"condop\":\"AND\",\"bnotmode\":false,\"searchconds\":[{\"condtype\":\"DEFIELD\",\"fieldname\":\"result_type\",\"condop\":\"ISNULL\",\"value\":null},{\"condtype\":\"DEFIELD\",\"fieldname\":\"status\",\"condop\":\"EQ\",\"value\":\"2\"}]}]}}",
+    "itemType" : "GROUP",
+    "name" : "undo",
+    "width" : 0.0,
+    "addSeparator" : false
+  }, {
+    "caption" : "已反馈的面试",
+    "counterId" : "done_count",
+    "data" : "{\"theme_model\":{\"searchconds\":[{\"condtype\":\"GROUP\",\"condop\":\"AND\",\"bnotmode\":false,\"searchconds\":[{\"condtype\":\"DEFIELD\",\"fieldname\":\"result_type\",\"condop\":\"ISNOTNULL\",\"value\":\"\"}]}]}}",
+    "itemType" : "GROUP",
+    "name" : "done",
+    "width" : 0.0,
+    "addSeparator" : false
+  }, {
+    "caption" : "已失效的面试",
+    "counterId" : "expire_count",
+    "data" : "{\"theme_model\":{\"searchconds\":[{\"condtype\":\"GROUP\",\"condop\":\"AND\",\"bnotmode\":false,\"searchconds\":[{\"condtype\":\"DEFIELD\",\"fieldname\":\"daycalc\",\"condop\":\"LT\",\"value\":\"0\"},{\"condtype\":\"GROUP\",\"condop\":\"OR\",\"bnotmode\":false,\"searchconds\":[{\"condtype\":\"DEFIELD\",\"fieldname\":\"result_type\",\"condop\":\"ISNULL\",\"value\":null},{\"condtype\":\"DEFIELD\",\"fieldname\":\"result_type\",\"condop\":\"EQ\",\"value\":null}]}]}]}}",
+    "itemType" : "GROUP",
+    "name" : "expire",
+    "width" : 0.0,
+    "addSeparator" : false
+  } ],
+  "getPSSysPFPlugin" : {
+    "pluginType" : "SEARCHBAR_RENDER",
+    "pluginCode" : "CARD",
+    "runtimeObject" : true
+  },
+  "quickGroupCount" : -1,
+  "quickSearchMode" : 0,
+  "quickSearchWidth" : 0,
+  "enableFilter" : false,
+  "enableGroup" : true,
+  "enableQuickSearch" : false,
+  "mobileSearchBar" : false,
+  "modelid" : "05d423550befedbd199004c6e4642a7e",
+  "modeltype" : "PSSYSSEARCHBAR"
+}

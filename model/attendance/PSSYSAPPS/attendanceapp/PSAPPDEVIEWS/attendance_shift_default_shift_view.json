@@ -1,0 +1,2020 @@
+{
+  "accUserMode" : 2,
+  "caption" : "上下班时间",
+  "codeName" : "attendance_shift_default_shift_view",
+  "dynaModelFilePath" : "PSSYSAPPS/attendanceapp/PSAPPDEVIEWS/attendance_shift_default_shift_view.json",
+  "name" : "attendance_shiftDefaultShiftView",
+  "openMode" : "POPUPMODAL",
+  "getPSAppDataEntity" : {
+    "modelref" : true,
+    "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/attendance_shift.json"
+  },
+  "getPSAppModule" : {
+    "modelref" : true,
+    "path" : "PSSYSAPPS/attendanceapp/PSAPPMODULES/attendance.json"
+  },
+  "getPSAppViewEngines" : [ {
+    "engineCat" : "VIEW",
+    "engineType" : "OptionView",
+    "name" : "engine"
+  } ],
+  "getPSAppViewLogics" : [ {
+    "logicTrigger" : "CUSTOM",
+    "logicType" : "SCRIPT",
+    "name" : "BEFORECONFIRM",
+    "scriptCode" : "console.log('校验时间');\r\nconst { scopes } = data;\r\n// 计算时间结果，返回分钟\r\nconst calcMinutes = (time, minutes = 0) => {\r\n    const times = time.split(':');\r\n    const hoursTime = Number(times[0]) * 60 + Number(times[1]);\r\n    return hoursTime + Number(minutes);\r\n}\r\n// 校验第一个的最早打卡时间要晚于最后一个的最晚打卡时间\r\nconst verifitime = () => {\r\n    const firsttime = scopes[0];\r\n    const lasttime = scopes[data.working_number - 1];\r\n\r\n    // 第一次上班时间\r\n    const prevstart = firsttime.start_base_time;\r\n    // 第一次下班提前打卡时间\r\n    const prevAdvance = firsttime.earliest_checkin;\r\n    // 最后一次下班时间\r\n    const nextend = lasttime.end_base_time;\r\n    //最后一次下班延迟打开时间\r\n    const nextExtension = lasttime.latest_checkout;\r\n\r\n    // 最早上班 \r\n    const startwork = calcMinutes(prevstart, -Number(prevAdvance));\r\n    // 最晚下班\r\n    const endwork = calcMinutes(nextend, Number(nextExtension));\r\n\r\n    if (endwork >= 1440) {\r\n        // 最迟下班时间已经到了第二天，\r\n        // 那么今天最早上班时间必须在当天且大于昨天下班时间\r\n        const tomorrowTime = endwork - 1440;\r\n        if (startwork >= 0) {\r\n            if (tomorrowTime < startwork) {\r\n                return true\r\n            }\r\n            return false;\r\n        }\r\n        return false\r\n    } else if (startwork > 0 && endwork <= startwork) {\r\n        // 表示开始和结束时间顺序不对\r\n        return false;\r\n    } else if (startwork < 0 && endwork < 1440) {\r\n        // 最早打卡时间是上一天，\r\n        // 那么换算成前一天的打卡时间就必须要大于前一天最晚下班打卡时间\r\n        const yestoday = 1440 + startwork\r\n        if (yestoday > endwork) {\r\n            return true;\r\n        }\r\n        return false\r\n    }\r\n    return true;\r\n}\r\n\r\n// 显示错误提示\r\nconst showErrorMsg = (index, errmsg) => {\r\n    // 校验失败，需要提示当前错误项\r\n    const form = view.nerve.form.call.getThisController();\r\n    const mctrldata = form.details.scopes.contentCtrlData;\r\n    const key = mctrldata[index].srfkey;\r\n    // 获取下一班次的重复器表单控制器\r\n    const mdformNeuron = form.details.scopes.formNeurons.get(key);\r\n    const childForm = mdformNeuron.call.getThisController();\r\n    // 提示\r\n    ibiz.message.error(errmsg);\r\n    childForm.details.earliest_checkin.error = errmsg;\r\n\r\n}\r\n\r\nif (!data.working_number || data.working_number < 2) {\r\n    // 仅一个的情况仅处理边界打卡时间\r\n    const tag = verifitime()\r\n    if (tag) {\r\n        return {\r\n            refresult: true\r\n        };\r\n    }\r\n    showErrorMsg(0, \"当天最晚下班打卡时间不能与最早上班打卡时间重合\");\r\n    return {\r\n        refresult: false\r\n    }\r\n}\r\n\r\n// 循环比较每一班次和下一班次\r\nfor (let i = 0; i < data.working_number - 1; i++) {\r\n    const prevscopes = scopes[i];\r\n    const nextscopes = scopes[i + 1];\r\n\r\n    // 上一次下班时间\r\n    const prevEnd = prevscopes.end_base_time;\r\n    // 上一次下班延迟打卡时间\r\n    const prevExtension = prevscopes.latest_checkout;\r\n    // 下次次上班时间\r\n    const nextStart = nextscopes.start_base_time;\r\n    //下次上班时间延迟打卡时间\r\n    const nextExtension = nextscopes.earliest_checkin;\r\n\r\n    // 第一次最后下班时间   以分钟计算\r\n    const prevClockout = calcMinutes(prevEnd, Number(prevExtension));\r\n    // 下次上班时间\r\n    const nextClockin = calcMinutes(nextStart, -Number(nextExtension))\r\n\r\n    if (prevClockout >= nextClockin) {\r\n        showErrorMsg(i + 1, \"最早上班时间不得早于上个班次最晚下班时间\");\r\n        // // 校验失败，需要提示当前错误项\r\n        // const form = view.nerve.form.call.getThisController();\r\n        // const mctrldata = form.details.scopes.contentCtrlData;\r\n        // const key = mctrldata[i + 1].srfkey;\r\n        // // 获取下一班次的重复器表单控制器\r\n        // const mdformNeuron = form.details.scopes.formNeurons.get(key);\r\n        // const childForm = mdformNeuron.call.getThisController();\r\n        // // 提示\r\n        // ibiz.message.error('最早上班时间不得早于上个班次最晚下班时间');\r\n        // childForm.details.earliest_checkin.error = '最早上班时间不得早于上个班次最晚下班时间'\r\n        return {\r\n            refresult: false\r\n        };\r\n    }\r\n}\r\nconst tag = verifitime();\r\nif (!tag) {\r\n    showErrorMsg(data.working_number - 1, \"当天最晚下班打卡时间不能与最早上班打卡时间重合\");\r\n    return {\r\n        refresult: false\r\n    };\r\n}\r\n\r\nreturn {\r\n    refresult: true\r\n};\r\n\r\n\r\n"
+  } ],
+  "getPSControls" : [ {
+    "codeName" : "main3",
+    "controlType" : "FORM",
+    "getCreatePSControlAction" : {
+      "modelref" : true,
+      "id" : "create",
+      "actionName" : "Create",
+      "actionType" : "DEACTION",
+      "dataAccessAction" : "CREATE",
+      "name" : "create",
+      "getPSAppDEMethod" : {
+        "modelref" : true,
+        "id" : "create"
+      },
+      "getPSAppDataEntity" : {
+        "modelref" : true,
+        "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/attendance_shift.json"
+      }
+    },
+    "defaultLabelWidth" : 130,
+    "dynaModelFilePath" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/attendance_shift/PSFORMS/main3.json",
+    "getGetDraftFromPSControlAction" : {
+      "modelref" : true,
+      "id" : "loaddraftfrom",
+      "actionName" : "GETDRAFTFROM",
+      "actionType" : "DEACTION",
+      "dataAccessAction" : "CREATE",
+      "name" : "loaddraftfrom",
+      "getPSAppDataEntity" : {
+        "modelref" : true,
+        "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/attendance_shift.json"
+      }
+    },
+    "getGetDraftPSControlAction" : {
+      "modelref" : true,
+      "id" : "loaddraft",
+      "actionName" : "GetDraft",
+      "actionType" : "DEACTION",
+      "dataAccessAction" : "CREATE",
+      "name" : "loaddraft",
+      "getPSAppDEMethod" : {
+        "modelref" : true,
+        "id" : "get_draft"
+      },
+      "getPSAppDataEntity" : {
+        "modelref" : true,
+        "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/attendance_shift.json"
+      }
+    },
+    "getGetPSControlAction" : {
+      "modelref" : true,
+      "id" : "load",
+      "actionName" : "Get",
+      "actionType" : "DEACTION",
+      "dataAccessAction" : "READ",
+      "name" : "load",
+      "getPSAppDEMethod" : {
+        "modelref" : true,
+        "id" : "get"
+      },
+      "getPSAppDataEntity" : {
+        "modelref" : true,
+        "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/attendance_shift.json"
+      }
+    },
+    "hookEventNames" : [ "ONCHANGE", "ONCLICK" ],
+    "logicName" : "默认班次表单",
+    "getPSAppDataEntity" : {
+      "modelref" : true,
+      "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/attendance_shift.json"
+    },
+    "getPSControlHandler" : {
+      "getPSHandlerActions" : [ {
+        "actionName" : "GetDraft",
+        "actionType" : "DEACTION",
+        "dataAccessAction" : "CREATE",
+        "name" : "loaddraft",
+        "getPSAppDEMethod" : {
+          "modelref" : true,
+          "id" : "get_draft"
+        },
+        "getPSAppDataEntity" : {
+          "modelref" : true,
+          "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/attendance_shift.json"
+        }
+      }, {
+        "actionName" : "GETDRAFTFROM",
+        "actionType" : "DEACTION",
+        "dataAccessAction" : "CREATE",
+        "name" : "loaddraftfrom",
+        "getPSAppDataEntity" : {
+          "modelref" : true,
+          "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/attendance_shift.json"
+        }
+      }, {
+        "actionName" : "Get",
+        "actionType" : "DEACTION",
+        "dataAccessAction" : "READ",
+        "name" : "load",
+        "getPSAppDEMethod" : {
+          "modelref" : true,
+          "id" : "get"
+        },
+        "getPSAppDataEntity" : {
+          "modelref" : true,
+          "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/attendance_shift.json"
+        }
+      }, {
+        "actionName" : "Create",
+        "actionType" : "DEACTION",
+        "dataAccessAction" : "CREATE",
+        "name" : "create",
+        "getPSAppDEMethod" : {
+          "modelref" : true,
+          "id" : "create"
+        },
+        "getPSAppDataEntity" : {
+          "modelref" : true,
+          "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/attendance_shift.json"
+        }
+      }, {
+        "actionName" : "UpdateByType",
+        "actionType" : "DEACTION",
+        "dataAccessAction" : "UPDATE",
+        "name" : "update",
+        "getPSAppDEMethod" : {
+          "modelref" : true,
+          "id" : "UpdateByType"
+        },
+        "getPSAppDataEntity" : {
+          "modelref" : true,
+          "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/attendance_shift.json"
+        }
+      }, {
+        "actionName" : "Remove",
+        "actionType" : "DEACTION",
+        "dataAccessAction" : "DELETE",
+        "name" : "remove",
+        "getPSAppDEMethod" : {
+          "modelref" : true,
+          "id" : "remove"
+        },
+        "getPSAppDataEntity" : {
+          "modelref" : true,
+          "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/attendance_shift.json"
+        }
+      } ],
+      "enableDEFieldPrivilege" : false,
+      "id" : "编辑表单处理器"
+    },
+    "getPSControlLogics" : [ {
+      "eventNames" : "onChange",
+      "itemName" : "scopes",
+      "logicTag" : "form",
+      "logicType" : "SCRIPT",
+      "name" : "setTimeDisable",
+      "scriptCode" : "console.log(\"重复器表单完全加载绘制完成\");\r\n\r\n// 计算时间\r\nconst calctime = (index) => {\r\n    const mdctrl = ctrl.formMDCtrls.find(item => item.name === 'scopes')\r\n    const mdData = mdctrl.repeaterMap.get(index.toString());\r\n    const form = mdData.data;\r\n    if (form) {\r\n        const {start_base_time, end_base_time} = form\r\n        const [start_hour, start_minute] = start_base_time.split(':');\r\n        const [end_hour, end_minute] = end_base_time.split(':');\r\n        // 开始小时\r\n        const tempStartHour = Number(start_hour);\r\n        // 开始分钟\r\n        const tempStartMinute = Number(start_minute);\r\n        // 结束小时\r\n        const tempEndHour = Number(end_hour);\r\n        // 结束分钟\r\n        const tempEndMinute = Number(end_minute);\r\n        return {\r\n            \"start_hour\": tempStartHour,\r\n            \"start_minute\": tempStartMinute,\r\n            \"end_hour\": tempEndHour,\r\n            \"end_minute\": tempEndMinute,\r\n            \"start_base_time\": start_base_time,\r\n            \"end_base_time\": end_base_time,\r\n        }\r\n    }\r\n    return {\r\n        \"start_hour\": 0,\r\n        \"start_minute\": 0,\r\n        \"end_hour\": 0,\r\n        \"end_minute\": 0,\r\n    }\r\n}\r\n\r\n// 计算禁用时间\r\nconst calcDisabledTime = (index, tag) => {\r\n    const times = [];\r\n    // tag为true时，表示小于index的时间禁用,否则，大于index的时间禁用\r\n    if (tag) {\r\n        for (let i = 0; i < index; i++) {\r\n            times.push(i)\r\n        }\r\n    } else {\r\n        for (let i = index; i < 59; i++) {\r\n            times.push(i)\r\n        }\r\n    }\r\n    return times;\r\n}\r\n\r\n// 重复器表单的第一个表单数据\r\nconst defaultTime = {\r\n    \"start_hour\": 0,\r\n    \"start_minute\": 0,\r\n    \"end_hour\": 0,\r\n    \"end_minute\": 0\r\n}\r\n\r\nconst time1 = calctime(0); // 第一次班次的开始结束时间\r\nconst {\r\n    start_hour: start_hour1,\r\n    start_minute: start_minute1,\r\n    end_hour: end_hour1,\r\n    end_minute: end_minute1,\r\n    start_base_time: start_base_time1,\r\n    end_base_time: end_base_time1\r\n} = time1;\r\n\r\nconst time2 = ctrl.data.working_number > 1 ? calctime(1) : defaultTime; // 第二次班次的开始结束时间\r\nconst {\r\n    start_hour: start_hour2,\r\n    start_minute: start_minute2,\r\n    end_hour: end_hour2,\r\n    end_minute: end_minute2,\r\n    start_base_time: start_base_time2,\r\n    end_base_time: end_base_time2\r\n} = time2;\r\n\r\nconst time3 = ctrl.data.working_number === 3 ? calctime(2) : defaultTime; // 第三次班次的开始结束时间\r\nconst {\r\n    start_hour: start_hour3,\r\n    start_minute: start_minute3,\r\n    end_hour: end_hour3,\r\n    end_minute: end_minute3,\r\n    start_base_time: start_base_time3,\r\n    end_base_time: end_base_time3\r\n} = time3;\r\n// 重复器表单的第一个表单数据\r\nconst mdctrl = ctrl.formMDCtrls.find(item => item.name === 'scopes')\r\nconst form1 = mdctrl.repeaterMap.get(\"0\").details;\r\n\r\n// 重复器表单的第二个表单数据\r\nconst form2 = ctrl.data.working_number > 1 ? mdctrl.repeaterMap.get(\"1\").details : null ;\r\n\r\n// 重复器表单的第三个表单数据\r\nconst form3 =  ctrl.data.working_number > 2 ? mdctrl.repeaterMap.get(\"2\").details : null ;\r\n\r\nif (ctrl.data.working_number > 1) {\r\n    if (form1) {\r\n        // 下班时间控制器\r\n        const endc = form1.end_base_time\r\n        const endEditor = endc.editor;\r\n        // 上班时间控制器\r\n        const startc = form1.start_base_time\r\n        const startEditor = startc.editor;\r\n        if (endEditor && startEditor) {\r\n            //对于上班时间1：当上班时间1>下班时间1时，[大于下班时间1]区间内禁选\r\n            if (start_base_time1 >= end_base_time1) {\r\n                const disabledHourTime = calcDisabledTime(end_minute1 == 0 ? end_hour1 : end_hour1 + 1, false);\r\n                const disabledMinuteTime = calcDisabledTime(end_minute1, false); // 结束时间需要禁用的分钟\r\n                startEditor.setDisabledHours(disabledHourTime);\r\n                startEditor.setDisabledMinutes(disabledMinuteTime);\r\n            }\r\n            //对于下班时间1：当上班时间2<下班时间1,[上班时间2~上班时间1]区间内禁选\r\n            if (start_base_time2 <= start_base_time1) {\r\n                const disabledRange =\r\n                    {\r\n                        \"starthour\": end_hour2,\r\n                        \"startminute\": end_minute2,\r\n                        \"endhour\": start_hour1,\r\n                        \"endminute\": start_minute1\r\n                    }\r\n                endEditor.setDisabledRange([disabledRange]);\r\n            }\r\n        }\r\n    }\r\n}\r\n\r\nif (ctrl.data.working_number >= 2) {\r\n    if (form2) {\r\n        // 下班时间控制器\r\n        const endc = form2.end_base_time\r\n        const endEditor2 = endc.editor;\r\n        // 上班时间控制器\r\n        const startc = form2.start_base_time\r\n        const startEditor2 = startc.editor;\r\n        if (endEditor2 && startEditor2) {\r\n            // 对于上班时间2，上下班次数为2~3时\r\n            // 若下班时间2<下班时间1\r\n            if (end_base_time2 < end_base_time1) {\r\n                //[end_base_time2~end_base_time1]区间内禁选，获取禁选时间\r\n                const disabledRange =\r\n                    {\r\n                        \"starthour\": end_hour2,\r\n                        \"startminute\": end_minute2,\r\n                        \"endhour\": end_hour1,\r\n                        \"endminute\": end_minute1\r\n                    }\r\n                startEditor2.setDisabledRange([disabledRange]);\r\n            } else {\r\n                //若上班时间1>=下班时间1\r\n                if (start_base_time1 >= end_base_time1) {\r\n                    //[小于下班时间1 && 大于下班时间2]的时间禁选\r\n                    const disabledRange1 =\r\n                        {\r\n                            \"starthour\": 0,\r\n                            \"startminute\": 0,\r\n                            \"endhour\": end_hour1,\r\n                            \"endminute\": end_minute1\r\n                        }\r\n                    const disabledRange2 =\r\n                        {\r\n                            \"starthour\": end_hour2,\r\n                            \"startminute\": end_minute2,\r\n                            \"endhour\": 24,\r\n                            \"endminute\": 60\r\n                        }\r\n                    startEditor2.setDisabledRange([disabledRange1, disabledRange2])\r\n                }\r\n            }\r\n\r\n            //对于下班时间2，当上下班次数为2时\r\n            if (ctrl.data.working_number === 2) {\r\n                // 当上班时间2<下班时间1或上班时间1>下班时间1，[小于上班时间2]区间内禁选\r\n                if ((end_base_time1 > start_base_time1 && start_base_time2 <= end_base_time1) || start_base_time1 >= end_base_time1) {\r\n                    const disabledHourTime = calcDisabledTime(start_hour2, true); // 结束时间需要禁用的小时\r\n                    const disabledMinuteTime = calcDisabledTime(start_minute2, true); // 结束时间需要禁用的分钟\r\n                    endEditor2.setDisabledHours(disabledHourTime);\r\n                    endEditor2.setDisabledMinutes(disabledMinuteTime);\r\n                }\r\n            }\r\n\r\n            if (ctrl.data.working_number === 3) {\r\n                // 下班时间控制器\r\n                const endc3 = form3.end_base_time\r\n                const endEditor3 = endc3.editor;\r\n                // 上班时间控制器\r\n                const startc3 = form3.start_base_time\r\n                const startEditor3 = startc3.editor;\r\n                //对于下班时间2，当上下班次数为3时\r\n                if ((end_base_time1 > start_base_time1 && start_base_time2 <= end_base_time1) || start_base_time1 >= end_base_time1) {\r\n\r\n                    const disabledRange1 =\r\n                        {\r\n                            \"starthour\": 0,\r\n                            \"startminute\": 0,\r\n                            \"endhour\": start_hour2,\r\n                            \"endminute\": start_minute2\r\n                        }\r\n                    const disabledRange2 =\r\n                        {\r\n                            \"starthour\": start_hour3,\r\n                            \"startminute\": start_hour3,\r\n                            \"endhour\": 24,\r\n                            \"endminute\": 60\r\n                        }\r\n                    endEditor2.setDisabledRange([disabledRange1, disabledRange2])\r\n                }\r\n\r\n                // 对于上班时间3：当上班时间1>下班时间1 或 下班时间2<上班时间2时，[小于下班时间2&&大于下班时间3]区间内禁选\r\n                if (start_base_time1 >= end_base_time1 || end_base_time2 <= start_base_time2) {\r\n                    const disabledRange1 =\r\n                        {\r\n                            \"starthour\": 0,\r\n                            \"startminute\": 0,\r\n                            \"endhour\": end_hour2,\r\n                            \"endminute\": end_minute2\r\n                        }\r\n                    const disabledRange2 =\r\n                        {\r\n                            \"starthour\": end_hour3,\r\n                            \"startminute\": end_minute3,\r\n                            \"endhour\": 24,\r\n                            \"endminute\": 60\r\n                        }\r\n                    startEditor3.setDisabledRange([disabledRange1, disabledRange2])\r\n\r\n                }\r\n                // 对于下班时间3：当上班时间3属于跨天时，小于上班时间3的区间禁选\r\n                if (start_base_time1 >= end_base_time1 || end_base_time2 <= start_base_time2 || start_base_time3 <= end_base_time2) {\r\n                    const disabledHourTime = calcDisabledTime(start_hour3, true);\r\n                    const disabledMinuteTime = calcDisabledTime(start_minute3, true); // 结束时间需要禁用的分钟\r\n                    endEditor3.setDisabledHours(disabledHourTime);\r\n                    endEditor3.setDisabledMinutes(disabledMinuteTime);\r\n                }\r\n\r\n            }\r\n\r\n        }\r\n\r\n    }\r\n\r\n}\r\n"
+    }, {
+      "eventNames" : "onClick",
+      "logicTag" : "form",
+      "logicType" : "SCRIPT",
+      "name" : "repeaterload",
+      "scriptCode" : "console.log(\"重复器表单完全加载绘制完成\");\r\n\r\n// 计算时间\r\nconst calctime = (index) => {\r\n    const mdData = mdctrl.contentCtrlData[index];\r\n    const {srfkey} = mdData;\r\n    const formNeuron = mdctrl.formNeurons.get(srfkey);\r\n    if (formNeuron) {\r\n        const form = formNeuron.call.getThisController();\r\n        const {start_base_time, end_base_time} = form.data\r\n        const [start_hour, start_minute] = start_base_time.split(':');\r\n        const [end_hour, end_minute] = end_base_time.split(':');\r\n        // 开始小时\r\n        const tempStartHour = Number(start_hour);\r\n        // 开始分钟\r\n        const tempStartMinute = Number(start_minute);\r\n        // 结束小时\r\n        const tempEndHour = Number(end_hour);\r\n        // 结束分钟\r\n        const tempEndMinute = Number(end_minute);\r\n        return {\r\n            \"start_hour\": tempStartHour,\r\n            \"start_minute\": tempStartMinute,\r\n            \"end_hour\": tempEndHour,\r\n            \"end_minute\": tempEndMinute,\r\n            \"start_base_time\": start_base_time,\r\n            \"end_base_time\": end_base_time,\r\n        }\r\n    }\r\n    return {\r\n        \"start_hour\": 0,\r\n        \"start_minute\": 0,\r\n        \"end_hour\": 0,\r\n        \"end_minute\": 0,\r\n    }\r\n}\r\n\r\n// 计算禁用时间\r\nconst calcDisabledTime = (index, tag) => {\r\n    const times = [];\r\n    // tag为true时，表示小于index的时间禁用,否则，大于index的时间禁用\r\n    if (tag) {\r\n        for (let i = 0; i < index; i++) {\r\n            times.push(i)\r\n        }\r\n    } else {\r\n        for (let i = index; i < 59; i++) {\r\n            times.push(i)\r\n        }\r\n    }\r\n    return times;\r\n}\r\n\r\n// 重复器表单的第一个表单数据\r\nconst defaultTime = {\r\n    \"start_hour\": 0,\r\n    \"start_minute\": 0,\r\n    \"end_hour\": 0,\r\n    \"end_minute\": 0\r\n}\r\n\r\nconst time1 = calctime(0); // 第一次班次的开始结束时间\r\nconst {\r\n    start_hour: start_hour1,\r\n    start_minute: start_minute1,\r\n    end_hour: end_hour1,\r\n    end_minute: end_minute1,\r\n    start_base_time: start_base_time1,\r\n    end_base_time: end_base_time1\r\n} = time1;\r\n\r\nconst time2 = ctrl.data.working_number > 1 ? calctime(1) : defaultTime; // 第二次班次的开始结束时间\r\nconst {\r\n    start_hour: start_hour2,\r\n    start_minute: start_minute2,\r\n    end_hour: end_hour2,\r\n    end_minute: end_minute2,\r\n    start_base_time: start_base_time2,\r\n    end_base_time: end_base_time2\r\n} = time2;\r\n\r\nconst time3 = ctrl.data.working_number === 3 ? calctime(2) : defaultTime; // 第三次班次的开始结束时间\r\nconst {\r\n    start_hour: start_hour3,\r\n    start_minute: start_minute3,\r\n    end_hour: end_hour3,\r\n    end_minute: end_minute3,\r\n    start_base_time: start_base_time3,\r\n    end_base_time: end_base_time3\r\n} = time3;\r\n// 重复器表单的第一个表单数据\r\nconst mdData1 = mdctrl.contentCtrlData[0];\r\nconst srfkey1 = mdData1?.srfkey;\r\nconst formNeuron1 = srfkey1 ? mdctrl.formNeurons.get(srfkey1) : null;\r\n\r\n// 重复器表单的第二个表单数据\r\nconst mdData2 = ctrl.data.working_number > 1 ? mdctrl.contentCtrlData[1] : null;\r\nconst srfkey2 = mdData2?.srfkey;\r\nconst formNeuron2 = srfkey2 ? mdctrl.formNeurons.get(srfkey2) : null;\r\n\r\n// 重复器表单的第二个表单数据\r\nconst mdData3 = ctrl.data.working_number === 3 ? mdctrl.contentCtrlData[2] : null;\r\nconst srfkey3 = mdData3?.srfkey;\r\nconst formNeuron3 = srfkey3 ? mdctrl.formNeurons.get(srfkey3) : null;\r\n\r\nif (ctrl.data.working_number > 1) {\r\n    if (formNeuron1) {\r\n        const form = formNeuron1.call.getThisController();\r\n        // 下班时间控制器\r\n        const endc = form.details.end_base_time\r\n        const endEditor = endc.editor;\r\n        // 上班时间控制器\r\n        const startc = form.details.start_base_time\r\n        const startEditor = startc.editor;\r\n        if (endEditor && startEditor) {\r\n            //对于上班时间1：当上班时间1>下班时间1时，[大于下班时间1]区间内禁选\r\n            if (start_base_time1 >= end_base_time1) {\r\n                const disabledHourTime = calcDisabledTime(end_minute1 == 0 ? end_hour1 : end_hour1 + 1, false);\r\n                const disabledMinuteTime = calcDisabledTime(end_minute1, false); // 结束时间需要禁用的分钟\r\n                startEditor.setDisabledHours(disabledHourTime);\r\n                startEditor.setDisabledMinutes(disabledMinuteTime);\r\n            }\r\n            //对于下班时间1：当上班时间2<下班时间1,[上班时间2~上班时间1]区间内禁选\r\n            if (start_base_time2 <= start_base_time1) {\r\n                const disabledRange =\r\n                    {\r\n                        \"starthour\": end_hour2,\r\n                        \"startminute\": end_minute2,\r\n                        \"endhour\": start_hour1,\r\n                        \"endminute\": start_minute1\r\n                    }\r\n                endEditor.setDisabledRange([disabledRange]);\r\n            }\r\n        }\r\n    }\r\n}\r\n\r\nif (ctrl.data.working_number >= 2) {\r\n    if (formNeuron2) {\r\n        const form = formNeuron2.call.getThisController();\r\n        // 下班时间控制器\r\n        const endc = form.details.end_base_time\r\n        const endEditor2 = endc.editor;\r\n        // 上班时间控制器\r\n        const startc = form.details.start_base_time\r\n        const startEditor2 = startc.editor;\r\n        if (endEditor2 && startEditor2) {\r\n            // 对于上班时间2，上下班次数为2~3时\r\n            // 若下班时间2<下班时间1\r\n            if (end_base_time2 < end_base_time1) {\r\n                //[end_base_time2~end_base_time1]区间内禁选，获取禁选时间\r\n                const disabledRange =\r\n                    {\r\n                        \"starthour\": end_hour2,\r\n                        \"startminute\": end_minute2,\r\n                        \"endhour\": end_hour1,\r\n                        \"endminute\": end_minute1\r\n                    }\r\n                startEditor2.setDisabledRange([disabledRange]);\r\n            } else {\r\n                //若上班时间1>=下班时间1\r\n                if (start_base_time1 >= end_base_time1) {\r\n                    //[小于下班时间1 && 大于下班时间2]的时间禁选\r\n                    const disabledRange1 =\r\n                        {\r\n                            \"starthour\": 0,\r\n                            \"startminute\": 0,\r\n                            \"endhour\": end_hour1,\r\n                            \"endminute\": end_minute1\r\n                        }\r\n                    const disabledRange2 =\r\n                        {\r\n                            \"starthour\": end_hour2,\r\n                            \"startminute\": end_minute2,\r\n                            \"endhour\": 24,\r\n                            \"endminute\": 60\r\n                        }\r\n                    startEditor2.setDisabledRange([disabledRange1, disabledRange2])\r\n                }\r\n            }\r\n\r\n            //对于下班时间2，当上下班次数为2时\r\n            if (ctrl.data.working_number === 2) {\r\n                // 当上班时间2<下班时间1或上班时间1>下班时间1，[小于上班时间2]区间内禁选\r\n                if ((end_base_time1 > start_base_time1 && start_base_time2 <= end_base_time1) || start_base_time1 >= end_base_time1) {\r\n                    const disabledHourTime = calcDisabledTime(start_hour2, true); // 结束时间需要禁用的小时\r\n                    const disabledMinuteTime = calcDisabledTime(start_minute2, true); // 结束时间需要禁用的分钟\r\n                    endEditor2.setDisabledHours(disabledHourTime);\r\n                    endEditor2.setDisabledMinutes(disabledMinuteTime);\r\n                }\r\n            }\r\n\r\n            if (ctrl.data.working_number === 3) {\r\n                const form3 = formNeuron3.call.getThisController();\r\n                // 下班时间控制器\r\n                const endc3 = form3.details.end_base_time\r\n                const endEditor3 = endc3.editor;\r\n                // 上班时间控制器\r\n                const startc3 = form3.details.start_base_time\r\n                const startEditor3 = startc3.editor;\r\n                //对于下班时间2，当上下班次数为3时\r\n                if ((end_base_time1 > start_base_time1 && start_base_time2 <= end_base_time1) || start_base_time1 >= end_base_time1) {\r\n\r\n                    const disabledRange1 =\r\n                        {\r\n                            \"starthour\": 0,\r\n                            \"startminute\": 0,\r\n                            \"endhour\": start_hour2,\r\n                            \"endminute\": start_minute2\r\n                        }\r\n                    const disabledRange2 =\r\n                        {\r\n                            \"starthour\": start_hour3,\r\n                            \"startminute\": start_hour3,\r\n                            \"endhour\": 24,\r\n                            \"endminute\": 60\r\n                        }\r\n                    endEditor2.setDisabledRange([disabledRange1, disabledRange2])\r\n                }\r\n\r\n                // 对于上班时间3：当上班时间1>下班时间1 或 下班时间2<上班时间2时，[小于下班时间2&&大于下班时间3]区间内禁选\r\n                if (start_base_time1 >= end_base_time1 || end_base_time2 <= start_base_time2) {\r\n                    const disabledRange1 =\r\n                        {\r\n                            \"starthour\": 0,\r\n                            \"startminute\": 0,\r\n                            \"endhour\": end_hour2,\r\n                            \"endminute\": end_minute2\r\n                        }\r\n                    const disabledRange2 =\r\n                        {\r\n                            \"starthour\": end_hour3,\r\n                            \"startminute\": end_minute3,\r\n                            \"endhour\": 24,\r\n                            \"endminute\": 60\r\n                        }\r\n                    startEditor3.setDisabledRange([disabledRange1, disabledRange2])\r\n\r\n                }\r\n                // 对于下班时间3：当上班时间3属于跨天时，小于上班时间3的区间禁选\r\n                if (start_base_time1 >= end_base_time1 || end_base_time2 <= start_base_time2 || start_base_time3 <= end_base_time2) {\r\n                    const disabledHourTime = calcDisabledTime(start_hour3, true);\r\n                    const disabledMinuteTime = calcDisabledTime(start_minute3, true); // 结束时间需要禁用的分钟\r\n                    endEditor3.setDisabledHours(disabledHourTime);\r\n                    endEditor3.setDisabledMinutes(disabledMinuteTime);\r\n                }\r\n\r\n            }\r\n\r\n        }\r\n\r\n    }\r\n\r\n}\r\n",
+      "triggerType" : "CUSTOM"
+    } ],
+    "getPSControlParam" : {
+      "width" : 800.0,
+      "autoLoad" : true,
+      "showBusyIndicator" : true,
+      "id" : "FORM"
+    },
+    "getPSDEFormItemUpdates" : [ {
+      "codeName" : "ScheduleGetDraft",
+      "name" : "次数更新",
+      "getPSDEFIUpdateDetails" : [ {
+        "name" : "work_load"
+      }, {
+        "name" : "scopes"
+      } ],
+      "scriptCode" : "console.log(\"次数更新\"+data)\r\n\r\ndata.attendance_ratio = 1.0;\r\n// data.name = \"班次\";\r\nvar _workNumber = data.working_number ? data.working_number : 1;\r\nvar _scopes = [];\r\n\r\n// 时间字符串转分钟数的工具函数\r\nfunction timeToMinutes(timeStr) {\r\n    const parts = timeStr.split(':');\r\n    const hours = parseInt(parts[0], 10);\r\n    const minutes = parseInt(parts[1], 10);\r\n    return hours * 60 + minutes;\r\n}\r\n\r\n// 根据班次数量定义时间段配置\r\nvar timeConfigs = {\r\n    1: [{ start: \"08:00\", end: \"17:00\" }],\r\n    2: [\r\n        { start: \"08:00\", end: \"12:00\" },\r\n        { start: \"13:30\", end: \"17:30\" }\r\n    ],\r\n    3: [\r\n        { start: \"08:00\", end: \"12:00\" },\r\n        { start: \"13:30\", end: \"17:30\" },\r\n        { start: \"18:30\", end: \"21:00\" }\r\n    ]\r\n};\r\n\r\n\r\n\r\n\r\n// 获取当前班次数量的时间配置\r\nvar currentConfig = timeConfigs[_workNumber] || timeConfigs[1];\r\n\r\n// 生成班次配置并计算总工时\r\nvar totalWorkingMinutes = 0;\r\ncurrentConfig.forEach((timeRange, index) => {\r\n    // 转换时间为分钟数\r\n    const start = timeToMinutes(timeRange.start);\r\n    const end = timeToMinutes(timeRange.end);\r\n\r\n    // 计算单个班次工时（分钟）\r\n    totalWorkingMinutes += (end - start);\r\n\r\n    //最早提前\r\n    var earliest_checkin = 120\r\n    //最晚延后\r\n    var latest_checkout = 480\r\n    if (_workNumber === 2 && index === 0) {\r\n        earliest_checkin = 120\r\n        latest_checkout = 30\r\n    }\r\n    if (_workNumber === 2 && index === 1) {\r\n        earliest_checkin = 30\r\n        latest_checkout = 480\r\n    }\r\n\r\n    if (_workNumber === 3 && index === 0) {\r\n        earliest_checkin = 120\r\n        latest_checkout = 30\r\n    }\r\n\r\n    if (_workNumber === 3 && index === 1) {\r\n        earliest_checkin = 30\r\n        latest_checkout = 29\r\n    }\r\n\r\n    if (_workNumber === 3 && index === 2) {\r\n        earliest_checkin = 30\r\n        latest_checkout = 180\r\n    }\r\n\r\n\r\n    // 生成scope对象\r\n    var scope = {\r\n        early_for_absenteeism: 60,\r\n        early_for_early: 0,\r\n        latest_checkout: latest_checkout,\r\n        end_base_time: timeRange.end,\r\n        start_base_time: timeRange.start,\r\n        earliest_checkin: earliest_checkin,\r\n        late_for_absenteeism: 60,\r\n        late_for_late: 0,\r\n        shift_id: data.id,\r\n        order_value: index+1\r\n    };\r\n    _scopes.push(scope);\r\n});\r\n\r\n// 转换为小时分钟格式\r\nvar hours = Math.floor(totalWorkingMinutes / 60);\r\nvar minutes = totalWorkingMinutes % 60;\r\nvar workLoadText = hours + \"小时\" + minutes + \"分钟\";\r\n\r\n// 更新数据\r\nctrl.setDataValue('scopes', _scopes);\r\nctrl.setDataValue('work_load', workLoadText);",
+      "customCode" : true
+    }, {
+      "codeName" : "refreshWorkLoad",
+      "name" : "刷新工时/次日标记",
+      "getPSDEFIUpdateDetails" : [ {
+        "name" : "scopes"
+      }, {
+        "name" : "work_load"
+      } ],
+      "scriptCode" : "console.log(\"初始化总工时\" + data)\r\n\r\nfunction timeToMinutes(timeStr) {\r\n    const parts = timeStr.split(':');\r\n    const hours = parseInt(parts[0], 10);\r\n    const minutes = parseInt(parts[1], 10);\r\n    return hours * 60 + minutes;\r\n}\r\n// 初始化总工时\r\nlet totalWorkingMinutes = 0;\r\nvar _workNumber = data.working_number ? data.working_number : 1;\r\nvar start_base_time1 = 0\r\nvar end_base_time1 = 0\r\nvar start_base_time2 = 0\r\nvar end_base_time2 = 0\r\nvar start_base_time3 = 0\r\nvar end_base_time3 = 0\r\n\r\n// 遍历所有班次配置计算总工时\r\nif (data.scopes && data.scopes.length > 0) {\r\n    data.scopes.forEach(scope => {\r\n        var start_base_time = scope.start_base_time;\r\n        var end_base_time = scope.end_base_time;\r\n\r\n        // 转换时间段为分钟数\r\n        const start = timeToMinutes(start_base_time);\r\n        const end = timeToMinutes(end_base_time);\r\n        // 累加工时\r\n        if (start >= end) {\r\n            totalWorkingMinutes += (24 * 60 - start + end);\r\n        }else {\r\n            totalWorkingMinutes += (end - start);\r\n        }\r\n\r\n        if (scope.order_value === 1) {\r\n            start_base_time1 = start\r\n            end_base_time1 = end\r\n        }\r\n        if (scope.order_value === 2) {\r\n            start_base_time2 = start\r\n            end_base_time2 = end\r\n        }\r\n        if (scope.order_value === 3) {\r\n            start_base_time3 = start\r\n            end_base_time3 = end\r\n        }\r\n\r\n    });\r\n}\r\n\r\n// 转换为小时分钟格式\r\nconst hours = Math.floor(Math.abs(totalWorkingMinutes) / 60);\r\nconst minutes = totalWorkingMinutes % 60;\r\n\r\n// 更新数据\r\nctrl.setDataValue('work_load', `${hours}小时${minutes}分钟`);\r\n\r\n//计算次日标记\r\nif (data.scopes && data.scopes.length > 0) {\r\n    data.scopes.forEach(scope => {\r\n        scope.next_tag = \"0,0\"\r\n        if (start_base_time1 >= end_base_time1) {\r\n            if (scope.order_value === 1) {\r\n                scope.next_tag = \"0,1\"\r\n            } else {\r\n                scope.next_tag = \"1,1\"\r\n            }\r\n        }\r\n        //两次\r\n        if(_workNumber > 1){\r\n            if (start_base_time2 <= end_base_time1) {\r\n                if (scope.order_value > 1) {\r\n                    scope.next_tag = \"1,1\"\r\n                }\r\n            }\r\n            if (end_base_time2 <= start_base_time2) {\r\n                if (scope.order_value === 2) {\r\n                    scope.next_tag = \"0,1\"\r\n                }else if (scope.order_value === 3){\r\n                    scope.next_tag = \"1,1\"\r\n                }\r\n            }\r\n        }\r\n\r\n        //三次\r\n        if(_workNumber === 3){\r\n            if (start_base_time3 <= end_base_time2) {\r\n                if (scope.order_value ===3) {\r\n                    scope.next_tag = \"1,1\"\r\n                }\r\n            }\r\n            if (end_base_time3 <= start_base_time3) {\r\n                if (scope.order_value === 3){\r\n                    scope.next_tag = \"0,1\"\r\n                }\r\n            }\r\n        }\r\n\r\n    });\r\n    const mdctrl = ctrl.formMDCtrls.find(item => item.name === 'scopes')\r\n    if (mdctrl) {\r\n        // mdctrl.loadData()\r\n        mdctrl.refresh()\r\n\r\n    }\r\n}\r\n",
+      "customCode" : true
+    } ],
+    "getPSDEFormItems" : [ {
+      "id" : "srforikey",
+      "hidden" : true,
+      "dataType" : 25
+    }, {
+      "id" : "srfkey",
+      "hidden" : true,
+      "dataType" : 25,
+      "getPSAppDEField" : {
+        "name" : "ID",
+        "codeName" : "id"
+      }
+    }, {
+      "id" : "srfmajortext",
+      "hidden" : true,
+      "dataType" : 25,
+      "getPSAppDEField" : {
+        "name" : "NAME",
+        "codeName" : "name"
+      }
+    }, {
+      "id" : "srftempmode",
+      "hidden" : true,
+      "dataType" : 25
+    }, {
+      "id" : "srfuf",
+      "hidden" : true,
+      "dataType" : 25
+    }, {
+      "id" : "srfdeid",
+      "hidden" : true,
+      "dataType" : 25
+    }, {
+      "id" : "srfsourcekey",
+      "hidden" : true,
+      "dataType" : 25
+    }, {
+      "id" : "workday_id",
+      "hidden" : true,
+      "dataType" : 25,
+      "createDVT" : "APPDATA",
+      "createDV" : "workday",
+      "updateDVT" : "APPDATA",
+      "updateDV" : "workday",
+      "getPSAppDEField" : {
+        "name" : "WORKDAY_ID",
+        "codeName" : "workday_id"
+      }
+    }, {
+      "id" : "schedule_type",
+      "hidden" : true,
+      "dataType" : 25,
+      "createDVT" : "APPDATA",
+      "createDV" : "schedule_type",
+      "updateDVT" : "APPDATA",
+      "updateDV" : "schedule_type",
+      "getPSAppDEField" : {
+        "name" : "SCHEDULE_TYPE",
+        "codeName" : "schedule_type"
+      }
+    }, {
+      "id" : "name",
+      "dataType" : 25,
+      "getPSAppDEField" : {
+        "name" : "NAME",
+        "codeName" : "name"
+      }
+    }, {
+      "id" : "working_number",
+      "dataType" : 9,
+      "createDV" : "1",
+      "updateDV" : "1",
+      "getPSAppDEField" : {
+        "name" : "WORKING_NUMBER",
+        "codeName" : "working_number"
+      }
+    }, {
+      "id" : "default_flag",
+      "hidden" : true,
+      "dataType" : 9,
+      "getPSAppDEField" : {
+        "name" : "DEFAULT_FLAG",
+        "codeName" : "default_flag"
+      }
+    }, {
+      "id" : "work_load",
+      "dataType" : 25
+    }, {
+      "id" : "attendance_ratio",
+      "dataType" : 25,
+      "createDV" : "1",
+      "updateDV" : "1"
+    }, {
+      "id" : "rest_enable",
+      "dataType" : 9,
+      "createDV" : "0",
+      "getPSAppDEField" : {
+        "name" : "REST_ENABLE",
+        "codeName" : "rest_enable"
+      }
+    }, {
+      "id" : "rest_start",
+      "dataType" : 25
+    }, {
+      "id" : "end_start",
+      "dataType" : 25
+    }, {
+      "id" : "overtime_valid",
+      "dataType" : 9,
+      "getPSAppDEField" : {
+        "name" : "OVERTIME_VALID",
+        "codeName" : "overtime_valid"
+      }
+    }, {
+      "id" : "invalid_overtime",
+      "dataType" : 9,
+      "createDV" : "0",
+      "getPSAppDEField" : {
+        "name" : "INVALID_OVERTIME",
+        "codeName" : "invalid_overtime"
+      }
+    }, {
+      "id" : "start_overtime",
+      "dataType" : 9,
+      "createDV" : "0",
+      "getPSAppDEField" : {
+        "name" : "START_OVERTIME",
+        "codeName" : "start_overtime"
+      }
+    }, {
+      "id" : "id",
+      "hidden" : true,
+      "dataType" : 25,
+      "getPSAppDEField" : {
+        "name" : "ID",
+        "codeName" : "id"
+      }
+    } ],
+    "getPSDEFormPages" : [ {
+      "getCapPSLanguageRes" : {
+        "lanResTag" : "CONTROL.DEFORM.SHIFT.MAIN2.FORMPAGE.FORMPAGE1"
+      },
+      "caption" : "基本信息",
+      "codeName" : "formpage1",
+      "detailStyle" : "DEFAULT",
+      "detailType" : "FORMPAGE",
+      "name" : "formpage1",
+      "getPSDEFormDetails" : [ {
+        "getCapPSLanguageRes" : {
+          "lanResTag" : "CONTROL.DEFORM.SHIFT.MAIN2.GROUPPANEL.GROUP1"
+        },
+        "caption" : "班次基本信息",
+        "codeName" : "group1",
+        "detailStyle" : "DEFAULT",
+        "detailType" : "GROUPPANEL",
+        "name" : "group1",
+        "getPSDEFormDetails" : [ {
+          "getCapPSLanguageRes" : {
+            "lanResTag" : "CONTROL.DEFORM.SHIFT.MAIN2.GROUPPANEL.GROUPPANEL2"
+          },
+          "caption" : "基本信息",
+          "codeName" : "grouppanel2",
+          "detailStyle" : "DEFAULT",
+          "detailType" : "GROUPPANEL",
+          "name" : "grouppanel2",
+          "getPSDEFormDetails" : [ {
+            "caption" : "工作日",
+            "codeName" : "workday_id",
+            "createDV" : "workday",
+            "createDVT" : "APPDATA",
+            "dataType" : 25,
+            "detailStyle" : "DEFAULT",
+            "detailType" : "FORMITEM",
+            "enableCond" : 3,
+            "ignoreInput" : 0,
+            "labelPos" : "LEFT",
+            "labelWidth" : 130,
+            "name" : "workday_id",
+            "noPrivDisplayMode" : 1,
+            "getPSAppDEField" : {
+              "name" : "WORKDAY_ID",
+              "codeName" : "workday_id"
+            },
+            "getPSEditor" : {
+              "editorType" : "HIDDEN",
+              "name" : "workday_id"
+            },
+            "getPSLayoutPos" : {
+              "colMD" : 24,
+              "layout" : "TABLE_24COL"
+            },
+            "updateDV" : "workday",
+            "updateDVT" : "APPDATA",
+            "allowEmpty" : true,
+            "hidden" : true
+          }, {
+            "caption" : "班次类型",
+            "codeName" : "schedule_type",
+            "createDV" : "schedule_type",
+            "createDVT" : "APPDATA",
+            "dataType" : 25,
+            "detailStyle" : "DEFAULT",
+            "detailType" : "FORMITEM",
+            "enableCond" : 3,
+            "ignoreInput" : 0,
+            "labelPos" : "LEFT",
+            "labelWidth" : 130,
+            "name" : "schedule_type",
+            "noPrivDisplayMode" : 1,
+            "getPSAppDEField" : {
+              "name" : "SCHEDULE_TYPE",
+              "codeName" : "schedule_type"
+            },
+            "getPSEditor" : {
+              "editorType" : "HIDDEN",
+              "name" : "schedule_type"
+            },
+            "getPSLayoutPos" : {
+              "colMD" : 24,
+              "layout" : "TABLE_24COL"
+            },
+            "updateDV" : "schedule_type",
+            "updateDVT" : "APPDATA",
+            "allowEmpty" : true,
+            "hidden" : true
+          }, {
+            "getCapPSLanguageRes" : {
+              "lanResTag" : "DEF.LNAME.SHIFT.NAME"
+            },
+            "caption" : "班次名称",
+            "codeName" : "name",
+            "dataType" : 25,
+            "detailStyle" : "DEFAULT",
+            "detailType" : "FORMITEM",
+            "enableCond" : 3,
+            "ignoreInput" : 0,
+            "labelPos" : "LEFT",
+            "labelWidth" : 130,
+            "name" : "name",
+            "noPrivDisplayMode" : 1,
+            "getPSAppDEField" : {
+              "name" : "NAME",
+              "codeName" : "name"
+            },
+            "getPSDEFDGroupLogics" : [ {
+              "groupOP" : "AND",
+              "logicCat" : "PANELVISIBLE",
+              "logicType" : "GROUP",
+              "getPSDEFDLogics" : [ {
+                "condOP" : "EQ",
+                "dEFDName" : "schedule_type",
+                "logicType" : "SINGLE",
+                "name" : "schedule_type等于(=) manual",
+                "value" : "manual"
+              } ],
+              "relatedDetailNames" : [ "schedule_type" ],
+              "notMode" : false
+            }, {
+              "groupOP" : "AND",
+              "logicCat" : "ITEMBLANK",
+              "logicType" : "GROUP",
+              "getPSDEFDLogics" : [ {
+                "condOP" : "NOTEQ",
+                "dEFDName" : "schedule_type",
+                "logicType" : "SINGLE",
+                "name" : "schedule_type不等于(<>) manual",
+                "value" : "manual"
+              } ],
+              "relatedDetailNames" : [ "schedule_type" ],
+              "notMode" : false
+            }, {
+              "groupOP" : "AND",
+              "logicCat" : "ITEMENABLE",
+              "logicType" : "GROUP",
+              "getPSDEFDLogics" : [ {
+                "condOP" : "EQ",
+                "dEFDName" : "schedule_type",
+                "logicType" : "SINGLE",
+                "name" : "schedule_type等于(=) manual",
+                "value" : "manual"
+              } ],
+              "relatedDetailNames" : [ "schedule_type" ],
+              "notMode" : false
+            } ],
+            "getPSEditor" : {
+              "editorType" : "TEXTBOX",
+              "maxLength" : 255,
+              "name" : "name"
+            },
+            "getPSLayoutPos" : {
+              "colMD" : 24,
+              "layout" : "TABLE_24COL"
+            },
+            "allowEmpty" : false,
+            "showCaption" : true
+          }, {
+            "getCapPSLanguageRes" : {
+              "lanResTag" : "DEF.LNAME.SHIFT.WORKING_NUMBER"
+            },
+            "caption" : "上下班次数",
+            "codeName" : "working_number",
+            "createDV" : "1",
+            "dataType" : 9,
+            "detailStyle" : "DEFAULT",
+            "detailType" : "FORMITEM",
+            "enableCond" : 3,
+            "ignoreInput" : 0,
+            "labelPos" : "LEFT",
+            "labelWidth" : 130,
+            "name" : "working_number",
+            "noPrivDisplayMode" : 1,
+            "getPSAppDEField" : {
+              "name" : "WORKING_NUMBER",
+              "codeName" : "working_number"
+            },
+            "getPSDEFormItemUpdate" : {
+              "modelref" : true,
+              "id" : "ScheduleGetDraft"
+            },
+            "getPSEditor" : {
+              "editorType" : "RADIOBUTTONLIST",
+              "name" : "working_number",
+              "getPSAppCodeList" : {
+                "modelref" : true,
+                "path" : "PSSYSAPPS/attendanceapp/PSAPPCODELISTS/attendance__workingNumber.json"
+              }
+            },
+            "getPSLayoutPos" : {
+              "colMD" : 24,
+              "layout" : "TABLE_24COL"
+            },
+            "updateDV" : "1",
+            "allowEmpty" : true,
+            "needCodeListConfig" : true,
+            "showCaption" : true
+          }, {
+            "caption" : "默认标识",
+            "codeName" : "default_flag",
+            "dataType" : 9,
+            "detailStyle" : "DEFAULT",
+            "detailType" : "FORMITEM",
+            "enableCond" : 3,
+            "ignoreInput" : 0,
+            "labelPos" : "LEFT",
+            "labelWidth" : 130,
+            "name" : "default_flag",
+            "noPrivDisplayMode" : 1,
+            "getPSAppDEField" : {
+              "name" : "DEFAULT_FLAG",
+              "codeName" : "default_flag"
+            },
+            "getPSEditor" : {
+              "editorType" : "HIDDEN",
+              "name" : "default_flag"
+            },
+            "getPSLayoutPos" : {
+              "colMD" : 24,
+              "layout" : "TABLE_24COL"
+            },
+            "allowEmpty" : true,
+            "hidden" : true
+          } ],
+          "getPSLayout" : {
+            "childColMD" : 24,
+            "columnCount" : 24,
+            "layout" : "TABLE_24COL"
+          },
+          "getPSLayoutPos" : {
+            "colMD" : 24,
+            "layout" : "TABLE_24COL"
+          },
+          "infoGroupMode" : false,
+          "showCaption" : false
+        }, {
+          "codeName" : "grouppanel3",
+          "detailStyle" : "DEFAULT",
+          "detailType" : "GROUPPANEL",
+          "name" : "grouppanel3",
+          "getPSDEFormDetails" : [ {
+            "getCapPSLanguageRes" : {
+              "lanResTag" : "CONTROL.DEFORM.SHIFT.MAIN2.GROUPPANEL.GROUPPANEL1"
+            },
+            "caption" : "考勤时段",
+            "codeName" : "grouppanel1",
+            "detailStyle" : "DEFAULT",
+            "detailType" : "GROUPPANEL",
+            "name" : "grouppanel1",
+            "getPSDEFormDetails" : [ {
+              "codeName" : "scopes",
+              "contentType" : "REPEATER",
+              "ctrlParams" : {
+                "SRFNAVCTX.shift" : "%id%"
+              },
+              "detailStyle" : "DEFAULT",
+              "detailType" : "MDCTRL",
+              "fieldName" : "scopes",
+              "name" : "scopes",
+              "getPSAppDEField" : {
+                "name" : "SCOPES",
+                "codeName" : "scopes"
+              },
+              "getPSDEFormDetails" : [ {
+                "codeName" : "rawitem2",
+                "contentType" : "RAW",
+                "detailStyle" : "DEFAULT",
+                "detailType" : "RAWITEM",
+                "name" : "rawitem2",
+                "getPSLayoutPos" : {
+                  "colMD" : 24,
+                  "layout" : "TABLE_24COL"
+                },
+                "getPSRawItem" : {
+                  "contentType" : "RAW",
+                  "name" : "rawitem2",
+                  "rawItemHeight" : -1.0,
+                  "rawItemWidth" : -1.0
+                },
+                "getPSSysPFPlugin" : {
+                  "pluginType" : "FORM_USERCONTROL",
+                  "pluginCode" : "GROUP_TITLE",
+                  "runtimeObject" : true
+                },
+                "rawItemHeight" : -1.0,
+                "rawItemWidth" : -1.0,
+                "repeatContent" : true,
+                "showCaption" : true
+              }, {
+                "codeName" : "grouppanel9",
+                "detailStyle" : "DEFAULT",
+                "detailType" : "GROUPPANEL",
+                "name" : "grouppanel9",
+                "getPSDEFormDetails" : [ {
+                  "codeName" : "grouppanel4",
+                  "detailStyle" : "DEFAULT",
+                  "detailType" : "GROUPPANEL",
+                  "name" : "grouppanel4",
+                  "getPSDEFormDetails" : [ {
+                    "codeName" : "grouppanel10",
+                    "detailStyle" : "DEFAULT",
+                    "detailType" : "GROUPPANEL",
+                    "name" : "grouppanel10",
+                    "getPSDEFormDetails" : [ {
+                      "codeName" : "grouppanel8",
+                      "detailStyle" : "DEFAULT",
+                      "detailType" : "GROUPPANEL",
+                      "name" : "grouppanel8",
+                      "getPSDEFormDetails" : [ {
+                        "getCapPSLanguageRes" : {
+                          "lanResTag" : "CONTROL.DEFORM.SHIFT.MAIN2.FORMITEM.BASE_TIME"
+                        },
+                        "caption" : "上班时间",
+                        "codeName" : "start_base_time",
+                        "dataType" : 25,
+                        "detailStyle" : "DEFAULT",
+                        "detailType" : "FORMITEM",
+                        "enableCond" : 3,
+                        "ignoreInput" : 0,
+                        "itemWidth" : 224.0,
+                        "labelPos" : "LEFT",
+                        "labelWidth" : 130,
+                        "name" : "start_base_time",
+                        "noPrivDisplayMode" : 1,
+                        "getPSControlAttributes" : [ {
+                          "attrName" : "clearable",
+                          "attrValue" : "false",
+                          "name" : "startClearableFalse"
+                        } ],
+                        "getPSEditor" : {
+                          "dateTimeFormat" : "HH:mm",
+                          "editorParams" : {
+                            "TIMEFMT" : "HH:mm",
+                            "customprops" : "{\"clearable\":false,\"activeChange\":false}"
+                          },
+                          "editorStyle" : "TIME_PICKER",
+                          "editorType" : "DATEPICKEREX_NODAY_NOSECOND",
+                          "editorWidth" : 94.0,
+                          "name" : "start_base_time",
+                          "getPSSysPFPlugin" : {
+                            "pluginType" : "EDITOR_CUSTOMSTYLE",
+                            "pluginCode" : "TIME_PICKER",
+                            "runtimeObject" : true
+                          }
+                        },
+                        "getPSLayoutPos" : {
+                          "grow" : -1,
+                          "layout" : "FLEX"
+                        },
+                        "allowEmpty" : false,
+                        "repeatContent" : true,
+                        "showCaption" : true
+                      }, {
+                        "codeName" : "rawitem14",
+                        "contentType" : "RAW",
+                        "detailStyle" : "DEFAULT",
+                        "detailType" : "RAWITEM",
+                        "name" : "rawitem14",
+                        "getPSDEFDGroupLogics" : [ {
+                          "groupOP" : "AND",
+                          "logicCat" : "PANELVISIBLE",
+                          "logicType" : "GROUP",
+                          "getPSDEFDLogics" : [ {
+                            "groupOP" : "OR",
+                            "logicType" : "GROUP",
+                            "name" : "OR",
+                            "getPSDEFDLogics" : [ {
+                              "condOP" : "EQ",
+                              "dEFDName" : "next_tag",
+                              "logicType" : "SINGLE",
+                              "name" : "next_tag等于(=) 1,0",
+                              "value" : "1,0"
+                            }, {
+                              "condOP" : "EQ",
+                              "dEFDName" : "next_tag",
+                              "logicType" : "SINGLE",
+                              "name" : "next_tag等于(=) 1,1",
+                              "value" : "1,1"
+                            } ],
+                            "notMode" : false
+                          } ],
+                          "relatedDetailNames" : [ "next_tag" ],
+                          "notMode" : false
+                        } ],
+                        "getPSLayoutPos" : {
+                          "grow" : -1,
+                          "layout" : "FLEX",
+                          "width" : 50,
+                          "widthMode" : "PX"
+                        },
+                        "getPSRawItem" : {
+                          "caption" : "次日",
+                          "contentType" : "RAW",
+                          "name" : "rawitem14",
+                          "getPSSysCss" : {
+                            "cssName" : "next_tag"
+                          },
+                          "rawItemHeight" : -1.0,
+                          "rawItemWidth" : 50.0
+                        },
+                        "getPSSysCss" : {
+                          "cssName" : "next_tag"
+                        },
+                        "rawContent" : "次日",
+                        "rawItemHeight" : -1.0,
+                        "rawItemWidth" : 50.0,
+                        "repeatContent" : true,
+                        "showCaption" : true
+                      } ],
+                      "getPSLayout" : {
+                        "align" : "flex-start",
+                        "dir" : "row",
+                        "layout" : "FLEX"
+                      },
+                      "getPSLayoutPos" : {
+                        "colMD" : 24,
+                        "layout" : "TABLE_24COL"
+                      },
+                      "infoGroupMode" : false,
+                      "repeatContent" : true,
+                      "showCaption" : false
+                    } ],
+                    "getPSLayout" : {
+                      "childColMD" : 24,
+                      "columnCount" : 24,
+                      "layout" : "TABLE_24COL"
+                    },
+                    "getPSLayoutPos" : {
+                      "colMD" : 24,
+                      "layout" : "TABLE_24COL"
+                    },
+                    "infoGroupMode" : false,
+                    "repeatContent" : true,
+                    "showCaption" : false
+                  }, {
+                    "getCapPSLanguageRes" : {
+                      "lanResTag" : "CONTROL.DEFORM.SHIFT.MAIN2.FORMITEM.LATE_FOR_LATE"
+                    },
+                    "caption" : "上班晚",
+                    "codeName" : "late_for_late",
+                    "dataType" : 25,
+                    "detailStyle" : "DEFAULT",
+                    "detailType" : "FORMITEM",
+                    "enableCond" : 3,
+                    "ignoreInput" : 0,
+                    "labelPos" : "LEFT",
+                    "labelWidth" : 130,
+                    "name" : "late_for_late",
+                    "noPrivDisplayMode" : 1,
+                    "getPSEditor" : {
+                      "editorParams" : {
+                        "customprops" : "{\"activeChange\":false}"
+                      },
+                      "editorType" : "NUMBER",
+                      "name" : "late_for_late"
+                    },
+                    "getPSLayoutPos" : {
+                      "colLG" : 16,
+                      "colMD" : 16,
+                      "layout" : "TABLE_24COL"
+                    },
+                    "allowEmpty" : true,
+                    "repeatContent" : true,
+                    "showCaption" : true
+                  }, {
+                    "codeName" : "rawitem1",
+                    "contentType" : "RAW",
+                    "detailStyle" : "DEFAULT",
+                    "detailType" : "RAWITEM",
+                    "name" : "rawitem1",
+                    "getPSLayoutPos" : {
+                      "colLG" : 8,
+                      "colMD" : 24,
+                      "layout" : "TABLE_24COL"
+                    },
+                    "getPSRawItem" : {
+                      "caption" : "分钟记为迟到",
+                      "contentType" : "RAW",
+                      "name" : "rawitem1",
+                      "getPSSysCss" : {
+                        "cssName" : "form-rawitem-style"
+                      },
+                      "rawItemHeight" : -1.0,
+                      "rawItemWidth" : -1.0
+                    },
+                    "getPSSysCss" : {
+                      "cssName" : "form-rawitem-style"
+                    },
+                    "rawContent" : "分钟记为迟到",
+                    "rawItemHeight" : -1.0,
+                    "rawItemWidth" : -1.0,
+                    "repeatContent" : true,
+                    "showCaption" : true
+                  }, {
+                    "getCapPSLanguageRes" : {
+                      "lanResTag" : "CONTROL.DEFORM.SHIFT.MAIN2.FORMITEM.LATE_FOR_ABSENTEEISM"
+                    },
+                    "caption" : "上班晚",
+                    "codeName" : "late_for_absenteeism",
+                    "dataType" : 25,
+                    "detailStyle" : "DEFAULT",
+                    "detailType" : "FORMITEM",
+                    "enableCond" : 3,
+                    "ignoreInput" : 0,
+                    "labelPos" : "LEFT",
+                    "labelWidth" : 130,
+                    "name" : "late_for_absenteeism",
+                    "noPrivDisplayMode" : 1,
+                    "getPSEditor" : {
+                      "editorParams" : {
+                        "customprops" : "{\"activeChange\":false}"
+                      },
+                      "editorType" : "NUMBER",
+                      "name" : "late_for_absenteeism"
+                    },
+                    "getPSLayoutPos" : {
+                      "colLG" : 16,
+                      "colMD" : 16,
+                      "layout" : "TABLE_24COL"
+                    },
+                    "allowEmpty" : true,
+                    "repeatContent" : true,
+                    "showCaption" : true
+                  }, {
+                    "codeName" : "rawitem3",
+                    "contentType" : "RAW",
+                    "detailStyle" : "DEFAULT",
+                    "detailType" : "RAWITEM",
+                    "name" : "rawitem3",
+                    "getPSLayoutPos" : {
+                      "colLG" : 8,
+                      "colMD" : 8,
+                      "layout" : "TABLE_24COL"
+                    },
+                    "getPSRawItem" : {
+                      "caption" : "分钟记为缺卡",
+                      "contentType" : "RAW",
+                      "name" : "rawitem3",
+                      "getPSSysCss" : {
+                        "cssName" : "form-rawitem-style"
+                      },
+                      "rawItemHeight" : -1.0,
+                      "rawItemWidth" : -1.0
+                    },
+                    "getPSSysCss" : {
+                      "cssName" : "form-rawitem-style"
+                    },
+                    "rawContent" : "分钟记为缺卡",
+                    "rawItemHeight" : -1.0,
+                    "rawItemWidth" : -1.0,
+                    "repeatContent" : true,
+                    "showCaption" : true
+                  }, {
+                    "getCapPSLanguageRes" : {
+                      "lanResTag" : "CONTROL.DEFORM.SHIFT.MAIN2.FORMITEM.EARLIEST_CHECKIN"
+                    },
+                    "caption" : "最早提前",
+                    "codeName" : "earliest_checkin",
+                    "dataType" : 25,
+                    "detailStyle" : "DEFAULT",
+                    "detailType" : "FORMITEM",
+                    "enableCond" : 3,
+                    "ignoreInput" : 0,
+                    "labelPos" : "LEFT",
+                    "labelWidth" : 130,
+                    "name" : "earliest_checkin",
+                    "noPrivDisplayMode" : 1,
+                    "getPSEditor" : {
+                      "editorParams" : {
+                        "customprops" : "{\"activeChange\":false}"
+                      },
+                      "editorType" : "NUMBER",
+                      "name" : "earliest_checkin"
+                    },
+                    "getPSLayoutPos" : {
+                      "colLG" : 16,
+                      "colMD" : 16,
+                      "layout" : "TABLE_24COL"
+                    },
+                    "allowEmpty" : true,
+                    "repeatContent" : true,
+                    "showCaption" : true
+                  }, {
+                    "codeName" : "rawitem4",
+                    "contentType" : "RAW",
+                    "detailStyle" : "DEFAULT",
+                    "detailType" : "RAWITEM",
+                    "name" : "rawitem4",
+                    "getPSLayoutPos" : {
+                      "colLG" : 8,
+                      "colMD" : 8,
+                      "layout" : "TABLE_24COL"
+                    },
+                    "getPSRawItem" : {
+                      "caption" : "分钟进行打卡",
+                      "contentType" : "RAW",
+                      "name" : "rawitem4",
+                      "getPSSysCss" : {
+                        "cssName" : "form-rawitem-style"
+                      },
+                      "rawItemHeight" : -1.0,
+                      "rawItemWidth" : -1.0
+                    },
+                    "getPSSysCss" : {
+                      "cssName" : "form-rawitem-style"
+                    },
+                    "rawContent" : "分钟进行打卡",
+                    "rawItemHeight" : -1.0,
+                    "rawItemWidth" : -1.0,
+                    "repeatContent" : true,
+                    "showCaption" : true
+                  } ],
+                  "getPSLayout" : {
+                    "childColMD" : 24,
+                    "columnCount" : 24,
+                    "layout" : "TABLE_24COL"
+                  },
+                  "getPSLayoutPos" : {
+                    "colLG" : 12,
+                    "colMD" : 12,
+                    "layout" : "TABLE_24COL"
+                  },
+                  "infoGroupMode" : false,
+                  "repeatContent" : true,
+                  "showCaption" : false
+                }, {
+                  "codeName" : "grouppanel5",
+                  "detailStyle" : "DEFAULT",
+                  "detailType" : "GROUPPANEL",
+                  "name" : "grouppanel5",
+                  "getPSDEFormDetails" : [ {
+                    "codeName" : "grouppanel11",
+                    "detailStyle" : "DEFAULT",
+                    "detailType" : "GROUPPANEL",
+                    "name" : "grouppanel11",
+                    "getPSDEFormDetails" : [ {
+                      "codeName" : "grouppanel14",
+                      "detailStyle" : "DEFAULT",
+                      "detailType" : "GROUPPANEL",
+                      "name" : "grouppanel14",
+                      "getPSDEFormDetails" : [ {
+                        "caption" : "下班时间",
+                        "codeName" : "end_base_time",
+                        "dataType" : 25,
+                        "detailStyle" : "DEFAULT",
+                        "detailType" : "FORMITEM",
+                        "enableCond" : 3,
+                        "ignoreInput" : 0,
+                        "itemWidth" : 224.0,
+                        "labelPos" : "LEFT",
+                        "labelWidth" : 130,
+                        "name" : "end_base_time",
+                        "noPrivDisplayMode" : 1,
+                        "getPSControlAttributes" : [ {
+                          "attrName" : "clearable",
+                          "attrValue" : "false",
+                          "name" : "endClearableFalse"
+                        } ],
+                        "getPSEditor" : {
+                          "dateTimeFormat" : "HH:mm",
+                          "editorParams" : {
+                            "TIMEFMT" : "HH:mm",
+                            "customprops" : "{\"clearable\":false,\"activeChange\":false}"
+                          },
+                          "editorStyle" : "TIME_PICKER",
+                          "editorType" : "DATEPICKEREX_NODAY_NOSECOND",
+                          "editorWidth" : 94.0,
+                          "name" : "end_base_time",
+                          "getPSSysPFPlugin" : {
+                            "pluginType" : "EDITOR_CUSTOMSTYLE",
+                            "pluginCode" : "TIME_PICKER",
+                            "runtimeObject" : true
+                          }
+                        },
+                        "getPSLayoutPos" : {
+                          "grow" : -1,
+                          "layout" : "FLEX"
+                        },
+                        "allowEmpty" : true,
+                        "repeatContent" : true,
+                        "showCaption" : true
+                      }, {
+                        "codeName" : "rawitem15",
+                        "contentType" : "RAW",
+                        "detailStyle" : "DEFAULT",
+                        "detailType" : "RAWITEM",
+                        "name" : "rawitem15",
+                        "getPSDEFDGroupLogics" : [ {
+                          "groupOP" : "AND",
+                          "logicCat" : "PANELVISIBLE",
+                          "logicType" : "GROUP",
+                          "getPSDEFDLogics" : [ {
+                            "groupOP" : "OR",
+                            "logicType" : "GROUP",
+                            "name" : "OR",
+                            "getPSDEFDLogics" : [ {
+                              "condOP" : "EQ",
+                              "dEFDName" : "next_tag",
+                              "logicType" : "SINGLE",
+                              "name" : "next_tag等于(=) 1,1",
+                              "value" : "1,1"
+                            }, {
+                              "condOP" : "EQ",
+                              "dEFDName" : "next_tag",
+                              "logicType" : "SINGLE",
+                              "name" : "next_tag等于(=) 0,1",
+                              "value" : "0,1"
+                            } ],
+                            "notMode" : false
+                          } ],
+                          "relatedDetailNames" : [ "next_tag" ],
+                          "notMode" : false
+                        } ],
+                        "getPSLayoutPos" : {
+                          "grow" : -1,
+                          "layout" : "FLEX",
+                          "width" : 50,
+                          "widthMode" : "PX"
+                        },
+                        "getPSRawItem" : {
+                          "caption" : "次日",
+                          "contentType" : "RAW",
+                          "name" : "rawitem15",
+                          "getPSSysCss" : {
+                            "cssName" : "next_tag"
+                          },
+                          "rawItemHeight" : -1.0,
+                          "rawItemWidth" : 50.0
+                        },
+                        "getPSSysCss" : {
+                          "cssName" : "next_tag"
+                        },
+                        "rawContent" : "次日",
+                        "rawItemHeight" : -1.0,
+                        "rawItemWidth" : 50.0,
+                        "repeatContent" : true,
+                        "showCaption" : true
+                      } ],
+                      "getPSLayout" : {
+                        "align" : "flex-start",
+                        "dir" : "row",
+                        "layout" : "FLEX"
+                      },
+                      "getPSLayoutPos" : {
+                        "colMD" : 24,
+                        "layout" : "TABLE_24COL"
+                      },
+                      "infoGroupMode" : false,
+                      "repeatContent" : true,
+                      "showCaption" : false
+                    } ],
+                    "getPSLayout" : {
+                      "childColMD" : 24,
+                      "columnCount" : 24,
+                      "layout" : "TABLE_24COL"
+                    },
+                    "getPSLayoutPos" : {
+                      "colMD" : 24,
+                      "layout" : "TABLE_24COL"
+                    },
+                    "infoGroupMode" : false,
+                    "repeatContent" : true,
+                    "showCaption" : false
+                  }, {
+                    "getCapPSLanguageRes" : {
+                      "lanResTag" : "CONTROL.DEFORM.SHIFT.MAIN2.FORMITEM.EARLY_FOR_EARLY"
+                    },
+                    "caption" : "下班早",
+                    "codeName" : "early_for_early",
+                    "dataType" : 25,
+                    "detailStyle" : "DEFAULT",
+                    "detailType" : "FORMITEM",
+                    "enableCond" : 3,
+                    "ignoreInput" : 0,
+                    "labelPos" : "LEFT",
+                    "labelWidth" : 130,
+                    "name" : "early_for_early",
+                    "noPrivDisplayMode" : 1,
+                    "getPSEditor" : {
+                      "editorParams" : {
+                        "customprops" : "{\"activeChange\":false}"
+                      },
+                      "editorType" : "NUMBER",
+                      "name" : "early_for_early"
+                    },
+                    "getPSLayoutPos" : {
+                      "colLG" : 16,
+                      "colMD" : 16,
+                      "layout" : "TABLE_24COL"
+                    },
+                    "allowEmpty" : true,
+                    "repeatContent" : true,
+                    "showCaption" : true
+                  }, {
+                    "codeName" : "rawitem6",
+                    "contentType" : "RAW",
+                    "detailStyle" : "DEFAULT",
+                    "detailType" : "RAWITEM",
+                    "name" : "rawitem6",
+                    "getPSLayoutPos" : {
+                      "colLG" : 8,
+                      "colMD" : 8,
+                      "layout" : "TABLE_24COL"
+                    },
+                    "getPSRawItem" : {
+                      "caption" : "分钟记为早退",
+                      "contentType" : "RAW",
+                      "name" : "rawitem6",
+                      "getPSSysCss" : {
+                        "cssName" : "form-rawitem-style"
+                      },
+                      "rawItemHeight" : -1.0,
+                      "rawItemWidth" : -1.0
+                    },
+                    "getPSSysCss" : {
+                      "cssName" : "form-rawitem-style"
+                    },
+                    "rawContent" : "分钟记为早退",
+                    "rawItemHeight" : -1.0,
+                    "rawItemWidth" : -1.0,
+                    "repeatContent" : true,
+                    "showCaption" : true
+                  }, {
+                    "getCapPSLanguageRes" : {
+                      "lanResTag" : "CONTROL.DEFORM.SHIFT.MAIN2.FORMITEM.EARLY_FOR_ABSENTEEISM"
+                    },
+                    "caption" : "下班早",
+                    "codeName" : "early_for_absenteeism",
+                    "dataType" : 25,
+                    "detailStyle" : "DEFAULT",
+                    "detailType" : "FORMITEM",
+                    "enableCond" : 3,
+                    "ignoreInput" : 0,
+                    "labelPos" : "LEFT",
+                    "labelWidth" : 130,
+                    "name" : "early_for_absenteeism",
+                    "noPrivDisplayMode" : 1,
+                    "getPSEditor" : {
+                      "editorParams" : {
+                        "customprops" : "{\"activeChange\":false}"
+                      },
+                      "editorType" : "NUMBER",
+                      "name" : "early_for_absenteeism"
+                    },
+                    "getPSLayoutPos" : {
+                      "colLG" : 16,
+                      "colMD" : 16,
+                      "layout" : "TABLE_24COL"
+                    },
+                    "allowEmpty" : true,
+                    "repeatContent" : true,
+                    "showCaption" : true
+                  }, {
+                    "codeName" : "rawitem7",
+                    "contentType" : "RAW",
+                    "detailStyle" : "DEFAULT",
+                    "detailType" : "RAWITEM",
+                    "name" : "rawitem7",
+                    "getPSLayoutPos" : {
+                      "colLG" : 8,
+                      "colMD" : 8,
+                      "layout" : "TABLE_24COL"
+                    },
+                    "getPSRawItem" : {
+                      "caption" : "分钟记为缺卡",
+                      "contentType" : "RAW",
+                      "name" : "rawitem7",
+                      "getPSSysCss" : {
+                        "cssName" : "form-rawitem-style"
+                      },
+                      "rawItemHeight" : -1.0,
+                      "rawItemWidth" : -1.0
+                    },
+                    "getPSSysCss" : {
+                      "cssName" : "form-rawitem-style"
+                    },
+                    "rawContent" : "分钟记为缺卡",
+                    "rawItemHeight" : -1.0,
+                    "rawItemWidth" : -1.0,
+                    "repeatContent" : true,
+                    "showCaption" : true
+                  }, {
+                    "getCapPSLanguageRes" : {
+                      "lanResTag" : "CONTROL.DEFORM.SHIFT.MAIN2.FORMITEM.LATEST_CHECKOUT"
+                    },
+                    "caption" : "最晚延后",
+                    "codeName" : "latest_checkout",
+                    "dataType" : 25,
+                    "detailStyle" : "DEFAULT",
+                    "detailType" : "FORMITEM",
+                    "enableCond" : 3,
+                    "ignoreInput" : 0,
+                    "labelPos" : "LEFT",
+                    "labelWidth" : 130,
+                    "name" : "latest_checkout",
+                    "noPrivDisplayMode" : 1,
+                    "getPSEditor" : {
+                      "editorParams" : {
+                        "customprops" : "{\"activeChange\":false}"
+                      },
+                      "editorType" : "NUMBER",
+                      "name" : "latest_checkout"
+                    },
+                    "getPSLayoutPos" : {
+                      "colLG" : 16,
+                      "colMD" : 16,
+                      "layout" : "TABLE_24COL"
+                    },
+                    "allowEmpty" : true,
+                    "repeatContent" : true,
+                    "showCaption" : true
+                  }, {
+                    "codeName" : "rawitem8",
+                    "contentType" : "RAW",
+                    "detailStyle" : "DEFAULT",
+                    "detailType" : "RAWITEM",
+                    "name" : "rawitem8",
+                    "getPSLayoutPos" : {
+                      "colLG" : 8,
+                      "colMD" : 8,
+                      "layout" : "TABLE_24COL"
+                    },
+                    "getPSRawItem" : {
+                      "caption" : "分钟进行打卡",
+                      "contentType" : "RAW",
+                      "name" : "rawitem8",
+                      "getPSSysCss" : {
+                        "cssName" : "form-rawitem-style"
+                      },
+                      "rawItemHeight" : -1.0,
+                      "rawItemWidth" : -1.0
+                    },
+                    "getPSSysCss" : {
+                      "cssName" : "form-rawitem-style"
+                    },
+                    "rawContent" : "分钟进行打卡",
+                    "rawItemHeight" : -1.0,
+                    "rawItemWidth" : -1.0,
+                    "repeatContent" : true,
+                    "showCaption" : true
+                  } ],
+                  "getPSLayout" : {
+                    "childColMD" : 24,
+                    "columnCount" : 24,
+                    "layout" : "TABLE_24COL"
+                  },
+                  "getPSLayoutPos" : {
+                    "colLG" : 12,
+                    "colMD" : 12,
+                    "layout" : "TABLE_24COL"
+                  },
+                  "infoGroupMode" : false,
+                  "repeatContent" : true,
+                  "showCaption" : false
+                } ],
+                "getPSLayout" : {
+                  "childColMD" : 24,
+                  "columnCount" : 24,
+                  "layout" : "TABLE_24COL"
+                },
+                "getPSLayoutPos" : {
+                  "colMD" : 24,
+                  "layout" : "TABLE_24COL"
+                },
+                "infoGroupMode" : false,
+                "repeatContent" : true,
+                "showCaption" : false
+              }, {
+                "caption" : "次日标记",
+                "codeName" : "next_tag",
+                "dataType" : 25,
+                "detailStyle" : "DEFAULT",
+                "detailType" : "FORMITEM",
+                "enableCond" : 3,
+                "ignoreInput" : 0,
+                "labelPos" : "LEFT",
+                "labelWidth" : 130,
+                "name" : "next_tag",
+                "noPrivDisplayMode" : 1,
+                "getPSEditor" : {
+                  "editorType" : "HIDDEN",
+                  "name" : "next_tag"
+                },
+                "getPSLayoutPos" : {
+                  "colMD" : 24,
+                  "layout" : "TABLE_24COL"
+                },
+                "allowEmpty" : true,
+                "hidden" : true,
+                "repeatContent" : true
+              }, {
+                "codeName" : "shift_id",
+                "createDV" : "attendance_shift",
+                "createDVT" : "APPDATA",
+                "dataType" : 25,
+                "detailStyle" : "DEFAULT",
+                "detailType" : "FORMITEM",
+                "enableCond" : 3,
+                "ignoreInput" : 0,
+                "labelPos" : "LEFT",
+                "labelWidth" : 130,
+                "name" : "shift_id",
+                "noPrivDisplayMode" : 1,
+                "getPSEditor" : {
+                  "editorType" : "HIDDEN",
+                  "name" : "shift_id"
+                },
+                "getPSLayoutPos" : {
+                  "colMD" : 24,
+                  "layout" : "TABLE_24COL"
+                },
+                "allowEmpty" : true,
+                "hidden" : true,
+                "repeatContent" : true
+              } ],
+              "getPSDEFormItemUpdate" : {
+                "modelref" : true,
+                "id" : "refreshWorkLoad"
+              },
+              "getPSLayout" : {
+                "childColMD" : 24,
+                "columnCount" : 24,
+                "layout" : "TABLE_24COL"
+              },
+              "getPSLayoutPos" : {
+                "colMD" : 24,
+                "layout" : "TABLE_24COL"
+              },
+              "infoGroupMode" : false,
+              "showCaption" : true
+            } ],
+            "getPSLayout" : {
+              "childColMD" : 24,
+              "columnCount" : 24,
+              "layout" : "TABLE_24COL"
+            },
+            "getPSLayoutPos" : {
+              "colMD" : 24,
+              "layout" : "TABLE_24COL"
+            },
+            "infoGroupMode" : false,
+            "showCaption" : false
+          }, {
+            "getCapPSLanguageRes" : {
+              "lanResTag" : "CONTROL.DEFORM.SHIFT.MAIN2.FORMITEM.WORK_LOAD"
+            },
+            "caption" : "总工时",
+            "codeName" : "work_load",
+            "dataType" : 25,
+            "detailStyle" : "DEFAULT",
+            "detailType" : "FORMITEM",
+            "enableCond" : 0,
+            "ignoreInput" : 0,
+            "labelPos" : "LEFT",
+            "labelWidth" : 130,
+            "name" : "work_load",
+            "noPrivDisplayMode" : 1,
+            "getPSEditor" : {
+              "editorType" : "SPAN",
+              "name" : "work_load",
+              "enableLinkView" : false
+            },
+            "getPSLayoutPos" : {
+              "colLG" : 8,
+              "colMD" : 8,
+              "layout" : "TABLE_24COL"
+            },
+            "allowEmpty" : true,
+            "showCaption" : true
+          }, {
+            "getCapPSLanguageRes" : {
+              "lanResTag" : "CONTROL.DEFORM.SHIFT.MAIN2.FORMITEM.ATTENDANCE_RATIO"
+            },
+            "caption" : "记为出勤",
+            "codeName" : "attendance_ratio",
+            "createDV" : "1",
+            "dataType" : 25,
+            "detailStyle" : "DEFAULT",
+            "detailType" : "FORMITEM",
+            "enableCond" : 3,
+            "ignoreInput" : 0,
+            "itemWidth" : 180.0,
+            "labelPos" : "LEFT",
+            "labelWidth" : 130,
+            "name" : "attendance_ratio",
+            "noPrivDisplayMode" : 1,
+            "getPSEditor" : {
+              "editorType" : "NUMBER",
+              "editorWidth" : 50.0,
+              "name" : "attendance_ratio"
+            },
+            "getPSLayoutPos" : {
+              "colLG" : 6,
+              "colMD" : 6,
+              "layout" : "TABLE_24COL"
+            },
+            "updateDV" : "1",
+            "allowEmpty" : true,
+            "showCaption" : true
+          }, {
+            "codeName" : "rawitem9",
+            "contentHeight" : 36.0,
+            "contentType" : "RAW",
+            "detailStyle" : "DEFAULT",
+            "detailType" : "RAWITEM",
+            "height" : 36.0,
+            "name" : "rawitem9",
+            "getPSLayoutPos" : {
+              "colLG" : 10,
+              "colMD" : 10,
+              "height" : 36,
+              "heightMode" : "PX",
+              "layout" : "TABLE_24COL"
+            },
+            "getPSRawItem" : {
+              "caption" : "天（应出勤天数/实际出勤天数，将按此折算）",
+              "contentType" : "RAW",
+              "name" : "rawitem9",
+              "getPSSysCss" : {
+                "cssName" : "form-rawitem-style"
+              },
+              "rawItemHeight" : -1.0,
+              "rawItemWidth" : -1.0
+            },
+            "getPSSysCss" : {
+              "cssName" : "form-rawitem-style"
+            },
+            "rawContent" : "天（应出勤天数/实际出勤天数，将按此折算）",
+            "rawItemHeight" : -1.0,
+            "rawItemWidth" : -1.0,
+            "showCaption" : true
+          } ],
+          "getPSLayout" : {
+            "childColMD" : 24,
+            "columnCount" : 24,
+            "layout" : "TABLE_24COL"
+          },
+          "getPSLayoutPos" : {
+            "colMD" : 24,
+            "layout" : "TABLE_24COL"
+          },
+          "infoGroupMode" : false,
+          "showCaption" : false
+        }, {
+          "codeName" : "grouppanel6",
+          "detailStyle" : "DEFAULT",
+          "detailType" : "GROUPPANEL",
+          "name" : "grouppanel6",
+          "getPSDEFormDetails" : [ {
+            "caption" : "休息时间",
+            "codeName" : "rest_enable",
+            "createDV" : "0",
+            "dataType" : 9,
+            "detailStyle" : "DEFAULT",
+            "detailType" : "FORMITEM",
+            "enableCond" : 3,
+            "ignoreInput" : 0,
+            "labelPos" : "LEFT",
+            "labelWidth" : 130,
+            "name" : "rest_enable",
+            "noPrivDisplayMode" : 1,
+            "getPSAppDEField" : {
+              "name" : "REST_ENABLE",
+              "codeName" : "rest_enable"
+            },
+            "getPSEditor" : {
+              "editorType" : "SWITCH",
+              "name" : "rest_enable"
+            },
+            "getPSLayoutPos" : {
+              "colMD" : 24,
+              "layout" : "TABLE_24COL"
+            },
+            "allowEmpty" : true,
+            "showCaption" : true
+          }, {
+            "codeName" : "grouppanel7",
+            "detailStyle" : "DEFAULT",
+            "detailType" : "GROUPPANEL",
+            "name" : "grouppanel7",
+            "getPSDEFDGroupLogics" : [ {
+              "groupOP" : "AND",
+              "logicCat" : "PANELVISIBLE",
+              "logicType" : "GROUP",
+              "getPSDEFDLogics" : [ {
+                "condOP" : "EQ",
+                "dEFDName" : "rest_enable",
+                "logicType" : "SINGLE",
+                "name" : "rest_enable等于(=) 1",
+                "value" : "1"
+              } ],
+              "relatedDetailNames" : [ "rest_enable" ],
+              "notMode" : false
+            } ],
+            "getPSDEFormDetails" : [ {
+              "codeName" : "rest_start",
+              "dataType" : 25,
+              "detailStyle" : "DEFAULT",
+              "detailType" : "FORMITEM",
+              "enableCond" : 3,
+              "ignoreInput" : 0,
+              "itemWidth" : 90.0,
+              "labelPos" : "NONE",
+              "labelWidth" : 0,
+              "name" : "rest_start",
+              "noPrivDisplayMode" : 1,
+              "getPSEditor" : {
+                "dateTimeFormat" : "HH:mm",
+                "editorParams" : {
+                  "TIMEFMT" : "HH:mm"
+                },
+                "editorType" : "DATEPICKEREX_NODAY_NOSECOND",
+                "editorWidth" : 90.0,
+                "name" : "rest_start"
+              },
+              "getPSLayoutPos" : {
+                "grow" : -1,
+                "layout" : "FLEX"
+              },
+              "allowEmpty" : true
+            }, {
+              "codeName" : "rawitem10",
+              "contentType" : "RAW",
+              "detailStyle" : "DEFAULT",
+              "detailType" : "RAWITEM",
+              "name" : "rawitem10",
+              "getPSLayoutPos" : {
+                "grow" : -1,
+                "layout" : "FLEX",
+                "width" : 30,
+                "widthMode" : "PX"
+              },
+              "getPSRawItem" : {
+                "caption" : "至",
+                "contentType" : "RAW",
+                "name" : "rawitem10",
+                "rawItemHeight" : -1.0,
+                "rawItemWidth" : 30.0
+              },
+              "rawContent" : "至",
+              "rawItemHeight" : -1.0,
+              "rawItemWidth" : 30.0,
+              "showCaption" : true
+            }, {
+              "codeName" : "end_start",
+              "dataType" : 25,
+              "detailStyle" : "DEFAULT",
+              "detailType" : "FORMITEM",
+              "enableCond" : 3,
+              "ignoreInput" : 0,
+              "itemWidth" : 90.0,
+              "labelPos" : "NONE",
+              "labelWidth" : 0,
+              "name" : "end_start",
+              "noPrivDisplayMode" : 1,
+              "getPSEditor" : {
+                "dateTimeFormat" : "HH:mm",
+                "editorParams" : {
+                  "TIMEFMT" : "HH:mm"
+                },
+                "editorType" : "DATEPICKEREX_NODAY_NOSECOND",
+                "editorWidth" : 90.0,
+                "name" : "end_start"
+              },
+              "getPSLayoutPos" : {
+                "grow" : -1,
+                "layout" : "FLEX"
+              },
+              "allowEmpty" : true
+            } ],
+            "getPSLayout" : {
+              "align" : "flex-start",
+              "dir" : "row",
+              "layout" : "FLEX",
+              "vAlign" : "center"
+            },
+            "getPSLayoutPos" : {
+              "colLGOffset" : 2,
+              "colMD" : 24,
+              "layout" : "TABLE_24COL"
+            },
+            "getPSSysCss" : {
+              "cssName" : "raw-group"
+            },
+            "infoGroupMode" : false,
+            "showCaption" : false
+          }, {
+            "caption" : "加班工时",
+            "codeName" : "overtime_valid",
+            "dataType" : 9,
+            "detailStyle" : "DEFAULT",
+            "detailType" : "FORMITEM",
+            "enableCond" : 3,
+            "ignoreInput" : 0,
+            "labelPos" : "LEFT",
+            "labelWidth" : 130,
+            "name" : "overtime_valid",
+            "noPrivDisplayMode" : 1,
+            "getPSAppDEField" : {
+              "name" : "OVERTIME_VALID",
+              "codeName" : "overtime_valid"
+            },
+            "getPSEditor" : {
+              "editorType" : "SWITCH",
+              "name" : "overtime_valid"
+            },
+            "getPSLayoutPos" : {
+              "colMD" : 24,
+              "layout" : "TABLE_24COL"
+            },
+            "allowEmpty" : true,
+            "showCaption" : true
+          }, {
+            "codeName" : "grouppanel13",
+            "detailStyle" : "DEFAULT",
+            "detailType" : "GROUPPANEL",
+            "name" : "grouppanel13",
+            "getPSDEFDGroupLogics" : [ {
+              "groupOP" : "AND",
+              "logicCat" : "PANELVISIBLE",
+              "logicType" : "GROUP",
+              "getPSDEFDLogics" : [ {
+                "condOP" : "EQ",
+                "dEFDName" : "overtime_valid",
+                "logicType" : "SINGLE",
+                "name" : "overtime_valid等于(=) 1",
+                "value" : "1"
+              } ],
+              "relatedDetailNames" : [ "overtime_valid" ],
+              "notMode" : false
+            } ],
+            "getPSDEFormDetails" : [ {
+              "caption" : "加班少于",
+              "codeName" : "invalid_overtime",
+              "createDV" : "0",
+              "dataType" : 9,
+              "detailStyle" : "DEFAULT",
+              "detailType" : "FORMITEM",
+              "enableCond" : 3,
+              "ignoreInput" : 0,
+              "itemWidth" : 195.0,
+              "labelPos" : "LEFT",
+              "labelWidth" : 115,
+              "name" : "invalid_overtime",
+              "noPrivDisplayMode" : 1,
+              "getPSAppDEField" : {
+                "name" : "INVALID_OVERTIME",
+                "codeName" : "invalid_overtime"
+              },
+              "getPSEditor" : {
+                "editorType" : "NUMBER",
+                "editorWidth" : 80.0,
+                "name" : "invalid_overtime"
+              },
+              "getPSLayoutPos" : {
+                "grow" : -1,
+                "layout" : "FLEX"
+              },
+              "allowEmpty" : true,
+              "showCaption" : true
+            }, {
+              "codeName" : "rawitem13",
+              "contentType" : "RAW",
+              "detailStyle" : "DEFAULT",
+              "detailType" : "RAWITEM",
+              "name" : "rawitem13",
+              "getPSLayoutPos" : {
+                "grow" : -1,
+                "layout" : "FLEX",
+                "width" : 150,
+                "widthMode" : "PX"
+              },
+              "getPSRawItem" : {
+                "caption" : " 分钟不计入加班",
+                "contentType" : "RAW",
+                "name" : "rawitem13",
+                "rawItemHeight" : -1.0,
+                "rawItemWidth" : 150.0
+              },
+              "rawContent" : " 分钟不计入加班",
+              "rawItemHeight" : -1.0,
+              "rawItemWidth" : 150.0,
+              "showCaption" : true
+            } ],
+            "getPSLayout" : {
+              "dir" : "row",
+              "layout" : "FLEX"
+            },
+            "getPSLayoutPos" : {
+              "colLGOffset" : 2,
+              "colMD" : 24,
+              "layout" : "TABLE_24COL"
+            },
+            "infoGroupMode" : false,
+            "showCaption" : false
+          }, {
+            "codeName" : "grouppanel12",
+            "detailStyle" : "DEFAULT",
+            "detailType" : "GROUPPANEL",
+            "name" : "grouppanel12",
+            "getPSDEFDGroupLogics" : [ {
+              "groupOP" : "AND",
+              "logicCat" : "PANELVISIBLE",
+              "logicType" : "GROUP",
+              "getPSDEFDLogics" : [ {
+                "condOP" : "EQ",
+                "dEFDName" : "overtime_valid",
+                "logicType" : "SINGLE",
+                "name" : "overtime_valid等于(=) 1",
+                "value" : "1"
+              } ],
+              "relatedDetailNames" : [ "overtime_valid" ],
+              "notMode" : false
+            } ],
+            "getPSDEFormDetails" : [ {
+              "caption" : "下班后",
+              "codeName" : "start_overtime",
+              "createDV" : "0",
+              "dataType" : 9,
+              "detailStyle" : "DEFAULT",
+              "detailType" : "FORMITEM",
+              "enableCond" : 3,
+              "ignoreInput" : 0,
+              "itemWidth" : 194.0,
+              "labelPos" : "LEFT",
+              "labelWidth" : 114,
+              "name" : "start_overtime",
+              "noPrivDisplayMode" : 1,
+              "getPSAppDEField" : {
+                "name" : "START_OVERTIME",
+                "codeName" : "start_overtime"
+              },
+              "getPSEditor" : {
+                "editorType" : "NUMBER",
+                "editorWidth" : 80.0,
+                "name" : "start_overtime"
+              },
+              "getPSLayoutPos" : {
+                "grow" : -1,
+                "layout" : "FLEX"
+              },
+              "allowEmpty" : true,
+              "showCaption" : true
+            }, {
+              "codeName" : "rawitem12",
+              "contentType" : "RAW",
+              "detailStyle" : "DEFAULT",
+              "detailType" : "RAWITEM",
+              "name" : "rawitem12",
+              "getPSLayoutPos" : {
+                "grow" : -1,
+                "layout" : "FLEX",
+                "width" : 150,
+                "widthMode" : "PX"
+              },
+              "getPSRawItem" : {
+                "caption" : "分钟开始计入加班",
+                "contentType" : "RAW",
+                "name" : "rawitem12",
+                "rawItemHeight" : -1.0,
+                "rawItemWidth" : 150.0
+              },
+              "rawContent" : "分钟开始计入加班",
+              "rawItemHeight" : -1.0,
+              "rawItemWidth" : 150.0,
+              "showCaption" : true
+            } ],
+            "getPSLayout" : {
+              "dir" : "row",
+              "layout" : "FLEX"
+            },
+            "getPSLayoutPos" : {
+              "colLGOffset" : 2,
+              "colMD" : 24,
+              "layout" : "TABLE_24COL"
+            },
+            "infoGroupMode" : false,
+            "showCaption" : false
+          } ],
+          "getPSLayout" : {
+            "childColMD" : 24,
+            "columnCount" : 24,
+            "layout" : "TABLE_24COL"
+          },
+          "getPSLayoutPos" : {
+            "colMD" : 24,
+            "layout" : "TABLE_24COL"
+          },
+          "infoGroupMode" : false,
+          "showCaption" : false
+        } ],
+        "getPSLayout" : {
+          "childColMD" : 24,
+          "columnCount" : 24,
+          "layout" : "TABLE_24COL"
+        },
+        "getPSLayoutPos" : {
+          "colMD" : 24,
+          "layout" : "TABLE_24COL"
+        },
+        "infoGroupMode" : false,
+        "showCaption" : false
+      }, {
+        "getCapPSLanguageRes" : {
+          "lanResTag" : "DEF.LNAME.SHIFT.ID"
+        },
+        "caption" : "主键",
+        "codeName" : "id",
+        "dataType" : 25,
+        "detailStyle" : "DEFAULT",
+        "detailType" : "FORMITEM",
+        "enableCond" : 3,
+        "ignoreInput" : 0,
+        "labelPos" : "LEFT",
+        "labelWidth" : 130,
+        "name" : "id",
+        "noPrivDisplayMode" : 1,
+        "getPSAppDEField" : {
+          "name" : "ID",
+          "codeName" : "id"
+        },
+        "getPSEditor" : {
+          "editorType" : "HIDDEN",
+          "name" : "id"
+        },
+        "getPSLayoutPos" : {
+          "colMD" : 24,
+          "layout" : "TABLE_24COL"
+        },
+        "allowEmpty" : true,
+        "hidden" : true
+      } ],
+      "getPSLayout" : {
+        "childColMD" : 24,
+        "columnCount" : 24,
+        "layout" : "TABLE_24COL"
+      },
+      "infoGroupMode" : false
+    } ],
+    "getPSLayout" : {
+      "childColMD" : 24,
+      "columnCount" : 24,
+      "layout" : "TABLE_24COL"
+    },
+    "getRemovePSControlAction" : {
+      "modelref" : true,
+      "id" : "remove",
+      "actionName" : "Remove",
+      "actionType" : "DEACTION",
+      "dataAccessAction" : "DELETE",
+      "name" : "remove",
+      "getPSAppDEMethod" : {
+        "modelref" : true,
+        "id" : "remove"
+      },
+      "getPSAppDataEntity" : {
+        "modelref" : true,
+        "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/attendance_shift.json"
+      }
+    },
+    "tabHeaderPos" : "TOP",
+    "getUpdatePSControlAction" : {
+      "modelref" : true,
+      "id" : "update",
+      "actionName" : "UpdateByType",
+      "actionType" : "DEACTION",
+      "dataAccessAction" : "UPDATE",
+      "name" : "update",
+      "getPSAppDEMethod" : {
+        "modelref" : true,
+        "id" : "UpdateByType"
+      },
+      "getPSAppDataEntity" : {
+        "modelref" : true,
+        "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/attendance_shift.json"
+      }
+    },
+    "width" : 800.0,
+    "noTabHeader" : true,
+    "name" : "form",
+    "modelid" : "9432995762f13c3d74f7e3dde6ecf134",
+    "modeltype" : "PSDEFORM_EDITFORM"
+  }, {
+    "codeName" : "default_shift_view_datainfobar",
+    "controlType" : "DATAINFOBAR",
+    "name" : "datainfobar",
+    "getPSAppDataEntity" : {
+      "modelref" : true,
+      "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/attendance_shift.json"
+    },
+    "getPSControlParam" : {
+      "id" : "datainfobar"
+    }
+  }, {
+    "caption" : "上下班时间",
+    "codeName" : "default_shift_view_captionbar",
+    "controlType" : "CAPTIONBAR",
+    "name" : "captionbar",
+    "getPSAppDataEntity" : {
+      "modelref" : true,
+      "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/attendance_shift.json"
+    },
+    "getPSControlParam" : { }
+  } ],
+  "getPSDEViewCodeName" : "DefaultShiftView",
+  "getPSDEViewId" : "7c4b96fbedcf29e715ac370249cac3be",
+  "getPSSysCss" : {
+    "cssName" : "banci-view"
+  },
+  "getPSViewLayoutPanel" : {
+    "codeName" : "layoutpanel",
+    "controlStyle" : "APPDEOPTVIEW",
+    "controlType" : "VIEWLAYOUTPANEL",
+    "name" : "layoutpanel",
+    "getPSAppDataEntity" : {
+      "modelref" : true,
+      "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/attendance_shift.json"
+    },
+    "getPSControlParam" : { },
+    "layoutBodyOnly" : true,
+    "layoutPanel" : true,
+    "useDefaultLayout" : true
+  },
+  "title" : "默认班次选项操作视图",
+  "getTitlePSLanguageRes" : {
+    "lanResTag" : "PAGE.TITLE.SHIFT.QUICKCREATEVIEW"
+  },
+  "viewStyle" : "DEFAULT",
+  "viewType" : "DEOPTVIEW",
+  "width" : 850,
+  "xDataControlName" : "form",
+  "enableDP" : true,
+  "showDataInfoBar" : true,
+  "modelid" : "1fb7b88fea849e68a82e91493fcdc6b2",
+  "modeltype" : "PSAPPDEVIEW",
+  "getPSAppDERSPaths" : [ [ {
+    "actionRSMode" : 1,
+    "codeName" : "shifts",
+    "dataRSMode" : 0,
+    "majorDECodeName" : "attendance_rule",
+    "majorDEName" : "ATTENDANCE_RULE",
+    "getMajorPSAppDataEntity" : {
+      "modelref" : true,
+      "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/attendance_rule.json"
+    },
+    "minorDECodeName" : "attendance_shift",
+    "minorDEName" : "ATTENDANCE_SHIFT",
+    "getMinorPSAppDataEntity" : {
+      "modelref" : true,
+      "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/attendance_shift.json"
+    },
+    "name" : "规则-班次",
+    "getParentPSAppDEField" : {
+      "name" : "RULE_ID",
+      "codeName" : "rule_id"
+    },
+    "getParentTextPSAppDEField" : {
+      "name" : "RULE_NAME",
+      "codeName" : "rule_name"
+    },
+    "rSMode" : 2,
+    "tempDataOrder" : 10
+  } ] ]
+}

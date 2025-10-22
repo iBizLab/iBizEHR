@@ -1,0 +1,73 @@
+export default {
+  redirectAppViewRefs: [
+    {
+      realOpenMode: 'POPUPMODAL',
+      realTitle: '面试安排编辑视图',
+      realTitleLanguageRes: {
+        lanResTag: 'PAGE.TITLE.HR_INTERVIEW.EDITVIEW',
+      },
+      refAppViewId: 'web.hr_interview_edit_view',
+      name: 'HR_INTERVIEW:EDITVIEW',
+      id: 'hr_interview:editview',
+    },
+    {
+      realOpenMode: 'POPUPMODAL',
+      realTitle: '面试安排编辑视图',
+      realTitleLanguageRes: {
+        lanResTag: 'PAGE.TITLE.HR_INTERVIEW.EDITVIEW',
+      },
+      refAppViewId: 'web.hr_interview_edit_view',
+      name: 'EDITVIEW',
+      id: 'editview',
+    },
+  ],
+  enableWorkflow: true,
+  funcViewMode: 'REDIRECTVIEW',
+  deviewCodeName: 'RedirectView',
+  deviewId: '831f6d089c2bd5c765ea11ac853e6302',
+  accUserMode: 2,
+  capLanguageRes: {
+    lanResTag: 'DE.LNAME.HR_INTERVIEW',
+  },
+  caption: '面试',
+  codeName: 'hr_interview_redirect_view',
+  appDataEntityId: 'web.hr_interview',
+  controls: [
+    {
+      capLanguageRes: {
+        lanResTag: 'DE.LNAME.HR_INTERVIEW',
+      },
+      caption: '面试',
+      codeName: 'redirect_view_captionbar',
+      controlType: 'CAPTIONBAR',
+      appDataEntityId: 'web.hr_interview',
+      controlParam: {},
+      name: 'captionbar',
+      id: 'redirect_view_captionbar',
+    },
+  ],
+  viewLayoutPanel: {
+    layoutBodyOnly: true,
+    useDefaultLayout: true,
+    layoutPanel: true,
+    codeName: 'layoutpanel',
+    controlStyle: 'APPDEREDIRECTVIEW',
+    controlType: 'VIEWLAYOUTPANEL',
+    appDataEntityId: 'web.hr_interview',
+    controlParam: {},
+    id: 'layoutpanel',
+  },
+  title: '面试安排数据重定向视图',
+  titleLanguageRes: {
+    lanResTag: 'PAGE.TITLE.HR_INTERVIEW.REDIRECTVIEW',
+  },
+  viewStyle: 'DEFAULT',
+  viewType: 'DEREDIRECTVIEW',
+  enableDP: true,
+  redirectView: true,
+  showCaptionBar: true,
+  modelId: '7f90dcc17d9235e5a5b3980acc85fdc2',
+  modelType: 'PSAPPDEVIEW',
+  name: 'hr_interviewRedirectView',
+  id: 'web.hr_interview_redirect_view',
+};

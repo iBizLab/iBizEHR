@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+    <definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:g="http://www.jboss.org/drools/flow/gpd" xmlns:tns="http://www.jboss.org/drools" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" expressionLanguage="http://www.mvel.org/2.0" id="Definition" name="" targetNamespace="http://www.jboss.org/drools" typeLanguage="http://www.java.com/javaTypes">
+        <process id="cn.ibizlab.core.hr.hr_offer.create.afterLogic" isClosed="false" isExecutable="true" name="hr_hr_offer_create_afterLogic" processType="Private" tns:packageName="cn.ibizlab.core.hr.hr_offer.create.afterLogic">
+            <extensionElements>
+                <tns:import name="java.util.Map"/>
+                <tns:import name="org.springframework.util.StringUtils"/>
+                <tns:import name="cn.ibizlab.util.helper.RuleUtils"/>
+                <tns:import name="cn.ibizlab.core.hr.domain.hr_offer"/>
+            </extensionElements>
+                <startEvent id="begin" isInterrupting="true"/>
+                <endEvent id="prepareparam1_end" name="end"/>
+                            <callActivity activiti:exclusive="true" calledElement="cn.ibizlab.core.hr.service.logic.hr_offerupdatereloffer" id="65b1baab2a25d171ee81f9a289a46036" name="updateRelOffer.json.bpmn"/>
+                        <sequenceFlow id="begin_65b1baab2a25d171ee81f9a289a46036" sourceRef="begin" targetRef="65b1baab2a25d171ee81f9a289a46036"/>
+                            <sequenceFlow id="65b1baab2a25d171ee81f9a289a46036_prepareparam1_end" sourceRef="65b1baab2a25d171ee81f9a289a46036" targetRef="prepareparam1_end"/>
+        </process>
+    </definitions>

@@ -1,0 +1,19 @@
+```sql
+SELECT
+t1.`CODE`,
+t1.`CREATE_DATE`,
+t1.`CREATE_UID`,
+t1.`CURRENCY_ID`,
+t1.`ID`,
+t1.`NAME`,
+t1.`NAME_POSITION`,
+t1.`PHONE_CODE`,
+t1.`STATE_REQUIRED`,
+t1.`VAT_LABEL`,
+t1.`WRITE_DATE`,
+t1.`WRITE_UID`,
+t1.`ZIP_REQUIRED`
+FROM `res_country` t1 
+
+
+```

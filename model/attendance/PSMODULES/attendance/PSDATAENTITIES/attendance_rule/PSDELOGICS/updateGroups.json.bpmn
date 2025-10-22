@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+    <definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:g="http://www.jboss.org/drools/flow/gpd" xmlns:tns="http://www.jboss.org/drools" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" expressionLanguage="http://www.mvel.org/2.0" id="Definition" name="" targetNamespace="http://www.jboss.org/drools" typeLanguage="http://www.java.com/javaTypes">
+        <process id="cn.ibizlab.core.attendance.service.logic.attendance_ruleupdategroups" isClosed="false" isExecutable="true" name="attendance_attendance_rule_updategroups_ruleFlow" processType="Private" tns:packageName="cn.ibizlab.core.attendance.service.logic.attendance_ruleupdategroups">
+            <extensionElements>
+                <tns:import name="java.util.Map" />
+                <tns:import name="org.springframework.util.StringUtils"/>
+                <tns:import name="cn.ibizlab.util.helper.RuleUtils"/>
+                                <tns:metaData express="" name="attendance_ruleupdategroupsdefault" type="entity"/>
+                                <tns:metaData express="new cn.ibizlab.core.attendance.domain.attendance_group_shift()" name="attendance_ruleupdategroupsgroupshift" type="refentity"/>
+                                <tns:metaData express="new HashMap()" name="attendance_ruleupdategroupsgroupshifts" type="refentity"/>
+                    <tns:metaData express="T(cn.ibizlab.util.security.SpringContextHolder).getBean(T(cn.ibizlab.core.attendance.service.Iattendance_ruleService))" name="iBzSysAttendance_ruleDefaultService" type="service"/>
+                    <tns:metaData express="T(cn.ibizlab.util.security.AuthenticationUser).getAuthenticationUser()" name="curuser" type="session"/>
+                            <tns:global identifier="attendance_ruleupdategroupsdefault" type="cn.ibizlab.core.attendance.domain.attendance_rule" />
+                            <tns:global identifier="attendance_ruleupdategroupsgroupshift" type="cn.ibizlab.core.attendance.domain.attendance_group_shift" />
+            </extensionElements>
+                        <startEvent id="begin" isInterrupting="true"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="attendance_ruleupdategroupsrawsfcode_02" id="rawsfcode_02" implementation="http://www.jboss.org/drools/rule" name="N班倒-休息日相同"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="attendance_ruleupdategroupsprepareparam_01" id="prepareparam_01" implementation="http://www.jboss.org/drools/rule" name="准备参数"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="attendance_ruleupdategroupsloopsubcall_01" id="loopsubcall_01" implementation="http://www.jboss.org/drools/rule" name="循环子调用"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="attendance_ruleupdategroupsdebugparam_01" id="debugparam_01" implementation="http://www.jboss.org/drools/rule" name="调试逻辑参数"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="attendance_ruleupdategroupsprepareparam_02" id="prepareparam_02" implementation="http://www.jboss.org/drools/rule" name="准备参数"/>
+                        <endEvent id="prepareparam_02_end" name="end"/>
+                        <sequenceFlow id="prepareparam_02_end_line" sourceRef="prepareparam_02" targetRef="prepareparam_02_end"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="attendance_ruleupdategroupsend_01" id="end_01" implementation="http://www.jboss.org/drools/rule" name="结束"/>
+                        <endEvent id="end_01_end" name="end"/>
+                        <sequenceFlow id="end_01_end_line" sourceRef="end_01" targetRef="end_01_end"/>
+                    <sequenceFlow id="gateway-begin_rawsfcode_02" sourceRef="gateway-begin" targetRef="rawsfcode_02">
+                            <conditionExpression  language="http://www.jboss.org/drools/rule" ><![CDATA[
+                                            $attendance_ruleupdategroupsdefault:attendance_rule();
+                                            $attendance_ruleupdategroupsgroupshift:attendance_group_shift();
+                                            $attendance_ruleupdategroupsgroupshifts:Map();
+                                    eval($attendance_ruleupdategroupsdefault==attendance_ruleupdategroupsdefault && $attendance_ruleupdategroupsgroupshift==attendance_ruleupdategroupsgroupshift && );
+                                eval((RuleUtils.test($attendance_ruleupdategroupsdefault.get("scheduleType"),"EQ","class_inversion"))&&(RuleUtils.test($attendance_ruleupdategroupsdefault.get("sameRestday"),"EQ","1")))
+                                ]]>
+                            </conditionExpression>
+                    </sequenceFlow>
+                    <sequenceFlow id="gateway-begin_prepareparam_01" sourceRef="gateway-begin" targetRef="prepareparam_01">
+                            <conditionExpression  language="http://www.jboss.org/drools/rule" ><![CDATA[
+                                            $attendance_ruleupdategroupsdefault:attendance_rule();
+                                            $attendance_ruleupdategroupsgroupshift:attendance_group_shift();
+                                            $attendance_ruleupdategroupsgroupshifts:Map();
+                                    eval($attendance_ruleupdategroupsdefault==attendance_ruleupdategroupsdefault && $attendance_ruleupdategroupsgroupshift==attendance_ruleupdategroupsgroupshift && );
+                                eval(((RuleUtils.test($attendance_ruleupdategroupsdefault.get("scheduleType"),"EQ","work_rest"))||((RuleUtils.test($attendance_ruleupdategroupsdefault.get("scheduleType"),"EQ","class_inversion"))&&(RuleUtils.test($attendance_ruleupdategroupsdefault.get("sameRestday"),"EQ","0")))))
+                                ]]>
+                            </conditionExpression>
+                    </sequenceFlow>
+                    <sequenceFlow id="rawsfcode_02_end_01" sourceRef="rawsfcode_02" targetRef="end_01">
+                    </sequenceFlow>
+                    <sequenceFlow id="prepareparam_01_loopsubcall_01" sourceRef="prepareparam_01" targetRef="loopsubcall_01">
+                    </sequenceFlow>
+                    <sequenceFlow id="loopsubcall_01_prepareparam_02" sourceRef="loopsubcall_01" targetRef="prepareparam_02">
+                    </sequenceFlow>
+                    <sequenceFlow id="loopsubcall_01_debugparam_01" sourceRef="loopsubcall_01" targetRef="debugparam_01">
+                    </sequenceFlow>
+                    <sequenceFlow id="debugparam_01_end_01" sourceRef="debugparam_01" targetRef="end_01">
+                    </sequenceFlow>
+                            <exclusiveGateway id="gateway-begin" name="Gateway" gatewayDirection="Diverging" default="gateway-begin_end_line"></exclusiveGateway>
+                            <sequenceFlow id="begin_gateway-begin_gatewayline" sourceRef="begin" targetRef="gateway-begin"></sequenceFlow>
+                            <sequenceFlow id="gateway-begin_end_line" sourceRef="gateway-begin" targetRef="gateway-begin_end"/>
+                            <endEvent id="gateway-begin_end" name="end"/>
+        </process>
+    </definitions>

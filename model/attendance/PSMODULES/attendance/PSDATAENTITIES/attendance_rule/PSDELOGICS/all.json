@@ -1,0 +1,145 @@
+{
+  "codeName" : "all",
+  "defaultParamName" : "Default",
+  "dynaModelFilePath" : "PSMODULES/attendance/PSDATAENTITIES/attendance_rule/PSDELOGICS/all.json",
+  "logicName" : "完整规则",
+  "name" : "完整规则",
+  "getPSDELogicNodes" : [ {
+    "codeName" : "Begin",
+    "leftPos" : 200,
+    "logicNodeType" : "BEGIN",
+    "name" : "开始",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "DEDATASET1"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "Begin"
+      }
+    } ],
+    "topPos" : 200,
+    "parallelOutput" : true
+  }, {
+    "codeName" : "DEDATASET1",
+    "getDstPSDEDataSet" : {
+      "modelref" : true,
+      "id" : "ALL"
+    },
+    "getDstPSDELogicParam" : {
+      "modelref" : true,
+      "id" : "Default"
+    },
+    "getDstPSDataEntity" : {
+      "modelref" : true,
+      "path" : "PSMODULES/attendance/PSDATAENTITIES/attendance_rule.json"
+    },
+    "leftPos" : 384,
+    "logicNodeType" : "DEDATASET",
+    "name" : "实体数据集",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "RAWSQLCALL1"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "DEDATASET1"
+      }
+    } ],
+    "getRetPSDELogicParam" : {
+      "modelref" : true,
+      "id" : "rules"
+    },
+    "topPos" : 208
+  }, {
+    "codeName" : "RAWSQLCALL1",
+    "getDstPSDELogicParam" : {
+      "modelref" : true,
+      "id" : "total_members"
+    },
+    "leftPos" : 662,
+    "logicNodeType" : "RAWSQLCALL",
+    "name" : "直接SQL调用",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "RAWSFCODE1"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "RAWSQLCALL1"
+      }
+    } ],
+    "sql" : "SELECT \r\n    RULE_ID,\r\n    COUNT(DISTINCT MEMBER_ID) AS total_members\r\nFROM attendance_schedule\r\nWHERE checkin_date >= CURDATE()\r\nGROUP BY RULE_ID",
+    "topPos" : 208,
+    "fillDstLogicParam" : true,
+    "ignoreResetDstLogicParam" : false
+  }, {
+    "code" : "def rules = logic.param('rules').getReal()\r\ndef total_members = logic.param('total_members').getReal()\r\n\r\nif(rules){\r\n    if (!total_members){\r\n        // 创建rule_id到total_members的映射\r\n        def memberMap = total_members.collectEntries { member ->\r\n            [(member.get(\"rule_id\")): member.get(\"total_members\")]\r\n        }\r\n        // 遍历rules并赋值\r\n        rules.each { rule ->\r\n            if(rule.get(\"is_activate\") == 0){\r\n                rule.set(\"total_members\",\"未生效\")\r\n            }\r\n            if(rule.get(\"is_activate\") == 1){\r\n                def memberCount = memberMap.get(rule.get(\"id\"))\r\n                rule.set(\"total_members\",memberCount?memberCount:0)\r\n            }\r\n        }\r\n    }\r\n    \r\n}",
+    "codeName" : "RAWSFCODE1",
+    "codeType" : "Groovy",
+    "leftPos" : 662,
+    "logicNodeType" : "RAWSFCODE",
+    "name" : "执行脚本代码",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "END1"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "RAWSFCODE1"
+      }
+    } ],
+    "topPos" : 378
+  }, {
+    "codeName" : "END1",
+    "leftPos" : 702,
+    "logicNodeType" : "END",
+    "name" : "结束",
+    "getReturnParam" : {
+      "modelref" : true,
+      "id" : "rules"
+    },
+    "returnType" : "LOGICPARAM",
+    "topPos" : 560,
+    "parallelOutput" : true
+  } ],
+  "getPSDELogicParams" : [ {
+    "codeName" : "Default",
+    "logicName" : "传入变量",
+    "name" : "传入变量",
+    "getParamPSDataEntity" : {
+      "modelref" : true,
+      "path" : "PSMODULES/attendance/PSDATAENTITIES/attendance_rule.json"
+    },
+    "default" : true,
+    "filterParam" : true
+  }, {
+    "codeName" : "rules",
+    "logicName" : "rules",
+    "name" : "rules",
+    "getParamPSDataEntity" : {
+      "modelref" : true,
+      "path" : "PSMODULES/attendance/PSDATAENTITIES/attendance_rule.json"
+    },
+    "entityPageParam" : true
+  }, {
+    "codeName" : "total_members",
+    "logicName" : "total_members",
+    "name" : "total_members",
+    "entityListParam" : true
+  } ],
+  "getStartPSDELogicNode" : {
+    "modelref" : true,
+    "id" : "Begin"
+  },
+  "enableBackend" : true,
+  "enableFront" : false
+}

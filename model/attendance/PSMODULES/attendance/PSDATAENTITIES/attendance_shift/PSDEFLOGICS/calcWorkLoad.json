@@ -1,0 +1,17 @@
+{
+  "codeName" : "calcWorkLoad",
+  "dEFLogicMode" : "COMPUTE",
+  "defaultParamName" : "DEFAULT",
+  "dynaModelFilePath" : "PSMODULES/attendance/PSDATAENTITIES/attendance_shift/PSDEFLOGICS/calcWorkLoad.json",
+  "logicName" : "计算工时",
+  "logicSubType" : "DEFIELD",
+  "name" : "计算工时",
+  "getPSDEField" : {
+    "name" : "WORK_LOAD",
+    "codeName" : "work_load"
+  },
+  "scriptCode" : "var _scopes = data.scopes || [];\nvar totalWorkingMinutes = 0;\n\nfunction timeToMinutes(timeStr) {\n  const parts = timeStr.split(':');\n  const hours = parseInt(parts[0], 10);\n  const minutes = parseInt(parts[1], 10);\n  return hours * 60 + minutes;\n}\n\n// 遍历现有 scope 计算总工时\nfor (var i = 0; i < _scopes.length; i++) {\n  var scope = _scopes[i];\n        // 转换时间段为分钟数\n        const start = timeToMinutes(scope.start_base_time);\n        const end = timeToMinutes(scope.end_base_time);\n        // 累加工时\n        if (start >= end) {\n            totalWorkingMinutes += (24 * 60 - start + end);\n        }else {\n            totalWorkingMinutes += (end - start);\n        }\n\n}\n\n// 转换为小时分钟格式\nvar hours = Math.floor(Math.abs(totalWorkingMinutes) / 60);\nvar minutes = totalWorkingMinutes % 60;\nvar workLoadText = hours + \"小时\" + minutes + \"分钟\";\n\ndata.work_load = workLoadText;",
+  "customCode" : true,
+  "enableBackend" : false,
+  "enableFront" : true
+}

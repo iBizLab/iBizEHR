@@ -1,0 +1,27 @@
+```sql
+SELECT
+t1.`ACTIVITY_TYPE_ID`,
+t11.`NAME` AS `ACTIVITY_TYPE_NAME`,
+t1.`ACTIVITY_USER_ID`,
+t31.`NAME` AS `ACTIVITY_USER_NAME`,
+t11.`CHAINING_TYPE`,
+t1.`CREATE_DATE`,
+t1.`CREATE_UID`,
+t1.`DATE_DEADLINE`,
+t1.`ID`,
+t1.`NOTE`,
+t1.`PLAN_DATE`,
+t1.`PLAN_ID`,
+t1.`PLAN_ON_DEMAND_USER_ID`,
+t1.`RES_IDS`,
+t1.`RES_MODEL`,
+t1.`SUMMARY`,
+t1.`WRITE_DATE`,
+t1.`WRITE_UID`
+FROM `mail_activity_schedule` t1 
+LEFT JOIN `mail_activity_type` t11 ON t1.`ACTIVITY_TYPE_ID` = t11.`ID` 
+LEFT JOIN `res_users` t21 ON t1.`ACTIVITY_USER_ID` = t21.`ID` 
+LEFT JOIN `res_partner` t31 ON t21.`PARTNER_ID` = t31.`ID` 
+
+
+```

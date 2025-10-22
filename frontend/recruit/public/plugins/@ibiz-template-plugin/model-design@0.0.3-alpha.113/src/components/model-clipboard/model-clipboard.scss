@@ -1,0 +1,43 @@
+/* stylelint-disable selector-class-pattern */
+@include b(model-clipboard) {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  overflow: auto;
+  line-height: 1.5;
+  flex-direction: column;
+}
+
+@include b(model-clipboard-header) {
+  height: 40px;
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 getCssVar(spacing, base);
+  border-bottom: 1px solid getCssVar(color, border);
+}
+
+@include b(model-clipboard-header-title) {
+  font-size: getCssVar(font-size, header-6);
+}
+
+@include b(model-clipboard-header-actions) {
+  display: flex;
+  align-items: center;
+
+  ion-icon {
+    margin-left: 8px;
+    cursor: pointer;
+  }
+}
+
+@include b(model-clipboard-content) {
+  flex-grow: 1;
+  padding: 6px;
+  overflow: hidden auto;
+
+  .el-timeline {
+    padding: 0;
+  }
+}

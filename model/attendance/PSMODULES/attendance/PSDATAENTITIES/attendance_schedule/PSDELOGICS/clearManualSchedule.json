@@ -1,0 +1,637 @@
+{
+  "codeName" : "clearManualSchedule",
+  "defaultParamName" : "Default",
+  "dynaModelFilePath" : "PSMODULES/attendance/PSDATAENTITIES/attendance_schedule/PSDELOGICS/clearManualSchedule.json",
+  "logicName" : "清除手动排班",
+  "name" : "清除手动排班",
+  "getPSDELogicNodes" : [ {
+    "codeName" : "Begin",
+    "leftPos" : 26,
+    "logicNodeType" : "BEGIN",
+    "name" : "开始",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "RAWSQLCALL_02"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "Begin"
+      }
+    } ],
+    "topPos" : 22,
+    "parallelOutput" : true
+  }, {
+    "codeName" : "RAWSQLCALL_01",
+    "getDstPSDELogicParam" : {
+      "modelref" : true,
+      "id" : "manualSchedules"
+    },
+    "leftPos" : 400,
+    "logicNodeType" : "RAWSQLCALL",
+    "name" : "查询手动排班",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "DEBUGPARAM_01"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "RAWSQLCALL_01"
+      }
+    } ],
+    "sql" : "select\n\tt1.`CHECKIN_DATE`,\n\tt1.`ID`,\n\tt1.`MANUAL`,\n\tt1.`MANUAL_TYPE`,\n\tt1.`MEMBER_ID`,\n\tt1.`MEMBER_NAME`,\n\tt1.`NAME`,\n\tt1.`RULE_DATA`,\n\tt1.`RULE_ID`,\n\tt11.`NAME` as `RULE_NAME`,\n\tt11.`SCHEDULE_TYPE`,\n\tt1.`SHIFT_DATA`,\n\tt1.`WORKDAY`,\n\tt1.`WORK_TIME`\nfrom\n\t`ATTENDANCE_SCHEDULE` t1\nleft join `ATTENDANCE_ACTIVATE_RULE` t11 on\n\tt1.`RULE_ID` = t11.`ID`\nwhere \n\tt1.MANUAL = 1\n\tand t1.CHECKIN_DATE >= CURDATE()",
+    "topPos" : 110,
+    "fillDstLogicParam" : true,
+    "ignoreResetDstLogicParam" : false,
+    "parallelOutput" : true
+  }, {
+    "codeName" : "DEBUGPARAM_01",
+    "getDstPSDELogicParam" : {
+      "modelref" : true,
+      "id" : "manualSchedules"
+    },
+    "leftPos" : 630,
+    "logicNodeType" : "DEBUGPARAM",
+    "name" : "调试逻辑参数",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "LOOPSUBCALL_01"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "DEBUGPARAM_01"
+      }
+    } ],
+    "topPos" : 110,
+    "parallelOutput" : true
+  }, {
+    "codeName" : "RAWSQLCALL_02",
+    "getDstPSDELogicParam" : {
+      "modelref" : true,
+      "id" : "manualSchedules"
+    },
+    "leftPos" : -14,
+    "logicNodeType" : "RAWSQLCALL",
+    "name" : "查询手动排班",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "LOOPSUBCALL_02"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "RAWSQLCALL_02"
+      }
+    } ],
+    "sql" : "select\n\n\tt1.`RULE_DATA`,\n\tt1.`RULE_ID`\n\nfrom\n\t`ATTENDANCE_SCHEDULE` t1\nleft join `ATTENDANCE_ACTIVATE_RULE` t11 on\n\tt1.`RULE_ID` = t11.`ID`\nwhere \n\tt1.MANUAL = 1\n\tand t1.CHECKIN_DATE >= CURDATE()\n\tGROUP BY t1.RULE_ID",
+    "topPos" : 170,
+    "fillDstLogicParam" : true,
+    "ignoreResetDstLogicParam" : false,
+    "parallelOutput" : true
+  }, {
+    "codeName" : "LOOPSUBCALL_01",
+    "getDstPSDELogicParam" : {
+      "modelref" : true,
+      "id" : "temp"
+    },
+    "leftPos" : 630,
+    "logicNodeType" : "LOOPSUBCALL",
+    "name" : "循环子调用",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "PREPAREPARAM_01"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "LOOPSUBCALL_01"
+      },
+      "subCallLink" : true
+    }, {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "END_01"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "LOOPSUBCALL_01"
+      }
+    } ],
+    "getSrcPSDELogicParam" : {
+      "modelref" : true,
+      "id" : "manualSchedules"
+    },
+    "topPos" : 198,
+    "parallelOutput" : true
+  }, {
+    "codeName" : "END_01",
+    "leftPos" : 968,
+    "logicNodeType" : "END",
+    "name" : "结束",
+    "topPos" : 200,
+    "parallelOutput" : true
+  }, {
+    "codeName" : "LOOPSUBCALL_02",
+    "getDstPSDELogicParam" : {
+      "modelref" : true,
+      "id" : "temp"
+    },
+    "leftPos" : -14,
+    "logicNodeType" : "LOOPSUBCALL",
+    "name" : "循环子调用",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "RAWSFCODE_03"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "LOOPSUBCALL_02"
+      },
+      "subCallLink" : true
+    } ],
+    "getSrcPSDELogicParam" : {
+      "modelref" : true,
+      "id" : "manualSchedules"
+    },
+    "topPos" : 287,
+    "parallelOutput" : true
+  }, {
+    "codeName" : "PREPAREPARAM_01",
+    "leftPos" : 630,
+    "logicNodeType" : "PREPAREPARAM",
+    "name" : "准备参数",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "DEDATASET_01"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "PREPAREPARAM_01"
+      }
+    } ],
+    "getPSDELogicNodeParams" : [ {
+      "dstFieldName" : "MANUAL",
+      "getDstPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "temp"
+      },
+      "paramAction" : "SETPARAMVALUE",
+      "srcValue" : "0",
+      "srcValueType" : "SRCVALUE"
+    }, {
+      "dstFieldName" : "SHIFT_DATA",
+      "getDstPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "temp"
+      },
+      "paramAction" : "SETPARAMVALUE",
+      "srcValueType" : "NULLVALUE"
+    }, {
+      "dstFieldName" : "WORK_TIME",
+      "getDstPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "temp"
+      },
+      "paramAction" : "SETPARAMVALUE",
+      "srcValueType" : "NULLVALUE"
+    }, {
+      "dstFieldName" : "n_rule_id_eq",
+      "getDstPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "shiftFilter"
+      },
+      "paramAction" : "SETPARAMVALUE",
+      "srcFieldName" : "RULE_ID",
+      "getSrcPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "temp"
+      },
+      "srcValueType" : "SRCDLPARAM"
+    } ],
+    "topPos" : 317,
+    "parallelOutput" : true
+  }, {
+    "code" : "def _default = logic.param('Default').getReal()\r\ndef temp = logic.param('temp').getReal()\r\ndef rule = logic.param('rule').getReal()\r\n\r\ndef rule_data = temp.get(\"rule_data\").any()\r\nif (rule_data){\r\n\r\n    def rule_runtime = sys.dataentity('attendance_rule')\r\n    rule_runtime.createEntity(rule_data).copyTo(rule)\r\n    //限制时间：今日\r\n    def cal = Calendar.getInstance()\r\n    cal.time = new Date()\r\n    cal.set(Calendar.HOUR_OF_DAY, 0)\r\n    cal.set(Calendar.MINUTE, 0)\r\n    cal.set(Calendar.SECOND, 0)\r\n    cal.set(Calendar.MILLISECOND, 0)\r\n    rule.set(\"limitTime\", cal.getTime())\r\n\r\n    //转换scope\r\n    def shifts = temp.get(\"rule_data\").any().get(\"shifts\")\r\n    if(shifts){\r\n        def _shifts = logic.param('shifts').getReal()\r\n        shifts.forEach { shift ->\r\n            def newShift = sys.entity('attendance_shift')\r\n            shift.copyTo(newShift)\r\n            _shifts.add(newShift)\r\n        }\r\n        rule.set(\"shifts\",_shifts)\r\n    }\r\n}\r\n\r\n\r\n",
+    "codeName" : "RAWSFCODE_03",
+    "codeType" : "Groovy",
+    "leftPos" : -14,
+    "logicNodeType" : "RAWSFCODE",
+    "name" : "执行脚本代码",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "DEBUGPARAM_04"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "RAWSFCODE_03"
+      }
+    } ],
+    "topPos" : 410,
+    "parallelOutput" : true
+  }, {
+    "codeName" : "DEDATASET_01",
+    "getDstPSDEDataSet" : {
+      "modelref" : true,
+      "id" : "Default"
+    },
+    "getDstPSDELogicParam" : {
+      "modelref" : true,
+      "id" : "shiftFilter"
+    },
+    "getDstPSDataEntity" : {
+      "modelref" : true,
+      "path" : "PSMODULES/attendance/PSDATAENTITIES/attendance_activate_shift.json"
+    },
+    "leftPos" : 630,
+    "logicNodeType" : "DEDATASET",
+    "name" : "获取当前规则激活班次",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "PREPAREPARAM_02"
+      },
+      "name" : "手动排班",
+      "getPSDELogicLinkGroupCond" : {
+        "groupOP" : "AND",
+        "logicType" : "GROUP",
+        "name" : "连接条件组",
+        "getPSDELogicLinkConds" : [ {
+          "condOP" : "EQ",
+          "dstFieldName" : "SCHEDULE_TYPE",
+          "getDstLogicParam" : {
+            "modelref" : true,
+            "id" : "temp"
+          },
+          "logicType" : "SINGLE",
+          "name" : "temp[SCHEDULE_TYPE] 等于(=) manual",
+          "paramValue" : "manual"
+        } ]
+      },
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "DEDATASET_01"
+      }
+    }, {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "RAWSFCODE_01"
+      },
+      "name" : "固定排班/灵活打卡",
+      "getPSDELogicLinkGroupCond" : {
+        "groupOP" : "AND",
+        "logicType" : "GROUP",
+        "name" : "连接条件组",
+        "getPSDELogicLinkConds" : [ {
+          "groupOP" : "OR",
+          "logicType" : "GROUP",
+          "name" : "OR",
+          "getPSDELogicLinkConds" : [ {
+            "condOP" : "EQ",
+            "dstFieldName" : "SCHEDULE_TYPE",
+            "getDstLogicParam" : {
+              "modelref" : true,
+              "id" : "temp"
+            },
+            "logicType" : "SINGLE",
+            "name" : "temp[SCHEDULE_TYPE] 等于(=) fixed",
+            "paramValue" : "fixed"
+          }, {
+            "condOP" : "EQ",
+            "dstFieldName" : "SCHEDULE_TYPE",
+            "getDstLogicParam" : {
+              "modelref" : true,
+              "id" : "temp"
+            },
+            "logicType" : "SINGLE",
+            "name" : "temp[SCHEDULE_TYPE] 等于(=) flexible",
+            "paramValue" : "flexible"
+          } ]
+        } ]
+      },
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "DEDATASET_01"
+      }
+    }, {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "RAWSFCODE_02"
+      },
+      "name" : "连接名称",
+      "getPSDELogicLinkGroupCond" : {
+        "groupOP" : "AND",
+        "logicType" : "GROUP",
+        "name" : "连接条件组",
+        "getPSDELogicLinkConds" : [ {
+          "condOP" : "EQ",
+          "dstFieldName" : "SCHEDULE_TYPE",
+          "getDstLogicParam" : {
+            "modelref" : true,
+            "id" : "temp"
+          },
+          "logicType" : "SINGLE",
+          "name" : "temp[SCHEDULE_TYPE] 等于(=) work_rest",
+          "paramValue" : "work_rest"
+        } ]
+      },
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "DEDATASET_01"
+      }
+    } ],
+    "getRetPSDELogicParam" : {
+      "modelref" : true,
+      "id" : "activeShifts"
+    },
+    "topPos" : 420,
+    "parallelOutput" : true
+  }, {
+    "code" : "def temp = logic.param('temp').getReal()\r\ndef checkinDate = temp.get(\"checkin_date\")\r\ndef activeShifts = logic.param('activeShifts').getReal()\r\n\r\ndef rule_data = temp.get(\"rule_data\")\r\nprint \"rule_data配置, ${rule_data}\"\r\nprint \"activeShifts配置, ${activeShifts}\"\r\nprint \"checkinDate配置, ${checkinDate}\"\r\n\r\nif (rule_data != null && checkinDate != null && activeShifts != null) {\r\n    Map<String, Object> ruleData = rule_data as Map<String, Object>;\r\n    def workdays = ruleData.get(\"workdays\")\r\n    print \"工作日配置, ${workdays}\"\r\n\r\n\r\n    // 计算当天排班班次\r\n    def calcShiftData = { Date checkinDateParam, List workdaysParam, List activeShiftsParam ->\r\n        // 1. 确定当前日期是周几（1-7对应周一到周日）\r\n        def calendarInner = Calendar.getInstance()\r\n        calendarInner.setTime(checkinDateParam)\r\n        int dayOfWeek = calendarInner.get(Calendar.DAY_OF_WEEK)\r\n        int dayNumber = (dayOfWeek == Calendar.SUNDAY) ? 7 : dayOfWeek - 1\r\n\r\n        // 2. 查找匹配的工作日配置\r\n        def workdayConfig = workdaysParam.find { it.day_number == dayNumber }\r\n\r\n        // 3. 未找到工作日配置时返回空班次\r\n        if (!workdayConfig || !workdayConfig.shift_id) {\r\n            print \"未找到工作日配置时返回空班次, ${workdayConfig}!\"\r\n            return null\r\n        }\r\n\r\n        // 4. 查找对应的班次信息\r\n        def shift = activeShiftsParam.find { it.id == workdayConfig.shift_id }\r\n\r\n        // 5. 未找到班次时返回空班次\r\n        if (!shift || !shift.shift_data) {\r\n            print \"未找到班次时返回空班次, ${shift}!\"\r\n            return null\r\n        }\r\n\r\n        // 6. 返回班次数据\r\n        print \"返回班次数据, ${shift}!\"\r\n        return shift.shift_data\r\n    }\r\n\r\n    def shift_data = calcShiftData(checkinDate, workdays, activeShifts)\r\n    def workTime = shift_data?.work_times ?: null\r\n    temp.set(\"shift_data\",shift_data)\r\n    temp.set(\"work_time\",workTime)\r\n    temp.set(\"workday\",shift_data != null ? 1 : 0)\r\n\r\n}\r\n",
+    "codeName" : "RAWSFCODE_01",
+    "codeType" : "Groovy",
+    "leftPos" : 928,
+    "logicNodeType" : "RAWSFCODE",
+    "name" : "计算构造新排班",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "DEACTION_01"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "RAWSFCODE_01"
+      }
+    } ],
+    "topPos" : 420,
+    "parallelOutput" : true
+  }, {
+    "codeName" : "DEBUGPARAM_04",
+    "getDstPSDELogicParam" : {
+      "modelref" : true,
+      "id" : "rule"
+    },
+    "leftPos" : -14,
+    "logicNodeType" : "DEBUGPARAM",
+    "name" : "输出拷贝后的rule",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "DELOGIC_01"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "DEBUGPARAM_04"
+      }
+    } ],
+    "topPos" : 540,
+    "parallelOutput" : true
+  }, {
+    "code" : "def temp = logic.param('temp').getReal()\r\ndef checkinDate = temp.get(\"checkin_date\")\r\ndef activeShifts = logic.param('activeShifts').getReal()\r\ndef member_id = temp.get(\"member_id\")\r\ndef rule_data = temp.get(\"rule_data\")\r\n\r\nif (rule_data != null && checkinDate != null && activeShifts != null) {\r\n    Map<String, Object> ruleData = rule_data as Map<String, Object>\r\n    def attendance_group_shifts = ruleData.get(\"attendance_group_shifts\")\r\n    def effect_time = ruleData.get(\"effect_time\")\r\n    def inversion_cycle = ruleData.get(\"inversion_cycle\") as Integer\r\n\r\n    // 解析日期工具\r\n    def sdf = new java.text.SimpleDateFormat(\"yyyy-MM-dd\")\r\n    def checkinCal = Calendar.getInstance()\r\n    if (checkinDate instanceof String) {\r\n        checkinCal.setTime(sdf.parse(checkinDate))\r\n    } else {\r\n        checkinCal.setTime(checkinDate)\r\n    }\r\n\r\n    // 计算周期天数\r\n    int cycleDays = inversion_cycle * 7\r\n\r\n    // 预处理工作日数据\r\n    def validWorkdays = attendance_group_shifts.findAll { it.day_number <= cycleDays }\r\n    def cycleMap = validWorkdays.collectEntries { [(it.day_number): it] }\r\n\r\n    // 计算基准日（effect_time的最近前序周一）\r\n    Calendar baseCal = Calendar.getInstance()\r\n    baseCal.setTime(sdf.parse(effect_time))\r\n    int daysToSubtract = (baseCal.get(Calendar.DAY_OF_WEEK) - 2 + 7) % 7\r\n    if (daysToSubtract > 0) {\r\n        baseCal.add(Calendar.DAY_OF_MONTH, -daysToSubtract)\r\n    }\r\n    Date baseDate = baseCal.getTime()\r\n\r\n    // 计算日期偏移\r\n    long offsetMillis = checkinCal.getTimeInMillis() - baseDate.getTime()\r\n    int offsetDays = (offsetMillis / (24 * 60 * 60 * 1000)) as int\r\n    int dayInCycle = (offsetDays % cycleDays) + 1\r\n\r\n    // 查找班次配置\r\n    def workdayConfig = cycleMap[dayInCycle]\r\n    if (workdayConfig) {\r\n        def shift = activeShifts.find { it.id == workdayConfig.shift_id }\r\n        if (shift) {\r\n            def shiftData = shift.shift_data\r\n            def workTime = shiftData?.work_times\r\n            // 更新临时参数\r\n            temp.set(\"shift_data\", shiftData)\r\n            temp.set(\"work_time\", workTime)\r\n            temp.set(\"workday\", shiftData ? 1 : 0)\r\n        }\r\n    }\r\n}",
+    "codeName" : "RAWSFCODE_02",
+    "codeType" : "Groovy",
+    "leftPos" : 450,
+    "logicNodeType" : "RAWSFCODE",
+    "name" : "上A休B构造新排班",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "DEACTION_01"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "RAWSFCODE_02"
+      }
+    } ],
+    "topPos" : 550,
+    "parallelOutput" : true
+  }, {
+    "codeName" : "PREPAREPARAM_02",
+    "leftPos" : 630,
+    "logicNodeType" : "PREPAREPARAM",
+    "name" : "手动排班置空",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "DEACTION_01"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "PREPAREPARAM_02"
+      }
+    } ],
+    "getPSDELogicNodeParams" : [ {
+      "dstFieldName" : "WORKDAY",
+      "getDstPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "temp"
+      },
+      "paramAction" : "SETPARAMVALUE",
+      "srcValueType" : "NULLVALUE"
+    } ],
+    "topPos" : 630,
+    "parallelOutput" : true
+  }, {
+    "codeName" : "DELOGIC_01",
+    "getDstPSDELogic" : {
+      "modelref" : true,
+      "path" : "PSMODULES/attendance/PSDATAENTITIES/attendance_rule/PSDELOGICS/activeRule.json"
+    },
+    "getDstPSDELogicParam" : {
+      "modelref" : true,
+      "id" : "rule"
+    },
+    "getDstPSDataEntity" : {
+      "modelref" : true,
+      "path" : "PSMODULES/attendance/PSDATAENTITIES/attendance_rule.json"
+    },
+    "leftPos" : -14,
+    "logicNodeType" : "DELOGIC",
+    "name" : "实体处理逻辑",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "PREPAREPARAM3"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "DELOGIC_01"
+      }
+    } ],
+    "topPos" : 670,
+    "parallelOutput" : true
+  }, {
+    "codeName" : "PREPAREPARAM3",
+    "leftPos" : -14,
+    "logicNodeType" : "PREPAREPARAM",
+    "name" : "准备参数",
+    "getPSDELogicNodeParams" : [ {
+      "getDstPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "shifts"
+      },
+      "name" : " ==> shifts",
+      "paramAction" : "RENEWPARAM"
+    }, {
+      "getDstPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "rule"
+      },
+      "name" : " ==> rule",
+      "paramAction" : "RENEWPARAM"
+    }, {
+      "getDstPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "temp"
+      },
+      "name" : " ==> temp",
+      "paramAction" : "RENEWPARAM"
+    } ],
+    "topPos" : 804,
+    "parallelOutput" : true
+  }, {
+    "codeName" : "DEACTION_01",
+    "getDstPSDEAction" : {
+      "modelref" : true,
+      "path" : "PSMODULES/attendance/PSDATAENTITIES/attendance_schedule/PSDEACTIONS/Update.json"
+    },
+    "getDstPSDELogicParam" : {
+      "modelref" : true,
+      "id" : "temp"
+    },
+    "getDstPSDataEntity" : {
+      "modelref" : true,
+      "path" : "PSMODULES/attendance/PSDATAENTITIES/attendance_schedule.json"
+    },
+    "leftPos" : 630,
+    "logicNodeType" : "DEACTION",
+    "name" : "更新排班",
+    "topPos" : 830,
+    "parallelOutput" : true
+  } ],
+  "getPSDELogicParams" : [ {
+    "codeName" : "Default",
+    "logicName" : "传入变量",
+    "name" : "传入变量",
+    "getParamPSDataEntity" : {
+      "modelref" : true,
+      "path" : "PSMODULES/attendance/PSDATAENTITIES/attendance_schedule.json"
+    },
+    "default" : true,
+    "entityParam" : true
+  }, {
+    "codeName" : "activeShifts",
+    "logicName" : "activeShifts",
+    "name" : "activeShifts",
+    "getParamPSDataEntity" : {
+      "modelref" : true,
+      "path" : "PSMODULES/attendance/PSDATAENTITIES/attendance_activate_shift.json"
+    },
+    "entityListParam" : true
+  }, {
+    "codeName" : "attendance_group_shifts",
+    "logicName" : "attendance_group_shifts",
+    "name" : "attendance_group_shifts",
+    "getParamPSDataEntity" : {
+      "modelref" : true,
+      "path" : "PSMODULES/attendance/PSDATAENTITIES/attendance_group_shift.json"
+    },
+    "entityListParam" : true
+  }, {
+    "codeName" : "manualSchedules",
+    "logicName" : "manualSchedules",
+    "name" : "manualSchedules",
+    "getParamPSDataEntity" : {
+      "modelref" : true,
+      "path" : "PSMODULES/attendance/PSDATAENTITIES/attendance_schedule.json"
+    },
+    "entityListParam" : true
+  }, {
+    "codeName" : "rule",
+    "logicName" : "rule",
+    "name" : "rule",
+    "getParamPSDataEntity" : {
+      "modelref" : true,
+      "path" : "PSMODULES/attendance/PSDATAENTITIES/attendance_rule.json"
+    },
+    "entityParam" : true
+  }, {
+    "codeName" : "scopes",
+    "logicName" : "scopes",
+    "name" : "scopes",
+    "getParamPSDataEntity" : {
+      "modelref" : true,
+      "path" : "PSMODULES/attendance/PSDATAENTITIES/attendance_scope.json"
+    },
+    "entityListParam" : true
+  }, {
+    "codeName" : "shiftFilter",
+    "logicName" : "shiftFilter",
+    "name" : "shiftFilter",
+    "getParamPSDataEntity" : {
+      "modelref" : true,
+      "path" : "PSMODULES/attendance/PSDATAENTITIES/attendance_activate_shift.json"
+    },
+    "filterParam" : true
+  }, {
+    "codeName" : "shifts",
+    "logicName" : "shifts",
+    "name" : "shifts",
+    "getParamPSDataEntity" : {
+      "modelref" : true,
+      "path" : "PSMODULES/attendance/PSDATAENTITIES/attendance_shift.json"
+    },
+    "entityListParam" : true
+  }, {
+    "codeName" : "temp",
+    "logicName" : "temp",
+    "name" : "temp",
+    "getParamPSDataEntity" : {
+      "modelref" : true,
+      "path" : "PSMODULES/attendance/PSDATAENTITIES/attendance_schedule.json"
+    },
+    "entityParam" : true
+  }, {
+    "codeName" : "tempRule",
+    "logicName" : "tempRule",
+    "name" : "tempRule",
+    "getParamPSDataEntity" : {
+      "modelref" : true,
+      "path" : "PSMODULES/attendance/PSDATAENTITIES/attendance_rule.json"
+    },
+    "entityParam" : true
+  }, {
+    "codeName" : "workdays",
+    "logicName" : "workdays",
+    "name" : "workdays",
+    "getParamPSDataEntity" : {
+      "modelref" : true,
+      "path" : "PSMODULES/attendance/PSDATAENTITIES/attendance_workday.json"
+    },
+    "entityListParam" : true
+  } ],
+  "getStartPSDELogicNode" : {
+    "modelref" : true,
+    "id" : "Begin"
+  },
+  "enableBackend" : true,
+  "enableFront" : false
+}

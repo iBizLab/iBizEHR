@@ -1,0 +1,87 @@
+## 默认（全部数据）(View) <!-- {docsify-ignore-all} -->
+
+
+
+<p class="panel-title"><b>查看SQL语句</b></p>
+<br>
+
+<el-row>
+&nbsp;<el-tag @click="MYSQL5 = true">MYSQL5</el-tag>
+</el-row>
+
+<br>
+<p class="panel-title"><b>是否默认查询</b></p>
+
+* `否`
+
+<p class="panel-title"><b>是否权限使用</b></p>
+
+* `否`
+
+<p class="panel-title"><b>是否自定义SQL</b></p>
+
+* `否`
+
+<p class="panel-title"><b>查询列级别</b></p>
+
+* `全部数据`
+
+
+
+
+
+
+<el-dialog v-model="MYSQL5" title="MYSQL5">
+
+```sql
+SELECT
+t1.`ADDRESS_ID`,
+t1.`BIRTHDAY`,
+t1.`CREATE_DATE`,
+t1.`CREATE_UID`,
+t1.`EDUCATION`,
+t1.`EMAIL_FROM`,
+t1.`EXPERIENCE`,
+t1.`GENDER`,
+t1.`ID`,
+t1.`LAST_EDU_ACADEMIC_DEGREE`,
+t1.`LAST_EDU_DATE`,
+t1.`LAST_EDU_SCHOOL`,
+t1.`LAST_EDU_SPECIALITY`,
+t1.`LAST_EXP_COMPANY`,
+t1.`LAST_EXP_DATE`,
+t1.`LAST_EXP_JOB`,
+t1.`LAST_TAGS`,
+t1.`LAST_TP_APPLIED_AT`,
+t1.`LAST_TP_ARCHIVED_AT`,
+t1.`LAST_TP_ARCHIVE_REASON`,
+t1.`LAST_TP_ARCHIVE_REASON_DETAIL`,
+t1.`LAST_TP_JOB_NAME`,
+t1.`LAST_TP_STAGE_NAME`,
+t1.`LAST_TP_TALENT_POOL`,
+t1.`MOBILE_PHONE`,
+t1.`NAME`,
+(SELECT count(1) from hr_candidate  where LAST_TP_TALENT_POOL is not null) AS `TALENT_POOL_COUNT`,
+t1.`USER_ID`,
+t1.`WRITE_DATE`,
+t1.`WRITE_UID`
+FROM `hr_candidate` t1 
+
+
+```
+
+</el-dialog>
+
+<script>
+ const { createApp } = Vue
+  createApp({
+    data() {
+      return {
+                MYSQL5 : false
+        
+      }
+    },
+    methods: {
+    }
+  }).use(ElementPlus).mount('#app')
+</script>

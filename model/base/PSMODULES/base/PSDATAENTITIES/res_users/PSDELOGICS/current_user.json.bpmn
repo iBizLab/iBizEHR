@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+    <definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:g="http://www.jboss.org/drools/flow/gpd" xmlns:tns="http://www.jboss.org/drools" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" expressionLanguage="http://www.mvel.org/2.0" id="Definition" name="" targetNamespace="http://www.jboss.org/drools" typeLanguage="http://www.java.com/javaTypes">
+        <process id="cn.ibizlab.core.base.service.logic.res_userscurrent_user" isClosed="false" isExecutable="true" name="base_res_users_current_user_ruleFlow" processType="Private" tns:packageName="cn.ibizlab.core.base.service.logic.res_userscurrent_user">
+            <extensionElements>
+                <tns:import name="java.util.Map" />
+                <tns:import name="org.springframework.util.StringUtils"/>
+                <tns:import name="cn.ibizlab.util.helper.RuleUtils"/>
+                                <tns:metaData express="" name="res_userscurrent_userdefault" type="entity"/>
+                                <tns:metaData express="new cn.ibizlab.core.base.domain.res_users()" name="res_userscurrent_userfilter_user" type="refentity"/>
+                                <tns:metaData express="new cn.ibizlab.core.base.domain.res_users()" name="res_userscurrent_useruser" type="refentity"/>
+                                <tns:metaData express="new cn.ibizlab.core.base.domain.res_users()" name="res_userscurrent_useruser_page" type="refentity"/>
+                                    <tns:metaData express="T(cn.ibizlab.util.security.SpringContextHolder).getBean(T(cn.ibizlab.core.base.service.Ires_usersService))" name="res_usersservice" type="service"/>
+                    <tns:metaData express="T(cn.ibizlab.util.security.SpringContextHolder).getBean(T(cn.ibizlab.core.base.service.Ires_usersService))" name="iBzSysRes_usersDefaultService" type="service"/>
+                    <tns:metaData express="T(cn.ibizlab.util.security.AuthenticationUser).getAuthenticationUser()" name="curuser" type="session"/>
+                            <tns:global identifier="res_userscurrent_userdefault" type="cn.ibizlab.core.base.domain.res_users" />
+                            <tns:global identifier="res_userscurrent_userfilter_user" type="cn.ibizlab.core.base.domain.res_users" />
+                            <tns:global identifier="res_userscurrent_useruser" type="cn.ibizlab.core.base.domain.res_users" />
+                            <tns:global identifier="res_userscurrent_useruser_page" type="cn.ibizlab.core.base.domain.res_users" />
+            </extensionElements>
+                        <startEvent id="begin" isInterrupting="true"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="res_userscurrent_userprepareparam_01" id="prepareparam_01" implementation="http://www.jboss.org/drools/rule" name="准备参数"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="res_userscurrent_userdedataquery_01" id="dedataquery_01" implementation="http://www.jboss.org/drools/rule" name="实体数据查询"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="res_userscurrent_userloopsubcall_01" id="loopsubcall_01" implementation="http://www.jboss.org/drools/rule" name="循环子调用"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="res_userscurrent_userbindparam_01" id="bindparam_01" implementation="http://www.jboss.org/drools/rule" name="绑定参数"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="res_userscurrent_userend_02" id="end_02" implementation="http://www.jboss.org/drools/rule" name="结束"/>
+                        <endEvent id="end_02_end" name="end"/>
+                        <sequenceFlow id="end_02_end_line" sourceRef="end_02" targetRef="end_02_end"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="res_userscurrent_userend_01" id="end_01" implementation="http://www.jboss.org/drools/rule" name="结束"/>
+                        <endEvent id="end_01_end" name="end"/>
+                        <sequenceFlow id="end_01_end_line" sourceRef="end_01" targetRef="end_01_end"/>
+                    <sequenceFlow id="gateway-begin_prepareparam_01" sourceRef="gateway-begin" targetRef="prepareparam_01">
+                            <conditionExpression  language="http://www.jboss.org/drools/rule" ><![CDATA[
+                                            $res_userscurrent_userdefault:res_users();
+                                            $res_userscurrent_userfilter_user:res_users();
+                                            $res_userscurrent_useruser:res_users();
+                                            $res_userscurrent_useruser_page:res_users();
+                                    eval($res_userscurrent_userdefault==res_userscurrent_userdefault && $res_userscurrent_userfilter_user==res_userscurrent_userfilter_user && $res_userscurrent_useruser==res_userscurrent_useruser && $res_userscurrent_useruser_page==res_userscurrent_useruser_page);
+                                eval((RuleUtils.test($res_userscurrent_userdefault.get("srfpartnerid"),"ISNOTNULL","")))
+                                ]]>
+                            </conditionExpression>
+                    </sequenceFlow>
+                    <sequenceFlow id="prepareparam_01_dedataquery_01" sourceRef="prepareparam_01" targetRef="dedataquery_01">
+                    </sequenceFlow>
+                    <sequenceFlow id="gateway-dedataquery_01_loopsubcall_01" sourceRef="gateway-dedataquery_01" targetRef="loopsubcall_01">
+                            <conditionExpression  language="http://www.jboss.org/drools/rule" ><![CDATA[
+                                            $res_userscurrent_userdefault:res_users();
+                                            $res_userscurrent_userfilter_user:res_users();
+                                            $res_userscurrent_useruser:res_users();
+                                            $res_userscurrent_useruser_page:res_users();
+                                    eval($res_userscurrent_userdefault==res_userscurrent_userdefault && $res_userscurrent_userfilter_user==res_userscurrent_userfilter_user && $res_userscurrent_useruser==res_userscurrent_useruser && $res_userscurrent_useruser_page==res_userscurrent_useruser_page);
+                                eval((RuleUtils.test($res_userscurrent_useruser_page.get("size"),"GT","0")))
+                                ]]>
+                            </conditionExpression>
+                    </sequenceFlow>
+                    <sequenceFlow id="loopsubcall_01_bindparam_01" sourceRef="loopsubcall_01" targetRef="bindparam_01">
+                    </sequenceFlow>
+                    <sequenceFlow id="loopsubcall_01_end_02" sourceRef="loopsubcall_01" targetRef="end_02">
+                    </sequenceFlow>
+                    <sequenceFlow id="bindparam_01_end_01" sourceRef="bindparam_01" targetRef="end_01">
+                    </sequenceFlow>
+                            <exclusiveGateway id="gateway-begin" name="Gateway" gatewayDirection="Diverging" default="gateway-begin_end_line"></exclusiveGateway>
+                            <sequenceFlow id="begin_gateway-begin_gatewayline" sourceRef="begin" targetRef="gateway-begin"></sequenceFlow>
+                            <sequenceFlow id="gateway-begin_end_line" sourceRef="gateway-begin" targetRef="gateway-begin_end"/>
+                            <endEvent id="gateway-begin_end" name="end"/>
+                            <exclusiveGateway id="gateway-dedataquery_01" name="Gateway" gatewayDirection="Diverging" default="gateway-dedataquery_01_end_line"></exclusiveGateway>
+                            <sequenceFlow id="dedataquery_01_gateway-dedataquery_01_gatewayline" sourceRef="dedataquery_01" targetRef="gateway-dedataquery_01"></sequenceFlow>
+                            <sequenceFlow id="gateway-dedataquery_01_end_line" sourceRef="gateway-dedataquery_01" targetRef="gateway-dedataquery_01_end"/>
+                            <endEvent id="gateway-dedataquery_01_end" name="end"/>
+        </process>
+    </definitions>

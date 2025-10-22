@@ -1,0 +1,16 @@
+export default {
+  codeListTag: 'extension__pscoreprdfunc_category',
+  codeListType: 'DYNAMIC',
+  codeName: 'extension__pscoreprdfunc_category',
+  emptyText: '未定义',
+  orMode: 'STR',
+  appDEDataSetId: 'fetchdefault',
+  appDataEntityId: 'ehrapp.pscoreprdfunc',
+  textAppDEFieldId: 'category',
+  textSeparator: '、',
+  valueAppDEFieldId: 'category',
+  valueSeparator: ';',
+  enableCache: true,
+  name: '应用模型分类',
+  id: 'ehrapp.extension__pscoreprdfunc_category',
+};

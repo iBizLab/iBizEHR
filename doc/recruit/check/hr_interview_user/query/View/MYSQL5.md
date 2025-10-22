@@ -1,0 +1,24 @@
+```sql
+SELECT
+t1.`APPLICANT_ID`,
+t11.`CANDIDATE_DISPLAY_NAME`,
+t1.`CREATE_DATE`,
+t1.`CREATE_UID`,
+t1.`ID`,
+t1.`INTERVIEW_ID`,
+t21.`NAME` AS `JOB_NAME`,
+t11.`MOBILE_PHONE`,
+t1.`NAME`,
+t1.`USER_ID`,
+t1.`USER_NAME`,
+t1.`USER_STATUS`,
+t1.`USER_TYPE`,
+t1.`VIDEO_URL`,
+t1.`WRITE_DATE`,
+t1.`WRITE_UID`
+FROM `hr_interview_user` t1 
+LEFT JOIN `hr_applicant` t11 ON t1.`APPLICANT_ID` = t11.`ID` 
+LEFT JOIN `hr_job` t21 ON t11.`JOB_ID` = t21.`ID` 
+
+
+```

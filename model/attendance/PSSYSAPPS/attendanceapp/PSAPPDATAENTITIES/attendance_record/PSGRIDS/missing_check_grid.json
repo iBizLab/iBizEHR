@@ -1,0 +1,193 @@
+{
+  "aggMode" : "NONE",
+  "codeName" : "missing_check_grid",
+  "columnEnableFilter" : 2,
+  "columnEnableLink" : 2,
+  "controlType" : "GRID",
+  "dynaModelFilePath" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/attendance_record/PSGRIDS/missing_check_grid.json",
+  "getFetchPSControlAction" : {
+    "modelref" : true,
+    "id" : "fetch",
+    "actionType" : "DEDATASET",
+    "name" : "fetch",
+    "getPSAppDEMethod" : {
+      "modelref" : true,
+      "id" : "fetch_default"
+    },
+    "getPSAppDataEntity" : {
+      "modelref" : true,
+      "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/attendance_record.json"
+    }
+  },
+  "groupMode" : "NONE",
+  "logicName" : "部门人员缺卡反查表格",
+  "getPSAppDataEntity" : {
+    "modelref" : true,
+    "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/attendance_record.json"
+  },
+  "getPSDEGridColumns" : [ {
+    "align" : "CENTER",
+    "cLConvertMode" : "NONE",
+    "getCapPSLanguageRes" : {
+      "lanResTag" : "DEF.LNAME.ATTENDANCE_RECORD.MEMBER_NAME"
+    },
+    "caption" : "姓名",
+    "codeName" : "member_name",
+    "columnType" : "DEFGRIDCOLUMN",
+    "dataItemName" : "member_name",
+    "excelCaption" : "姓名",
+    "name" : "member_name",
+    "noPrivDisplayMode" : 1,
+    "getPSAppDEField" : {
+      "name" : "MEMBER_NAME",
+      "codeName" : "member_name"
+    },
+    "width" : 100,
+    "widthUnit" : "STAR",
+    "enableSort" : true
+  }, {
+    "align" : "CENTER",
+    "cLConvertMode" : "NONE",
+    "getCapPSLanguageRes" : {
+      "lanResTag" : "DEF.LNAME.ATTENDANCE_RECORD.CHECKIN_DATE"
+    },
+    "caption" : "考勤日期",
+    "codeName" : "checkin_date",
+    "columnType" : "DEFGRIDCOLUMN",
+    "dataItemName" : "checkin_date",
+    "excelCaption" : "考勤日期",
+    "name" : "checkin_date",
+    "noPrivDisplayMode" : 1,
+    "getPSAppDEField" : {
+      "name" : "CHECKIN_DATE",
+      "codeName" : "checkin_date"
+    },
+    "valueFormat" : "YYYY-MM-DD",
+    "width" : 150,
+    "widthUnit" : "STAR",
+    "enableSort" : true
+  }, {
+    "align" : "CENTER",
+    "cLConvertMode" : "NONE",
+    "caption" : "缺卡次数",
+    "codeName" : "checkin_missing_times",
+    "columnType" : "DEFGRIDCOLUMN",
+    "dataItemName" : "checkin_missing_times",
+    "excelCaption" : "缺卡次数",
+    "name" : "checkin_missing_times",
+    "noPrivDisplayMode" : 1,
+    "getPSAppDEField" : {
+      "name" : "CHECKIN_MISSING_TIMES",
+      "codeName" : "checkin_missing_times"
+    },
+    "width" : 150,
+    "widthUnit" : "PX",
+    "enableSort" : true
+  } ],
+  "getPSDEGridDataItems" : [ {
+    "dataType" : 25,
+    "name" : "member_name",
+    "getPSAppDEField" : {
+      "name" : "MEMBER_NAME",
+      "codeName" : "member_name"
+    }
+  }, {
+    "format" : "YYYY-MM-DD",
+    "dataType" : 5,
+    "name" : "checkin_date",
+    "getPSAppDEField" : {
+      "name" : "CHECKIN_DATE",
+      "codeName" : "checkin_date"
+    }
+  }, {
+    "dataType" : 9,
+    "name" : "checkin_missing_times",
+    "getPSAppDEField" : {
+      "name" : "CHECKIN_MISSING_TIMES",
+      "codeName" : "checkin_missing_times"
+    }
+  }, {
+    "dataType" : 25,
+    "name" : "srfkey",
+    "getPSAppDEField" : {
+      "name" : "ID",
+      "codeName" : "id"
+    }
+  }, {
+    "dataType" : 25,
+    "name" : "srfdataaccaction",
+    "getPSAppDEField" : {
+      "name" : "ID",
+      "codeName" : "id"
+    },
+    "dataAccessAction" : true
+  }, {
+    "dataType" : 25,
+    "name" : "member_id",
+    "getPSAppDEField" : {
+      "name" : "MEMBER_ID",
+      "codeName" : "member_id"
+    }
+  }, {
+    "dataType" : 25,
+    "name" : "rule_id",
+    "getPSAppDEField" : {
+      "name" : "RULE_ID",
+      "codeName" : "rule_id"
+    }
+  }, {
+    "dataType" : 25,
+    "name" : "srfmajortext",
+    "getPSAppDEField" : {
+      "name" : "NAME",
+      "codeName" : "name"
+    }
+  } ],
+  "getPSDEGridEditItems" : [ {
+    "caption" : "考勤记录ID",
+    "codeName" : "srfkey",
+    "enableCond" : 3,
+    "ignoreInput" : 0,
+    "name" : "srfkey",
+    "getPSAppDEField" : {
+      "name" : "ID",
+      "codeName" : "id"
+    },
+    "getPSEditor" : {
+      "editorType" : "HIDDEN",
+      "name" : "srfkey"
+    },
+    "allowEmpty" : true
+  } ],
+  "pagingMode" : 1,
+  "pagingSize" : 20,
+  "getRemovePSControlAction" : {
+    "actionName" : "Remove",
+    "actionType" : "DEACTION",
+    "dataAccessAction" : "DELETE",
+    "name" : "remove",
+    "getPSAppDEMethod" : {
+      "modelref" : true,
+      "id" : "remove"
+    },
+    "getPSAppDataEntity" : {
+      "modelref" : true,
+      "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/attendance_record.json"
+    }
+  },
+  "sortMode" : "REMOTE",
+  "hasWFDataItems" : false,
+  "enableColFilter" : false,
+  "enableCustomized" : false,
+  "enableGroup" : false,
+  "enablePagingBar" : true,
+  "enableRowEdit" : false,
+  "enableRowEditOrder" : false,
+  "enableRowNew" : false,
+  "forceFit" : false,
+  "hideHeader" : false,
+  "noSort" : false,
+  "singleSelect" : true,
+  "modelid" : "f97f4d93056c4b43881b06d08dc1b4dc",
+  "modeltype" : "PSDEGRID"
+}

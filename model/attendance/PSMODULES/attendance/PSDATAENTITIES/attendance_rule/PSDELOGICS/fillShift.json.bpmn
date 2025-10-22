@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+    <definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:g="http://www.jboss.org/drools/flow/gpd" xmlns:tns="http://www.jboss.org/drools" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" expressionLanguage="http://www.mvel.org/2.0" id="Definition" name="" targetNamespace="http://www.jboss.org/drools" typeLanguage="http://www.java.com/javaTypes">
+        <process id="cn.ibizlab.core.attendance.service.logic.attendance_rulefillshift" isClosed="false" isExecutable="true" name="attendance_attendance_rule_fillshift_ruleFlow" processType="Private" tns:packageName="cn.ibizlab.core.attendance.service.logic.attendance_rulefillshift">
+            <extensionElements>
+                <tns:import name="java.util.Map" />
+                <tns:import name="org.springframework.util.StringUtils"/>
+                <tns:import name="cn.ibizlab.util.helper.RuleUtils"/>
+                                <tns:metaData express="" name="attendance_rulefillshiftdefault" type="entity"/>
+                                <tns:metaData express="new cn.ibizlab.core.attendance.domain.attendance_scope()" name="attendance_rulefillshiftscope" type="refentity"/>
+                                <tns:metaData express="new cn.ibizlab.core.attendance.domain.attendance_scope()" name="attendance_rulefillshiftscopes" type="refentity"/>
+                                <tns:metaData express="new cn.ibizlab.core.attendance.domain.attendance_shift()" name="attendance_rulefillshiftshift" type="refentity"/>
+                                <tns:metaData express="new cn.ibizlab.core.attendance.domain.attendance_shift()" name="attendance_rulefillshiftshiftfilter" type="refentity"/>
+                                <tns:metaData express="new cn.ibizlab.core.attendance.domain.attendance_shift()" name="attendance_rulefillshiftshiftpage" type="refentity"/>
+                                <tns:metaData express="new cn.ibizlab.core.attendance.domain.attendance_shift()" name="attendance_rulefillshiftshifts" type="refentity"/>
+                                <tns:metaData express="new HashMap()" name="attendance_rulefillshiftwork_time" type="refentity"/>
+                                    <tns:metaData express="T(cn.ibizlab.util.security.SpringContextHolder).getBean(T(cn.ibizlab.core.attendance.service.Iattendance_shiftService))" name="attendance_shiftservice" type="service"/>
+                    <tns:metaData express="T(cn.ibizlab.util.security.SpringContextHolder).getBean(T(cn.ibizlab.core.attendance.service.Iattendance_ruleService))" name="iBzSysAttendance_ruleDefaultService" type="service"/>
+                    <tns:metaData express="T(cn.ibizlab.util.security.AuthenticationUser).getAuthenticationUser()" name="curuser" type="session"/>
+                            <tns:global identifier="attendance_rulefillshiftdefault" type="cn.ibizlab.core.attendance.domain.attendance_rule" />
+                            <tns:global identifier="attendance_rulefillshiftscope" type="cn.ibizlab.core.attendance.domain.attendance_scope" />
+                            <tns:global identifier="attendance_rulefillshiftscopes" type="cn.ibizlab.core.attendance.domain.attendance_scope" />
+                            <tns:global identifier="attendance_rulefillshiftshift" type="cn.ibizlab.core.attendance.domain.attendance_shift" />
+                            <tns:global identifier="attendance_rulefillshiftshiftfilter" type="cn.ibizlab.core.attendance.domain.attendance_shift" />
+                            <tns:global identifier="attendance_rulefillshiftshiftpage" type="cn.ibizlab.core.attendance.domain.attendance_shift" />
+                            <tns:global identifier="attendance_rulefillshiftshifts" type="cn.ibizlab.core.attendance.domain.attendance_shift" />
+            </extensionElements>
+                        <startEvent id="begin" isInterrupting="true"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="attendance_rulefillshiftprepareparam_03" id="prepareparam_03" implementation="http://www.jboss.org/drools/rule" name="准备参数"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="attendance_rulefillshiftdedataset_01" id="dedataset_01" implementation="http://www.jboss.org/drools/rule" name="实体数据集"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="attendance_rulefillshiftbindparam_01" id="bindparam_01" implementation="http://www.jboss.org/drools/rule" name="绑定参数"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="attendance_rulefillshiftprepareparam_04" id="prepareparam_04" implementation="http://www.jboss.org/drools/rule" name="准备参数"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="attendance_rulefillshiftrawsfcode_01" id="rawsfcode_01" implementation="http://www.jboss.org/drools/rule" name="执行脚本代码"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="attendance_rulefillshiftrawsfcode_02" id="rawsfcode_02" implementation="http://www.jboss.org/drools/rule" name="执行脚本代码"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="attendance_rulefillshiftrawsfcode_03" id="rawsfcode_03" implementation="http://www.jboss.org/drools/rule" name="执行脚本代码"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="attendance_rulefillshiftprepareparam_01" id="prepareparam_01" implementation="http://www.jboss.org/drools/rule" name="准备参数"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="attendance_rulefillshiftprepareparam4" id="prepareparam4" implementation="http://www.jboss.org/drools/rule" name="准备参数"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="attendance_rulefillshiftend_01" id="end_01" implementation="http://www.jboss.org/drools/rule" name="结束"/>
+                        <endEvent id="end_01_end" name="end"/>
+                        <sequenceFlow id="end_01_end_line" sourceRef="end_01" targetRef="end_01_end"/>
+                    <sequenceFlow id="gateway-begin_prepareparam_03" sourceRef="gateway-begin" targetRef="prepareparam_03">
+                            <conditionExpression  language="http://www.jboss.org/drools/rule" ><![CDATA[
+                                            $attendance_rulefillshiftdefault:attendance_rule();
+                                            $attendance_rulefillshiftscope:attendance_scope();
+                                            $attendance_rulefillshiftscopes:attendance_scope();
+                                            $attendance_rulefillshiftshift:attendance_shift();
+                                            $attendance_rulefillshiftshiftfilter:attendance_shift();
+                                            $attendance_rulefillshiftshiftpage:attendance_shift();
+                                            $attendance_rulefillshiftshifts:attendance_shift();
+                                            $attendance_rulefillshiftwork_time:Map();
+                                    eval($attendance_rulefillshiftdefault==attendance_rulefillshiftdefault && $attendance_rulefillshiftscope==attendance_rulefillshiftscope && $attendance_rulefillshiftscopes==attendance_rulefillshiftscopes && $attendance_rulefillshiftshift==attendance_rulefillshiftshift && $attendance_rulefillshiftshiftfilter==attendance_rulefillshiftshiftfilter && $attendance_rulefillshiftshiftpage==attendance_rulefillshiftshiftpage && $attendance_rulefillshiftshifts==attendance_rulefillshiftshifts && );
+                                eval(((RuleUtils.test($attendance_rulefillshiftdefault.get("scheduleType"),"EQ","flexible"))||(RuleUtils.test($attendance_rulefillshiftdefault.get("scheduleType"),"EQ","alternate_week"))||(RuleUtils.test($attendance_rulefillshiftdefault.get("scheduleType"),"EQ","fixed"))||(RuleUtils.test($attendance_rulefillshiftdefault.get("scheduleType"),"EQ","free"))||(RuleUtils.test($attendance_rulefillshiftdefault.get("scheduleType"),"EQ","work_rest"))))
+                                ]]>
+                            </conditionExpression>
+                    </sequenceFlow>
+                    <sequenceFlow id="gateway-begin_rawsfcode_01" sourceRef="gateway-begin" targetRef="rawsfcode_01">
+                            <conditionExpression  language="http://www.jboss.org/drools/rule" ><![CDATA[
+                                            $attendance_rulefillshiftdefault:attendance_rule();
+                                            $attendance_rulefillshiftscope:attendance_scope();
+                                            $attendance_rulefillshiftscopes:attendance_scope();
+                                            $attendance_rulefillshiftshift:attendance_shift();
+                                            $attendance_rulefillshiftshiftfilter:attendance_shift();
+                                            $attendance_rulefillshiftshiftpage:attendance_shift();
+                                            $attendance_rulefillshiftshifts:attendance_shift();
+                                            $attendance_rulefillshiftwork_time:Map();
+                                    eval($attendance_rulefillshiftdefault==attendance_rulefillshiftdefault && $attendance_rulefillshiftscope==attendance_rulefillshiftscope && $attendance_rulefillshiftscopes==attendance_rulefillshiftscopes && $attendance_rulefillshiftshift==attendance_rulefillshiftshift && $attendance_rulefillshiftshiftfilter==attendance_rulefillshiftshiftfilter && $attendance_rulefillshiftshiftpage==attendance_rulefillshiftshiftpage && $attendance_rulefillshiftshifts==attendance_rulefillshiftshifts && );
+                                eval((RuleUtils.test($attendance_rulefillshiftdefault.get("scheduleType"),"EQ","class_inversion")))
+                                ]]>
+                            </conditionExpression>
+                    </sequenceFlow>
+                    <sequenceFlow id="gateway-begin_rawsfcode_03" sourceRef="gateway-begin" targetRef="rawsfcode_03">
+                            <conditionExpression  language="http://www.jboss.org/drools/rule" ><![CDATA[
+                                            $attendance_rulefillshiftdefault:attendance_rule();
+                                            $attendance_rulefillshiftscope:attendance_scope();
+                                            $attendance_rulefillshiftscopes:attendance_scope();
+                                            $attendance_rulefillshiftshift:attendance_shift();
+                                            $attendance_rulefillshiftshiftfilter:attendance_shift();
+                                            $attendance_rulefillshiftshiftpage:attendance_shift();
+                                            $attendance_rulefillshiftshifts:attendance_shift();
+                                            $attendance_rulefillshiftwork_time:Map();
+                                    eval($attendance_rulefillshiftdefault==attendance_rulefillshiftdefault && $attendance_rulefillshiftscope==attendance_rulefillshiftscope && $attendance_rulefillshiftscopes==attendance_rulefillshiftscopes && $attendance_rulefillshiftshift==attendance_rulefillshiftshift && $attendance_rulefillshiftshiftfilter==attendance_rulefillshiftshiftfilter && $attendance_rulefillshiftshiftpage==attendance_rulefillshiftshiftpage && $attendance_rulefillshiftshifts==attendance_rulefillshiftshifts && );
+                                eval((RuleUtils.test($attendance_rulefillshiftdefault.get("scheduleType"),"EQ","manual")))
+                                ]]>
+                            </conditionExpression>
+                    </sequenceFlow>
+                    <sequenceFlow id="prepareparam_03_dedataset_01" sourceRef="prepareparam_03" targetRef="dedataset_01">
+                    </sequenceFlow>
+                    <sequenceFlow id="gateway-dedataset_01_bindparam_01" sourceRef="gateway-dedataset_01" targetRef="bindparam_01">
+                            <conditionExpression  language="http://www.jboss.org/drools/rule" ><![CDATA[
+                                            $attendance_rulefillshiftdefault:attendance_rule();
+                                            $attendance_rulefillshiftscope:attendance_scope();
+                                            $attendance_rulefillshiftscopes:attendance_scope();
+                                            $attendance_rulefillshiftshift:attendance_shift();
+                                            $attendance_rulefillshiftshiftfilter:attendance_shift();
+                                            $attendance_rulefillshiftshiftpage:attendance_shift();
+                                            $attendance_rulefillshiftshifts:attendance_shift();
+                                            $attendance_rulefillshiftwork_time:Map();
+                                    eval($attendance_rulefillshiftdefault==attendance_rulefillshiftdefault && $attendance_rulefillshiftscope==attendance_rulefillshiftscope && $attendance_rulefillshiftscopes==attendance_rulefillshiftscopes && $attendance_rulefillshiftshift==attendance_rulefillshiftshift && $attendance_rulefillshiftshiftfilter==attendance_rulefillshiftshiftfilter && $attendance_rulefillshiftshiftpage==attendance_rulefillshiftshiftpage && $attendance_rulefillshiftshifts==attendance_rulefillshiftshifts && );
+                                eval((RuleUtils.test($attendance_rulefillshiftshiftpage.get("size"),"NOTEQ","0")))
+                                ]]>
+                            </conditionExpression>
+                    </sequenceFlow>
+                    <sequenceFlow id="bindparam_01_prepareparam_04" sourceRef="bindparam_01" targetRef="prepareparam_04">
+                    </sequenceFlow>
+                    <sequenceFlow id="prepareparam_04_rawsfcode_02" sourceRef="prepareparam_04" targetRef="rawsfcode_02">
+                    </sequenceFlow>
+                    <sequenceFlow id="rawsfcode_01_prepareparam4" sourceRef="rawsfcode_01" targetRef="prepareparam4">
+                    </sequenceFlow>
+                    <sequenceFlow id="rawsfcode_02_prepareparam_01" sourceRef="rawsfcode_02" targetRef="prepareparam_01">
+                    </sequenceFlow>
+                    <sequenceFlow id="rawsfcode_03_prepareparam4" sourceRef="rawsfcode_03" targetRef="prepareparam4">
+                    </sequenceFlow>
+                    <sequenceFlow id="prepareparam_01_prepareparam4" sourceRef="prepareparam_01" targetRef="prepareparam4">
+                    </sequenceFlow>
+                    <sequenceFlow id="prepareparam4_end_01" sourceRef="prepareparam4" targetRef="end_01">
+                    </sequenceFlow>
+                            <exclusiveGateway id="gateway-begin" name="Gateway" gatewayDirection="Diverging" default="gateway-begin_end_line"></exclusiveGateway>
+                            <sequenceFlow id="begin_gateway-begin_gatewayline" sourceRef="begin" targetRef="gateway-begin"></sequenceFlow>
+                            <sequenceFlow id="gateway-begin_end_line" sourceRef="gateway-begin" targetRef="gateway-begin_end"/>
+                            <endEvent id="gateway-begin_end" name="end"/>
+                            <exclusiveGateway id="gateway-dedataset_01" name="Gateway" gatewayDirection="Diverging" default="gateway-dedataset_01_end_line"></exclusiveGateway>
+                            <sequenceFlow id="dedataset_01_gateway-dedataset_01_gatewayline" sourceRef="dedataset_01" targetRef="gateway-dedataset_01"></sequenceFlow>
+                            <sequenceFlow id="gateway-dedataset_01_end_line" sourceRef="gateway-dedataset_01" targetRef="gateway-dedataset_01_end"/>
+                            <endEvent id="gateway-dedataset_01_end" name="end"/>
+        </process>
+    </definitions>

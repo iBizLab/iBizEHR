@@ -1,0 +1,586 @@
+{
+  "codeName" : "fillShift",
+  "defaultParamName" : "Default",
+  "dynaModelFilePath" : "PSMODULES/attendance/PSDATAENTITIES/attendance_rule/PSDELOGICS/fillShift.json",
+  "logicName" : "填充默认班次",
+  "name" : "填充默认班次",
+  "getPSDELogicNodes" : [ {
+    "codeName" : "Begin",
+    "leftPos" : -110,
+    "logicNodeType" : "BEGIN",
+    "name" : "开始",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "PREPAREPARAM_03"
+      },
+      "name" : "连接名称",
+      "getPSDELogicLinkGroupCond" : {
+        "groupOP" : "AND",
+        "logicType" : "GROUP",
+        "name" : "连接条件组",
+        "getPSDELogicLinkConds" : [ {
+          "groupOP" : "OR",
+          "logicType" : "GROUP",
+          "name" : "OR",
+          "getPSDELogicLinkConds" : [ {
+            "condOP" : "EQ",
+            "dstFieldName" : "SCHEDULE_TYPE",
+            "getDstLogicParam" : {
+              "modelref" : true,
+              "id" : "Default"
+            },
+            "logicType" : "SINGLE",
+            "name" : "Default[SCHEDULE_TYPE] 等于(=) flexible",
+            "paramValue" : "flexible"
+          }, {
+            "condOP" : "EQ",
+            "dstFieldName" : "SCHEDULE_TYPE",
+            "getDstLogicParam" : {
+              "modelref" : true,
+              "id" : "Default"
+            },
+            "logicType" : "SINGLE",
+            "name" : "Default[SCHEDULE_TYPE] 等于(=) alternate_week",
+            "paramValue" : "alternate_week"
+          }, {
+            "condOP" : "EQ",
+            "dstFieldName" : "SCHEDULE_TYPE",
+            "getDstLogicParam" : {
+              "modelref" : true,
+              "id" : "Default"
+            },
+            "logicType" : "SINGLE",
+            "name" : "Default[SCHEDULE_TYPE] 等于(=) fixed",
+            "paramValue" : "fixed"
+          }, {
+            "condOP" : "EQ",
+            "dstFieldName" : "SCHEDULE_TYPE",
+            "getDstLogicParam" : {
+              "modelref" : true,
+              "id" : "Default"
+            },
+            "logicType" : "SINGLE",
+            "name" : "Default[SCHEDULE_TYPE] 等于(=) free",
+            "paramValue" : "free"
+          }, {
+            "condOP" : "EQ",
+            "dstFieldName" : "SCHEDULE_TYPE",
+            "getDstLogicParam" : {
+              "modelref" : true,
+              "id" : "Default"
+            },
+            "logicType" : "SINGLE",
+            "name" : "Default[SCHEDULE_TYPE] 等于(=) work_rest",
+            "paramValue" : "work_rest"
+          } ]
+        } ]
+      },
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "Begin"
+      }
+    }, {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "RAWSFCODE_01"
+      },
+      "name" : "N班倒",
+      "getPSDELogicLinkGroupCond" : {
+        "groupOP" : "AND",
+        "logicType" : "GROUP",
+        "name" : "连接条件组",
+        "getPSDELogicLinkConds" : [ {
+          "condOP" : "EQ",
+          "dstFieldName" : "SCHEDULE_TYPE",
+          "getDstLogicParam" : {
+            "modelref" : true,
+            "id" : "Default"
+          },
+          "logicType" : "SINGLE",
+          "name" : "Default[SCHEDULE_TYPE] 等于(=) class_inversion",
+          "paramValue" : "class_inversion"
+        } ]
+      },
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "Begin"
+      }
+    }, {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "RAWSFCODE_03"
+      },
+      "name" : "手动排班",
+      "getPSDELogicLinkGroupCond" : {
+        "groupOP" : "AND",
+        "logicType" : "GROUP",
+        "name" : "连接条件组",
+        "getPSDELogicLinkConds" : [ {
+          "condOP" : "EQ",
+          "dstFieldName" : "SCHEDULE_TYPE",
+          "getDstLogicParam" : {
+            "modelref" : true,
+            "id" : "Default"
+          },
+          "logicType" : "SINGLE",
+          "name" : "Default[SCHEDULE_TYPE] 等于(=) manual",
+          "paramValue" : "manual"
+        } ]
+      },
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "Begin"
+      }
+    } ],
+    "topPos" : 472,
+    "parallelOutput" : true
+  }, {
+    "codeName" : "PREPAREPARAM_03",
+    "leftPos" : 30,
+    "logicNodeType" : "PREPAREPARAM",
+    "name" : "准备参数",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "DEDATASET_01"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "PREPAREPARAM_03"
+      }
+    } ],
+    "getPSDELogicNodeParams" : [ {
+      "dstFieldName" : "n_public_flag_eq",
+      "getDstPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "shiftFilter"
+      },
+      "paramAction" : "SETPARAMVALUE",
+      "srcValue" : "1",
+      "srcValueType" : "SRCVALUE"
+    }, {
+      "dstFieldName" : "n_default_flag_eq",
+      "getDstPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "shiftFilter"
+      },
+      "paramAction" : "SETPARAMVALUE",
+      "srcValue" : "1",
+      "srcValueType" : "SRCVALUE"
+    } ],
+    "topPos" : 470,
+    "parallelOutput" : true
+  }, {
+    "codeName" : "DEDATASET_01",
+    "getDstPSDEDataSet" : {
+      "modelref" : true,
+      "id" : "Default"
+    },
+    "getDstPSDELogicParam" : {
+      "modelref" : true,
+      "id" : "shiftFilter"
+    },
+    "getDstPSDataEntity" : {
+      "modelref" : true,
+      "path" : "PSMODULES/attendance/PSDATAENTITIES/attendance_shift.json"
+    },
+    "leftPos" : 250,
+    "logicNodeType" : "DEDATASET",
+    "name" : "实体数据集",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "BINDPARAM_01"
+      },
+      "name" : "连接名称",
+      "getPSDELogicLinkGroupCond" : {
+        "groupOP" : "AND",
+        "logicType" : "GROUP",
+        "name" : "连接条件组",
+        "getPSDELogicLinkConds" : [ {
+          "condOP" : "NOTEQ",
+          "dstFieldName" : "size",
+          "getDstLogicParam" : {
+            "modelref" : true,
+            "id" : "shiftPage"
+          },
+          "logicType" : "SINGLE",
+          "name" : "shiftPage[size] 不等于(<>) 0",
+          "paramValue" : "0"
+        } ]
+      },
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "DEDATASET_01"
+      }
+    } ],
+    "getRetPSDELogicParam" : {
+      "modelref" : true,
+      "id" : "shiftPage"
+    },
+    "topPos" : 470,
+    "parallelOutput" : true
+  }, {
+    "codeName" : "BINDPARAM_01",
+    "getDstPSDELogicParam" : {
+      "modelref" : true,
+      "id" : "shift"
+    },
+    "leftPos" : 480,
+    "logicNodeType" : "BINDPARAM",
+    "name" : "绑定参数",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "PREPAREPARAM_04"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "BINDPARAM_01"
+      }
+    } ],
+    "srcFieldName" : "0",
+    "getSrcPSDELogicParam" : {
+      "modelref" : true,
+      "id" : "shiftPage"
+    },
+    "topPos" : 470,
+    "parallelOutput" : true
+  }, {
+    "codeName" : "PREPAREPARAM_04",
+    "leftPos" : 250,
+    "logicNodeType" : "PREPAREPARAM",
+    "name" : "准备参数",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "RAWSFCODE_02"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "PREPAREPARAM_04"
+      }
+    } ],
+    "getPSDELogicNodeParams" : [ {
+      "dstFieldName" : "PUBLIC_FLAG",
+      "getDstPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "shift"
+      },
+      "paramAction" : "SETPARAMVALUE",
+      "srcValue" : "0",
+      "srcValueType" : "SRCVALUE"
+    }, {
+      "dstFieldName" : "ID",
+      "getDstPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "shift"
+      },
+      "paramAction" : "SETPARAMVALUE",
+      "srcValueType" : "NULLVALUE"
+    }, {
+      "getDstPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "scopes"
+      },
+      "paramAction" : "BINDPARAM",
+      "srcFieldName" : "SCOPES",
+      "getSrcPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "shift"
+      },
+      "srcValueType" : "SRCDLPARAM"
+    }, {
+      "getDstPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "scope"
+      },
+      "paramAction" : "BINDPARAM",
+      "srcFieldName" : "0",
+      "getSrcPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "scopes"
+      },
+      "srcValueType" : "SRCDLPARAM"
+    }, {
+      "dstFieldName" : "ID",
+      "getDstPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "scope"
+      },
+      "paramAction" : "SETPARAMVALUE",
+      "srcValueType" : "NULLVALUE"
+    }, {
+      "dstFieldName" : "SHIFT_ID",
+      "getDstPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "scope"
+      },
+      "paramAction" : "SETPARAMVALUE",
+      "srcValueType" : "NULLVALUE"
+    }, {
+      "dstFieldName" : "NAME",
+      "getDstPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "shift"
+      },
+      "paramAction" : "SETPARAMVALUE",
+      "srcValue" : "白班",
+      "srcValueType" : "SRCVALUE"
+    }, {
+      "dstFieldName" : "ORDER_VALUE",
+      "getDstPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "scope"
+      },
+      "name" : "直接值[1] ==> scope[ORDER_VALUE]",
+      "paramAction" : "SETPARAMVALUE",
+      "srcValue" : "1",
+      "srcValueType" : "SRCVALUE"
+    } ],
+    "topPos" : 620,
+    "parallelOutput" : true
+  }, {
+    "code" : "def _shifts = logic.param('shifts').getReal()\r\n\r\n// 生成白班和晚班配置\r\ndef createShift = { name, startTime, endTime,order_value ->\r\n    return [\r\n        attendance_ratio: 1.0,\r\n        order_value: order_value,\r\n        working_number: 1,\r\n        schedule_type: \"class_inversion\",\r\n        scopes: [\r\n            [\r\n                early_for_absenteeism: 60,\r\n                early_for_early: 0,\r\n                latest_checkout: 480,\r\n                earliest_checkin: 60,\r\n                end_base_time: endTime,\r\n                late_for_absenteeism: 60,\r\n                late_for_late: 0,\r\n                shift_name: name,\r\n                start_base_time: startTime,\r\n                order_value:1,\r\n                next_tag: name==\"晚班\"?\"0,1\":null\r\n            ]\r\n        ],\r\n        default_flag: 0,\r\n        public_flag: 0,\r\n        name: name,\r\n        id:  java.util.UUID.randomUUID()\r\n    ]\r\n}\r\n\r\ndef dayShift = createShift(\"白班\", \"09:00:00\", \"20:00:00\",1)\r\ndef nightShift = createShift(\"晚班\", \"20:00:00\", \"08:00:00\",2) \r\n\r\n_shifts << dayShift\r\n_shifts << nightShift\r\n\r\ndef _default = logic.param('Default').getReal();\r\n_default.set(\"shifts\",_shifts);\r\n",
+    "codeName" : "RAWSFCODE_01",
+    "codeType" : "Groovy",
+    "leftPos" : 66,
+    "logicNodeType" : "RAWSFCODE",
+    "name" : "执行脚本代码",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "PREPAREPARAM4"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "RAWSFCODE_01"
+      }
+    } ],
+    "topPos" : 760,
+    "parallelOutput" : true
+  }, {
+    "code" : "def _shift = logic.param('shift').getReal()\r\n\r\nlogic.param('shift').getDataEntityRuntime().fillEntityKeyValue(_shift)\r\n\r\ndef _scope = logic.param('scope').getReal()\r\n\r\nlogic.param('scope').getDataEntityRuntime().fillEntityKeyValue(_scope)\r\n_scope.shift_id = _shift.id\r\n",
+    "codeName" : "RAWSFCODE_02",
+    "codeType" : "Groovy",
+    "leftPos" : 250,
+    "logicNodeType" : "RAWSFCODE",
+    "name" : "执行脚本代码",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "PREPAREPARAM_01"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "RAWSFCODE_02"
+      }
+    } ],
+    "topPos" : 760,
+    "parallelOutput" : true
+  }, {
+    "code" : "def _shifts = logic.param('shifts').getReal()\r\n\r\ndef createShift = { name, startTime, endTime ->\r\n    return [\r\n        attendance_ratio: 1.0,\r\n        working_number: 1,\r\n        schedule_type: \"manual\",\r\n        order_value:1,\r\n        scopes: [\r\n            [\r\n                early_for_absenteeism: 60,\r\n                early_for_early: 0,\r\n                latest_checkout: 480,\r\n                earliest_checkin: 60,\r\n                end_base_time: endTime,\r\n                late_for_absenteeism: 60,\r\n                late_for_late: 0,\r\n                shift_name: name,\r\n                start_base_time: startTime,\r\n                order_value:1\r\n            ]\r\n        ],\r\n        default_flag: 0,\r\n        public_flag: 0,\r\n        name: name,\r\n        id:  java.util.UUID.randomUUID()\r\n    ]\r\n}\r\n\r\ndef shift1 = createShift(\"班次1\", \"08:00:00\", \"17:00:00\")\r\n\r\n_shifts << shift1\r\n\r\ndef _default = logic.param('Default').getReal();\r\n_default.set(\"shifts\",_shifts);\r\n_default.set(\"shift_num\",1);\r\n\r\n",
+    "codeName" : "RAWSFCODE_03",
+    "codeType" : "Groovy",
+    "leftPos" : -150,
+    "logicNodeType" : "RAWSFCODE",
+    "name" : "执行脚本代码",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "PREPAREPARAM4"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "RAWSFCODE_03"
+      }
+    } ],
+    "topPos" : 760,
+    "parallelOutput" : true
+  }, {
+    "codeName" : "PREPAREPARAM_01",
+    "leftPos" : 250,
+    "logicNodeType" : "PREPAREPARAM",
+    "name" : "准备参数",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "PREPAREPARAM4"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "PREPAREPARAM_01"
+      }
+    } ],
+    "getPSDELogicNodeParams" : [ {
+      "dstFieldName" : "shifts",
+      "dstIndex" : 0,
+      "getDstPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "shifts"
+      },
+      "paramAction" : "APPENDPARAM",
+      "getSrcPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "shift"
+      },
+      "srcValueType" : "SRCDLPARAM"
+    }, {
+      "dstFieldName" : "shifts",
+      "getDstPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "Default"
+      },
+      "paramAction" : "SETPARAMVALUE",
+      "getSrcPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "shifts"
+      },
+      "srcValueType" : "SRCDLPARAM"
+    }, {
+      "dstFieldName" : "SCHEDULE_TYPE",
+      "getDstPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "shift"
+      },
+      "paramAction" : "SETPARAMVALUE",
+      "srcFieldName" : "SCHEDULE_TYPE",
+      "getSrcPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "Default"
+      },
+      "srcValueType" : "SRCDLPARAM"
+    } ],
+    "topPos" : 890,
+    "parallelOutput" : true
+  }, {
+    "codeName" : "PREPAREPARAM4",
+    "logicNodeType" : "PREPAREPARAM",
+    "name" : "准备参数",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "END_01"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "PREPAREPARAM4"
+      }
+    } ],
+    "getPSDELogicNodeParams" : [ {
+      "dstFieldName" : "DEFAULT_SHIFT",
+      "getDstPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "Default"
+      },
+      "name" : "shift[ID] ==> Default[DEFAULT_SHIFT]",
+      "paramAction" : "SETPARAMVALUE",
+      "srcFieldName" : "ID",
+      "getSrcPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "shift"
+      },
+      "srcValueType" : "SRCDLPARAM"
+    } ],
+    "topPos" : 1080,
+    "parallelOutput" : true
+  }, {
+    "codeName" : "END_01",
+    "leftPos" : 290,
+    "logicNodeType" : "END",
+    "name" : "结束",
+    "getReturnParam" : {
+      "modelref" : true,
+      "id" : "Default"
+    },
+    "returnType" : "LOGICPARAM",
+    "topPos" : 1140,
+    "parallelOutput" : true
+  } ],
+  "getPSDELogicParams" : [ {
+    "codeName" : "Default",
+    "logicName" : "传入变量",
+    "name" : "传入变量",
+    "getParamPSDataEntity" : {
+      "modelref" : true,
+      "path" : "PSMODULES/attendance/PSDATAENTITIES/attendance_rule.json"
+    },
+    "default" : true,
+    "entityParam" : true
+  }, {
+    "codeName" : "scope",
+    "logicName" : "scope",
+    "name" : "scope",
+    "getParamPSDataEntity" : {
+      "modelref" : true,
+      "path" : "PSMODULES/attendance/PSDATAENTITIES/attendance_scope.json"
+    },
+    "entityParam" : true
+  }, {
+    "codeName" : "scopes",
+    "logicName" : "scopes",
+    "name" : "scopes",
+    "getParamPSDataEntity" : {
+      "modelref" : true,
+      "path" : "PSMODULES/attendance/PSDATAENTITIES/attendance_scope.json"
+    },
+    "entityListParam" : true
+  }, {
+    "codeName" : "shift",
+    "logicName" : "shift",
+    "name" : "shift",
+    "getParamPSDataEntity" : {
+      "modelref" : true,
+      "path" : "PSMODULES/attendance/PSDATAENTITIES/attendance_shift.json"
+    },
+    "entityParam" : true
+  }, {
+    "codeName" : "shiftFilter",
+    "logicName" : "shiftFilter",
+    "name" : "shiftFilter",
+    "getParamPSDataEntity" : {
+      "modelref" : true,
+      "path" : "PSMODULES/attendance/PSDATAENTITIES/attendance_shift.json"
+    },
+    "filterParam" : true
+  }, {
+    "codeName" : "shiftPage",
+    "logicName" : "shiftPage",
+    "name" : "shiftPage",
+    "getParamPSDataEntity" : {
+      "modelref" : true,
+      "path" : "PSMODULES/attendance/PSDATAENTITIES/attendance_shift.json"
+    },
+    "entityPageParam" : true
+  }, {
+    "codeName" : "shifts",
+    "logicName" : "shifts",
+    "name" : "shifts",
+    "getParamPSDataEntity" : {
+      "modelref" : true,
+      "path" : "PSMODULES/attendance/PSDATAENTITIES/attendance_shift.json"
+    },
+    "entityListParam" : true
+  }, {
+    "codeName" : "work_time",
+    "logicName" : "work_time",
+    "name" : "work_time",
+    "stdDataType" : 25,
+    "simpleParam" : true
+  } ],
+  "getStartPSDELogicNode" : {
+    "modelref" : true,
+    "id" : "Begin"
+  },
+  "enableBackend" : true,
+  "enableFront" : false
+}

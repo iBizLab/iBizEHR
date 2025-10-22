@@ -1,0 +1,27 @@
+{
+  "dBType" : "MYSQL5",
+  "name" : "MySQL5",
+  "getPSDEDataQueryCodeConds" : [ {
+    "condType" : "CUSTOM",
+    "customCond" : "( exists(select 1 from `mail_message` t2 where t1.\t\nres_model = t2.model and t2.id=#{ctx.webcontext.id})  AND  t1.`TYPE` = '40'  AND  t1.`PARTNER_ID` <> #{ctx.sessioncontext.srfpartnerid} )",
+    "name" : "查询条件"
+  } ],
+  "getPSDEDataQueryCodeExps" : [ {
+    "expression" : "t1.`RES_ID`",
+    "name" : "RES_ID"
+  }, {
+    "expression" : "t1.`RES_MODEL`",
+    "name" : "RES_MODEL"
+  }, {
+    "expression" : "t1.`TYPE`",
+    "name" : "TYPE"
+  }, {
+    "expression" : "t1.`ID`",
+    "name" : "ID"
+  }, {
+    "expression" : "t1.`PARTNER_ID`",
+    "name" : "PARTNER_ID"
+  } ],
+  "queryCode" : "SELECT\nt1.`ID`,\nt1.`PARTNER_ID`\nFROM `mail_followers` t1 \n",
+  "id" : "PSMODULES/mail/PSDATAENTITIES/mail_followers/PSDEDATAQUERIES/mail_message_notify/PSDEDQCODES/MYSQL5.json"
+}

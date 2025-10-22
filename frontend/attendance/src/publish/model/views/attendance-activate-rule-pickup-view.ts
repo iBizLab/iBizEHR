@@ -1,0 +1,65 @@
+export default {
+  funcViewMode: 'PICKUPVIEW',
+  deviewCodeName: 'PickupView',
+  deviewId: '43c8c3cb1e58e74a353eb46f00dd3d34',
+  accUserMode: 2,
+  capLanguageRes: {
+    lanResTag: 'DE.LNAME.ATTENDANCE_ACTIVATE_RULE',
+  },
+  caption: '激活规则',
+  codeName: 'attendance_activate_rule_pickup_view',
+  appDataEntityId: 'attendanceapp.attendance_activate_rule',
+  appViewEngines: [
+    {
+      engineCat: 'VIEW',
+      engineType: 'PickupView',
+      id: 'engine',
+    },
+  ],
+  controls: [
+    {
+      embeddedAppDEViewId:
+        'attendanceapp.attendance_activate_rule_pickup_grid_view',
+      codeName: 'pickup_view_pickupviewpanel',
+      controlType: 'PICKUPVIEWPANEL',
+      appDataEntityId: 'attendanceapp.attendance_activate_rule',
+      controlParam: {
+        id: 'pickupviewpanel',
+      },
+      name: 'pickupviewpanel',
+      id: 'pickup_view_pickupviewpanel',
+    },
+    {
+      capLanguageRes: {
+        lanResTag: 'DE.LNAME.ATTENDANCE_ACTIVATE_RULE',
+      },
+      caption: '激活规则',
+      codeName: 'pickup_view_captionbar',
+      controlType: 'CAPTIONBAR',
+      appDataEntityId: 'attendanceapp.attendance_activate_rule',
+      controlParam: {},
+      name: 'captionbar',
+      id: 'pickup_view_captionbar',
+    },
+  ],
+  viewLayoutPanel: {
+    layoutBodyOnly: true,
+    useDefaultLayout: true,
+    layoutPanel: true,
+    codeName: 'layoutpanel',
+    controlStyle: 'APPDEPICKUPVIEW',
+    controlType: 'VIEWLAYOUTPANEL',
+    appDataEntityId: 'attendanceapp.attendance_activate_rule',
+    controlParam: {},
+    id: 'layoutpanel',
+  },
+  title: '激活规则数据选择视图',
+  viewStyle: 'DEFAULT',
+  viewType: 'DEPICKUPVIEW',
+  enableDP: true,
+  showCaptionBar: false,
+  modelId: '416078d77b030237cb4b7a78b0d201b3',
+  modelType: 'PSAPPDEVIEW',
+  name: 'attendance_activate_rulePickupView',
+  id: 'attendanceapp.attendance_activate_rule_pickup_view',
+};

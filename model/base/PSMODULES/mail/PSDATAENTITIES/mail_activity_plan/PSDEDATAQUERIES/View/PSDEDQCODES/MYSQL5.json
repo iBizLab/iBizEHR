@@ -1,0 +1,40 @@
+{
+  "dBType" : "MYSQL5",
+  "name" : "MySQL5",
+  "getPSDEDataQueryCodeExps" : [ {
+    "expression" : "t1.`ACTIVE`",
+    "name" : "ACTIVE"
+  }, {
+    "expression" : "t1.`COMPANY_ID`",
+    "name" : "COMPANY_ID"
+  }, {
+    "expression" : "t21.`NAME`",
+    "name" : "COMPANY_NAME"
+  }, {
+    "expression" : "t1.`CREATE_DATE`",
+    "name" : "CREATE_DATE"
+  }, {
+    "expression" : "t1.`CREATE_UID`",
+    "name" : "CREATE_UID"
+  }, {
+    "expression" : "t1.`DEPARTMENT_ID`",
+    "name" : "DEPARTMENT_ID"
+  }, {
+    "expression" : "t11.`NAME`",
+    "name" : "DEPARTMENT_NAME"
+  }, {
+    "expression" : "t1.`ID`",
+    "name" : "ID"
+  }, {
+    "expression" : "t1.`NAME`",
+    "name" : "NAME"
+  }, {
+    "expression" : "t1.`WRITE_DATE`",
+    "name" : "WRITE_DATE"
+  }, {
+    "expression" : "t1.`WRITE_UID`",
+    "name" : "WRITE_UID"
+  } ],
+  "queryCode" : "SELECT\nt1.`ACTIVE`,\nt1.`COMPANY_ID`,\nt21.`NAME` AS `COMPANY_NAME`,\nt1.`CREATE_DATE`,\nt1.`CREATE_UID`,\nt1.`DEPARTMENT_ID`,\nt11.`NAME` AS `DEPARTMENT_NAME`,\nt1.`ID`,\nt1.`NAME`,\nt1.`WRITE_DATE`,\nt1.`WRITE_UID`\nFROM `mail_activity_plan` t1 \nLEFT JOIN `hr_department` t11 ON t1.`DEPARTMENT_ID` = t11.`ID` \nLEFT JOIN `res_company` t21 ON t1.`COMPANY_ID` = t21.`ID` \n",
+  "id" : "PSMODULES/mail/PSDATAENTITIES/mail_activity_plan/PSDEDATAQUERIES/View/PSDEDQCODES/MYSQL5.json"
+}

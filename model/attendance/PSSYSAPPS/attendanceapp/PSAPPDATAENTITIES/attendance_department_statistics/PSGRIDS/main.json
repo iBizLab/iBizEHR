@@ -1,0 +1,397 @@
+{
+  "aggMode" : "NONE",
+  "codeName" : "main",
+  "columnEnableFilter" : 2,
+  "columnEnableLink" : 2,
+  "controlType" : "GRID",
+  "dynaModelFilePath" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/attendance_department_statistics/PSGRIDS/main.json",
+  "getFetchPSControlAction" : {
+    "modelref" : true,
+    "id" : "fetch",
+    "actionType" : "DEDATASET",
+    "name" : "fetch",
+    "getPSAppDEMethod" : {
+      "modelref" : true,
+      "id" : "fetch_attendance_department_statistics"
+    },
+    "getPSAppDataEntity" : {
+      "modelref" : true,
+      "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/attendance_department_statistics.json"
+    }
+  },
+  "groupMode" : "NONE",
+  "logicName" : "主表格",
+  "getPSAppDataEntity" : {
+    "modelref" : true,
+    "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/attendance_department_statistics.json"
+  },
+  "getPSDEDataExport" : {
+    "modelref" : true,
+    "id" : "DataExport"
+  },
+  "getPSDEGridColumns" : [ {
+    "align" : "LEFT",
+    "cLConvertMode" : "NONE",
+    "getCapPSLanguageRes" : {
+      "lanResTag" : "DEF.LNAME.ATTENDANCE_STATISTICS.DEPT_NAME"
+    },
+    "caption" : "部门名称",
+    "codeName" : "dept_name",
+    "columnType" : "DEFGRIDCOLUMN",
+    "dataItemName" : "dept_name",
+    "excelCaption" : "部门名称",
+    "name" : "dept_name",
+    "noPrivDisplayMode" : 1,
+    "getPSAppDEField" : {
+      "name" : "DEPT_NAME",
+      "codeName" : "dept_name"
+    },
+    "width" : 100,
+    "widthUnit" : "STAR",
+    "enableSort" : false
+  }, {
+    "align" : "RIGHT",
+    "cLConvertMode" : "NONE",
+    "caption" : "应出勤人数",
+    "codeName" : "should_attendance_people_num",
+    "columnType" : "DEFGRIDCOLUMN",
+    "dataItemName" : "should_attendance_people_num",
+    "excelCaption" : "应出勤人数",
+    "name" : "should_attendance_people_num",
+    "noPrivDisplayMode" : 1,
+    "getPSAppDEField" : {
+      "name" : "SHOULD_ATTENDANCE_PEOPLE_NUM",
+      "codeName" : "should_attendance_people_num"
+    },
+    "width" : 150,
+    "widthUnit" : "PX",
+    "enableSort" : false
+  }, {
+    "align" : "RIGHT",
+    "cLConvertMode" : "NONE",
+    "caption" : "正常出勤次数",
+    "codeName" : "normal_attendance_days",
+    "columnType" : "DEFGRIDCOLUMN",
+    "dataItemName" : "normal_attendance_days",
+    "excelCaption" : "正常出勤次数",
+    "name" : "normal_attendance_days",
+    "noPrivDisplayMode" : 1,
+    "getPSAppDEField" : {
+      "name" : "NORMAL_ATTENDANCE_DAYS",
+      "codeName" : "normal_attendance_days"
+    },
+    "width" : 150,
+    "widthUnit" : "PX",
+    "enableSort" : false
+  }, {
+    "align" : "RIGHT",
+    "cLConvertMode" : "NONE",
+    "getCapPSLanguageRes" : {
+      "lanResTag" : "DEF.LNAME.ATTENDANCE_STATISTICS.LATE_TIMES"
+    },
+    "caption" : "迟到次数",
+    "codeName" : "late_times",
+    "columnType" : "DEFGRIDCOLUMN",
+    "dataItemName" : "late_times",
+    "excelCaption" : "迟到次数",
+    "getLinkPSAppView" : {
+      "modelref" : true,
+      "path" : "PSSYSAPPS/attendanceapp/PSAPPDEVIEWS/attendance_record_late_check.json",
+      "viewType" : "DEGRIDVIEW"
+    },
+    "linkValueItem" : "late_times",
+    "name" : "late_times",
+    "noPrivDisplayMode" : 1,
+    "getPSAppDEField" : {
+      "name" : "LATE_TIMES",
+      "codeName" : "late_times"
+    },
+    "width" : 150,
+    "widthUnit" : "PX",
+    "enableLinkView" : true,
+    "enableSort" : false,
+    "getUserParam" : {
+      "SRFNAVPARAM.n_checkin_date_gtandeq" : "%n_checkin_date_gtandeq%",
+      "SRFNAVPARAM.N_CHECKIN_RESULT_EQ" : "LATE",
+      "SRFNAVPARAM.n_checkin_date_ltandeq" : "%n_checkin_date_ltandeq%",
+      "SRFNAVPARAM.N_DEPT_ID_EQ" : "%dept_id%"
+    }
+  }, {
+    "align" : "RIGHT",
+    "cLConvertMode" : "NONE",
+    "getCapPSLanguageRes" : {
+      "lanResTag" : "DEF.LNAME.ATTENDANCE_STATISTICS.LEAVE_EARLY_TIMES"
+    },
+    "caption" : "早退次数",
+    "codeName" : "leave_early_times",
+    "columnType" : "DEFGRIDCOLUMN",
+    "dataItemName" : "leave_early_times",
+    "excelCaption" : "早退次数",
+    "getLinkPSAppView" : {
+      "modelref" : true,
+      "path" : "PSSYSAPPS/attendanceapp/PSAPPDEVIEWS/attendance_record_leave_early_check.json",
+      "viewType" : "DEGRIDVIEW"
+    },
+    "linkValueItem" : "leave_early_times",
+    "name" : "leave_early_times",
+    "noPrivDisplayMode" : 1,
+    "getPSAppDEField" : {
+      "name" : "LEAVE_EARLY_TIMES",
+      "codeName" : "leave_early_times"
+    },
+    "width" : 150,
+    "widthUnit" : "PX",
+    "enableLinkView" : true,
+    "enableSort" : false,
+    "getUserParam" : {
+      "SRFNAVPARAM.n_checkin_date_gtandeq" : "%n_checkin_date_gtandeq%",
+      "SRFNAVPARAM.N_CHECKIN_RESULT_EQ" : "LEAVE_EARLY",
+      "SRFNAVPARAM.n_checkin_date_ltandeq" : "%n_checkin_date_ltandeq%",
+      "SRFNAVPARAM.N_DEPT_ID_EQ" : "%dept_id%"
+    }
+  }, {
+    "align" : "RIGHT",
+    "cLConvertMode" : "NONE",
+    "getCapPSLanguageRes" : {
+      "lanResTag" : "DEF.LNAME.ATTENDANCE_STATISTICS.CHECKIN_MISSING_TIMES"
+    },
+    "caption" : "缺卡次数",
+    "codeName" : "checkin_missing_times",
+    "columnType" : "DEFGRIDCOLUMN",
+    "dataItemName" : "checkin_missing_times",
+    "excelCaption" : "缺卡次数",
+    "getLinkPSAppView" : {
+      "modelref" : true,
+      "path" : "PSSYSAPPS/attendanceapp/PSAPPDEVIEWS/attendance_record_missing_check.json",
+      "viewType" : "DEGRIDVIEW"
+    },
+    "linkValueItem" : "checkin_missing_times",
+    "name" : "checkin_missing_times",
+    "noPrivDisplayMode" : 1,
+    "getPSAppDEField" : {
+      "name" : "CHECKIN_MISSING_TIMES",
+      "codeName" : "checkin_missing_times"
+    },
+    "width" : 150,
+    "widthUnit" : "PX",
+    "enableLinkView" : true,
+    "enableSort" : false,
+    "getUserParam" : {
+      "SRFNAVPARAM.n_checkin_date_gtandeq" : "%n_checkin_date_gtandeq%",
+      "SRFNAVPARAM.N_CHECKIN_RESULT_IN" : "MISSING,ABSENT",
+      "SRFNAVPARAM.n_checkin_date_ltandeq" : "%n_checkin_date_ltandeq%",
+      "SRFNAVPARAM.N_DEPT_ID_EQ" : "%dept_id%"
+    }
+  }, {
+    "align" : "RIGHT",
+    "cLConvertMode" : "NONE",
+    "caption" : "请假次数",
+    "codeName" : "leave_times",
+    "columnType" : "DEFGRIDCOLUMN",
+    "dataItemName" : "leave_times",
+    "excelCaption" : "请假次数",
+    "name" : "leave_times",
+    "noPrivDisplayMode" : 1,
+    "getPSAppDEField" : {
+      "name" : "LEAVE_TIMES",
+      "codeName" : "leave_times"
+    },
+    "width" : 150,
+    "widthUnit" : "PX",
+    "enableSort" : false
+  }, {
+    "align" : "RIGHT",
+    "cLConvertMode" : "NONE",
+    "getCapPSLanguageRes" : {
+      "lanResTag" : "DEF.LNAME.ATTENDANCE_STATISTICS.OUT_WORK_TIMES"
+    },
+    "caption" : "出差次数",
+    "codeName" : "out_work_times",
+    "columnType" : "DEFGRIDCOLUMN",
+    "dataItemName" : "out_work_times",
+    "excelCaption" : "出差次数",
+    "name" : "out_work_times",
+    "noPrivDisplayMode" : 1,
+    "getPSAppDEField" : {
+      "name" : "OUT_WORK_TIMES",
+      "codeName" : "out_work_times"
+    },
+    "width" : 150,
+    "widthUnit" : "PX",
+    "enableSort" : false
+  }, {
+    "align" : "RIGHT",
+    "cLConvertMode" : "NONE",
+    "caption" : "外出次数",
+    "codeName" : "go_out_times",
+    "columnType" : "DEFGRIDCOLUMN",
+    "dataItemName" : "go_out_times",
+    "excelCaption" : "外出次数",
+    "name" : "go_out_times",
+    "noPrivDisplayMode" : 1,
+    "getPSAppDEField" : {
+      "name" : "GO_OUT_TIMES",
+      "codeName" : "go_out_times"
+    },
+    "width" : 150,
+    "widthUnit" : "PX",
+    "enableSort" : false
+  }, {
+    "align" : "RIGHT",
+    "cLConvertMode" : "NONE",
+    "caption" : "加班时长(小时)",
+    "codeName" : "overtime_hours",
+    "columnType" : "DEFGRIDCOLUMN",
+    "dataItemName" : "overtime_hours",
+    "excelCaption" : "加班时长(小时)",
+    "name" : "overtime_hours",
+    "noPrivDisplayMode" : 1,
+    "getPSAppDEField" : {
+      "name" : "OVERTIME_HOURS",
+      "codeName" : "overtime_hours"
+    },
+    "width" : 150,
+    "widthUnit" : "PX",
+    "enableSort" : false
+  } ],
+  "getPSDEGridDataItems" : [ {
+    "dataType" : 25,
+    "name" : "dept_name",
+    "getPSAppDEField" : {
+      "name" : "DEPT_NAME",
+      "codeName" : "dept_name"
+    }
+  }, {
+    "dataType" : 9,
+    "name" : "should_attendance_people_num",
+    "getPSAppDEField" : {
+      "name" : "SHOULD_ATTENDANCE_PEOPLE_NUM",
+      "codeName" : "should_attendance_people_num"
+    }
+  }, {
+    "dataType" : 9,
+    "name" : "normal_attendance_days",
+    "getPSAppDEField" : {
+      "name" : "NORMAL_ATTENDANCE_DAYS",
+      "codeName" : "normal_attendance_days"
+    }
+  }, {
+    "dataType" : 7,
+    "name" : "late_times",
+    "getPSAppDEField" : {
+      "name" : "LATE_TIMES",
+      "codeName" : "late_times"
+    }
+  }, {
+    "dataType" : 7,
+    "name" : "leave_early_times",
+    "getPSAppDEField" : {
+      "name" : "LEAVE_EARLY_TIMES",
+      "codeName" : "leave_early_times"
+    }
+  }, {
+    "dataType" : 7,
+    "name" : "checkin_missing_times",
+    "getPSAppDEField" : {
+      "name" : "CHECKIN_MISSING_TIMES",
+      "codeName" : "checkin_missing_times"
+    }
+  }, {
+    "dataType" : 9,
+    "name" : "leave_times",
+    "getPSAppDEField" : {
+      "name" : "LEAVE_TIMES",
+      "codeName" : "leave_times"
+    }
+  }, {
+    "dataType" : 7,
+    "name" : "out_work_times",
+    "getPSAppDEField" : {
+      "name" : "OUT_WORK_TIMES",
+      "codeName" : "out_work_times"
+    }
+  }, {
+    "dataType" : 9,
+    "name" : "go_out_times",
+    "getPSAppDEField" : {
+      "name" : "GO_OUT_TIMES",
+      "codeName" : "go_out_times"
+    }
+  }, {
+    "dataType" : 7,
+    "name" : "overtime_hours",
+    "getPSAppDEField" : {
+      "name" : "OVERTIME_HOURS",
+      "codeName" : "overtime_hours"
+    }
+  }, {
+    "dataType" : 25,
+    "name" : "srfkey",
+    "getPSAppDEField" : {
+      "name" : "ID",
+      "codeName" : "id"
+    }
+  }, {
+    "dataType" : 25,
+    "name" : "srfdataaccaction",
+    "getPSAppDEField" : {
+      "name" : "ID",
+      "codeName" : "id"
+    },
+    "dataAccessAction" : true
+  }, {
+    "dataType" : 25,
+    "name" : "srfmajortext",
+    "getPSAppDEField" : {
+      "name" : "NAME",
+      "codeName" : "name"
+    }
+  } ],
+  "getPSDEGridEditItems" : [ {
+    "caption" : "标识",
+    "codeName" : "srfkey",
+    "enableCond" : 3,
+    "ignoreInput" : 0,
+    "name" : "srfkey",
+    "getPSAppDEField" : {
+      "name" : "ID",
+      "codeName" : "id"
+    },
+    "getPSEditor" : {
+      "editorType" : "HIDDEN",
+      "name" : "srfkey"
+    },
+    "allowEmpty" : true
+  } ],
+  "pagingMode" : 1,
+  "pagingSize" : 20,
+  "getRemovePSControlAction" : {
+    "actionName" : "Remove",
+    "actionType" : "DEACTION",
+    "dataAccessAction" : "DELETE",
+    "name" : "remove",
+    "getPSAppDEMethod" : {
+      "modelref" : true,
+      "id" : "remove"
+    },
+    "getPSAppDataEntity" : {
+      "modelref" : true,
+      "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/attendance_department_statistics.json"
+    }
+  },
+  "sortMode" : "REMOTE",
+  "hasWFDataItems" : false,
+  "enableColFilter" : false,
+  "enableCustomized" : true,
+  "enableGroup" : false,
+  "enablePagingBar" : true,
+  "enableRowEdit" : false,
+  "enableRowEditOrder" : false,
+  "enableRowNew" : false,
+  "forceFit" : false,
+  "hideHeader" : false,
+  "noSort" : false,
+  "singleSelect" : true,
+  "modelid" : "13c45a7cd0594f5f32f8c60716df2dbf",
+  "modeltype" : "PSDEGRID"
+}

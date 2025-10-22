@@ -1,0 +1,818 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+    <definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:g="http://www.jboss.org/drools/flow/gpd" xmlns:tns="http://www.jboss.org/drools" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" expressionLanguage="http://www.mvel.org/2.0" id="Definition" name="" targetNamespace="http://www.jboss.org/drools" typeLanguage="http://www.java.com/javaTypes">
+        <process id="cn.ibizlab.core.attendance.service.logic.attendance_ruleexecutecompletion" isClosed="false" isExecutable="true" name="attendance_attendance_rule_executecompletion_ruleFlow" processType="Private" tns:packageName="cn.ibizlab.core.attendance.service.logic.attendance_ruleexecutecompletion">
+            <extensionElements>
+                <tns:import name="java.util.Map" />
+                <tns:import name="org.springframework.util.StringUtils"/>
+                <tns:import name="cn.ibizlab.util.helper.RuleUtils"/>
+                                <tns:metaData express="" name="attendance_ruleexecutecompletiondefault" type="entity"/>
+                                <tns:metaData express="new cn.ibizlab.core.attendance.domain.attendance_schedule()" name="attendance_ruleexecutecompletioncurruleschedules" type="refentity"/>
+                                <tns:metaData express="new cn.ibizlab.core.attendance.domain.attendance_activate_rule()" name="attendance_ruleexecutecompletionactivefilter" type="refentity"/>
+                                <tns:metaData express="new cn.ibizlab.core.attendance.domain.attendance_activate_rule()" name="attendance_ruleexecutecompletionactiverule" type="refentity"/>
+                                <tns:metaData express="new cn.ibizlab.core.attendance.domain.attendance_activate_shift()" name="attendance_ruleexecutecompletionactiveshift" type="refentity"/>
+                                <tns:metaData express="new cn.ibizlab.core.attendance.domain.attendance_activate_shift()" name="attendance_ruleexecutecompletionactiveshifts" type="refentity"/>
+                                <tns:metaData express="new cn.ibizlab.core.attendance.domain.attendance_group_shift_member()" name="attendance_ruleexecutecompletionalldeptemp" type="refentity"/>
+                                <tns:metaData express="new cn.ibizlab.core.attendance.domain.attendance_group_shift_member()" name="attendance_ruleexecutecompletionallmembers" type="refentity"/>
+                                <tns:metaData express="new cn.ibizlab.core.attendance.domain.attendance_group_shift()" name="attendance_ruleexecutecompletionattendance_group_shift" type="refentity"/>
+                                <tns:metaData express="new HashMap()" name="attendance_ruleexecutecompletionattendance_group_shifts" type="refentity"/>
+                                <tns:metaData express="new HashMap()" name="attendance_ruleexecutecompletionattendance_schedulefilter" type="refentity"/>
+                                <tns:metaData express="new cn.ibizlab.core.attendance.domain.attendance_schedule()" name="attendance_ruleexecutecompletionattendance_scheduletemp" type="refentity"/>
+                                <tns:metaData express="new cn.ibizlab.core.attendance.domain.attendance_schedule()" name="attendance_ruleexecutecompletionattendance_scheduletemps" type="refentity"/>
+                                <tns:metaData express="new HashMap()" name="attendance_ruleexecutecompletioncalendarfilter" type="refentity"/>
+                                <tns:metaData express="new HashMap()" name="attendance_ruleexecutecompletioncalendarlist" type="refentity"/>
+                                <tns:metaData express="new cn.ibizlab.core.attendance.domain.attendance_group_shift_member()" name="attendance_ruleexecutecompletioncuractivemember" type="refentity"/>
+                                <tns:metaData express="new cn.ibizlab.core.attendance.domain.attendance_group_shift_member()" name="attendance_ruleexecutecompletiondepttemp" type="refentity"/>
+                                <tns:metaData express="new cn.ibizlab.core.attendance.domain.attendance_group_shift_member()" name="attendance_ruleexecutecompletiondepts" type="refentity"/>
+                                <tns:metaData express="new cn.ibizlab.core.employee_management.domain.employee()" name="attendance_ruleexecutecompletionempfilter" type="refentity"/>
+                                <tns:metaData express="new cn.ibizlab.core.employee_management.domain.employee()" name="attendance_ruleexecutecompletionemployees" type="refentity"/>
+                                <tns:metaData express="new cn.ibizlab.core.attendance.domain.attendance_schedule()" name="attendance_ruleexecutecompletionlastschedules" type="refentity"/>
+                                <tns:metaData express="new cn.ibizlab.core.attendance.domain.attendance_group_shift_member()" name="attendance_ruleexecutecompletionmembertemp" type="refentity"/>
+                                <tns:metaData express="new cn.ibizlab.core.attendance.domain.attendance_group_shift_member()" name="attendance_ruleexecutecompletionmembers" type="refentity"/>
+                                <tns:metaData express="new cn.ibizlab.core.attendance.domain.attendance_schedule()" name="attendance_ruleexecutecompletionnewschedules" type="refentity"/>
+                                <tns:metaData express="new cn.ibizlab.core.attendance.domain.attendance_activate_shift()" name="attendance_ruleexecutecompletionshiftfilter" type="refentity"/>
+                                <tns:metaData express="new cn.ibizlab.core.attendance.domain.attendance_shift()" name="attendance_ruleexecutecompletionshifts" type="refentity"/>
+                                <tns:metaData express="new HashMap()" name="attendance_ruleexecutecompletionsrfactionparam" type="refentity"/>
+                                <tns:metaData express="new HashMap()" name="attendance_ruleexecutecompletiontemp" type="refentity"/>
+                                <tns:metaData express="new cn.ibizlab.core.attendance.domain.attendance_activate_rule()" name="attendance_ruleexecutecompletionwaitrulepage" type="refentity"/>
+                                <tns:metaData express="new HashMap()" name="attendance_ruleexecutecompletionworkdays" type="refentity"/>
+                                    <tns:metaData express="T(cn.ibizlab.util.security.SpringContextHolder).getBean(T(cn.ibizlab.core.attendance.service.Iattendance_activate_shiftService))" name="attendance_activate_shiftservice" type="service"/>
+                                    <tns:metaData express="T(cn.ibizlab.util.security.SpringContextHolder).getBean(T(cn.ibizlab.core.attendance.service.Iattendance_ruleService))" name="attendance_ruleservice" type="service"/>
+                                    <tns:metaData express="T(cn.ibizlab.util.security.SpringContextHolder).getBean(T(cn.ibizlab.core.attendance.service.Iattendance_activate_ruleService))" name="attendance_activate_ruleservice" type="service"/>
+                                    <tns:metaData express="T(cn.ibizlab.util.security.SpringContextHolder).getBean(T(cn.ibizlab.core.employee_management.service.IemployeeService))" name="employeeservice" type="service"/>
+                                    <tns:metaData express="T(cn.ibizlab.util.security.SpringContextHolder).getBean(T(cn.ibizlab.core.attendance.service.Iattendance_scheduleService))" name="attendance_scheduleservice" type="service"/>
+                    <tns:metaData express="T(cn.ibizlab.util.security.SpringContextHolder).getBean(T(cn.ibizlab.core.attendance.service.Iattendance_ruleService))" name="iBzSysAttendance_ruleDefaultService" type="service"/>
+                    <tns:metaData express="T(cn.ibizlab.util.security.AuthenticationUser).getAuthenticationUser()" name="curuser" type="session"/>
+                            <tns:global identifier="attendance_ruleexecutecompletiondefault" type="cn.ibizlab.core.attendance.domain.attendance_rule" />
+                            <tns:global identifier="attendance_ruleexecutecompletioncurruleschedules" type="cn.ibizlab.core.attendance.domain.attendance_schedule" />
+                            <tns:global identifier="attendance_ruleexecutecompletionactivefilter" type="cn.ibizlab.core.attendance.domain.attendance_activate_rule" />
+                            <tns:global identifier="attendance_ruleexecutecompletionactiverule" type="cn.ibizlab.core.attendance.domain.attendance_activate_rule" />
+                            <tns:global identifier="attendance_ruleexecutecompletionactiveshift" type="cn.ibizlab.core.attendance.domain.attendance_activate_shift" />
+                            <tns:global identifier="attendance_ruleexecutecompletionactiveshifts" type="cn.ibizlab.core.attendance.domain.attendance_activate_shift" />
+                            <tns:global identifier="attendance_ruleexecutecompletionalldeptemp" type="cn.ibizlab.core.attendance.domain.attendance_group_shift_member" />
+                            <tns:global identifier="attendance_ruleexecutecompletionallmembers" type="cn.ibizlab.core.attendance.domain.attendance_group_shift_member" />
+                            <tns:global identifier="attendance_ruleexecutecompletionattendance_group_shift" type="cn.ibizlab.core.attendance.domain.attendance_group_shift" />
+                            <tns:global identifier="attendance_ruleexecutecompletionattendance_scheduletemp" type="cn.ibizlab.core.attendance.domain.attendance_schedule" />
+                            <tns:global identifier="attendance_ruleexecutecompletionattendance_scheduletemps" type="cn.ibizlab.core.attendance.domain.attendance_schedule" />
+                            <tns:global identifier="attendance_ruleexecutecompletioncuractivemember" type="cn.ibizlab.core.attendance.domain.attendance_group_shift_member" />
+                            <tns:global identifier="attendance_ruleexecutecompletiondepttemp" type="cn.ibizlab.core.attendance.domain.attendance_group_shift_member" />
+                            <tns:global identifier="attendance_ruleexecutecompletiondepts" type="cn.ibizlab.core.attendance.domain.attendance_group_shift_member" />
+                            <tns:global identifier="attendance_ruleexecutecompletionempfilter" type="cn.ibizlab.core.employee_management.domain.employee" />
+                            <tns:global identifier="attendance_ruleexecutecompletionemployees" type="cn.ibizlab.core.employee_management.domain.employee" />
+                            <tns:global identifier="attendance_ruleexecutecompletionlastschedules" type="cn.ibizlab.core.attendance.domain.attendance_schedule" />
+                            <tns:global identifier="attendance_ruleexecutecompletionmembertemp" type="cn.ibizlab.core.attendance.domain.attendance_group_shift_member" />
+                            <tns:global identifier="attendance_ruleexecutecompletionmembers" type="cn.ibizlab.core.attendance.domain.attendance_group_shift_member" />
+                            <tns:global identifier="attendance_ruleexecutecompletionnewschedules" type="cn.ibizlab.core.attendance.domain.attendance_schedule" />
+                            <tns:global identifier="attendance_ruleexecutecompletionshiftfilter" type="cn.ibizlab.core.attendance.domain.attendance_activate_shift" />
+                            <tns:global identifier="attendance_ruleexecutecompletionshifts" type="cn.ibizlab.core.attendance.domain.attendance_shift" />
+                            <tns:global identifier="attendance_ruleexecutecompletionwaitrulepage" type="cn.ibizlab.core.attendance.domain.attendance_activate_rule" />
+            </extensionElements>
+                        <startEvent id="begin" isInterrupting="true"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="attendance_ruleexecutecompletiondedataset_05" id="dedataset_05" implementation="http://www.jboss.org/drools/rule" name="获取当前规则激活班次"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="attendance_ruleexecutecompletionrawsfcode_013" id="rawsfcode_013" implementation="http://www.jboss.org/drools/rule" name="设置日历参数"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="attendance_ruleexecutecompletiondedataset_03" id="dedataset_03" implementation="http://www.jboss.org/drools/rule" name="获取节假日配置"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="attendance_ruleexecutecompletionloopsubcall_05" id="loopsubcall_05" implementation="http://www.jboss.org/drools/rule" name="循环子调用"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="attendance_ruleexecutecompletionprepareparam_06" id="prepareparam_06" implementation="http://www.jboss.org/drools/rule" name="准备参数"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="attendance_ruleexecutecompletionrawsqlcall_01" id="rawsqlcall_01" implementation="http://www.jboss.org/drools/rule" name="删除当前规则旧排班"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="attendance_ruleexecutecompletionrawsfcode_08" id="rawsfcode_08" implementation="http://www.jboss.org/drools/rule" name="大小周构造新排班"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="attendance_ruleexecutecompletionrawsfcode_02" id="rawsfcode_02" implementation="http://www.jboss.org/drools/rule" name="固定排班/灵活打卡构造新排班"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="attendance_ruleexecutecompletionrawsfcode_06" id="rawsfcode_06" implementation="http://www.jboss.org/drools/rule" name="手动排班构造新排班"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="attendance_ruleexecutecompletionrawsfcode_01" id="rawsfcode_01" implementation="http://www.jboss.org/drools/rule" name="自由班构造新排班"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="attendance_ruleexecutecompletiondedataset_04" id="dedataset_04" implementation="http://www.jboss.org/drools/rule" name="获取所有激活规则"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="attendance_ruleexecutecompletionrawsfcode_016" id="rawsfcode_016" implementation="http://www.jboss.org/drools/rule" name="免考勤"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="attendance_ruleexecutecompletiondebugparam_03" id="debugparam_03" implementation="http://www.jboss.org/drools/rule" name="调试逻辑参数"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="attendance_ruleexecutecompletionloopsubcall_03" id="loopsubcall_03" implementation="http://www.jboss.org/drools/rule" name="循环子调用"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="attendance_ruleexecutecompletionrawsfcode_010" id="rawsfcode_010" implementation="http://www.jboss.org/drools/rule" name="N班倒构造新排班"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="attendance_ruleexecutecompletionrawsfcode_015" id="rawsfcode_015" implementation="http://www.jboss.org/drools/rule" name="判断节假日"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="attendance_ruleexecutecompletiondebugparam_01" id="debugparam_01" implementation="http://www.jboss.org/drools/rule" name="调试逻辑参数"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="attendance_ruleexecutecompletionrawsfcode_05" id="rawsfcode_05" implementation="http://www.jboss.org/drools/rule" name="上A休B构造新排班"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="attendance_ruleexecutecompletionrawsfcode_014" id="rawsfcode_014" implementation="http://www.jboss.org/drools/rule" name="判断节假日"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="attendance_ruleexecutecompletiondedataset_02" id="dedataset_02" implementation="http://www.jboss.org/drools/rule" name="获取所有人员"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="attendance_ruleexecutecompletiondebugparam_02" id="debugparam_02" implementation="http://www.jboss.org/drools/rule" name="输出deptids"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="attendance_ruleexecutecompletiondedataset_01" id="dedataset_01" implementation="http://www.jboss.org/drools/rule" name="查询部门下人员"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="attendance_ruleexecutecompletionrawsfcode_012" id="rawsfcode_012" implementation="http://www.jboss.org/drools/rule" name="人员转换"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="attendance_ruleexecutecompletionprepareparam_02" id="prepareparam_02" implementation="http://www.jboss.org/drools/rule" name="准备参数"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="attendance_ruleexecutecompletionrawsfcode_017" id="rawsfcode_017" implementation="http://www.jboss.org/drools/rule" name="获取激活信息"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="attendance_ruleexecutecompletionprepareparam_05" id="prepareparam_05" implementation="http://www.jboss.org/drools/rule" name="重新建立参数"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="attendance_ruleexecutecompletionprepareparam_04" id="prepareparam_04" implementation="http://www.jboss.org/drools/rule" name="准备参数"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="attendance_ruleexecutecompletionrawsfcode_04" id="rawsfcode_04" implementation="http://www.jboss.org/drools/rule" name="计算规则成员"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="attendance_ruleexecutecompletionloopsubcall_04" id="loopsubcall_04" implementation="http://www.jboss.org/drools/rule" name="遍历规则人员"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="attendance_ruleexecutecompletionrawsqlcall_02" id="rawsqlcall_02" implementation="http://www.jboss.org/drools/rule" name="删除人员旧排班"/>
+                        <endEvent id="rawsqlcall_02_end" name="end"/>
+                        <sequenceFlow id="rawsqlcall_02_end_line" sourceRef="rawsqlcall_02" targetRef="rawsqlcall_02_end"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="attendance_ruleexecutecompletionrawsfcode_03" id="rawsfcode_03" implementation="http://www.jboss.org/drools/rule" name="设置时间"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="attendance_ruleexecutecompletionloopsubcall_02" id="loopsubcall_02" implementation="http://www.jboss.org/drools/rule" name="循环子调用"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="attendance_ruleexecutecompletionrawsfcode_09" id="rawsfcode_09" implementation="http://www.jboss.org/drools/rule" name="过滤出不在其他生效规则内的人员"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="attendance_ruleexecutecompletionrawsfcode_07" id="rawsfcode_07" implementation="http://www.jboss.org/drools/rule" name="为规则人员生成新排班"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="attendance_ruleexecutecompletionend_02" id="end_02" implementation="http://www.jboss.org/drools/rule" name="结束"/>
+                        <endEvent id="end_02_end" name="end"/>
+                        <sequenceFlow id="end_02_end_line" sourceRef="end_02" targetRef="end_02_end"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="attendance_ruleexecutecompletionrawsfcode_011" id="rawsfcode_011" implementation="http://www.jboss.org/drools/rule" name="N班倒构造新排班"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="attendance_ruleexecutecompletionrawsqlcall_05" id="rawsqlcall_05" implementation="http://www.jboss.org/drools/rule" name="查询当前生效规则成员"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="attendance_ruleexecutecompletionprepareparam_01" id="prepareparam_01" implementation="http://www.jboss.org/drools/rule" name="准备参数"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="attendance_ruleexecutecompletionrawsqlcall_04" id="rawsqlcall_04" implementation="http://www.jboss.org/drools/rule" name="将该部门在其他生效规则内移除"/>
+                        <endEvent id="rawsqlcall_04_end" name="end"/>
+                        <sequenceFlow id="rawsqlcall_04_end_line" sourceRef="rawsqlcall_04" targetRef="rawsqlcall_04_end"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="attendance_ruleexecutecompletiondeaction_04" id="deaction_04" implementation="http://www.jboss.org/drools/rule" name="保存排班"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="attendance_ruleexecutecompletionresetparam_01" id="resetparam_01" implementation="http://www.jboss.org/drools/rule" name="重置参数"/>
+                        <endEvent id="resetparam_01_end" name="end"/>
+                        <sequenceFlow id="resetparam_01_end_line" sourceRef="resetparam_01" targetRef="resetparam_01_end"/>
+                    <sequenceFlow id="begin_dedataset_04" sourceRef="begin" targetRef="dedataset_04">
+                    </sequenceFlow>
+                    <sequenceFlow id="gateway-dedataset_05_rawsfcode_013" sourceRef="gateway-dedataset_05" targetRef="rawsfcode_013">
+                            <conditionExpression  language="http://www.jboss.org/drools/rule" ><![CDATA[
+                                            $attendance_ruleexecutecompletiondefault:attendance_rule();
+                                            $attendance_ruleexecutecompletioncurruleschedules:attendance_schedule();
+                                            $attendance_ruleexecutecompletionactivefilter:attendance_activate_rule();
+                                            $attendance_ruleexecutecompletionactiverule:attendance_activate_rule();
+                                            $attendance_ruleexecutecompletionactiveshift:attendance_activate_shift();
+                                            $attendance_ruleexecutecompletionactiveshifts:attendance_activate_shift();
+                                            $attendance_ruleexecutecompletionalldeptemp:attendance_group_shift_member();
+                                            $attendance_ruleexecutecompletionallmembers:attendance_group_shift_member();
+                                            $attendance_ruleexecutecompletionattendance_group_shift:attendance_group_shift();
+                                            $attendance_ruleexecutecompletionattendance_group_shifts:Map();
+                                            $attendance_ruleexecutecompletionattendance_schedulefilter:Map();
+                                            $attendance_ruleexecutecompletionattendance_scheduletemp:attendance_schedule();
+                                            $attendance_ruleexecutecompletionattendance_scheduletemps:attendance_schedule();
+                                            $attendance_ruleexecutecompletioncalendarfilter:Map();
+                                            $attendance_ruleexecutecompletioncalendarlist:Map();
+                                            $attendance_ruleexecutecompletioncuractivemember:attendance_group_shift_member();
+                                            $attendance_ruleexecutecompletiondepttemp:attendance_group_shift_member();
+                                            $attendance_ruleexecutecompletiondepts:attendance_group_shift_member();
+                                            $attendance_ruleexecutecompletionempfilter:employee();
+                                            $attendance_ruleexecutecompletionemployees:employee();
+                                            $attendance_ruleexecutecompletionlastschedules:attendance_schedule();
+                                            $attendance_ruleexecutecompletionmembertemp:attendance_group_shift_member();
+                                            $attendance_ruleexecutecompletionmembers:attendance_group_shift_member();
+                                            $attendance_ruleexecutecompletionnewschedules:attendance_schedule();
+                                            $attendance_ruleexecutecompletionshiftfilter:attendance_activate_shift();
+                                            $attendance_ruleexecutecompletionshifts:attendance_shift();
+                                            $attendance_ruleexecutecompletionsrfactionparam:Map();
+                                            $attendance_ruleexecutecompletiontemp:Map();
+                                            $attendance_ruleexecutecompletionwaitrulepage:attendance_activate_rule();
+                                            $attendance_ruleexecutecompletionworkdays:Map();
+                                    eval($attendance_ruleexecutecompletiondefault==attendance_ruleexecutecompletiondefault && $attendance_ruleexecutecompletioncurruleschedules==attendance_ruleexecutecompletioncurruleschedules && $attendance_ruleexecutecompletionactivefilter==attendance_ruleexecutecompletionactivefilter && $attendance_ruleexecutecompletionactiverule==attendance_ruleexecutecompletionactiverule && $attendance_ruleexecutecompletionactiveshift==attendance_ruleexecutecompletionactiveshift && $attendance_ruleexecutecompletionactiveshifts==attendance_ruleexecutecompletionactiveshifts && $attendance_ruleexecutecompletionalldeptemp==attendance_ruleexecutecompletionalldeptemp && $attendance_ruleexecutecompletionallmembers==attendance_ruleexecutecompletionallmembers && $attendance_ruleexecutecompletionattendance_group_shift==attendance_ruleexecutecompletionattendance_group_shift && $attendance_ruleexecutecompletionattendance_scheduletemp==attendance_ruleexecutecompletionattendance_scheduletemp && $attendance_ruleexecutecompletionattendance_scheduletemps==attendance_ruleexecutecompletionattendance_scheduletemps && $attendance_ruleexecutecompletioncuractivemember==attendance_ruleexecutecompletioncuractivemember && $attendance_ruleexecutecompletiondepttemp==attendance_ruleexecutecompletiondepttemp && $attendance_ruleexecutecompletiondepts==attendance_ruleexecutecompletiondepts && $attendance_ruleexecutecompletionempfilter==attendance_ruleexecutecompletionempfilter && $attendance_ruleexecutecompletionemployees==attendance_ruleexecutecompletionemployees && $attendance_ruleexecutecompletionlastschedules==attendance_ruleexecutecompletionlastschedules && $attendance_ruleexecutecompletionmembertemp==attendance_ruleexecutecompletionmembertemp && $attendance_ruleexecutecompletionmembers==attendance_ruleexecutecompletionmembers && $attendance_ruleexecutecompletionnewschedules==attendance_ruleexecutecompletionnewschedules && $attendance_ruleexecutecompletionshiftfilter==attendance_ruleexecutecompletionshiftfilter && $attendance_ruleexecutecompletionshifts==attendance_ruleexecutecompletionshifts && $attendance_ruleexecutecompletionwaitrulepage==attendance_ruleexecutecompletionwaitrulepage && );
+                                eval((RuleUtils.test($attendance_ruleexecutecompletionactiveshifts.get("size"),"NOTEQ","0")))
+                                ]]>
+                            </conditionExpression>
+                    </sequenceFlow>
+                    <sequenceFlow id="rawsfcode_013_dedataset_03" sourceRef="rawsfcode_013" targetRef="dedataset_03">
+                    </sequenceFlow>
+                    <sequenceFlow id="gateway-dedataset_03_rawsfcode_02" sourceRef="gateway-dedataset_03" targetRef="rawsfcode_02">
+                            <conditionExpression  language="http://www.jboss.org/drools/rule" ><![CDATA[
+                                            $attendance_ruleexecutecompletiondefault:attendance_rule();
+                                            $attendance_ruleexecutecompletioncurruleschedules:attendance_schedule();
+                                            $attendance_ruleexecutecompletionactivefilter:attendance_activate_rule();
+                                            $attendance_ruleexecutecompletionactiverule:attendance_activate_rule();
+                                            $attendance_ruleexecutecompletionactiveshift:attendance_activate_shift();
+                                            $attendance_ruleexecutecompletionactiveshifts:attendance_activate_shift();
+                                            $attendance_ruleexecutecompletionalldeptemp:attendance_group_shift_member();
+                                            $attendance_ruleexecutecompletionallmembers:attendance_group_shift_member();
+                                            $attendance_ruleexecutecompletionattendance_group_shift:attendance_group_shift();
+                                            $attendance_ruleexecutecompletionattendance_group_shifts:Map();
+                                            $attendance_ruleexecutecompletionattendance_schedulefilter:Map();
+                                            $attendance_ruleexecutecompletionattendance_scheduletemp:attendance_schedule();
+                                            $attendance_ruleexecutecompletionattendance_scheduletemps:attendance_schedule();
+                                            $attendance_ruleexecutecompletioncalendarfilter:Map();
+                                            $attendance_ruleexecutecompletioncalendarlist:Map();
+                                            $attendance_ruleexecutecompletioncuractivemember:attendance_group_shift_member();
+                                            $attendance_ruleexecutecompletiondepttemp:attendance_group_shift_member();
+                                            $attendance_ruleexecutecompletiondepts:attendance_group_shift_member();
+                                            $attendance_ruleexecutecompletionempfilter:employee();
+                                            $attendance_ruleexecutecompletionemployees:employee();
+                                            $attendance_ruleexecutecompletionlastschedules:attendance_schedule();
+                                            $attendance_ruleexecutecompletionmembertemp:attendance_group_shift_member();
+                                            $attendance_ruleexecutecompletionmembers:attendance_group_shift_member();
+                                            $attendance_ruleexecutecompletionnewschedules:attendance_schedule();
+                                            $attendance_ruleexecutecompletionshiftfilter:attendance_activate_shift();
+                                            $attendance_ruleexecutecompletionshifts:attendance_shift();
+                                            $attendance_ruleexecutecompletionsrfactionparam:Map();
+                                            $attendance_ruleexecutecompletiontemp:Map();
+                                            $attendance_ruleexecutecompletionwaitrulepage:attendance_activate_rule();
+                                            $attendance_ruleexecutecompletionworkdays:Map();
+                                    eval($attendance_ruleexecutecompletiondefault==attendance_ruleexecutecompletiondefault && $attendance_ruleexecutecompletioncurruleschedules==attendance_ruleexecutecompletioncurruleschedules && $attendance_ruleexecutecompletionactivefilter==attendance_ruleexecutecompletionactivefilter && $attendance_ruleexecutecompletionactiverule==attendance_ruleexecutecompletionactiverule && $attendance_ruleexecutecompletionactiveshift==attendance_ruleexecutecompletionactiveshift && $attendance_ruleexecutecompletionactiveshifts==attendance_ruleexecutecompletionactiveshifts && $attendance_ruleexecutecompletionalldeptemp==attendance_ruleexecutecompletionalldeptemp && $attendance_ruleexecutecompletionallmembers==attendance_ruleexecutecompletionallmembers && $attendance_ruleexecutecompletionattendance_group_shift==attendance_ruleexecutecompletionattendance_group_shift && $attendance_ruleexecutecompletionattendance_scheduletemp==attendance_ruleexecutecompletionattendance_scheduletemp && $attendance_ruleexecutecompletionattendance_scheduletemps==attendance_ruleexecutecompletionattendance_scheduletemps && $attendance_ruleexecutecompletioncuractivemember==attendance_ruleexecutecompletioncuractivemember && $attendance_ruleexecutecompletiondepttemp==attendance_ruleexecutecompletiondepttemp && $attendance_ruleexecutecompletiondepts==attendance_ruleexecutecompletiondepts && $attendance_ruleexecutecompletionempfilter==attendance_ruleexecutecompletionempfilter && $attendance_ruleexecutecompletionemployees==attendance_ruleexecutecompletionemployees && $attendance_ruleexecutecompletionlastschedules==attendance_ruleexecutecompletionlastschedules && $attendance_ruleexecutecompletionmembertemp==attendance_ruleexecutecompletionmembertemp && $attendance_ruleexecutecompletionmembers==attendance_ruleexecutecompletionmembers && $attendance_ruleexecutecompletionnewschedules==attendance_ruleexecutecompletionnewschedules && $attendance_ruleexecutecompletionshiftfilter==attendance_ruleexecutecompletionshiftfilter && $attendance_ruleexecutecompletionshifts==attendance_ruleexecutecompletionshifts && $attendance_ruleexecutecompletionwaitrulepage==attendance_ruleexecutecompletionwaitrulepage && );
+                                eval(((RuleUtils.test($attendance_ruleexecutecompletiondefault.get("scheduleType"),"EQ","fixed"))||(RuleUtils.test($attendance_ruleexecutecompletiondefault.get("scheduleType"),"EQ","flexible"))))
+                                ]]>
+                            </conditionExpression>
+                    </sequenceFlow>
+                    <sequenceFlow id="gateway-dedataset_03_rawsfcode_06" sourceRef="gateway-dedataset_03" targetRef="rawsfcode_06">
+                            <conditionExpression  language="http://www.jboss.org/drools/rule" ><![CDATA[
+                                            $attendance_ruleexecutecompletiondefault:attendance_rule();
+                                            $attendance_ruleexecutecompletioncurruleschedules:attendance_schedule();
+                                            $attendance_ruleexecutecompletionactivefilter:attendance_activate_rule();
+                                            $attendance_ruleexecutecompletionactiverule:attendance_activate_rule();
+                                            $attendance_ruleexecutecompletionactiveshift:attendance_activate_shift();
+                                            $attendance_ruleexecutecompletionactiveshifts:attendance_activate_shift();
+                                            $attendance_ruleexecutecompletionalldeptemp:attendance_group_shift_member();
+                                            $attendance_ruleexecutecompletionallmembers:attendance_group_shift_member();
+                                            $attendance_ruleexecutecompletionattendance_group_shift:attendance_group_shift();
+                                            $attendance_ruleexecutecompletionattendance_group_shifts:Map();
+                                            $attendance_ruleexecutecompletionattendance_schedulefilter:Map();
+                                            $attendance_ruleexecutecompletionattendance_scheduletemp:attendance_schedule();
+                                            $attendance_ruleexecutecompletionattendance_scheduletemps:attendance_schedule();
+                                            $attendance_ruleexecutecompletioncalendarfilter:Map();
+                                            $attendance_ruleexecutecompletioncalendarlist:Map();
+                                            $attendance_ruleexecutecompletioncuractivemember:attendance_group_shift_member();
+                                            $attendance_ruleexecutecompletiondepttemp:attendance_group_shift_member();
+                                            $attendance_ruleexecutecompletiondepts:attendance_group_shift_member();
+                                            $attendance_ruleexecutecompletionempfilter:employee();
+                                            $attendance_ruleexecutecompletionemployees:employee();
+                                            $attendance_ruleexecutecompletionlastschedules:attendance_schedule();
+                                            $attendance_ruleexecutecompletionmembertemp:attendance_group_shift_member();
+                                            $attendance_ruleexecutecompletionmembers:attendance_group_shift_member();
+                                            $attendance_ruleexecutecompletionnewschedules:attendance_schedule();
+                                            $attendance_ruleexecutecompletionshiftfilter:attendance_activate_shift();
+                                            $attendance_ruleexecutecompletionshifts:attendance_shift();
+                                            $attendance_ruleexecutecompletionsrfactionparam:Map();
+                                            $attendance_ruleexecutecompletiontemp:Map();
+                                            $attendance_ruleexecutecompletionwaitrulepage:attendance_activate_rule();
+                                            $attendance_ruleexecutecompletionworkdays:Map();
+                                    eval($attendance_ruleexecutecompletiondefault==attendance_ruleexecutecompletiondefault && $attendance_ruleexecutecompletioncurruleschedules==attendance_ruleexecutecompletioncurruleschedules && $attendance_ruleexecutecompletionactivefilter==attendance_ruleexecutecompletionactivefilter && $attendance_ruleexecutecompletionactiverule==attendance_ruleexecutecompletionactiverule && $attendance_ruleexecutecompletionactiveshift==attendance_ruleexecutecompletionactiveshift && $attendance_ruleexecutecompletionactiveshifts==attendance_ruleexecutecompletionactiveshifts && $attendance_ruleexecutecompletionalldeptemp==attendance_ruleexecutecompletionalldeptemp && $attendance_ruleexecutecompletionallmembers==attendance_ruleexecutecompletionallmembers && $attendance_ruleexecutecompletionattendance_group_shift==attendance_ruleexecutecompletionattendance_group_shift && $attendance_ruleexecutecompletionattendance_scheduletemp==attendance_ruleexecutecompletionattendance_scheduletemp && $attendance_ruleexecutecompletionattendance_scheduletemps==attendance_ruleexecutecompletionattendance_scheduletemps && $attendance_ruleexecutecompletioncuractivemember==attendance_ruleexecutecompletioncuractivemember && $attendance_ruleexecutecompletiondepttemp==attendance_ruleexecutecompletiondepttemp && $attendance_ruleexecutecompletiondepts==attendance_ruleexecutecompletiondepts && $attendance_ruleexecutecompletionempfilter==attendance_ruleexecutecompletionempfilter && $attendance_ruleexecutecompletionemployees==attendance_ruleexecutecompletionemployees && $attendance_ruleexecutecompletionlastschedules==attendance_ruleexecutecompletionlastschedules && $attendance_ruleexecutecompletionmembertemp==attendance_ruleexecutecompletionmembertemp && $attendance_ruleexecutecompletionmembers==attendance_ruleexecutecompletionmembers && $attendance_ruleexecutecompletionnewschedules==attendance_ruleexecutecompletionnewschedules && $attendance_ruleexecutecompletionshiftfilter==attendance_ruleexecutecompletionshiftfilter && $attendance_ruleexecutecompletionshifts==attendance_ruleexecutecompletionshifts && $attendance_ruleexecutecompletionwaitrulepage==attendance_ruleexecutecompletionwaitrulepage && );
+                                eval((RuleUtils.test($attendance_ruleexecutecompletiondefault.get("scheduleType"),"EQ","manual")))
+                                ]]>
+                            </conditionExpression>
+                    </sequenceFlow>
+                    <sequenceFlow id="gateway-dedataset_03_rawsfcode_01" sourceRef="gateway-dedataset_03" targetRef="rawsfcode_01">
+                            <conditionExpression  language="http://www.jboss.org/drools/rule" ><![CDATA[
+                                            $attendance_ruleexecutecompletiondefault:attendance_rule();
+                                            $attendance_ruleexecutecompletioncurruleschedules:attendance_schedule();
+                                            $attendance_ruleexecutecompletionactivefilter:attendance_activate_rule();
+                                            $attendance_ruleexecutecompletionactiverule:attendance_activate_rule();
+                                            $attendance_ruleexecutecompletionactiveshift:attendance_activate_shift();
+                                            $attendance_ruleexecutecompletionactiveshifts:attendance_activate_shift();
+                                            $attendance_ruleexecutecompletionalldeptemp:attendance_group_shift_member();
+                                            $attendance_ruleexecutecompletionallmembers:attendance_group_shift_member();
+                                            $attendance_ruleexecutecompletionattendance_group_shift:attendance_group_shift();
+                                            $attendance_ruleexecutecompletionattendance_group_shifts:Map();
+                                            $attendance_ruleexecutecompletionattendance_schedulefilter:Map();
+                                            $attendance_ruleexecutecompletionattendance_scheduletemp:attendance_schedule();
+                                            $attendance_ruleexecutecompletionattendance_scheduletemps:attendance_schedule();
+                                            $attendance_ruleexecutecompletioncalendarfilter:Map();
+                                            $attendance_ruleexecutecompletioncalendarlist:Map();
+                                            $attendance_ruleexecutecompletioncuractivemember:attendance_group_shift_member();
+                                            $attendance_ruleexecutecompletiondepttemp:attendance_group_shift_member();
+                                            $attendance_ruleexecutecompletiondepts:attendance_group_shift_member();
+                                            $attendance_ruleexecutecompletionempfilter:employee();
+                                            $attendance_ruleexecutecompletionemployees:employee();
+                                            $attendance_ruleexecutecompletionlastschedules:attendance_schedule();
+                                            $attendance_ruleexecutecompletionmembertemp:attendance_group_shift_member();
+                                            $attendance_ruleexecutecompletionmembers:attendance_group_shift_member();
+                                            $attendance_ruleexecutecompletionnewschedules:attendance_schedule();
+                                            $attendance_ruleexecutecompletionshiftfilter:attendance_activate_shift();
+                                            $attendance_ruleexecutecompletionshifts:attendance_shift();
+                                            $attendance_ruleexecutecompletionsrfactionparam:Map();
+                                            $attendance_ruleexecutecompletiontemp:Map();
+                                            $attendance_ruleexecutecompletionwaitrulepage:attendance_activate_rule();
+                                            $attendance_ruleexecutecompletionworkdays:Map();
+                                    eval($attendance_ruleexecutecompletiondefault==attendance_ruleexecutecompletiondefault && $attendance_ruleexecutecompletioncurruleschedules==attendance_ruleexecutecompletioncurruleschedules && $attendance_ruleexecutecompletionactivefilter==attendance_ruleexecutecompletionactivefilter && $attendance_ruleexecutecompletionactiverule==attendance_ruleexecutecompletionactiverule && $attendance_ruleexecutecompletionactiveshift==attendance_ruleexecutecompletionactiveshift && $attendance_ruleexecutecompletionactiveshifts==attendance_ruleexecutecompletionactiveshifts && $attendance_ruleexecutecompletionalldeptemp==attendance_ruleexecutecompletionalldeptemp && $attendance_ruleexecutecompletionallmembers==attendance_ruleexecutecompletionallmembers && $attendance_ruleexecutecompletionattendance_group_shift==attendance_ruleexecutecompletionattendance_group_shift && $attendance_ruleexecutecompletionattendance_scheduletemp==attendance_ruleexecutecompletionattendance_scheduletemp && $attendance_ruleexecutecompletionattendance_scheduletemps==attendance_ruleexecutecompletionattendance_scheduletemps && $attendance_ruleexecutecompletioncuractivemember==attendance_ruleexecutecompletioncuractivemember && $attendance_ruleexecutecompletiondepttemp==attendance_ruleexecutecompletiondepttemp && $attendance_ruleexecutecompletiondepts==attendance_ruleexecutecompletiondepts && $attendance_ruleexecutecompletionempfilter==attendance_ruleexecutecompletionempfilter && $attendance_ruleexecutecompletionemployees==attendance_ruleexecutecompletionemployees && $attendance_ruleexecutecompletionlastschedules==attendance_ruleexecutecompletionlastschedules && $attendance_ruleexecutecompletionmembertemp==attendance_ruleexecutecompletionmembertemp && $attendance_ruleexecutecompletionmembers==attendance_ruleexecutecompletionmembers && $attendance_ruleexecutecompletionnewschedules==attendance_ruleexecutecompletionnewschedules && $attendance_ruleexecutecompletionshiftfilter==attendance_ruleexecutecompletionshiftfilter && $attendance_ruleexecutecompletionshifts==attendance_ruleexecutecompletionshifts && $attendance_ruleexecutecompletionwaitrulepage==attendance_ruleexecutecompletionwaitrulepage && );
+                                eval((RuleUtils.test($attendance_ruleexecutecompletiondefault.get("scheduleType"),"EQ","free")))
+                                ]]>
+                            </conditionExpression>
+                    </sequenceFlow>
+                    <sequenceFlow id="gateway-dedataset_03_rawsfcode_08" sourceRef="gateway-dedataset_03" targetRef="rawsfcode_08">
+                            <conditionExpression  language="http://www.jboss.org/drools/rule" ><![CDATA[
+                                            $attendance_ruleexecutecompletiondefault:attendance_rule();
+                                            $attendance_ruleexecutecompletioncurruleschedules:attendance_schedule();
+                                            $attendance_ruleexecutecompletionactivefilter:attendance_activate_rule();
+                                            $attendance_ruleexecutecompletionactiverule:attendance_activate_rule();
+                                            $attendance_ruleexecutecompletionactiveshift:attendance_activate_shift();
+                                            $attendance_ruleexecutecompletionactiveshifts:attendance_activate_shift();
+                                            $attendance_ruleexecutecompletionalldeptemp:attendance_group_shift_member();
+                                            $attendance_ruleexecutecompletionallmembers:attendance_group_shift_member();
+                                            $attendance_ruleexecutecompletionattendance_group_shift:attendance_group_shift();
+                                            $attendance_ruleexecutecompletionattendance_group_shifts:Map();
+                                            $attendance_ruleexecutecompletionattendance_schedulefilter:Map();
+                                            $attendance_ruleexecutecompletionattendance_scheduletemp:attendance_schedule();
+                                            $attendance_ruleexecutecompletionattendance_scheduletemps:attendance_schedule();
+                                            $attendance_ruleexecutecompletioncalendarfilter:Map();
+                                            $attendance_ruleexecutecompletioncalendarlist:Map();
+                                            $attendance_ruleexecutecompletioncuractivemember:attendance_group_shift_member();
+                                            $attendance_ruleexecutecompletiondepttemp:attendance_group_shift_member();
+                                            $attendance_ruleexecutecompletiondepts:attendance_group_shift_member();
+                                            $attendance_ruleexecutecompletionempfilter:employee();
+                                            $attendance_ruleexecutecompletionemployees:employee();
+                                            $attendance_ruleexecutecompletionlastschedules:attendance_schedule();
+                                            $attendance_ruleexecutecompletionmembertemp:attendance_group_shift_member();
+                                            $attendance_ruleexecutecompletionmembers:attendance_group_shift_member();
+                                            $attendance_ruleexecutecompletionnewschedules:attendance_schedule();
+                                            $attendance_ruleexecutecompletionshiftfilter:attendance_activate_shift();
+                                            $attendance_ruleexecutecompletionshifts:attendance_shift();
+                                            $attendance_ruleexecutecompletionsrfactionparam:Map();
+                                            $attendance_ruleexecutecompletiontemp:Map();
+                                            $attendance_ruleexecutecompletionwaitrulepage:attendance_activate_rule();
+                                            $attendance_ruleexecutecompletionworkdays:Map();
+                                    eval($attendance_ruleexecutecompletiondefault==attendance_ruleexecutecompletiondefault && $attendance_ruleexecutecompletioncurruleschedules==attendance_ruleexecutecompletioncurruleschedules && $attendance_ruleexecutecompletionactivefilter==attendance_ruleexecutecompletionactivefilter && $attendance_ruleexecutecompletionactiverule==attendance_ruleexecutecompletionactiverule && $attendance_ruleexecutecompletionactiveshift==attendance_ruleexecutecompletionactiveshift && $attendance_ruleexecutecompletionactiveshifts==attendance_ruleexecutecompletionactiveshifts && $attendance_ruleexecutecompletionalldeptemp==attendance_ruleexecutecompletionalldeptemp && $attendance_ruleexecutecompletionallmembers==attendance_ruleexecutecompletionallmembers && $attendance_ruleexecutecompletionattendance_group_shift==attendance_ruleexecutecompletionattendance_group_shift && $attendance_ruleexecutecompletionattendance_scheduletemp==attendance_ruleexecutecompletionattendance_scheduletemp && $attendance_ruleexecutecompletionattendance_scheduletemps==attendance_ruleexecutecompletionattendance_scheduletemps && $attendance_ruleexecutecompletioncuractivemember==attendance_ruleexecutecompletioncuractivemember && $attendance_ruleexecutecompletiondepttemp==attendance_ruleexecutecompletiondepttemp && $attendance_ruleexecutecompletiondepts==attendance_ruleexecutecompletiondepts && $attendance_ruleexecutecompletionempfilter==attendance_ruleexecutecompletionempfilter && $attendance_ruleexecutecompletionemployees==attendance_ruleexecutecompletionemployees && $attendance_ruleexecutecompletionlastschedules==attendance_ruleexecutecompletionlastschedules && $attendance_ruleexecutecompletionmembertemp==attendance_ruleexecutecompletionmembertemp && $attendance_ruleexecutecompletionmembers==attendance_ruleexecutecompletionmembers && $attendance_ruleexecutecompletionnewschedules==attendance_ruleexecutecompletionnewschedules && $attendance_ruleexecutecompletionshiftfilter==attendance_ruleexecutecompletionshiftfilter && $attendance_ruleexecutecompletionshifts==attendance_ruleexecutecompletionshifts && $attendance_ruleexecutecompletionwaitrulepage==attendance_ruleexecutecompletionwaitrulepage && );
+                                eval((RuleUtils.test($attendance_ruleexecutecompletiondefault.get("scheduleType"),"EQ","alternate_week")))
+                                ]]>
+                            </conditionExpression>
+                    </sequenceFlow>
+                    <sequenceFlow id="gateway-dedataset_03_loopsubcall_03" sourceRef="gateway-dedataset_03" targetRef="loopsubcall_03">
+                            <conditionExpression  language="http://www.jboss.org/drools/rule" ><![CDATA[
+                                            $attendance_ruleexecutecompletiondefault:attendance_rule();
+                                            $attendance_ruleexecutecompletioncurruleschedules:attendance_schedule();
+                                            $attendance_ruleexecutecompletionactivefilter:attendance_activate_rule();
+                                            $attendance_ruleexecutecompletionactiverule:attendance_activate_rule();
+                                            $attendance_ruleexecutecompletionactiveshift:attendance_activate_shift();
+                                            $attendance_ruleexecutecompletionactiveshifts:attendance_activate_shift();
+                                            $attendance_ruleexecutecompletionalldeptemp:attendance_group_shift_member();
+                                            $attendance_ruleexecutecompletionallmembers:attendance_group_shift_member();
+                                            $attendance_ruleexecutecompletionattendance_group_shift:attendance_group_shift();
+                                            $attendance_ruleexecutecompletionattendance_group_shifts:Map();
+                                            $attendance_ruleexecutecompletionattendance_schedulefilter:Map();
+                                            $attendance_ruleexecutecompletionattendance_scheduletemp:attendance_schedule();
+                                            $attendance_ruleexecutecompletionattendance_scheduletemps:attendance_schedule();
+                                            $attendance_ruleexecutecompletioncalendarfilter:Map();
+                                            $attendance_ruleexecutecompletioncalendarlist:Map();
+                                            $attendance_ruleexecutecompletioncuractivemember:attendance_group_shift_member();
+                                            $attendance_ruleexecutecompletiondepttemp:attendance_group_shift_member();
+                                            $attendance_ruleexecutecompletiondepts:attendance_group_shift_member();
+                                            $attendance_ruleexecutecompletionempfilter:employee();
+                                            $attendance_ruleexecutecompletionemployees:employee();
+                                            $attendance_ruleexecutecompletionlastschedules:attendance_schedule();
+                                            $attendance_ruleexecutecompletionmembertemp:attendance_group_shift_member();
+                                            $attendance_ruleexecutecompletionmembers:attendance_group_shift_member();
+                                            $attendance_ruleexecutecompletionnewschedules:attendance_schedule();
+                                            $attendance_ruleexecutecompletionshiftfilter:attendance_activate_shift();
+                                            $attendance_ruleexecutecompletionshifts:attendance_shift();
+                                            $attendance_ruleexecutecompletionsrfactionparam:Map();
+                                            $attendance_ruleexecutecompletiontemp:Map();
+                                            $attendance_ruleexecutecompletionwaitrulepage:attendance_activate_rule();
+                                            $attendance_ruleexecutecompletionworkdays:Map();
+                                    eval($attendance_ruleexecutecompletiondefault==attendance_ruleexecutecompletiondefault && $attendance_ruleexecutecompletioncurruleschedules==attendance_ruleexecutecompletioncurruleschedules && $attendance_ruleexecutecompletionactivefilter==attendance_ruleexecutecompletionactivefilter && $attendance_ruleexecutecompletionactiverule==attendance_ruleexecutecompletionactiverule && $attendance_ruleexecutecompletionactiveshift==attendance_ruleexecutecompletionactiveshift && $attendance_ruleexecutecompletionactiveshifts==attendance_ruleexecutecompletionactiveshifts && $attendance_ruleexecutecompletionalldeptemp==attendance_ruleexecutecompletionalldeptemp && $attendance_ruleexecutecompletionallmembers==attendance_ruleexecutecompletionallmembers && $attendance_ruleexecutecompletionattendance_group_shift==attendance_ruleexecutecompletionattendance_group_shift && $attendance_ruleexecutecompletionattendance_scheduletemp==attendance_ruleexecutecompletionattendance_scheduletemp && $attendance_ruleexecutecompletionattendance_scheduletemps==attendance_ruleexecutecompletionattendance_scheduletemps && $attendance_ruleexecutecompletioncuractivemember==attendance_ruleexecutecompletioncuractivemember && $attendance_ruleexecutecompletiondepttemp==attendance_ruleexecutecompletiondepttemp && $attendance_ruleexecutecompletiondepts==attendance_ruleexecutecompletiondepts && $attendance_ruleexecutecompletionempfilter==attendance_ruleexecutecompletionempfilter && $attendance_ruleexecutecompletionemployees==attendance_ruleexecutecompletionemployees && $attendance_ruleexecutecompletionlastschedules==attendance_ruleexecutecompletionlastschedules && $attendance_ruleexecutecompletionmembertemp==attendance_ruleexecutecompletionmembertemp && $attendance_ruleexecutecompletionmembers==attendance_ruleexecutecompletionmembers && $attendance_ruleexecutecompletionnewschedules==attendance_ruleexecutecompletionnewschedules && $attendance_ruleexecutecompletionshiftfilter==attendance_ruleexecutecompletionshiftfilter && $attendance_ruleexecutecompletionshifts==attendance_ruleexecutecompletionshifts && $attendance_ruleexecutecompletionwaitrulepage==attendance_ruleexecutecompletionwaitrulepage && );
+                                eval(((RuleUtils.test($attendance_ruleexecutecompletiondefault.get("scheduleType"),"EQ","class_inversion"))||(RuleUtils.test($attendance_ruleexecutecompletiondefault.get("scheduleType"),"EQ","work_rest"))))
+                                ]]>
+                            </conditionExpression>
+                    </sequenceFlow>
+                    <sequenceFlow id="gateway-loopsubcall_05_rawsfcode_017" sourceRef="gateway-loopsubcall_05" targetRef="rawsfcode_017">
+                            <conditionExpression  language="http://www.jboss.org/drools/rule" ><![CDATA[
+                                            $attendance_ruleexecutecompletiondefault:attendance_rule();
+                                            $attendance_ruleexecutecompletioncurruleschedules:attendance_schedule();
+                                            $attendance_ruleexecutecompletionactivefilter:attendance_activate_rule();
+                                            $attendance_ruleexecutecompletionactiverule:attendance_activate_rule();
+                                            $attendance_ruleexecutecompletionactiveshift:attendance_activate_shift();
+                                            $attendance_ruleexecutecompletionactiveshifts:attendance_activate_shift();
+                                            $attendance_ruleexecutecompletionalldeptemp:attendance_group_shift_member();
+                                            $attendance_ruleexecutecompletionallmembers:attendance_group_shift_member();
+                                            $attendance_ruleexecutecompletionattendance_group_shift:attendance_group_shift();
+                                            $attendance_ruleexecutecompletionattendance_group_shifts:Map();
+                                            $attendance_ruleexecutecompletionattendance_schedulefilter:Map();
+                                            $attendance_ruleexecutecompletionattendance_scheduletemp:attendance_schedule();
+                                            $attendance_ruleexecutecompletionattendance_scheduletemps:attendance_schedule();
+                                            $attendance_ruleexecutecompletioncalendarfilter:Map();
+                                            $attendance_ruleexecutecompletioncalendarlist:Map();
+                                            $attendance_ruleexecutecompletioncuractivemember:attendance_group_shift_member();
+                                            $attendance_ruleexecutecompletiondepttemp:attendance_group_shift_member();
+                                            $attendance_ruleexecutecompletiondepts:attendance_group_shift_member();
+                                            $attendance_ruleexecutecompletionempfilter:employee();
+                                            $attendance_ruleexecutecompletionemployees:employee();
+                                            $attendance_ruleexecutecompletionlastschedules:attendance_schedule();
+                                            $attendance_ruleexecutecompletionmembertemp:attendance_group_shift_member();
+                                            $attendance_ruleexecutecompletionmembers:attendance_group_shift_member();
+                                            $attendance_ruleexecutecompletionnewschedules:attendance_schedule();
+                                            $attendance_ruleexecutecompletionshiftfilter:attendance_activate_shift();
+                                            $attendance_ruleexecutecompletionshifts:attendance_shift();
+                                            $attendance_ruleexecutecompletionsrfactionparam:Map();
+                                            $attendance_ruleexecutecompletiontemp:Map();
+                                            $attendance_ruleexecutecompletionwaitrulepage:attendance_activate_rule();
+                                            $attendance_ruleexecutecompletionworkdays:Map();
+                                    eval($attendance_ruleexecutecompletiondefault==attendance_ruleexecutecompletiondefault && $attendance_ruleexecutecompletioncurruleschedules==attendance_ruleexecutecompletioncurruleschedules && $attendance_ruleexecutecompletionactivefilter==attendance_ruleexecutecompletionactivefilter && $attendance_ruleexecutecompletionactiverule==attendance_ruleexecutecompletionactiverule && $attendance_ruleexecutecompletionactiveshift==attendance_ruleexecutecompletionactiveshift && $attendance_ruleexecutecompletionactiveshifts==attendance_ruleexecutecompletionactiveshifts && $attendance_ruleexecutecompletionalldeptemp==attendance_ruleexecutecompletionalldeptemp && $attendance_ruleexecutecompletionallmembers==attendance_ruleexecutecompletionallmembers && $attendance_ruleexecutecompletionattendance_group_shift==attendance_ruleexecutecompletionattendance_group_shift && $attendance_ruleexecutecompletionattendance_scheduletemp==attendance_ruleexecutecompletionattendance_scheduletemp && $attendance_ruleexecutecompletionattendance_scheduletemps==attendance_ruleexecutecompletionattendance_scheduletemps && $attendance_ruleexecutecompletioncuractivemember==attendance_ruleexecutecompletioncuractivemember && $attendance_ruleexecutecompletiondepttemp==attendance_ruleexecutecompletiondepttemp && $attendance_ruleexecutecompletiondepts==attendance_ruleexecutecompletiondepts && $attendance_ruleexecutecompletionempfilter==attendance_ruleexecutecompletionempfilter && $attendance_ruleexecutecompletionemployees==attendance_ruleexecutecompletionemployees && $attendance_ruleexecutecompletionlastschedules==attendance_ruleexecutecompletionlastschedules && $attendance_ruleexecutecompletionmembertemp==attendance_ruleexecutecompletionmembertemp && $attendance_ruleexecutecompletionmembers==attendance_ruleexecutecompletionmembers && $attendance_ruleexecutecompletionnewschedules==attendance_ruleexecutecompletionnewschedules && $attendance_ruleexecutecompletionshiftfilter==attendance_ruleexecutecompletionshiftfilter && $attendance_ruleexecutecompletionshifts==attendance_ruleexecutecompletionshifts && $attendance_ruleexecutecompletionwaitrulepage==attendance_ruleexecutecompletionwaitrulepage && );
+                                eval((RuleUtils.test($attendance_ruleexecutecompletionactiverule.get("id"),"EQ","00d0d586d1da1fa3151946037a982682")))
+                                ]]>
+                            </conditionExpression>
+                    </sequenceFlow>
+                    <sequenceFlow id="loopsubcall_05_end_02" sourceRef="loopsubcall_05" targetRef="end_02">
+                    </sequenceFlow>
+                    <sequenceFlow id="gateway-prepareparam_06_rawsqlcall_01" sourceRef="gateway-prepareparam_06" targetRef="rawsqlcall_01">
+                            <conditionExpression  language="http://www.jboss.org/drools/rule" ><![CDATA[
+                                            $attendance_ruleexecutecompletiondefault:attendance_rule();
+                                            $attendance_ruleexecutecompletioncurruleschedules:attendance_schedule();
+                                            $attendance_ruleexecutecompletionactivefilter:attendance_activate_rule();
+                                            $attendance_ruleexecutecompletionactiverule:attendance_activate_rule();
+                                            $attendance_ruleexecutecompletionactiveshift:attendance_activate_shift();
+                                            $attendance_ruleexecutecompletionactiveshifts:attendance_activate_shift();
+                                            $attendance_ruleexecutecompletionalldeptemp:attendance_group_shift_member();
+                                            $attendance_ruleexecutecompletionallmembers:attendance_group_shift_member();
+                                            $attendance_ruleexecutecompletionattendance_group_shift:attendance_group_shift();
+                                            $attendance_ruleexecutecompletionattendance_group_shifts:Map();
+                                            $attendance_ruleexecutecompletionattendance_schedulefilter:Map();
+                                            $attendance_ruleexecutecompletionattendance_scheduletemp:attendance_schedule();
+                                            $attendance_ruleexecutecompletionattendance_scheduletemps:attendance_schedule();
+                                            $attendance_ruleexecutecompletioncalendarfilter:Map();
+                                            $attendance_ruleexecutecompletioncalendarlist:Map();
+                                            $attendance_ruleexecutecompletioncuractivemember:attendance_group_shift_member();
+                                            $attendance_ruleexecutecompletiondepttemp:attendance_group_shift_member();
+                                            $attendance_ruleexecutecompletiondepts:attendance_group_shift_member();
+                                            $attendance_ruleexecutecompletionempfilter:employee();
+                                            $attendance_ruleexecutecompletionemployees:employee();
+                                            $attendance_ruleexecutecompletionlastschedules:attendance_schedule();
+                                            $attendance_ruleexecutecompletionmembertemp:attendance_group_shift_member();
+                                            $attendance_ruleexecutecompletionmembers:attendance_group_shift_member();
+                                            $attendance_ruleexecutecompletionnewschedules:attendance_schedule();
+                                            $attendance_ruleexecutecompletionshiftfilter:attendance_activate_shift();
+                                            $attendance_ruleexecutecompletionshifts:attendance_shift();
+                                            $attendance_ruleexecutecompletionsrfactionparam:Map();
+                                            $attendance_ruleexecutecompletiontemp:Map();
+                                            $attendance_ruleexecutecompletionwaitrulepage:attendance_activate_rule();
+                                            $attendance_ruleexecutecompletionworkdays:Map();
+                                    eval($attendance_ruleexecutecompletiondefault==attendance_ruleexecutecompletiondefault && $attendance_ruleexecutecompletioncurruleschedules==attendance_ruleexecutecompletioncurruleschedules && $attendance_ruleexecutecompletionactivefilter==attendance_ruleexecutecompletionactivefilter && $attendance_ruleexecutecompletionactiverule==attendance_ruleexecutecompletionactiverule && $attendance_ruleexecutecompletionactiveshift==attendance_ruleexecutecompletionactiveshift && $attendance_ruleexecutecompletionactiveshifts==attendance_ruleexecutecompletionactiveshifts && $attendance_ruleexecutecompletionalldeptemp==attendance_ruleexecutecompletionalldeptemp && $attendance_ruleexecutecompletionallmembers==attendance_ruleexecutecompletionallmembers && $attendance_ruleexecutecompletionattendance_group_shift==attendance_ruleexecutecompletionattendance_group_shift && $attendance_ruleexecutecompletionattendance_scheduletemp==attendance_ruleexecutecompletionattendance_scheduletemp && $attendance_ruleexecutecompletionattendance_scheduletemps==attendance_ruleexecutecompletionattendance_scheduletemps && $attendance_ruleexecutecompletioncuractivemember==attendance_ruleexecutecompletioncuractivemember && $attendance_ruleexecutecompletiondepttemp==attendance_ruleexecutecompletiondepttemp && $attendance_ruleexecutecompletiondepts==attendance_ruleexecutecompletiondepts && $attendance_ruleexecutecompletionempfilter==attendance_ruleexecutecompletionempfilter && $attendance_ruleexecutecompletionemployees==attendance_ruleexecutecompletionemployees && $attendance_ruleexecutecompletionlastschedules==attendance_ruleexecutecompletionlastschedules && $attendance_ruleexecutecompletionmembertemp==attendance_ruleexecutecompletionmembertemp && $attendance_ruleexecutecompletionmembers==attendance_ruleexecutecompletionmembers && $attendance_ruleexecutecompletionnewschedules==attendance_ruleexecutecompletionnewschedules && $attendance_ruleexecutecompletionshiftfilter==attendance_ruleexecutecompletionshiftfilter && $attendance_ruleexecutecompletionshifts==attendance_ruleexecutecompletionshifts && $attendance_ruleexecutecompletionwaitrulepage==attendance_ruleexecutecompletionwaitrulepage && );
+                                eval((RuleUtils.test($attendance_ruleexecutecompletiondefault.get("scheduleType"),"EQ","no_required")))
+                                ]]>
+                            </conditionExpression>
+                    </sequenceFlow>
+                    <sequenceFlow id="prepareparam_06_dedataset_05" sourceRef="prepareparam_06" targetRef="dedataset_05">
+                    </sequenceFlow>
+                    <sequenceFlow id="gateway-rawsqlcall_01_rawsfcode_016" sourceRef="gateway-rawsqlcall_01" targetRef="rawsfcode_016">
+                            <conditionExpression  language="http://www.jboss.org/drools/rule" ><![CDATA[
+                                            $attendance_ruleexecutecompletiondefault:attendance_rule();
+                                            $attendance_ruleexecutecompletioncurruleschedules:attendance_schedule();
+                                            $attendance_ruleexecutecompletionactivefilter:attendance_activate_rule();
+                                            $attendance_ruleexecutecompletionactiverule:attendance_activate_rule();
+                                            $attendance_ruleexecutecompletionactiveshift:attendance_activate_shift();
+                                            $attendance_ruleexecutecompletionactiveshifts:attendance_activate_shift();
+                                            $attendance_ruleexecutecompletionalldeptemp:attendance_group_shift_member();
+                                            $attendance_ruleexecutecompletionallmembers:attendance_group_shift_member();
+                                            $attendance_ruleexecutecompletionattendance_group_shift:attendance_group_shift();
+                                            $attendance_ruleexecutecompletionattendance_group_shifts:Map();
+                                            $attendance_ruleexecutecompletionattendance_schedulefilter:Map();
+                                            $attendance_ruleexecutecompletionattendance_scheduletemp:attendance_schedule();
+                                            $attendance_ruleexecutecompletionattendance_scheduletemps:attendance_schedule();
+                                            $attendance_ruleexecutecompletioncalendarfilter:Map();
+                                            $attendance_ruleexecutecompletioncalendarlist:Map();
+                                            $attendance_ruleexecutecompletioncuractivemember:attendance_group_shift_member();
+                                            $attendance_ruleexecutecompletiondepttemp:attendance_group_shift_member();
+                                            $attendance_ruleexecutecompletiondepts:attendance_group_shift_member();
+                                            $attendance_ruleexecutecompletionempfilter:employee();
+                                            $attendance_ruleexecutecompletionemployees:employee();
+                                            $attendance_ruleexecutecompletionlastschedules:attendance_schedule();
+                                            $attendance_ruleexecutecompletionmembertemp:attendance_group_shift_member();
+                                            $attendance_ruleexecutecompletionmembers:attendance_group_shift_member();
+                                            $attendance_ruleexecutecompletionnewschedules:attendance_schedule();
+                                            $attendance_ruleexecutecompletionshiftfilter:attendance_activate_shift();
+                                            $attendance_ruleexecutecompletionshifts:attendance_shift();
+                                            $attendance_ruleexecutecompletionsrfactionparam:Map();
+                                            $attendance_ruleexecutecompletiontemp:Map();
+                                            $attendance_ruleexecutecompletionwaitrulepage:attendance_activate_rule();
+                                            $attendance_ruleexecutecompletionworkdays:Map();
+                                    eval($attendance_ruleexecutecompletiondefault==attendance_ruleexecutecompletiondefault && $attendance_ruleexecutecompletioncurruleschedules==attendance_ruleexecutecompletioncurruleschedules && $attendance_ruleexecutecompletionactivefilter==attendance_ruleexecutecompletionactivefilter && $attendance_ruleexecutecompletionactiverule==attendance_ruleexecutecompletionactiverule && $attendance_ruleexecutecompletionactiveshift==attendance_ruleexecutecompletionactiveshift && $attendance_ruleexecutecompletionactiveshifts==attendance_ruleexecutecompletionactiveshifts && $attendance_ruleexecutecompletionalldeptemp==attendance_ruleexecutecompletionalldeptemp && $attendance_ruleexecutecompletionallmembers==attendance_ruleexecutecompletionallmembers && $attendance_ruleexecutecompletionattendance_group_shift==attendance_ruleexecutecompletionattendance_group_shift && $attendance_ruleexecutecompletionattendance_scheduletemp==attendance_ruleexecutecompletionattendance_scheduletemp && $attendance_ruleexecutecompletionattendance_scheduletemps==attendance_ruleexecutecompletionattendance_scheduletemps && $attendance_ruleexecutecompletioncuractivemember==attendance_ruleexecutecompletioncuractivemember && $attendance_ruleexecutecompletiondepttemp==attendance_ruleexecutecompletiondepttemp && $attendance_ruleexecutecompletiondepts==attendance_ruleexecutecompletiondepts && $attendance_ruleexecutecompletionempfilter==attendance_ruleexecutecompletionempfilter && $attendance_ruleexecutecompletionemployees==attendance_ruleexecutecompletionemployees && $attendance_ruleexecutecompletionlastschedules==attendance_ruleexecutecompletionlastschedules && $attendance_ruleexecutecompletionmembertemp==attendance_ruleexecutecompletionmembertemp && $attendance_ruleexecutecompletionmembers==attendance_ruleexecutecompletionmembers && $attendance_ruleexecutecompletionnewschedules==attendance_ruleexecutecompletionnewschedules && $attendance_ruleexecutecompletionshiftfilter==attendance_ruleexecutecompletionshiftfilter && $attendance_ruleexecutecompletionshifts==attendance_ruleexecutecompletionshifts && $attendance_ruleexecutecompletionwaitrulepage==attendance_ruleexecutecompletionwaitrulepage && );
+                                eval((RuleUtils.test($attendance_ruleexecutecompletiondefault.get("scheduleType"),"EQ","no_required")))
+                                ]]>
+                            </conditionExpression>
+                    </sequenceFlow>
+                    <sequenceFlow id="rawsfcode_08_rawsfcode_015" sourceRef="rawsfcode_08" targetRef="rawsfcode_015">
+                    </sequenceFlow>
+                    <sequenceFlow id="rawsfcode_02_rawsfcode_015" sourceRef="rawsfcode_02" targetRef="rawsfcode_015">
+                    </sequenceFlow>
+                    <sequenceFlow id="rawsfcode_06_rawsfcode_015" sourceRef="rawsfcode_06" targetRef="rawsfcode_015">
+                    </sequenceFlow>
+                    <sequenceFlow id="rawsfcode_01_rawsfcode_015" sourceRef="rawsfcode_01" targetRef="rawsfcode_015">
+                    </sequenceFlow>
+                    <sequenceFlow id="gateway-dedataset_04_rawsfcode_03" sourceRef="gateway-dedataset_04" targetRef="rawsfcode_03">
+                            <conditionExpression  language="http://www.jboss.org/drools/rule" ><![CDATA[
+                                            $attendance_ruleexecutecompletiondefault:attendance_rule();
+                                            $attendance_ruleexecutecompletioncurruleschedules:attendance_schedule();
+                                            $attendance_ruleexecutecompletionactivefilter:attendance_activate_rule();
+                                            $attendance_ruleexecutecompletionactiverule:attendance_activate_rule();
+                                            $attendance_ruleexecutecompletionactiveshift:attendance_activate_shift();
+                                            $attendance_ruleexecutecompletionactiveshifts:attendance_activate_shift();
+                                            $attendance_ruleexecutecompletionalldeptemp:attendance_group_shift_member();
+                                            $attendance_ruleexecutecompletionallmembers:attendance_group_shift_member();
+                                            $attendance_ruleexecutecompletionattendance_group_shift:attendance_group_shift();
+                                            $attendance_ruleexecutecompletionattendance_group_shifts:Map();
+                                            $attendance_ruleexecutecompletionattendance_schedulefilter:Map();
+                                            $attendance_ruleexecutecompletionattendance_scheduletemp:attendance_schedule();
+                                            $attendance_ruleexecutecompletionattendance_scheduletemps:attendance_schedule();
+                                            $attendance_ruleexecutecompletioncalendarfilter:Map();
+                                            $attendance_ruleexecutecompletioncalendarlist:Map();
+                                            $attendance_ruleexecutecompletioncuractivemember:attendance_group_shift_member();
+                                            $attendance_ruleexecutecompletiondepttemp:attendance_group_shift_member();
+                                            $attendance_ruleexecutecompletiondepts:attendance_group_shift_member();
+                                            $attendance_ruleexecutecompletionempfilter:employee();
+                                            $attendance_ruleexecutecompletionemployees:employee();
+                                            $attendance_ruleexecutecompletionlastschedules:attendance_schedule();
+                                            $attendance_ruleexecutecompletionmembertemp:attendance_group_shift_member();
+                                            $attendance_ruleexecutecompletionmembers:attendance_group_shift_member();
+                                            $attendance_ruleexecutecompletionnewschedules:attendance_schedule();
+                                            $attendance_ruleexecutecompletionshiftfilter:attendance_activate_shift();
+                                            $attendance_ruleexecutecompletionshifts:attendance_shift();
+                                            $attendance_ruleexecutecompletionsrfactionparam:Map();
+                                            $attendance_ruleexecutecompletiontemp:Map();
+                                            $attendance_ruleexecutecompletionwaitrulepage:attendance_activate_rule();
+                                            $attendance_ruleexecutecompletionworkdays:Map();
+                                    eval($attendance_ruleexecutecompletiondefault==attendance_ruleexecutecompletiondefault && $attendance_ruleexecutecompletioncurruleschedules==attendance_ruleexecutecompletioncurruleschedules && $attendance_ruleexecutecompletionactivefilter==attendance_ruleexecutecompletionactivefilter && $attendance_ruleexecutecompletionactiverule==attendance_ruleexecutecompletionactiverule && $attendance_ruleexecutecompletionactiveshift==attendance_ruleexecutecompletionactiveshift && $attendance_ruleexecutecompletionactiveshifts==attendance_ruleexecutecompletionactiveshifts && $attendance_ruleexecutecompletionalldeptemp==attendance_ruleexecutecompletionalldeptemp && $attendance_ruleexecutecompletionallmembers==attendance_ruleexecutecompletionallmembers && $attendance_ruleexecutecompletionattendance_group_shift==attendance_ruleexecutecompletionattendance_group_shift && $attendance_ruleexecutecompletionattendance_scheduletemp==attendance_ruleexecutecompletionattendance_scheduletemp && $attendance_ruleexecutecompletionattendance_scheduletemps==attendance_ruleexecutecompletionattendance_scheduletemps && $attendance_ruleexecutecompletioncuractivemember==attendance_ruleexecutecompletioncuractivemember && $attendance_ruleexecutecompletiondepttemp==attendance_ruleexecutecompletiondepttemp && $attendance_ruleexecutecompletiondepts==attendance_ruleexecutecompletiondepts && $attendance_ruleexecutecompletionempfilter==attendance_ruleexecutecompletionempfilter && $attendance_ruleexecutecompletionemployees==attendance_ruleexecutecompletionemployees && $attendance_ruleexecutecompletionlastschedules==attendance_ruleexecutecompletionlastschedules && $attendance_ruleexecutecompletionmembertemp==attendance_ruleexecutecompletionmembertemp && $attendance_ruleexecutecompletionmembers==attendance_ruleexecutecompletionmembers && $attendance_ruleexecutecompletionnewschedules==attendance_ruleexecutecompletionnewschedules && $attendance_ruleexecutecompletionshiftfilter==attendance_ruleexecutecompletionshiftfilter && $attendance_ruleexecutecompletionshifts==attendance_ruleexecutecompletionshifts && $attendance_ruleexecutecompletionwaitrulepage==attendance_ruleexecutecompletionwaitrulepage && );
+                                eval((RuleUtils.test($attendance_ruleexecutecompletionwaitrulepage.get("size"),"NOTEQ","0")))
+                                ]]>
+                            </conditionExpression>
+                    </sequenceFlow>
+                    <sequenceFlow id="rawsfcode_016_rawsfcode_04" sourceRef="rawsfcode_016" targetRef="rawsfcode_04">
+                    </sequenceFlow>
+                    <sequenceFlow id="debugparam_03_prepareparam_02" sourceRef="debugparam_03" targetRef="prepareparam_02">
+                    </sequenceFlow>
+                    <sequenceFlow id="loopsubcall_03_prepareparam_05" sourceRef="loopsubcall_03" targetRef="prepareparam_05">
+                    </sequenceFlow>
+                    <sequenceFlow id="rawsfcode_010_rawsfcode_014" sourceRef="rawsfcode_010" targetRef="rawsfcode_014">
+                    </sequenceFlow>
+                    <sequenceFlow id="rawsfcode_015_prepareparam_04" sourceRef="rawsfcode_015" targetRef="prepareparam_04">
+                    </sequenceFlow>
+                    <sequenceFlow id="debugparam_01_loopsubcall_05" sourceRef="debugparam_01" targetRef="loopsubcall_05">
+                    </sequenceFlow>
+                    <sequenceFlow id="rawsfcode_05_rawsfcode_014" sourceRef="rawsfcode_05" targetRef="rawsfcode_014">
+                    </sequenceFlow>
+                    <sequenceFlow id="rawsfcode_014_rawsfcode_04" sourceRef="rawsfcode_014" targetRef="rawsfcode_04">
+                    </sequenceFlow>
+                    <sequenceFlow id="dedataset_02_rawsfcode_012" sourceRef="dedataset_02" targetRef="rawsfcode_012">
+                    </sequenceFlow>
+                    <sequenceFlow id="gateway-debugparam_02_rawsqlcall_05" sourceRef="gateway-debugparam_02" targetRef="rawsqlcall_05">
+                            <conditionExpression  language="http://www.jboss.org/drools/rule" ><![CDATA[
+                                            $attendance_ruleexecutecompletiondefault:attendance_rule();
+                                            $attendance_ruleexecutecompletioncurruleschedules:attendance_schedule();
+                                            $attendance_ruleexecutecompletionactivefilter:attendance_activate_rule();
+                                            $attendance_ruleexecutecompletionactiverule:attendance_activate_rule();
+                                            $attendance_ruleexecutecompletionactiveshift:attendance_activate_shift();
+                                            $attendance_ruleexecutecompletionactiveshifts:attendance_activate_shift();
+                                            $attendance_ruleexecutecompletionalldeptemp:attendance_group_shift_member();
+                                            $attendance_ruleexecutecompletionallmembers:attendance_group_shift_member();
+                                            $attendance_ruleexecutecompletionattendance_group_shift:attendance_group_shift();
+                                            $attendance_ruleexecutecompletionattendance_group_shifts:Map();
+                                            $attendance_ruleexecutecompletionattendance_schedulefilter:Map();
+                                            $attendance_ruleexecutecompletionattendance_scheduletemp:attendance_schedule();
+                                            $attendance_ruleexecutecompletionattendance_scheduletemps:attendance_schedule();
+                                            $attendance_ruleexecutecompletioncalendarfilter:Map();
+                                            $attendance_ruleexecutecompletioncalendarlist:Map();
+                                            $attendance_ruleexecutecompletioncuractivemember:attendance_group_shift_member();
+                                            $attendance_ruleexecutecompletiondepttemp:attendance_group_shift_member();
+                                            $attendance_ruleexecutecompletiondepts:attendance_group_shift_member();
+                                            $attendance_ruleexecutecompletionempfilter:employee();
+                                            $attendance_ruleexecutecompletionemployees:employee();
+                                            $attendance_ruleexecutecompletionlastschedules:attendance_schedule();
+                                            $attendance_ruleexecutecompletionmembertemp:attendance_group_shift_member();
+                                            $attendance_ruleexecutecompletionmembers:attendance_group_shift_member();
+                                            $attendance_ruleexecutecompletionnewschedules:attendance_schedule();
+                                            $attendance_ruleexecutecompletionshiftfilter:attendance_activate_shift();
+                                            $attendance_ruleexecutecompletionshifts:attendance_shift();
+                                            $attendance_ruleexecutecompletionsrfactionparam:Map();
+                                            $attendance_ruleexecutecompletiontemp:Map();
+                                            $attendance_ruleexecutecompletionwaitrulepage:attendance_activate_rule();
+                                            $attendance_ruleexecutecompletionworkdays:Map();
+                                    eval($attendance_ruleexecutecompletiondefault==attendance_ruleexecutecompletiondefault && $attendance_ruleexecutecompletioncurruleschedules==attendance_ruleexecutecompletioncurruleschedules && $attendance_ruleexecutecompletionactivefilter==attendance_ruleexecutecompletionactivefilter && $attendance_ruleexecutecompletionactiverule==attendance_ruleexecutecompletionactiverule && $attendance_ruleexecutecompletionactiveshift==attendance_ruleexecutecompletionactiveshift && $attendance_ruleexecutecompletionactiveshifts==attendance_ruleexecutecompletionactiveshifts && $attendance_ruleexecutecompletionalldeptemp==attendance_ruleexecutecompletionalldeptemp && $attendance_ruleexecutecompletionallmembers==attendance_ruleexecutecompletionallmembers && $attendance_ruleexecutecompletionattendance_group_shift==attendance_ruleexecutecompletionattendance_group_shift && $attendance_ruleexecutecompletionattendance_scheduletemp==attendance_ruleexecutecompletionattendance_scheduletemp && $attendance_ruleexecutecompletionattendance_scheduletemps==attendance_ruleexecutecompletionattendance_scheduletemps && $attendance_ruleexecutecompletioncuractivemember==attendance_ruleexecutecompletioncuractivemember && $attendance_ruleexecutecompletiondepttemp==attendance_ruleexecutecompletiondepttemp && $attendance_ruleexecutecompletiondepts==attendance_ruleexecutecompletiondepts && $attendance_ruleexecutecompletionempfilter==attendance_ruleexecutecompletionempfilter && $attendance_ruleexecutecompletionemployees==attendance_ruleexecutecompletionemployees && $attendance_ruleexecutecompletionlastschedules==attendance_ruleexecutecompletionlastschedules && $attendance_ruleexecutecompletionmembertemp==attendance_ruleexecutecompletionmembertemp && $attendance_ruleexecutecompletionmembers==attendance_ruleexecutecompletionmembers && $attendance_ruleexecutecompletionnewschedules==attendance_ruleexecutecompletionnewschedules && $attendance_ruleexecutecompletionshiftfilter==attendance_ruleexecutecompletionshiftfilter && $attendance_ruleexecutecompletionshifts==attendance_ruleexecutecompletionshifts && $attendance_ruleexecutecompletionwaitrulepage==attendance_ruleexecutecompletionwaitrulepage && );
+                                eval((RuleUtils.test($attendance_ruleexecutecompletiondepts.get("size"),"NOTEQ","0")))
+                                ]]>
+                            </conditionExpression>
+                    </sequenceFlow>
+                    <sequenceFlow id="debugparam_02_loopsubcall_04" sourceRef="debugparam_02" targetRef="loopsubcall_04">
+                    </sequenceFlow>
+                    <sequenceFlow id="dedataset_01_rawsfcode_09" sourceRef="dedataset_01" targetRef="rawsfcode_09">
+                    </sequenceFlow>
+                    <sequenceFlow id="rawsfcode_012_loopsubcall_04" sourceRef="rawsfcode_012" targetRef="loopsubcall_04">
+                    </sequenceFlow>
+                    <sequenceFlow id="gateway-prepareparam_02_prepareparam_06" sourceRef="gateway-prepareparam_02" targetRef="prepareparam_06">
+                            <conditionExpression  language="http://www.jboss.org/drools/rule" ><![CDATA[
+                                            $attendance_ruleexecutecompletiondefault:attendance_rule();
+                                            $attendance_ruleexecutecompletioncurruleschedules:attendance_schedule();
+                                            $attendance_ruleexecutecompletionactivefilter:attendance_activate_rule();
+                                            $attendance_ruleexecutecompletionactiverule:attendance_activate_rule();
+                                            $attendance_ruleexecutecompletionactiveshift:attendance_activate_shift();
+                                            $attendance_ruleexecutecompletionactiveshifts:attendance_activate_shift();
+                                            $attendance_ruleexecutecompletionalldeptemp:attendance_group_shift_member();
+                                            $attendance_ruleexecutecompletionallmembers:attendance_group_shift_member();
+                                            $attendance_ruleexecutecompletionattendance_group_shift:attendance_group_shift();
+                                            $attendance_ruleexecutecompletionattendance_group_shifts:Map();
+                                            $attendance_ruleexecutecompletionattendance_schedulefilter:Map();
+                                            $attendance_ruleexecutecompletionattendance_scheduletemp:attendance_schedule();
+                                            $attendance_ruleexecutecompletionattendance_scheduletemps:attendance_schedule();
+                                            $attendance_ruleexecutecompletioncalendarfilter:Map();
+                                            $attendance_ruleexecutecompletioncalendarlist:Map();
+                                            $attendance_ruleexecutecompletioncuractivemember:attendance_group_shift_member();
+                                            $attendance_ruleexecutecompletiondepttemp:attendance_group_shift_member();
+                                            $attendance_ruleexecutecompletiondepts:attendance_group_shift_member();
+                                            $attendance_ruleexecutecompletionempfilter:employee();
+                                            $attendance_ruleexecutecompletionemployees:employee();
+                                            $attendance_ruleexecutecompletionlastschedules:attendance_schedule();
+                                            $attendance_ruleexecutecompletionmembertemp:attendance_group_shift_member();
+                                            $attendance_ruleexecutecompletionmembers:attendance_group_shift_member();
+                                            $attendance_ruleexecutecompletionnewschedules:attendance_schedule();
+                                            $attendance_ruleexecutecompletionshiftfilter:attendance_activate_shift();
+                                            $attendance_ruleexecutecompletionshifts:attendance_shift();
+                                            $attendance_ruleexecutecompletionsrfactionparam:Map();
+                                            $attendance_ruleexecutecompletiontemp:Map();
+                                            $attendance_ruleexecutecompletionwaitrulepage:attendance_activate_rule();
+                                            $attendance_ruleexecutecompletionworkdays:Map();
+                                    eval($attendance_ruleexecutecompletiondefault==attendance_ruleexecutecompletiondefault && $attendance_ruleexecutecompletioncurruleschedules==attendance_ruleexecutecompletioncurruleschedules && $attendance_ruleexecutecompletionactivefilter==attendance_ruleexecutecompletionactivefilter && $attendance_ruleexecutecompletionactiverule==attendance_ruleexecutecompletionactiverule && $attendance_ruleexecutecompletionactiveshift==attendance_ruleexecutecompletionactiveshift && $attendance_ruleexecutecompletionactiveshifts==attendance_ruleexecutecompletionactiveshifts && $attendance_ruleexecutecompletionalldeptemp==attendance_ruleexecutecompletionalldeptemp && $attendance_ruleexecutecompletionallmembers==attendance_ruleexecutecompletionallmembers && $attendance_ruleexecutecompletionattendance_group_shift==attendance_ruleexecutecompletionattendance_group_shift && $attendance_ruleexecutecompletionattendance_scheduletemp==attendance_ruleexecutecompletionattendance_scheduletemp && $attendance_ruleexecutecompletionattendance_scheduletemps==attendance_ruleexecutecompletionattendance_scheduletemps && $attendance_ruleexecutecompletioncuractivemember==attendance_ruleexecutecompletioncuractivemember && $attendance_ruleexecutecompletiondepttemp==attendance_ruleexecutecompletiondepttemp && $attendance_ruleexecutecompletiondepts==attendance_ruleexecutecompletiondepts && $attendance_ruleexecutecompletionempfilter==attendance_ruleexecutecompletionempfilter && $attendance_ruleexecutecompletionemployees==attendance_ruleexecutecompletionemployees && $attendance_ruleexecutecompletionlastschedules==attendance_ruleexecutecompletionlastschedules && $attendance_ruleexecutecompletionmembertemp==attendance_ruleexecutecompletionmembertemp && $attendance_ruleexecutecompletionmembers==attendance_ruleexecutecompletionmembers && $attendance_ruleexecutecompletionnewschedules==attendance_ruleexecutecompletionnewschedules && $attendance_ruleexecutecompletionshiftfilter==attendance_ruleexecutecompletionshiftfilter && $attendance_ruleexecutecompletionshifts==attendance_ruleexecutecompletionshifts && $attendance_ruleexecutecompletionwaitrulepage==attendance_ruleexecutecompletionwaitrulepage && );
+                                eval((RuleUtils.test($attendance_ruleexecutecompletionattendance_group_shifts.get("size"),"NOTEQ","0")))
+                                ]]>
+                            </conditionExpression>
+                    </sequenceFlow>
+                    <sequenceFlow id="rawsfcode_017_debugparam_03" sourceRef="rawsfcode_017" targetRef="debugparam_03">
+                    </sequenceFlow>
+                    <sequenceFlow id="gateway-prepareparam_05_rawsfcode_011" sourceRef="gateway-prepareparam_05" targetRef="rawsfcode_011">
+                            <conditionExpression  language="http://www.jboss.org/drools/rule" ><![CDATA[
+                                            $attendance_ruleexecutecompletiondefault:attendance_rule();
+                                            $attendance_ruleexecutecompletioncurruleschedules:attendance_schedule();
+                                            $attendance_ruleexecutecompletionactivefilter:attendance_activate_rule();
+                                            $attendance_ruleexecutecompletionactiverule:attendance_activate_rule();
+                                            $attendance_ruleexecutecompletionactiveshift:attendance_activate_shift();
+                                            $attendance_ruleexecutecompletionactiveshifts:attendance_activate_shift();
+                                            $attendance_ruleexecutecompletionalldeptemp:attendance_group_shift_member();
+                                            $attendance_ruleexecutecompletionallmembers:attendance_group_shift_member();
+                                            $attendance_ruleexecutecompletionattendance_group_shift:attendance_group_shift();
+                                            $attendance_ruleexecutecompletionattendance_group_shifts:Map();
+                                            $attendance_ruleexecutecompletionattendance_schedulefilter:Map();
+                                            $attendance_ruleexecutecompletionattendance_scheduletemp:attendance_schedule();
+                                            $attendance_ruleexecutecompletionattendance_scheduletemps:attendance_schedule();
+                                            $attendance_ruleexecutecompletioncalendarfilter:Map();
+                                            $attendance_ruleexecutecompletioncalendarlist:Map();
+                                            $attendance_ruleexecutecompletioncuractivemember:attendance_group_shift_member();
+                                            $attendance_ruleexecutecompletiondepttemp:attendance_group_shift_member();
+                                            $attendance_ruleexecutecompletiondepts:attendance_group_shift_member();
+                                            $attendance_ruleexecutecompletionempfilter:employee();
+                                            $attendance_ruleexecutecompletionemployees:employee();
+                                            $attendance_ruleexecutecompletionlastschedules:attendance_schedule();
+                                            $attendance_ruleexecutecompletionmembertemp:attendance_group_shift_member();
+                                            $attendance_ruleexecutecompletionmembers:attendance_group_shift_member();
+                                            $attendance_ruleexecutecompletionnewschedules:attendance_schedule();
+                                            $attendance_ruleexecutecompletionshiftfilter:attendance_activate_shift();
+                                            $attendance_ruleexecutecompletionshifts:attendance_shift();
+                                            $attendance_ruleexecutecompletionsrfactionparam:Map();
+                                            $attendance_ruleexecutecompletiontemp:Map();
+                                            $attendance_ruleexecutecompletionwaitrulepage:attendance_activate_rule();
+                                            $attendance_ruleexecutecompletionworkdays:Map();
+                                    eval($attendance_ruleexecutecompletiondefault==attendance_ruleexecutecompletiondefault && $attendance_ruleexecutecompletioncurruleschedules==attendance_ruleexecutecompletioncurruleschedules && $attendance_ruleexecutecompletionactivefilter==attendance_ruleexecutecompletionactivefilter && $attendance_ruleexecutecompletionactiverule==attendance_ruleexecutecompletionactiverule && $attendance_ruleexecutecompletionactiveshift==attendance_ruleexecutecompletionactiveshift && $attendance_ruleexecutecompletionactiveshifts==attendance_ruleexecutecompletionactiveshifts && $attendance_ruleexecutecompletionalldeptemp==attendance_ruleexecutecompletionalldeptemp && $attendance_ruleexecutecompletionallmembers==attendance_ruleexecutecompletionallmembers && $attendance_ruleexecutecompletionattendance_group_shift==attendance_ruleexecutecompletionattendance_group_shift && $attendance_ruleexecutecompletionattendance_scheduletemp==attendance_ruleexecutecompletionattendance_scheduletemp && $attendance_ruleexecutecompletionattendance_scheduletemps==attendance_ruleexecutecompletionattendance_scheduletemps && $attendance_ruleexecutecompletioncuractivemember==attendance_ruleexecutecompletioncuractivemember && $attendance_ruleexecutecompletiondepttemp==attendance_ruleexecutecompletiondepttemp && $attendance_ruleexecutecompletiondepts==attendance_ruleexecutecompletiondepts && $attendance_ruleexecutecompletionempfilter==attendance_ruleexecutecompletionempfilter && $attendance_ruleexecutecompletionemployees==attendance_ruleexecutecompletionemployees && $attendance_ruleexecutecompletionlastschedules==attendance_ruleexecutecompletionlastschedules && $attendance_ruleexecutecompletionmembertemp==attendance_ruleexecutecompletionmembertemp && $attendance_ruleexecutecompletionmembers==attendance_ruleexecutecompletionmembers && $attendance_ruleexecutecompletionnewschedules==attendance_ruleexecutecompletionnewschedules && $attendance_ruleexecutecompletionshiftfilter==attendance_ruleexecutecompletionshiftfilter && $attendance_ruleexecutecompletionshifts==attendance_ruleexecutecompletionshifts && $attendance_ruleexecutecompletionwaitrulepage==attendance_ruleexecutecompletionwaitrulepage && );
+                                eval((RuleUtils.test($attendance_ruleexecutecompletiondefault.get("scheduleType"),"EQ","class_inversion"))&&(RuleUtils.test($attendance_ruleexecutecompletiondefault.get("sameRestday"),"EQ","0"))&&(RuleUtils.test($attendance_ruleexecutecompletionattendance_group_shift.get("workdays"),"ISNOTNULL","")))
+                                ]]>
+                            </conditionExpression>
+                    </sequenceFlow>
+                    <sequenceFlow id="gateway-prepareparam_05_rawsfcode_010" sourceRef="gateway-prepareparam_05" targetRef="rawsfcode_010">
+                            <conditionExpression  language="http://www.jboss.org/drools/rule" ><![CDATA[
+                                            $attendance_ruleexecutecompletiondefault:attendance_rule();
+                                            $attendance_ruleexecutecompletioncurruleschedules:attendance_schedule();
+                                            $attendance_ruleexecutecompletionactivefilter:attendance_activate_rule();
+                                            $attendance_ruleexecutecompletionactiverule:attendance_activate_rule();
+                                            $attendance_ruleexecutecompletionactiveshift:attendance_activate_shift();
+                                            $attendance_ruleexecutecompletionactiveshifts:attendance_activate_shift();
+                                            $attendance_ruleexecutecompletionalldeptemp:attendance_group_shift_member();
+                                            $attendance_ruleexecutecompletionallmembers:attendance_group_shift_member();
+                                            $attendance_ruleexecutecompletionattendance_group_shift:attendance_group_shift();
+                                            $attendance_ruleexecutecompletionattendance_group_shifts:Map();
+                                            $attendance_ruleexecutecompletionattendance_schedulefilter:Map();
+                                            $attendance_ruleexecutecompletionattendance_scheduletemp:attendance_schedule();
+                                            $attendance_ruleexecutecompletionattendance_scheduletemps:attendance_schedule();
+                                            $attendance_ruleexecutecompletioncalendarfilter:Map();
+                                            $attendance_ruleexecutecompletioncalendarlist:Map();
+                                            $attendance_ruleexecutecompletioncuractivemember:attendance_group_shift_member();
+                                            $attendance_ruleexecutecompletiondepttemp:attendance_group_shift_member();
+                                            $attendance_ruleexecutecompletiondepts:attendance_group_shift_member();
+                                            $attendance_ruleexecutecompletionempfilter:employee();
+                                            $attendance_ruleexecutecompletionemployees:employee();
+                                            $attendance_ruleexecutecompletionlastschedules:attendance_schedule();
+                                            $attendance_ruleexecutecompletionmembertemp:attendance_group_shift_member();
+                                            $attendance_ruleexecutecompletionmembers:attendance_group_shift_member();
+                                            $attendance_ruleexecutecompletionnewschedules:attendance_schedule();
+                                            $attendance_ruleexecutecompletionshiftfilter:attendance_activate_shift();
+                                            $attendance_ruleexecutecompletionshifts:attendance_shift();
+                                            $attendance_ruleexecutecompletionsrfactionparam:Map();
+                                            $attendance_ruleexecutecompletiontemp:Map();
+                                            $attendance_ruleexecutecompletionwaitrulepage:attendance_activate_rule();
+                                            $attendance_ruleexecutecompletionworkdays:Map();
+                                    eval($attendance_ruleexecutecompletiondefault==attendance_ruleexecutecompletiondefault && $attendance_ruleexecutecompletioncurruleschedules==attendance_ruleexecutecompletioncurruleschedules && $attendance_ruleexecutecompletionactivefilter==attendance_ruleexecutecompletionactivefilter && $attendance_ruleexecutecompletionactiverule==attendance_ruleexecutecompletionactiverule && $attendance_ruleexecutecompletionactiveshift==attendance_ruleexecutecompletionactiveshift && $attendance_ruleexecutecompletionactiveshifts==attendance_ruleexecutecompletionactiveshifts && $attendance_ruleexecutecompletionalldeptemp==attendance_ruleexecutecompletionalldeptemp && $attendance_ruleexecutecompletionallmembers==attendance_ruleexecutecompletionallmembers && $attendance_ruleexecutecompletionattendance_group_shift==attendance_ruleexecutecompletionattendance_group_shift && $attendance_ruleexecutecompletionattendance_scheduletemp==attendance_ruleexecutecompletionattendance_scheduletemp && $attendance_ruleexecutecompletionattendance_scheduletemps==attendance_ruleexecutecompletionattendance_scheduletemps && $attendance_ruleexecutecompletioncuractivemember==attendance_ruleexecutecompletioncuractivemember && $attendance_ruleexecutecompletiondepttemp==attendance_ruleexecutecompletiondepttemp && $attendance_ruleexecutecompletiondepts==attendance_ruleexecutecompletiondepts && $attendance_ruleexecutecompletionempfilter==attendance_ruleexecutecompletionempfilter && $attendance_ruleexecutecompletionemployees==attendance_ruleexecutecompletionemployees && $attendance_ruleexecutecompletionlastschedules==attendance_ruleexecutecompletionlastschedules && $attendance_ruleexecutecompletionmembertemp==attendance_ruleexecutecompletionmembertemp && $attendance_ruleexecutecompletionmembers==attendance_ruleexecutecompletionmembers && $attendance_ruleexecutecompletionnewschedules==attendance_ruleexecutecompletionnewschedules && $attendance_ruleexecutecompletionshiftfilter==attendance_ruleexecutecompletionshiftfilter && $attendance_ruleexecutecompletionshifts==attendance_ruleexecutecompletionshifts && $attendance_ruleexecutecompletionwaitrulepage==attendance_ruleexecutecompletionwaitrulepage && );
+                                eval((RuleUtils.test($attendance_ruleexecutecompletiondefault.get("scheduleType"),"EQ","class_inversion"))&&(RuleUtils.test($attendance_ruleexecutecompletionattendance_group_shift.get("workdays"),"ISNOTNULL",""))&&(RuleUtils.test($attendance_ruleexecutecompletiondefault.get("sameRestday"),"EQ","1")))
+                                ]]>
+                            </conditionExpression>
+                    </sequenceFlow>
+                    <sequenceFlow id="gateway-prepareparam_05_rawsfcode_05" sourceRef="gateway-prepareparam_05" targetRef="rawsfcode_05">
+                            <conditionExpression  language="http://www.jboss.org/drools/rule" ><![CDATA[
+                                            $attendance_ruleexecutecompletiondefault:attendance_rule();
+                                            $attendance_ruleexecutecompletioncurruleschedules:attendance_schedule();
+                                            $attendance_ruleexecutecompletionactivefilter:attendance_activate_rule();
+                                            $attendance_ruleexecutecompletionactiverule:attendance_activate_rule();
+                                            $attendance_ruleexecutecompletionactiveshift:attendance_activate_shift();
+                                            $attendance_ruleexecutecompletionactiveshifts:attendance_activate_shift();
+                                            $attendance_ruleexecutecompletionalldeptemp:attendance_group_shift_member();
+                                            $attendance_ruleexecutecompletionallmembers:attendance_group_shift_member();
+                                            $attendance_ruleexecutecompletionattendance_group_shift:attendance_group_shift();
+                                            $attendance_ruleexecutecompletionattendance_group_shifts:Map();
+                                            $attendance_ruleexecutecompletionattendance_schedulefilter:Map();
+                                            $attendance_ruleexecutecompletionattendance_scheduletemp:attendance_schedule();
+                                            $attendance_ruleexecutecompletionattendance_scheduletemps:attendance_schedule();
+                                            $attendance_ruleexecutecompletioncalendarfilter:Map();
+                                            $attendance_ruleexecutecompletioncalendarlist:Map();
+                                            $attendance_ruleexecutecompletioncuractivemember:attendance_group_shift_member();
+                                            $attendance_ruleexecutecompletiondepttemp:attendance_group_shift_member();
+                                            $attendance_ruleexecutecompletiondepts:attendance_group_shift_member();
+                                            $attendance_ruleexecutecompletionempfilter:employee();
+                                            $attendance_ruleexecutecompletionemployees:employee();
+                                            $attendance_ruleexecutecompletionlastschedules:attendance_schedule();
+                                            $attendance_ruleexecutecompletionmembertemp:attendance_group_shift_member();
+                                            $attendance_ruleexecutecompletionmembers:attendance_group_shift_member();
+                                            $attendance_ruleexecutecompletionnewschedules:attendance_schedule();
+                                            $attendance_ruleexecutecompletionshiftfilter:attendance_activate_shift();
+                                            $attendance_ruleexecutecompletionshifts:attendance_shift();
+                                            $attendance_ruleexecutecompletionsrfactionparam:Map();
+                                            $attendance_ruleexecutecompletiontemp:Map();
+                                            $attendance_ruleexecutecompletionwaitrulepage:attendance_activate_rule();
+                                            $attendance_ruleexecutecompletionworkdays:Map();
+                                    eval($attendance_ruleexecutecompletiondefault==attendance_ruleexecutecompletiondefault && $attendance_ruleexecutecompletioncurruleschedules==attendance_ruleexecutecompletioncurruleschedules && $attendance_ruleexecutecompletionactivefilter==attendance_ruleexecutecompletionactivefilter && $attendance_ruleexecutecompletionactiverule==attendance_ruleexecutecompletionactiverule && $attendance_ruleexecutecompletionactiveshift==attendance_ruleexecutecompletionactiveshift && $attendance_ruleexecutecompletionactiveshifts==attendance_ruleexecutecompletionactiveshifts && $attendance_ruleexecutecompletionalldeptemp==attendance_ruleexecutecompletionalldeptemp && $attendance_ruleexecutecompletionallmembers==attendance_ruleexecutecompletionallmembers && $attendance_ruleexecutecompletionattendance_group_shift==attendance_ruleexecutecompletionattendance_group_shift && $attendance_ruleexecutecompletionattendance_scheduletemp==attendance_ruleexecutecompletionattendance_scheduletemp && $attendance_ruleexecutecompletionattendance_scheduletemps==attendance_ruleexecutecompletionattendance_scheduletemps && $attendance_ruleexecutecompletioncuractivemember==attendance_ruleexecutecompletioncuractivemember && $attendance_ruleexecutecompletiondepttemp==attendance_ruleexecutecompletiondepttemp && $attendance_ruleexecutecompletiondepts==attendance_ruleexecutecompletiondepts && $attendance_ruleexecutecompletionempfilter==attendance_ruleexecutecompletionempfilter && $attendance_ruleexecutecompletionemployees==attendance_ruleexecutecompletionemployees && $attendance_ruleexecutecompletionlastschedules==attendance_ruleexecutecompletionlastschedules && $attendance_ruleexecutecompletionmembertemp==attendance_ruleexecutecompletionmembertemp && $attendance_ruleexecutecompletionmembers==attendance_ruleexecutecompletionmembers && $attendance_ruleexecutecompletionnewschedules==attendance_ruleexecutecompletionnewschedules && $attendance_ruleexecutecompletionshiftfilter==attendance_ruleexecutecompletionshiftfilter && $attendance_ruleexecutecompletionshifts==attendance_ruleexecutecompletionshifts && $attendance_ruleexecutecompletionwaitrulepage==attendance_ruleexecutecompletionwaitrulepage && );
+                                eval((RuleUtils.test($attendance_ruleexecutecompletiondefault.get("scheduleType"),"EQ","work_rest"))&&(RuleUtils.test($attendance_ruleexecutecompletionattendance_group_shift.get("workdays"),"ISNOTNULL","")))
+                                ]]>
+                            </conditionExpression>
+                    </sequenceFlow>
+                    <sequenceFlow id="gateway-prepareparam_04_rawsfcode_04" sourceRef="gateway-prepareparam_04" targetRef="rawsfcode_04">
+                            <conditionExpression  language="http://www.jboss.org/drools/rule" ><![CDATA[
+                                            $attendance_ruleexecutecompletiondefault:attendance_rule();
+                                            $attendance_ruleexecutecompletioncurruleschedules:attendance_schedule();
+                                            $attendance_ruleexecutecompletionactivefilter:attendance_activate_rule();
+                                            $attendance_ruleexecutecompletionactiverule:attendance_activate_rule();
+                                            $attendance_ruleexecutecompletionactiveshift:attendance_activate_shift();
+                                            $attendance_ruleexecutecompletionactiveshifts:attendance_activate_shift();
+                                            $attendance_ruleexecutecompletionalldeptemp:attendance_group_shift_member();
+                                            $attendance_ruleexecutecompletionallmembers:attendance_group_shift_member();
+                                            $attendance_ruleexecutecompletionattendance_group_shift:attendance_group_shift();
+                                            $attendance_ruleexecutecompletionattendance_group_shifts:Map();
+                                            $attendance_ruleexecutecompletionattendance_schedulefilter:Map();
+                                            $attendance_ruleexecutecompletionattendance_scheduletemp:attendance_schedule();
+                                            $attendance_ruleexecutecompletionattendance_scheduletemps:attendance_schedule();
+                                            $attendance_ruleexecutecompletioncalendarfilter:Map();
+                                            $attendance_ruleexecutecompletioncalendarlist:Map();
+                                            $attendance_ruleexecutecompletioncuractivemember:attendance_group_shift_member();
+                                            $attendance_ruleexecutecompletiondepttemp:attendance_group_shift_member();
+                                            $attendance_ruleexecutecompletiondepts:attendance_group_shift_member();
+                                            $attendance_ruleexecutecompletionempfilter:employee();
+                                            $attendance_ruleexecutecompletionemployees:employee();
+                                            $attendance_ruleexecutecompletionlastschedules:attendance_schedule();
+                                            $attendance_ruleexecutecompletionmembertemp:attendance_group_shift_member();
+                                            $attendance_ruleexecutecompletionmembers:attendance_group_shift_member();
+                                            $attendance_ruleexecutecompletionnewschedules:attendance_schedule();
+                                            $attendance_ruleexecutecompletionshiftfilter:attendance_activate_shift();
+                                            $attendance_ruleexecutecompletionshifts:attendance_shift();
+                                            $attendance_ruleexecutecompletionsrfactionparam:Map();
+                                            $attendance_ruleexecutecompletiontemp:Map();
+                                            $attendance_ruleexecutecompletionwaitrulepage:attendance_activate_rule();
+                                            $attendance_ruleexecutecompletionworkdays:Map();
+                                    eval($attendance_ruleexecutecompletiondefault==attendance_ruleexecutecompletiondefault && $attendance_ruleexecutecompletioncurruleschedules==attendance_ruleexecutecompletioncurruleschedules && $attendance_ruleexecutecompletionactivefilter==attendance_ruleexecutecompletionactivefilter && $attendance_ruleexecutecompletionactiverule==attendance_ruleexecutecompletionactiverule && $attendance_ruleexecutecompletionactiveshift==attendance_ruleexecutecompletionactiveshift && $attendance_ruleexecutecompletionactiveshifts==attendance_ruleexecutecompletionactiveshifts && $attendance_ruleexecutecompletionalldeptemp==attendance_ruleexecutecompletionalldeptemp && $attendance_ruleexecutecompletionallmembers==attendance_ruleexecutecompletionallmembers && $attendance_ruleexecutecompletionattendance_group_shift==attendance_ruleexecutecompletionattendance_group_shift && $attendance_ruleexecutecompletionattendance_scheduletemp==attendance_ruleexecutecompletionattendance_scheduletemp && $attendance_ruleexecutecompletionattendance_scheduletemps==attendance_ruleexecutecompletionattendance_scheduletemps && $attendance_ruleexecutecompletioncuractivemember==attendance_ruleexecutecompletioncuractivemember && $attendance_ruleexecutecompletiondepttemp==attendance_ruleexecutecompletiondepttemp && $attendance_ruleexecutecompletiondepts==attendance_ruleexecutecompletiondepts && $attendance_ruleexecutecompletionempfilter==attendance_ruleexecutecompletionempfilter && $attendance_ruleexecutecompletionemployees==attendance_ruleexecutecompletionemployees && $attendance_ruleexecutecompletionlastschedules==attendance_ruleexecutecompletionlastschedules && $attendance_ruleexecutecompletionmembertemp==attendance_ruleexecutecompletionmembertemp && $attendance_ruleexecutecompletionmembers==attendance_ruleexecutecompletionmembers && $attendance_ruleexecutecompletionnewschedules==attendance_ruleexecutecompletionnewschedules && $attendance_ruleexecutecompletionshiftfilter==attendance_ruleexecutecompletionshiftfilter && $attendance_ruleexecutecompletionshifts==attendance_ruleexecutecompletionshifts && $attendance_ruleexecutecompletionwaitrulepage==attendance_ruleexecutecompletionwaitrulepage && );
+                                eval((RuleUtils.test($attendance_ruleexecutecompletionattendance_group_shift.get("allCompany"),"EQ","false")))
+                                ]]>
+                            </conditionExpression>
+                    </sequenceFlow>
+                    <sequenceFlow id="prepareparam_04_dedataset_02" sourceRef="prepareparam_04" targetRef="dedataset_02">
+                    </sequenceFlow>
+                    <sequenceFlow id="rawsfcode_04_debugparam_02" sourceRef="rawsfcode_04" targetRef="debugparam_02">
+                    </sequenceFlow>
+                    <sequenceFlow id="loopsubcall_04_rawsfcode_07" sourceRef="loopsubcall_04" targetRef="rawsfcode_07">
+                    </sequenceFlow>
+                    <sequenceFlow id="loopsubcall_04_rawsqlcall_02" sourceRef="loopsubcall_04" targetRef="rawsqlcall_02">
+                    </sequenceFlow>
+                    <sequenceFlow id="rawsfcode_03_debugparam_01" sourceRef="rawsfcode_03" targetRef="debugparam_01">
+                    </sequenceFlow>
+                    <sequenceFlow id="loopsubcall_02_prepareparam_01" sourceRef="loopsubcall_02" targetRef="prepareparam_01">
+                    </sequenceFlow>
+                    <sequenceFlow id="rawsfcode_09_rawsqlcall_04" sourceRef="rawsfcode_09" targetRef="rawsqlcall_04">
+                    </sequenceFlow>
+                    <sequenceFlow id="rawsfcode_07_deaction_04" sourceRef="rawsfcode_07" targetRef="deaction_04">
+                    </sequenceFlow>
+                    <sequenceFlow id="rawsfcode_011_rawsfcode_014" sourceRef="rawsfcode_011" targetRef="rawsfcode_014">
+                    </sequenceFlow>
+                    <sequenceFlow id="rawsqlcall_05_loopsubcall_02" sourceRef="rawsqlcall_05" targetRef="loopsubcall_02">
+                    </sequenceFlow>
+                    <sequenceFlow id="prepareparam_01_dedataset_01" sourceRef="prepareparam_01" targetRef="dedataset_01">
+                    </sequenceFlow>
+                    <sequenceFlow id="deaction_04_resetparam_01" sourceRef="deaction_04" targetRef="resetparam_01">
+                    </sequenceFlow>
+                            <exclusiveGateway id="gateway-dedataset_05" name="Gateway" gatewayDirection="Diverging" default="gateway-dedataset_05_end_line"></exclusiveGateway>
+                            <sequenceFlow id="dedataset_05_gateway-dedataset_05_gatewayline" sourceRef="dedataset_05" targetRef="gateway-dedataset_05"></sequenceFlow>
+                            <sequenceFlow id="gateway-dedataset_05_end_line" sourceRef="gateway-dedataset_05" targetRef="gateway-dedataset_05_end"/>
+                            <endEvent id="gateway-dedataset_05_end" name="end"/>
+                            <exclusiveGateway id="gateway-dedataset_03" name="Gateway" gatewayDirection="Diverging" default="gateway-dedataset_03_end_line"></exclusiveGateway>
+                            <sequenceFlow id="dedataset_03_gateway-dedataset_03_gatewayline" sourceRef="dedataset_03" targetRef="gateway-dedataset_03"></sequenceFlow>
+                            <sequenceFlow id="gateway-dedataset_03_end_line" sourceRef="gateway-dedataset_03" targetRef="gateway-dedataset_03_end"/>
+                            <endEvent id="gateway-dedataset_03_end" name="end"/>
+                            <exclusiveGateway id="gateway-loopsubcall_05" name="Gateway" gatewayDirection="Diverging" default="gateway-loopsubcall_05_end_line"></exclusiveGateway>
+                            <sequenceFlow id="loopsubcall_05_gateway-loopsubcall_05_gatewayline" sourceRef="loopsubcall_05" targetRef="gateway-loopsubcall_05"></sequenceFlow>
+                            <sequenceFlow id="gateway-loopsubcall_05_end_line" sourceRef="gateway-loopsubcall_05" targetRef="gateway-loopsubcall_05_end"/>
+                            <endEvent id="gateway-loopsubcall_05_end" name="end"/>
+                            <exclusiveGateway id="gateway-prepareparam_06" name="Gateway" gatewayDirection="Diverging" default="gateway-prepareparam_06_end_line"></exclusiveGateway>
+                            <sequenceFlow id="prepareparam_06_gateway-prepareparam_06_gatewayline" sourceRef="prepareparam_06" targetRef="gateway-prepareparam_06"></sequenceFlow>
+                            <sequenceFlow id="gateway-prepareparam_06_end_line" sourceRef="gateway-prepareparam_06" targetRef="gateway-prepareparam_06_end"/>
+                            <endEvent id="gateway-prepareparam_06_end" name="end"/>
+                            <exclusiveGateway id="gateway-rawsqlcall_01" name="Gateway" gatewayDirection="Diverging" default="gateway-rawsqlcall_01_end_line"></exclusiveGateway>
+                            <sequenceFlow id="rawsqlcall_01_gateway-rawsqlcall_01_gatewayline" sourceRef="rawsqlcall_01" targetRef="gateway-rawsqlcall_01"></sequenceFlow>
+                            <sequenceFlow id="gateway-rawsqlcall_01_end_line" sourceRef="gateway-rawsqlcall_01" targetRef="gateway-rawsqlcall_01_end"/>
+                            <endEvent id="gateway-rawsqlcall_01_end" name="end"/>
+                            <exclusiveGateway id="gateway-dedataset_04" name="Gateway" gatewayDirection="Diverging" default="gateway-dedataset_04_end_line"></exclusiveGateway>
+                            <sequenceFlow id="dedataset_04_gateway-dedataset_04_gatewayline" sourceRef="dedataset_04" targetRef="gateway-dedataset_04"></sequenceFlow>
+                            <sequenceFlow id="gateway-dedataset_04_end_line" sourceRef="gateway-dedataset_04" targetRef="gateway-dedataset_04_end"/>
+                            <endEvent id="gateway-dedataset_04_end" name="end"/>
+                            <exclusiveGateway id="gateway-debugparam_02" name="Gateway" gatewayDirection="Diverging" default="gateway-debugparam_02_end_line"></exclusiveGateway>
+                            <sequenceFlow id="debugparam_02_gateway-debugparam_02_gatewayline" sourceRef="debugparam_02" targetRef="gateway-debugparam_02"></sequenceFlow>
+                            <sequenceFlow id="gateway-debugparam_02_end_line" sourceRef="gateway-debugparam_02" targetRef="gateway-debugparam_02_end"/>
+                            <endEvent id="gateway-debugparam_02_end" name="end"/>
+                            <exclusiveGateway id="gateway-prepareparam_02" name="Gateway" gatewayDirection="Diverging" default="gateway-prepareparam_02_end_line"></exclusiveGateway>
+                            <sequenceFlow id="prepareparam_02_gateway-prepareparam_02_gatewayline" sourceRef="prepareparam_02" targetRef="gateway-prepareparam_02"></sequenceFlow>
+                            <sequenceFlow id="gateway-prepareparam_02_end_line" sourceRef="gateway-prepareparam_02" targetRef="gateway-prepareparam_02_end"/>
+                            <endEvent id="gateway-prepareparam_02_end" name="end"/>
+                            <exclusiveGateway id="gateway-prepareparam_05" name="Gateway" gatewayDirection="Diverging" default="gateway-prepareparam_05_end_line"></exclusiveGateway>
+                            <sequenceFlow id="prepareparam_05_gateway-prepareparam_05_gatewayline" sourceRef="prepareparam_05" targetRef="gateway-prepareparam_05"></sequenceFlow>
+                            <sequenceFlow id="gateway-prepareparam_05_end_line" sourceRef="gateway-prepareparam_05" targetRef="gateway-prepareparam_05_end"/>
+                            <endEvent id="gateway-prepareparam_05_end" name="end"/>
+                            <exclusiveGateway id="gateway-prepareparam_04" name="Gateway" gatewayDirection="Diverging" default="gateway-prepareparam_04_end_line"></exclusiveGateway>
+                            <sequenceFlow id="prepareparam_04_gateway-prepareparam_04_gatewayline" sourceRef="prepareparam_04" targetRef="gateway-prepareparam_04"></sequenceFlow>
+                            <sequenceFlow id="gateway-prepareparam_04_end_line" sourceRef="gateway-prepareparam_04" targetRef="gateway-prepareparam_04_end"/>
+                            <endEvent id="gateway-prepareparam_04_end" name="end"/>
+        </process>
+    </definitions>

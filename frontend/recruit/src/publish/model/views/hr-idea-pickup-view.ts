@@ -1,0 +1,67 @@
+export default {
+  funcViewMode: 'PICKUPVIEW',
+  deviewCodeName: 'PickupView',
+  deviewId: 'ad42dba31d0dd6a9a72072dc12e6a3dd',
+  accUserMode: 2,
+  capLanguageRes: {
+    lanResTag: 'DE.LNAME.HR_IDEA',
+  },
+  caption: '招聘需求',
+  codeName: 'hr_idea_pickup_view',
+  appDataEntityId: 'web.hr_idea',
+  appViewEngines: [
+    {
+      engineCat: 'VIEW',
+      engineType: 'PickupView',
+      id: 'engine',
+    },
+  ],
+  controls: [
+    {
+      embeddedAppDEViewId: 'web.hr_idea_pickup_grid_view',
+      codeName: 'pickup_view_pickupviewpanel',
+      controlType: 'PICKUPVIEWPANEL',
+      appDataEntityId: 'web.hr_idea',
+      controlParam: {
+        id: 'pickupviewpanel',
+      },
+      name: 'pickupviewpanel',
+      id: 'pickup_view_pickupviewpanel',
+    },
+    {
+      capLanguageRes: {
+        lanResTag: 'DE.LNAME.HR_IDEA',
+      },
+      caption: '招聘需求',
+      codeName: 'pickup_view_captionbar',
+      controlType: 'CAPTIONBAR',
+      appDataEntityId: 'web.hr_idea',
+      controlParam: {},
+      name: 'captionbar',
+      id: 'pickup_view_captionbar',
+    },
+  ],
+  viewLayoutPanel: {
+    layoutBodyOnly: true,
+    useDefaultLayout: true,
+    layoutPanel: true,
+    codeName: 'layoutpanel',
+    controlStyle: 'APPDEPICKUPVIEW',
+    controlType: 'VIEWLAYOUTPANEL',
+    appDataEntityId: 'web.hr_idea',
+    controlParam: {},
+    id: 'layoutpanel',
+  },
+  title: '招聘需求数据选择视图',
+  titleLanguageRes: {
+    lanResTag: 'PAGE.TITLE.HR_IDEA.PICKUPVIEW',
+  },
+  viewStyle: 'DEFAULT',
+  viewType: 'DEPICKUPVIEW',
+  enableDP: true,
+  showCaptionBar: false,
+  modelId: 'fc4ba86e3ff7f9f7fe78a63f8cc4c3f1',
+  modelType: 'PSAPPDEVIEW',
+  name: 'hr_ideaPickupView',
+  id: 'web.hr_idea_pickup_view',
+};

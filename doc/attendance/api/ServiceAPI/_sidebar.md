@@ -1,0 +1,45 @@
+* ServiceAPI
+  * [概述](api/ServiceAPI/ServiceAPI#概述)
+  * [鉴权](api/ServiceAPI/ServiceAPI#鉴权)
+  * [使用方式](api/ServiceAPI/ServiceAPI#使用方式)
+
+* 考勤规则管理
+  * [激活规则](api/ServiceAPI/deapi/attendance_activate_rule#attendance_activate_rule)
+  * [激活班次](api/ServiceAPI/deapi/attendance_activate_shift#attendance_activate_shift)
+  * [考勤申请记录](api/ServiceAPI/deapi/attendance_checkin_application#attendance_checkin_application)
+  * [考勤设备关联](api/ServiceAPI/deapi/attendance_checkin_device#attendance_checkin_device)
+  * [打卡记录](api/ServiceAPI/deapi/attendance_clock_in_record#attendance_clock_in_record)
+  * [部门统计](api/ServiceAPI/deapi/attendance_department_statistics#attendance_department_statistics)
+  * [设备信息](api/ServiceAPI/deapi/attendance_device#attendance_device)
+  * [GPS定位配置](api/ServiceAPI/deapi/attendance_gps_location#attendance_gps_location)
+  * [组排班](api/ServiceAPI/deapi/attendance_group_shift#attendance_group_shift)
+  * [考勤规则成员](api/ServiceAPI/deapi/attendance_group_shift_member#attendance_group_shift_member)
+  * [假期类型](api/ServiceAPI/deapi/attendance_leave_type#attendance_leave_type)
+  * [考勤记录](api/ServiceAPI/deapi/attendance_record#attendance_record)
+  * [打卡详情](api/ServiceAPI/deapi/attendance_record_detail#attendance_record_detail)
+  * [考勤规则](api/ServiceAPI/deapi/attendance_rule#attendance_rule)
+  * [排班](api/ServiceAPI/deapi/attendance_schedule#attendance_schedule)
+  * [时间范围](api/ServiceAPI/deapi/attendance_scope#attendance_scope)
+  * [班次](api/ServiceAPI/deapi/attendance_shift#attendance_shift)
+  * [考勤统计](api/ServiceAPI/deapi/attendance_statistics#attendance_statistics)
+  * [WiFi定位配置](api/ServiceAPI/deapi/attendance_wifi_location#attendance_wifi_location)
+  * [工作日](api/ServiceAPI/deapi/attendance_workday#attendance_workday)
+* 基础模块
+  * [配置设定](api/ServiceAPI/deapi/res_config_settings#res_config_settings)
+* 员工管理
+  * [部门信息](api/ServiceAPI/deapi/department#department)
+  * [员工信息](api/ServiceAPI/deapi/employee#employee)
+  * [用户对象映射](api/ServiceAPI/deapi/user_object#user_object)
+* 人力资源
+  * [出勤](api/ServiceAPI/deapi/hr_attendance#hr_attendance)
+  * [部门](api/ServiceAPI/deapi/hr_department#hr_department)
+  * [员工](api/ServiceAPI/deapi/hr_employee#hr_employee)
+* 人力资源扩展
+* 邮件
+  * [邮件会话](api/ServiceAPI/deapi/mail_thread#mail_thread)
+* 资源
+  * [公共假期类型](api/ServiceAPI/deapi/public_leave_type#public_leave_type)
+  * [资源工作时间](api/ServiceAPI/deapi/resource_calendar#resource_calendar)
+  * [工作细节](api/ServiceAPI/deapi/resource_calendar_attendance#resource_calendar_attendance)
+  * [休假详细信息](api/ServiceAPI/deapi/resource_calendar_leaves#resource_calendar_leaves)
+  * [资源](api/ServiceAPI/deapi/resource_resource#resource_resource)

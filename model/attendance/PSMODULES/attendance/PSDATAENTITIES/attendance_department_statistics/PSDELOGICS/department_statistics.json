@@ -1,0 +1,187 @@
+{
+  "codeName" : "department_statistics",
+  "defaultParamName" : "Default",
+  "dynaModelFilePath" : "PSMODULES/attendance/PSDATAENTITIES/attendance_department_statistics/PSDELOGICS/department_statistics.json",
+  "logicName" : "部门统计",
+  "name" : "部门统计",
+  "getPSDELogicNodes" : [ {
+    "codeName" : "Begin",
+    "leftPos" : 200,
+    "logicNodeType" : "BEGIN",
+    "name" : "开始",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "RAWSFCODE2"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "Begin"
+      }
+    } ],
+    "topPos" : 130,
+    "parallelOutput" : true
+  }, {
+    "code" : "def _default = logic.param('Default').getReal()\r\ndef depts = []\r\ndef deptStr = \"\"\r\ndef  dept_range = _default.get(\"n_dept_id_in\")\r\nif (dept_range != null && dept_range != \"\") {\r\n    depts.clear()\r\n    dept_range.each { item ->\r\n        depts.add(item.id)\r\n    }\r\n    deptStr = depts ? depts.join(\",\") : \"\"\r\n    if (deptStr != \"\") {\r\n        _default.in('id', deptStr)\r\n    }\r\n}",
+    "codeName" : "RAWSFCODE2",
+    "codeType" : "Groovy",
+    "leftPos" : 160,
+    "logicNodeType" : "RAWSFCODE",
+    "name" : "解析搜索条件",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "DEDATASET1"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "RAWSFCODE2"
+      }
+    } ],
+    "topPos" : 310
+  }, {
+    "codeName" : "DEDATASET1",
+    "getDstPSDEDataSet" : {
+      "modelref" : true,
+      "id" : "dept"
+    },
+    "getDstPSDELogicParam" : {
+      "modelref" : true,
+      "id" : "Default"
+    },
+    "getDstPSDataEntity" : {
+      "modelref" : true,
+      "path" : "PSMODULES/employee_management/PSDATAENTITIES/department.json"
+    },
+    "leftPos" : 160,
+    "logicNodeType" : "DEDATASET",
+    "name" : "查询部门",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "LOOPSUBCALL1"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "DEDATASET1"
+      }
+    } ],
+    "getRetPSDELogicParam" : {
+      "modelref" : true,
+      "id" : "dept_page"
+    },
+    "topPos" : 460
+  }, {
+    "codeName" : "LOOPSUBCALL1",
+    "getDstPSDELogicParam" : {
+      "modelref" : true,
+      "id" : "dept_temp"
+    },
+    "leftPos" : 390,
+    "logicNodeType" : "LOOPSUBCALL",
+    "name" : "循环子调用",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "END1"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "LOOPSUBCALL1"
+      }
+    }, {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "RAWSFCODE1"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "LOOPSUBCALL1"
+      },
+      "subCallLink" : true
+    } ],
+    "getSrcPSDELogicParam" : {
+      "modelref" : true,
+      "id" : "dept_page"
+    },
+    "topPos" : 460
+  }, {
+    "code" : "def _default = logic.param('Default').getReal();\r\ndef dept_temp = logic.param('dept_temp').getReal();\r\n\r\ndef n_checkin_date_gtandeq = _default.get('n_checkin_date_gtandeq')\r\ndef n_checkin_date_ltandeq = _default.get('n_checkin_date_ltandeq')\r\ndef dept_id = dept_temp.get(\"id\")\r\n\r\ndef dbschema = sys.dbschema('Default')\r\ndef sql = 'select\\n' +\r\n    '\\tard.*\\n' +\r\n    'from\\n' +\r\n    '\\tattendance_record_detail ard\\n' +\r\n    'where\\n' +\r\n    '\\texists (\\n' +\r\n    '\\tselect\\n' +\r\n    '\\t\\t1\\n' +\r\n    '\\tfrom\\n' +\r\n    '\\t\\tattendance_record ar\\n' +\r\n    '\\twhere\\n' +\r\n    '\\t\\tard.RECORD_ID = ar.ID\\n' +\r\n    '\\t\\tand ar.CHECKIN_DATE >= ?\\n' +\r\n    '\\t\\tand ar.CHECKIN_DATE <= ?\\n' +\r\n    '\\t\\tand ar.DEPT_ID = ?)'\r\ndef sqlParam = []\r\nsqlParam.add(n_checkin_date_gtandeq)\r\nsqlParam.add(n_checkin_date_ltandeq)\r\nsqlParam.add(dept_id)\r\ndef record_details = dbschema.executeSelectSQL(sql,sqlParam)\r\n\r\n\r\n// 正常出勤次数 \r\ndef normal_attendance_days = 0;\r\n// 迟到次数 \r\ndef late_times = 0;\r\n// 缺卡次数\r\ndef checkin_missing_times = 0;\r\n// 早退次数\r\ndef leave_early_times = 0;\r\n// 加班时长(小时)\r\ndef overtime_hours = 0;\r\n\r\nif(record_details != null){\r\n    //循环汇总\r\n    record_details.each { item ->\r\n        if (item.get(\"CHECKIN_RESULT\") == \"LATE\") {\r\n            late_times ++;\r\n        }\r\n        if (item.get(\"CHECKIN_RESULT\") == \"ABSENT\" || item.get(\"CHECKIN_RESULT\") == \"MISSING\" || item.get(\"CHECKIN_RESULT\") == \"ON_MISSING\" || item.get(\"CHECKIN_RESULT\") == \"OFF_MISSING\" ) {\r\n            checkin_missing_times ++;\r\n        }\r\n        if (item.get(\"CHECKIN_RESULT\") == \"LEAVE_EARLY\") {\r\n            leave_early_times ++;\r\n        }\r\n        if (item.get(\"CHECKIN_RESULT\") == \"NORMAL\") {\r\n            normal_attendance_days ++;\r\n        }\r\n        overtime_hours += item.get(\"overtime_time\")?:0;\r\n    }\r\n}\r\n\r\n//获取`排班`实体运行对象\r\ndef attendance_schedule_runtime = sys.dataentity('attendance_schedule');\r\ndef attendance_schedule_filter = attendance_schedule_runtime.filter();\r\nattendance_schedule_filter.all();\r\nattendance_schedule_filter.gte('checkin_date', n_checkin_date_gtandeq)\r\nattendance_schedule_filter.lte('checkin_date', n_checkin_date_ltandeq)\r\nattendance_schedule_filter.eq('dept_id', dept_id)\r\ndef attendance_schedule_list = attendance_schedule_filter.select('').collect { it.member_id }.unique();\r\n\r\n//获取`申请`实体运行对象\r\ndef attendance_checkin_application_runtime = sys.dataentity('attendance_checkin_application');\r\ndef attendance_checkin_application_filter = attendance_checkin_application_runtime.filter();\r\nattendance_checkin_application_filter.all();\r\nattendance_checkin_application_filter.gte('start_time', n_checkin_date_gtandeq)\r\nattendance_checkin_application_filter.lte('start_time', n_checkin_date_ltandeq)\r\nattendance_checkin_application_filter.eq('dept_id', dept_id)\r\nattendance_checkin_application_filter.eq('status', \"APPROVED\")\r\ndef attendance_checkin_application_list = attendance_checkin_application_filter.select('');\r\n\r\n// 请假次数\r\ndef leave_times = 0;\r\n// 出差次数\r\ndef out_work_times = 0;\r\n// 外出次数\r\ndef go_out_times = 0;\r\n\r\nif(attendance_checkin_application_list != null){\r\n    //循环汇总\r\n    attendance_checkin_application_list.each { item ->\r\n        if (item.get(\"apply_type\") == \"LEAVE\") {\r\n            leave_times ++;\r\n        }\r\n        if (item.get(\"apply_type\") == \"GO_OUT\") {\r\n            go_out_times ++;\r\n        }\r\n        if (item.get(\"apply_type\") == \"BUSINESS_TRIP\") {\r\n            out_work_times ++;\r\n        }\r\n    }\r\n}\r\n\r\ndept_temp.set('should_attendance_people_num', attendance_schedule_list.size());\r\ndept_temp.set('leave_times', leave_times);\r\ndept_temp.set('normal_attendance_days', normal_attendance_days);\r\ndept_temp.set('go_out_times', go_out_times);\r\ndept_temp.set('dept_name', dept_temp.get(\"name\"));\r\ndept_temp.set('dept_id', dept_temp.get(\"id\"));\r\ndept_temp.set('late_times', late_times);\r\ndept_temp.set('out_work_times', out_work_times);\r\ndept_temp.set('checkin_missing_times', checkin_missing_times);\r\ndept_temp.set('leave_early_times', leave_early_times);\r\ndept_temp.set('overtime_hours', overtime_hours);",
+    "codeName" : "RAWSFCODE1",
+    "codeType" : "Groovy",
+    "leftPos" : 610,
+    "logicNodeType" : "RAWSFCODE",
+    "name" : "统计考勤",
+    "topPos" : 460
+  }, {
+    "codeName" : "END1",
+    "leftPos" : 430,
+    "logicNodeType" : "END",
+    "name" : "结束",
+    "getReturnParam" : {
+      "modelref" : true,
+      "id" : "dept_page"
+    },
+    "returnType" : "LOGICPARAM",
+    "topPos" : 594,
+    "parallelOutput" : true
+  } ],
+  "getPSDELogicParams" : [ {
+    "codeName" : "Default",
+    "logicName" : "传入变量",
+    "name" : "传入变量",
+    "getParamPSDataEntity" : {
+      "modelref" : true,
+      "path" : "PSMODULES/attendance/PSDATAENTITIES/attendance_department_statistics.json"
+    },
+    "default" : true,
+    "filterParam" : true
+  }, {
+    "codeName" : "dept_filter",
+    "logicName" : "部门信息过滤器",
+    "name" : "部门信息过滤器",
+    "getParamPSDataEntity" : {
+      "modelref" : true,
+      "path" : "PSMODULES/attendance/PSDATAENTITIES/attendance_department_statistics.json"
+    },
+    "filterParam" : true
+  }, {
+    "codeName" : "dept_page",
+    "logicName" : "部门分页查询",
+    "name" : "部门分页查询",
+    "getParamPSDataEntity" : {
+      "modelref" : true,
+      "path" : "PSMODULES/employee_management/PSDATAENTITIES/department.json"
+    },
+    "entityPageParam" : true
+  }, {
+    "codeName" : "dept_temp",
+    "logicName" : "部门临时变量",
+    "name" : "部门临时变量",
+    "getParamPSDataEntity" : {
+      "modelref" : true,
+      "path" : "PSMODULES/employee_management/PSDATAENTITIES/department.json"
+    },
+    "entityParam" : true
+  }, {
+    "codeName" : "record_details",
+    "logicName" : "record_details",
+    "name" : "record_details",
+    "getParamPSDataEntity" : {
+      "modelref" : true,
+      "path" : "PSMODULES/attendance/PSDATAENTITIES/attendance_record_detail.json"
+    },
+    "entityListParam" : true
+  } ],
+  "getStartPSDELogicNode" : {
+    "modelref" : true,
+    "id" : "Begin"
+  },
+  "enableBackend" : true,
+  "enableFront" : false
+}

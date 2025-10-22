@@ -1,0 +1,57 @@
+@include b(dsl-model-clipboard) {
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  display: flex;
+  line-height: 1.5;
+  flex-direction: column;
+  @include e(header) {
+    height: 40px;
+    display: flex;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 getCssVar(spacing, base);
+    border-bottom: 1px solid getCssVar(color, border);
+    @include m(title) {
+      font-size: getCssVar(font-size, header-6);
+    }
+  }
+  @include e(actions) {
+    gap: 4px;
+    display: flex;
+    align-items: center;
+    ion-icon {
+      cursor: pointer;
+    }
+    .el-button {
+      transform: translate(0px, 1px);
+    }
+    @include m(merge) {
+      gap: 4px;
+      display: flex;
+      font-size: 12px;
+      align-items: center;
+      .el-switch__label.is-active {
+        color: getCssVar(color, text, 0);
+      }
+    }
+  }
+  @include e(content) {
+    flex-grow: 1;
+    padding: 6px;
+    overflow: hidden auto;
+    .el-timeline {
+      padding: 0;
+    }
+  }
+  @include e(footer) {
+    height: 40px;
+    display: flex;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: end;
+    padding: 0 getCssVar(spacing, base);
+    border-top: 1px solid getCssVar(color, border);
+  }
+}

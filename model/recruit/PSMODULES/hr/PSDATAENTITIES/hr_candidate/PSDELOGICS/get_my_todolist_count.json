@@ -1,0 +1,327 @@
+{
+  "codeName" : "get_my_todolist_count",
+  "defaultParamName" : "Default",
+  "dynaModelFilePath" : "PSMODULES/hr/PSDATAENTITIES/hr_candidate/PSDELOGICS/get_my_todolist_count.json",
+  "logicName" : "我的待办事项清单计数器",
+  "name" : "我的待办事项清单计数器",
+  "getPSDELogicNodes" : [ {
+    "codeName" : "Begin",
+    "leftPos" : 180,
+    "logicNodeType" : "BEGIN",
+    "name" : "开始",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "PREPAREPARAM1"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "Begin"
+      }
+    } ],
+    "topPos" : 30,
+    "parallelOutput" : true
+  }, {
+    "codeName" : "PREPAREPARAM1",
+    "leftPos" : 140,
+    "logicNodeType" : "PREPAREPARAM",
+    "name" : "今日待筛选人数",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "RAWSQLCALL2"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "PREPAREPARAM1"
+      }
+    } ],
+    "getPSDELogicNodeParams" : [ {
+      "dstFieldName" : "today_to_filter_apply",
+      "getDstPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "result"
+      },
+      "name" : "直接值[0] ==> result[today_to_filter_apply]",
+      "paramAction" : "SETPARAMVALUE",
+      "srcValue" : "0",
+      "srcValueType" : "SRCVALUE"
+    }, {
+      "dstFieldName" : "to_assign_resume",
+      "getDstPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "result"
+      },
+      "name" : "直接值[0] ==> result[to_assign_resume]",
+      "paramAction" : "SETPARAMVALUE",
+      "srcValue" : "0",
+      "srcValueType" : "SRCVALUE"
+    } ],
+    "topPos" : 130
+  }, {
+    "codeName" : "RAWSQLCALL2",
+    "getDstPSDELogicParam" : {
+      "modelref" : true,
+      "id" : "result"
+    },
+    "leftPos" : 140,
+    "logicNodeType" : "RAWSQLCALL",
+    "name" : "今日面试人数",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "RAWSQLCALL3"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "RAWSQLCALL2"
+      }
+    } ],
+    "sql" : "select count(1)as today_interview from hr_interview hi \r\nleft join hr_interview_schedule his on hi.SCHEDULE_ID = his.id\r\nwhere  DATE(his.START_DATE) = CURRENT_DATE;",
+    "topPos" : 220,
+    "fillDstLogicParam" : true
+  }, {
+    "codeName" : "RAWSQLCALL3",
+    "getDstPSDELogicParam" : {
+      "modelref" : true,
+      "id" : "result"
+    },
+    "leftPos" : 140,
+    "logicNodeType" : "RAWSQLCALL",
+    "name" : "待筛选简历",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "RAWSQLCALL4"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "RAWSQLCALL3"
+      }
+    } ],
+    "sql" : "select count(1)as filter_apply from hr_applicant t inner join hr_recruitment_stage t2 on t.STAGE_ID  = t2.id where  t2.`SEQUENCE` = '20' and t.status = '1'",
+    "topPos" : 310,
+    "fillDstLogicParam" : true
+  }, {
+    "codeName" : "RAWSQLCALL4",
+    "getDstPSDELogicParam" : {
+      "modelref" : true,
+      "id" : "result"
+    },
+    "leftPos" : 140,
+    "logicNodeType" : "RAWSQLCALL",
+    "name" : "待发送offer",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "RAWSQLCALL5"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "RAWSQLCALL4"
+      }
+    } ],
+    "sql" : "select count(1)as to_send_offer from hr_applicant t inner join hr_recruitment_stage t2 on t.STAGE_ID  = t2.id where  t2.`SEQUENCE` = '70' and t.status = '1'",
+    "topPos" : 408,
+    "fillDstLogicParam" : true
+  }, {
+    "codeName" : "RAWSQLCALL5",
+    "getDstPSDELogicParam" : {
+      "modelref" : true,
+      "id" : "result"
+    },
+    "leftPos" : 140,
+    "logicNodeType" : "RAWSQLCALL",
+    "name" : "待入职",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "RAWSQLCALL6"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "RAWSQLCALL5"
+      }
+    } ],
+    "sql" : "select count(1)as to_onboard from hr_applicant t inner join hr_recruitment_stage t2 on t.STAGE_ID  = t2.id where  t2.`SEQUENCE` = '80' and t.status = '1'",
+    "topPos" : 500,
+    "fillDstLogicParam" : true
+  }, {
+    "codeName" : "RAWSQLCALL6",
+    "getDstPSDELogicParam" : {
+      "modelref" : true,
+      "id" : "result"
+    },
+    "leftPos" : 340,
+    "logicNodeType" : "RAWSQLCALL",
+    "name" : "初试-待面试",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "RAWSQLCALL7"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "RAWSQLCALL6"
+      }
+    } ],
+    "sql" : "select\r\n\tcount(1) as first_interview_pending\r\nfrom\r\n\thr_applicant t\r\ninner join hr_recruitment_stage t2 on\r\n\tt.STAGE_ID = t2.id\r\nwhere\r\n\tt2.`SEQUENCE` = '40'\r\n\tand t.status = '1'\r\n\tand exists(\r\n\t\tselect * from hr_interview t3 inner join hr_applicant_interview t4 on t3.id = t4.interview_id\r\n\t\t\twhere  t3.STAGE_ID = '1' and t3.STATUS  = '1' and t4.APPLICANT_ID  = t.ID \r\n\t)",
+    "topPos" : 500,
+    "fillDstLogicParam" : true
+  }, {
+    "codeName" : "RAWSQLCALL7",
+    "getDstPSDELogicParam" : {
+      "modelref" : true,
+      "id" : "result"
+    },
+    "leftPos" : 520,
+    "logicNodeType" : "RAWSQLCALL",
+    "name" : "初试-待反馈",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "RAWSQLCALL8"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "RAWSQLCALL7"
+      }
+    } ],
+    "sql" : "select\r\n\tcount(1) as first_feedback_pending\r\nfrom\r\n\thr_applicant t\r\ninner join hr_recruitment_stage t2 on\r\n\tt.STAGE_ID = t2.id\r\nwhere\r\n\tt2.`SEQUENCE` = '40'\r\n\tand t.status = '1'\r\n\tand \r\n\texists(\r\n\t\tselect * from hr_interview t3 \r\n\t\tinner join hr_applicant_interview t4 on t3.id = t4.interview_id \r\n\t\tinner join hr_interview_feedback t5  on t3.id = t5.INTERVIEW_ID \r\n\t\twhere \r\n\t\tt3.STAGE_ID = '1' and t3.STATUS  = '2'\r\n\t\tand t.id = t5.APPLICANT_ID  and t5.RESULT_TYPE  is null\r\n\t)",
+    "topPos" : 500,
+    "fillDstLogicParam" : true
+  }, {
+    "codeName" : "RAWSQLCALL8",
+    "getDstPSDELogicParam" : {
+      "modelref" : true,
+      "id" : "result"
+    },
+    "leftPos" : 700,
+    "logicNodeType" : "RAWSQLCALL",
+    "name" : "初试-待处理",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "RAWSQLCALL9"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "RAWSQLCALL8"
+      }
+    } ],
+    "sql" : "select\r\n\tcount(1) as first_process_pending\r\nfrom\r\n\thr_applicant t\r\ninner join hr_recruitment_stage t2 on\r\n\tt.STAGE_ID = t2.id\r\nwhere\r\n\tt2.`SEQUENCE` = '40'\r\n\tand t.status = '1'\r\n\tand exists(\r\n\t    select * from(\r\n\t\t\t    select \r\n\t\t\t       t5.APPLICANT_ID,\r\n\t\t           count(1) as cnt \r\n\t\t           from hr_interview t3 \r\n\t\t\t\tinner join hr_applicant_interview t4 on t3.id = t4.interview_id \r\n\t\t\t\tinner join hr_interview_feedback t5 on t3.id = t5.INTERVIEW_ID \r\n\t\t\t\twhere \r\n\t\t\t\tt3.STAGE_ID = '1' and t3.STATUS = '2'\r\n\t\t\t\tand t5.RESULT_TYPE is null\r\n\t\t    \tgroup by t5.APPLICANT_ID \r\n\t    \t) as sub \r\n\t        where sub.APPLICANT_ID = t.id  \r\n\t          and sub.cnt = 0  \r\n    )",
+    "topPos" : 500,
+    "fillDstLogicParam" : true
+  }, {
+    "codeName" : "END1",
+    "leftPos" : 180,
+    "logicNodeType" : "END",
+    "name" : "结束",
+    "getReturnParam" : {
+      "modelref" : true,
+      "id" : "result"
+    },
+    "returnType" : "LOGICPARAM",
+    "topPos" : 623
+  }, {
+    "codeName" : "RAWSQLCALL11",
+    "getDstPSDELogicParam" : {
+      "modelref" : true,
+      "id" : "result"
+    },
+    "leftPos" : 340,
+    "logicNodeType" : "RAWSQLCALL",
+    "name" : "复试-待处理",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "END1"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "RAWSQLCALL11"
+      }
+    } ],
+    "sql" : "select\r\n\tcount(1) as second_process_pending\r\nfrom\r\n\thr_applicant t\r\ninner join hr_recruitment_stage t2 on\r\n\tt.STAGE_ID = t2.id\r\nwhere\r\n\tt2.`SEQUENCE` = '60'\r\n\tand t.status = '1'\r\n\tand exists(\r\n\t    select * from(\r\n\t\t\t    select \r\n\t\t\t       t5.APPLICANT_ID,\r\n\t\t           count(1) as cnt \r\n\t\t           from hr_interview t3 \r\n\t\t\t\tinner join hr_applicant_interview t4 on t3.id = t4.interview_id \r\n\t\t\t\tinner join hr_interview_feedback t5 on t3.id = t5.INTERVIEW_ID \r\n\t\t\t\twhere \r\n\t\t\t\tt3.STAGE_ID = '2' and t3.STATUS = '2'\r\n\t\t\t\tand t5.RESULT_TYPE is null\r\n\t\t    \tgroup by t5.APPLICANT_ID \r\n\t    \t) as sub \r\n\t        where sub.APPLICANT_ID = t.id  \r\n\t          and sub.cnt = 0  \r\n    )",
+    "topPos" : 631,
+    "fillDstLogicParam" : true
+  }, {
+    "codeName" : "RAWSQLCALL10",
+    "getDstPSDELogicParam" : {
+      "modelref" : true,
+      "id" : "result"
+    },
+    "leftPos" : 520,
+    "logicNodeType" : "RAWSQLCALL",
+    "name" : "复试-待反馈",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "RAWSQLCALL11"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "RAWSQLCALL10"
+      }
+    } ],
+    "sql" : "select\r\n\tcount(1) as second_feedback_pending\r\nfrom\r\n\thr_applicant t\r\ninner join hr_recruitment_stage t2 on\r\n\tt.STAGE_ID = t2.id\r\nwhere\r\n\tt2.`SEQUENCE` = '60'\r\n\tand t.status = '1'\r\n\tand \r\n\texists(\r\n\t\tselect * from hr_interview t3 \r\n\t\tinner join hr_applicant_interview t4 on t3.id = t4.interview_id \r\n\t\tinner join hr_interview_feedback t5  on t3.id = t5.INTERVIEW_ID \r\n\t\twhere \r\n\t\tt3.STAGE_ID = '2' and t3.STATUS  = '2'\r\n\t\tand t.id = t5.APPLICANT_ID  and t5.RESULT_TYPE  is null\r\n\t)",
+    "topPos" : 631,
+    "fillDstLogicParam" : true
+  }, {
+    "codeName" : "RAWSQLCALL9",
+    "getDstPSDELogicParam" : {
+      "modelref" : true,
+      "id" : "result"
+    },
+    "leftPos" : 700,
+    "logicNodeType" : "RAWSQLCALL",
+    "name" : "复试-待面试",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "RAWSQLCALL10"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "RAWSQLCALL9"
+      }
+    } ],
+    "sql" : "select\r\n\tcount(1) as second_interview_pending\r\nfrom\r\n\thr_applicant t\r\ninner join hr_recruitment_stage t2 on\r\n\tt.STAGE_ID = t2.id\r\nwhere\r\n\tt2.`SEQUENCE` = '60'\r\n\tand t.status = '1'\r\n\tand exists(\r\n\t\tselect * from hr_interview t3 inner join hr_applicant_interview t4 on t3.id = t4.interview_id\r\n\t\t\twhere  t3.STAGE_ID = '2' and t3.STATUS  = '1' and t4.APPLICANT_ID  = t.ID \r\n\t)",
+    "topPos" : 631,
+    "fillDstLogicParam" : true
+  } ],
+  "getPSDELogicParams" : [ {
+    "codeName" : "Default",
+    "logicName" : "传入变量",
+    "name" : "传入变量",
+    "getParamPSDataEntity" : {
+      "modelref" : true,
+      "path" : "PSMODULES/hr/PSDATAENTITIES/hr_candidate.json"
+    },
+    "default" : true,
+    "entityParam" : true
+  }, {
+    "codeName" : "result",
+    "logicName" : "result",
+    "name" : "result",
+    "entityParam" : true
+  } ],
+  "getStartPSDELogicNode" : {
+    "modelref" : true,
+    "id" : "Begin"
+  },
+  "enableBackend" : true,
+  "enableFront" : false
+}

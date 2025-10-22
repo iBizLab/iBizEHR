@@ -1,0 +1,80 @@
+{
+  "getAllPSSysBICubes" : [ {
+    "getAllPSSysBICubeDimensions" : [ {
+      "codeName" : "w_job_platform_name",
+      "dimensionType" : "COMMON",
+      "name" : "招聘平台",
+      "getPSDEField" : {
+        "name" : "JOB_PLATFORM_NAME",
+        "codeName" : "Job_platform_name"
+      },
+      "stdDataType" : 25
+    }, {
+      "codeName" : "w_owner_name",
+      "dimensionType" : "COMMON",
+      "name" : "招聘负责人",
+      "getPSDEField" : {
+        "name" : "OWNER_NAME",
+        "codeName" : "Owner_name"
+      },
+      "stdDataType" : 25
+    }, {
+      "codeName" : "w_stage_id",
+      "dimensionType" : "COMMON",
+      "name" : "招聘阶段",
+      "getPSCodeList" : {
+        "modelref" : true,
+        "path" : "PSMODULES/hr/PSCODELISTS/hr_recruitment_stage.json"
+      },
+      "getPSDEField" : {
+        "name" : "STAGE_ID",
+        "codeName" : "stage_id"
+      },
+      "stdDataType" : 25
+    }, {
+      "codeName" : "w_resume_source",
+      "dimensionType" : "COMMON",
+      "name" : "简历来源",
+      "getPSCodeList" : {
+        "modelref" : true,
+        "path" : "PSMODULES/hr/PSCODELISTS/UsrCodeList0813106864.json"
+      },
+      "getPSDEField" : {
+        "name" : "RESUME_SOURCE",
+        "codeName" : "resume_source"
+      },
+      "stdDataType" : 25
+    }, {
+      "codeName" : "w_job_name",
+      "dimensionType" : "COMMON",
+      "name" : "职位",
+      "getPSDEField" : {
+        "name" : "JOB_NAME",
+        "codeName" : "job_name"
+      },
+      "stdDataType" : 25
+    } ],
+    "getAllPSSysBICubeMeasures" : [ {
+      "codeName" : "count",
+      "measureFormula" : "countif(1 = 1)",
+      "measureType" : "CALCULATED",
+      "name" : "申请数量"
+    } ],
+    "codeName" : "applicant",
+    "cubeOption" : 1,
+    "name" : "候选人申请",
+    "getPSDEDataSet" : {
+      "modelref" : true,
+      "id" : "bi_search"
+    },
+    "getPSDataEntity" : {
+      "modelref" : true,
+      "path" : "PSMODULES/hr/PSDATAENTITIES/hr_applicant.json"
+    }
+  } ],
+  "bIEngineType" : "OLAP",
+  "codeName" : "BIScheme",
+  "dynaModelFilePath" : "PSSYSBISCHEMES/BIScheme.json",
+  "name" : "智能报表",
+  "uniqueTag" : "BIScheme"
+}

@@ -1,0 +1,217 @@
+{
+  "codeName" : "calcOther",
+  "defaultParamName" : "Default",
+  "dynaModelFilePath" : "PSMODULES/attendance/PSDATAENTITIES/attendance_rule/PSDELOGICS/calcOther.json",
+  "logicName" : "计算其他信息",
+  "memo" : "班次数量、自由班时间范围",
+  "name" : "计算其他信息",
+  "getPSDELogicNodes" : [ {
+    "codeName" : "Begin",
+    "leftPos" : 40,
+    "logicNodeType" : "BEGIN",
+    "name" : "开始",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "RAWSFCODE_03"
+      },
+      "name" : "连接名称",
+      "getPSDELogicLinkGroupCond" : {
+        "groupOP" : "AND",
+        "logicType" : "GROUP",
+        "name" : "连接条件组",
+        "getPSDELogicLinkConds" : [ {
+          "condOP" : "NOTEQ",
+          "dstFieldName" : "SCHEDULE_TYPE",
+          "getDstLogicParam" : {
+            "modelref" : true,
+            "id" : "Default"
+          },
+          "logicType" : "SINGLE",
+          "name" : "Default[SCHEDULE_TYPE] 不等于(<>) free",
+          "paramValue" : "free"
+        } ]
+      },
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "Begin"
+      }
+    }, {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "RAWSFCODE_02"
+      },
+      "name" : "连接名称",
+      "getPSDELogicLinkGroupCond" : {
+        "groupOP" : "AND",
+        "logicType" : "GROUP",
+        "name" : "连接条件组",
+        "getPSDELogicLinkConds" : [ {
+          "condOP" : "EQ",
+          "dstFieldName" : "SCHEDULE_TYPE",
+          "getDstLogicParam" : {
+            "modelref" : true,
+            "id" : "Default"
+          },
+          "logicType" : "SINGLE",
+          "name" : "Default[SCHEDULE_TYPE] 等于(=) free",
+          "paramValue" : "free"
+        } ]
+      },
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "Begin"
+      }
+    } ],
+    "topPos" : 272,
+    "parallelOutput" : true
+  }, {
+    "code" : "def _default = logic.param('Default').getReal()\r\ndef shifts  = _default.get(\"shifts\")\r\ndef schedule_type = _default.get(\"schedule_type\")\r\nif ([\"alternate_week\", \"fixed\", \"flexible\", \"work_rest\", \"free\"].contains(schedule_type) && shifts) {\r\n    def shift = shifts.find { it.get(\"default_flag\") == 1 }\r\n    def scopes = shift.get(\"scopes\")\r\n    if (scopes) {\r\n        def worktimeParts = []\r\n        def timeFormat = new java.text.SimpleDateFormat(\"HH:mm\")\r\n        scopes.forEach { scope ->\r\n            def next_tag = scope.get(\"next_tag\")\r\n            def start_base_time = scope.get(\"start_base_time\")\r\n            def end_base_time = scope.get(\"end_base_time\")\r\n\r\n            def formatTime = { time ->\r\n                timeFormat.format(time instanceof Date ? time : new Date(time.time))\r\n            }\r\n            def start = formatTime(start_base_time)\r\n            if (next_tag && next_tag in [\"1,0\", \"1,1\"]) {\r\n                start = \"次日\" + start\r\n            }\r\n\r\n            def end = formatTime(end_base_time)\r\n            if (next_tag && next_tag in [\"0,1\", \"1,1\"]) {\r\n                end = \"次日\" + end\r\n            }\r\n            worktimeParts << \"${start}-${end}\"\r\n\r\n        }\r\n\r\n        _default.set(\"work_time\", worktimeParts.join('/'))\r\n    }\r\n}\r\n",
+    "codeName" : "RAWSFCODE_01",
+    "codeType" : "Groovy",
+    "leftPos" : 860,
+    "logicNodeType" : "RAWSFCODE",
+    "name" : "计算上下班时间",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "RAWSFCODE4"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "RAWSFCODE_01"
+      }
+    } ],
+    "topPos" : 270,
+    "parallelOutput" : true
+  }, {
+    "code" : "def _default = logic.param('Default').getReal()\r\ndef shifts = _default.get(\"shifts\")\r\nif(shifts){\r\n    def shift = shifts.find { it.default_flag == 1 }\r\n    if(shift){\r\n        _default.set(\"default_shift\",shift.get(\"id\"))\r\n    }\r\n}\r\n\r\n",
+    "codeName" : "RAWSFCODE_03",
+    "codeType" : "Groovy",
+    "leftPos" : 600,
+    "logicNodeType" : "RAWSFCODE",
+    "name" : "填充默认班次标识",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "RAWSFCODE_01"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "RAWSFCODE_03"
+      }
+    } ],
+    "topPos" : 272,
+    "parallelOutput" : true
+  }, {
+    "codeName" : "END_01",
+    "leftPos" : 1110,
+    "logicNodeType" : "END",
+    "name" : "结束",
+    "getReturnParam" : {
+      "modelref" : true,
+      "id" : "Default"
+    },
+    "returnType" : "LOGICPARAM",
+    "topPos" : 272,
+    "parallelOutput" : true
+  }, {
+    "code" : "var _default = logic.getParam('Default');\r\nvar shifts = _default.get(\"shifts\");\r\nif(shifts!=null && shifts.size()>0){\r\n    var shift = shifts.get(0);\r\n    var scopes = shift.get(\"scopes\")\r\n    var scope = scopes.get(0);\r\n    _default.set(\"free_start\",scope.get(\"start_base_time\"))\r\n    _default.set(\"free_end\",scope.get(\"end_base_time\"))\r\n}\r\n",
+    "codeName" : "RAWSFCODE_02",
+    "codeType" : "JavaScript",
+    "leftPos" : 291,
+    "logicNodeType" : "RAWSFCODE",
+    "name" : "填充自由班上下班时间",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "RAWSFCODE_03"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "RAWSFCODE_02"
+      }
+    } ],
+    "topPos" : 368,
+    "parallelOutput" : true
+  }, {
+    "codeName" : "DEBUGPARAM_01",
+    "getDstPSDELogicParam" : {
+      "modelref" : true,
+      "id" : "Default"
+    },
+    "leftPos" : 1310,
+    "logicNodeType" : "DEBUGPARAM",
+    "name" : "调试逻辑参数",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "END_01"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "DEBUGPARAM_01"
+      }
+    } ],
+    "topPos" : 400,
+    "parallelOutput" : true
+  }, {
+    "code" : "def _default = logic.param('Default').getReal()\r\ndef schedule_type = _default.get('schedule_type')\r\ndef group_num = _default.get('group_num')\r\ndef group_shifts = _default.get('group_shifts')\r\nif (group_num == null && (schedule_type == \"class_inversion\" || schedule_type == \"work_rest\") && group_shifts != null ) {\r\n    _default.set(\"group_num\",group_shifts.size())\r\n}",
+    "codeName" : "RAWSFCODE4",
+    "codeType" : "Groovy",
+    "leftPos" : 1070,
+    "logicNodeType" : "RAWSFCODE",
+    "name" : "计算组排班数",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "DEBUGPARAM_01"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "RAWSFCODE4"
+      }
+    } ],
+    "topPos" : 476
+  } ],
+  "getPSDELogicParams" : [ {
+    "codeName" : "Default",
+    "logicName" : "传入变量",
+    "name" : "传入变量",
+    "getParamPSDataEntity" : {
+      "modelref" : true,
+      "path" : "PSMODULES/attendance/PSDATAENTITIES/attendance_rule.json"
+    },
+    "default" : true,
+    "entityParam" : true
+  }, {
+    "codeName" : "attendance_shift",
+    "logicName" : "attendance_shift",
+    "name" : "attendance_shift",
+    "getParamPSDataEntity" : {
+      "modelref" : true,
+      "path" : "PSMODULES/attendance/PSDATAENTITIES/attendance_shift.json"
+    },
+    "entityParam" : true
+  }, {
+    "codeName" : "shifts",
+    "logicName" : "shifts",
+    "name" : "shifts",
+    "getParamPSDataEntity" : {
+      "modelref" : true,
+      "path" : "PSMODULES/attendance/PSDATAENTITIES/attendance_shift.json"
+    },
+    "entityListParam" : true
+  } ],
+  "getStartPSDELogicNode" : {
+    "modelref" : true,
+    "id" : "Begin"
+  },
+  "enableBackend" : true,
+  "enableFront" : false
+}

@@ -1,0 +1,18 @@
+```sql
+SELECT
+t1.`ACADEMIC_DEGREE`,
+t1.`APPLICANT_ID`,
+t1.`CREATE_DATE`,
+t1.`CREATE_UID`,
+t1.`END_DATE`,
+t1.`ID`,
+t1.`NAME`,
+t1.`SCHOOL`,
+t1.`SPECIALITY`,
+t1.`START_DATE`,
+t1.`WRITE_DATE`,
+t1.`WRITE_UID`
+FROM `hr_candidate_education` t1 
+
+
+```

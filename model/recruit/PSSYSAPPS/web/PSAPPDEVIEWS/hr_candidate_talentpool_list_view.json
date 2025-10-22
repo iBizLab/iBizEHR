@@ -1,0 +1,2884 @@
+{
+  "accUserMode" : 2,
+  "getCapPSLanguageRes" : {
+    "lanResTag" : "DE.LNAME.HR_CANDIDATE"
+  },
+  "caption" : "候选人",
+  "codeName" : "hr_candidate_talentpool_list_view",
+  "dynaModelFilePath" : "PSSYSAPPS/web/PSAPPDEVIEWS/hr_candidate_talentpool_list_view.json",
+  "mDCtrlActiveMode" : 0,
+  "name" : "hr_candidatetalentpool_list_view",
+  "getPSAppDataEntity" : {
+    "modelref" : true,
+    "path" : "PSSYSAPPS/web/PSAPPDATAENTITIES/hr_candidate.json"
+  },
+  "getPSAppModule" : {
+    "modelref" : true,
+    "path" : "PSSYSAPPS/web/PSAPPMODULES/base.json"
+  },
+  "getPSDEViewCodeName" : "talentpool_list_view",
+  "getPSDEViewId" : "2ca25dcaf96b0c629818a4942cde46dc",
+  "getPSViewLayoutPanel" : {
+    "getAllPSPanelFields" : [ {
+      "id" : "field_textbox"
+    }, {
+      "id" : "field_text_dynamic",
+      "viewFieldName" : "talent_pool_count"
+    }, {
+      "id" : "field_text_dynamic1",
+      "viewFieldName" : "archived_today_count"
+    } ],
+    "codeName" : "usr0822008596",
+    "controlType" : "VIEWLAYOUTPANEL",
+    "hookEventNames" : [ "ONCLICK" ],
+    "layoutMode" : "FLEX",
+    "logicName" : "talent_pool_listview列表视图布局面板",
+    "name" : "layoutpanel",
+    "getPSAppDataEntity" : {
+      "modelref" : true,
+      "path" : "PSSYSAPPS/web/PSAPPDATAENTITIES/hr_candidate.json"
+    },
+    "getPSControlLogics" : [ {
+      "eventNames" : "onClick",
+      "itemName" : "BUTTON_CALLUILOGIC",
+      "logicTag" : "layoutpanel",
+      "logicType" : "SCRIPT",
+      "name" : "logic1",
+      "scriptCode" : "view.layoutPanel.panelItems.container_search.state.visible = false;\r\nview.layoutPanel.panelItems.container_tree.state.visible = true;\r\nview.layoutPanel.panelItems.show_tree.state.visible = false;\r\nview.layoutPanel.panelItems.show_search.state.visible = true;\r\n\r\n"
+    }, {
+      "eventNames" : "onClick",
+      "itemName" : "CONTAINER17",
+      "logicTag" : "layoutpanel",
+      "logicType" : "APPDEUILOGIC",
+      "name" : "logic17",
+      "getPSAppDEUILogic" : {
+        "modelref" : true,
+        "id" : "message"
+      },
+      "getPSAppDataEntity" : {
+        "modelref" : true,
+        "path" : "PSSYSAPPS/web/PSAPPDATAENTITIES/workspace.json"
+      }
+    }, {
+      "eventNames" : "onClick",
+      "itemName" : "BUTTON_CALLUILOGIC1",
+      "logicTag" : "layoutpanel",
+      "logicType" : "SCRIPT",
+      "name" : "logic2",
+      "scriptCode" : "view.layoutPanel.panelItems.container_search.state.visible = true;\r\nview.layoutPanel.panelItems.container_tree.state.visible = false;\r\nview.layoutPanel.panelItems.show_tree.state.visible = true;\r\nview.layoutPanel.panelItems.show_search.state.visible = false;\r\n"
+    }, {
+      "eventNames" : "onClick",
+      "itemName" : "STATIC_IMAGE3",
+      "logicTag" : "layoutpanel",
+      "logicType" : "APPDEUILOGIC",
+      "name" : "logic_3",
+      "getPSAppDEUILogic" : {
+        "modelref" : true,
+        "id" : "message"
+      },
+      "getPSAppDataEntity" : {
+        "modelref" : true,
+        "path" : "PSSYSAPPS/web/PSAPPDATAENTITIES/workspace.json"
+      }
+    }, {
+      "eventNames" : "onClick",
+      "itemName" : "STATIC_IMAGE1",
+      "logicTag" : "layoutpanel",
+      "logicType" : "APPDEUILOGIC",
+      "name" : "logic_4",
+      "getPSAppDEUILogic" : {
+        "modelref" : true,
+        "id" : "message"
+      },
+      "getPSAppDataEntity" : {
+        "modelref" : true,
+        "path" : "PSSYSAPPS/web/PSAPPDATAENTITIES/workspace.json"
+      }
+    } ],
+    "getPSControlParam" : { },
+    "getPSLayout" : {
+      "layout" : "FLEX"
+    },
+    "getRootPSPanelItems" : [ {
+      "caption" : "滚动条容器",
+      "itemStyle" : "DEFAULT",
+      "itemType" : "CONTAINER",
+      "name" : "container_scroll",
+      "getPSLayout" : {
+        "layout" : "BORDER"
+      },
+      "getPSLayoutPos" : {
+        "grow" : -1,
+        "layout" : "FLEX"
+      },
+      "getPSPanelItems" : [ {
+        "caption" : "面板容器",
+        "itemStyle" : "DEFAULT",
+        "itemType" : "CONTAINER",
+        "name" : "container_scroll_main",
+        "getPSLayout" : {
+          "layout" : "BORDER"
+        },
+        "getPSLayoutPos" : {
+          "layout" : "BORDER",
+          "layoutPos" : "CENTER"
+        },
+        "getPSPanelItems" : [ {
+          "caption" : "容器",
+          "itemStyle" : "DEFAULT",
+          "itemType" : "CONTAINER",
+          "name" : "container1",
+          "getPSLayout" : {
+            "layout" : "FLEX"
+          },
+          "getPSLayoutPos" : {
+            "layout" : "BORDER",
+            "layoutPos" : "CENTER",
+            "spacingBottom" : "OUTERMEDIUM",
+            "spacingLeft" : "OUTERMEDIUM"
+          },
+          "getPSPanelItems" : [ {
+            "caption" : "容器",
+            "itemStyle" : "DEFAULT",
+            "itemType" : "CONTAINER",
+            "name" : "container18",
+            "getPSLayout" : {
+              "dir" : "row",
+              "layout" : "FLEX"
+            },
+            "getPSLayoutPos" : {
+              "grow" : -1,
+              "layout" : "FLEX",
+              "spacingBottom" : "OUTERSMALL"
+            },
+            "getPSPanelItems" : [ {
+              "caption" : "容器",
+              "contentWidth" : 80.0,
+              "itemStyle" : "DEFAULT",
+              "itemType" : "CONTAINER",
+              "name" : "container19",
+              "getPSLayout" : {
+                "layout" : "FLEX"
+              },
+              "getPSLayoutPos" : {
+                "grow" : -1,
+                "layout" : "FLEX",
+                "width" : 80,
+                "widthMode" : "PERCENTAGE"
+              },
+              "getPSPanelItems" : [ {
+                "caption" : "文本",
+                "contentType" : "RAW",
+                "itemStyle" : "DEFAULT",
+                "itemType" : "RAWITEM",
+                "name" : "static_text",
+                "getPSLayoutPos" : {
+                  "grow" : -1,
+                  "layout" : "FLEX"
+                },
+                "getPSRawItem" : {
+                  "caption" : "人才库概览",
+                  "contentType" : "RAW",
+                  "name" : "static_text",
+                  "getPSSysCss" : {
+                    "cssName" : "talent_title"
+                  },
+                  "predefinedType" : "STATIC_TEXT",
+                  "renderMode" : "TEXT"
+                },
+                "getPSSysCss" : {
+                  "cssName" : "talent_title"
+                },
+                "rawContent" : "人才库概览",
+                "showCaption" : true
+              }, {
+                "caption" : "文本",
+                "contentType" : "RAW",
+                "itemStyle" : "DEFAULT",
+                "itemType" : "RAWITEM",
+                "name" : "static_text1",
+                "getPSLayoutPos" : {
+                  "grow" : -1,
+                  "layout" : "FLEX"
+                },
+                "getPSRawItem" : {
+                  "caption" : "列表中显示候选人数量上限10000人，您可以使用左方的选栏位快速寻找符合需求的候选人。",
+                  "contentType" : "RAW",
+                  "name" : "static_text1",
+                  "predefinedType" : "STATIC_TEXT",
+                  "renderMode" : "TEXT"
+                },
+                "rawContent" : "列表中显示候选人数量上限10000人，您可以使用左方的选栏位快速寻找符合需求的候选人。",
+                "showCaption" : true
+              } ],
+              "width" : 80.0
+            }, {
+              "caption" : "容器",
+              "itemStyle" : "DEFAULT",
+              "itemType" : "CONTAINER",
+              "name" : "container20",
+              "getPSLayout" : {
+                "layout" : "FLEX"
+              },
+              "getPSLayoutPos" : {
+                "grow" : 1,
+                "layout" : "FLEX"
+              },
+              "getPSPanelItems" : [ {
+                "caption" : "文本框",
+                "itemStyle" : "DEFAULT",
+                "itemType" : "FIELD",
+                "name" : "field_textbox",
+                "getPSEditor" : {
+                  "editorType" : "TEXTBOX",
+                  "name" : "field_textbox",
+                  "placeHolder" : "搜索网络人才库",
+                  "predefinedType" : "FIELD_TEXTBOX"
+                },
+                "getPSLayoutPos" : {
+                  "grow" : -1,
+                  "layout" : "FLEX"
+                }
+              } ]
+            } ]
+          }, {
+            "caption" : "容器",
+            "itemStyle" : "DEFAULT",
+            "itemType" : "CONTAINER",
+            "name" : "container4",
+            "getPSLayout" : {
+              "dir" : "row",
+              "layout" : "FLEX"
+            },
+            "getPSLayoutPos" : {
+              "grow" : -1,
+              "layout" : "FLEX",
+              "spacingTop" : "OUTERSMALL"
+            },
+            "getPSPanelItems" : [ {
+              "caption" : "容器",
+              "contentWidth" : 30.0,
+              "itemStyle" : "DEFAULT",
+              "itemType" : "CONTAINER",
+              "name" : "container5",
+              "getPSLayout" : {
+                "layout" : "FLEX"
+              },
+              "getPSLayoutPos" : {
+                "grow" : -1,
+                "layout" : "FLEX",
+                "spacingRight" : "OUTERMEDIUM",
+                "spacingTop" : "OUTERLARGE",
+                "width" : 30,
+                "widthMode" : "PERCENTAGE"
+              },
+              "getPSPanelItems" : [ {
+                "caption" : "栅格容器",
+                "itemStyle" : "DEFAULT",
+                "itemType" : "CONTAINER",
+                "name" : "container_grid1",
+                "getPSLayout" : {
+                  "layout" : "SIMPLEFLEX"
+                },
+                "getPSLayoutPos" : {
+                  "grow" : -1,
+                  "layout" : "FLEX",
+                  "spacingBottom" : "OUTERMEDIUM"
+                },
+                "getPSPanelItems" : [ {
+                  "caption" : "面板容器",
+                  "itemStyle" : "DEFAULT",
+                  "itemType" : "CONTAINER",
+                  "name" : "container8",
+                  "getPSLayout" : {
+                    "childColMD" : 24,
+                    "columnCount" : 24,
+                    "layout" : "TABLE_24COL"
+                  },
+                  "getPSLayoutPos" : {
+                    "grow" : 12,
+                    "layout" : "SIMPLEFLEX"
+                  },
+                  "getPSPanelItems" : [ {
+                    "caption" : "单项数据容器",
+                    "dataRegionType" : "SINGLEDATA",
+                    "dataSourceType" : "DEACTION",
+                    "itemStyle" : "DEFAULT",
+                    "itemType" : "CONTAINER",
+                    "name" : "container_singledata",
+                    "getPSAppDEMethod" : {
+                      "modelref" : true,
+                      "id" : "get_talent_pool_count"
+                    },
+                    "getPSAppDataEntity" : {
+                      "modelref" : true,
+                      "path" : "PSSYSAPPS/web/PSAPPDATAENTITIES/hr_candidate.json"
+                    },
+                    "getPSLayout" : {
+                      "childColMD" : 24,
+                      "columnCount" : 24,
+                      "layout" : "TABLE_24COL"
+                    },
+                    "getPSLayoutPos" : {
+                      "colMD" : 24,
+                      "layout" : "TABLE_24COL"
+                    },
+                    "getPSPanelItems" : [ {
+                      "caption" : "文本(动态)",
+                      "itemStyle" : "DEFAULT",
+                      "itemType" : "FIELD",
+                      "name" : "field_text_dynamic",
+                      "getPSEditor" : {
+                        "editorType" : "SPAN",
+                        "name" : "field_text_dynamic",
+                        "predefinedType" : "FIELD_TEXT_DYNAMIC",
+                        "renderMode" : "TEXT_DYNAMIC",
+                        "enableLinkView" : false
+                      },
+                      "getPSLayoutPos" : {
+                        "colMD" : 24,
+                        "layout" : "TABLE_24COL"
+                      },
+                      "getPSSysCss" : {
+                        "cssName" : "talent_name"
+                      },
+                      "viewFieldName" : "talent_pool_count"
+                    } ],
+                    "predefinedType" : "CONTAINER_SINGLEDATA"
+                  } ]
+                } ],
+                "predefinedType" : "CONTAINER_GRID"
+              }, {
+                "caption" : "栅格容器",
+                "itemStyle" : "DEFAULT",
+                "itemType" : "CONTAINER",
+                "name" : "container_grid2",
+                "getPSLayout" : {
+                  "layout" : "SIMPLEFLEX"
+                },
+                "getPSLayoutPos" : {
+                  "grow" : -1,
+                  "layout" : "FLEX"
+                },
+                "getPSPanelItems" : [ {
+                  "caption" : "面板容器",
+                  "itemStyle" : "DEFAULT",
+                  "itemType" : "CONTAINER",
+                  "name" : "container9",
+                  "getPSLayout" : {
+                    "childColMD" : 24,
+                    "columnCount" : 24,
+                    "layout" : "TABLE_24COL"
+                  },
+                  "getPSLayoutPos" : {
+                    "grow" : 6,
+                    "layout" : "SIMPLEFLEX"
+                  },
+                  "getPSPanelItems" : [ {
+                    "caption" : "文本",
+                    "contentType" : "RAW",
+                    "itemStyle" : "DEFAULT",
+                    "itemType" : "RAWITEM",
+                    "name" : "static_text2",
+                    "getPSLayoutPos" : {
+                      "colMD" : 24,
+                      "layout" : "TABLE_24COL"
+                    },
+                    "getPSRawItem" : {
+                      "caption" : "候选人总数",
+                      "contentType" : "RAW",
+                      "name" : "static_text2",
+                      "predefinedType" : "STATIC_TEXT",
+                      "renderMode" : "TEXT"
+                    },
+                    "rawContent" : "候选人总数",
+                    "showCaption" : true
+                  } ]
+                }, {
+                  "caption" : "面板容器",
+                  "itemStyle" : "DEFAULT",
+                  "itemType" : "CONTAINER",
+                  "name" : "container10",
+                  "getPSLayout" : {
+                    "childColMD" : 24,
+                    "columnCount" : 24,
+                    "layout" : "TABLE_24COL"
+                  },
+                  "getPSLayoutPos" : {
+                    "grow" : 6,
+                    "layout" : "SIMPLEFLEX"
+                  },
+                  "getPSPanelItems" : [ {
+                    "caption" : "单项数据容器",
+                    "dataRegionType" : "SINGLEDATA",
+                    "dataSourceType" : "DEACTION",
+                    "itemStyle" : "DEFAULT",
+                    "itemType" : "CONTAINER",
+                    "name" : "container_singledata1",
+                    "getPSAppDEMethod" : {
+                      "modelref" : true,
+                      "id" : "get_archived_today_count"
+                    },
+                    "getPSAppDataEntity" : {
+                      "modelref" : true,
+                      "path" : "PSSYSAPPS/web/PSAPPDATAENTITIES/hr_candidate.json"
+                    },
+                    "getPSLayout" : {
+                      "childColMD" : 24,
+                      "columnCount" : 24,
+                      "layout" : "TABLE_24COL"
+                    },
+                    "getPSLayoutPos" : {
+                      "colMD" : 24,
+                      "layout" : "TABLE_24COL"
+                    },
+                    "getPSPanelItems" : [ {
+                      "caption" : "文本(动态)",
+                      "itemStyle" : "DEFAULT",
+                      "itemType" : "FIELD",
+                      "name" : "field_text_dynamic1",
+                      "getPSEditor" : {
+                        "editorType" : "SPAN",
+                        "name" : "field_text_dynamic1",
+                        "predefinedType" : "FIELD_TEXT_DYNAMIC",
+                        "renderMode" : "TEXT_DYNAMIC",
+                        "enableLinkView" : false
+                      },
+                      "getPSLayoutPos" : {
+                        "colMD" : 24,
+                        "layout" : "TABLE_24COL"
+                      },
+                      "valueFormat" : "今日归档人数：@",
+                      "viewFieldName" : "archived_today_count"
+                    } ],
+                    "predefinedType" : "CONTAINER_SINGLEDATA"
+                  } ]
+                } ],
+                "predefinedType" : "CONTAINER_GRID"
+              } ],
+              "getPSSysCss" : {
+                "cssName" : "talent_card"
+              },
+              "width" : 30.0
+            }, {
+              "caption" : "容器",
+              "contentWidth" : 30.0,
+              "itemStyle" : "DEFAULT",
+              "itemType" : "CONTAINER",
+              "name" : "container6",
+              "getPSLayout" : {
+                "layout" : "FLEX"
+              },
+              "getPSLayoutPos" : {
+                "grow" : -1,
+                "layout" : "FLEX",
+                "spacingLeft" : "OUTERMEDIUM",
+                "spacingRight" : "OUTERMEDIUM",
+                "spacingTop" : "OUTERLARGE",
+                "width" : 30,
+                "widthMode" : "PERCENTAGE"
+              },
+              "getPSPanelItems" : [ {
+                "caption" : "图片",
+                "contentHeight" : 25.0,
+                "contentType" : "IMAGE",
+                "contentWidth" : 25.0,
+                "height" : 25.0,
+                "itemStyle" : "DEFAULT",
+                "itemType" : "RAWITEM",
+                "name" : "static_image",
+                "getPSLayoutPos" : {
+                  "grow" : -1,
+                  "height" : 25,
+                  "heightMode" : "PX",
+                  "layout" : "FLEX",
+                  "spacingBottom" : "OUTERMEDIUM",
+                  "width" : 25,
+                  "widthMode" : "PX"
+                },
+                "getPSRawItem" : {
+                  "contentType" : "IMAGE",
+                  "name" : "static_image",
+                  "getPSSysImage" : {
+                    "rawContent" : "data:image/png;base64,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"
+                  },
+                  "predefinedType" : "STATIC_IMAGE",
+                  "rawItemHeight" : 25.0,
+                  "rawItemWidth" : 25.0
+                },
+                "getPSSysImage" : {
+                  "rawContent" : "data:image/png;base64,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"
+                },
+                "rawItemHeight" : 25.0,
+                "rawItemWidth" : 25.0,
+                "width" : 25.0,
+                "showCaption" : true
+              }, {
+                "caption" : "栅格容器",
+                "itemStyle" : "DEFAULT",
+                "itemType" : "CONTAINER",
+                "name" : "container_grid3",
+                "getPSLayout" : {
+                  "layout" : "SIMPLEFLEX"
+                },
+                "getPSLayoutPos" : {
+                  "grow" : -1,
+                  "layout" : "FLEX"
+                },
+                "getPSPanelItems" : [ {
+                  "caption" : "面板容器",
+                  "itemStyle" : "DEFAULT",
+                  "itemType" : "CONTAINER",
+                  "name" : "container11",
+                  "getPSLayout" : {
+                    "childColMD" : 24,
+                    "columnCount" : 24,
+                    "layout" : "TABLE_24COL"
+                  },
+                  "getPSLayoutPos" : {
+                    "grow" : 10,
+                    "layout" : "SIMPLEFLEX"
+                  },
+                  "getPSPanelItems" : [ {
+                    "caption" : "文本",
+                    "contentType" : "RAW",
+                    "itemStyle" : "DEFAULT",
+                    "itemType" : "RAWITEM",
+                    "name" : "static_text3",
+                    "getPSLayoutPos" : {
+                      "colMD" : 24,
+                      "layout" : "TABLE_24COL"
+                    },
+                    "getPSRawItem" : {
+                      "caption" : "追踪激活效果",
+                      "contentType" : "RAW",
+                      "name" : "static_text3",
+                      "predefinedType" : "STATIC_TEXT",
+                      "renderMode" : "TEXT"
+                    },
+                    "rawContent" : "追踪激活效果",
+                    "showCaption" : true
+                  } ]
+                }, {
+                  "caption" : "面板容器",
+                  "contentHeight" : 25.0,
+                  "height" : 25.0,
+                  "itemStyle" : "DEFAULT",
+                  "itemType" : "CONTAINER",
+                  "name" : "container12",
+                  "getPSLayout" : {
+                    "childColMD" : 24,
+                    "columnCount" : 24,
+                    "layout" : "TABLE_24COL"
+                  },
+                  "getPSLayoutPos" : {
+                    "grow" : 1,
+                    "height" : 25,
+                    "heightMode" : "PX",
+                    "layout" : "SIMPLEFLEX"
+                  },
+                  "getPSPanelItems" : [ {
+                    "caption" : "图片",
+                    "contentHeight" : 20.0,
+                    "contentType" : "IMAGE",
+                    "contentWidth" : 20.0,
+                    "height" : 20.0,
+                    "itemStyle" : "DEFAULT",
+                    "itemType" : "RAWITEM",
+                    "name" : "static_image1",
+                    "getPSLayoutPos" : {
+                      "colMD" : 24,
+                      "height" : 20,
+                      "heightMode" : "PX",
+                      "layout" : "TABLE_24COL",
+                      "width" : 20,
+                      "widthMode" : "PX"
+                    },
+                    "getPSRawItem" : {
+                      "contentType" : "IMAGE",
+                      "name" : "static_image1",
+                      "getPSSysCss" : {
+                        "cssName" : "overall-info"
+                      },
+                      "getPSSysImage" : {
+                        "rawContent" : "data:image/png;base64,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"
+                      },
+                      "predefinedType" : "STATIC_IMAGE",
+                      "rawItemHeight" : 20.0,
+                      "rawItemWidth" : 20.0
+                    },
+                    "getPSSysCss" : {
+                      "cssName" : "overall-info"
+                    },
+                    "getPSSysImage" : {
+                      "rawContent" : "data:image/png;base64,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"
+                    },
+                    "rawItemHeight" : 20.0,
+                    "rawItemWidth" : 20.0,
+                    "width" : 20.0,
+                    "showCaption" : true
+                  } ]
+                } ],
+                "predefinedType" : "CONTAINER_GRID"
+              } ],
+              "getPSSysCss" : {
+                "cssName" : "talent_card"
+              },
+              "width" : 30.0
+            }, {
+              "caption" : "容器",
+              "contentWidth" : 30.0,
+              "itemStyle" : "DEFAULT",
+              "itemType" : "CONTAINER",
+              "name" : "container7",
+              "getPSLayout" : {
+                "layout" : "FLEX"
+              },
+              "getPSLayoutPos" : {
+                "grow" : -1,
+                "layout" : "FLEX",
+                "spacingLeft" : "OUTERMEDIUM",
+                "spacingRight" : "OUTERMEDIUM",
+                "spacingTop" : "OUTERLARGE",
+                "width" : 30,
+                "widthMode" : "PERCENTAGE"
+              },
+              "getPSPanelItems" : [ {
+                "caption" : "图片",
+                "contentHeight" : 25.0,
+                "contentType" : "IMAGE",
+                "contentWidth" : 25.0,
+                "height" : 25.0,
+                "itemStyle" : "DEFAULT",
+                "itemType" : "RAWITEM",
+                "name" : "static_image2",
+                "getPSLayoutPos" : {
+                  "grow" : -1,
+                  "height" : 25,
+                  "heightMode" : "PX",
+                  "layout" : "FLEX",
+                  "spacingBottom" : "OUTERMEDIUM",
+                  "width" : 25,
+                  "widthMode" : "PX"
+                },
+                "getPSRawItem" : {
+                  "contentType" : "IMAGE",
+                  "name" : "static_image2",
+                  "getPSSysImage" : {
+                    "rawContent" : "data:image/png;base64,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"
+                  },
+                  "predefinedType" : "STATIC_IMAGE",
+                  "rawItemHeight" : 25.0,
+                  "rawItemWidth" : 25.0
+                },
+                "getPSSysImage" : {
+                  "rawContent" : "data:image/png;base64,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"
+                },
+                "rawItemHeight" : 25.0,
+                "rawItemWidth" : 25.0,
+                "width" : 25.0,
+                "showCaption" : true
+              }, {
+                "caption" : "栅格容器",
+                "itemStyle" : "DEFAULT",
+                "itemType" : "CONTAINER",
+                "name" : "container_grid4",
+                "getPSLayout" : {
+                  "layout" : "SIMPLEFLEX"
+                },
+                "getPSLayoutPos" : {
+                  "grow" : -1,
+                  "layout" : "FLEX"
+                },
+                "getPSPanelItems" : [ {
+                  "caption" : "面板容器",
+                  "itemStyle" : "DEFAULT",
+                  "itemType" : "CONTAINER",
+                  "name" : "container13",
+                  "getPSLayout" : {
+                    "childColMD" : 24,
+                    "columnCount" : 24,
+                    "layout" : "TABLE_24COL"
+                  },
+                  "getPSLayoutPos" : {
+                    "grow" : 10,
+                    "layout" : "SIMPLEFLEX"
+                  },
+                  "getPSPanelItems" : [ {
+                    "caption" : "文本",
+                    "contentType" : "RAW",
+                    "itemStyle" : "DEFAULT",
+                    "itemType" : "RAWITEM",
+                    "name" : "static_text4",
+                    "getPSLayoutPos" : {
+                      "colMD" : 24,
+                      "layout" : "TABLE_24COL"
+                    },
+                    "getPSRawItem" : {
+                      "caption" : "新建激活",
+                      "contentType" : "RAW",
+                      "name" : "static_text4",
+                      "predefinedType" : "STATIC_TEXT",
+                      "renderMode" : "TEXT"
+                    },
+                    "rawContent" : "新建激活",
+                    "showCaption" : true
+                  } ]
+                }, {
+                  "caption" : "面板容器",
+                  "contentHeight" : 25.0,
+                  "height" : 25.0,
+                  "itemStyle" : "DEFAULT",
+                  "itemType" : "CONTAINER",
+                  "name" : "container14",
+                  "getPSLayout" : {
+                    "childColMD" : 24,
+                    "columnCount" : 24,
+                    "layout" : "TABLE_24COL"
+                  },
+                  "getPSLayoutPos" : {
+                    "grow" : 1,
+                    "height" : 25,
+                    "heightMode" : "PX",
+                    "layout" : "SIMPLEFLEX"
+                  },
+                  "getPSPanelItems" : [ {
+                    "caption" : "图片",
+                    "contentHeight" : 20.0,
+                    "contentType" : "IMAGE",
+                    "contentWidth" : 20.0,
+                    "height" : 20.0,
+                    "itemStyle" : "DEFAULT",
+                    "itemType" : "RAWITEM",
+                    "name" : "static_image3",
+                    "getPSLayoutPos" : {
+                      "colMD" : 24,
+                      "height" : 20,
+                      "heightMode" : "PX",
+                      "layout" : "TABLE_24COL",
+                      "width" : 20,
+                      "widthMode" : "PX"
+                    },
+                    "getPSRawItem" : {
+                      "contentType" : "IMAGE",
+                      "name" : "static_image3",
+                      "getPSSysCss" : {
+                        "cssName" : "overall-info"
+                      },
+                      "getPSSysImage" : {
+                        "rawContent" : "data:image/png;base64,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"
+                      },
+                      "predefinedType" : "STATIC_IMAGE",
+                      "rawItemHeight" : 20.0,
+                      "rawItemWidth" : 20.0
+                    },
+                    "getPSSysCss" : {
+                      "cssName" : "overall-info"
+                    },
+                    "getPSSysImage" : {
+                      "rawContent" : "data:image/png;base64,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"
+                    },
+                    "rawItemHeight" : 20.0,
+                    "rawItemWidth" : 20.0,
+                    "width" : 20.0,
+                    "showCaption" : true
+                  } ]
+                } ],
+                "predefinedType" : "CONTAINER_GRID"
+              } ],
+              "getPSSysCss" : {
+                "cssName" : "talent_card"
+              },
+              "width" : 30.0
+            } ]
+          }, {
+            "caption" : "栅格容器",
+            "itemStyle" : "DEFAULT",
+            "itemType" : "CONTAINER",
+            "name" : "container_grid5",
+            "getPSLayout" : {
+              "layout" : "SIMPLEFLEX"
+            },
+            "getPSLayoutPos" : {
+              "grow" : -1,
+              "layout" : "FLEX",
+              "spacingTop" : "OUTERMEDIUM"
+            },
+            "getPSPanelItems" : [ {
+              "caption" : "面板容器",
+              "itemStyle" : "DEFAULT",
+              "itemType" : "CONTAINER",
+              "name" : "container15",
+              "getPSLayout" : {
+                "childColMD" : 24,
+                "columnCount" : 24,
+                "layout" : "TABLE_24COL"
+              },
+              "getPSLayoutPos" : {
+                "grow" : 9,
+                "layout" : "SIMPLEFLEX"
+              }
+            }, {
+              "caption" : "面板容器",
+              "itemStyle" : "DEFAULT",
+              "itemType" : "CONTAINER",
+              "name" : "container16",
+              "getPSLayout" : {
+                "childColMD" : 24,
+                "columnCount" : 24,
+                "layout" : "TABLE_24COL"
+              },
+              "getPSLayoutPos" : {
+                "grow" : 3,
+                "layout" : "SIMPLEFLEX"
+              },
+              "getPSPanelItems" : [ {
+                "caption" : "容器",
+                "itemStyle" : "DEFAULT",
+                "itemType" : "CONTAINER",
+                "name" : "container17",
+                "getPSLayout" : {
+                  "dir" : "row",
+                  "layout" : "FLEX"
+                },
+                "getPSLayoutPos" : {
+                  "colMD" : 24,
+                  "layout" : "TABLE_24COL"
+                },
+                "getPSPanelItems" : [ {
+                  "caption" : "容器",
+                  "contentHeight" : 25.0,
+                  "height" : 25.0,
+                  "itemStyle" : "DEFAULT",
+                  "itemType" : "CONTAINER",
+                  "name" : "container",
+                  "getPSLayout" : {
+                    "layout" : "FLEX"
+                  },
+                  "getPSLayoutPos" : {
+                    "grow" : -1,
+                    "height" : 25,
+                    "heightMode" : "PX",
+                    "layout" : "FLEX"
+                  },
+                  "getPSPanelItems" : [ {
+                    "caption" : "图片",
+                    "contentHeight" : 20.0,
+                    "contentType" : "IMAGE",
+                    "contentWidth" : 20.0,
+                    "height" : 20.0,
+                    "itemStyle" : "DEFAULT",
+                    "itemType" : "RAWITEM",
+                    "name" : "static_image4",
+                    "getPSLayoutPos" : {
+                      "grow" : -1,
+                      "height" : 20,
+                      "heightMode" : "PX",
+                      "layout" : "FLEX",
+                      "spacingRight" : "OUTERMEDIUM",
+                      "width" : 20,
+                      "widthMode" : "PX"
+                    },
+                    "getPSRawItem" : {
+                      "contentType" : "IMAGE",
+                      "name" : "static_image4",
+                      "getPSSysImage" : {
+                        "rawContent" : "data:image/png;base64,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"
+                      },
+                      "predefinedType" : "STATIC_IMAGE",
+                      "rawItemHeight" : 20.0,
+                      "rawItemWidth" : 20.0
+                    },
+                    "getPSSysImage" : {
+                      "rawContent" : "data:image/png;base64,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"
+                    },
+                    "rawItemHeight" : 20.0,
+                    "rawItemWidth" : 20.0,
+                    "width" : 20.0,
+                    "showCaption" : true
+                  } ]
+                }, {
+                  "caption" : "文本",
+                  "contentType" : "RAW",
+                  "itemStyle" : "DEFAULT",
+                  "itemType" : "RAWITEM",
+                  "name" : "static_text5",
+                  "getPSLayoutPos" : {
+                    "grow" : -1,
+                    "layout" : "FLEX"
+                  },
+                  "getPSRawItem" : {
+                    "caption" : "想要恢复归档的候选人？",
+                    "contentType" : "RAW",
+                    "name" : "static_text5",
+                    "predefinedType" : "STATIC_TEXT",
+                    "renderMode" : "TEXT"
+                  },
+                  "rawContent" : "想要恢复归档的候选人？",
+                  "showCaption" : true
+                } ],
+                "getPSSysCss" : {
+                  "cssName" : "overall-info"
+                }
+              } ]
+            } ],
+            "predefinedType" : "CONTAINER_GRID"
+          } ]
+        }, {
+          "caption" : "列表",
+          "itemStyle" : "DEFAULT",
+          "itemType" : "CTRLPOS",
+          "name" : "list",
+          "getPSLayoutPos" : {
+            "layout" : "BORDER",
+            "layoutPos" : "CENTER"
+          },
+          "showCaption" : true
+        } ],
+        "predefinedType" : "CONTAINER_SCROLL_MAIN",
+        "showCaption" : true
+      }, {
+        "caption" : "面板容器",
+        "contentWidth" : 300.0,
+        "itemStyle" : "DEFAULT",
+        "itemType" : "CONTAINER",
+        "name" : "container_scroll_left",
+        "getPSLayout" : {
+          "layout" : "BORDER"
+        },
+        "getPSLayoutPos" : {
+          "layout" : "BORDER",
+          "layoutPos" : "WEST",
+          "width" : 300,
+          "widthMode" : "PX"
+        },
+        "getPSPanelItems" : [ {
+          "caption" : "容器",
+          "itemStyle" : "DEFAULT",
+          "itemType" : "CONTAINER",
+          "name" : "show_tree",
+          "getPSLayout" : {
+            "layout" : "FLEX"
+          },
+          "getPSLayoutPos" : {
+            "layout" : "BORDER",
+            "layoutPos" : "CENTER"
+          },
+          "getPSPanelItems" : [ {
+            "actionType" : "NONE",
+            "buttonStyle" : "DEFAULT",
+            "caption" : "全部",
+            "itemStyle" : "DEFAULT",
+            "itemType" : "BUTTON",
+            "name" : "button_calluilogic",
+            "getPSLayoutPos" : {
+              "grow" : -1,
+              "layout" : "FLEX"
+            },
+            "tooltip" : "全部",
+            "uIActionTarget" : "NONE",
+            "showCaption" : true
+          } ]
+        }, {
+          "caption" : "容器",
+          "itemStyle" : "DEFAULT",
+          "itemType" : "CONTAINER",
+          "name" : "show_search",
+          "getPSControlLogics" : [ {
+            "itemName" : "Show_Search",
+            "logicTag" : "layoutpanel",
+            "logicType" : "SCRIPT",
+            "name" : "logic",
+            "scriptCode" : "context == null",
+            "triggerType" : "ITEMVISIBLE"
+          } ],
+          "getPSLayout" : {
+            "layout" : "FLEX"
+          },
+          "getPSLayoutPos" : {
+            "layout" : "BORDER",
+            "layoutPos" : "CENTER"
+          },
+          "getPSPanelItems" : [ {
+            "actionType" : "NONE",
+            "buttonStyle" : "DEFAULT",
+            "caption" : "选择人才库",
+            "itemStyle" : "DEFAULT",
+            "itemType" : "BUTTON",
+            "name" : "button_calluilogic1",
+            "getPSLayoutPos" : {
+              "grow" : -1,
+              "layout" : "FLEX"
+            },
+            "tooltip" : "选择人才库",
+            "uIActionTarget" : "NONE",
+            "showCaption" : true
+          } ]
+        }, {
+          "caption" : "容器",
+          "itemStyle" : "DEFAULT",
+          "itemType" : "CONTAINER",
+          "name" : "container_search",
+          "getPSLayout" : {
+            "layout" : "FLEX"
+          },
+          "getPSLayoutPos" : {
+            "layout" : "BORDER",
+            "layoutPos" : "CENTER"
+          },
+          "getPSPanelItems" : [ {
+            "caption" : "搜索栏",
+            "itemStyle" : "DEFAULT",
+            "itemType" : "CTRLPOS",
+            "name" : "searchbar",
+            "getPSLayoutPos" : {
+              "grow" : -1,
+              "layout" : "FLEX"
+            },
+            "showCaption" : true
+          } ]
+        }, {
+          "caption" : "容器",
+          "itemStyle" : "DEFAULT",
+          "itemType" : "CONTAINER",
+          "name" : "container_tree",
+          "getPSControlLogics" : [ {
+            "itemName" : "container_tree",
+            "logicTag" : "layoutpanel",
+            "logicType" : "SCRIPT",
+            "name" : "logic3",
+            "scriptCode" : "context == null",
+            "triggerType" : "ITEMVISIBLE"
+          } ],
+          "getPSLayout" : {
+            "layout" : "FLEX"
+          },
+          "getPSLayoutPos" : {
+            "layout" : "BORDER",
+            "layoutPos" : "CENTER"
+          },
+          "getPSPanelItems" : [ {
+            "caption" : "树视图",
+            "itemStyle" : "DEFAULT",
+            "itemType" : "CTRLPOS",
+            "name" : "tree",
+            "getPSLayoutPos" : {
+              "grow" : -1,
+              "layout" : "FLEX"
+            },
+            "showCaption" : true
+          } ]
+        } ],
+        "predefinedType" : "CONTAINER_SCROLL_LEFT",
+        "width" : 300.0,
+        "showCaption" : true
+      } ],
+      "predefinedType" : "CONTAINER_SCROLL"
+    } ],
+    "layoutBodyOnly" : false,
+    "layoutPanel" : true,
+    "useDefaultLayout" : false,
+    "viewProxyMode" : true,
+    "modelid" : "27f0f339fcd07999802e83a0c540ff7e",
+    "modeltype" : "PSSYSVIEWLAYOUTPANEL",
+    "getPSAppViewEngines" : [ {
+      "engineCat" : "VIEW",
+      "engineType" : "ListView",
+      "name" : "engine"
+    } ],
+    "getPSAppViewLogics" : [ {
+      "eventNames" : "onMounted",
+      "logicTrigger" : "VIEWEVENT",
+      "logicType" : "SCRIPT",
+      "name" : "VIEWLOGIC",
+      "scriptCode" : "// 设置可动态显隐的部件keepAlive\r\nview.layoutPanel.panelItems.container_search.state.keepAlive = true;\r\nview.layoutPanel.panelItems.container_tree.state.keepAlive = true;\r\n// 设置默认不显示元素\r\nview.layoutPanel.panelItems.show_search.state.visible = false;\r\nview.layoutPanel.panelItems.container_tree.state.visible = false;"
+    }, {
+      "logicTrigger" : "CUSTOM",
+      "logicType" : "APPUILOGIC",
+      "name" : "newdata",
+      "getPSAppUILogic" : {
+        "actionAfterWizard" : "DEFAULT",
+        "logicType" : "PREDEFINED",
+        "name" : "新建数据",
+        "getNewDataPSAppView" : {
+          "getRefPSAppView" : {
+            "modelref" : true,
+            "path" : "PSSYSAPPS/web/PSAPPDEVIEWS/hr_candidate_edit_view.json",
+            "viewType" : "DEEDITVIEW"
+          }
+        },
+        "getPSAppUILogicRefViews" : [ {
+          "getRefPSAppView" : {
+            "modelref" : true,
+            "path" : "PSSYSAPPS/web/PSAPPDEVIEWS/hr_candidate_edit_view.json",
+            "viewType" : "DEEDITVIEW"
+          }
+        } ],
+        "viewLogicType" : "APP_NEWDATA",
+        "batchAddOnly" : false,
+        "enableBatchAdd" : false,
+        "enableWizardAdd" : false
+      }
+    }, {
+      "logicTrigger" : "CUSTOM",
+      "logicType" : "APPUILOGIC",
+      "name" : "opendata",
+      "getPSAppUILogic" : {
+        "logicType" : "PREDEFINED",
+        "name" : "打开数据",
+        "getOpenDataPSAppView" : {
+          "getRefPSAppView" : {
+            "modelref" : true,
+            "path" : "PSSYSAPPS/web/PSAPPDEVIEWS/hr_candidate_edit_view.json",
+            "viewType" : "DEEDITVIEW"
+          }
+        },
+        "getPSAppUILogicRefViews" : [ {
+          "getRefPSAppView" : {
+            "modelref" : true,
+            "path" : "PSSYSAPPS/web/PSAPPDEVIEWS/hr_candidate_edit_view.json",
+            "viewType" : "DEEDITVIEW"
+          }
+        } ],
+        "viewLogicType" : "APP_OPENDATA",
+        "editMode" : true
+      }
+    } ],
+    "getPSAppViewRefs" : [ {
+      "name" : "NEWDATA",
+      "realTitle" : "候选人编辑视图",
+      "getRealTitlePSLanguageRes" : {
+        "lanResTag" : "PAGE.TITLE.HR_CANDIDATE.EDITVIEW"
+      },
+      "getRefPSAppView" : {
+        "modelref" : true,
+        "path" : "PSSYSAPPS/web/PSAPPDEVIEWS/hr_candidate_edit_view.json",
+        "viewType" : "DEEDITVIEW"
+      }
+    }, {
+      "name" : "EDITDATA",
+      "realTitle" : "候选人编辑视图",
+      "getRealTitlePSLanguageRes" : {
+        "lanResTag" : "PAGE.TITLE.HR_CANDIDATE.EDITVIEW"
+      },
+      "getRefPSAppView" : {
+        "modelref" : true,
+        "path" : "PSSYSAPPS/web/PSAPPDEVIEWS/hr_candidate_edit_view.json",
+        "viewType" : "DEEDITVIEW"
+      }
+    } ],
+    "getPSControls" : [ {
+      "codeName" : "talentpool_list_view_toolbar",
+      "controlType" : "TOOLBAR",
+      "logicName" : "人才库列表视图_工具栏",
+      "name" : "toolbar",
+      "getPSAppDataEntity" : {
+        "modelref" : true,
+        "path" : "PSSYSAPPS/web/PSAPPDATAENTITIES/hr_candidate.json"
+      },
+      "getPSControlParam" : {
+        "id" : "TOOLBAR"
+      },
+      "xDataControlName" : "list",
+      "modelid" : "0f05205223877c7e7ec1fbca1dc4ef29",
+      "modeltype" : "PSDETOOLBAR"
+    }, {
+      "codeName" : "grid_searchbar",
+      "controlStyle" : "FILTER_SEARCHBAR",
+      "controlType" : "SEARCHBAR",
+      "dynaModelFilePath" : "PSSYSAPPS/web/PSAPPDATAENTITIES/hr_candidate/PSSEARCHBARS/grid_searchbar.json",
+      "logicName" : "候选人信息筛选",
+      "getPSAppDataEntity" : {
+        "modelref" : true,
+        "path" : "PSSYSAPPS/web/PSAPPDATAENTITIES/hr_candidate.json"
+      },
+      "getPSControlParam" : {
+        "id" : "SEARCHBAR"
+      },
+      "getPSSearchBarFilters" : [ {
+        "dataType" : 25,
+        "itemType" : "FILTER",
+        "labelPos" : "TOP",
+        "labelWidth" : 0,
+        "name" : "job_name",
+        "getPSAppDEField" : {
+          "name" : "LAST_TP_JOB_NAME",
+          "codeName" : "last_tp_job_name"
+        },
+        "getPSEditor" : {
+          "editorType" : "TEXTBOX",
+          "name" : "job_name"
+        },
+        "allowEmpty" : true,
+        "emptyCaption" : false,
+        "hidden" : false,
+        "showCaption" : true,
+        "getUserParam" : {
+          "defaultShow" : "true"
+        }
+      }, {
+        "caption" : "任职职位",
+        "dataType" : 25,
+        "itemType" : "FILTER",
+        "labelPos" : "TOP",
+        "labelWidth" : 0,
+        "name" : "last_exp_job",
+        "getPSAppDEField" : {
+          "name" : "LAST_EXP_JOB",
+          "codeName" : "last_exp_job"
+        },
+        "getPSEditor" : {
+          "editorType" : "TEXTBOX",
+          "name" : "last_exp_job"
+        },
+        "allowEmpty" : true,
+        "emptyCaption" : false,
+        "hidden" : false,
+        "showCaption" : true,
+        "getUserParam" : {
+          "defaultShow" : "true"
+        }
+      }, {
+        "caption" : "公司名称",
+        "dataType" : 25,
+        "itemType" : "FILTER",
+        "labelPos" : "NONE",
+        "labelWidth" : 0,
+        "name" : "company",
+        "getPSAppDEField" : {
+          "name" : "LAST_EXP_COMPANY",
+          "codeName" : "last_exp_company"
+        },
+        "getPSEditor" : {
+          "editorType" : "TEXTBOX",
+          "name" : "company"
+        },
+        "allowEmpty" : true,
+        "emptyCaption" : false,
+        "hidden" : false,
+        "showCaption" : false,
+        "getUserParam" : {
+          "defaultShow" : "true"
+        }
+      } ],
+      "getPSSysPFPlugin" : {
+        "pluginType" : "CUSTOM",
+        "pluginCode" : "FILTER_SEARCHBAR",
+        "runtimeObject" : true
+      },
+      "quickGroupCount" : -1,
+      "quickSearchMode" : 1,
+      "quickSearchWidth" : 0,
+      "enableFilter" : true,
+      "enableGroup" : false,
+      "enableQuickSearch" : true,
+      "mobileSearchBar" : false,
+      "name" : "searchbar",
+      "modelid" : "394e59d1234d0f53cfdbe2f78cc88765",
+      "modeltype" : "PSSYSSEARCHBAR"
+    }, {
+      "codeName" : "talent_pool_list",
+      "controlType" : "LIST",
+      "getCreatePSControlAction" : {
+        "modelref" : true,
+        "id" : "create",
+        "actionName" : "Create",
+        "actionType" : "DEACTION",
+        "dataAccessAction" : "CREATE",
+        "name" : "create",
+        "getPSAppDEMethod" : {
+          "modelref" : true,
+          "id" : "create"
+        },
+        "getPSAppDataEntity" : {
+          "modelref" : true,
+          "path" : "PSSYSAPPS/web/PSAPPDATAENTITIES/hr_candidate.json"
+        }
+      },
+      "dynaModelFilePath" : "PSSYSAPPS/web/PSAPPDATAENTITIES/hr_candidate/PSLISTS/talent_pool_list.json",
+      "getFetchPSControlAction" : {
+        "modelref" : true,
+        "id" : "fetch",
+        "actionType" : "DEDATASET",
+        "name" : "fetch",
+        "getPSAppDEMethod" : {
+          "modelref" : true,
+          "id" : "fetch_public_talent_pool"
+        },
+        "getPSAppDataEntity" : {
+          "modelref" : true,
+          "path" : "PSSYSAPPS/web/PSAPPDATAENTITIES/hr_candidate.json"
+        }
+      },
+      "getGetPSControlAction" : {
+        "modelref" : true,
+        "id" : "load",
+        "actionName" : "Get",
+        "actionType" : "DEACTION",
+        "dataAccessAction" : "READ",
+        "name" : "load",
+        "getPSAppDEMethod" : {
+          "modelref" : true,
+          "id" : "get"
+        },
+        "getPSAppDataEntity" : {
+          "modelref" : true,
+          "path" : "PSSYSAPPS/web/PSAPPDATAENTITIES/hr_candidate.json"
+        }
+      },
+      "groupMode" : "NONE",
+      "getItemPSLayoutPanel" : {
+        "getAllPSPanelFields" : [ {
+          "id" : "field_text_dynamic",
+          "viewFieldName" : "NAME"
+        }, {
+          "id" : "field_text_dynamic1",
+          "viewFieldName" : "GENDER"
+        }, {
+          "id" : "field_text_dynamic3",
+          "viewFieldName" : "EXPERIENCE"
+        }, {
+          "id" : "field_text_dynamic4",
+          "viewFieldName" : "LAST_EXP_COMPANY"
+        }, {
+          "id" : "field_text_dynamic5",
+          "viewFieldName" : "LAST_EXP_JOB"
+        }, {
+          "id" : "field_text_dynamic6",
+          "viewFieldName" : "LAST_EXP_DATE"
+        }, {
+          "id" : "field_text_dynamic14",
+          "viewFieldName" : "LAST_TP_APPLIED_AT"
+        }, {
+          "id" : "field_text_dynamic13",
+          "viewFieldName" : "LAST_TP_ARCHIVED_AT"
+        }, {
+          "id" : "field_text_dynamic7",
+          "viewFieldName" : "LAST_EDU_SCHOOL"
+        }, {
+          "id" : "field_text_dynamic8",
+          "viewFieldName" : "LAST_EDU_SPECIALITY"
+        }, {
+          "id" : "field_text_dynamic10",
+          "viewFieldName" : "last_edu_academic_degree"
+        }, {
+          "id" : "field_text_dynamic9",
+          "viewFieldName" : "LAST_EDU_DATE"
+        }, {
+          "id" : "field_text_dynamic2",
+          "viewFieldName" : "last_tp_job_name"
+        }, {
+          "id" : "field_text_dynamic12",
+          "viewFieldName" : "LAST_TP_STAGE_NAME"
+        }, {
+          "id" : "last_tags",
+          "viewFieldName" : "LAST_TAGS"
+        }, {
+          "id" : "last_tp_talent_pool",
+          "viewFieldName" : "LAST_TP_TALENT_POOL"
+        }, {
+          "id" : "field_text_dynamic11",
+          "viewFieldName" : "LAST_TP_ARCHIVE_REASON"
+        } ],
+        "codeName" : "usr0820302493",
+        "controlType" : "PANEL",
+        "dynaModelFilePath" : "PSSYSAPPS/web/PSAPPDATAENTITIES/hr_candidate/PSPANELS/usr0820302493.json",
+        "layoutMode" : "TABLE_24COL",
+        "logicName" : "List2_列表项面板",
+        "getPSAppDataEntity" : {
+          "modelref" : true,
+          "path" : "PSSYSAPPS/web/PSAPPDATAENTITIES/hr_candidate.json"
+        },
+        "getPSControlParam" : { },
+        "getPSLayout" : {
+          "childColMD" : 24,
+          "columnCount" : 24,
+          "layout" : "TABLE_24COL"
+        },
+        "getRootPSPanelItems" : [ {
+          "itemStyle" : "DEFAULT",
+          "itemType" : "CONTAINER",
+          "name" : "page_container",
+          "getPSLayout" : {
+            "dir" : "column",
+            "layout" : "FLEX"
+          },
+          "getPSLayoutPos" : {
+            "colMD" : 24,
+            "layout" : "TABLE_24COL"
+          },
+          "getPSPanelItems" : [ {
+            "caption" : "容器",
+            "itemStyle" : "DEFAULT",
+            "itemType" : "CONTAINER",
+            "name" : "container",
+            "getPSLayout" : {
+              "dir" : "row",
+              "layout" : "FLEX"
+            },
+            "getPSLayoutPos" : {
+              "grow" : -1,
+              "layout" : "FLEX"
+            },
+            "getPSPanelItems" : [ {
+              "caption" : "图片",
+              "contentHeight" : 10.0,
+              "contentType" : "IMAGE",
+              "contentWidth" : 10.0,
+              "height" : 10.0,
+              "itemStyle" : "DEFAULT",
+              "itemType" : "RAWITEM",
+              "name" : "static_image",
+              "getPSLayoutPos" : {
+                "grow" : -1,
+                "height" : 10,
+                "heightMode" : "PX",
+                "layout" : "FLEX",
+                "spacingRight" : "OUTERSMALL",
+                "width" : 10,
+                "widthMode" : "PX"
+              },
+              "getPSRawItem" : {
+                "contentType" : "IMAGE",
+                "name" : "static_image",
+                "getPSSysImage" : {
+                  "rawContent" : "data:image/png;base64,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"
+                },
+                "predefinedType" : "STATIC_IMAGE",
+                "rawItemHeight" : 10.0,
+                "rawItemWidth" : 10.0
+              },
+              "getPSSysImage" : {
+                "rawContent" : "data:image/png;base64,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"
+              },
+              "rawItemHeight" : 10.0,
+              "rawItemWidth" : 10.0,
+              "width" : 10.0,
+              "showCaption" : true
+            }, {
+              "caption" : "文本(动态)",
+              "itemStyle" : "DEFAULT",
+              "itemType" : "FIELD",
+              "name" : "field_text_dynamic",
+              "getPSEditor" : {
+                "editorType" : "SPAN",
+                "name" : "field_text_dynamic",
+                "predefinedType" : "FIELD_TEXT_DYNAMIC",
+                "renderMode" : "TEXT_DYNAMIC",
+                "enableLinkView" : false
+              },
+              "getPSLayoutPos" : {
+                "grow" : -1,
+                "layout" : "FLEX",
+                "spacingRight" : "OUTERMEDIUM"
+              },
+              "getPSPanelItemGroupLogics" : [ {
+                "groupOP" : "AND",
+                "logicCat" : "PANELVISIBLE",
+                "logicType" : "GROUP",
+                "getPSPanelItemLogics" : [ {
+                  "condOp" : "ISNOTNULL",
+                  "dstModelField" : "FIELD_TEXT_DYNAMIC",
+                  "logicType" : "SINGLE",
+                  "name" : "逻辑项"
+                } ],
+                "relatedItemNames" : [ "field_text_dynamic" ],
+                "notMode" : false
+              } ],
+              "getPSSysCss" : {
+                "cssName" : "talent_name"
+              },
+              "viewFieldName" : "NAME"
+            }, {
+              "caption" : "文本(动态)",
+              "itemStyle" : "DEFAULT",
+              "itemType" : "FIELD",
+              "name" : "field_text_dynamic1",
+              "getPSEditor" : {
+                "editorType" : "SPAN",
+                "name" : "field_text_dynamic1",
+                "getPSAppCodeList" : {
+                  "modelref" : true,
+                  "path" : "PSSYSAPPS/web/PSAPPCODELISTS/hr__candidate_gender.json"
+                },
+                "predefinedType" : "FIELD_TEXT_DYNAMIC",
+                "renderMode" : "TEXT_DYNAMIC",
+                "enableLinkView" : false
+              },
+              "getPSLayoutPos" : {
+                "grow" : -1,
+                "layout" : "FLEX",
+                "vAlignSelf" : "MIDDLE"
+              },
+              "getPSPanelItemGroupLogics" : [ {
+                "groupOP" : "AND",
+                "logicCat" : "PANELVISIBLE",
+                "logicType" : "GROUP",
+                "getPSPanelItemLogics" : [ {
+                  "condOp" : "ISNOTNULL",
+                  "dstModelField" : "FIELD_TEXT_DYNAMIC1",
+                  "logicType" : "SINGLE",
+                  "name" : "逻辑项"
+                } ],
+                "relatedItemNames" : [ "field_text_dynamic1" ],
+                "notMode" : false
+              } ],
+              "getPSSysCss" : {
+                "cssName" : "talent_font2"
+              },
+              "viewFieldName" : "GENDER",
+              "convertToCodeItemText" : true
+            }, {
+              "caption" : "文本(动态)",
+              "itemStyle" : "DEFAULT",
+              "itemType" : "FIELD",
+              "name" : "field_text_dynamic3",
+              "getPSEditor" : {
+                "editorType" : "SPAN",
+                "name" : "field_text_dynamic3",
+                "getPSAppCodeList" : {
+                  "modelref" : true,
+                  "path" : "PSSYSAPPS/web/PSAPPCODELISTS/base__job_experience.json"
+                },
+                "predefinedType" : "FIELD_TEXT_DYNAMIC",
+                "renderMode" : "TEXT_DYNAMIC",
+                "enableLinkView" : false
+              },
+              "getPSLayoutPos" : {
+                "grow" : -1,
+                "layout" : "FLEX",
+                "spacingLeft" : "OUTERSMALL",
+                "vAlignSelf" : "MIDDLE"
+              },
+              "getPSPanelItemGroupLogics" : [ {
+                "groupOP" : "AND",
+                "logicCat" : "PANELVISIBLE",
+                "logicType" : "GROUP",
+                "getPSPanelItemLogics" : [ {
+                  "condOp" : "ISNOTNULL",
+                  "dstModelField" : "FIELD_TEXT_DYNAMIC3",
+                  "logicType" : "SINGLE",
+                  "name" : "逻辑项"
+                } ],
+                "relatedItemNames" : [ "field_text_dynamic3" ],
+                "notMode" : false
+              } ],
+              "getPSSysCss" : {
+                "cssName" : "talent_font2"
+              },
+              "viewFieldName" : "EXPERIENCE",
+              "convertToCodeItemText" : true
+            }, {
+              "caption" : "文本",
+              "contentType" : "RAW",
+              "itemStyle" : "DEFAULT",
+              "itemType" : "RAWITEM",
+              "name" : "static_text1",
+              "getPSLayoutPos" : {
+                "grow" : -1,
+                "layout" : "FLEX",
+                "vAlignSelf" : "MIDDLE"
+              },
+              "getPSPanelItemGroupLogics" : [ {
+                "groupOP" : "AND",
+                "logicCat" : "PANELVISIBLE",
+                "logicType" : "GROUP",
+                "getPSPanelItemLogics" : [ {
+                  "condOp" : "ISNOTNULL",
+                  "dstModelField" : "FIELD_TEXT_DYNAMIC3",
+                  "logicType" : "SINGLE",
+                  "name" : "逻辑项"
+                } ],
+                "relatedItemNames" : [ "field_text_dynamic3" ],
+                "notMode" : false
+              } ],
+              "getPSRawItem" : {
+                "caption" : "工作经验",
+                "contentType" : "RAW",
+                "name" : "static_text1",
+                "predefinedType" : "STATIC_TEXT",
+                "renderMode" : "TEXT"
+              },
+              "rawContent" : "工作经验",
+              "showCaption" : true
+            } ]
+          }, {
+            "caption" : "容器",
+            "itemStyle" : "DEFAULT",
+            "itemType" : "CONTAINER",
+            "name" : "container1",
+            "getPSLayout" : {
+              "dir" : "row",
+              "layout" : "FLEX"
+            },
+            "getPSLayoutPos" : {
+              "grow" : -1,
+              "layout" : "FLEX",
+              "spacingTop" : "OUTERMEDIUM"
+            },
+            "getPSPanelItems" : [ {
+              "caption" : "容器",
+              "contentWidth" : 50.0,
+              "itemStyle" : "DEFAULT",
+              "itemType" : "CONTAINER",
+              "name" : "container5",
+              "getPSLayout" : {
+                "dir" : "row",
+                "layout" : "FLEX"
+              },
+              "getPSLayoutPos" : {
+                "grow" : -1,
+                "layout" : "FLEX",
+                "width" : 50,
+                "widthMode" : "PERCENTAGE"
+              },
+              "getPSPanelItems" : [ {
+                "caption" : "容器",
+                "contentHeight" : 25.0,
+                "height" : 25.0,
+                "itemStyle" : "DEFAULT",
+                "itemType" : "CONTAINER",
+                "name" : "container14",
+                "getPSLayout" : {
+                  "layout" : "FLEX"
+                },
+                "getPSLayoutPos" : {
+                  "grow" : -1,
+                  "height" : 25,
+                  "heightMode" : "PX",
+                  "layout" : "FLEX"
+                },
+                "getPSPanelItems" : [ {
+                  "caption" : "图片",
+                  "contentHeight" : 20.0,
+                  "contentType" : "IMAGE",
+                  "contentWidth" : 20.0,
+                  "height" : 20.0,
+                  "itemStyle" : "DEFAULT",
+                  "itemType" : "RAWITEM",
+                  "name" : "static_image1",
+                  "getPSLayoutPos" : {
+                    "grow" : -1,
+                    "height" : 20,
+                    "heightMode" : "PX",
+                    "layout" : "FLEX",
+                    "spacingLeft" : "OUTERMEDIUM",
+                    "width" : 20,
+                    "widthMode" : "PX"
+                  },
+                  "getPSPanelItemGroupLogics" : [ {
+                    "groupOP" : "AND",
+                    "logicCat" : "PANELVISIBLE",
+                    "logicType" : "GROUP",
+                    "getPSPanelItemLogics" : [ {
+                      "groupOP" : "OR",
+                      "logicType" : "GROUP",
+                      "name" : "逻辑分组",
+                      "getPSPanelItemLogics" : [ {
+                        "condOp" : "ISNOTNULL",
+                        "dstModelField" : "FIELD_TEXT_DYNAMIC4",
+                        "logicType" : "SINGLE",
+                        "name" : "逻辑项"
+                      }, {
+                        "condOp" : "ISNOTNULL",
+                        "dstModelField" : "FIELD_TEXT_DYNAMIC5",
+                        "logicType" : "SINGLE",
+                        "name" : "逻辑项"
+                      }, {
+                        "condOp" : "ISNOTNULL",
+                        "dstModelField" : "FIELD_TEXT_DYNAMIC6",
+                        "logicType" : "SINGLE",
+                        "name" : "逻辑项"
+                      } ],
+                      "notMode" : false
+                    } ],
+                    "relatedItemNames" : [ "field_text_dynamic4", "field_text_dynamic5", "field_text_dynamic6" ],
+                    "notMode" : false
+                  } ],
+                  "getPSRawItem" : {
+                    "contentType" : "IMAGE",
+                    "name" : "static_image1",
+                    "getPSSysImage" : {
+                      "rawContent" : "<?xml version=\"1.0\" standalone=\"no\"?><!DOCTYPE svg PUBLIC \"-//W3C//DTD SVG 1.1//EN\" \"http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd\"><svg t=\"1760345032660\" fill=\"currentColor\" class=\"icon\" viewBox=\"0 0 1024 1024\" version=\"1.1\" xmlns=\"http://www.w3.org/2000/svg\" p-id=\"15312\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" width=\"20\" height=\"20\"><path d=\"M85.333333 554.666667h298.666667v85.546666l0.298667 4.650667c2.346667 18.304 18.346667 33.109333 39.082666 36.864l5.290667 0.725333 5.12 0.213334h156.416l5.461333-0.256c21.461333-2.005333 38.826667-15.616 43.264-33.365334l0.810667-4.522666 0.256-4.309334V554.666667h298.666667v256a128 128 0 0 1-128 128H213.333333a128 128 0 0 1-128-128v-256z m483.541334 0v61.738666l-113.749334-0.213333V554.666667h113.749334zM597.333333 149.333333a128 128 0 0 1 128 128h85.333334a128 128 0 0 1 128 128v85.333334H85.333333v-85.333334a128 128 0 0 1 128-128h85.333334a128 128 0 0 1 120.490666-127.786666L426.666667 149.333333h170.666666zM597.333333 213.333333h-170.666666a42.666667 42.666667 0 0 0-42.368 37.674667L384 256h256a42.666667 42.666667 0 0 0-37.674667-42.368L597.333333 213.333333z\"  p-id=\"15313\"></path></svg>"
+                    },
+                    "predefinedType" : "STATIC_IMAGE",
+                    "rawItemHeight" : 20.0,
+                    "rawItemWidth" : 20.0
+                  },
+                  "getPSSysImage" : {
+                    "rawContent" : "<?xml version=\"1.0\" standalone=\"no\"?><!DOCTYPE svg PUBLIC \"-//W3C//DTD SVG 1.1//EN\" \"http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd\"><svg t=\"1760345032660\" fill=\"currentColor\" class=\"icon\" viewBox=\"0 0 1024 1024\" version=\"1.1\" xmlns=\"http://www.w3.org/2000/svg\" p-id=\"15312\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" width=\"20\" height=\"20\"><path d=\"M85.333333 554.666667h298.666667v85.546666l0.298667 4.650667c2.346667 18.304 18.346667 33.109333 39.082666 36.864l5.290667 0.725333 5.12 0.213334h156.416l5.461333-0.256c21.461333-2.005333 38.826667-15.616 43.264-33.365334l0.810667-4.522666 0.256-4.309334V554.666667h298.666667v256a128 128 0 0 1-128 128H213.333333a128 128 0 0 1-128-128v-256z m483.541334 0v61.738666l-113.749334-0.213333V554.666667h113.749334zM597.333333 149.333333a128 128 0 0 1 128 128h85.333334a128 128 0 0 1 128 128v85.333334H85.333333v-85.333334a128 128 0 0 1 128-128h85.333334a128 128 0 0 1 120.490666-127.786666L426.666667 149.333333h170.666666zM597.333333 213.333333h-170.666666a42.666667 42.666667 0 0 0-42.368 37.674667L384 256h256a42.666667 42.666667 0 0 0-37.674667-42.368L597.333333 213.333333z\"  p-id=\"15313\"></path></svg>"
+                  },
+                  "rawItemHeight" : 20.0,
+                  "rawItemWidth" : 20.0,
+                  "width" : 20.0,
+                  "showCaption" : true
+                } ]
+              }, {
+                "caption" : "文本(动态)",
+                "itemStyle" : "DEFAULT",
+                "itemType" : "FIELD",
+                "name" : "field_text_dynamic4",
+                "getPSEditor" : {
+                  "editorType" : "SPAN",
+                  "name" : "field_text_dynamic4",
+                  "predefinedType" : "FIELD_TEXT_DYNAMIC",
+                  "renderMode" : "TEXT_DYNAMIC",
+                  "enableLinkView" : false
+                },
+                "getPSLayoutPos" : {
+                  "grow" : -1,
+                  "layout" : "FLEX",
+                  "spacingLeft" : "OUTERSMALL"
+                },
+                "getPSPanelItemGroupLogics" : [ {
+                  "groupOP" : "AND",
+                  "logicCat" : "PANELVISIBLE",
+                  "logicType" : "GROUP",
+                  "getPSPanelItemLogics" : [ {
+                    "condOp" : "ISNOTNULL",
+                    "dstModelField" : "FIELD_TEXT_DYNAMIC4",
+                    "logicType" : "SINGLE",
+                    "name" : "逻辑项"
+                  } ],
+                  "relatedItemNames" : [ "field_text_dynamic4" ],
+                  "notMode" : false
+                } ],
+                "viewFieldName" : "LAST_EXP_COMPANY"
+              }, {
+                "caption" : "文本(动态)",
+                "itemStyle" : "DEFAULT",
+                "itemType" : "FIELD",
+                "name" : "field_text_dynamic5",
+                "getPSEditor" : {
+                  "editorType" : "SPAN",
+                  "name" : "field_text_dynamic5",
+                  "predefinedType" : "FIELD_TEXT_DYNAMIC",
+                  "renderMode" : "TEXT_DYNAMIC",
+                  "enableLinkView" : false
+                },
+                "getPSLayoutPos" : {
+                  "grow" : -1,
+                  "layout" : "FLEX",
+                  "spacingLeft" : "OUTERSMALL"
+                },
+                "getPSPanelItemGroupLogics" : [ {
+                  "groupOP" : "AND",
+                  "logicCat" : "PANELVISIBLE",
+                  "logicType" : "GROUP",
+                  "getPSPanelItemLogics" : [ {
+                    "condOp" : "ISNOTNULL",
+                    "dstModelField" : "FIELD_TEXT_DYNAMIC5",
+                    "logicType" : "SINGLE",
+                    "name" : "逻辑项"
+                  } ],
+                  "relatedItemNames" : [ "field_text_dynamic5" ],
+                  "notMode" : false
+                } ],
+                "viewFieldName" : "LAST_EXP_JOB"
+              }, {
+                "caption" : "文本(动态)",
+                "itemStyle" : "DEFAULT",
+                "itemType" : "FIELD",
+                "name" : "field_text_dynamic6",
+                "getPSEditor" : {
+                  "editorType" : "SPAN",
+                  "name" : "field_text_dynamic6",
+                  "predefinedType" : "FIELD_TEXT_DYNAMIC",
+                  "renderMode" : "TEXT_DYNAMIC",
+                  "enableLinkView" : false
+                },
+                "getPSLayoutPos" : {
+                  "grow" : -1,
+                  "layout" : "FLEX",
+                  "spacingLeft" : "OUTERSMALL"
+                },
+                "getPSPanelItemGroupLogics" : [ {
+                  "groupOP" : "AND",
+                  "logicCat" : "PANELVISIBLE",
+                  "logicType" : "GROUP",
+                  "getPSPanelItemLogics" : [ {
+                    "condOp" : "ISNOTNULL",
+                    "dstModelField" : "FIELD_TEXT_DYNAMIC6",
+                    "logicType" : "SINGLE",
+                    "name" : "逻辑项"
+                  } ],
+                  "relatedItemNames" : [ "field_text_dynamic6" ],
+                  "notMode" : false
+                } ],
+                "viewFieldName" : "LAST_EXP_DATE"
+              } ],
+              "width" : 50.0
+            }, {
+              "caption" : "容器",
+              "contentWidth" : 20.0,
+              "itemStyle" : "DEFAULT",
+              "itemType" : "CONTAINER",
+              "name" : "container7",
+              "getPSLayout" : {
+                "layout" : "FLEX"
+              },
+              "getPSLayoutPos" : {
+                "grow" : -1,
+                "layout" : "FLEX",
+                "spacingLeft" : "OUTERLARGE",
+                "width" : 20,
+                "widthMode" : "PERCENTAGE"
+              },
+              "getPSPanelItems" : [ {
+                "caption" : "文本(动态)",
+                "itemStyle" : "DEFAULT",
+                "itemType" : "FIELD",
+                "name" : "field_text_dynamic14",
+                "getPSEditor" : {
+                  "editorType" : "SPAN",
+                  "name" : "field_text_dynamic14",
+                  "predefinedType" : "FIELD_TEXT_DYNAMIC",
+                  "renderMode" : "TEXT_DYNAMIC",
+                  "enableLinkView" : false
+                },
+                "getPSLayoutPos" : {
+                  "grow" : -1,
+                  "layout" : "FLEX"
+                },
+                "valueFormat" : "申请日期：@",
+                "viewFieldName" : "LAST_TP_APPLIED_AT"
+              } ],
+              "width" : 20.0
+            }, {
+              "caption" : "容器",
+              "contentWidth" : 20.0,
+              "itemStyle" : "DEFAULT",
+              "itemType" : "CONTAINER",
+              "name" : "container6",
+              "getPSLayout" : {
+                "layout" : "FLEX"
+              },
+              "getPSLayoutPos" : {
+                "grow" : -1,
+                "layout" : "FLEX",
+                "spacingLeft" : "OUTERLARGE",
+                "width" : 20,
+                "widthMode" : "PERCENTAGE"
+              },
+              "getPSPanelItems" : [ {
+                "caption" : "文本(动态)",
+                "itemStyle" : "DEFAULT",
+                "itemType" : "FIELD",
+                "name" : "field_text_dynamic13",
+                "getPSEditor" : {
+                  "editorType" : "SPAN",
+                  "name" : "field_text_dynamic13",
+                  "predefinedType" : "FIELD_TEXT_DYNAMIC",
+                  "renderMode" : "TEXT_DYNAMIC",
+                  "enableLinkView" : false
+                },
+                "getPSLayoutPos" : {
+                  "grow" : -1,
+                  "layout" : "FLEX"
+                },
+                "valueFormat" : "归档日期：@",
+                "viewFieldName" : "LAST_TP_ARCHIVED_AT"
+              } ],
+              "width" : 20.0
+            } ]
+          }, {
+            "caption" : "容器",
+            "itemStyle" : "DEFAULT",
+            "itemType" : "CONTAINER",
+            "name" : "container2",
+            "getPSLayout" : {
+              "dir" : "row",
+              "layout" : "FLEX"
+            },
+            "getPSLayoutPos" : {
+              "grow" : -1,
+              "layout" : "FLEX",
+              "spacingTop" : "OUTERMEDIUM"
+            },
+            "getPSPanelItems" : [ {
+              "caption" : "容器",
+              "contentWidth" : 50.0,
+              "itemStyle" : "DEFAULT",
+              "itemType" : "CONTAINER",
+              "name" : "container8",
+              "getPSLayout" : {
+                "dir" : "row",
+                "layout" : "FLEX"
+              },
+              "getPSLayoutPos" : {
+                "grow" : -1,
+                "layout" : "FLEX",
+                "width" : 50,
+                "widthMode" : "PERCENTAGE"
+              },
+              "getPSPanelItems" : [ {
+                "caption" : "容器",
+                "contentHeight" : 25.0,
+                "height" : 25.0,
+                "itemStyle" : "DEFAULT",
+                "itemType" : "CONTAINER",
+                "name" : "container15",
+                "getPSLayout" : {
+                  "layout" : "FLEX"
+                },
+                "getPSLayoutPos" : {
+                  "grow" : -1,
+                  "height" : 25,
+                  "heightMode" : "PX",
+                  "layout" : "FLEX"
+                },
+                "getPSPanelItems" : [ {
+                  "caption" : "图片",
+                  "contentHeight" : 20.0,
+                  "contentType" : "IMAGE",
+                  "contentWidth" : 20.0,
+                  "height" : 20.0,
+                  "itemStyle" : "DEFAULT",
+                  "itemType" : "RAWITEM",
+                  "name" : "static_image2",
+                  "getPSLayoutPos" : {
+                    "grow" : -1,
+                    "height" : 20,
+                    "heightMode" : "PX",
+                    "layout" : "FLEX",
+                    "spacingLeft" : "OUTERMEDIUM",
+                    "width" : 20,
+                    "widthMode" : "PX"
+                  },
+                  "getPSPanelItemGroupLogics" : [ {
+                    "groupOP" : "AND",
+                    "logicCat" : "PANELVISIBLE",
+                    "logicType" : "GROUP",
+                    "getPSPanelItemLogics" : [ {
+                      "groupOP" : "OR",
+                      "logicType" : "GROUP",
+                      "name" : "逻辑分组",
+                      "getPSPanelItemLogics" : [ {
+                        "condOp" : "ISNOTNULL",
+                        "dstModelField" : "FIELD_TEXT_DYNAMIC7",
+                        "logicType" : "SINGLE",
+                        "name" : "逻辑项"
+                      }, {
+                        "condOp" : "ISNOTNULL",
+                        "dstModelField" : "FIELD_TEXT_DYNAMIC8",
+                        "logicType" : "SINGLE",
+                        "name" : "逻辑项"
+                      }, {
+                        "condOp" : "ISNOTNULL",
+                        "dstModelField" : "FIELD_TEXT_DYNAMIC9",
+                        "logicType" : "SINGLE",
+                        "name" : "逻辑项"
+                      }, {
+                        "condOp" : "ISNOTNULL",
+                        "dstModelField" : "FIELD_TEXT_DYNAMIC10",
+                        "logicType" : "SINGLE",
+                        "name" : "逻辑项"
+                      } ],
+                      "notMode" : false
+                    } ],
+                    "relatedItemNames" : [ "field_text_dynamic7", "field_text_dynamic8", "field_text_dynamic9", "field_text_dynamic10" ],
+                    "notMode" : false
+                  } ],
+                  "getPSRawItem" : {
+                    "contentType" : "IMAGE",
+                    "name" : "static_image2",
+                    "getPSSysImage" : {
+                      "rawContent" : "<?xml version=\"1.0\" standalone=\"no\"?><!DOCTYPE svg PUBLIC \"-//W3C//DTD SVG 1.1//EN\" \"http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd\"><svg t=\"1760168005113\" fill=\"currentColor\" class=\"icon\" viewBox=\"0 0 1024 1024\" version=\"1.1\" xmlns=\"http://www.w3.org/2000/svg\" p-id=\"11200\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" width=\"20px\" height=\"20px\"><path d=\"M965.44256 383.18592L530.9952 155.71456a40.96 40.96 0 0 0-38.00064 0L58.55744 383.18592a40.94976 40.94976 0 0 0-21.78048 32.75264c-0.33792 2.10944-0.5632 4.25472-0.5632 6.46144v307.2a40.96 40.96 0 0 0 81.92 0V480.2304l101.40672 41.3184A40.7552 40.7552 0 0 0 215.04 540.16v204.8c0 11.86304 5.0432 22.5536 13.11232 30.03392C269.0304 842.51648 396.7232 872.96 512 872.96s242.96448-30.44352 283.84256-97.96608a40.8576 40.8576 0 0 0 13.11232-30.03392v-204.8a40.69376 40.69376 0 0 0-4.5056-18.6112l157.45024-64.14848a40.96 40.96 0 0 0 3.54304-74.2144z m-263.71584 181.20192l-174.45376 70.0928a40.9088 40.9088 0 0 1-30.59712-0.02048l-173.70112-70.0928a40.87296 40.87296 0 0 1-6.66112-3.48672 39.8336 39.8336 0 0 1-2.304-1.58208c-0.31232-0.22528-0.60928-0.46592-0.91136-0.70144a40.76032 40.76032 0 0 1-2.048-1.6896c-0.3328-0.29696-0.64-0.60928-0.96256-0.9216-0.62976-0.59904-1.26464-1.19808-1.84832-1.83808a42.86464 42.86464 0 0 1-2.26816-2.67264c-0.26112-0.3328-0.4864-0.6912-0.73216-1.02912a42.56768 42.56768 0 0 1-1.59744-2.3296c-0.19456-0.31744-0.37376-0.63488-0.55808-0.95232a39.936 39.936 0 0 1-1.47456-2.72384l-0.35328-0.73728a40.70912 40.70912 0 0 1-0.93696-32.65536 40.96512 40.96512 0 0 1 53.31456-22.656L481.88416 540.16l30.14656 12.16512 30.27968-12.16512 128.87552-51.77856a40.95488 40.95488 0 0 1 53.27872 22.7328 40.7552 40.7552 0 0 1 0.49152 29.12256 39.23968 39.23968 0 0 1-1.60256 3.82976v0.00512a41.17504 41.17504 0 0 1-4.29056 7.04512c-0.17408 0.2304-0.36352 0.45056-0.54272 0.67584a37.9392 37.9392 0 0 1-4.64896 4.96128c-0.41984 0.37888-0.83968 0.76288-1.28 1.13152-0.56832 0.47616-1.17248 0.91648-1.77152 1.36192-0.45056 0.3328-0.88064 0.68608-1.34656 0.9984l0.06656-0.0256a41.1136 41.1136 0 0 1-7.81312 4.16768z\" p-id=\"11201\"></path></svg>"
+                    },
+                    "predefinedType" : "STATIC_IMAGE",
+                    "rawItemHeight" : 20.0,
+                    "rawItemWidth" : 20.0
+                  },
+                  "getPSSysImage" : {
+                    "rawContent" : "<?xml version=\"1.0\" standalone=\"no\"?><!DOCTYPE svg PUBLIC \"-//W3C//DTD SVG 1.1//EN\" \"http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd\"><svg t=\"1760168005113\" fill=\"currentColor\" class=\"icon\" viewBox=\"0 0 1024 1024\" version=\"1.1\" xmlns=\"http://www.w3.org/2000/svg\" p-id=\"11200\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" width=\"20px\" height=\"20px\"><path d=\"M965.44256 383.18592L530.9952 155.71456a40.96 40.96 0 0 0-38.00064 0L58.55744 383.18592a40.94976 40.94976 0 0 0-21.78048 32.75264c-0.33792 2.10944-0.5632 4.25472-0.5632 6.46144v307.2a40.96 40.96 0 0 0 81.92 0V480.2304l101.40672 41.3184A40.7552 40.7552 0 0 0 215.04 540.16v204.8c0 11.86304 5.0432 22.5536 13.11232 30.03392C269.0304 842.51648 396.7232 872.96 512 872.96s242.96448-30.44352 283.84256-97.96608a40.8576 40.8576 0 0 0 13.11232-30.03392v-204.8a40.69376 40.69376 0 0 0-4.5056-18.6112l157.45024-64.14848a40.96 40.96 0 0 0 3.54304-74.2144z m-263.71584 181.20192l-174.45376 70.0928a40.9088 40.9088 0 0 1-30.59712-0.02048l-173.70112-70.0928a40.87296 40.87296 0 0 1-6.66112-3.48672 39.8336 39.8336 0 0 1-2.304-1.58208c-0.31232-0.22528-0.60928-0.46592-0.91136-0.70144a40.76032 40.76032 0 0 1-2.048-1.6896c-0.3328-0.29696-0.64-0.60928-0.96256-0.9216-0.62976-0.59904-1.26464-1.19808-1.84832-1.83808a42.86464 42.86464 0 0 1-2.26816-2.67264c-0.26112-0.3328-0.4864-0.6912-0.73216-1.02912a42.56768 42.56768 0 0 1-1.59744-2.3296c-0.19456-0.31744-0.37376-0.63488-0.55808-0.95232a39.936 39.936 0 0 1-1.47456-2.72384l-0.35328-0.73728a40.70912 40.70912 0 0 1-0.93696-32.65536 40.96512 40.96512 0 0 1 53.31456-22.656L481.88416 540.16l30.14656 12.16512 30.27968-12.16512 128.87552-51.77856a40.95488 40.95488 0 0 1 53.27872 22.7328 40.7552 40.7552 0 0 1 0.49152 29.12256 39.23968 39.23968 0 0 1-1.60256 3.82976v0.00512a41.17504 41.17504 0 0 1-4.29056 7.04512c-0.17408 0.2304-0.36352 0.45056-0.54272 0.67584a37.9392 37.9392 0 0 1-4.64896 4.96128c-0.41984 0.37888-0.83968 0.76288-1.28 1.13152-0.56832 0.47616-1.17248 0.91648-1.77152 1.36192-0.45056 0.3328-0.88064 0.68608-1.34656 0.9984l0.06656-0.0256a41.1136 41.1136 0 0 1-7.81312 4.16768z\" p-id=\"11201\"></path></svg>"
+                  },
+                  "rawItemHeight" : 20.0,
+                  "rawItemWidth" : 20.0,
+                  "width" : 20.0,
+                  "showCaption" : true
+                } ]
+              }, {
+                "caption" : "文本(动态)",
+                "itemStyle" : "DEFAULT",
+                "itemType" : "FIELD",
+                "name" : "field_text_dynamic7",
+                "getPSEditor" : {
+                  "editorType" : "SPAN",
+                  "name" : "field_text_dynamic7",
+                  "predefinedType" : "FIELD_TEXT_DYNAMIC",
+                  "renderMode" : "TEXT_DYNAMIC",
+                  "enableLinkView" : false
+                },
+                "getPSLayoutPos" : {
+                  "grow" : -1,
+                  "layout" : "FLEX",
+                  "spacingLeft" : "OUTERSMALL"
+                },
+                "getPSPanelItemGroupLogics" : [ {
+                  "groupOP" : "AND",
+                  "logicCat" : "PANELVISIBLE",
+                  "logicType" : "GROUP",
+                  "getPSPanelItemLogics" : [ {
+                    "condOp" : "ISNOTNULL",
+                    "dstModelField" : "FIELD_TEXT_DYNAMIC7",
+                    "logicType" : "SINGLE",
+                    "name" : "逻辑项"
+                  } ],
+                  "relatedItemNames" : [ "field_text_dynamic7" ],
+                  "notMode" : false
+                } ],
+                "viewFieldName" : "LAST_EDU_SCHOOL"
+              }, {
+                "caption" : "文本(动态)",
+                "itemStyle" : "DEFAULT",
+                "itemType" : "FIELD",
+                "name" : "field_text_dynamic8",
+                "getPSEditor" : {
+                  "editorType" : "SPAN",
+                  "name" : "field_text_dynamic8",
+                  "predefinedType" : "FIELD_TEXT_DYNAMIC",
+                  "renderMode" : "TEXT_DYNAMIC",
+                  "enableLinkView" : false
+                },
+                "getPSLayoutPos" : {
+                  "grow" : -1,
+                  "layout" : "FLEX",
+                  "spacingLeft" : "OUTERSMALL"
+                },
+                "getPSPanelItemGroupLogics" : [ {
+                  "groupOP" : "AND",
+                  "logicCat" : "PANELVISIBLE",
+                  "logicType" : "GROUP",
+                  "getPSPanelItemLogics" : [ {
+                    "condOp" : "ISNOTNULL",
+                    "dstModelField" : "FIELD_TEXT_DYNAMIC8",
+                    "logicType" : "SINGLE",
+                    "name" : "逻辑项"
+                  } ],
+                  "relatedItemNames" : [ "field_text_dynamic8" ],
+                  "notMode" : false
+                } ],
+                "viewFieldName" : "LAST_EDU_SPECIALITY"
+              }, {
+                "caption" : "文本(动态)",
+                "itemStyle" : "DEFAULT",
+                "itemType" : "FIELD",
+                "name" : "field_text_dynamic10",
+                "getPSEditor" : {
+                  "editorType" : "SPAN",
+                  "name" : "field_text_dynamic10",
+                  "getPSAppCodeList" : {
+                    "modelref" : true,
+                    "path" : "PSSYSAPPS/web/PSAPPCODELISTS/base__job_education.json"
+                  },
+                  "predefinedType" : "FIELD_TEXT_DYNAMIC",
+                  "renderMode" : "TEXT_DYNAMIC",
+                  "enableLinkView" : false
+                },
+                "getPSLayoutPos" : {
+                  "grow" : -1,
+                  "layout" : "FLEX",
+                  "spacingLeft" : "OUTERSMALL"
+                },
+                "getPSPanelItemGroupLogics" : [ {
+                  "groupOP" : "AND",
+                  "logicCat" : "PANELVISIBLE",
+                  "logicType" : "GROUP",
+                  "getPSPanelItemLogics" : [ {
+                    "condOp" : "ISNOTNULL",
+                    "dstModelField" : "FIELD_TEXT_DYNAMIC10",
+                    "logicType" : "SINGLE",
+                    "name" : "逻辑项"
+                  } ],
+                  "relatedItemNames" : [ "field_text_dynamic10" ],
+                  "notMode" : false
+                } ],
+                "viewFieldName" : "last_edu_academic_degree",
+                "convertToCodeItemText" : true
+              }, {
+                "caption" : "文本(动态)",
+                "itemStyle" : "DEFAULT",
+                "itemType" : "FIELD",
+                "name" : "field_text_dynamic9",
+                "getPSEditor" : {
+                  "editorType" : "SPAN",
+                  "name" : "field_text_dynamic9",
+                  "predefinedType" : "FIELD_TEXT_DYNAMIC",
+                  "renderMode" : "TEXT_DYNAMIC",
+                  "enableLinkView" : false
+                },
+                "getPSLayoutPos" : {
+                  "grow" : -1,
+                  "layout" : "FLEX",
+                  "spacingLeft" : "OUTERSMALL"
+                },
+                "getPSPanelItemGroupLogics" : [ {
+                  "groupOP" : "AND",
+                  "logicCat" : "PANELVISIBLE",
+                  "logicType" : "GROUP",
+                  "getPSPanelItemLogics" : [ {
+                    "condOp" : "ISNOTNULL",
+                    "dstModelField" : "FIELD_TEXT_DYNAMIC9",
+                    "logicType" : "SINGLE",
+                    "name" : "逻辑项"
+                  } ],
+                  "relatedItemNames" : [ "field_text_dynamic9" ],
+                  "notMode" : false
+                } ],
+                "viewFieldName" : "LAST_EDU_DATE"
+              } ],
+              "width" : 50.0
+            }, {
+              "caption" : "容器",
+              "contentWidth" : 20.0,
+              "itemStyle" : "DEFAULT",
+              "itemType" : "CONTAINER",
+              "name" : "container9",
+              "getPSLayout" : {
+                "dir" : "row",
+                "layout" : "FLEX"
+              },
+              "getPSLayoutPos" : {
+                "grow" : -1,
+                "layout" : "FLEX",
+                "spacingLeft" : "OUTERLARGE",
+                "width" : 20,
+                "widthMode" : "PERCENTAGE"
+              },
+              "getPSPanelItems" : [ {
+                "caption" : "文本",
+                "contentType" : "RAW",
+                "itemStyle" : "DEFAULT",
+                "itemType" : "RAWITEM",
+                "name" : "static_text2",
+                "getPSLayoutPos" : {
+                  "grow" : -1,
+                  "layout" : "FLEX"
+                },
+                "getPSPanelItemGroupLogics" : [ {
+                  "groupOP" : "AND",
+                  "logicCat" : "PANELVISIBLE",
+                  "logicType" : "GROUP",
+                  "getPSPanelItemLogics" : [ {
+                    "condOp" : "ISNULL",
+                    "dstModelField" : "FIELD_TEXT_DYNAMIC2",
+                    "logicType" : "SINGLE",
+                    "name" : "逻辑项"
+                  } ],
+                  "relatedItemNames" : [ "field_text_dynamic2" ],
+                  "notMode" : false
+                } ],
+                "getPSRawItem" : {
+                  "caption" : "应聘职位：",
+                  "contentType" : "RAW",
+                  "name" : "static_text2",
+                  "predefinedType" : "STATIC_TEXT",
+                  "renderMode" : "TEXT"
+                },
+                "rawContent" : "应聘职位：",
+                "showCaption" : true
+              }, {
+                "caption" : "文本(动态)",
+                "itemStyle" : "DEFAULT",
+                "itemType" : "FIELD",
+                "name" : "field_text_dynamic2",
+                "getPSEditor" : {
+                  "editorType" : "SPAN",
+                  "name" : "field_text_dynamic2",
+                  "renderMode" : "TEXT_DYNAMIC",
+                  "enableLinkView" : false
+                },
+                "getPSLayoutPos" : {
+                  "grow" : -1,
+                  "layout" : "FLEX"
+                },
+                "valueFormat" : "应聘职位：@",
+                "viewFieldName" : "last_tp_job_name"
+              } ],
+              "width" : 20.0
+            }, {
+              "caption" : "容器",
+              "contentWidth" : 20.0,
+              "itemStyle" : "DEFAULT",
+              "itemType" : "CONTAINER",
+              "name" : "container10",
+              "getPSLayout" : {
+                "dir" : "row",
+                "layout" : "FLEX"
+              },
+              "getPSLayoutPos" : {
+                "grow" : -1,
+                "layout" : "FLEX",
+                "spacingLeft" : "OUTERLARGE",
+                "width" : 20,
+                "widthMode" : "PERCENTAGE"
+              },
+              "getPSPanelItems" : [ {
+                "caption" : "文本",
+                "contentType" : "RAW",
+                "itemStyle" : "DEFAULT",
+                "itemType" : "RAWITEM",
+                "name" : "static_text",
+                "getPSLayoutPos" : {
+                  "grow" : -1,
+                  "layout" : "FLEX"
+                },
+                "getPSPanelItemGroupLogics" : [ {
+                  "groupOP" : "AND",
+                  "logicCat" : "PANELVISIBLE",
+                  "logicType" : "GROUP",
+                  "getPSPanelItemLogics" : [ {
+                    "condOp" : "ISNULL",
+                    "dstModelField" : "FIELD_TEXT_DYNAMIC12",
+                    "logicType" : "SINGLE",
+                    "name" : "逻辑项"
+                  } ],
+                  "relatedItemNames" : [ "field_text_dynamic12" ],
+                  "notMode" : false
+                } ],
+                "getPSRawItem" : {
+                  "caption" : "归档前阶段：",
+                  "contentType" : "RAW",
+                  "name" : "static_text",
+                  "predefinedType" : "STATIC_TEXT",
+                  "renderMode" : "TEXT"
+                },
+                "rawContent" : "归档前阶段：",
+                "showCaption" : true
+              }, {
+                "caption" : "文本(动态)",
+                "itemStyle" : "DEFAULT",
+                "itemType" : "FIELD",
+                "name" : "field_text_dynamic12",
+                "getPSEditor" : {
+                  "editorType" : "SPAN",
+                  "name" : "field_text_dynamic12",
+                  "predefinedType" : "FIELD_TEXT_DYNAMIC",
+                  "renderMode" : "TEXT_DYNAMIC",
+                  "enableLinkView" : false
+                },
+                "getPSLayoutPos" : {
+                  "grow" : -1,
+                  "layout" : "FLEX",
+                  "vAlignSelf" : "MIDDLE"
+                },
+                "valueFormat" : "归档前阶段：@",
+                "viewFieldName" : "LAST_TP_STAGE_NAME"
+              } ],
+              "width" : 20.0
+            } ]
+          }, {
+            "caption" : "容器",
+            "itemStyle" : "DEFAULT",
+            "itemType" : "CONTAINER",
+            "name" : "container3",
+            "getPSLayout" : {
+              "dir" : "row",
+              "layout" : "FLEX"
+            },
+            "getPSLayoutPos" : {
+              "grow" : -1,
+              "layout" : "FLEX",
+              "spacingTop" : "OUTERMEDIUM"
+            },
+            "getPSPanelItems" : [ {
+              "caption" : "容器",
+              "contentWidth" : 50.0,
+              "itemStyle" : "DEFAULT",
+              "itemType" : "CONTAINER",
+              "name" : "container11",
+              "getPSLayout" : {
+                "layout" : "FLEX"
+              },
+              "getPSLayoutPos" : {
+                "grow" : -1,
+                "layout" : "FLEX",
+                "width" : 50,
+                "widthMode" : "PERCENTAGE"
+              },
+              "getPSPanelItems" : [ {
+                "caption" : "文本(动态)",
+                "itemStyle" : "DEFAULT",
+                "itemType" : "FIELD",
+                "name" : "last_tags",
+                "getPSControlRenders" : [ {
+                  "layoutPanelModel" : "(function() {\r\n    // 获取 tags 数据\r\n    let tags = data.last_tags;\r\n    let htmlArr = '';\r\n\r\n    // 先判断是否为 null 或空值\r\n    if (tags === null || tags === undefined || tags === '') {\r\n        return htmlArr; // 直接返回空字符串\r\n    }\r\n\r\n    // 处理可能的 JSON 字符串（如果 data.tags 是字符串形式的 JSON）\r\n    if (typeof tags === 'string') {\r\n        try {\r\n            tags = JSON.parse(tags);\r\n        } catch (e) {\r\n            // 解析失败则视为无效数据\r\n            return htmlArr;\r\n        }\r\n    }\r\n\r\n    // 确保 tags 是数组且有数据\r\n    if (Array.isArray(tags) && tags.length > 0) {\r\n        // 遍历数组生成每个标签\r\n        const tagElements = tags.map((tag, index) => {\r\n            // 取出标签名称（srfmajortext 字段）\r\n            const tagName = tag.srfmajortext || '';\r\n            \r\n            // 动态设置边距\r\n            const marginRight ='15px';\r\n            const marginTop = '5px';\r\n            \r\n            // 蓝色微圆外框线样式\r\n            return `<span style=\"\r\n                color: #1890ff; \r\n                display: inline-block; \r\n                margin-right: ${marginRight};\r\n                margin-top: ${marginTop};\r\n                border: 1px solid #1890ff; /* 蓝色边框 */\r\n                border-radius: 4px; /* 微圆效果 */\r\n                padding: 3px 8px; /* 内部留白，避免文字贴边框 */\r\n                font-size: 13px;\r\n            \">${tagName}</span>`;\r\n        });\r\n\r\n        // 拼接所有标签\r\n        htmlArr = tagElements.join('');\r\n    }\r\n\r\n    return htmlArr;\r\n})()\r\n",
+                  "name" : "logic1",
+                  "renderType" : "LAYOUTPANEL_MODEL"
+                } ],
+                "getPSEditor" : {
+                  "editorType" : "SPAN",
+                  "name" : "last_tags",
+                  "predefinedType" : "FIELD_TEXT_DYNAMIC",
+                  "renderMode" : "TEXT_DYNAMIC",
+                  "enableLinkView" : false
+                },
+                "getPSLayoutPos" : {
+                  "grow" : -1,
+                  "layout" : "FLEX",
+                  "spacingBottom" : "OUTERSMALL",
+                  "spacingLeft" : "OUTERMEDIUM"
+                },
+                "viewFieldName" : "LAST_TAGS"
+              } ],
+              "width" : 50.0
+            }, {
+              "caption" : "容器",
+              "contentWidth" : 20.0,
+              "itemStyle" : "DEFAULT",
+              "itemType" : "CONTAINER",
+              "name" : "container12",
+              "getPSLayout" : {
+                "dir" : "row",
+                "layout" : "FLEX"
+              },
+              "getPSLayoutPos" : {
+                "grow" : -1,
+                "layout" : "FLEX",
+                "spacingLeft" : "OUTERLARGE",
+                "width" : 20,
+                "widthMode" : "PERCENTAGE"
+              },
+              "getPSPanelItems" : [ {
+                "caption" : "文本(动态)",
+                "itemStyle" : "DEFAULT",
+                "itemType" : "FIELD",
+                "name" : "last_tp_talent_pool",
+                "getPSControlRenders" : [ {
+                  "layoutPanelModel" : "(function() {\r\n    // 尝试解析数据（处理可能的JSON字符串或直接对象）\r\n    let talentPoolData = data.last_tp_talent_pool;\r\n    \r\n    // 如果是字符串，尝试解析为JSON\r\n    if (typeof talentPoolData === 'string') {\r\n        try {\r\n            talentPoolData = JSON.parse(talentPoolData);\r\n        } catch (e) {\r\n            // 解析失败，视为普通字符串\r\n        }\r\n    }\r\n    \r\n    let htmlArr = '';\r\n    \r\n    // 判断是否为数组\r\n    if (Array.isArray(talentPoolData)) {\r\n        if (talentPoolData.length > 1) {\r\n            // 数组长度超过1，显示\"x个人才库\"\r\n            htmlArr = `<span style=\"color: #555B61; font-size: 14px; font-family: 'Microsoft YaHei';\">归档人才库：${talentPoolData.length}个人才库</span>`;\r\n        } else if (talentPoolData.length === 1) {\r\n            // 数组长度为1，显示人才库名称\r\n            const name = talentPoolData[0].name || '';\r\n            htmlArr = `<span style=\"color: #555B61; font-size: 14px; font-family: 'Microsoft YaHei';\">归档人才库：${name}</span>`;\r\n        }\r\n    } else {\r\n        // 非数组，直接显示值（可能是单个名称或其他内容）\r\n        htmlArr = `<span style=\"color: #555B61; font-size: 14px; font-family: 'Microsoft YaHei';\">归档人才库：公共人才库</span>`;\r\n    }\r\n    \r\n    return htmlArr;\r\n})()",
+                  "name" : "logic",
+                  "renderType" : "LAYOUTPANEL_MODEL"
+                } ],
+                "getPSEditor" : {
+                  "editorType" : "SPAN",
+                  "name" : "last_tp_talent_pool",
+                  "renderMode" : "TEXT_DYNAMIC",
+                  "enableLinkView" : false
+                },
+                "getPSLayoutPos" : {
+                  "grow" : -1,
+                  "layout" : "FLEX"
+                },
+                "valueFormat" : "归档人才库：@",
+                "viewFieldName" : "LAST_TP_TALENT_POOL"
+              } ],
+              "width" : 20.0
+            }, {
+              "caption" : "容器",
+              "contentWidth" : 20.0,
+              "itemStyle" : "DEFAULT",
+              "itemType" : "CONTAINER",
+              "name" : "container13",
+              "getPSLayout" : {
+                "layout" : "FLEX"
+              },
+              "getPSLayoutPos" : {
+                "grow" : -1,
+                "layout" : "FLEX",
+                "spacingLeft" : "OUTERLARGE",
+                "width" : 20,
+                "widthMode" : "PERCENTAGE"
+              },
+              "getPSPanelItems" : [ {
+                "caption" : "文本(动态)",
+                "itemStyle" : "DEFAULT",
+                "itemType" : "FIELD",
+                "name" : "field_text_dynamic11",
+                "getPSEditor" : {
+                  "editorType" : "SPAN",
+                  "name" : "field_text_dynamic11",
+                  "predefinedType" : "FIELD_TEXT_DYNAMIC",
+                  "renderMode" : "TEXT_DYNAMIC",
+                  "enableLinkView" : false
+                },
+                "getPSLayoutPos" : {
+                  "grow" : -1,
+                  "layout" : "FLEX"
+                },
+                "valueFormat" : "归档原因：@",
+                "viewFieldName" : "LAST_TP_ARCHIVE_REASON"
+              } ],
+              "width" : 20.0
+            } ]
+          }, {
+            "caption" : "容器",
+            "itemStyle" : "DEFAULT",
+            "itemType" : "CONTAINER",
+            "name" : "container4",
+            "getPSLayout" : {
+              "layout" : "FLEX"
+            },
+            "getPSLayoutPos" : {
+              "grow" : -1,
+              "layout" : "FLEX"
+            }
+          } ]
+        } ],
+        "name" : "list_itempanel",
+        "modelid" : "c18cc1f43ebebb39db5b54c3c322d16a",
+        "modeltype" : "PSSYSVIEWPANEL"
+      },
+      "logicName" : "List2",
+      "getPSAppDataEntity" : {
+        "modelref" : true,
+        "path" : "PSSYSAPPS/web/PSAPPDATAENTITIES/hr_candidate.json"
+      },
+      "getPSControlHandler" : {
+        "getPSHandlerActions" : [ {
+          "actionName" : "Get",
+          "actionType" : "DEACTION",
+          "dataAccessAction" : "READ",
+          "name" : "load",
+          "getPSAppDEMethod" : {
+            "modelref" : true,
+            "id" : "get"
+          },
+          "getPSAppDataEntity" : {
+            "modelref" : true,
+            "path" : "PSSYSAPPS/web/PSAPPDATAENTITIES/hr_candidate.json"
+          }
+        }, {
+          "actionName" : "Create",
+          "actionType" : "DEACTION",
+          "dataAccessAction" : "CREATE",
+          "name" : "create",
+          "getPSAppDEMethod" : {
+            "modelref" : true,
+            "id" : "create"
+          },
+          "getPSAppDataEntity" : {
+            "modelref" : true,
+            "path" : "PSSYSAPPS/web/PSAPPDATAENTITIES/hr_candidate.json"
+          }
+        }, {
+          "actionName" : "Update",
+          "actionType" : "DEACTION",
+          "dataAccessAction" : "UPDATE",
+          "name" : "update",
+          "getPSAppDEMethod" : {
+            "modelref" : true,
+            "id" : "update"
+          },
+          "getPSAppDataEntity" : {
+            "modelref" : true,
+            "path" : "PSSYSAPPS/web/PSAPPDATAENTITIES/hr_candidate.json"
+          }
+        }, {
+          "actionName" : "Remove",
+          "actionType" : "DEACTION",
+          "dataAccessAction" : "DELETE",
+          "name" : "remove",
+          "getPSAppDEMethod" : {
+            "modelref" : true,
+            "id" : "remove"
+          },
+          "getPSAppDataEntity" : {
+            "modelref" : true,
+            "path" : "PSSYSAPPS/web/PSAPPDATAENTITIES/hr_candidate.json"
+          }
+        }, {
+          "actionType" : "DEDATASET",
+          "name" : "fetch",
+          "getPSAppDEMethod" : {
+            "modelref" : true,
+            "id" : "fetch_public_talent_pool"
+          },
+          "getPSAppDataEntity" : {
+            "modelref" : true,
+            "path" : "PSSYSAPPS/web/PSAPPDATAENTITIES/hr_candidate.json"
+          }
+        } ],
+        "userDRAction" : "READ",
+        "enableDEFieldPrivilege" : false,
+        "id" : "列表控件处理器"
+      },
+      "getPSControlParam" : {
+        "autoLoad" : true,
+        "showBusyIndicator" : true,
+        "id" : "LIST"
+      },
+      "getPSDEListDataItems" : [ {
+        "dataType" : 25,
+        "name" : "srfkey",
+        "getPSAppDEField" : {
+          "name" : "ID",
+          "codeName" : "id"
+        }
+      }, {
+        "dataType" : 25,
+        "name" : "srfmajortext",
+        "getPSAppDEField" : {
+          "name" : "NAME",
+          "codeName" : "name"
+        }
+      }, {
+        "dataType" : 25,
+        "name" : "user_id",
+        "getPSAppDEField" : {
+          "name" : "USER_ID",
+          "codeName" : "user_id"
+        }
+      } ],
+      "pagingMode" : 1,
+      "pagingSize" : 1000,
+      "getRemovePSControlAction" : {
+        "modelref" : true,
+        "id" : "remove",
+        "actionName" : "Remove",
+        "actionType" : "DEACTION",
+        "dataAccessAction" : "DELETE",
+        "name" : "remove",
+        "getPSAppDEMethod" : {
+          "modelref" : true,
+          "id" : "remove"
+        },
+        "getPSAppDataEntity" : {
+          "modelref" : true,
+          "path" : "PSSYSAPPS/web/PSAPPDATAENTITIES/hr_candidate.json"
+        }
+      },
+      "getUpdatePSControlAction" : {
+        "modelref" : true,
+        "id" : "update",
+        "actionName" : "Update",
+        "actionType" : "DEACTION",
+        "dataAccessAction" : "UPDATE",
+        "name" : "update",
+        "getPSAppDEMethod" : {
+          "modelref" : true,
+          "id" : "update"
+        },
+        "getPSAppDataEntity" : {
+          "modelref" : true,
+          "path" : "PSSYSAPPS/web/PSAPPDATAENTITIES/hr_candidate.json"
+        }
+      },
+      "hasWFDataItems" : false,
+      "enableGroup" : false,
+      "enablePagingBar" : true,
+      "enableRowEdit" : false,
+      "enableRowEditGroup" : false,
+      "enableRowEditOrder" : false,
+      "enableRowNew" : false,
+      "noSort" : false,
+      "showHeader" : true,
+      "singleSelect" : false,
+      "name" : "list",
+      "modelid" : "3c52df576655517811995b5b06647d2f",
+      "modeltype" : "PSDELIST"
+    }, {
+      "codeName" : "search_left",
+      "controlType" : "TREEVIEW",
+      "getCreatePSControlAction" : {
+        "modelref" : true,
+        "id" : "create",
+        "actionName" : "Create",
+        "actionType" : "DEACTION",
+        "dataAccessAction" : "CREATE",
+        "name" : "create",
+        "getPSAppDEMethod" : {
+          "modelref" : true,
+          "id" : "create"
+        },
+        "getPSAppDataEntity" : {
+          "modelref" : true,
+          "path" : "PSSYSAPPS/web/PSAPPDATAENTITIES/hr_candidate.json"
+        }
+      },
+      "dynaModelFilePath" : "PSSYSAPPS/web/PSAPPDATAENTITIES/hr_candidate/PSTREEVIEWS/search_left.json",
+      "getFetchPSControlAction" : {
+        "modelref" : true,
+        "id" : "fetch",
+        "actionType" : "DEDATASET",
+        "name" : "fetch",
+        "getPSAppDataEntity" : {
+          "modelref" : true,
+          "path" : "PSSYSAPPS/web/PSAPPDATAENTITIES/hr_candidate.json"
+        }
+      },
+      "getGetPSControlAction" : {
+        "modelref" : true,
+        "id" : "load",
+        "actionName" : "Get",
+        "actionType" : "DEACTION",
+        "dataAccessAction" : "READ",
+        "name" : "load",
+        "getPSAppDEMethod" : {
+          "modelref" : true,
+          "id" : "get"
+        },
+        "getPSAppDataEntity" : {
+          "modelref" : true,
+          "path" : "PSSYSAPPS/web/PSAPPDATAENTITIES/hr_candidate.json"
+        }
+      },
+      "hookEventNames" : [ "ONSELECTIONCHANGE" ],
+      "logicName" : "人才库列表左侧搜索",
+      "getPSAppDataEntity" : {
+        "modelref" : true,
+        "path" : "PSSYSAPPS/web/PSAPPDATAENTITIES/hr_candidate.json"
+      },
+      "getPSControlHandler" : {
+        "getPSHandlerActions" : [ {
+          "actionName" : "Get",
+          "actionType" : "DEACTION",
+          "dataAccessAction" : "READ",
+          "name" : "load",
+          "getPSAppDEMethod" : {
+            "modelref" : true,
+            "id" : "get"
+          },
+          "getPSAppDataEntity" : {
+            "modelref" : true,
+            "path" : "PSSYSAPPS/web/PSAPPDATAENTITIES/hr_candidate.json"
+          }
+        }, {
+          "actionName" : "Create",
+          "actionType" : "DEACTION",
+          "dataAccessAction" : "CREATE",
+          "name" : "create",
+          "getPSAppDEMethod" : {
+            "modelref" : true,
+            "id" : "create"
+          },
+          "getPSAppDataEntity" : {
+            "modelref" : true,
+            "path" : "PSSYSAPPS/web/PSAPPDATAENTITIES/hr_candidate.json"
+          }
+        }, {
+          "actionName" : "Update",
+          "actionType" : "DEACTION",
+          "dataAccessAction" : "UPDATE",
+          "name" : "update",
+          "getPSAppDEMethod" : {
+            "modelref" : true,
+            "id" : "update"
+          },
+          "getPSAppDataEntity" : {
+            "modelref" : true,
+            "path" : "PSSYSAPPS/web/PSAPPDATAENTITIES/hr_candidate.json"
+          }
+        }, {
+          "actionName" : "Remove",
+          "actionType" : "DEACTION",
+          "dataAccessAction" : "DELETE",
+          "name" : "remove",
+          "getPSAppDEMethod" : {
+            "modelref" : true,
+            "id" : "remove"
+          },
+          "getPSAppDataEntity" : {
+            "modelref" : true,
+            "path" : "PSSYSAPPS/web/PSAPPDATAENTITIES/hr_candidate.json"
+          }
+        }, {
+          "actionType" : "DEDATASET",
+          "name" : "fetch",
+          "getPSAppDataEntity" : {
+            "modelref" : true,
+            "path" : "PSSYSAPPS/web/PSAPPDATAENTITIES/hr_candidate.json"
+          }
+        } ],
+        "userDRAction" : "READ",
+        "enableDEFieldPrivilege" : false,
+        "id" : "树视图处理器"
+      },
+      "getPSControlLogics" : [ {
+        "eventNames" : "onSelectionChange",
+        "logicTag" : "tree",
+        "logicType" : "SCRIPT",
+        "name" : "logic1",
+        "getPSAppDEUILogic" : {
+          "modelref" : true,
+          "id" : "message"
+        },
+        "getPSAppDataEntity" : {
+          "modelref" : true,
+          "path" : "PSSYSAPPS/web/PSAPPDATAENTITIES/workspace.json"
+        },
+        "scriptCode" : "const list = view.getController('list');\r\n// 构建加载时的视图参数\r\nconst viewParam = {\r\n\t// 将搜索栏查询参数置空\r\n\tsearchconds: undefined,\r\n}\r\n// 根据树节点数据构建查询参数\r\nconst node = data[0];\r\nif (node._nodeType === 'DE') {\r\n\tviewParam.n_last_tp_talent_pool_like = node._value;\r\n}\r\nlist.load({ viewParam });"
+      } ],
+      "getPSControlParam" : {
+        "autoLoad" : true,
+        "showBusyIndicator" : true,
+        "id" : "TREE"
+      },
+      "getPSDETreeNodeRSs" : [ {
+        "getChildPSDETreeNode" : {
+          "modelref" : true,
+          "id" : "node"
+        },
+        "name" : "默认根节点 - 全部",
+        "getParentPSDETreeNode" : {
+          "modelref" : true,
+          "id" : "ROOT"
+        },
+        "parentValueLevel" : 1,
+        "searchMode" : 3
+      }, {
+        "getChildPSDETreeNode" : {
+          "modelref" : true,
+          "id" : "node_1"
+        },
+        "name" : "全部 - 人才库",
+        "getParentPSDETreeNode" : {
+          "modelref" : true,
+          "id" : "node"
+        },
+        "parentValueLevel" : 1,
+        "searchMode" : 3
+      } ],
+      "getPSDETreeNodes" : [ {
+        "counterMode" : 0,
+        "name" : "默认根节点",
+        "nodeType" : "ROOT",
+        "getPSAppDataEntity" : {
+          "modelref" : true,
+          "path" : "PSSYSAPPS/web/PSAPPDATAENTITIES/hr_talent_pool.json"
+        },
+        "text" : "默认根节点",
+        "treeNodeType" : "STATIC",
+        "hasPSDETreeNodeRSs" : true,
+        "appendPNodeId" : false,
+        "disableSelect" : false,
+        "enableCheck" : false,
+        "enableEditData" : false,
+        "enableNewData" : false,
+        "enableQuickCreate" : false,
+        "enableQuickSearch" : false,
+        "enableRemoveData" : false,
+        "enableViewData" : false,
+        "expandFirstOnly" : false,
+        "expanded" : true,
+        "rootNode" : true,
+        "selectFirstOnly" : false,
+        "selected" : false,
+        "id" : "ROOT"
+      }, {
+        "counterMode" : 0,
+        "name" : "全部",
+        "nodeType" : "node",
+        "text" : "全部",
+        "treeNodeType" : "STATIC",
+        "hasPSDETreeNodeRSs" : true,
+        "appendPNodeId" : false,
+        "disableSelect" : false,
+        "enableCheck" : false,
+        "enableEditData" : false,
+        "enableNewData" : false,
+        "enableQuickCreate" : false,
+        "enableQuickSearch" : false,
+        "enableRemoveData" : false,
+        "enableViewData" : false,
+        "expandFirstOnly" : false,
+        "expanded" : true,
+        "rootNode" : false,
+        "selectFirstOnly" : false,
+        "selected" : false,
+        "id" : "node"
+      }, {
+        "counterMode" : 0,
+        "dataSourceType" : "DEDATASET",
+        "getIdPSAppDEField" : {
+          "name" : "ID",
+          "codeName" : "id"
+        },
+        "maxSize" : -1,
+        "name" : "人才库",
+        "nodeType" : "node_1",
+        "getPSAppDEDataSet" : {
+          "modelref" : true,
+          "id" : "fetch_default"
+        },
+        "getPSAppDataEntity" : {
+          "modelref" : true,
+          "path" : "PSSYSAPPS/web/PSAPPDATAENTITIES/hr_talent_pool.json"
+        },
+        "getTextPSAppDEField" : {
+          "name" : "NAME",
+          "codeName" : "name"
+        },
+        "treeNodeType" : "DE",
+        "hasPSDETreeNodeRSs" : false,
+        "appendPNodeId" : false,
+        "disableSelect" : false,
+        "enableCheck" : false,
+        "enableEditData" : false,
+        "enableNewData" : false,
+        "enableQuickCreate" : false,
+        "enableQuickSearch" : false,
+        "enableRemoveData" : false,
+        "enableViewData" : false,
+        "expandFirstOnly" : false,
+        "expanded" : true,
+        "rootNode" : false,
+        "selectFirstOnly" : false,
+        "selected" : false,
+        "id" : "node_1"
+      } ],
+      "getRemovePSControlAction" : {
+        "modelref" : true,
+        "id" : "remove",
+        "actionName" : "Remove",
+        "actionType" : "DEACTION",
+        "dataAccessAction" : "DELETE",
+        "name" : "remove",
+        "getPSAppDEMethod" : {
+          "modelref" : true,
+          "id" : "remove"
+        },
+        "getPSAppDataEntity" : {
+          "modelref" : true,
+          "path" : "PSSYSAPPS/web/PSAPPDATAENTITIES/hr_candidate.json"
+        }
+      },
+      "treeGridMode" : 0,
+      "getUpdatePSControlAction" : {
+        "modelref" : true,
+        "id" : "update",
+        "actionName" : "Update",
+        "actionType" : "DEACTION",
+        "dataAccessAction" : "UPDATE",
+        "name" : "update",
+        "getPSAppDEMethod" : {
+          "modelref" : true,
+          "id" : "update"
+        },
+        "getPSAppDataEntity" : {
+          "modelref" : true,
+          "path" : "PSSYSAPPS/web/PSAPPDATAENTITIES/hr_candidate.json"
+        }
+      },
+      "enableRootSelect" : false,
+      "outputIconDefault" : true,
+      "rootVisible" : false,
+      "name" : "tree",
+      "modelid" : "842e00b936e1e1becf8768d41a693759",
+      "modeltype" : "PSDETREEVIEW"
+    }, {
+      "getCapPSLanguageRes" : {
+        "lanResTag" : "DE.LNAME.HR_CANDIDATE"
+      },
+      "caption" : "候选人",
+      "codeName" : "talentpool_list_view_captionbar",
+      "controlType" : "CAPTIONBAR",
+      "name" : "captionbar",
+      "getPSAppDataEntity" : {
+        "modelref" : true,
+        "path" : "PSSYSAPPS/web/PSAPPDATAENTITIES/hr_candidate.json"
+      },
+      "getPSControlParam" : { }
+    } ]
+  },
+  "title" : "人才库列表视图",
+  "viewStyle" : "DEFAULT",
+  "viewType" : "DELISTVIEW",
+  "xDataControlName" : "list",
+  "enableDP" : true,
+  "enableFilter" : true,
+  "enableQuickSearch" : true,
+  "enableSearch" : true,
+  "showCaptionBar" : false,
+  "modelid" : "017f95ea6c97b6de49c5012d5180e73b",
+  "modeltype" : "PSAPPDEVIEW"
+}

@@ -1,0 +1,51 @@
+package cn.ibizlab.base.logic.workspacelogic.get_my_attention_count;
+        import java.util.Map;
+        import java.util.HashMap;
+        import com.alibaba.fastjson.JSONObject;
+        import org.springframework.util.StringUtils;
+        import org.springframework.util.ObjectUtils;
+        import cn.ibizlab.util.errors.BadRequestAlertException;
+                global cn.ibizlab.core.base.domain.workspace workspaceget_my_attention_countdefault;
+                global cn.ibizlab.core.hr.domain.hr_candidate workspaceget_my_attention_countcandidate;
+                    global cn.ibizlab.core.hr.service.Ihr_candidateService hr_candidateservice;
+        global cn.ibizlab.core.base.service.IworkspaceService iBzSysWorkspaceDefaultService;
+        global cn.ibizlab.util.security.AuthenticationUser curuser;
+
+
+    no-loop
+
+            //逻辑处理节点[开始]
+            rule "begin"
+            ruleflow-group "workspaceget_my_attention_countbegin"
+            when
+            then
+            end
+
+            //逻辑处理节点[准备参数]
+            rule "prepareparam1"
+            ruleflow-group "workspaceget_my_attention_countprepareparam1"
+            when
+            then
+                            workspaceget_my_attention_countcandidate.set("id","#");
+                        update(workspaceget_my_attention_countdefault);//更新fact中变量值
+                        update(workspaceget_my_attention_countcandidate);//更新fact中变量值
+            end
+
+            //逻辑处理节点[实体行为]
+            rule "deaction1"
+            ruleflow-group "workspaceget_my_attention_countdeaction1"
+            when
+            then
+                        hr_candidateservice.get_my_attention_count(workspaceget_my_attention_countcandidate);
+                        update(workspaceget_my_attention_countdefault);//更新fact中变量值
+                        update(workspaceget_my_attention_countcandidate);//更新fact中变量值
+            end
+
+            //逻辑处理节点[结束]
+            rule "end1"
+            ruleflow-group "workspaceget_my_attention_countend1"
+            when
+            then
+                        update(workspaceget_my_attention_countdefault);//更新fact中变量值
+                        update(workspaceget_my_attention_countcandidate);//更新fact中变量值
+            end

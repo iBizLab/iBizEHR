@@ -1,0 +1,539 @@
+{
+  "codeName" : "check_validity",
+  "defaultParamName" : "Default",
+  "dynaModelFilePath" : "PSMODULES/hr/PSDATAENTITIES/hr_attendance/PSDELOGICS/check_validity.json",
+  "logicName" : "保存校验",
+  "name" : "保存校验",
+  "getPSDELogicNodes" : [ {
+    "codeName" : "Begin",
+    "leftPos" : 368,
+    "logicNodeType" : "BEGIN",
+    "name" : "开始",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "RAWSQLCALL_01"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "Begin"
+      }
+    } ],
+    "topPos" : 40,
+    "parallelOutput" : true
+  }, {
+    "codeName" : "RAWSQLCALL_01",
+    "getDstPSDELogicParam" : {
+      "modelref" : true,
+      "id" : "before_check_in"
+    },
+    "leftPos" : 328,
+    "logicNodeType" : "RAWSQLCALL",
+    "name" : "查询check_in之前且最近的考勤记录",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "PREPAREPARAM_01"
+      },
+      "name" : "1、时间重叠校验",
+      "getPSDELogicLinkGroupCond" : {
+        "groupOP" : "AND",
+        "logicType" : "GROUP",
+        "name" : "连接条件组",
+        "getPSDELogicLinkConds" : [ {
+          "condOP" : "ISNOTNULL",
+          "getDstLogicParam" : {
+            "modelref" : true,
+            "id" : "before_check_in"
+          },
+          "logicType" : "SINGLE",
+          "name" : "before_check_in 值不为空(NotNil)"
+        }, {
+          "condOP" : "ISNOTNULL",
+          "dstFieldName" : "CHECK_OUT",
+          "getDstLogicParam" : {
+            "modelref" : true,
+            "id" : "before_check_in"
+          },
+          "logicType" : "SINGLE",
+          "name" : "before_check_in[CHECK_OUT] 值不为空(NotNil)"
+        }, {
+          "condOP" : "GT",
+          "dstFieldName" : "CHECK_OUT",
+          "getDstLogicParam" : {
+            "modelref" : true,
+            "id" : "before_check_in"
+          },
+          "logicType" : "SINGLE",
+          "name" : "before_check_in[CHECK_OUT] 大于(>) check_in",
+          "paramType" : "SRCENTITYFIELD",
+          "paramValue" : "check_in",
+          "getSrcLogicParam" : {
+            "modelref" : true,
+            "id" : "Default"
+          }
+        } ]
+      },
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "RAWSQLCALL_01"
+      }
+    }, {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "RAWSQLCALL_02"
+      },
+      "name" : "2、未签退记录校验",
+      "getPSDELogicLinkGroupCond" : {
+        "groupOP" : "AND",
+        "logicType" : "GROUP",
+        "name" : "连接条件组",
+        "getPSDELogicLinkConds" : [ {
+          "condOP" : "ISNULL",
+          "dstFieldName" : "CHECK_OUT",
+          "getDstLogicParam" : {
+            "modelref" : true,
+            "id" : "Default"
+          },
+          "logicType" : "SINGLE",
+          "name" : "Default[CHECK_OUT] 值为空(Nil)"
+        } ]
+      },
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "RAWSQLCALL_01"
+      }
+    }, {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "RAWSQLCALL_03"
+      },
+      "name" : "3、签退后记录校验",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "RAWSQLCALL_01"
+      }
+    } ],
+    "getPSDELogicNodeParams" : [ {
+      "paramAction" : "SQLPARAM",
+      "srcFieldName" : "EMPLOYEE_ID",
+      "getSrcPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "Default"
+      },
+      "srcValueType" : "SRCDLPARAM"
+    }, {
+      "paramAction" : "SQLPARAM",
+      "srcFieldName" : "CHECK_IN",
+      "getSrcPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "Default"
+      },
+      "srcValueType" : "SRCDLPARAM"
+    }, {
+      "paramAction" : "SQLPARAM",
+      "srcFieldName" : "ID",
+      "getSrcPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "Default"
+      },
+      "srcValueType" : "SRCDLPARAM"
+    } ],
+    "sql" : "SELECT * \nFROM hr_attendance \nWHERE employee_id = ?\n  AND check_in <= ?\n  AND id != ?\nORDER BY check_in DESC \nLIMIT 1;",
+    "topPos" : 178,
+    "fillDstLogicParam" : true,
+    "ignoreResetDstLogicParam" : false,
+    "parallelOutput" : true
+  }, {
+    "codeName" : "PREPAREPARAM_01",
+    "leftPos" : 70,
+    "logicNodeType" : "PREPAREPARAM",
+    "name" : "构造异常参数",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "THROWEXCEPTION_01"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "PREPAREPARAM_01"
+      }
+    } ],
+    "getPSDELogicNodeParams" : [ {
+      "dstFieldName" : "employee_name",
+      "getDstPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "errorMessage"
+      },
+      "paramAction" : "SETPARAMVALUE",
+      "srcFieldName" : "EMPLOYEE_NAME",
+      "getSrcPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "Default"
+      },
+      "srcValueType" : "SRCDLPARAM"
+    }, {
+      "dstFieldName" : "check_time",
+      "getDstPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "errorMessage"
+      },
+      "paramAction" : "SETPARAMVALUE",
+      "srcFieldName" : "CHECK_IN",
+      "getSrcPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "before_check_in"
+      },
+      "srcValueType" : "SRCDLPARAM"
+    } ],
+    "topPos" : 370,
+    "parallelOutput" : true
+  }, {
+    "codeName" : "RAWSQLCALL_02",
+    "getDstPSDELogicParam" : {
+      "modelref" : true,
+      "id" : "no_check_out"
+    },
+    "leftPos" : 328,
+    "logicNodeType" : "RAWSQLCALL",
+    "name" : "获取其他未签退的记录",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "PREPAREPARAM_02"
+      },
+      "name" : "连接名称",
+      "getPSDELogicLinkGroupCond" : {
+        "groupOP" : "AND",
+        "logicType" : "GROUP",
+        "name" : "连接条件组",
+        "getPSDELogicLinkConds" : [ {
+          "condOP" : "ISNOTNULL",
+          "getDstLogicParam" : {
+            "modelref" : true,
+            "id" : "no_check_out"
+          },
+          "logicType" : "SINGLE",
+          "name" : "no_check_out 值不为空(NotNil)"
+        }, {
+          "condOP" : "ISNOTNULL",
+          "dstFieldName" : "ID",
+          "getDstLogicParam" : {
+            "modelref" : true,
+            "id" : "no_check_out"
+          },
+          "logicType" : "SINGLE",
+          "name" : "no_check_out[ID] 值不为空(NotNil)"
+        } ]
+      },
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "RAWSQLCALL_02"
+      }
+    } ],
+    "getPSDELogicNodeParams" : [ {
+      "paramAction" : "SQLPARAM",
+      "srcFieldName" : "EMPLOYEE_ID",
+      "getSrcPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "Default"
+      },
+      "srcValueType" : "SRCDLPARAM"
+    }, {
+      "paramAction" : "SQLPARAM",
+      "srcFieldName" : "ID",
+      "getSrcPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "Default"
+      },
+      "srcValueType" : "SRCDLPARAM"
+    } ],
+    "sql" : "SELECT * \nFROM hr_attendance \nWHERE employee_id = ?\n  AND check_out is null\n  AND id != ?\nORDER BY check_in DESC \nLIMIT 1;",
+    "topPos" : 370,
+    "fillDstLogicParam" : true,
+    "parallelOutput" : true
+  }, {
+    "codeName" : "RAWSQLCALL_03",
+    "getDstPSDELogicParam" : {
+      "modelref" : true,
+      "id" : "before_check_out"
+    },
+    "leftPos" : 608,
+    "logicNodeType" : "RAWSQLCALL",
+    "name" : "获取签退时间之前的记录",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "PREPAREPARAM_03"
+      },
+      "name" : "连接名称",
+      "getPSDELogicLinkGroupCond" : {
+        "groupOP" : "AND",
+        "logicType" : "GROUP",
+        "name" : "连接条件组",
+        "getPSDELogicLinkConds" : [ {
+          "condOP" : "ISNOTNULL",
+          "getDstLogicParam" : {
+            "modelref" : true,
+            "id" : "before_check_out"
+          },
+          "logicType" : "SINGLE",
+          "name" : "before_check_out 值不为空(NotNil)"
+        }, {
+          "condOP" : "ISNOTNULL",
+          "dstFieldName" : "ID",
+          "getDstLogicParam" : {
+            "modelref" : true,
+            "id" : "before_check_out"
+          },
+          "logicType" : "SINGLE",
+          "name" : "before_check_out[ID] 值不为空(NotNil)"
+        }, {
+          "condOP" : "NOTEQ",
+          "dstFieldName" : "ID",
+          "getDstLogicParam" : {
+            "modelref" : true,
+            "id" : "before_check_in"
+          },
+          "logicType" : "SINGLE",
+          "name" : "before_check_in[ID] 不等于(<>) id",
+          "paramType" : "SRCENTITYFIELD",
+          "paramValue" : "id",
+          "getSrcLogicParam" : {
+            "modelref" : true,
+            "id" : "before_check_out"
+          }
+        } ]
+      },
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "RAWSQLCALL_03"
+      }
+    } ],
+    "getPSDELogicNodeParams" : [ {
+      "paramAction" : "SQLPARAM",
+      "srcFieldName" : "EMPLOYEE_ID",
+      "getSrcPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "Default"
+      },
+      "srcValueType" : "SRCDLPARAM"
+    }, {
+      "paramAction" : "SQLPARAM",
+      "srcFieldName" : "CHECK_OUT",
+      "getSrcPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "Default"
+      },
+      "srcValueType" : "SRCDLPARAM"
+    }, {
+      "paramAction" : "SQLPARAM",
+      "srcFieldName" : "ID",
+      "getSrcPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "Default"
+      },
+      "srcValueType" : "SRCDLPARAM"
+    } ],
+    "sql" : "SELECT * \nFROM hr_attendance \nWHERE employee_id = ?\n  AND check_in < ?\n  AND id != ?\nORDER BY check_in DESC \nLIMIT 1;",
+    "topPos" : 370,
+    "fillDstLogicParam" : true,
+    "ignoreResetDstLogicParam" : false,
+    "parallelOutput" : true
+  }, {
+    "codeName" : "PREPAREPARAM_03",
+    "leftPos" : 608,
+    "logicNodeType" : "PREPAREPARAM",
+    "name" : "构造异常参数",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "THROWEXCEPTION_03"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "PREPAREPARAM_03"
+      }
+    } ],
+    "getPSDELogicNodeParams" : [ {
+      "getDstPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "errorMessage"
+      },
+      "paramAction" : "RENEWPARAM"
+    }, {
+      "dstFieldName" : "check_time",
+      "getDstPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "errorMessage"
+      },
+      "paramAction" : "SETPARAMVALUE",
+      "srcFieldName" : "CHECK_IN",
+      "getSrcPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "before_check_out"
+      },
+      "srcValueType" : "SRCDLPARAM"
+    }, {
+      "dstFieldName" : "employee_name",
+      "getDstPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "errorMessage"
+      },
+      "paramAction" : "SETPARAMVALUE",
+      "srcFieldName" : "EMPLOYEE_NAME",
+      "getSrcPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "Default"
+      },
+      "srcValueType" : "SRCDLPARAM"
+    } ],
+    "topPos" : 510,
+    "parallelOutput" : true
+  }, {
+    "codeName" : "PREPAREPARAM_02",
+    "leftPos" : 328,
+    "logicNodeType" : "PREPAREPARAM",
+    "name" : "构造异常参数",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "THROWEXCEPTION_02"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "PREPAREPARAM_02"
+      }
+    } ],
+    "getPSDELogicNodeParams" : [ {
+      "getDstPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "errorMessage"
+      },
+      "paramAction" : "RENEWPARAM"
+    }, {
+      "dstFieldName" : "employee_name",
+      "getDstPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "errorMessage"
+      },
+      "paramAction" : "SETPARAMVALUE",
+      "srcFieldName" : "EMPLOYEE_NAME",
+      "getSrcPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "Default"
+      },
+      "srcValueType" : "SRCDLPARAM"
+    }, {
+      "dstFieldName" : "check_time",
+      "getDstPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "errorMessage"
+      },
+      "paramAction" : "SETPARAMVALUE",
+      "srcFieldName" : "CHECK_IN",
+      "getSrcPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "no_check_out"
+      },
+      "srcValueType" : "SRCDLPARAM"
+    } ],
+    "topPos" : 530,
+    "parallelOutput" : true
+  }, {
+    "codeName" : "THROWEXCEPTION_01",
+    "errorCode" : 0,
+    "errorInfo" : "无法为{employee_name}创建新的出勤记录, 该员工已在{check_time}中签到！",
+    "exceptionObj" : "errorMessage",
+    "getExceptionParam" : {
+      "modelref" : true,
+      "id" : "errorMessage"
+    },
+    "leftPos" : 110,
+    "logicNodeType" : "THROWEXCEPTION",
+    "name" : "抛出异常",
+    "topPos" : 532,
+    "parallelOutput" : true
+  }, {
+    "codeName" : "THROWEXCEPTION_03",
+    "errorCode" : 0,
+    "errorInfo" : "无法为{employee_name}创建新的出勤记录, 该员工已在{check_time}中签到！",
+    "exceptionObj" : "errorMessage",
+    "getExceptionParam" : {
+      "modelref" : true,
+      "id" : "errorMessage"
+    },
+    "leftPos" : 648,
+    "logicNodeType" : "THROWEXCEPTION",
+    "name" : "抛出异常",
+    "topPos" : 610,
+    "parallelOutput" : true
+  }, {
+    "codeName" : "THROWEXCEPTION_02",
+    "errorCode" : 0,
+    "errorInfo" : "无法为{employee_name}创建新的出勤记录, 因为{check_time}, 员工尚未签退！",
+    "exceptionObj" : "errorMessage",
+    "getExceptionParam" : {
+      "modelref" : true,
+      "id" : "errorMessage"
+    },
+    "leftPos" : 368,
+    "logicNodeType" : "THROWEXCEPTION",
+    "name" : "抛出异常",
+    "topPos" : 685,
+    "parallelOutput" : true
+  } ],
+  "getPSDELogicParams" : [ {
+    "codeName" : "Default",
+    "logicName" : "传入变量",
+    "name" : "传入变量",
+    "getParamPSDataEntity" : {
+      "modelref" : true,
+      "path" : "PSMODULES/hr/PSDATAENTITIES/hr_attendance.json"
+    },
+    "default" : true,
+    "entityParam" : true
+  }, {
+    "codeName" : "before_check_in",
+    "logicName" : "before_check_in",
+    "name" : "before_check_in",
+    "getParamPSDataEntity" : {
+      "modelref" : true,
+      "path" : "PSMODULES/hr/PSDATAENTITIES/hr_attendance.json"
+    },
+    "entityParam" : true
+  }, {
+    "codeName" : "before_check_out",
+    "logicName" : "before_check_out",
+    "name" : "before_check_out",
+    "getParamPSDataEntity" : {
+      "modelref" : true,
+      "path" : "PSMODULES/hr/PSDATAENTITIES/hr_attendance.json"
+    },
+    "entityParam" : true
+  }, {
+    "codeName" : "errorMessage",
+    "logicName" : "异常",
+    "name" : "异常",
+    "entityParam" : true
+  }, {
+    "codeName" : "no_check_out",
+    "logicName" : "未签退出勤记录",
+    "name" : "未签退出勤记录",
+    "getParamPSDataEntity" : {
+      "modelref" : true,
+      "path" : "PSMODULES/hr/PSDATAENTITIES/hr_attendance.json"
+    },
+    "entityParam" : true
+  } ],
+  "getStartPSDELogicNode" : {
+    "modelref" : true,
+    "id" : "Begin"
+  },
+  "enableBackend" : true,
+  "enableFront" : false
+}

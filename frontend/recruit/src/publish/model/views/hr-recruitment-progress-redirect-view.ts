@@ -1,0 +1,71 @@
+export default {
+  redirectAppViewRefs: [
+    {
+      realTitle: '招聘流程编辑视图',
+      realTitleLanguageRes: {
+        lanResTag: 'PAGE.TITLE.HR_RECRUITMENT_PROGRESS.EDITVIEW',
+      },
+      refAppViewId: 'web.hr_recruitment_progress_edit_view',
+      name: 'HR_RECRUITMENT_PROGRESS:EDITVIEW',
+      id: 'hr_recruitment_progress:editview',
+    },
+    {
+      realTitle: '招聘流程编辑视图',
+      realTitleLanguageRes: {
+        lanResTag: 'PAGE.TITLE.HR_RECRUITMENT_PROGRESS.EDITVIEW',
+      },
+      refAppViewId: 'web.hr_recruitment_progress_edit_view',
+      name: 'EDITVIEW',
+      id: 'editview',
+    },
+  ],
+  enableWorkflow: true,
+  funcViewMode: 'REDIRECTVIEW',
+  deviewCodeName: 'RedirectView',
+  deviewId: '9d04aa3b5a3f51733b8c63995b0421fc',
+  accUserMode: 2,
+  capLanguageRes: {
+    lanResTag: 'DE.LNAME.HR_RECRUITMENT_PROGRESS',
+  },
+  caption: '招聘流程',
+  codeName: 'hr_recruitment_progress_redirect_view',
+  appDataEntityId: 'web.hr_recruitment_progress',
+  controls: [
+    {
+      capLanguageRes: {
+        lanResTag: 'DE.LNAME.HR_RECRUITMENT_PROGRESS',
+      },
+      caption: '招聘流程',
+      codeName: 'redirect_view_captionbar',
+      controlType: 'CAPTIONBAR',
+      appDataEntityId: 'web.hr_recruitment_progress',
+      controlParam: {},
+      name: 'captionbar',
+      id: 'redirect_view_captionbar',
+    },
+  ],
+  viewLayoutPanel: {
+    layoutBodyOnly: true,
+    useDefaultLayout: true,
+    layoutPanel: true,
+    codeName: 'layoutpanel',
+    controlStyle: 'APPDEREDIRECTVIEW',
+    controlType: 'VIEWLAYOUTPANEL',
+    appDataEntityId: 'web.hr_recruitment_progress',
+    controlParam: {},
+    id: 'layoutpanel',
+  },
+  title: '招聘流程数据重定向视图',
+  titleLanguageRes: {
+    lanResTag: 'PAGE.TITLE.HR_RECRUITMENT_PROGRESS.REDIRECTVIEW',
+  },
+  viewStyle: 'DEFAULT',
+  viewType: 'DEREDIRECTVIEW',
+  enableDP: true,
+  redirectView: true,
+  showCaptionBar: true,
+  modelId: 'bee6674cf7c3a3b9167858d395db1b5b',
+  modelType: 'PSAPPDEVIEW',
+  name: 'hr_recruitment_progressRedirectView',
+  id: 'web.hr_recruitment_progress_redirect_view',
+};

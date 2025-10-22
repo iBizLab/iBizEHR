@@ -1,0 +1,1857 @@
+{
+  "accUserMode" : 2,
+  "getCapPSLanguageRes" : {
+    "lanResTag" : "DE.LNAME.HR_EMPLOYEE"
+  },
+  "caption" : "自助考勤",
+  "codeName" : "hr_employee_checkin_multi_data_view",
+  "dynaModelFilePath" : "PSSYSAPPS/attendanceapp/PSAPPDEVIEWS/hr_employee_checkin_multi_data_view.json",
+  "mDCtrlActiveMode" : 1,
+  "name" : "hr_employeecheckin_multi_data_view",
+  "getPSAppDataEntity" : {
+    "modelref" : true,
+    "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/hr_employee.json"
+  },
+  "getPSAppModule" : {
+    "modelref" : true,
+    "path" : "PSSYSAPPS/attendanceapp/PSAPPMODULES/hr.json"
+  },
+  "getPSDEViewCodeName" : "checkin_multi_data_view",
+  "getPSDEViewId" : "dcefb21a19dd920aae898e54e03ae2c0",
+  "getPSSysCss" : {
+    "cssName" : "kiosk_car"
+  },
+  "getPSViewLayoutPanel" : {
+    "getAllPSPanelFields" : [ {
+      "id" : "active_ctrl",
+      "hidden" : true,
+      "viewFieldName" : "active_ctrl"
+    }, {
+      "id" : "default_ctrl",
+      "hidden" : true,
+      "viewFieldName" : "default_ctrl"
+    } ],
+    "codeName" : "auto56237178",
+    "controlType" : "VIEWLAYOUTPANEL",
+    "hookEventNames" : [ "ONMOUNTED", "ONCONTROLEVENT", "ONCLICK" ],
+    "layoutMode" : "FLEX",
+    "logicName" : "携带过滤树的多数据视图布局面板",
+    "name" : "layoutpanel",
+    "getPSAppDataEntity" : {
+      "modelref" : true,
+      "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/hr_employee.json"
+    },
+    "getPSControlLogics" : [ {
+      "eventNames" : "onMounted",
+      "itemName" : "ACTIVITY",
+      "logicTag" : "layoutpanel",
+      "logicType" : "SCRIPT",
+      "name" : "init_activity_params",
+      "scriptCode" : "// 获取视图上下文\nconst appEntityId = view.model.appDataEntityId;\nconst srfmodelname = appEntityId.split('.').pop(); // 取点号后最后一段\n\nview.params.srfmodelname = srfmodelname;"
+    }, {
+      "eventNames" : "onControlEvent",
+      "logicTag" : "layoutpanel",
+      "logicType" : "SCRIPT",
+      "name" : "logic",
+      "scriptCode" : "if (triggerEventName && triggerEventName === 'onActive' && triggerEvent.ctrl.name == view.state.xdatacontrolname) {\n    if(triggerEvent.ctrl.name!=\"activity\"){\n        view.call('Edit', { \n            context: view.context,\n            params: view.params,\n            data: triggerEvent.data,\n            view,\n            ctrl: triggerEvent.ctrl,\n        });\n    }\n   \n}"
+    }, {
+      "eventNames" : "onClick",
+      "itemName" : "activity_toggle",
+      "logicTag" : "layoutpanel",
+      "logicType" : "SCRIPT",
+      "name" : "activity_click",
+      "scriptCode" : "// 获取部件并显示\nconst curctrl = \"activity\";\nconst activectrl = view.layoutPanel.findPanelItemByName(curctrl);\nif (activectrl) {\n  activectrl.state.visible = true;\n}\n//隐藏左侧过滤区\nconst view_exp_split = view.layoutPanel.findPanelItemByName('view_exp_split');\nif (view_exp_split) {\n  view_exp_split.hiddenPanel(\"left\");\n}\n// 定义需要隐藏的部件标识\nconst keepVisibleItems = ['dataview', 'grid','activity', 'pivottable', 'calendar', 'chart','hierarchy'];\nconst index = keepVisibleItems.indexOf(curctrl);\nif (index !== -1) {\n  keepVisibleItems.splice(index, 1);\n}\n// 隐藏部件\nconst allItems = view.layoutPanel.panelItems;\nObject.keys(allItems).forEach(key => {\n  if (keepVisibleItems.includes(key)) {\n    allItems[key].state.visible = false;\n  }\n});\n\nconst activectrlname = view.layoutPanel.findPanelItemByName('active_ctrl');\nactivectrlname.setDataValue(curctrl);\n\nview.state.xdatacontrolname =curctrl;\n\n// 获取当前的路由对象\nconst currentRoute = ibiz.appUtil.router.currentRoute._value;\n\n// 创建一个新的 query 对象，保留现有查询参数，并添加新的参数\nconst newQuery = {\n  ...currentRoute.query, \n  srfnav: curctrl         \n};\nconst defaultctrlname = view.layoutPanel.findPanelItemByName('default_ctrl');\nif(defaultctrlname.value == curctrl){\n  delete newQuery.srfnav;\n}\n// 使用 $router.push 更新 URL 并导航到相同的路径\nif(newQuery.srfnav != currentRoute.query.srfnav){\n  ibiz.appUtil.router.push({\n    path: currentRoute.path, \n    query: newQuery \n  });\n}\n\n// activity不显示分组筛选\nconst searchBar = view.getController('searchbar');\nif(searchBar){\n  if(searchBar.state.selectedGroup&&searchBar.state.selectedGroup.length>0){\n      viewSession.selectedGroup = [...searchBar.state.selectedGroup];\n      searchBar.state.selectedGroup=[];\n  }\n  searchBar.state.selectedGroup=[];\n  searchBar.state.showGroup=false; \n  searchBar.state.showCollect=true; \n}\n"
+    }, {
+      "eventNames" : "onClick",
+      "itemName" : "calendar_toggle",
+      "logicTag" : "layoutpanel",
+      "logicType" : "SCRIPT",
+      "name" : "calendar_click",
+      "scriptCode" : "// 获取部件并显示\nconst curctrl = \"calendar\";\nconst activectrl = view.layoutPanel.findPanelItemByName(curctrl);\nif (activectrl) {\n  activectrl.state.visible = true;\n}\n//隐藏左侧过滤区\nconst view_exp_split = view.layoutPanel.findPanelItemByName('view_exp_split');\nif (view_exp_split) {\n  view_exp_split.hiddenPanel(\"left\");\n}\n// 定义需要隐藏的部件标识\nconst keepVisibleItems = ['dataview', 'grid','activity', 'pivottable', 'calendar', 'chart','hierarchy'];\nconst index = keepVisibleItems.indexOf(curctrl);\nif (index !== -1) {\n  keepVisibleItems.splice(index, 1);\n}\n// 隐藏部件\nconst allItems = view.layoutPanel.panelItems;\nObject.keys(allItems).forEach(key => {\n  if (keepVisibleItems.includes(key)) {\n    allItems[key].state.visible = false;\n  }\n});\n\nconst activectrlname = view.layoutPanel.findPanelItemByName('active_ctrl');\nactivectrlname.setDataValue(curctrl);\n\nview.state.xdatacontrolname =curctrl;\n\n// 获取当前的路由对象\nconst currentRoute = ibiz.appUtil.router.currentRoute._value;\n\n// 创建一个新的 query 对象，保留现有查询参数，并添加新的参数\nconst newQuery = {\n  ...currentRoute.query, \n  srfnav: curctrl         \n};\nconst defaultctrlname = view.layoutPanel.findPanelItemByName('default_ctrl');\nif(defaultctrlname.value == curctrl){\n  delete newQuery.srfnav;\n}\n// 使用 $router.push 更新 URL 并导航到相同的路径\nif(newQuery.srfnav != currentRoute.query.srfnav){\n  ibiz.appUtil.router.push({\n    path: currentRoute.path, \n    query: newQuery \n  });\n}\n\n// calendar不显示分组筛选\nconst searchBar = view.getController('searchbar');\nif(searchBar){\n  if(searchBar.state.selectedGroup&&searchBar.state.selectedGroup.length>0){\n      viewSession.selectedGroup = [...searchBar.state.selectedGroup];\n      searchBar.state.selectedGroup=[];\n  }\n  searchBar.state.showGroup=false; \n  searchBar.state.showCollect=true; \n}\n"
+    }, {
+      "eventNames" : "onClick",
+      "itemName" : "chart_toggle",
+      "logicTag" : "layoutpanel",
+      "logicType" : "SCRIPT",
+      "name" : "chart_click",
+      "scriptCode" : "// 获取部件并显示\nconst curctrl = \"chart\";\nconst activectrl = view.layoutPanel.findPanelItemByName(curctrl);\nif (activectrl) {\n  activectrl.state.visible = true;\n}\n//隐藏左侧过滤区\nconst view_exp_split = view.layoutPanel.findPanelItemByName('view_exp_split');\nif (view_exp_split) {\n  view_exp_split.hiddenPanel(\"left\");\n}\n// 定义需要隐藏的部件标识\nconst keepVisibleItems = ['dataview', 'grid','activity', 'pivottable', 'calendar', 'chart','hierarchy'];\nconst index = keepVisibleItems.indexOf(curctrl);\nif (index !== -1) {\n  keepVisibleItems.splice(index, 1);\n}\n// 隐藏部件\nconst allItems = view.layoutPanel.panelItems;\nObject.keys(allItems).forEach(key => {\n  if (keepVisibleItems.includes(key)) {\n    allItems[key].state.visible = false;\n  }\n});\n\nconst activectrlname = view.layoutPanel.findPanelItemByName('active_ctrl');\nactivectrlname.setDataValue(curctrl);\n\nview.state.xdatacontrolname =curctrl;\n\n// 获取当前的路由对象\nconst currentRoute = ibiz.appUtil.router.currentRoute._value;\n\n// 创建一个新的 query 对象，保留现有查询参数，并添加新的参数\nconst newQuery = {\n  ...currentRoute.query, \n  srfnav: curctrl         \n};\nconst defaultctrlname = view.layoutPanel.findPanelItemByName('default_ctrl');\nif(defaultctrlname.value == curctrl){\n  delete newQuery.srfnav;\n}\n// 使用 $router.push 更新 URL 并导航到相同的路径\nif(newQuery.srfnav != currentRoute.query.srfnav){\n  ibiz.appUtil.router.push({\n    path: currentRoute.path, \n    query: newQuery \n  });\n}\n\n// 显示分组筛选，并还原选项\nconst searchBar = view.getController('searchbar');\nif(searchBar){\n  if(viewSession.selectedGroup&&viewSession.selectedGroup.length>0){\n      searchBar.state.selectedGroup=[...viewSession.selectedGroup];\n      viewSession.selectedGroup=[];\n  }\n  searchBar.state.showGroup=true; \n  searchBar.state.showCollect=true; \n}"
+    }, {
+      "eventNames" : "onMounted",
+      "logicTag" : "layoutpanel",
+      "logicType" : "SCRIPT",
+      "name" : "ctrl_toggle_init",
+      "scriptCode" : "console.log(\"\");\nconst targets = ['dataview', 'grid', 'activity', 'pivottable', 'calendar', 'chart','hierarchy'];\nconst activectrlname = view.layoutPanel.findPanelItemByName('active_ctrl');\nconst defaultctrlname = view.layoutPanel.findPanelItemByName('default_ctrl');\n\nlet firstVisible = null;\nlet default_ctrl = null;\n// 从路由获取\nconst currentRoute = ibiz.appUtil.router.currentRoute._value;\nif(currentRoute.query.srfnav){\n  firstVisible = currentRoute.query.srfnav;\n  const toggleitem = view.layoutPanel.findPanelItemByName(firstVisible+'_toggle');\n  toggleitem.onClick();\n  //activectrlname.setDataValue(firstVisible);\n  //view.state.xdatacontrolname = firstVisible;\n}\n// 挂载清空缓存\nif(appSession.guard){\n    appSession.guard();\n    appSession.guard = undefined;\n}\nif(!appSession.guard){\n  //注册路由监听\n  const afterEachHook = ibiz.appUtil.router.afterEach((to, from) => {\n    let toUrlArray = to.path.split('/');\n    if(toUrlArray.length<=2){\n      return;\n    }\n    const viewName = toUrlArray[toUrlArray.length - 2];\n    // const pathNodes = ibiz.appUtil.route2routeObject().pathNodes;\n    // const viewName = toUrlArray[pathNodes.length - 1].viewName;\n    const cacheView = ibiz.appUtil.viewCacheCenter.get(viewName);\n    const toView = cacheView;\n    // const curView = cacheView ? cacheView : view;\n    console.log('目标视图----',toView);\n    // let toUrlArray = to.path.split('/');\n    // let fromUrlArray = from.path.split('/');\n    // if(toUrlArray.length<=2 || fromUrlArray.length<=2){\n    //   return;\n    // }\n    //判断是否支持切换器\n    if(toView){\n      if(toView.layoutPanel.findPanelItemByName(\"switch_panel\")){\n        var active_ctrl = to.query.srfnav;\n        if(active_ctrl){\n          const toggleitem = toView.layoutPanel.findPanelItemByName(active_ctrl+'_toggle');\n          toggleitem.onClick();\n        }else{\n          // 恢复默认部件\n          const toggleitem = toView.layoutPanel.findPanelItemByName(defaultctrlname.value+'_toggle');\n          toggleitem.onClick();\n        }\n      }\n    }\n  });\n  appSession.guard = afterEachHook;\n}\n// 查找第一个存在的部件\nlet ctrlcount = 0;\nfor (const name of targets) {\n  const item = view.getCtrl(\"\", name);\n  if (item) {\n     if(firstVisible == null){\n        firstVisible = name;\n        activectrlname.setDataValue(firstVisible);\n        view.state.xdatacontrolname = firstVisible;\n      }\n      if(default_ctrl == null){\n        default_ctrl = name;\n        defaultctrlname.setDataValue(default_ctrl);\n      }\n    ctrlcount++;\n  }\n}\n\n// 设置可见性状态\ntargets.forEach(name => {\n  const item = view.layoutPanel.findPanelItemByName(name);\n  if (item) {\n    item.state.visible = name === firstVisible;\n  }\n});\n\n// 仅一个部件时隐藏切换器\nif(ctrlcount == 1){\n   const switch_panel_container = view.layoutPanel.findPanelItemByName('switch_panel_container');\n     if (switch_panel_container) {\n      switch_panel_container.state.visible = false;\n    }\n}\n\nconst searchBar = view.getController('searchbar');\nconsole.log(\"searchBar\"+searchBar)\n//解决多数据部件异步加载导致重复加载问题\nif(searchBar.model.searchBarGroups.find(group=> group.defaultGroup)){\n    const item = view.layoutPanel.findPanelItemByName(view.state.xdatacontrolname);\n    item.control.state.loadDefault = false;\n}"
+    }, {
+      "eventNames" : "onClick",
+      "itemName" : "dataview_toggle",
+      "logicTag" : "layoutpanel",
+      "logicType" : "SCRIPT",
+      "name" : "dataview_click",
+      "scriptCode" : "// 获取部件并显示\nconst curctrl = \"dataview\";\nconst activectrl = view.layoutPanel.findPanelItemByName(curctrl);\nif (activectrl) {\n  activectrl.state.visible = true;\n}\n//恢复显示左侧过滤区\nconst view_exp_split = view.layoutPanel.findPanelItemByName('view_exp_split');\nif (view_exp_split) {\n  view_exp_split.showPanel();\n}\n// 定义需要隐藏的部件标识\nconst keepVisibleItems = ['dataview', 'grid', 'activity', 'pivottable', 'calendar', 'chart','hierarchy'];\nconst index = keepVisibleItems.indexOf(curctrl);\nif (index !== -1) {\n  keepVisibleItems.splice(index, 1);\n}\n// 隐藏部件\nconst allItems = view.layoutPanel.panelItems;\nObject.keys(allItems).forEach(key => {\n  if (keepVisibleItems.includes(key)) {\n    allItems[key].state.visible = false;\n  }\n});\n\nconst activectrlname = view.layoutPanel.findPanelItemByName('active_ctrl');\nactivectrlname.setDataValue(curctrl);\n\nview.state.xdatacontrolname =curctrl;\n\n// 获取当前的路由对象\nconst currentRoute = ibiz.appUtil.router.currentRoute._value;\n\n// 创建一个新的 query 对象，保留现有查询参数，并添加新的参数\nconst newQuery = {\n  ...currentRoute.query, \n  srfnav: curctrl         \n};\nconst defaultctrlname = view.layoutPanel.findPanelItemByName('default_ctrl');\nif(defaultctrlname.value == curctrl){\n  delete newQuery.srfnav;\n}\n// 使用 $router.push 更新 URL 并导航到相同的路径\nif(newQuery.srfnav != currentRoute.query.srfnav){\n  ibiz.appUtil.router.push({\n    path: currentRoute.path, \n    query: newQuery \n  });\n}\n\n// 显示分组筛选，并还原选项\nconst searchBar = view.getController('searchbar');\nif(searchBar){\n  if(viewSession.selectedGroup&&viewSession.selectedGroup.length>0){\n      searchBar.state.selectedGroup=[...viewSession.selectedGroup];\n      viewSession.selectedGroup=[];\n  }\n  searchBar.state.showGroup=true; \n  searchBar.state.showCollect=true; \n}"
+    }, {
+      "eventNames" : "onClick",
+      "itemName" : "grid_toggle",
+      "logicTag" : "layoutpanel",
+      "logicType" : "SCRIPT",
+      "name" : "grid_click",
+      "scriptCode" : "// 获取部件并显示\nconsole.log(\"\");\nconst curctrl = \"grid\";\nconst activectrl = view.layoutPanel.findPanelItemByName(curctrl);\nif (activectrl) {\n  activectrl.state.visible = true;\n}\n//恢复显示左侧过滤区\nconst view_exp_split = view.layoutPanel.findPanelItemByName('view_exp_split');\nif (view_exp_split) {\n  view_exp_split.showPanel();\n}\n// 定义需要隐藏的部件标识\nconst keepVisibleItems = ['dataview', 'grid','activity', 'pivottable', 'calendar', 'chart','hierarchy'];\nconst index = keepVisibleItems.indexOf(curctrl);\nif (index !== -1) {\n  keepVisibleItems.splice(index, 1);\n}\n// 隐藏部件\nconst allItems = view.layoutPanel.panelItems;\nObject.keys(allItems).forEach(key => {\n  if (keepVisibleItems.includes(key)) {\n    allItems[key].state.visible = false;\n  }\n});\n\nconst activectrlname = view.layoutPanel.findPanelItemByName('active_ctrl');\nactivectrlname.setDataValue(curctrl);\n\nview.state.xdatacontrolname =curctrl;\n\n// 获取当前的路由对象\nconst currentRoute = ibiz.appUtil.router.currentRoute._value;\n\n// 创建一个新的 query 对象，保留现有查询参数，并添加新的参数\nconst newQuery = {\n  ...currentRoute.query, \n  srfnav: curctrl         \n};\n\n//默认部件忽略参数\nconst defaultctrlname = view.layoutPanel.findPanelItemByName('default_ctrl');\nif(defaultctrlname.value == curctrl){\n  delete newQuery.srfnav;\n}\n\n// 使用 $router.push 更新 URL 并导航到相同的路径\nif(newQuery.srfnav != currentRoute.query.srfnav){\n  ibiz.appUtil.router.push({\n    path: currentRoute.path, \n    query: newQuery \n  });\n}\n\n// 显示分组筛选，并还原选项\nconst searchBar = view.getController('searchbar');\nif(searchBar){\n  if(viewSession.selectedGroup&&viewSession.selectedGroup.length>0){\n      searchBar.state.selectedGroup=[...viewSession.selectedGroup];\n      viewSession.selectedGroup=[];\n  }\n  searchBar.state.showGroup=true; \n  searchBar.state.showCollect=true; \n}\n"
+    }, {
+      "eventNames" : "onClick",
+      "itemName" : "hierarchy_toggle",
+      "logicTag" : "layoutpanel",
+      "logicType" : "SCRIPT",
+      "name" : "hierarchy_click",
+      "scriptCode" : "// 获取部件并显示\nconst curctrl = \"hierarchy\";\nconst activectrl = view.layoutPanel.findPanelItemByName(curctrl);\nif (activectrl) {\n  activectrl.state.visible = true;\n}\n//隐藏左侧过滤区\nconst view_exp_split = view.layoutPanel.findPanelItemByName('view_exp_split');\nif (view_exp_split) {\n  view_exp_split.hiddenPanel(\"left\");\n}\n// 定义需要隐藏的部件标识\nconst keepVisibleItems = ['dataview', 'grid','activity', 'pivottable', 'calendar', 'chart','hierarchy'];\nconst index = keepVisibleItems.indexOf(curctrl);\nif (index !== -1) {\n  keepVisibleItems.splice(index, 1);\n}\n// 隐藏部件\nconst allItems = view.layoutPanel.panelItems;\nObject.keys(allItems).forEach(key => {\n  if (keepVisibleItems.includes(key)) {\n    allItems[key].state.visible = false;\n  }\n});\n\nconst activectrlname = view.layoutPanel.findPanelItemByName('active_ctrl');\nactivectrlname.setDataValue(curctrl);\n\nview.state.xdatacontrolname =curctrl;\n\n// 获取当前的路由对象\nconst currentRoute = ibiz.appUtil.router.currentRoute._value;\n\n// 创建一个新的 query 对象，保留现有查询参数，并添加新的参数\nconst newQuery = {\n  ...currentRoute.query, \n  srfnav: curctrl         \n};\nconst defaultctrlname = view.layoutPanel.findPanelItemByName('default_ctrl');\nif(defaultctrlname.value == curctrl){\n  delete newQuery.srfnav;\n}\n// 使用 $router.push 更新 URL 并导航到相同的路径\nif(newQuery.srfnav != currentRoute.query.srfnav){\n  ibiz.appUtil.router.push({\n    path: currentRoute.path, \n    query: newQuery \n  });\n}\n\n// hierarchy不显示分组筛选\nconst searchBar = view.getController('searchbar');\nif(searchBar){\n  if(searchBar.state.selectedGroup&&searchBar.state.selectedGroup.length>0){\n      viewSession.selectedGroup = [...searchBar.state.selectedGroup];\n      searchBar.state.selectedGroup=[];\n  }\n  searchBar.state.showGroup=false; \n  searchBar.state.showCollect=true; \n}\n"
+    }, {
+      "eventNames" : "onControlEvent",
+      "logicTag" : "layoutpanel",
+      "logicType" : "SCRIPT",
+      "name" : "onControlEvent",
+      "scriptCode" : "// 多数据部件\nconst targets = [\n  'dataview',\n  'grid',\n  'activity',\n  'pivottable',\n  'calendar',\n  'chart',\n  'hierarchy',\n];\n// 获取搜索栏\nconst searchBar = view.getController('searchbar');\nconsole.log(\"获取searchBar:\"+triggerEvent.ctrl.state.loadDefault)\n// 处理多数据部件事件\nif (searchBar && targets.includes(triggerControlName)) {\n  // 表格默认不加载在执行execGroup时加载\n  if (triggerControlName === 'grid' ) {\n    triggerEvent.ctrl.state.loadDefault = false;\n  }\n  // 多数据部件初始化时合并搜索参数\n  if (triggerEventName === 'onCreated') {\n    triggerEvent.ctrl.state.searchParams = searchBar.getFilterParams();\n  }\n  // 多数据部件绘制完成后执行搜索栏分组\n  if (triggerEventName === 'onMounted') {\n    searchBar.execGroup();\n  }\n  if (triggerEventName === 'onMounted') {\n      triggerEvent.ctrl.state.loadDefault = true;\n  }\n}"
+    }, {
+      "eventNames" : "onClick",
+      "itemName" : "pivottable_toggle",
+      "logicTag" : "layoutpanel",
+      "logicType" : "SCRIPT",
+      "name" : "pivottable_click",
+      "scriptCode" : "// 获取部件并显示\nconst curctrl = \"pivottable\";\nconst activectrl = view.layoutPanel.findPanelItemByName(curctrl);\nif (activectrl) {\n  activectrl.state.visible = true;\n}\n//隐藏左侧过滤区\nconst view_exp_split = view.layoutPanel.findPanelItemByName('view_exp_split');\nif (view_exp_split) {\n  view_exp_split.hiddenPanel(\"left\");\n}\n// 定义需要隐藏的部件标识\nconst keepVisibleItems = ['dataview', 'grid','activity', 'pivottable', 'calendar', 'chart','hierarchy'];\nconst index = keepVisibleItems.indexOf(curctrl);\nif (index !== -1) {\n  keepVisibleItems.splice(index, 1);\n}\n// 隐藏部件\nconst allItems = view.layoutPanel.panelItems;\nObject.keys(allItems).forEach(key => {\n  if (keepVisibleItems.includes(key)) {\n    allItems[key].state.visible = false;\n  }\n});\n\nconst activectrlname = view.layoutPanel.findPanelItemByName('active_ctrl');\nactivectrlname.setDataValue(curctrl);\n\nview.state.xdatacontrolname =curctrl;\n\n// 获取当前的路由对象\nconst currentRoute = ibiz.appUtil.router.currentRoute._value;\n\n// 创建一个新的 query 对象，保留现有查询参数，并添加新的参数\nconst newQuery = {\n  ...currentRoute.query, \n  srfnav: curctrl         \n};\nconst defaultctrlname = view.layoutPanel.findPanelItemByName('default_ctrl');\nif(defaultctrlname.value == curctrl){\n  delete newQuery.srfnav;\n}\n// 使用 $router.push 更新 URL 并导航到相同的路径\nif(newQuery.srfnav != currentRoute.query.srfnav){\n  ibiz.appUtil.router.push({\n    path: currentRoute.path, \n    query: newQuery \n  });\n}\n\n// 显示分组筛选，并还原选项\nconst searchBar = view.getController('searchbar');\nif(searchBar){\n  if(viewSession.selectedGroup&&viewSession.selectedGroup.length>0){\n      searchBar.state.selectedGroup=[...viewSession.selectedGroup];\n      viewSession.selectedGroup=[];\n  }\n  searchBar.state.showGroup=true; \n  searchBar.state.showCollect=true; \n}"
+    } ],
+    "getPSControlParam" : { },
+    "getPSLayout" : {
+      "layout" : "FLEX"
+    },
+    "getRootPSPanelItems" : [ {
+      "caption" : "容器",
+      "itemStyle" : "DEFAULT",
+      "itemType" : "CONTAINER",
+      "name" : "view_header",
+      "getPSLayout" : {
+        "align" : "space-between",
+        "dir" : "row",
+        "layout" : "FLEX",
+        "vAlign" : "center"
+      },
+      "getPSLayoutPos" : {
+        "grow" : -1,
+        "layout" : "FLEX",
+        "shrink" : 0
+      },
+      "getPSPanelItems" : [ {
+        "caption" : "容器",
+        "itemStyle" : "DEFAULT",
+        "itemType" : "CONTAINER",
+        "name" : "view_header_left",
+        "getPSLayout" : {
+          "dir" : "row",
+          "layout" : "FLEX"
+        },
+        "getPSLayoutPos" : {
+          "grow" : -1,
+          "heightMode" : "FULL",
+          "layout" : "FLEX"
+        },
+        "getPSPanelItems" : [ {
+          "caption" : "容器",
+          "itemStyle" : "DEFAULT",
+          "itemType" : "CONTAINER",
+          "name" : "view_captionbar",
+          "getPSLayout" : {
+            "align" : "center",
+            "layout" : "FLEX"
+          },
+          "getPSLayoutPos" : {
+            "grow" : -1,
+            "heightMode" : "FULL",
+            "layout" : "FLEX"
+          },
+          "getPSPanelItems" : [ {
+            "caption" : "页面标题",
+            "itemStyle" : "DEFAULT",
+            "itemType" : "CTRLPOS",
+            "name" : "captionbar",
+            "getPSLayoutPos" : {
+              "grow" : -1,
+              "layout" : "FLEX"
+            },
+            "showCaption" : true
+          } ]
+        }, {
+          "caption" : "容器",
+          "itemStyle" : "DEFAULT",
+          "itemType" : "CONTAINER",
+          "name" : "view_toolbar",
+          "getPSLayout" : {
+            "align" : "center",
+            "layout" : "FLEX"
+          },
+          "getPSLayoutPos" : {
+            "grow" : -1,
+            "heightMode" : "FULL",
+            "layout" : "FLEX"
+          },
+          "getPSPanelItems" : [ {
+            "caption" : "工具栏",
+            "itemStyle" : "DEFAULT",
+            "itemType" : "CTRLPOS",
+            "name" : "toolbar",
+            "getPSLayoutPos" : {
+              "grow" : -1,
+              "layout" : "FLEX"
+            },
+            "showCaption" : true
+          } ]
+        } ]
+      }, {
+        "caption" : "搜索栏",
+        "itemStyle" : "DEFAULT",
+        "itemType" : "CTRLPOS",
+        "name" : "searchbar",
+        "getPSLayoutPos" : {
+          "grow" : -1,
+          "layout" : "FLEX"
+        },
+        "showCaption" : true
+      }, {
+        "caption" : "引用布局面板",
+        "itemStyle" : "DEFAULT",
+        "itemType" : "CONTAINER",
+        "name" : "panelpart",
+        "getPSLayout" : {
+          "layout" : "FLEX"
+        },
+        "getPSLayoutPos" : {
+          "grow" : -1,
+          "layout" : "FLEX",
+          "shrink" : 0
+        },
+        "getPSPanelItems" : [ {
+          "caption" : "容器",
+          "itemStyle" : "DEFAULT",
+          "itemType" : "CONTAINER",
+          "name" : "switch_panel",
+          "getPSLayout" : {
+            "layout" : "FLEX"
+          },
+          "getPSLayoutPos" : {
+            "grow" : -1,
+            "layout" : "FLEX",
+            "spacingLeft" : "INNERMEDIUM",
+            "spacingRight" : "INNERMEDIUM"
+          },
+          "getPSPanelItems" : [ {
+            "caption" : "容器",
+            "itemStyle" : "DEFAULT",
+            "itemType" : "CONTAINER",
+            "name" : "switch_panel_container",
+            "getPSLayout" : {
+              "align" : "flex-start",
+              "dir" : "row",
+              "layout" : "FLEX",
+              "vAlign" : "center"
+            },
+            "getPSLayoutPos" : {
+              "grow" : -1,
+              "layout" : "FLEX",
+              "shrink" : 0
+            },
+            "getPSPanelItems" : [ {
+              "caption" : "卡片",
+              "contentType" : "IMAGE",
+              "itemStyle" : "DEFAULT",
+              "itemType" : "RAWITEM",
+              "name" : "dataview_toggle",
+              "getPSControlLogics" : [ {
+                "itemName" : "dataview_toggle",
+                "logicTag" : "layoutpanel",
+                "logicType" : "SCRIPT",
+                "name" : "visable_card",
+                "scriptCode" : "view.layoutPanel.model.controls.find(ctrl=>ctrl.name === \"dataview\")?true:false",
+                "triggerType" : "ITEMVISIBLE"
+              } ],
+              "getPSLayoutPos" : {
+                "grow" : -1,
+                "layout" : "FLEX",
+                "shrink" : 0
+              },
+              "getPSRawItem" : {
+                "contentType" : "IMAGE",
+                "dynaClass" : "{\"ctrl-switch-active\": data.active_ctrl ===\"dataview\" }",
+                "name" : "dataview_toggle",
+                "getPSSysCss" : {
+                  "cssName" : "ctrl-switch"
+                },
+                "getPSSysImage" : {
+                  "glyph" : "xf0db@FontAwesome",
+                  "cssClass" : "fa fa-columns"
+                },
+                "predefinedType" : "STATIC_IMAGE"
+              },
+              "getPSSysCss" : {
+                "cssName" : "ctrl-switch"
+              },
+              "getPSSysImage" : {
+                "glyph" : "xf0db@FontAwesome",
+                "cssClass" : "fa fa-columns"
+              },
+              "showCaption" : true
+            }, {
+              "caption" : "表格",
+              "contentType" : "IMAGE",
+              "itemStyle" : "DEFAULT",
+              "itemType" : "RAWITEM",
+              "name" : "grid_toggle",
+              "getPSControlLogics" : [ {
+                "itemName" : "grid_toggle",
+                "logicTag" : "layoutpanel",
+                "logicType" : "SCRIPT",
+                "name" : "visable_grid",
+                "scriptCode" : "view.layoutPanel.model.controls.find(ctrl=>ctrl.name === \"grid\")?true:false",
+                "triggerType" : "ITEMVISIBLE"
+              } ],
+              "getPSLayoutPos" : {
+                "grow" : -1,
+                "layout" : "FLEX",
+                "shrink" : 0
+              },
+              "getPSRawItem" : {
+                "contentType" : "IMAGE",
+                "dynaClass" : "{\"ctrl-switch-active\": data.active_ctrl ===\"grid\" }",
+                "name" : "grid_toggle",
+                "getPSSysCss" : {
+                  "cssName" : "ctrl-switch"
+                },
+                "getPSSysImage" : {
+                  "glyph" : "xf0c9@FontAwesome",
+                  "cssClass" : "fa fa-reorder"
+                },
+                "predefinedType" : "STATIC_IMAGE"
+              },
+              "getPSSysCss" : {
+                "cssName" : "ctrl-switch"
+              },
+              "getPSSysImage" : {
+                "glyph" : "xf0c9@FontAwesome",
+                "cssClass" : "fa fa-reorder"
+              },
+              "showCaption" : true
+            }, {
+              "caption" : "活动",
+              "contentType" : "IMAGE",
+              "itemStyle" : "DEFAULT",
+              "itemType" : "RAWITEM",
+              "name" : "activity_toggle",
+              "getPSControlLogics" : [ {
+                "itemName" : "activity_toggle",
+                "logicTag" : "layoutpanel",
+                "logicType" : "SCRIPT",
+                "name" : "visable_activity",
+                "scriptCode" : "\nview.layoutPanel.model.controls.find(ctrl=>ctrl.name === \"activity\")?true:false",
+                "triggerType" : "ITEMVISIBLE"
+              } ],
+              "getPSLayoutPos" : {
+                "grow" : -1,
+                "layout" : "FLEX",
+                "shrink" : 0
+              },
+              "getPSRawItem" : {
+                "contentType" : "IMAGE",
+                "dynaClass" : "{\"ctrl-switch-active\": data.active_ctrl ===\"activity\" }",
+                "name" : "activity_toggle",
+                "getPSSysCss" : {
+                  "cssName" : "ctrl-switch"
+                },
+                "getPSSysImage" : {
+                  "glyph" : "xf017@FontAwesome",
+                  "cssClass" : "fa fa-clock-o"
+                },
+                "predefinedType" : "STATIC_IMAGE"
+              },
+              "getPSSysCss" : {
+                "cssName" : "ctrl-switch"
+              },
+              "getPSSysImage" : {
+                "glyph" : "xf017@FontAwesome",
+                "cssClass" : "fa fa-clock-o"
+              },
+              "showCaption" : true
+            }, {
+              "caption" : "透视表",
+              "contentType" : "IMAGE",
+              "itemStyle" : "DEFAULT",
+              "itemType" : "RAWITEM",
+              "name" : "pivottable_toggle",
+              "getPSControlLogics" : [ {
+                "itemName" : "pivottable_toggle",
+                "logicTag" : "layoutpanel",
+                "logicType" : "SCRIPT",
+                "name" : "pivottable_visable",
+                "scriptCode" : "view.getCtrl(\"GRID\", \"pivottable\")?true:false",
+                "triggerType" : "ITEMVISIBLE"
+              } ],
+              "getPSLayoutPos" : {
+                "grow" : -1,
+                "layout" : "FLEX",
+                "shrink" : 0
+              },
+              "getPSRawItem" : {
+                "contentType" : "IMAGE",
+                "dynaClass" : "{\"ctrl-switch-active\": data.active_ctrl ===\"pivottable\" }",
+                "name" : "pivottable_toggle",
+                "getPSSysCss" : {
+                  "cssName" : "ctrl-switch"
+                },
+                "getPSSysImage" : {
+                  "glyph" : "xf0ce@FontAwesome",
+                  "cssClass" : "fa fa-table"
+                },
+                "predefinedType" : "STATIC_IMAGE"
+              },
+              "getPSSysCss" : {
+                "cssName" : "ctrl-switch"
+              },
+              "getPSSysImage" : {
+                "glyph" : "xf0ce@FontAwesome",
+                "cssClass" : "fa fa-table"
+              },
+              "showCaption" : true
+            }, {
+              "caption" : "日历",
+              "contentType" : "IMAGE",
+              "itemStyle" : "DEFAULT",
+              "itemType" : "RAWITEM",
+              "name" : "calendar_toggle",
+              "getPSControlLogics" : [ {
+                "itemName" : "calendar_toggle",
+                "logicTag" : "layoutpanel",
+                "logicType" : "SCRIPT",
+                "name" : "calendar_visable",
+                "scriptCode" : "view.layoutPanel.model.controls.find(ctrl=>ctrl.name === \"calendar\")?true:false",
+                "triggerType" : "ITEMVISIBLE"
+              } ],
+              "getPSLayoutPos" : {
+                "grow" : -1,
+                "layout" : "FLEX",
+                "shrink" : 0
+              },
+              "getPSRawItem" : {
+                "contentType" : "IMAGE",
+                "dynaClass" : "{\"ctrl-switch-active\": data.active_ctrl ===\"calendar\" }",
+                "name" : "calendar_toggle",
+                "getPSSysCss" : {
+                  "cssName" : "ctrl-switch"
+                },
+                "getPSSysImage" : {
+                  "glyph" : "xf073@FontAwesome",
+                  "cssClass" : "fa fa-calendar"
+                },
+                "predefinedType" : "STATIC_IMAGE"
+              },
+              "getPSSysCss" : {
+                "cssName" : "ctrl-switch"
+              },
+              "getPSSysImage" : {
+                "glyph" : "xf073@FontAwesome",
+                "cssClass" : "fa fa-calendar"
+              },
+              "showCaption" : true
+            }, {
+              "caption" : "图表",
+              "contentType" : "IMAGE",
+              "itemStyle" : "DEFAULT",
+              "itemType" : "RAWITEM",
+              "name" : "chart_toggle",
+              "getPSControlLogics" : [ {
+                "itemName" : "chart_toggle",
+                "logicTag" : "layoutpanel",
+                "logicType" : "SCRIPT",
+                "name" : "chart_visable",
+                "scriptCode" : "view.layoutPanel.model.controls.find(ctrl=>ctrl.name === \"chart\")?true:false",
+                "triggerType" : "ITEMVISIBLE"
+              } ],
+              "getPSLayoutPos" : {
+                "grow" : -1,
+                "layout" : "FLEX",
+                "shrink" : 0
+              },
+              "getPSRawItem" : {
+                "contentType" : "IMAGE",
+                "dynaClass" : "{\"ctrl-switch-active\": data.active_ctrl ===\"chart\" }",
+                "name" : "chart_toggle",
+                "getPSSysCss" : {
+                  "cssName" : "ctrl-switch"
+                },
+                "getPSSysImage" : {
+                  "glyph" : "xf1fe@FontAwesome",
+                  "cssClass" : "fa fa-area-chart"
+                },
+                "predefinedType" : "STATIC_IMAGE"
+              },
+              "getPSSysCss" : {
+                "cssName" : "ctrl-switch"
+              },
+              "getPSSysImage" : {
+                "glyph" : "xf1fe@FontAwesome",
+                "cssClass" : "fa fa-area-chart"
+              },
+              "showCaption" : true
+            }, {
+              "caption" : "图表",
+              "contentType" : "IMAGE",
+              "itemStyle" : "DEFAULT",
+              "itemType" : "RAWITEM",
+              "name" : "hierarchy_toggle",
+              "getPSControlLogics" : [ {
+                "itemName" : "hierarchy_toggle",
+                "logicTag" : "layoutpanel",
+                "logicType" : "SCRIPT",
+                "name" : "hierarchy_visable",
+                "scriptCode" : "view.layoutPanel.model.controls.find(ctrl=>ctrl.name === \"hierarchy\")?true:false",
+                "triggerType" : "ITEMVISIBLE"
+              } ],
+              "getPSLayoutPos" : {
+                "grow" : -1,
+                "layout" : "FLEX",
+                "shrink" : 0
+              },
+              "getPSRawItem" : {
+                "contentType" : "IMAGE",
+                "dynaClass" : "{\"ctrl-switch-active\": data.active_ctrl ===\"hierarchy\" }",
+                "name" : "hierarchy_toggle",
+                "getPSSysCss" : {
+                  "cssName" : "ctrl-switch"
+                },
+                "getPSSysImage" : {
+                  "glyph" : "xf0e8@FontAwesome",
+                  "cssClass" : "fa fa-sitemap"
+                },
+                "predefinedType" : "STATIC_IMAGE",
+                "tooltip" : "层级"
+              },
+              "getPSSysCss" : {
+                "cssName" : "ctrl-switch"
+              },
+              "getPSSysImage" : {
+                "glyph" : "xf0e8@FontAwesome",
+                "cssClass" : "fa fa-sitemap"
+              },
+              "showCaption" : true
+            } ]
+          }, {
+            "caption" : "文本(动态)",
+            "itemType" : "FIELD",
+            "name" : "active_ctrl",
+            "getPSEditor" : {
+              "editorType" : "HIDDEN",
+              "name" : "active_ctrl",
+              "predefinedType" : "FIELD_TEXT_DYNAMIC"
+            },
+            "getPSLayoutPos" : {
+              "grow" : -1,
+              "layout" : "FLEX"
+            },
+            "getPSSysCss" : {
+              "cssName" : "ctrl-switch-active"
+            },
+            "viewFieldName" : "active_ctrl",
+            "hidden" : true
+          }, {
+            "caption" : "文本(动态)",
+            "itemType" : "FIELD",
+            "name" : "default_ctrl",
+            "getPSEditor" : {
+              "editorType" : "HIDDEN",
+              "name" : "default_ctrl",
+              "predefinedType" : "FIELD_TEXT_DYNAMIC"
+            },
+            "getPSLayoutPos" : {
+              "grow" : -1,
+              "layout" : "FLEX"
+            },
+            "viewFieldName" : "default_ctrl",
+            "hidden" : true
+          } ]
+        } ],
+        "predefinedType" : "PANELPART",
+        "showCaption" : true
+      } ],
+      "predefinedType" : "VIEWHEADER"
+    }, {
+      "caption" : "容器",
+      "itemStyle" : "DEFAULT",
+      "itemType" : "CONTAINER",
+      "name" : "view_exp_split",
+      "getPSLayout" : {
+        "layout" : "FLEX"
+      },
+      "getPSLayoutPos" : {
+        "grow" : 1,
+        "layout" : "FLEX"
+      },
+      "getPSPanelItems" : [ {
+        "caption" : "容器",
+        "contentWidth" : 220.0,
+        "itemStyle" : "DEFAULT",
+        "itemType" : "CONTAINER",
+        "name" : "view_content_left",
+        "getPSLayout" : {
+          "layout" : "FLEX"
+        },
+        "getPSLayoutPos" : {
+          "grow" : -1,
+          "layout" : "FLEX",
+          "width" : 220,
+          "widthMode" : "PX"
+        },
+        "getPSPanelItems" : [ {
+          "caption" : "容器",
+          "itemStyle" : "DEFAULT",
+          "itemType" : "CONTAINER",
+          "name" : "filter_tree",
+          "getPSLayout" : {
+            "layout" : "FLEX"
+          },
+          "getPSLayoutPos" : {
+            "grow" : -1,
+            "layout" : "FLEX"
+          },
+          "getPSPanelItems" : [ {
+            "caption" : "树视图",
+            "itemStyle" : "DEFAULT",
+            "itemType" : "CTRLPOS",
+            "name" : "tree1",
+            "getPSLayoutPos" : {
+              "grow" : -1,
+              "layout" : "FLEX"
+            },
+            "showCaption" : true
+          }, {
+            "caption" : "树视图",
+            "itemStyle" : "DEFAULT",
+            "itemType" : "CTRLPOS",
+            "name" : "tree",
+            "getPSLayoutPos" : {
+              "grow" : -1,
+              "layout" : "FLEX"
+            },
+            "showCaption" : true
+          } ]
+        } ],
+        "width" : 220.0
+      }, {
+        "caption" : "容器",
+        "itemStyle" : "DEFAULT",
+        "itemType" : "CONTAINER",
+        "name" : "view_content_right",
+        "getPSLayout" : {
+          "layout" : "FLEX"
+        },
+        "getPSLayoutPos" : {
+          "grow" : -1,
+          "layout" : "FLEX"
+        },
+        "getPSPanelItems" : [ {
+          "caption" : "容器",
+          "itemStyle" : "DEFAULT",
+          "itemType" : "CONTAINER",
+          "name" : "container",
+          "getPSLayout" : {
+            "dir" : "column",
+            "layout" : "FLEX"
+          },
+          "getPSLayoutPos" : {
+            "grow" : -1,
+            "heightMode" : "FULL",
+            "layout" : "FLEX"
+          },
+          "getPSPanelItems" : [ {
+            "caption" : "数据视图",
+            "itemStyle" : "DEFAULT",
+            "itemType" : "CTRLPOS",
+            "name" : "dataview",
+            "getPSLayoutPos" : {
+              "grow" : 1,
+              "layout" : "FLEX"
+            },
+            "showCaption" : true
+          }, {
+            "caption" : "表格",
+            "itemStyle" : "DEFAULT",
+            "itemType" : "CTRLPOS",
+            "name" : "grid",
+            "getPSLayoutPos" : {
+              "grow" : 1,
+              "layout" : "FLEX"
+            },
+            "showCaption" : true
+          }, {
+            "caption" : "表格",
+            "itemStyle" : "DEFAULT",
+            "itemType" : "CTRLPOS",
+            "name" : "pivottable",
+            "getPSLayoutPos" : {
+              "grow" : -1,
+              "layout" : "FLEX"
+            },
+            "showCaption" : true
+          }, {
+            "caption" : "活动",
+            "itemStyle" : "DEFAULT",
+            "itemType" : "CTRLPOS",
+            "name" : "activity",
+            "getPSLayoutPos" : {
+              "grow" : 1,
+              "layout" : "FLEX"
+            },
+            "showCaption" : true
+          }, {
+            "caption" : "日历",
+            "itemStyle" : "DEFAULT",
+            "itemType" : "CTRLPOS",
+            "name" : "calendar",
+            "getPSLayoutPos" : {
+              "grow" : 1,
+              "layout" : "FLEX"
+            },
+            "showCaption" : true
+          }, {
+            "caption" : "图表",
+            "itemStyle" : "DEFAULT",
+            "itemType" : "CTRLPOS",
+            "name" : "chart",
+            "getPSLayoutPos" : {
+              "grow" : 1,
+              "layout" : "FLEX"
+            },
+            "showCaption" : true
+          }, {
+            "caption" : "层级",
+            "itemStyle" : "DEFAULT",
+            "itemType" : "CTRLPOS",
+            "name" : "hierarchy",
+            "getPSLayoutPos" : {
+              "grow" : -1,
+              "layout" : "FLEX"
+            },
+            "showCaption" : true
+          } ]
+        } ]
+      } ],
+      "predefinedType" : "CONTAINER_H_SPLIT"
+    } ],
+    "layoutBodyOnly" : false,
+    "layoutPanel" : true,
+    "useDefaultLayout" : false,
+    "viewProxyMode" : true,
+    "modelid" : "2f6bfe3aa1f221761cf030e484bf1ed9",
+    "modeltype" : "PSSYSVIEWLAYOUTPANEL",
+    "getPSAppViewLogics" : [ {
+      "eventNames" : "onSelectionChange",
+      "logicTrigger" : "CTRLEVENT",
+      "logicType" : "SCRIPT",
+      "name" : "DEPTTREESELECTED",
+      "getPSViewCtrlName" : "tree",
+      "scriptCode" : "// 获取TREE部件实例\nconst treeCtrl = view.getCtrl(\"TREEVIEW\", \"tree\");\nconst activectrlname = view.layoutPanel.findPanelItemByName('active_ctrl');\nconst activectrl = view.getCtrl(\"\", activectrlname.value);\n// 获取选中数据（假设存在getSelectedData方法）\nconst selectedData = data[0];\n// 将数据存入视图会话变量\nview.session.dept = selectedData;\nconst company = view.session.company?.id || '';\nconst dept = view.session.dept?.id || '';\nif(company){\nactivectrl.params.n_company_id_eq = company;\n}\nif(dept){\nactivectrl.params.n_department_id_childof = dept;\n}\nawait activectrl.refresh();\n"
+    }, {
+      "eventNames" : "onBeforeLoad",
+      "logicTrigger" : "CTRLEVENT",
+      "logicType" : "SCRIPT",
+      "name" : "DATAVIEW_FILL_FILTER_PARAMS",
+      "getPSViewCtrlName" : "dataview",
+      "scriptCode" : "const n_company_id_eq = view.session.company?.id || '';\r\nconst n_department_id_childof = view.session.dept?.id || '';\r\nObject.assign(ctrl.state.searchParams, {\r\n  n_company_id_eq,\r\n  n_department_id_childof\r\n});"
+    }, {
+      "logicTrigger" : "CUSTOM",
+      "logicType" : "APPUILOGIC",
+      "name" : "newdata",
+      "getPSAppUILogic" : {
+        "actionAfterWizard" : "DEFAULT",
+        "logicType" : "PREDEFINED",
+        "name" : "新建数据",
+        "getNewDataPSAppView" : {
+          "openMode" : "INDEXVIEWTAB",
+          "getRefPSAppView" : {
+            "modelref" : true,
+            "path" : "PSSYSAPPS/attendanceapp/PSAPPDEVIEWS/hr_employee_main_view.json",
+            "viewType" : "DESUBAPPREFVIEW"
+          }
+        },
+        "getPSAppUILogicRefViews" : [ {
+          "openMode" : "INDEXVIEWTAB",
+          "getRefPSAppView" : {
+            "modelref" : true,
+            "path" : "PSSYSAPPS/attendanceapp/PSAPPDEVIEWS/hr_employee_main_view.json",
+            "viewType" : "DESUBAPPREFVIEW"
+          }
+        } ],
+        "viewLogicType" : "APP_NEWDATA",
+        "batchAddOnly" : false,
+        "enableBatchAdd" : false,
+        "enableWizardAdd" : false
+      }
+    }, {
+      "logicTrigger" : "CUSTOM",
+      "logicType" : "APPUILOGIC",
+      "name" : "opendata",
+      "getPSAppUILogic" : {
+        "logicType" : "PREDEFINED",
+        "name" : "打开数据",
+        "getOpenDataPSAppView" : {
+          "openMode" : "POPUPMODAL",
+          "getPSNavigateParams" : [ {
+            "key" : "hr_employee",
+            "name" : "hr_employee",
+            "value" : "hr_employee",
+            "rawValue" : false
+          } ],
+          "getRefPSAppView" : {
+            "modelref" : true,
+            "path" : "PSSYSAPPS/attendanceapp/PSAPPDEVIEWS/hr_attendance_kiosk_checkin_view.json",
+            "viewType" : "DEEDITVIEW"
+          }
+        },
+        "getPSAppUILogicRefViews" : [ {
+          "openMode" : "POPUPMODAL",
+          "getPSNavigateParams" : [ {
+            "key" : "hr_employee",
+            "name" : "hr_employee",
+            "value" : "hr_employee",
+            "rawValue" : false
+          } ],
+          "getRefPSAppView" : {
+            "modelref" : true,
+            "path" : "PSSYSAPPS/attendanceapp/PSAPPDEVIEWS/hr_attendance_kiosk_checkin_view.json",
+            "viewType" : "DEEDITVIEW"
+          }
+        } ],
+        "viewLogicType" : "APP_OPENDATA",
+        "editMode" : true
+      }
+    } ],
+    "getPSAppViewRefs" : [ {
+      "name" : "EDITDATA",
+      "openMode" : "POPUPMODAL",
+      "getPSNavigateParams" : [ {
+        "key" : "hr_employee",
+        "name" : "hr_employee",
+        "value" : "hr_employee",
+        "rawValue" : false
+      } ],
+      "realOpenMode" : "POPUPMODAL",
+      "realTitle" : "自助考勤",
+      "getRefPSAppView" : {
+        "modelref" : true,
+        "path" : "PSSYSAPPS/attendanceapp/PSAPPDEVIEWS/hr_attendance_kiosk_checkin_view.json",
+        "viewType" : "DEEDITVIEW"
+      }
+    }, {
+      "name" : "OPENDATA",
+      "openMode" : "POPUPMODAL",
+      "getPSNavigateParams" : [ {
+        "key" : "hr_employee",
+        "name" : "hr_employee",
+        "value" : "hr_employee",
+        "rawValue" : false
+      } ],
+      "realOpenMode" : "POPUPMODAL",
+      "realTitle" : "自助考勤",
+      "getRefPSAppView" : {
+        "modelref" : true,
+        "path" : "PSSYSAPPS/attendanceapp/PSAPPDEVIEWS/hr_attendance_kiosk_checkin_view.json",
+        "viewType" : "DEEDITVIEW"
+      }
+    }, {
+      "name" : "NEWDATA",
+      "realOpenMode" : "INDEXVIEWTAB",
+      "realTitle" : "员工编辑视图",
+      "getRefPSAppView" : {
+        "modelref" : true,
+        "path" : "PSSYSAPPS/attendanceapp/PSAPPDEVIEWS/hr_employee_main_view.json",
+        "viewType" : "DESUBAPPREFVIEW"
+      }
+    } ],
+    "getPSControls" : [ {
+      "codeName" : "checkin_multi_data_view_toolbar",
+      "controlType" : "TOOLBAR",
+      "logicName" : "人员自助考勤多数据视图_工具栏",
+      "name" : "toolbar",
+      "getPSAppDataEntity" : {
+        "modelref" : true,
+        "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/hr_employee.json"
+      },
+      "getPSControlParam" : {
+        "id" : "TOOLBAR"
+      },
+      "modelid" : "c463f319761355af6709c65000d20f2d",
+      "modeltype" : "PSDETOOLBAR"
+    }, {
+      "codeName" : "multi_data_view_search_form",
+      "controlType" : "SEARCHFORM",
+      "defaultLabelWidth" : 130,
+      "dynaModelFilePath" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/hr_employee/PSSEARCHFORMS/multi_data_view_search_form.json",
+      "logicName" : "人员自助考勤多数据视图_搜索表单",
+      "getPSAppDataEntity" : {
+        "modelref" : true,
+        "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/hr_employee.json"
+      },
+      "getPSControlHandler" : {
+        "getPSHandlerActions" : [ {
+          "actionType" : "FILTERACTION",
+          "name" : "load",
+          "getPSAppDEMethod" : {
+            "modelref" : true,
+            "id" : "FilterGet"
+          },
+          "getPSAppDataEntity" : {
+            "modelref" : true,
+            "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/hr_employee.json"
+          }
+        }, {
+          "actionType" : "FILTERACTION",
+          "name" : "loaddraft",
+          "getPSAppDEMethod" : {
+            "modelref" : true,
+            "id" : "FilterGetDraft"
+          },
+          "getPSAppDataEntity" : {
+            "modelref" : true,
+            "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/hr_employee.json"
+          }
+        }, {
+          "actionType" : "FILTERACTION",
+          "name" : "search",
+          "getPSAppDEMethod" : {
+            "modelref" : true,
+            "id" : "FilterSearch"
+          },
+          "getPSAppDataEntity" : {
+            "modelref" : true,
+            "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/hr_employee.json"
+          }
+        } ],
+        "enableDEFieldPrivilege" : false,
+        "id" : "搜索表单处理器"
+      },
+      "getPSControlParam" : {
+        "autoLoad" : true,
+        "showBusyIndicator" : true,
+        "id" : "SEARCHFORM"
+      },
+      "getPSDEFormPages" : [ {
+        "caption" : "常规条件",
+        "codeName" : "formpage1",
+        "detailStyle" : "DEFAULT",
+        "detailType" : "FORMPAGE",
+        "name" : "formpage1",
+        "getPSLayout" : {
+          "childColMD" : 24,
+          "columnCount" : 24,
+          "layout" : "TABLE_24COL"
+        },
+        "infoGroupMode" : false
+      } ],
+      "getPSLayout" : {
+        "childColMD" : 24,
+        "columnCount" : 24,
+        "layout" : "TABLE_24COL"
+      },
+      "searchButtonStyle" : "DEFAULT",
+      "tabHeaderPos" : "TOP",
+      "enableAdvanceSearch" : false,
+      "enableAutoSearch" : false,
+      "enableFilterSave" : false,
+      "noTabHeader" : true,
+      "name" : "searchform",
+      "modelid" : "21d8e85570506e7f75641c00fcfc4679",
+      "modeltype" : "PSDEFORM_SEARCHFORM"
+    }, {
+      "codeName" : "emp_department_filter",
+      "controlType" : "TREEVIEW",
+      "getCreatePSControlAction" : {
+        "modelref" : true,
+        "id" : "create",
+        "actionName" : "Create",
+        "actionType" : "DEACTION",
+        "dataAccessAction" : "CREATE",
+        "name" : "create",
+        "getPSAppDEMethod" : {
+          "modelref" : true,
+          "id" : "create"
+        },
+        "getPSAppDataEntity" : {
+          "modelref" : true,
+          "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/hr_employee.json"
+        }
+      },
+      "dynaModelFilePath" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/hr_employee/PSTREEVIEWS/emp_department_filter.json",
+      "getFetchPSControlAction" : {
+        "modelref" : true,
+        "id" : "fetch",
+        "actionType" : "DEDATASET",
+        "name" : "fetch",
+        "getPSAppDataEntity" : {
+          "modelref" : true,
+          "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/hr_employee.json"
+        }
+      },
+      "getGetPSControlAction" : {
+        "modelref" : true,
+        "id" : "load",
+        "actionName" : "Get",
+        "actionType" : "DEACTION",
+        "dataAccessAction" : "READ",
+        "name" : "load",
+        "getPSAppDEMethod" : {
+          "modelref" : true,
+          "id" : "get"
+        },
+        "getPSAppDataEntity" : {
+          "modelref" : true,
+          "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/hr_employee.json"
+        }
+      },
+      "logicName" : "员工部门过滤树",
+      "getPSAppDataEntity" : {
+        "modelref" : true,
+        "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/hr_employee.json"
+      },
+      "getPSControlHandler" : {
+        "getPSHandlerActions" : [ {
+          "actionName" : "Get",
+          "actionType" : "DEACTION",
+          "dataAccessAction" : "READ",
+          "name" : "load",
+          "getPSAppDEMethod" : {
+            "modelref" : true,
+            "id" : "get"
+          },
+          "getPSAppDataEntity" : {
+            "modelref" : true,
+            "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/hr_employee.json"
+          }
+        }, {
+          "actionName" : "Create",
+          "actionType" : "DEACTION",
+          "dataAccessAction" : "CREATE",
+          "name" : "create",
+          "getPSAppDEMethod" : {
+            "modelref" : true,
+            "id" : "create"
+          },
+          "getPSAppDataEntity" : {
+            "modelref" : true,
+            "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/hr_employee.json"
+          }
+        }, {
+          "actionName" : "Update",
+          "actionType" : "DEACTION",
+          "dataAccessAction" : "UPDATE",
+          "name" : "update",
+          "getPSAppDEMethod" : {
+            "modelref" : true,
+            "id" : "update"
+          },
+          "getPSAppDataEntity" : {
+            "modelref" : true,
+            "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/hr_employee.json"
+          }
+        }, {
+          "actionName" : "Remove",
+          "actionType" : "DEACTION",
+          "dataAccessAction" : "DELETE",
+          "name" : "remove",
+          "getPSAppDEMethod" : {
+            "modelref" : true,
+            "id" : "remove"
+          },
+          "getPSAppDataEntity" : {
+            "modelref" : true,
+            "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/hr_employee.json"
+          }
+        }, {
+          "actionType" : "DEDATASET",
+          "name" : "fetch",
+          "getPSAppDataEntity" : {
+            "modelref" : true,
+            "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/hr_employee.json"
+          }
+        } ],
+        "userDRAction" : "READ",
+        "enableDEFieldPrivilege" : false,
+        "id" : "树视图处理器"
+      },
+      "getPSControlParam" : {
+        "autoLoad" : true,
+        "showBusyIndicator" : true,
+        "id" : "TREE"
+      },
+      "getPSDETreeNodeRSs" : [ {
+        "getChildPSDETreeNode" : {
+          "modelref" : true,
+          "id" : "DEPARTMENT_ALL"
+        },
+        "name" : "部门（DEPARTMENT）-全部2（DEPARTMENT_ALL）",
+        "getParentPSDETreeNode" : {
+          "modelref" : true,
+          "id" : "DEPARTMENT"
+        },
+        "parentValueLevel" : 1,
+        "searchMode" : 3
+      }, {
+        "getChildPSDETreeNode" : {
+          "modelref" : true,
+          "id" : "DEPARTMENT_ALL"
+        },
+        "name" : "默认根节点（ROOT）-全部（DEPARTMENT_ALL）",
+        "getParentPSDETreeNode" : {
+          "modelref" : true,
+          "id" : "ROOT"
+        },
+        "parentValueLevel" : 1,
+        "searchMode" : 3
+      }, {
+        "getChildPSDETreeNode" : {
+          "modelref" : true,
+          "id" : "CHILD_DEPARTMENTS"
+        },
+        "name" : "根部门（动态）（ROOT_DEPARTMENTS）-子部门（动态）（CHILD_DEPARTMENTS）",
+        "getParentPSAppDEField" : {
+          "name" : "PARENT_ID",
+          "codeName" : "parent_id"
+        },
+        "getParentPSDER1N" : {
+          "codeName" : "parent",
+          "dERType" : "DER1N",
+          "dynaModelFilePath" : "PSMODULES/hr/PSDATAENTITIES/hr_department/PSDERS/DER1N_HR_DEPARTMENT_HR_DEPARTMENT_PARENT_ID.json",
+          "fKeyName" : "F4BA2933079EB094F8",
+          "getMajorPSDataEntity" : {
+            "modelref" : true,
+            "path" : "PSMODULES/hr/PSDATAENTITIES/hr_department.json"
+          },
+          "masterOrder" : -1,
+          "masterRS" : 16,
+          "getMinorPSDataEntity" : {
+            "modelref" : true,
+            "path" : "PSMODULES/hr/PSDATAENTITIES/hr_department.json"
+          },
+          "name" : "DER1N_HR_DEPARTMENT_HR_DEPARTMENT_PARENT_ID",
+          "orderValue" : 100,
+          "getPSPickupDEField" : {
+            "name" : "PARENT_ID",
+            "codeName" : "parent_id"
+          },
+          "getPSPickupTextDEField" : {
+            "name" : "PARENT_NAME",
+            "codeName" : "parent_name"
+          },
+          "pickupDEFName" : "PARENT_ID",
+          "removeActionType" : 2,
+          "removeOrder" : 0,
+          "serviceCodeName" : "parent",
+          "enableFKey" : true,
+          "recursiveRS" : true
+        },
+        "getParentPSDETreeNode" : {
+          "modelref" : true,
+          "id" : "ROOT_DEPARTMENTS"
+        },
+        "parentValueLevel" : 1,
+        "searchMode" : 3
+      }, {
+        "getChildPSDETreeNode" : {
+          "modelref" : true,
+          "id" : "CHILD_DEPARTMENTS"
+        },
+        "name" : "默认根节点（ROOT）-子部门（动态）（CHILD_DEPARTMENTS）",
+        "getParentPSDETreeNode" : {
+          "modelref" : true,
+          "id" : "ROOT"
+        },
+        "parentValueLevel" : 1,
+        "searchMode" : 3
+      } ],
+      "getPSDETreeNodes" : [ {
+        "counterMode" : 0,
+        "name" : "默认根节点",
+        "nodeType" : "ROOT",
+        "text" : "默认根节点",
+        "treeNodeType" : "STATIC",
+        "hasPSDETreeNodeRSs" : true,
+        "appendPNodeId" : false,
+        "disableSelect" : false,
+        "enableCheck" : false,
+        "enableEditData" : false,
+        "enableNewData" : false,
+        "enableQuickCreate" : false,
+        "enableQuickSearch" : false,
+        "enableRemoveData" : false,
+        "enableViewData" : false,
+        "expandFirstOnly" : false,
+        "expanded" : true,
+        "rootNode" : true,
+        "selectFirstOnly" : false,
+        "selected" : false,
+        "id" : "ROOT"
+      }, {
+        "counterMode" : 0,
+        "dataSourceType" : "DEDATASET",
+        "getIdPSAppDEField" : {
+          "name" : "ID",
+          "codeName" : "id"
+        },
+        "maxSize" : -1,
+        "name" : "子部门（动态）",
+        "nodeType" : "CHILD_DEPARTMENTS",
+        "getPSAppDEDataSet" : {
+          "modelref" : true,
+          "id" : "fetch_default"
+        },
+        "getPSAppDataEntity" : {
+          "modelref" : true,
+          "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/hr_department.json"
+        },
+        "getTextPSAppDEField" : {
+          "name" : "NAME",
+          "codeName" : "name"
+        },
+        "treeNodeType" : "DE",
+        "hasPSDETreeNodeRSs" : false,
+        "appendPNodeId" : false,
+        "disableSelect" : false,
+        "enableCheck" : false,
+        "enableEditData" : false,
+        "enableNewData" : false,
+        "enableQuickCreate" : false,
+        "enableQuickSearch" : false,
+        "enableRemoveData" : false,
+        "enableViewData" : false,
+        "expandFirstOnly" : false,
+        "expanded" : false,
+        "rootNode" : false,
+        "selectFirstOnly" : false,
+        "selected" : false,
+        "id" : "CHILD_DEPARTMENTS"
+      }, {
+        "counterMode" : 0,
+        "name" : "全部",
+        "nodeType" : "COMPANY_ALL",
+        "text" : "全部",
+        "treeNodeType" : "STATIC",
+        "hasPSDETreeNodeRSs" : false,
+        "appendPNodeId" : false,
+        "disableSelect" : false,
+        "enableCheck" : false,
+        "enableEditData" : false,
+        "enableNewData" : false,
+        "enableQuickCreate" : false,
+        "enableQuickSearch" : false,
+        "enableRemoveData" : false,
+        "enableViewData" : false,
+        "expandFirstOnly" : false,
+        "expanded" : false,
+        "rootNode" : false,
+        "selectFirstOnly" : false,
+        "selected" : false,
+        "id" : "COMPANY_ALL"
+      }, {
+        "counterMode" : 0,
+        "name" : "部门",
+        "nodeType" : "DEPARTMENT",
+        "getPSSysImage" : {
+          "glyph" : "xf0c0@FontAwesome",
+          "cssClass" : "fa fa-users"
+        },
+        "text" : "部门",
+        "treeNodeType" : "STATIC",
+        "hasPSDETreeNodeRSs" : true,
+        "appendPNodeId" : false,
+        "disableSelect" : false,
+        "enableCheck" : false,
+        "enableEditData" : false,
+        "enableNewData" : false,
+        "enableQuickCreate" : false,
+        "enableQuickSearch" : false,
+        "enableRemoveData" : false,
+        "enableViewData" : false,
+        "expandFirstOnly" : false,
+        "expanded" : true,
+        "rootNode" : false,
+        "selectFirstOnly" : false,
+        "selected" : false,
+        "id" : "DEPARTMENT"
+      }, {
+        "counterMode" : 0,
+        "name" : "全部",
+        "nodeType" : "DEPARTMENT_ALL",
+        "text" : "全部",
+        "treeNodeType" : "STATIC",
+        "hasPSDETreeNodeRSs" : false,
+        "appendPNodeId" : false,
+        "disableSelect" : false,
+        "enableCheck" : false,
+        "enableEditData" : false,
+        "enableNewData" : false,
+        "enableQuickCreate" : false,
+        "enableQuickSearch" : false,
+        "enableRemoveData" : false,
+        "enableViewData" : false,
+        "expandFirstOnly" : false,
+        "expanded" : false,
+        "rootNode" : false,
+        "selectFirstOnly" : false,
+        "selected" : false,
+        "id" : "DEPARTMENT_ALL"
+      }, {
+        "counterMode" : 0,
+        "dataSourceType" : "DEDATASET",
+        "getIdPSAppDEField" : {
+          "name" : "ID",
+          "codeName" : "id"
+        },
+        "maxSize" : -1,
+        "name" : "根部门（动态）",
+        "nodeType" : "ROOT_DEPARTMENTS",
+        "getPSAppDEDataSet" : {
+          "modelref" : true,
+          "id" : "fetch_root"
+        },
+        "getPSAppDataEntity" : {
+          "modelref" : true,
+          "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/hr_department.json"
+        },
+        "getTextPSAppDEField" : {
+          "name" : "NAME",
+          "codeName" : "name"
+        },
+        "treeNodeType" : "DE",
+        "hasPSDETreeNodeRSs" : true,
+        "appendPNodeId" : false,
+        "disableSelect" : false,
+        "enableCheck" : false,
+        "enableEditData" : false,
+        "enableNewData" : false,
+        "enableQuickCreate" : false,
+        "enableQuickSearch" : false,
+        "enableRemoveData" : false,
+        "enableViewData" : false,
+        "expandFirstOnly" : false,
+        "expanded" : true,
+        "rootNode" : false,
+        "selectFirstOnly" : false,
+        "selected" : false,
+        "id" : "ROOT_DEPARTMENTS"
+      } ],
+      "getRemovePSControlAction" : {
+        "modelref" : true,
+        "id" : "remove",
+        "actionName" : "Remove",
+        "actionType" : "DEACTION",
+        "dataAccessAction" : "DELETE",
+        "name" : "remove",
+        "getPSAppDEMethod" : {
+          "modelref" : true,
+          "id" : "remove"
+        },
+        "getPSAppDataEntity" : {
+          "modelref" : true,
+          "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/hr_employee.json"
+        }
+      },
+      "treeGridMode" : 0,
+      "getUpdatePSControlAction" : {
+        "modelref" : true,
+        "id" : "update",
+        "actionName" : "Update",
+        "actionType" : "DEACTION",
+        "dataAccessAction" : "UPDATE",
+        "name" : "update",
+        "getPSAppDEMethod" : {
+          "modelref" : true,
+          "id" : "update"
+        },
+        "getPSAppDataEntity" : {
+          "modelref" : true,
+          "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/hr_employee.json"
+        }
+      },
+      "enableRootSelect" : false,
+      "outputIconDefault" : true,
+      "rootVisible" : false,
+      "name" : "tree",
+      "modelid" : "4da52d87c17601fc5a3172c5dbe0691a",
+      "modeltype" : "PSDETREEVIEW"
+    }, {
+      "cardColLG" : 6,
+      "cardColMD" : 8,
+      "cardColSM" : 12,
+      "cardColXS" : 12,
+      "cardHeight" : 210,
+      "codeName" : "kiosk_info",
+      "controlType" : "DATAVIEW",
+      "getCreatePSControlAction" : {
+        "modelref" : true,
+        "id" : "create",
+        "actionName" : "Create",
+        "actionType" : "DEACTION",
+        "dataAccessAction" : "CREATE",
+        "name" : "create",
+        "getPSAppDEMethod" : {
+          "modelref" : true,
+          "id" : "create"
+        },
+        "getPSAppDataEntity" : {
+          "modelref" : true,
+          "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/hr_employee.json"
+        }
+      },
+      "dynaModelFilePath" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/hr_employee/PSDATAVIEWS/kiosk_info.json",
+      "getFetchPSControlAction" : {
+        "modelref" : true,
+        "id" : "fetch",
+        "actionType" : "DEDATASET",
+        "name" : "fetch",
+        "getPSAppDEMethod" : {
+          "modelref" : true,
+          "id" : "fetch_default"
+        },
+        "getPSAppDataEntity" : {
+          "modelref" : true,
+          "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/hr_employee.json"
+        }
+      },
+      "getGetPSControlAction" : {
+        "modelref" : true,
+        "id" : "load",
+        "actionName" : "Get",
+        "actionType" : "DEACTION",
+        "dataAccessAction" : "READ",
+        "name" : "load",
+        "getPSAppDEMethod" : {
+          "modelref" : true,
+          "id" : "get"
+        },
+        "getPSAppDataEntity" : {
+          "modelref" : true,
+          "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/hr_employee.json"
+        }
+      },
+      "groupMode" : "NONE",
+      "getItemPSLayoutPanel" : {
+        "getAllPSPanelFields" : [ {
+          "id" : "personal_info",
+          "viewFieldName" : "NAME"
+        }, {
+          "id" : "avatar",
+          "hidden" : true,
+          "viewFieldName" : "avatar"
+        }, {
+          "id" : "name",
+          "viewFieldName" : "NAME"
+        }, {
+          "id" : "job_title",
+          "viewFieldName" : "JOB_TITLE"
+        } ],
+        "codeName" : "abab0481faf5416afc5",
+        "controlType" : "PANEL",
+        "dynaModelFilePath" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/hr_employee/PSPANELS/abab0481faf5416afc5.json",
+        "layoutMode" : "FLEX",
+        "logicName" : "emp_info卡片视图",
+        "getPSAppDataEntity" : {
+          "modelref" : true,
+          "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/hr_employee.json"
+        },
+        "getPSControlParam" : { },
+        "getPSLayout" : {
+          "layout" : "FLEX"
+        },
+        "getRootPSPanelItems" : [ {
+          "caption" : "容器",
+          "itemStyle" : "DEFAULT",
+          "itemType" : "CONTAINER",
+          "name" : "container",
+          "getPSLayout" : {
+            "align" : "center",
+            "dir" : "row",
+            "layout" : "FLEX"
+          },
+          "getPSLayoutPos" : {
+            "grow" : -1,
+            "layout" : "FLEX"
+          },
+          "getPSPanelItems" : [ {
+            "caption" : "容器",
+            "itemStyle" : "DEFAULT",
+            "itemType" : "CONTAINER",
+            "name" : "container3",
+            "getPSLayout" : {
+              "dir" : "row",
+              "layout" : "FLEX"
+            },
+            "getPSLayoutPos" : {
+              "grow" : -1,
+              "layout" : "FLEX"
+            },
+            "getPSPanelItems" : [ {
+              "caption" : "容器",
+              "itemStyle" : "DEFAULT",
+              "itemType" : "CONTAINER",
+              "name" : "container1",
+              "getPSLayout" : {
+                "layout" : "FLEX"
+              },
+              "getPSLayoutPos" : {
+                "grow" : -1,
+                "layout" : "FLEX",
+                "shrink" : 0
+              },
+              "getPSPanelItems" : [ {
+                "caption" : "文本(动态)",
+                "itemStyle" : "DEFAULT",
+                "itemType" : "FIELD",
+                "name" : "personal_info",
+                "getPSEditor" : {
+                  "editorParams" : {
+                    "SHOWNAMETEXT" : "false",
+                    "avatarfield" : "avatar"
+                  },
+                  "editorStyle" : "ODOO_PERSONNEL_INFO",
+                  "editorType" : "SPAN",
+                  "name" : "personal_info",
+                  "getPSSysPFPlugin" : {
+                    "pluginType" : "EDITOR_CUSTOMSTYLE",
+                    "pluginCode" : "ODOO_PERSONNEL_INFO",
+                    "runtimeObject" : true
+                  },
+                  "predefinedType" : "FIELD_TEXT_DYNAMIC",
+                  "renderMode" : "TEXT_DYNAMIC",
+                  "enableLinkView" : false
+                },
+                "getPSLayoutPos" : {
+                  "grow" : -1,
+                  "layout" : "FLEX"
+                },
+                "viewFieldName" : "NAME"
+              }, {
+                "caption" : "文本(动态)",
+                "itemType" : "FIELD",
+                "name" : "avatar",
+                "getPSEditor" : {
+                  "editorType" : "HIDDEN",
+                  "name" : "avatar",
+                  "predefinedType" : "FIELD_TEXT_DYNAMIC"
+                },
+                "getPSLayoutPos" : {
+                  "grow" : -1,
+                  "layout" : "FLEX"
+                },
+                "viewFieldName" : "avatar",
+                "hidden" : true
+              }, {
+                "caption" : "文本(动态)",
+                "cssStyle" : "font-weight: var(--ibiz-font-weight-bold);",
+                "itemStyle" : "DEFAULT",
+                "itemType" : "FIELD",
+                "name" : "name",
+                "getPSEditor" : {
+                  "editorType" : "SPAN",
+                  "name" : "name",
+                  "predefinedType" : "FIELD_TEXT_DYNAMIC",
+                  "renderMode" : "TEXT_DYNAMIC",
+                  "enableLinkView" : false
+                },
+                "getPSLayoutPos" : {
+                  "grow" : -1,
+                  "layout" : "FLEX"
+                },
+                "viewFieldName" : "NAME"
+              }, {
+                "caption" : "文本(动态)",
+                "itemStyle" : "DEFAULT",
+                "itemType" : "FIELD",
+                "name" : "job_title",
+                "getPSEditor" : {
+                  "editorType" : "SPAN",
+                  "name" : "job_title",
+                  "predefinedType" : "FIELD_TEXT_DYNAMIC",
+                  "renderMode" : "TEXT_DYNAMIC",
+                  "enableLinkView" : false
+                },
+                "getPSLayoutPos" : {
+                  "grow" : -1,
+                  "layout" : "FLEX"
+                },
+                "viewFieldName" : "JOB_TITLE"
+              } ]
+            } ],
+            "getPSSysCss" : {
+              "cssName" : "car-image"
+            }
+          } ]
+        } ],
+        "layoutPanel" : true,
+        "name" : "itemlayoutpanel",
+        "modelid" : "37cb54eadfa16d37f5a9b655c7b41289",
+        "modeltype" : "PSSYSVIEWPANEL"
+      },
+      "logicName" : "员工卡片（自助考勤）",
+      "getPSAppDataEntity" : {
+        "modelref" : true,
+        "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/hr_employee.json"
+      },
+      "getPSControlHandler" : {
+        "getPSHandlerActions" : [ {
+          "actionName" : "Get",
+          "actionType" : "DEACTION",
+          "dataAccessAction" : "READ",
+          "name" : "load",
+          "getPSAppDEMethod" : {
+            "modelref" : true,
+            "id" : "get"
+          },
+          "getPSAppDataEntity" : {
+            "modelref" : true,
+            "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/hr_employee.json"
+          }
+        }, {
+          "actionName" : "Create",
+          "actionType" : "DEACTION",
+          "dataAccessAction" : "CREATE",
+          "name" : "create",
+          "getPSAppDEMethod" : {
+            "modelref" : true,
+            "id" : "create"
+          },
+          "getPSAppDataEntity" : {
+            "modelref" : true,
+            "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/hr_employee.json"
+          }
+        }, {
+          "actionName" : "Update",
+          "actionType" : "DEACTION",
+          "dataAccessAction" : "UPDATE",
+          "name" : "update",
+          "getPSAppDEMethod" : {
+            "modelref" : true,
+            "id" : "update"
+          },
+          "getPSAppDataEntity" : {
+            "modelref" : true,
+            "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/hr_employee.json"
+          }
+        }, {
+          "actionName" : "Remove",
+          "actionType" : "DEACTION",
+          "dataAccessAction" : "DELETE",
+          "name" : "remove",
+          "getPSAppDEMethod" : {
+            "modelref" : true,
+            "id" : "remove"
+          },
+          "getPSAppDataEntity" : {
+            "modelref" : true,
+            "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/hr_employee.json"
+          }
+        }, {
+          "actionType" : "DEDATASET",
+          "name" : "fetch",
+          "getPSAppDEMethod" : {
+            "modelref" : true,
+            "id" : "fetch_default"
+          },
+          "getPSAppDataEntity" : {
+            "modelref" : true,
+            "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/hr_employee.json"
+          }
+        } ],
+        "userDRAction" : "READ",
+        "enableDEFieldPrivilege" : false,
+        "id" : "数据视图处理器"
+      },
+      "getPSControlParam" : {
+        "autoLoad" : true,
+        "showBusyIndicator" : true,
+        "id" : "DATAVIEW"
+      },
+      "getPSDEDataViewDataItems" : [ {
+        "dataType" : 25,
+        "name" : "job_title"
+      }, {
+        "dataType" : 25,
+        "name" : "image"
+      }, {
+        "dataType" : 25,
+        "name" : "name"
+      }, {
+        "dataType" : 25,
+        "name" : "avatar"
+      }, {
+        "dataType" : 25,
+        "name" : "srfkey",
+        "getPSAppDEField" : {
+          "name" : "ID",
+          "codeName" : "id"
+        }
+      }, {
+        "dataType" : 25,
+        "name" : "srfmajortext",
+        "getPSAppDEField" : {
+          "name" : "NAME",
+          "codeName" : "name"
+        }
+      }, {
+        "dataType" : 25,
+        "name" : "resource_calendar_id",
+        "getPSAppDEField" : {
+          "name" : "RESOURCE_CALENDAR_ID",
+          "codeName" : "resource_calendar_id"
+        }
+      }, {
+        "dataType" : 25,
+        "name" : "resource_id",
+        "getPSAppDEField" : {
+          "name" : "RESOURCE_ID",
+          "codeName" : "resource_id"
+        }
+      }, {
+        "dataType" : 25,
+        "name" : "department_id",
+        "getPSAppDEField" : {
+          "name" : "DEPARTMENT_ID",
+          "codeName" : "department_id"
+        }
+      } ],
+      "getPSDEDataViewItems" : [ {
+        "getCapPSLanguageRes" : {
+          "lanResTag" : "DEF.LNAME.HR_EMPLOYEE.JOB_TITLE"
+        },
+        "caption" : "工作头衔",
+        "dataItemName" : "job_title",
+        "itemType" : "DATAITEM",
+        "name" : "JOB_TITLE",
+        "getPSAppDEField" : {
+          "name" : "JOB_TITLE",
+          "codeName" : "job_title"
+        },
+        "enableSort" : false
+      }, {
+        "dataItemName" : "image",
+        "itemType" : "DATAITEM",
+        "name" : "IMAGE",
+        "enableSort" : false
+      }, {
+        "getCapPSLanguageRes" : {
+          "lanResTag" : "DEF.LNAME.HR_EMPLOYEE.NAME"
+        },
+        "caption" : "名称",
+        "dataItemName" : "name",
+        "itemType" : "DATAITEM",
+        "name" : "NAME",
+        "getPSAppDEField" : {
+          "name" : "NAME",
+          "codeName" : "name"
+        },
+        "enableSort" : false
+      }, {
+        "dataItemName" : "avatar",
+        "itemType" : "DATAITEM",
+        "name" : "AVATAR",
+        "enableSort" : false
+      } ],
+      "pagingMode" : 1,
+      "pagingSize" : 20,
+      "getRemovePSControlAction" : {
+        "modelref" : true,
+        "id" : "remove",
+        "actionName" : "Remove",
+        "actionType" : "DEACTION",
+        "dataAccessAction" : "DELETE",
+        "name" : "remove",
+        "getPSAppDEMethod" : {
+          "modelref" : true,
+          "id" : "remove"
+        },
+        "getPSAppDataEntity" : {
+          "modelref" : true,
+          "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/hr_employee.json"
+        }
+      },
+      "getUpdatePSControlAction" : {
+        "modelref" : true,
+        "id" : "update",
+        "actionName" : "Update",
+        "actionType" : "DEACTION",
+        "dataAccessAction" : "UPDATE",
+        "name" : "update",
+        "getPSAppDEMethod" : {
+          "modelref" : true,
+          "id" : "update"
+        },
+        "getPSAppDataEntity" : {
+          "modelref" : true,
+          "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/hr_employee.json"
+        }
+      },
+      "hasWFDataItems" : false,
+      "appendDEItems" : true,
+      "enableCardEdit" : false,
+      "enableCardEditGroup" : false,
+      "enableCardEditOrder" : false,
+      "enableCardNew" : false,
+      "enableGroup" : false,
+      "enablePagingBar" : true,
+      "noSort" : true,
+      "singleSelect" : true,
+      "name" : "dataview",
+      "modelid" : "de912c5684fe96e11a4f0d67a29cdf3e",
+      "modeltype" : "PSDEDATAVIEW"
+    }, {
+      "codeName" : "kiosk_search_bar1",
+      "controlStyle" : "ODOO_SEARCH_BAR",
+      "controlType" : "SEARCHBAR",
+      "dynaModelFilePath" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/hr_employee/PSSEARCHBARS/kiosk_search_bar1.json",
+      "logicName" : "自助考勤搜索栏",
+      "getPSAppDataEntity" : {
+        "modelref" : true,
+        "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/hr_employee.json"
+      },
+      "getPSControlParam" : {
+        "id" : "SEARCHBAR"
+      },
+      "getPSSysPFPlugin" : {
+        "pluginType" : "CUSTOM",
+        "pluginCode" : "ODOO_SEARCH_BAR",
+        "runtimeObject" : true
+      },
+      "quickGroupCount" : -1,
+      "quickSearchMode" : 1,
+      "quickSearchWidth" : 0,
+      "enableFilter" : false,
+      "enableGroup" : false,
+      "enableQuickSearch" : true,
+      "mobileSearchBar" : false,
+      "name" : "searchbar",
+      "modelid" : "9ec6f256ab7239bcc20bccfabfd26762",
+      "modeltype" : "PSSYSSEARCHBAR"
+    }, {
+      "getCapPSLanguageRes" : {
+        "lanResTag" : "DE.LNAME.HR_EMPLOYEE"
+      },
+      "caption" : "自助考勤",
+      "codeName" : "checkin_multi_data_view_captionbar",
+      "controlType" : "CAPTIONBAR",
+      "name" : "captionbar",
+      "getPSAppDataEntity" : {
+        "modelref" : true,
+        "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/hr_employee.json"
+      },
+      "getPSControlParam" : { }
+    } ]
+  },
+  "title" : "自助考勤",
+  "viewStyle" : "DEFAULT",
+  "viewType" : "DEMDCUSTOMVIEW",
+  "enableDP" : true,
+  "enableFilter" : true,
+  "enableQuickSearch" : true,
+  "enableSearch" : true,
+  "modelid" : "6f55103c560a659dafc8caae9ba1fb60",
+  "modeltype" : "PSAPPDEVIEW"
+}

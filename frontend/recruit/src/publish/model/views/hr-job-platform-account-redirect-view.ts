@@ -1,0 +1,73 @@
+export default {
+  redirectAppViewRefs: [
+    {
+      realOpenMode: 'POPUPMODAL',
+      realTitle: '招聘平台账号编辑视图',
+      realTitleLanguageRes: {
+        lanResTag: 'PAGE.TITLE.HR_JOB_PLATFORM_ACCOUNT.EDITVIEW',
+      },
+      refAppViewId: 'web.hr_job_platform_account_edit_view',
+      name: 'HR_JOB_PLATFORM_ACCOUNT:EDITVIEW',
+      id: 'hr_job_platform_account:editview',
+    },
+    {
+      realOpenMode: 'POPUPMODAL',
+      realTitle: '招聘平台账号编辑视图',
+      realTitleLanguageRes: {
+        lanResTag: 'PAGE.TITLE.HR_JOB_PLATFORM_ACCOUNT.EDITVIEW',
+      },
+      refAppViewId: 'web.hr_job_platform_account_edit_view',
+      name: 'EDITVIEW',
+      id: 'editview',
+    },
+  ],
+  enableWorkflow: true,
+  funcViewMode: 'REDIRECTVIEW',
+  deviewCodeName: 'RedirectView',
+  deviewId: '00443e9d45c5618b8cd1e4c5ce64f90a',
+  accUserMode: 2,
+  capLanguageRes: {
+    lanResTag: 'DE.LNAME.HR_JOB_PLATFORM_ACCOUNT',
+  },
+  caption: '招聘平台账号',
+  codeName: 'hr_job_platform_account_redirect_view',
+  appDataEntityId: 'web.hr_job_platform_account',
+  controls: [
+    {
+      capLanguageRes: {
+        lanResTag: 'DE.LNAME.HR_JOB_PLATFORM_ACCOUNT',
+      },
+      caption: '招聘平台账号',
+      codeName: 'redirect_view_captionbar',
+      controlType: 'CAPTIONBAR',
+      appDataEntityId: 'web.hr_job_platform_account',
+      controlParam: {},
+      name: 'captionbar',
+      id: 'redirect_view_captionbar',
+    },
+  ],
+  viewLayoutPanel: {
+    layoutBodyOnly: true,
+    useDefaultLayout: true,
+    layoutPanel: true,
+    codeName: 'layoutpanel',
+    controlStyle: 'APPDEREDIRECTVIEW',
+    controlType: 'VIEWLAYOUTPANEL',
+    appDataEntityId: 'web.hr_job_platform_account',
+    controlParam: {},
+    id: 'layoutpanel',
+  },
+  title: '招聘平台账号数据重定向视图',
+  titleLanguageRes: {
+    lanResTag: 'PAGE.TITLE.HR_JOB_PLATFORM_ACCOUNT.REDIRECTVIEW',
+  },
+  viewStyle: 'DEFAULT',
+  viewType: 'DEREDIRECTVIEW',
+  enableDP: true,
+  redirectView: true,
+  showCaptionBar: true,
+  modelId: '74e288ee0a1058848f446830ef427f6e',
+  modelType: 'PSAPPDEVIEW',
+  name: 'hr_job_platform_accountRedirectView',
+  id: 'web.hr_job_platform_account_redirect_view',
+};

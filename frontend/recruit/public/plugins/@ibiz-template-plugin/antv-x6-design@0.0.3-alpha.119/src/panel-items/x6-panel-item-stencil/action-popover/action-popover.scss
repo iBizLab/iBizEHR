@@ -1,0 +1,36 @@
+@include b(stencil-action-popover) {
+  padding: 12px 0;
+  border-radius: 4px;
+}
+
+@include b(action-popover) {
+  font-size: getCssVar(font, size, regular);
+  @include e(action-item) {
+    display: flex;
+    align-items: center;
+    padding: 8px 12px;
+    cursor: pointer;
+    @include m(icon) {
+      display: flex;
+      flex: 0 0 auto;
+      align-items: center;
+      justify-content: center;
+      width: 14px;
+      margin-right: 4px;
+      @include when(hidden) {
+        visibility: hidden;
+      }
+    }
+  
+    @include m(text) {
+      flex: 1;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+  
+    &:hover {
+      background-color: getCssVar(color, fill, 0);
+    }
+  }
+}

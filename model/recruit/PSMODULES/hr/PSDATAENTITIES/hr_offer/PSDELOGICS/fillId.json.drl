@@ -1,0 +1,45 @@
+package cn.ibizlab.hr.logic.hr_offerlogic.fillid;
+        import java.util.Map;
+        import java.util.HashMap;
+        import com.alibaba.fastjson.JSONObject;
+        import org.springframework.util.StringUtils;
+        import org.springframework.util.ObjectUtils;
+        import cn.ibizlab.util.errors.BadRequestAlertException;
+                global cn.ibizlab.core.hr.domain.hr_offer hr_offerfilliddefault;
+        global cn.ibizlab.core.hr.service.Ihr_offerService iBzSysHr_offerDefaultService;
+        global cn.ibizlab.util.security.AuthenticationUser curuser;
+
+
+    no-loop
+
+            //逻辑处理节点[开始]
+            rule "begin"
+            ruleflow-group "hr_offerfillidbegin"
+            when
+            then
+            end
+
+            //逻辑处理节点[设置id为申请id]
+            rule "prepareparam1"
+            ruleflow-group "hr_offerfillidprepareparam1"
+            when
+            then
+                            hr_offerfilliddefault.set("id",hr_offerfilliddefault.get("applicantid"));
+                        update(hr_offerfilliddefault);//更新fact中变量值
+            end
+
+            //逻辑处理节点[设置申请offer标识]
+            rule "prepareparam2"
+            ruleflow-group "hr_offerfillidprepareparam2"
+            when
+            then
+                        update(hr_offerfilliddefault);//更新fact中变量值
+            end
+
+            //逻辑处理节点[结束]
+            rule "end1"
+            ruleflow-group "hr_offerfillidend1"
+            when
+            then
+                        update(hr_offerfilliddefault);//更新fact中变量值
+            end

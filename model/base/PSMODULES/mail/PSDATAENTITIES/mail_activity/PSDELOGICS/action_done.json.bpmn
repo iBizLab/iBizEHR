@@ -1,0 +1,267 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+    <definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:g="http://www.jboss.org/drools/flow/gpd" xmlns:tns="http://www.jboss.org/drools" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" expressionLanguage="http://www.mvel.org/2.0" id="Definition" name="" targetNamespace="http://www.jboss.org/drools" typeLanguage="http://www.java.com/javaTypes">
+        <process id="cn.ibizlab.core.mail.service.logic.mail_activityaction_done" isClosed="false" isExecutable="true" name="mail_mail_activity_action_done_ruleFlow" processType="Private" tns:packageName="cn.ibizlab.core.mail.service.logic.mail_activityaction_done">
+            <extensionElements>
+                <tns:import name="java.util.Map" />
+                <tns:import name="org.springframework.util.StringUtils"/>
+                <tns:import name="cn.ibizlab.util.helper.RuleUtils"/>
+                                <tns:metaData express="" name="mail_activityaction_donedefault" type="entity"/>
+                                <tns:metaData express="new cn.ibizlab.core.base.domain.ir_attachment()" name="mail_activityaction_doneattachment" type="refentity"/>
+                                <tns:metaData express="new cn.ibizlab.core.base.domain.ir_attachment()" name="mail_activityaction_doneattachment_filter" type="refentity"/>
+                                <tns:metaData express="new cn.ibizlab.core.base.domain.ir_attachment()" name="mail_activityaction_doneattachment_page" type="refentity"/>
+                                <tns:metaData express="new cn.ibizlab.core.mail.domain.mail_activity_type()" name="mail_activityaction_donemail_activity_type" type="refentity"/>
+                                <tns:metaData express="new cn.ibizlab.core.mail.domain.mail_message()" name="mail_activityaction_donemail_message" type="refentity"/>
+                                <tns:metaData express="new cn.ibizlab.core.mail.domain.mail_thread()" name="mail_activityaction_donemail_thread" type="refentity"/>
+                                <tns:metaData express="new cn.ibizlab.core.mail.domain.mail_activity()" name="mail_activityaction_donenext_activity" type="refentity"/>
+                                <tns:metaData express="new cn.ibizlab.core.mail.domain.mail_activity_type()" name="mail_activityaction_donetriggered_next_type" type="refentity"/>
+                                    <tns:metaData express="T(cn.ibizlab.util.security.SpringContextHolder).getBean(T(cn.ibizlab.core.mail.service.Imail_activity_typeService))" name="mail_activity_typeservice" type="service"/>
+                                    <tns:metaData express="T(cn.ibizlab.util.security.SpringContextHolder).getBean(T(cn.ibizlab.core.base.service.Iir_attachmentService))" name="ir_attachmentservice" type="service"/>
+                                    <tns:metaData express="T(cn.ibizlab.util.security.SpringContextHolder).getBean(T(cn.ibizlab.core.mail.service.Imail_activityService))" name="mail_activityservice" type="service"/>
+                    <tns:metaData express="T(cn.ibizlab.util.security.SpringContextHolder).getBean(T(cn.ibizlab.core.mail.service.Imail_activityService))" name="iBzSysMail_activityDefaultService" type="service"/>
+                    <tns:metaData express="T(cn.ibizlab.util.security.AuthenticationUser).getAuthenticationUser()" name="curuser" type="session"/>
+                            <tns:global identifier="mail_activityaction_donedefault" type="cn.ibizlab.core.mail.domain.mail_activity" />
+                            <tns:global identifier="mail_activityaction_doneattachment" type="cn.ibizlab.core.base.domain.ir_attachment" />
+                            <tns:global identifier="mail_activityaction_doneattachment_filter" type="cn.ibizlab.core.base.domain.ir_attachment" />
+                            <tns:global identifier="mail_activityaction_doneattachment_page" type="cn.ibizlab.core.base.domain.ir_attachment" />
+                            <tns:global identifier="mail_activityaction_donemail_activity_type" type="cn.ibizlab.core.mail.domain.mail_activity_type" />
+                            <tns:global identifier="mail_activityaction_donemail_message" type="cn.ibizlab.core.mail.domain.mail_message" />
+                            <tns:global identifier="mail_activityaction_donemail_thread" type="cn.ibizlab.core.mail.domain.mail_thread" />
+                            <tns:global identifier="mail_activityaction_donenext_activity" type="cn.ibizlab.core.mail.domain.mail_activity" />
+                            <tns:global identifier="mail_activityaction_donetriggered_next_type" type="cn.ibizlab.core.mail.domain.mail_activity_type" />
+            </extensionElements>
+                        <startEvent id="begin" isInterrupting="true"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="mail_activityaction_donedebugparam_03" id="debugparam_03" implementation="http://www.jboss.org/drools/rule" name="查看默认"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="mail_activityaction_doneprepareparam_02" id="prepareparam_02" implementation="http://www.jboss.org/drools/rule" name="准备活动类型参数"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="mail_activityaction_donedeaction_04" id="deaction_04" implementation="http://www.jboss.org/drools/rule" name="获取触发活动类型数据"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="mail_activityaction_donedeaction_01" id="deaction_01" implementation="http://www.jboss.org/drools/rule" name="获取活动类型对象"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="mail_activityaction_doneprepareparam_03" id="prepareparam_03" implementation="http://www.jboss.org/drools/rule" name="准备下一个活动参数"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="mail_activityaction_doneprepareparam_04" id="prepareparam_04" implementation="http://www.jboss.org/drools/rule" name="准备触发活动类型参数"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="mail_activityaction_doneprepareparam_01" id="prepareparam_01" implementation="http://www.jboss.org/drools/rule" name="准备附件参数"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="mail_activityaction_donerawsfcode_03" id="rawsfcode_03" implementation="http://www.jboss.org/drools/rule" name="生成message"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="mail_activityaction_donerawsfcode_01" id="rawsfcode_01" implementation="http://www.jboss.org/drools/rule" name="填充message数据"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="mail_activityaction_donedeaction_010" id="deaction_010" implementation="http://www.jboss.org/drools/rule" name="获取到期日期"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="mail_activityaction_donededataset_01" id="dedataset_01" implementation="http://www.jboss.org/drools/rule" name="获取当前活动的所有附件"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="mail_activityaction_doneloopsubcall_01" id="loopsubcall_01" implementation="http://www.jboss.org/drools/rule" name="循环子调用"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="mail_activityaction_doneprepareparam_09" id="prepareparam_09" implementation="http://www.jboss.org/drools/rule" name="到期日期参数"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="mail_activityaction_donerawsfcode_02" id="rawsfcode_02" implementation="http://www.jboss.org/drools/rule" name="准备归档参数"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="mail_activityaction_donedeaction_03" id="deaction_03" implementation="http://www.jboss.org/drools/rule" name="删除活动数据"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="mail_activityaction_donedeaction_02" id="deaction_02" implementation="http://www.jboss.org/drools/rule" name="归档"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="mail_activityaction_donedebugparam_01" id="debugparam_01" implementation="http://www.jboss.org/drools/rule" name="查看下一个活动"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="mail_activityaction_doneprepareparam_07" id="prepareparam_07" implementation="http://www.jboss.org/drools/rule" name="准备下一个活动参数"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="mail_activityaction_doneprepareparam_05" id="prepareparam_05" implementation="http://www.jboss.org/drools/rule" name="准备附件换绑参数"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="mail_activityaction_donedeaction_08" id="deaction_08" implementation="http://www.jboss.org/drools/rule" name="生成下一个活动"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="mail_activityaction_donedeaction_05" id="deaction_05" implementation="http://www.jboss.org/drools/rule" name="换绑到消息"/>
+                        <endEvent id="deaction_05_end" name="end"/>
+                        <sequenceFlow id="deaction_05_end_line" sourceRef="deaction_05" targetRef="deaction_05_end"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="mail_activityaction_donedebugparam_02" id="debugparam_02" implementation="http://www.jboss.org/drools/rule" name="最后返回的活动"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="mail_activityaction_doneprepareparam_06" id="prepareparam_06" implementation="http://www.jboss.org/drools/rule" name="准备参数"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="mail_activityaction_doneprepareparam_010" id="prepareparam_010" implementation="http://www.jboss.org/drools/rule" name="准备参数"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="mail_activityaction_doneend_01" id="end_01" implementation="http://www.jboss.org/drools/rule" name="结束"/>
+                        <endEvent id="end_01_end" name="end"/>
+                        <sequenceFlow id="end_01_end_line" sourceRef="end_01" targetRef="end_01_end"/>
+                    <sequenceFlow id="begin_debugparam_03" sourceRef="begin" targetRef="debugparam_03">
+                    </sequenceFlow>
+                    <sequenceFlow id="debugparam_03_rawsfcode_01" sourceRef="debugparam_03" targetRef="rawsfcode_01">
+                    </sequenceFlow>
+                    <sequenceFlow id="gateway-debugparam_03_prepareparam_02" sourceRef="gateway-debugparam_03" targetRef="prepareparam_02">
+                            <conditionExpression  language="http://www.jboss.org/drools/rule" ><![CDATA[
+                                            $mail_activityaction_donedefault:mail_activity();
+                                            $mail_activityaction_doneattachment:ir_attachment();
+                                            $mail_activityaction_doneattachment_filter:ir_attachment();
+                                            $mail_activityaction_doneattachment_page:ir_attachment();
+                                            $mail_activityaction_donemail_activity_type:mail_activity_type();
+                                            $mail_activityaction_donemail_message:mail_message();
+                                            $mail_activityaction_donemail_thread:mail_thread();
+                                            $mail_activityaction_donenext_activity:mail_activity();
+                                            $mail_activityaction_donetriggered_next_type:mail_activity_type();
+                                    eval($mail_activityaction_donedefault==mail_activityaction_donedefault && $mail_activityaction_doneattachment==mail_activityaction_doneattachment && $mail_activityaction_doneattachment_filter==mail_activityaction_doneattachment_filter && $mail_activityaction_doneattachment_page==mail_activityaction_doneattachment_page && $mail_activityaction_donemail_activity_type==mail_activityaction_donemail_activity_type && $mail_activityaction_donemail_message==mail_activityaction_donemail_message && $mail_activityaction_donemail_thread==mail_activityaction_donemail_thread && $mail_activityaction_donenext_activity==mail_activityaction_donenext_activity && $mail_activityaction_donetriggered_next_type==mail_activityaction_donetriggered_next_type);
+                                eval((RuleUtils.test($mail_activityaction_donedefault.get("activityTypeId"),"ISNOTNULL",""))&&(RuleUtils.test($mail_activityaction_donedefault.get("activityTypeId"),"NOTEQ","undefined")))
+                                ]]>
+                            </conditionExpression>
+                    </sequenceFlow>
+                    <sequenceFlow id="gateway-debugparam_03_deaction_03" sourceRef="gateway-debugparam_03" targetRef="deaction_03">
+                            <conditionExpression  language="http://www.jboss.org/drools/rule" ><![CDATA[
+                                            $mail_activityaction_donedefault:mail_activity();
+                                            $mail_activityaction_doneattachment:ir_attachment();
+                                            $mail_activityaction_doneattachment_filter:ir_attachment();
+                                            $mail_activityaction_doneattachment_page:ir_attachment();
+                                            $mail_activityaction_donemail_activity_type:mail_activity_type();
+                                            $mail_activityaction_donemail_message:mail_message();
+                                            $mail_activityaction_donemail_thread:mail_thread();
+                                            $mail_activityaction_donenext_activity:mail_activity();
+                                            $mail_activityaction_donetriggered_next_type:mail_activity_type();
+                                    eval($mail_activityaction_donedefault==mail_activityaction_donedefault && $mail_activityaction_doneattachment==mail_activityaction_doneattachment && $mail_activityaction_doneattachment_filter==mail_activityaction_doneattachment_filter && $mail_activityaction_doneattachment_page==mail_activityaction_doneattachment_page && $mail_activityaction_donemail_activity_type==mail_activityaction_donemail_activity_type && $mail_activityaction_donemail_message==mail_activityaction_donemail_message && $mail_activityaction_donemail_thread==mail_activityaction_donemail_thread && $mail_activityaction_donenext_activity==mail_activityaction_donenext_activity && $mail_activityaction_donetriggered_next_type==mail_activityaction_donetriggered_next_type);
+                                eval((RuleUtils.test($mail_activityaction_donedefault.get("activityTypeId"),"ISNULL","")))
+                                ]]>
+                            </conditionExpression>
+                    </sequenceFlow>
+                    <sequenceFlow id="prepareparam_02_deaction_01" sourceRef="prepareparam_02" targetRef="deaction_01">
+                    </sequenceFlow>
+                    <sequenceFlow id="deaction_04_prepareparam_03" sourceRef="deaction_04" targetRef="prepareparam_03">
+                    </sequenceFlow>
+                    <sequenceFlow id="gateway-deaction_01_prepareparam_04" sourceRef="gateway-deaction_01" targetRef="prepareparam_04">
+                            <conditionExpression  language="http://www.jboss.org/drools/rule" ><![CDATA[
+                                            $mail_activityaction_donedefault:mail_activity();
+                                            $mail_activityaction_doneattachment:ir_attachment();
+                                            $mail_activityaction_doneattachment_filter:ir_attachment();
+                                            $mail_activityaction_doneattachment_page:ir_attachment();
+                                            $mail_activityaction_donemail_activity_type:mail_activity_type();
+                                            $mail_activityaction_donemail_message:mail_message();
+                                            $mail_activityaction_donemail_thread:mail_thread();
+                                            $mail_activityaction_donenext_activity:mail_activity();
+                                            $mail_activityaction_donetriggered_next_type:mail_activity_type();
+                                    eval($mail_activityaction_donedefault==mail_activityaction_donedefault && $mail_activityaction_doneattachment==mail_activityaction_doneattachment && $mail_activityaction_doneattachment_filter==mail_activityaction_doneattachment_filter && $mail_activityaction_doneattachment_page==mail_activityaction_doneattachment_page && $mail_activityaction_donemail_activity_type==mail_activityaction_donemail_activity_type && $mail_activityaction_donemail_message==mail_activityaction_donemail_message && $mail_activityaction_donemail_thread==mail_activityaction_donemail_thread && $mail_activityaction_donenext_activity==mail_activityaction_donenext_activity && $mail_activityaction_donetriggered_next_type==mail_activityaction_donetriggered_next_type);
+                                eval((RuleUtils.test($mail_activityaction_donemail_activity_type.get("chainingType"),"EQ","trigger")))
+                                ]]>
+                            </conditionExpression>
+                    </sequenceFlow>
+                    <sequenceFlow id="gateway-deaction_01_rawsfcode_02" sourceRef="gateway-deaction_01" targetRef="rawsfcode_02">
+                            <conditionExpression  language="http://www.jboss.org/drools/rule" ><![CDATA[
+                                            $mail_activityaction_donedefault:mail_activity();
+                                            $mail_activityaction_doneattachment:ir_attachment();
+                                            $mail_activityaction_doneattachment_filter:ir_attachment();
+                                            $mail_activityaction_doneattachment_page:ir_attachment();
+                                            $mail_activityaction_donemail_activity_type:mail_activity_type();
+                                            $mail_activityaction_donemail_message:mail_message();
+                                            $mail_activityaction_donemail_thread:mail_thread();
+                                            $mail_activityaction_donenext_activity:mail_activity();
+                                            $mail_activityaction_donetriggered_next_type:mail_activity_type();
+                                    eval($mail_activityaction_donedefault==mail_activityaction_donedefault && $mail_activityaction_doneattachment==mail_activityaction_doneattachment && $mail_activityaction_doneattachment_filter==mail_activityaction_doneattachment_filter && $mail_activityaction_doneattachment_page==mail_activityaction_doneattachment_page && $mail_activityaction_donemail_activity_type==mail_activityaction_donemail_activity_type && $mail_activityaction_donemail_message==mail_activityaction_donemail_message && $mail_activityaction_donemail_thread==mail_activityaction_donemail_thread && $mail_activityaction_donenext_activity==mail_activityaction_donenext_activity && $mail_activityaction_donetriggered_next_type==mail_activityaction_donetriggered_next_type);
+                                eval((RuleUtils.test($mail_activityaction_donemail_activity_type.get("keepDone"),"EQ","1")))
+                                ]]>
+                            </conditionExpression>
+                    </sequenceFlow>
+                    <sequenceFlow id="gateway-deaction_01_deaction_03" sourceRef="gateway-deaction_01" targetRef="deaction_03">
+                            <conditionExpression  language="http://www.jboss.org/drools/rule" ><![CDATA[
+                                            $mail_activityaction_donedefault:mail_activity();
+                                            $mail_activityaction_doneattachment:ir_attachment();
+                                            $mail_activityaction_doneattachment_filter:ir_attachment();
+                                            $mail_activityaction_doneattachment_page:ir_attachment();
+                                            $mail_activityaction_donemail_activity_type:mail_activity_type();
+                                            $mail_activityaction_donemail_message:mail_message();
+                                            $mail_activityaction_donemail_thread:mail_thread();
+                                            $mail_activityaction_donenext_activity:mail_activity();
+                                            $mail_activityaction_donetriggered_next_type:mail_activity_type();
+                                    eval($mail_activityaction_donedefault==mail_activityaction_donedefault && $mail_activityaction_doneattachment==mail_activityaction_doneattachment && $mail_activityaction_doneattachment_filter==mail_activityaction_doneattachment_filter && $mail_activityaction_doneattachment_page==mail_activityaction_doneattachment_page && $mail_activityaction_donemail_activity_type==mail_activityaction_donemail_activity_type && $mail_activityaction_donemail_message==mail_activityaction_donemail_message && $mail_activityaction_donemail_thread==mail_activityaction_donemail_thread && $mail_activityaction_donenext_activity==mail_activityaction_donenext_activity && $mail_activityaction_donetriggered_next_type==mail_activityaction_donetriggered_next_type);
+                                eval(((RuleUtils.test($mail_activityaction_donemail_activity_type.get("keepDone"),"EQ","1"))))
+                                ]]>
+                            </conditionExpression>
+                    </sequenceFlow>
+                    <sequenceFlow id="prepareparam_03_prepareparam_09" sourceRef="prepareparam_03" targetRef="prepareparam_09">
+                    </sequenceFlow>
+                    <sequenceFlow id="prepareparam_04_deaction_04" sourceRef="prepareparam_04" targetRef="deaction_04">
+                    </sequenceFlow>
+                    <sequenceFlow id="prepareparam_01_dedataset_01" sourceRef="prepareparam_01" targetRef="dedataset_01">
+                    </sequenceFlow>
+                    <sequenceFlow id="rawsfcode_03_prepareparam_01" sourceRef="rawsfcode_03" targetRef="prepareparam_01">
+                    </sequenceFlow>
+                    <sequenceFlow id="rawsfcode_01_rawsfcode_03" sourceRef="rawsfcode_01" targetRef="rawsfcode_03">
+                    </sequenceFlow>
+                    <sequenceFlow id="deaction_010_prepareparam_07" sourceRef="deaction_010" targetRef="prepareparam_07">
+                    </sequenceFlow>
+                    <sequenceFlow id="gateway-dedataset_01_loopsubcall_01" sourceRef="gateway-dedataset_01" targetRef="loopsubcall_01">
+                            <conditionExpression  language="http://www.jboss.org/drools/rule" ><![CDATA[
+                                            $mail_activityaction_donedefault:mail_activity();
+                                            $mail_activityaction_doneattachment:ir_attachment();
+                                            $mail_activityaction_doneattachment_filter:ir_attachment();
+                                            $mail_activityaction_doneattachment_page:ir_attachment();
+                                            $mail_activityaction_donemail_activity_type:mail_activity_type();
+                                            $mail_activityaction_donemail_message:mail_message();
+                                            $mail_activityaction_donemail_thread:mail_thread();
+                                            $mail_activityaction_donenext_activity:mail_activity();
+                                            $mail_activityaction_donetriggered_next_type:mail_activity_type();
+                                    eval($mail_activityaction_donedefault==mail_activityaction_donedefault && $mail_activityaction_doneattachment==mail_activityaction_doneattachment && $mail_activityaction_doneattachment_filter==mail_activityaction_doneattachment_filter && $mail_activityaction_doneattachment_page==mail_activityaction_doneattachment_page && $mail_activityaction_donemail_activity_type==mail_activityaction_donemail_activity_type && $mail_activityaction_donemail_message==mail_activityaction_donemail_message && $mail_activityaction_donemail_thread==mail_activityaction_donemail_thread && $mail_activityaction_donenext_activity==mail_activityaction_donenext_activity && $mail_activityaction_donetriggered_next_type==mail_activityaction_donetriggered_next_type);
+                                eval((RuleUtils.test($mail_activityaction_doneattachment_page.get("total"),"GT","0")))
+                                ]]>
+                            </conditionExpression>
+                    </sequenceFlow>
+                    <sequenceFlow id="gateway-dedataset_01_debugparam_02" sourceRef="gateway-dedataset_01" targetRef="debugparam_02">
+                            <conditionExpression  language="http://www.jboss.org/drools/rule" ><![CDATA[
+                                            $mail_activityaction_donedefault:mail_activity();
+                                            $mail_activityaction_doneattachment:ir_attachment();
+                                            $mail_activityaction_doneattachment_filter:ir_attachment();
+                                            $mail_activityaction_doneattachment_page:ir_attachment();
+                                            $mail_activityaction_donemail_activity_type:mail_activity_type();
+                                            $mail_activityaction_donemail_message:mail_message();
+                                            $mail_activityaction_donemail_thread:mail_thread();
+                                            $mail_activityaction_donenext_activity:mail_activity();
+                                            $mail_activityaction_donetriggered_next_type:mail_activity_type();
+                                    eval($mail_activityaction_donedefault==mail_activityaction_donedefault && $mail_activityaction_doneattachment==mail_activityaction_doneattachment && $mail_activityaction_doneattachment_filter==mail_activityaction_doneattachment_filter && $mail_activityaction_doneattachment_page==mail_activityaction_doneattachment_page && $mail_activityaction_donemail_activity_type==mail_activityaction_donemail_activity_type && $mail_activityaction_donemail_message==mail_activityaction_donemail_message && $mail_activityaction_donemail_thread==mail_activityaction_donemail_thread && $mail_activityaction_donenext_activity==mail_activityaction_donenext_activity && $mail_activityaction_donetriggered_next_type==mail_activityaction_donetriggered_next_type);
+                                eval((RuleUtils.test($mail_activityaction_doneattachment_page.get("total"),"EQ","0")))
+                                ]]>
+                            </conditionExpression>
+                    </sequenceFlow>
+                    <sequenceFlow id="loopsubcall_01_prepareparam_05" sourceRef="loopsubcall_01" targetRef="prepareparam_05">
+                    </sequenceFlow>
+                    <sequenceFlow id="loopsubcall_01_debugparam_02" sourceRef="loopsubcall_01" targetRef="debugparam_02">
+                    </sequenceFlow>
+                    <sequenceFlow id="prepareparam_09_deaction_010" sourceRef="prepareparam_09" targetRef="deaction_010">
+                    </sequenceFlow>
+                    <sequenceFlow id="rawsfcode_02_deaction_02" sourceRef="rawsfcode_02" targetRef="deaction_02">
+                    </sequenceFlow>
+                    <sequenceFlow id="deaction_03_debugparam_02" sourceRef="deaction_03" targetRef="debugparam_02">
+                    </sequenceFlow>
+                    <sequenceFlow id="deaction_02_debugparam_02" sourceRef="deaction_02" targetRef="debugparam_02">
+                    </sequenceFlow>
+                    <sequenceFlow id="debugparam_01_deaction_08" sourceRef="debugparam_01" targetRef="deaction_08">
+                    </sequenceFlow>
+                    <sequenceFlow id="prepareparam_07_debugparam_01" sourceRef="prepareparam_07" targetRef="debugparam_01">
+                    </sequenceFlow>
+                    <sequenceFlow id="prepareparam_05_deaction_05" sourceRef="prepareparam_05" targetRef="deaction_05">
+                    </sequenceFlow>
+                    <sequenceFlow id="deaction_08_debugparam_02" sourceRef="deaction_08" targetRef="debugparam_02">
+                    </sequenceFlow>
+                    <sequenceFlow id="gateway-debugparam_02_prepareparam_06" sourceRef="gateway-debugparam_02" targetRef="prepareparam_06">
+                            <conditionExpression  language="http://www.jboss.org/drools/rule" ><![CDATA[
+                                            $mail_activityaction_donedefault:mail_activity();
+                                            $mail_activityaction_doneattachment:ir_attachment();
+                                            $mail_activityaction_doneattachment_filter:ir_attachment();
+                                            $mail_activityaction_doneattachment_page:ir_attachment();
+                                            $mail_activityaction_donemail_activity_type:mail_activity_type();
+                                            $mail_activityaction_donemail_message:mail_message();
+                                            $mail_activityaction_donemail_thread:mail_thread();
+                                            $mail_activityaction_donenext_activity:mail_activity();
+                                            $mail_activityaction_donetriggered_next_type:mail_activity_type();
+                                    eval($mail_activityaction_donedefault==mail_activityaction_donedefault && $mail_activityaction_doneattachment==mail_activityaction_doneattachment && $mail_activityaction_doneattachment_filter==mail_activityaction_doneattachment_filter && $mail_activityaction_doneattachment_page==mail_activityaction_doneattachment_page && $mail_activityaction_donemail_activity_type==mail_activityaction_donemail_activity_type && $mail_activityaction_donemail_message==mail_activityaction_donemail_message && $mail_activityaction_donemail_thread==mail_activityaction_donemail_thread && $mail_activityaction_donenext_activity==mail_activityaction_donenext_activity && $mail_activityaction_donetriggered_next_type==mail_activityaction_donetriggered_next_type);
+                                eval((RuleUtils.test($mail_activityaction_donenext_activity.get("id"),"ISNULL","")))
+                                ]]>
+                            </conditionExpression>
+                    </sequenceFlow>
+                    <sequenceFlow id="gateway-debugparam_02_prepareparam_010" sourceRef="gateway-debugparam_02" targetRef="prepareparam_010">
+                            <conditionExpression  language="http://www.jboss.org/drools/rule" ><![CDATA[
+                                            $mail_activityaction_donedefault:mail_activity();
+                                            $mail_activityaction_doneattachment:ir_attachment();
+                                            $mail_activityaction_doneattachment_filter:ir_attachment();
+                                            $mail_activityaction_doneattachment_page:ir_attachment();
+                                            $mail_activityaction_donemail_activity_type:mail_activity_type();
+                                            $mail_activityaction_donemail_message:mail_message();
+                                            $mail_activityaction_donemail_thread:mail_thread();
+                                            $mail_activityaction_donenext_activity:mail_activity();
+                                            $mail_activityaction_donetriggered_next_type:mail_activity_type();
+                                    eval($mail_activityaction_donedefault==mail_activityaction_donedefault && $mail_activityaction_doneattachment==mail_activityaction_doneattachment && $mail_activityaction_doneattachment_filter==mail_activityaction_doneattachment_filter && $mail_activityaction_doneattachment_page==mail_activityaction_doneattachment_page && $mail_activityaction_donemail_activity_type==mail_activityaction_donemail_activity_type && $mail_activityaction_donemail_message==mail_activityaction_donemail_message && $mail_activityaction_donemail_thread==mail_activityaction_donemail_thread && $mail_activityaction_donenext_activity==mail_activityaction_donenext_activity && $mail_activityaction_donetriggered_next_type==mail_activityaction_donetriggered_next_type);
+                                eval((RuleUtils.test($mail_activityaction_donenext_activity.get("id"),"ISNOTNULL","")))
+                                ]]>
+                            </conditionExpression>
+                    </sequenceFlow>
+                    <sequenceFlow id="prepareparam_06_end_01" sourceRef="prepareparam_06" targetRef="end_01">
+                    </sequenceFlow>
+                    <sequenceFlow id="prepareparam_010_end_01" sourceRef="prepareparam_010" targetRef="end_01">
+                    </sequenceFlow>
+                            <exclusiveGateway id="gateway-debugparam_03" name="Gateway" gatewayDirection="Diverging" default="gateway-debugparam_03_end_line"></exclusiveGateway>
+                            <sequenceFlow id="debugparam_03_gateway-debugparam_03_gatewayline" sourceRef="debugparam_03" targetRef="gateway-debugparam_03"></sequenceFlow>
+                            <sequenceFlow id="gateway-debugparam_03_end_line" sourceRef="gateway-debugparam_03" targetRef="gateway-debugparam_03_end"/>
+                            <endEvent id="gateway-debugparam_03_end" name="end"/>
+                            <exclusiveGateway id="gateway-deaction_01" name="Gateway" gatewayDirection="Diverging" default="gateway-deaction_01_end_line"></exclusiveGateway>
+                            <sequenceFlow id="deaction_01_gateway-deaction_01_gatewayline" sourceRef="deaction_01" targetRef="gateway-deaction_01"></sequenceFlow>
+                            <sequenceFlow id="gateway-deaction_01_end_line" sourceRef="gateway-deaction_01" targetRef="gateway-deaction_01_end"/>
+                            <endEvent id="gateway-deaction_01_end" name="end"/>
+                            <exclusiveGateway id="gateway-dedataset_01" name="Gateway" gatewayDirection="Diverging" default="gateway-dedataset_01_end_line"></exclusiveGateway>
+                            <sequenceFlow id="dedataset_01_gateway-dedataset_01_gatewayline" sourceRef="dedataset_01" targetRef="gateway-dedataset_01"></sequenceFlow>
+                            <sequenceFlow id="gateway-dedataset_01_end_line" sourceRef="gateway-dedataset_01" targetRef="gateway-dedataset_01_end"/>
+                            <endEvent id="gateway-dedataset_01_end" name="end"/>
+                            <exclusiveGateway id="gateway-debugparam_02" name="Gateway" gatewayDirection="Diverging" default="gateway-debugparam_02_end_line"></exclusiveGateway>
+                            <sequenceFlow id="debugparam_02_gateway-debugparam_02_gatewayline" sourceRef="debugparam_02" targetRef="gateway-debugparam_02"></sequenceFlow>
+                            <sequenceFlow id="gateway-debugparam_02_end_line" sourceRef="gateway-debugparam_02" targetRef="gateway-debugparam_02_end"/>
+                            <endEvent id="gateway-debugparam_02_end" name="end"/>
+        </process>
+    </definitions>

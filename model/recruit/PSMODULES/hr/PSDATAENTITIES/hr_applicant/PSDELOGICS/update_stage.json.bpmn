@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+    <definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:g="http://www.jboss.org/drools/flow/gpd" xmlns:tns="http://www.jboss.org/drools" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" expressionLanguage="http://www.mvel.org/2.0" id="Definition" name="" targetNamespace="http://www.jboss.org/drools" typeLanguage="http://www.java.com/javaTypes">
+        <process id="cn.ibizlab.core.hr.service.logic.hr_applicantupdate_stage" isClosed="false" isExecutable="true" name="hr_hr_applicant_update_stage_ruleFlow" processType="Private" tns:packageName="cn.ibizlab.core.hr.service.logic.hr_applicantupdate_stage">
+            <extensionElements>
+                <tns:import name="java.util.Map" />
+                <tns:import name="org.springframework.util.StringUtils"/>
+                <tns:import name="cn.ibizlab.util.helper.RuleUtils"/>
+                                <tns:metaData express="" name="hr_applicantupdate_stagedefault" type="entity"/>
+                                <tns:metaData express="new cn.ibizlab.core.hr.domain.hr_applicant()" name="hr_applicantupdate_stagehr_applicant" type="refentity"/>
+                                <tns:metaData express="new cn.ibizlab.core.hr.domain.hr_recruitment_stage()" name="hr_applicantupdate_stagehr_stage" type="refentity"/>
+                                <tns:metaData express="new cn.ibizlab.core.hr.domain.hr_recruitment_stage()" name="hr_applicantupdate_stagepage_stage" type="refentity"/>
+                                <tns:metaData express="new cn.ibizlab.core.hr.domain.hr_recruitment_stage()" name="hr_applicantupdate_stagestage_filter" type="refentity"/>
+                                    <tns:metaData express="T(cn.ibizlab.util.security.SpringContextHolder).getBean(T(cn.ibizlab.core.hr.service.Ihr_recruitment_stageService))" name="hr_recruitment_stageservice" type="service"/>
+                                    <tns:metaData express="T(cn.ibizlab.util.security.SpringContextHolder).getBean(T(cn.ibizlab.core.hr.service.Ihr_applicantService))" name="hr_applicantservice" type="service"/>
+                    <tns:metaData express="T(cn.ibizlab.util.security.SpringContextHolder).getBean(T(cn.ibizlab.core.hr.service.Ihr_applicantService))" name="iBzSysHr_applicantDefaultService" type="service"/>
+                    <tns:metaData express="T(cn.ibizlab.util.security.AuthenticationUser).getAuthenticationUser()" name="curuser" type="session"/>
+                            <tns:global identifier="hr_applicantupdate_stagedefault" type="cn.ibizlab.core.hr.domain.hr_applicant" />
+                            <tns:global identifier="hr_applicantupdate_stagehr_applicant" type="cn.ibizlab.core.hr.domain.hr_applicant" />
+                            <tns:global identifier="hr_applicantupdate_stagehr_stage" type="cn.ibizlab.core.hr.domain.hr_recruitment_stage" />
+                            <tns:global identifier="hr_applicantupdate_stagepage_stage" type="cn.ibizlab.core.hr.domain.hr_recruitment_stage" />
+                            <tns:global identifier="hr_applicantupdate_stagestage_filter" type="cn.ibizlab.core.hr.domain.hr_recruitment_stage" />
+            </extensionElements>
+                        <startEvent id="begin" isInterrupting="true"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="hr_applicantupdate_stagethrowexception1" id="throwexception1" implementation="http://www.jboss.org/drools/rule" name="抛出异常"/>
+                        <endEvent id="throwexception1_end" name="end"/>
+                        <sequenceFlow id="throwexception1_end_line" sourceRef="throwexception1" targetRef="throwexception1_end"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="hr_applicantupdate_stageprepareparam1" id="prepareparam1" implementation="http://www.jboss.org/drools/rule" name="设置阶段序号"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="hr_applicantupdate_stagededataset1" id="dedataset1" implementation="http://www.jboss.org/drools/rule" name="查询阶段"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="hr_applicantupdate_stageprepareparam2" id="prepareparam2" implementation="http://www.jboss.org/drools/rule" name="准备参数"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="hr_applicantupdate_stagedebugparam1" id="debugparam1" implementation="http://www.jboss.org/drools/rule" name="调试逻辑参数"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="hr_applicantupdate_stageprepareparam3" id="prepareparam3" implementation="http://www.jboss.org/drools/rule" name="准备参数"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="hr_applicantupdate_stagedeaction1" id="deaction1" implementation="http://www.jboss.org/drools/rule" name="更新申请阶段"/>
+                        <endEvent id="deaction1_end" name="end"/>
+                        <sequenceFlow id="deaction1_end_line" sourceRef="deaction1" targetRef="deaction1_end"/>
+                    <sequenceFlow id="gateway-begin_prepareparam1" sourceRef="gateway-begin" targetRef="prepareparam1">
+                            <conditionExpression  language="http://www.jboss.org/drools/rule" ><![CDATA[
+                                            $hr_applicantupdate_stagedefault:hr_applicant();
+                                            $hr_applicantupdate_stagehr_applicant:hr_applicant();
+                                            $hr_applicantupdate_stagehr_stage:hr_recruitment_stage();
+                                            $hr_applicantupdate_stagepage_stage:hr_recruitment_stage();
+                                            $hr_applicantupdate_stagestage_filter:hr_recruitment_stage();
+                                    eval($hr_applicantupdate_stagedefault==hr_applicantupdate_stagedefault && $hr_applicantupdate_stagehr_applicant==hr_applicantupdate_stagehr_applicant && $hr_applicantupdate_stagehr_stage==hr_applicantupdate_stagehr_stage && $hr_applicantupdate_stagepage_stage==hr_applicantupdate_stagepage_stage && $hr_applicantupdate_stagestage_filter==hr_applicantupdate_stagestage_filter);
+                                eval((RuleUtils.test($hr_applicantupdate_stagedefault.get("stageSequence"),"ISNOTNULL","")))
+                                ]]>
+                            </conditionExpression>
+                    </sequenceFlow>
+                    <sequenceFlow id="gateway-begin_throwexception1" sourceRef="gateway-begin" targetRef="throwexception1">
+                            <conditionExpression  language="http://www.jboss.org/drools/rule" ><![CDATA[
+                                            $hr_applicantupdate_stagedefault:hr_applicant();
+                                            $hr_applicantupdate_stagehr_applicant:hr_applicant();
+                                            $hr_applicantupdate_stagehr_stage:hr_recruitment_stage();
+                                            $hr_applicantupdate_stagepage_stage:hr_recruitment_stage();
+                                            $hr_applicantupdate_stagestage_filter:hr_recruitment_stage();
+                                    eval($hr_applicantupdate_stagedefault==hr_applicantupdate_stagedefault && $hr_applicantupdate_stagehr_applicant==hr_applicantupdate_stagehr_applicant && $hr_applicantupdate_stagehr_stage==hr_applicantupdate_stagehr_stage && $hr_applicantupdate_stagepage_stage==hr_applicantupdate_stagepage_stage && $hr_applicantupdate_stagestage_filter==hr_applicantupdate_stagestage_filter);
+                                eval((RuleUtils.test($hr_applicantupdate_stagedefault.get("stageSequence"),"ISNULL","")))
+                                ]]>
+                            </conditionExpression>
+                    </sequenceFlow>
+                    <sequenceFlow id="prepareparam1_dedataset1" sourceRef="prepareparam1" targetRef="dedataset1">
+                    </sequenceFlow>
+                    <sequenceFlow id="gateway-dedataset1_prepareparam2" sourceRef="gateway-dedataset1" targetRef="prepareparam2">
+                            <conditionExpression  language="http://www.jboss.org/drools/rule" ><![CDATA[
+                                            $hr_applicantupdate_stagedefault:hr_applicant();
+                                            $hr_applicantupdate_stagehr_applicant:hr_applicant();
+                                            $hr_applicantupdate_stagehr_stage:hr_recruitment_stage();
+                                            $hr_applicantupdate_stagepage_stage:hr_recruitment_stage();
+                                            $hr_applicantupdate_stagestage_filter:hr_recruitment_stage();
+                                    eval($hr_applicantupdate_stagedefault==hr_applicantupdate_stagedefault && $hr_applicantupdate_stagehr_applicant==hr_applicantupdate_stagehr_applicant && $hr_applicantupdate_stagehr_stage==hr_applicantupdate_stagehr_stage && $hr_applicantupdate_stagepage_stage==hr_applicantupdate_stagepage_stage && $hr_applicantupdate_stagestage_filter==hr_applicantupdate_stagestage_filter);
+                                eval((RuleUtils.test($hr_applicantupdate_stagepage_stage.get("size"),"GT","0")))
+                                ]]>
+                            </conditionExpression>
+                    </sequenceFlow>
+                    <sequenceFlow id="prepareparam2_debugparam1" sourceRef="prepareparam2" targetRef="debugparam1">
+                    </sequenceFlow>
+                    <sequenceFlow id="debugparam1_prepareparam3" sourceRef="debugparam1" targetRef="prepareparam3">
+                    </sequenceFlow>
+                    <sequenceFlow id="prepareparam3_deaction1" sourceRef="prepareparam3" targetRef="deaction1">
+                    </sequenceFlow>
+                            <exclusiveGateway id="gateway-begin" name="Gateway" gatewayDirection="Diverging" default="gateway-begin_end_line"></exclusiveGateway>
+                            <sequenceFlow id="begin_gateway-begin_gatewayline" sourceRef="begin" targetRef="gateway-begin"></sequenceFlow>
+                            <sequenceFlow id="gateway-begin_end_line" sourceRef="gateway-begin" targetRef="gateway-begin_end"/>
+                            <endEvent id="gateway-begin_end" name="end"/>
+                            <exclusiveGateway id="gateway-dedataset1" name="Gateway" gatewayDirection="Diverging" default="gateway-dedataset1_end_line"></exclusiveGateway>
+                            <sequenceFlow id="dedataset1_gateway-dedataset1_gatewayline" sourceRef="dedataset1" targetRef="gateway-dedataset1"></sequenceFlow>
+                            <sequenceFlow id="gateway-dedataset1_end_line" sourceRef="gateway-dedataset1" targetRef="gateway-dedataset1_end"/>
+                            <endEvent id="gateway-dedataset1_end" name="end"/>
+        </process>
+    </definitions>

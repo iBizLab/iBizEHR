@@ -1,0 +1,71 @@
+export default {
+  codeListTag: 'deli_checkin_type',
+  codeListType: 'STATIC',
+  codeName: 'deli_checkin_type',
+  emptyText: '未定义',
+  codeItems: [
+    {
+      codeName: 'fa',
+      text: '人脸识别',
+      value: 'fa',
+      id: 'fa',
+    },
+    {
+      codeName: 'fp',
+      text: '指纹识别',
+      value: 'fp',
+      id: 'fp',
+    },
+    {
+      codeName: 'card',
+      text: '工卡识别',
+      value: 'card',
+      id: 'card',
+    },
+    {
+      codeName: 'reissue',
+      text: '补签申请',
+      value: 'reissue',
+      id: 'reissue',
+    },
+    {
+      codeName: 'pass',
+      text: '密码',
+      value: 'pass',
+      id: 'pass',
+    },
+    {
+      codeName: 'app_scan',
+      text: 'APP扫码',
+      value: 'app_scan',
+      id: 'app_scan',
+    },
+    {
+      codeName: 'gps',
+      text: 'gps位置打卡',
+      value: 'gps',
+      id: 'gps',
+    },
+    {
+      codeName: 'wifi',
+      text: 'wifi打卡',
+      value: 'wifi',
+      id: 'wifi',
+    },
+    {
+      codeName: 'out_work',
+      text: '外勤打卡',
+      value: 'out_work',
+      id: 'out_work',
+    },
+    {
+      codeName: 'flexible',
+      text: '自动补的灵活卡',
+      value: 'flexible',
+      id: 'flexible',
+    },
+  ],
+  enableCache: true,
+  name: '打卡方式（得力）',
+  id: 'attendanceapp.deli_checkin_type',
+};

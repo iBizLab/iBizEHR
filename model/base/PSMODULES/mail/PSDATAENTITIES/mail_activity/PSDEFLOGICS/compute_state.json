@@ -1,0 +1,17 @@
+{
+  "codeName" : "compute_state",
+  "dEFLogicMode" : "COMPUTE",
+  "defaultParamName" : "DEFAULT",
+  "dynaModelFilePath" : "PSMODULES/mail/PSDATAENTITIES/mail_activity/PSDEFLOGICS/compute_state.json",
+  "logicName" : "compute_state",
+  "logicSubType" : "DEFIELD",
+  "name" : "compute_state",
+  "getPSDEField" : {
+    "name" : "STATE",
+    "codeName" : "state"
+  },
+  "scriptCode" : "//Groovy\r\ndef curTime = net.ibizsys.runtime.util.DateUtils.getCurTime();\r\nif(entity.get(\"date_deadline\"))\r\n{\r\n    def deadlineTime = new java.sql.Timestamp(net.ibizsys.runtime.util.DateUtils.getTime(entity.get(\"date_deadline\")));\r\n    java.time.LocalDate curdate = curTime.toInstant().atZone(java.time.ZoneId.systemDefault()).toLocalDate();\r\n    java.time.LocalDate deadlinedate = deadlineTime.toInstant().atZone(java.time.ZoneId.systemDefault()).toLocalDate();\r\n    long daysBetween =  java.time.temporal.ChronoUnit.DAYS.between(curdate, deadlinedate);\r\n    if(daysBetween > 0) {\r\n         return \"planned\";\r\n    }else if (daysBetween < 0){\r\n        return \"overdue\";\r\n    }else{\r\n        return \"today\";\r\n    }\r\n}  \r\n",
+  "customCode" : true,
+  "enableBackend" : true,
+  "enableFront" : false
+}

@@ -1,0 +1,1156 @@
+{
+  "codeName" : "action_done",
+  "defaultParamName" : "Default",
+  "dynaModelFilePath" : "PSMODULES/mail/PSDATAENTITIES/mail_activity/PSDELOGICS/action_done.json",
+  "logicName" : "完成活动",
+  "memo" : "1.根据活动类型的keep_done判断活动是归档还是删除;\n2.生成活动完成消息到message；\n3.活动关联的附件换绑：\n由绑定活动改绑成绑定消息\n4.当活动类型的链接类型=trigger,生成下一个活动\n5.最后返回下一个活动的id,因为\"完成并下一个界面行为\"需要id来判断是否重新打开新建活动页面\n\n",
+  "name" : "完成活动",
+  "getPSDELogicNodes" : [ {
+    "codeName" : "Begin",
+    "leftPos" : -190,
+    "logicNodeType" : "BEGIN",
+    "name" : "开始",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "DEBUGPARAM_03"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "Begin"
+      }
+    } ],
+    "topPos" : 2,
+    "parallelOutput" : true
+  }, {
+    "codeName" : "DEBUGPARAM_03",
+    "getDstPSDELogicParam" : {
+      "modelref" : true,
+      "id" : "Default"
+    },
+    "leftPos" : 30,
+    "logicNodeType" : "DEBUGPARAM",
+    "name" : "查看默认",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "RAWSFCODE_01"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "DEBUGPARAM_03"
+      }
+    }, {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "PREPAREPARAM_02"
+      },
+      "name" : "连接名称",
+      "getPSDELogicLinkGroupCond" : {
+        "groupOP" : "AND",
+        "logicType" : "GROUP",
+        "name" : "连接条件组",
+        "getPSDELogicLinkConds" : [ {
+          "condOP" : "ISNOTNULL",
+          "dstFieldName" : "ACTIVITY_TYPE_ID",
+          "getDstLogicParam" : {
+            "modelref" : true,
+            "id" : "Default"
+          },
+          "logicType" : "SINGLE",
+          "name" : "Default[ACTIVITY_TYPE_ID] 值不为空(NotNil)"
+        }, {
+          "condOP" : "NOTEQ",
+          "dstFieldName" : "ACTIVITY_TYPE_ID",
+          "getDstLogicParam" : {
+            "modelref" : true,
+            "id" : "Default"
+          },
+          "logicType" : "SINGLE",
+          "name" : "Default[ACTIVITY_TYPE_ID] 不等于(<>) undefined",
+          "paramValue" : "undefined"
+        } ]
+      },
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "DEBUGPARAM_03"
+      }
+    }, {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "DEACTION_03"
+      },
+      "name" : "连接名称",
+      "getPSDELogicLinkGroupCond" : {
+        "groupOP" : "AND",
+        "logicType" : "GROUP",
+        "name" : "连接条件组",
+        "getPSDELogicLinkConds" : [ {
+          "condOP" : "ISNULL",
+          "dstFieldName" : "ACTIVITY_TYPE_ID",
+          "getDstLogicParam" : {
+            "modelref" : true,
+            "id" : "Default"
+          },
+          "logicType" : "SINGLE",
+          "name" : "Default[ACTIVITY_TYPE_ID] 值为空(Nil)"
+        } ]
+      },
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "DEBUGPARAM_03"
+      }
+    } ],
+    "parallelOutput" : true
+  }, {
+    "codeName" : "PREPAREPARAM_02",
+    "leftPos" : -216,
+    "logicNodeType" : "PREPAREPARAM",
+    "name" : "准备活动类型参数",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "DEACTION_01"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "PREPAREPARAM_02"
+      }
+    } ],
+    "getPSDELogicNodeParams" : [ {
+      "dstFieldName" : "ID",
+      "getDstPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "mail_activity_type"
+      },
+      "paramAction" : "SETPARAMVALUE",
+      "srcFieldName" : "ACTIVITY_TYPE_ID",
+      "getSrcPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "Default"
+      },
+      "srcValueType" : "SRCDLPARAM"
+    } ],
+    "topPos" : 200,
+    "parallelOutput" : true
+  }, {
+    "codeName" : "DEACTION_04",
+    "getDstPSDEAction" : {
+      "modelref" : true,
+      "path" : "PSMODULES/mail/PSDATAENTITIES/mail_activity_type/PSDEACTIONS/Get.json"
+    },
+    "getDstPSDELogicParam" : {
+      "modelref" : true,
+      "id" : "triggered_next_type"
+    },
+    "getDstPSDataEntity" : {
+      "modelref" : true,
+      "path" : "PSMODULES/mail/PSDATAENTITIES/mail_activity_type.json"
+    },
+    "leftPos" : -590,
+    "logicNodeType" : "DEACTION",
+    "name" : "获取触发活动类型数据",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "PREPAREPARAM_03"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "DEACTION_04"
+      }
+    } ],
+    "getRetPSDELogicParam" : {
+      "modelref" : true,
+      "id" : "triggered_next_type"
+    },
+    "topPos" : 290,
+    "parallelOutput" : true
+  }, {
+    "codeName" : "DEACTION_01",
+    "getDstPSDEAction" : {
+      "modelref" : true,
+      "path" : "PSMODULES/mail/PSDATAENTITIES/mail_activity_type/PSDEACTIONS/Get.json"
+    },
+    "getDstPSDELogicParam" : {
+      "modelref" : true,
+      "id" : "mail_activity_type"
+    },
+    "getDstPSDataEntity" : {
+      "modelref" : true,
+      "path" : "PSMODULES/mail/PSDATAENTITIES/mail_activity_type.json"
+    },
+    "leftPos" : -216,
+    "logicNodeType" : "DEACTION",
+    "name" : "获取活动类型对象",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "PREPAREPARAM_04"
+      },
+      "name" : "连接名称",
+      "getPSDELogicLinkGroupCond" : {
+        "groupOP" : "AND",
+        "logicType" : "GROUP",
+        "name" : "连接条件组",
+        "getPSDELogicLinkConds" : [ {
+          "condOP" : "EQ",
+          "dstFieldName" : "CHAINING_TYPE",
+          "getDstLogicParam" : {
+            "modelref" : true,
+            "id" : "mail_activity_type"
+          },
+          "logicType" : "SINGLE",
+          "name" : "mail_activity_type[CHAINING_TYPE] 等于(=) trigger",
+          "paramValue" : "trigger"
+        } ]
+      },
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "DEACTION_01"
+      }
+    }, {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "RAWSFCODE_02"
+      },
+      "name" : "连接名称",
+      "getPSDELogicLinkGroupCond" : {
+        "groupOP" : "AND",
+        "logicType" : "GROUP",
+        "name" : "连接条件组",
+        "getPSDELogicLinkConds" : [ {
+          "condOP" : "EQ",
+          "dstFieldName" : "KEEP_DONE",
+          "getDstLogicParam" : {
+            "modelref" : true,
+            "id" : "mail_activity_type"
+          },
+          "logicType" : "SINGLE",
+          "name" : "mail_activity_type[KEEP_DONE] 等于(=) 1",
+          "paramValue" : "1"
+        } ]
+      },
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "DEACTION_01"
+      }
+    }, {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "DEACTION_03"
+      },
+      "name" : "连接名称",
+      "getPSDELogicLinkGroupCond" : {
+        "groupOP" : "AND",
+        "logicType" : "GROUP",
+        "name" : "连接条件组",
+        "getPSDELogicLinkConds" : [ {
+          "groupOP" : "AND",
+          "logicType" : "GROUP",
+          "name" : "AND [取反]",
+          "getPSDELogicLinkConds" : [ {
+            "condOP" : "EQ",
+            "dstFieldName" : "KEEP_DONE",
+            "getDstLogicParam" : {
+              "modelref" : true,
+              "id" : "mail_activity_type"
+            },
+            "logicType" : "SINGLE",
+            "name" : "mail_activity_type[KEEP_DONE] 等于(=) 1",
+            "paramValue" : "1"
+          } ],
+          "notMode" : true
+        } ]
+      },
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "DEACTION_01"
+      }
+    } ],
+    "getRetPSDELogicParam" : {
+      "modelref" : true,
+      "id" : "mail_activity_type"
+    },
+    "topPos" : 300,
+    "parallelOutput" : true
+  }, {
+    "codeName" : "PREPAREPARAM_03",
+    "leftPos" : -784,
+    "logicNodeType" : "PREPAREPARAM",
+    "name" : "准备下一个活动参数",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "PREPAREPARAM_09"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "PREPAREPARAM_03"
+      }
+    } ],
+    "getPSDELogicNodeParams" : [ {
+      "dstFieldName" : "PREVIOUS_ACTIVITY_TYPE_ID",
+      "getDstPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "next_activity"
+      },
+      "paramAction" : "SETPARAMVALUE",
+      "srcFieldName" : "ACTIVITY_TYPE_ID",
+      "getSrcPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "Default"
+      },
+      "srcValueType" : "SRCDLPARAM"
+    }, {
+      "dstFieldName" : "RES_ID",
+      "getDstPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "next_activity"
+      },
+      "paramAction" : "SETPARAMVALUE",
+      "srcFieldName" : "RES_ID",
+      "getSrcPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "Default"
+      },
+      "srcValueType" : "SRCDLPARAM"
+    }, {
+      "dstFieldName" : "RES_MODEL",
+      "getDstPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "next_activity"
+      },
+      "paramAction" : "SETPARAMVALUE",
+      "srcFieldName" : "RES_MODEL",
+      "getSrcPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "Default"
+      },
+      "srcValueType" : "SRCDLPARAM"
+    }, {
+      "dstFieldName" : "ACTIVITY_TYPE_ID",
+      "getDstPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "next_activity"
+      },
+      "paramAction" : "SETPARAMVALUE",
+      "srcFieldName" : "TRIGGERED_NEXT_TYPE_ID",
+      "getSrcPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "mail_activity_type"
+      },
+      "srcValueType" : "SRCDLPARAM"
+    }, {
+      "dstFieldName" : "SUMMARY",
+      "getDstPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "next_activity"
+      },
+      "paramAction" : "SETPARAMVALUE",
+      "srcFieldName" : "SUMMARY",
+      "getSrcPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "triggered_next_type"
+      },
+      "srcValueType" : "SRCDLPARAM"
+    }, {
+      "dstFieldName" : "NOTE",
+      "getDstPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "next_activity"
+      },
+      "paramAction" : "SETPARAMVALUE",
+      "srcFieldName" : "DEFAULT_NOTE",
+      "getSrcPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "triggered_next_type"
+      },
+      "srcValueType" : "SRCDLPARAM"
+    }, {
+      "dstFieldName" : "USER_ID",
+      "getDstPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "next_activity"
+      },
+      "paramAction" : "SETPARAMVALUE",
+      "srcFieldName" : "srfuserid",
+      "getSrcPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "Default"
+      },
+      "srcValueType" : "SRCDLPARAM"
+    }, {
+      "dstFieldName" : "RES_NAME",
+      "getDstPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "next_activity"
+      },
+      "paramAction" : "SETPARAMVALUE",
+      "srcFieldName" : "RES_NAME",
+      "getSrcPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "Default"
+      },
+      "srcValueType" : "SRCDLPARAM"
+    } ],
+    "topPos" : 300,
+    "parallelOutput" : true
+  }, {
+    "codeName" : "PREPAREPARAM_04",
+    "leftPos" : -418,
+    "logicNodeType" : "PREPAREPARAM",
+    "name" : "准备触发活动类型参数",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "DEACTION_04"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "PREPAREPARAM_04"
+      }
+    } ],
+    "getPSDELogicNodeParams" : [ {
+      "dstFieldName" : "ID",
+      "getDstPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "triggered_next_type"
+      },
+      "paramAction" : "SETPARAMVALUE",
+      "srcFieldName" : "TRIGGERED_NEXT_TYPE_ID",
+      "getSrcPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "mail_activity_type"
+      },
+      "srcValueType" : "SRCDLPARAM"
+    } ],
+    "topPos" : 300,
+    "parallelOutput" : true
+  }, {
+    "codeName" : "PREPAREPARAM_01",
+    "leftPos" : 110,
+    "logicNodeType" : "PREPAREPARAM",
+    "name" : "准备附件参数",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "DEDATASET_01"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "PREPAREPARAM_01"
+      }
+    } ],
+    "getPSDELogicNodeParams" : [ {
+      "dstFieldName" : "n_res_id_eq",
+      "getDstPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "attachment_filter"
+      },
+      "paramAction" : "SETPARAMVALUE",
+      "srcFieldName" : "ID",
+      "getSrcPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "Default"
+      },
+      "srcValueType" : "SRCDLPARAM"
+    }, {
+      "dstFieldName" : "n_res_model_eq",
+      "getDstPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "attachment_filter"
+      },
+      "paramAction" : "SETPARAMVALUE",
+      "srcFieldName" : "RES_MODEL",
+      "getSrcPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "Default"
+      },
+      "srcValue" : "mail_activity",
+      "srcValueType" : "SRCVALUE"
+    } ],
+    "topPos" : 310,
+    "parallelOutput" : true
+  }, {
+    "code" : "//Groovy\r\ndef defaultObj = logic.param('default').getReal();\r\nprintln(\"defaultObj数据\"+defaultObj);\r\ndef mailMessageObj  = logic.param('mail_message').getReal();\r\n// 从参数对象获取model属性值\r\ndef modelName = defaultObj.get(\"srfmodelname\")?: defaultObj.get(\"res_model\");\r\n// 通过系统运行时获取实体运行时对象\r\ndef deRuntime = sys.dataentity(modelName)\r\nif(deRuntime == null){\r\n    throw new Exception(String.format(\"消息实体异常\"));\r\n}\r\n\r\ndef messagePostMethod = \"message_post_with_source\"\r\nObject[] args = [mailMessageObj];\r\ndeRuntime.executeAction(messagePostMethod,null,args)\r\n\r\n",
+    "codeName" : "RAWSFCODE_03",
+    "codeType" : "Groovy",
+    "leftPos" : 300,
+    "logicNodeType" : "RAWSFCODE",
+    "name" : "生成message",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "PREPAREPARAM_01"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "RAWSFCODE_03"
+      }
+    } ],
+    "topPos" : 320,
+    "parallelOutput" : true
+  }, {
+    "code" : "def defaultObj = logic.param('default').getReal();\r\ndef mailMessageObj  = logic.param('mail_message').getReal();\r\n\r\ndef activityTypeName=defaultObj.get('activity_type_name');\r\ndef activityTypeId=defaultObj.get('activity_type_id');\r\ndef userName=defaultObj.get('user_name');\r\ndef userId=defaultObj.get('user_id');\r\ndef srfuserid=defaultObj.get('srfuserid');\r\ndef summary=defaultObj.get('summary');\r\ndef note=defaultObj.get('note');\r\n\r\n//反馈内容\r\ndef feedBack=defaultObj.get('feedback');\r\n//当前登录用户id\r\ndef srfPartnerId=defaultObj.get('srfpartnerid');\r\n\r\n// def mailActivityMxin=defaultObj.get('mail_activity_mixin');\r\n// def srfModelName=defaultObj.get('srfmodelname');\r\ndef mailActivityMxin=defaultObj.get('mail_activity_mixin')?: defaultObj.get(\"res_id\");\r\ndef srfModelName=defaultObj.get('srfmodelname')?: defaultObj.get(\"res_model\");\r\n\r\n\r\ndef displayAssignee = (userId != srfuserid);\r\n\r\ndef body = activityTypeName + '\\t 完成' + \r\n    (displayAssignee ? '（最初分配给 ' + userName + '）' : '') +\r\n    (summary ? ':' + summary : '');\r\n\r\ndef notePart = note ? '\\t\\n原始备注:\\n' + note: '';\r\nnotePart = notePart?.replaceAll(/<\\/?p>/, '') ?: ''\r\ndef feedbackPart = feedBack ? '\\t\\n反馈:\\n' + feedBack : '';\r\n\r\nbody += notePart + feedbackPart;    \r\n\r\nmailMessageObj.set('body',body);\r\nmailMessageObj.set('author_id',srfPartnerId);\r\nmailMessageObj.set('mail_activity_type_id',activityTypeId);\r\nmailMessageObj.set('res_id',mailActivityMxin);\r\nmailMessageObj.set('model',srfModelName);\r\n\r\n  \r\n println(\"mailMessageObj\"+mailMessageObj);\r\n\r\n\r\n\r\n\r\n",
+    "codeName" : "RAWSFCODE_01",
+    "codeType" : "Groovy",
+    "leftPos" : 498,
+    "logicNodeType" : "RAWSFCODE",
+    "name" : "填充message数据",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "RAWSFCODE_03"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "RAWSFCODE_01"
+      }
+    } ],
+    "topPos" : 330,
+    "parallelOutput" : true
+  }, {
+    "codeName" : "DEACTION_010",
+    "getDstPSDEAction" : {
+      "modelref" : true,
+      "path" : "PSMODULES/mail/PSDATAENTITIES/mail_activity_type/PSDEACTIONS/get_date_deadline.json"
+    },
+    "getDstPSDELogicParam" : {
+      "modelref" : true,
+      "id" : "mail_activity_type"
+    },
+    "getDstPSDataEntity" : {
+      "modelref" : true,
+      "path" : "PSMODULES/mail/PSDATAENTITIES/mail_activity_type.json"
+    },
+    "leftPos" : -570,
+    "logicNodeType" : "DEACTION",
+    "name" : "获取到期日期",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "PREPAREPARAM_07"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "DEACTION_010"
+      }
+    } ],
+    "getRetPSDELogicParam" : {
+      "modelref" : true,
+      "id" : "mail_activity_type"
+    },
+    "topPos" : 410,
+    "parallelOutput" : true
+  }, {
+    "codeName" : "DEDATASET_01",
+    "getDstPSDEDataSet" : {
+      "modelref" : true,
+      "id" : "Default"
+    },
+    "getDstPSDELogicParam" : {
+      "modelref" : true,
+      "id" : "attachment_filter"
+    },
+    "getDstPSDataEntity" : {
+      "modelref" : true,
+      "path" : "PSMODULES/base/PSDATAENTITIES/ir_attachment.json"
+    },
+    "leftPos" : 110,
+    "logicNodeType" : "DEDATASET",
+    "name" : "获取当前活动的所有附件",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "LOOPSUBCALL_01"
+      },
+      "name" : "连接名称",
+      "getPSDELogicLinkGroupCond" : {
+        "groupOP" : "AND",
+        "logicType" : "GROUP",
+        "name" : "连接条件组",
+        "getPSDELogicLinkConds" : [ {
+          "condOP" : "GT",
+          "dstFieldName" : "total",
+          "getDstLogicParam" : {
+            "modelref" : true,
+            "id" : "attachment_page"
+          },
+          "logicType" : "SINGLE",
+          "name" : "attachment_page[total] 大于(>) 0",
+          "paramValue" : "0"
+        } ]
+      },
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "DEDATASET_01"
+      }
+    }, {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "DEBUGPARAM_02"
+      },
+      "name" : "连接名称",
+      "getPSDELogicLinkGroupCond" : {
+        "groupOP" : "AND",
+        "logicType" : "GROUP",
+        "name" : "连接条件组",
+        "getPSDELogicLinkConds" : [ {
+          "condOP" : "EQ",
+          "dstFieldName" : "total",
+          "getDstLogicParam" : {
+            "modelref" : true,
+            "id" : "attachment_page"
+          },
+          "logicType" : "SINGLE",
+          "name" : "attachment_page[total] 等于(=) 0",
+          "paramValue" : "0"
+        } ]
+      },
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "DEDATASET_01"
+      }
+    } ],
+    "getRetPSDELogicParam" : {
+      "modelref" : true,
+      "id" : "attachment_page"
+    },
+    "topPos" : 420,
+    "parallelOutput" : true
+  }, {
+    "codeName" : "LOOPSUBCALL_01",
+    "getDstPSDELogicParam" : {
+      "modelref" : true,
+      "id" : "attachment"
+    },
+    "leftPos" : 362,
+    "logicNodeType" : "LOOPSUBCALL",
+    "name" : "循环子调用",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "PREPAREPARAM_05"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "LOOPSUBCALL_01"
+      },
+      "subCallLink" : true
+    }, {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "DEBUGPARAM_02"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "LOOPSUBCALL_01"
+      }
+    } ],
+    "getSrcPSDELogicParam" : {
+      "modelref" : true,
+      "id" : "attachment_page"
+    },
+    "topPos" : 420,
+    "parallelOutput" : true
+  }, {
+    "codeName" : "PREPAREPARAM_09",
+    "leftPos" : -794,
+    "logicNodeType" : "PREPAREPARAM",
+    "name" : "到期日期参数",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "DEACTION_010"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "PREPAREPARAM_09"
+      }
+    } ],
+    "getPSDELogicNodeParams" : [ {
+      "dstFieldName" : "activity_previous_deadline",
+      "getDstPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "mail_activity_type"
+      },
+      "paramAction" : "SETPARAMVALUE",
+      "srcFieldName" : "DATE_DEADLINE",
+      "getSrcPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "Default"
+      },
+      "srcValueType" : "SRCDLPARAM"
+    } ],
+    "topPos" : 420,
+    "parallelOutput" : true
+  }, {
+    "code" : "def defaultObj = logic.param('default').getReal();\r\ndef sqlTimestamp = new java.sql.Timestamp(System.currentTimeMillis());\r\n\r\ndefaultObj.set('date_done',sqlTimestamp);\r\ndefaultObj.set('active',0);\r\n\r\n println(\"归档defaultObj\"+defaultObj);",
+    "codeName" : "RAWSFCODE_02",
+    "codeType" : "Groovy",
+    "leftPos" : -310,
+    "logicNodeType" : "RAWSFCODE",
+    "name" : "准备归档参数",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "DEACTION_02"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "RAWSFCODE_02"
+      }
+    } ],
+    "topPos" : 430,
+    "parallelOutput" : true
+  }, {
+    "codeName" : "DEACTION_03",
+    "getDstPSDEAction" : {
+      "modelref" : true,
+      "path" : "PSMODULES/mail/PSDATAENTITIES/mail_activity/PSDEACTIONS/Remove.json"
+    },
+    "getDstPSDELogicParam" : {
+      "modelref" : true,
+      "id" : "Default"
+    },
+    "getDstPSDataEntity" : {
+      "modelref" : true,
+      "path" : "PSMODULES/mail/PSDATAENTITIES/mail_activity.json"
+    },
+    "leftPos" : -80,
+    "logicNodeType" : "DEACTION",
+    "name" : "删除活动数据",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "DEBUGPARAM_02"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "DEACTION_03"
+      }
+    } ],
+    "topPos" : 520,
+    "parallelOutput" : true
+  }, {
+    "codeName" : "DEACTION_02",
+    "getDstPSDEAction" : {
+      "modelref" : true,
+      "path" : "PSMODULES/mail/PSDATAENTITIES/mail_activity/PSDEACTIONS/Update.json"
+    },
+    "getDstPSDELogicParam" : {
+      "modelref" : true,
+      "id" : "Default"
+    },
+    "getDstPSDataEntity" : {
+      "modelref" : true,
+      "path" : "PSMODULES/mail/PSDATAENTITIES/mail_activity.json"
+    },
+    "leftPos" : -300,
+    "logicNodeType" : "DEACTION",
+    "name" : "归档",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "DEBUGPARAM_02"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "DEACTION_02"
+      }
+    } ],
+    "topPos" : 530,
+    "parallelOutput" : true
+  }, {
+    "codeName" : "DEBUGPARAM_01",
+    "getDstPSDELogicParam" : {
+      "modelref" : true,
+      "id" : "next_activity"
+    },
+    "leftPos" : -520,
+    "logicNodeType" : "DEBUGPARAM",
+    "name" : "查看下一个活动",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "DEACTION_08"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "DEBUGPARAM_01"
+      }
+    } ],
+    "topPos" : 530,
+    "parallelOutput" : true
+  }, {
+    "codeName" : "PREPAREPARAM_07",
+    "leftPos" : -774,
+    "logicNodeType" : "PREPAREPARAM",
+    "name" : "准备下一个活动参数",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "DEBUGPARAM_01"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "PREPAREPARAM_07"
+      }
+    } ],
+    "getPSDELogicNodeParams" : [ {
+      "dstFieldName" : "DATE_DEADLINE",
+      "getDstPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "next_activity"
+      },
+      "paramAction" : "SETPARAMVALUE",
+      "srcFieldName" : "actual_deadline",
+      "getSrcPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "mail_activity_type"
+      },
+      "srcValueType" : "SRCDLPARAM"
+    } ],
+    "topPos" : 530,
+    "parallelOutput" : true
+  }, {
+    "codeName" : "PREPAREPARAM_05",
+    "leftPos" : 364,
+    "logicNodeType" : "PREPAREPARAM",
+    "name" : "准备附件换绑参数",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "DEACTION_05"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "PREPAREPARAM_05"
+      }
+    } ],
+    "getPSDELogicNodeParams" : [ {
+      "dstFieldName" : "RES_ID",
+      "getDstPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "attachment"
+      },
+      "paramAction" : "SETPARAMVALUE",
+      "srcFieldName" : "ID",
+      "getSrcPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "mail_message"
+      },
+      "srcValueType" : "SRCDLPARAM"
+    }, {
+      "dstFieldName" : "RES_MODEL",
+      "getDstPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "attachment"
+      },
+      "paramAction" : "SETPARAMVALUE",
+      "srcValue" : "mail_message",
+      "srcValueType" : "SRCVALUE"
+    } ],
+    "topPos" : 560,
+    "parallelOutput" : true
+  }, {
+    "codeName" : "DEACTION_08",
+    "getDstPSDEAction" : {
+      "modelref" : true,
+      "path" : "PSMODULES/mail/PSDATAENTITIES/mail_activity/PSDEACTIONS/Create.json"
+    },
+    "getDstPSDELogicParam" : {
+      "modelref" : true,
+      "id" : "next_activity"
+    },
+    "getDstPSDataEntity" : {
+      "modelref" : true,
+      "path" : "PSMODULES/mail/PSDATAENTITIES/mail_activity.json"
+    },
+    "leftPos" : -504,
+    "logicNodeType" : "DEACTION",
+    "name" : "生成下一个活动",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "DEBUGPARAM_02"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "DEACTION_08"
+      }
+    } ],
+    "getRetPSDELogicParam" : {
+      "modelref" : true,
+      "id" : "next_activity"
+    },
+    "topPos" : 660,
+    "parallelOutput" : true
+  }, {
+    "codeName" : "DEACTION_05",
+    "getDstPSDEAction" : {
+      "modelref" : true,
+      "path" : "PSMODULES/base/PSDATAENTITIES/ir_attachment/PSDEACTIONS/Update.json"
+    },
+    "getDstPSDELogicParam" : {
+      "modelref" : true,
+      "id" : "attachment"
+    },
+    "getDstPSDataEntity" : {
+      "modelref" : true,
+      "path" : "PSMODULES/base/PSDATAENTITIES/ir_attachment.json"
+    },
+    "leftPos" : 364,
+    "logicNodeType" : "DEACTION",
+    "name" : "换绑到消息",
+    "topPos" : 670,
+    "parallelOutput" : true
+  }, {
+    "codeName" : "DEBUGPARAM_02",
+    "getDstPSDELogicParam" : {
+      "modelref" : true,
+      "id" : "next_activity"
+    },
+    "leftPos" : 40,
+    "logicNodeType" : "DEBUGPARAM",
+    "name" : "最后返回的活动",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "PREPAREPARAM_06"
+      },
+      "name" : "连接名称",
+      "getPSDELogicLinkGroupCond" : {
+        "groupOP" : "AND",
+        "logicType" : "GROUP",
+        "name" : "连接条件组",
+        "getPSDELogicLinkConds" : [ {
+          "condOP" : "ISNULL",
+          "dstFieldName" : "ID",
+          "getDstLogicParam" : {
+            "modelref" : true,
+            "id" : "next_activity"
+          },
+          "logicType" : "SINGLE",
+          "name" : "next_activity[ID] 值为空(Nil)"
+        } ]
+      },
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "DEBUGPARAM_02"
+      }
+    }, {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "PREPAREPARAM_010"
+      },
+      "name" : "连接名称",
+      "getPSDELogicLinkGroupCond" : {
+        "groupOP" : "AND",
+        "logicType" : "GROUP",
+        "name" : "连接条件组",
+        "getPSDELogicLinkConds" : [ {
+          "condOP" : "ISNOTNULL",
+          "dstFieldName" : "ID",
+          "getDstLogicParam" : {
+            "modelref" : true,
+            "id" : "next_activity"
+          },
+          "logicType" : "SINGLE",
+          "name" : "next_activity[ID] 值不为空(NotNil)"
+        } ]
+      },
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "DEBUGPARAM_02"
+      }
+    } ],
+    "topPos" : 838,
+    "parallelOutput" : true
+  }, {
+    "codeName" : "PREPAREPARAM_06",
+    "leftPos" : 226,
+    "logicNodeType" : "PREPAREPARAM",
+    "name" : "准备参数",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "END_01"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "PREPAREPARAM_06"
+      }
+    } ],
+    "getPSDELogicNodeParams" : [ {
+      "dstFieldName" : "next_act_id",
+      "getDstPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "Default"
+      },
+      "paramAction" : "SETPARAMVALUE",
+      "srcFieldName" : "ID",
+      "getSrcPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "Default"
+      },
+      "srcValueType" : "NULLVALUE"
+    } ],
+    "topPos" : 940,
+    "parallelOutput" : true
+  }, {
+    "codeName" : "PREPAREPARAM_010",
+    "leftPos" : -134,
+    "logicNodeType" : "PREPAREPARAM",
+    "name" : "准备参数",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "END_01"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "PREPAREPARAM_010"
+      }
+    } ],
+    "getPSDELogicNodeParams" : [ {
+      "dstFieldName" : "next_act_id",
+      "getDstPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "Default"
+      },
+      "paramAction" : "SETPARAMVALUE",
+      "srcFieldName" : "ID",
+      "getSrcPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "next_activity"
+      },
+      "srcValueType" : "SRCDLPARAM"
+    } ],
+    "topPos" : 953,
+    "parallelOutput" : true
+  }, {
+    "codeName" : "END_01",
+    "leftPos" : 120,
+    "logicNodeType" : "END",
+    "name" : "结束",
+    "getReturnParam" : {
+      "modelref" : true,
+      "id" : "next_activity"
+    },
+    "topPos" : 1050,
+    "parallelOutput" : true
+  } ],
+  "getPSDELogicParams" : [ {
+    "codeName" : "Default",
+    "logicName" : "传入变量",
+    "name" : "传入变量",
+    "getParamPSDataEntity" : {
+      "modelref" : true,
+      "path" : "PSMODULES/mail/PSDATAENTITIES/mail_activity.json"
+    },
+    "default" : true,
+    "entityParam" : true
+  }, {
+    "codeName" : "attachment",
+    "logicName" : "attachment_page",
+    "name" : "attachment_page",
+    "getParamPSDataEntity" : {
+      "modelref" : true,
+      "path" : "PSMODULES/base/PSDATAENTITIES/ir_attachment.json"
+    },
+    "entityParam" : true
+  }, {
+    "codeName" : "attachment_filter",
+    "logicName" : "attachment_filter",
+    "name" : "attachment_filter",
+    "getParamPSDataEntity" : {
+      "modelref" : true,
+      "path" : "PSMODULES/base/PSDATAENTITIES/ir_attachment.json"
+    },
+    "filterParam" : true
+  }, {
+    "codeName" : "attachment_page",
+    "logicName" : "attachment_page",
+    "name" : "attachment_page",
+    "getParamPSDataEntity" : {
+      "modelref" : true,
+      "path" : "PSMODULES/base/PSDATAENTITIES/ir_attachment.json"
+    },
+    "entityPageParam" : true
+  }, {
+    "codeName" : "mail_activity_type",
+    "logicName" : "mail_activity_type",
+    "name" : "mail_activity_type",
+    "getParamPSDataEntity" : {
+      "modelref" : true,
+      "path" : "PSMODULES/mail/PSDATAENTITIES/mail_activity_type.json"
+    },
+    "entityParam" : true
+  }, {
+    "codeName" : "mail_message",
+    "logicName" : "mail_message",
+    "name" : "mail_message",
+    "getParamPSDataEntity" : {
+      "modelref" : true,
+      "path" : "PSMODULES/mail/PSDATAENTITIES/mail_message.json"
+    },
+    "entityParam" : true
+  }, {
+    "codeName" : "mail_thread",
+    "logicName" : "mail_thread",
+    "name" : "mail_thread",
+    "getParamPSDataEntity" : {
+      "modelref" : true,
+      "path" : "PSMODULES/mail/PSDATAENTITIES/mail_thread.json"
+    },
+    "entityParam" : true
+  }, {
+    "codeName" : "next_activity",
+    "logicName" : "下一个活动",
+    "name" : "下一个活动",
+    "getParamPSDataEntity" : {
+      "modelref" : true,
+      "path" : "PSMODULES/mail/PSDATAENTITIES/mail_activity.json"
+    },
+    "entityParam" : true
+  }, {
+    "codeName" : "triggered_next_type",
+    "logicName" : "triggered_next_type",
+    "name" : "triggered_next_type",
+    "getParamPSDataEntity" : {
+      "modelref" : true,
+      "path" : "PSMODULES/mail/PSDATAENTITIES/mail_activity_type.json"
+    },
+    "entityParam" : true
+  } ],
+  "getStartPSDELogicNode" : {
+    "modelref" : true,
+    "id" : "Begin"
+  },
+  "enableBackend" : true,
+  "enableFront" : false
+}

@@ -1,0 +1,188 @@
+package cn.ibizlab.attendance.logic.attendance_schedulelogic.fillshifts;
+        import java.util.Map;
+        import java.util.HashMap;
+        import com.alibaba.fastjson.JSONObject;
+        import org.springframework.util.StringUtils;
+        import org.springframework.util.ObjectUtils;
+        import cn.ibizlab.util.errors.BadRequestAlertException;
+                global cn.ibizlab.core.attendance.domain.attendance_schedule attendance_schedulefillshiftsdefault;
+                global cn.ibizlab.core.attendance.domain.attendance_shift attendance_schedulefillshiftsfilter;
+                global cn.ibizlab.core.attendance.domain.attendance_activate_shift attendance_schedulefillshiftsattendance_shift;
+                global cn.ibizlab.core.attendance.domain.attendance_scope attendance_schedulefillshiftsscopefilter;
+                global cn.ibizlab.core.attendance.domain.attendance_scope attendance_schedulefillshiftsscopes;
+                global cn.ibizlab.core.attendance.domain.attendance_activate_shift attendance_schedulefillshiftsshifts;
+                    global cn.ibizlab.core.attendance.service.Iattendance_activate_shiftService attendance_activate_shiftservice;
+                    global cn.ibizlab.core.attendance.service.Iattendance_scopeService attendance_scopeservice;
+        global cn.ibizlab.core.attendance.service.Iattendance_scheduleService iBzSysAttendance_scheduleDefaultService;
+        global cn.ibizlab.util.security.AuthenticationUser curuser;
+
+
+    no-loop
+
+            //逻辑处理节点[开始]
+            rule "begin"
+            ruleflow-group "attendance_schedulefillshiftsbegin"
+            when
+            then
+            end
+
+            //逻辑处理节点[实体数据集]
+            rule "dedataset_01"
+            ruleflow-group "attendance_schedulefillshiftsdedataset_01"
+            when
+            then
+                        update(attendance_schedulefillshiftsdefault);//更新fact中变量值
+                        update(attendance_schedulefillshiftsfilter);//更新fact中变量值
+                        update(attendance_schedulefillshiftsattendance_shift);//更新fact中变量值
+                        update(attendance_schedulefillshiftsscopefilter);//更新fact中变量值
+                        update(attendance_schedulefillshiftsscopes);//更新fact中变量值
+                        update(attendance_schedulefillshiftsshifts);//更新fact中变量值
+            end
+
+            //逻辑处理节点[循环子调用]
+            rule "loopsubcall_01"
+            ruleflow-group "attendance_schedulefillshiftsloopsubcall_01"
+            when
+            then
+                        update(attendance_schedulefillshiftsdefault);//更新fact中变量值
+                        update(attendance_schedulefillshiftsfilter);//更新fact中变量值
+                        update(attendance_schedulefillshiftsattendance_shift);//更新fact中变量值
+                        update(attendance_schedulefillshiftsscopefilter);//更新fact中变量值
+                        update(attendance_schedulefillshiftsscopes);//更新fact中变量值
+                        update(attendance_schedulefillshiftsshifts);//更新fact中变量值
+            end
+
+            //逻辑处理节点[执行脚本代码]
+            rule "rawsfcode_01"
+            ruleflow-group "attendance_schedulefillshiftsrawsfcode_01"
+            when
+            then
+                        update(attendance_schedulefillshiftsdefault);//更新fact中变量值
+                        update(attendance_schedulefillshiftsfilter);//更新fact中变量值
+                        update(attendance_schedulefillshiftsattendance_shift);//更新fact中变量值
+                        update(attendance_schedulefillshiftsscopefilter);//更新fact中变量值
+                        update(attendance_schedulefillshiftsscopes);//更新fact中变量值
+                        update(attendance_schedulefillshiftsshifts);//更新fact中变量值
+            end
+
+            //逻辑处理节点[准备参数]
+            rule "prepareparam_01"
+            ruleflow-group "attendance_schedulefillshiftsprepareparam_01"
+            when
+            then
+                            attendance_schedulefillshiftsfilter.set("n_rule_id_eq",attendance_schedulefillshiftsdefault.get("ruleid"));
+                        update(attendance_schedulefillshiftsdefault);//更新fact中变量值
+                        update(attendance_schedulefillshiftsfilter);//更新fact中变量值
+                        update(attendance_schedulefillshiftsattendance_shift);//更新fact中变量值
+                        update(attendance_schedulefillshiftsscopefilter);//更新fact中变量值
+                        update(attendance_schedulefillshiftsscopes);//更新fact中变量值
+                        update(attendance_schedulefillshiftsshifts);//更新fact中变量值
+            end
+
+            //逻辑处理节点[结束]
+            rule "end_01"
+            ruleflow-group "attendance_schedulefillshiftsend_01"
+            when
+            then
+                        update(attendance_schedulefillshiftsdefault);//更新fact中变量值
+                        update(attendance_schedulefillshiftsfilter);//更新fact中变量值
+                        update(attendance_schedulefillshiftsattendance_shift);//更新fact中变量值
+                        update(attendance_schedulefillshiftsscopefilter);//更新fact中变量值
+                        update(attendance_schedulefillshiftsscopes);//更新fact中变量值
+                        update(attendance_schedulefillshiftsshifts);//更新fact中变量值
+            end
+
+            //逻辑处理节点[准备参数]
+            rule "prepareparam_03"
+            ruleflow-group "attendance_schedulefillshiftsprepareparam_03"
+            when
+            then
+                            attendance_schedulefillshiftsscopefilter.set("n_shift_id_eq",attendance_schedulefillshiftsattendance_shift.get("id"));
+                        update(attendance_schedulefillshiftsdefault);//更新fact中变量值
+                        update(attendance_schedulefillshiftsfilter);//更新fact中变量值
+                        update(attendance_schedulefillshiftsattendance_shift);//更新fact中变量值
+                        update(attendance_schedulefillshiftsscopefilter);//更新fact中变量值
+                        update(attendance_schedulefillshiftsscopes);//更新fact中变量值
+                        update(attendance_schedulefillshiftsshifts);//更新fact中变量值
+            end
+
+            //逻辑处理节点[准备参数]
+            rule "prepareparam_04"
+            ruleflow-group "attendance_schedulefillshiftsprepareparam_04"
+            when
+            then
+                                attendance_schedulefillshiftsdefault.set("shifts",null);
+                                attendance_schedulefillshiftsdefault.set("worktime",null);
+                        update(attendance_schedulefillshiftsdefault);//更新fact中变量值
+                        update(attendance_schedulefillshiftsfilter);//更新fact中变量值
+                        update(attendance_schedulefillshiftsattendance_shift);//更新fact中变量值
+                        update(attendance_schedulefillshiftsscopefilter);//更新fact中变量值
+                        update(attendance_schedulefillshiftsscopes);//更新fact中变量值
+                        update(attendance_schedulefillshiftsshifts);//更新fact中变量值
+            end
+
+            //逻辑处理节点[调试逻辑参数]
+            rule "debugparam_02"
+            ruleflow-group "attendance_schedulefillshiftsdebugparam_02"
+            when
+            then
+                        update(attendance_schedulefillshiftsdefault);//更新fact中变量值
+                        update(attendance_schedulefillshiftsfilter);//更新fact中变量值
+                        update(attendance_schedulefillshiftsattendance_shift);//更新fact中变量值
+                        update(attendance_schedulefillshiftsscopefilter);//更新fact中变量值
+                        update(attendance_schedulefillshiftsscopes);//更新fact中变量值
+                        update(attendance_schedulefillshiftsshifts);//更新fact中变量值
+            end
+
+            //逻辑处理节点[实体数据查询]
+            rule "dedataquery_01"
+            ruleflow-group "attendance_schedulefillshiftsdedataquery_01"
+            when
+            then
+                        update(attendance_schedulefillshiftsdefault);//更新fact中变量值
+                        update(attendance_schedulefillshiftsfilter);//更新fact中变量值
+                        update(attendance_schedulefillshiftsattendance_shift);//更新fact中变量值
+                        update(attendance_schedulefillshiftsscopefilter);//更新fact中变量值
+                        update(attendance_schedulefillshiftsscopes);//更新fact中变量值
+                        update(attendance_schedulefillshiftsshifts);//更新fact中变量值
+            end
+
+            //逻辑处理节点[结束]
+            rule "end_02"
+            ruleflow-group "attendance_schedulefillshiftsend_02"
+            when
+            then
+                        update(attendance_schedulefillshiftsdefault);//更新fact中变量值
+                        update(attendance_schedulefillshiftsfilter);//更新fact中变量值
+                        update(attendance_schedulefillshiftsattendance_shift);//更新fact中变量值
+                        update(attendance_schedulefillshiftsscopefilter);//更新fact中变量值
+                        update(attendance_schedulefillshiftsscopes);//更新fact中变量值
+                        update(attendance_schedulefillshiftsshifts);//更新fact中变量值
+            end
+
+            //逻辑处理节点[准备参数]
+            rule "prepareparam_02"
+            ruleflow-group "attendance_schedulefillshiftsprepareparam_02"
+            when
+            then
+                            attendance_schedulefillshiftsattendance_shift.set("scopes",attendance_schedulefillshiftsscopes.get(""));
+                        update(attendance_schedulefillshiftsdefault);//更新fact中变量值
+                        update(attendance_schedulefillshiftsfilter);//更新fact中变量值
+                        update(attendance_schedulefillshiftsattendance_shift);//更新fact中变量值
+                        update(attendance_schedulefillshiftsscopefilter);//更新fact中变量值
+                        update(attendance_schedulefillshiftsscopes);//更新fact中变量值
+                        update(attendance_schedulefillshiftsshifts);//更新fact中变量值
+            end
+
+            //逻辑处理节点[调试逻辑参数]
+            rule "debugparam_01"
+            ruleflow-group "attendance_schedulefillshiftsdebugparam_01"
+            when
+            then
+                        update(attendance_schedulefillshiftsdefault);//更新fact中变量值
+                        update(attendance_schedulefillshiftsfilter);//更新fact中变量值
+                        update(attendance_schedulefillshiftsattendance_shift);//更新fact中变量值
+                        update(attendance_schedulefillshiftsscopefilter);//更新fact中变量值
+                        update(attendance_schedulefillshiftsscopes);//更新fact中变量值
+                        update(attendance_schedulefillshiftsshifts);//更新fact中变量值
+            end

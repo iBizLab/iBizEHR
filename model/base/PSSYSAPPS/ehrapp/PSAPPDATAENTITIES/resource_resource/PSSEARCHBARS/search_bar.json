@@ -1,0 +1,48 @@
+{
+  "codeName" : "search_bar",
+  "controlStyle" : "ODOO_SEARCH_BAR",
+  "controlType" : "SEARCHBAR",
+  "dynaModelFilePath" : "PSSYSAPPS/ehrapp/PSAPPDATAENTITIES/resource_resource/PSSEARCHBARS/search_bar.json",
+  "groupMode" : "AND",
+  "logicName" : "资源搜索栏",
+  "getPSAppDataEntity" : {
+    "modelref" : true,
+    "path" : "PSSYSAPPS/ehrapp/PSAPPDATAENTITIES/resource_resource.json"
+  },
+  "getPSSearchBarGroups" : [ {
+    "caption" : "人员",
+    "data" : "{\"theme_model\":{\"searchconds\":[{\"condtype\":\"GROUP\",\"condop\":\"AND\",\"bnotmode\":false,\"searchconds\":[{\"condtype\":\"DEFIELD\",\"fieldname\":\"resource_type\",\"condop\":\"EQ\",\"value\":\"user\"}]}]}}",
+    "itemType" : "GROUP",
+    "name" : "user",
+    "width" : 0.0,
+    "addSeparator" : false
+  }, {
+    "caption" : "物料",
+    "data" : "{\"theme_model\":{\"searchconds\":[{\"condtype\":\"GROUP\",\"condop\":\"AND\",\"bnotmode\":false,\"searchconds\":[{\"condtype\":\"DEFIELD\",\"fieldname\":\"resource_type\",\"condop\":\"EQ\",\"value\":\"material\"}]}]}}",
+    "itemType" : "GROUP",
+    "name" : "material",
+    "width" : 0.0,
+    "addSeparator" : true
+  }, {
+    "caption" : "已归档",
+    "data" : "{\"theme_model\":{\"searchconds\":[{\"condtype\":\"GROUP\",\"condop\":\"AND\",\"bnotmode\":false,\"searchconds\":[{\"condtype\":\"DEFIELD\",\"fieldname\":\"active\",\"condop\":\"EQ\",\"value\":\"0\"}]}]}}",
+    "itemType" : "GROUP",
+    "name" : "inactive",
+    "width" : 0.0,
+    "addSeparator" : true
+  } ],
+  "getPSSysPFPlugin" : {
+    "pluginType" : "CUSTOM",
+    "pluginCode" : "ODOO_SEARCH_BAR",
+    "runtimeObject" : true
+  },
+  "quickGroupCount" : 1,
+  "quickSearchMode" : 1,
+  "quickSearchWidth" : 0,
+  "enableFilter" : false,
+  "enableGroup" : true,
+  "enableQuickSearch" : true,
+  "mobileSearchBar" : false,
+  "modelid" : "6d7bdf198f739973f5df5bc7a4deb389",
+  "modeltype" : "PSSYSSEARCHBAR"
+}

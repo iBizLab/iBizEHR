@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+    <definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:g="http://www.jboss.org/drools/flow/gpd" xmlns:tns="http://www.jboss.org/drools" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" expressionLanguage="http://www.mvel.org/2.0" id="Definition" name="" targetNamespace="http://www.jboss.org/drools" typeLanguage="http://www.java.com/javaTypes">
+        <process id="cn.ibizlab.core.hr.service.logic.hr_applicantget_applicant_state" isClosed="false" isExecutable="true" name="hr_hr_applicant_get_applicant_state_ruleFlow" processType="Private" tns:packageName="cn.ibizlab.core.hr.service.logic.hr_applicantget_applicant_state">
+            <extensionElements>
+                <tns:import name="java.util.Map" />
+                <tns:import name="org.springframework.util.StringUtils"/>
+                <tns:import name="cn.ibizlab.util.helper.RuleUtils"/>
+                                <tns:metaData express="" name="hr_applicantget_applicant_statedefault" type="entity"/>
+                                <tns:metaData express="new HashMap()" name="hr_applicantget_applicant_stateresult" type="refentity"/>
+                    <tns:metaData express="T(cn.ibizlab.util.security.SpringContextHolder).getBean(T(cn.ibizlab.core.hr.service.Ihr_applicantService))" name="iBzSysHr_applicantDefaultService" type="service"/>
+                    <tns:metaData express="T(cn.ibizlab.util.security.AuthenticationUser).getAuthenticationUser()" name="curuser" type="session"/>
+                            <tns:global identifier="hr_applicantget_applicant_statedefault" type="cn.ibizlab.core.hr.domain.hr_applicant" />
+            </extensionElements>
+                        <startEvent id="begin" isInterrupting="true"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="hr_applicantget_applicant_staterawsqlcall1" id="rawsqlcall1" implementation="http://www.jboss.org/drools/rule" name="初筛"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="hr_applicantget_applicant_staterawsqlcall2" id="rawsqlcall2" implementation="http://www.jboss.org/drools/rule" name="人才推荐"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="hr_applicantget_applicant_staterawsqlcall3" id="rawsqlcall3" implementation="http://www.jboss.org/drools/rule" name="用人部门筛选"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="hr_applicantget_applicant_staterawsqlcall4" id="rawsqlcall4" implementation="http://www.jboss.org/drools/rule" name="初试"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="hr_applicantget_applicant_staterawsqlcall6" id="rawsqlcall6" implementation="http://www.jboss.org/drools/rule" name="沟通offer"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="hr_applicantget_applicant_staterawsqlcall_02" id="rawsqlcall_02" implementation="http://www.jboss.org/drools/rule" name="大五性格测评"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="hr_applicantget_applicant_staterawsqlcall_01" id="rawsqlcall_01" implementation="http://www.jboss.org/drools/rule" name="完成"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="hr_applicantget_applicant_staterawsqlcall5" id="rawsqlcall5" implementation="http://www.jboss.org/drools/rule" name="复试"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="hr_applicantget_applicant_staterawsqlcall7" id="rawsqlcall7" implementation="http://www.jboss.org/drools/rule" name="待入职"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="hr_applicantget_applicant_stateend1" id="end1" implementation="http://www.jboss.org/drools/rule" name="结束"/>
+                        <endEvent id="end1_end" name="end"/>
+                        <sequenceFlow id="end1_end_line" sourceRef="end1" targetRef="end1_end"/>
+                    <sequenceFlow id="begin_rawsqlcall1" sourceRef="begin" targetRef="rawsqlcall1">
+                    </sequenceFlow>
+                    <sequenceFlow id="rawsqlcall1_rawsqlcall2" sourceRef="rawsqlcall1" targetRef="rawsqlcall2">
+                    </sequenceFlow>
+                    <sequenceFlow id="rawsqlcall2_rawsqlcall3" sourceRef="rawsqlcall2" targetRef="rawsqlcall3">
+                    </sequenceFlow>
+                    <sequenceFlow id="rawsqlcall3_rawsqlcall4" sourceRef="rawsqlcall3" targetRef="rawsqlcall4">
+                    </sequenceFlow>
+                    <sequenceFlow id="rawsqlcall4_rawsqlcall5" sourceRef="rawsqlcall4" targetRef="rawsqlcall5">
+                    </sequenceFlow>
+                    <sequenceFlow id="rawsqlcall6_rawsqlcall_02" sourceRef="rawsqlcall6" targetRef="rawsqlcall_02">
+                    </sequenceFlow>
+                    <sequenceFlow id="rawsqlcall_02_rawsqlcall7" sourceRef="rawsqlcall_02" targetRef="rawsqlcall7">
+                    </sequenceFlow>
+                    <sequenceFlow id="rawsqlcall_01_end1" sourceRef="rawsqlcall_01" targetRef="end1">
+                    </sequenceFlow>
+                    <sequenceFlow id="rawsqlcall5_rawsqlcall6" sourceRef="rawsqlcall5" targetRef="rawsqlcall6">
+                    </sequenceFlow>
+                    <sequenceFlow id="rawsqlcall7_rawsqlcall_01" sourceRef="rawsqlcall7" targetRef="rawsqlcall_01">
+                    </sequenceFlow>
+        </process>
+    </definitions>

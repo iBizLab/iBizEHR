@@ -1,0 +1,60 @@
+package cn.ibizlab.attendance.logic.attendance_statisticslogic.check_info;
+        import java.util.Map;
+        import java.util.HashMap;
+        import com.alibaba.fastjson.JSONObject;
+        import org.springframework.util.StringUtils;
+        import org.springframework.util.ObjectUtils;
+        import cn.ibizlab.util.errors.BadRequestAlertException;
+                global cn.ibizlab.core.attendance.domain.attendance_statistics attendance_statisticscheck_infodefault;
+                global cn.ibizlab.core.employee_management.domain.employee attendance_statisticscheck_infoemp;
+                    global cn.ibizlab.core.employee_management.service.IemployeeService employeeservice;
+        global cn.ibizlab.core.attendance.service.Iattendance_statisticsService iBzSysAttendance_statisticsDefaultService;
+        global cn.ibizlab.util.security.AuthenticationUser curuser;
+
+
+    no-loop
+
+            //逻辑处理节点[开始]
+            rule "begin"
+            ruleflow-group "attendance_statisticscheck_infobegin"
+            when
+            then
+            end
+
+            //逻辑处理节点[准备参数]
+            rule "prepareparam1"
+            ruleflow-group "attendance_statisticscheck_infoprepareparam1"
+            when
+            then
+                            attendance_statisticscheck_infoemp.set("id",attendance_statisticscheck_infodefault.get("memberid"));
+                        update(attendance_statisticscheck_infodefault);//更新fact中变量值
+                        update(attendance_statisticscheck_infoemp);//更新fact中变量值
+            end
+
+            //逻辑处理节点[获取员工]
+            rule "deaction1"
+            ruleflow-group "attendance_statisticscheck_infodeaction1"
+            when
+            then
+                            cn.ibizlab.util.helper.CachedBeanCopier.copy(employeeservice.get(attendance_statisticscheck_infoemp.getId()),attendance_statisticscheck_infoemp);
+                        update(attendance_statisticscheck_infodefault);//更新fact中变量值
+                        update(attendance_statisticscheck_infoemp);//更新fact中变量值
+            end
+
+            //逻辑处理节点[获取数据明细]
+            rule "rawsfcode1"
+            ruleflow-group "attendance_statisticscheck_inforawsfcode1"
+            when
+            then
+                        update(attendance_statisticscheck_infodefault);//更新fact中变量值
+                        update(attendance_statisticscheck_infoemp);//更新fact中变量值
+            end
+
+            //逻辑处理节点[结束]
+            rule "end1"
+            ruleflow-group "attendance_statisticscheck_infoend1"
+            when
+            then
+                        update(attendance_statisticscheck_infodefault);//更新fact中变量值
+                        update(attendance_statisticscheck_infoemp);//更新fact中变量值
+            end

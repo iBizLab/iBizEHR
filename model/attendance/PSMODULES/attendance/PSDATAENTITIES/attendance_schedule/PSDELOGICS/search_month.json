@@ -1,0 +1,82 @@
+{
+  "codeName" : "search_month",
+  "defaultParamName" : "Default",
+  "dynaModelFilePath" : "PSMODULES/attendance/PSDATAENTITIES/attendance_schedule/PSDELOGICS/search_month.json",
+  "logicName" : "搜索月份",
+  "name" : "搜索月份",
+  "getPSDELogicNodes" : [ {
+    "codeName" : "Begin",
+    "leftPos" : 200,
+    "logicNodeType" : "BEGIN",
+    "name" : "开始",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "RAWSFCODE1"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "Begin"
+      }
+    } ],
+    "topPos" : 200,
+    "parallelOutput" : true
+  }, {
+    "code" : "def result_list = logic.param('result_list').getReal()\r\n\r\n// 获取当前日期\r\ndef currentDate = new Date()\r\n\r\n// 设置日期格式\r\ndef dateFormat = new java.text.SimpleDateFormat(\"yyyy-MM\")\r\n\r\n// 获取当前年月字符串\r\ndef cur_month = dateFormat.format(currentDate)\r\ndef cur_month_map = new HashMap()\r\ncur_month_map.put('name', cur_month)\r\n\r\n// 获取当前日期的 Calendar 实例\r\ndef calendar = java.util.Calendar.getInstance()\r\ncalendar.setTime(currentDate)\r\n\r\n// 获取前3个月\r\nfor (int i = 3; i >= 1; i--) {\r\n    calendar.setTime(currentDate)\r\n    calendar.add(Calendar.MONTH, -i)\r\n    def month_map = new HashMap()\r\n    month_map.put('name', dateFormat.format(calendar.getTime()))\r\n    result_list.add(month_map)\r\n}\r\nresult_list.add(cur_month_map)\r\n// 获取后1个月\r\ncalendar.setTime(currentDate) // 重置为当前日期\r\ncalendar.add(Calendar.MONTH, 1)\r\ndef next_month = dateFormat.format(calendar.getTime())\r\ndef next_month_map = new HashMap()\r\nnext_month_map.put('name', next_month)\r\nresult_list.add(next_month_map)",
+    "codeName" : "RAWSFCODE1",
+    "codeType" : "Groovy",
+    "leftPos" : 160,
+    "logicNodeType" : "RAWSFCODE",
+    "name" : "获取最近五个月的月份",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "END1"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "RAWSFCODE1"
+      }
+    } ],
+    "topPos" : 350
+  }, {
+    "codeName" : "END1",
+    "leftPos" : 200,
+    "logicNodeType" : "END",
+    "name" : "结束",
+    "getReturnParam" : {
+      "modelref" : true,
+      "id" : "result_list"
+    },
+    "returnType" : "LOGICPARAM",
+    "topPos" : 498
+  } ],
+  "getPSDELogicParams" : [ {
+    "codeName" : "Default",
+    "logicName" : "传入变量",
+    "name" : "传入变量",
+    "getParamPSDataEntity" : {
+      "modelref" : true,
+      "path" : "PSMODULES/attendance/PSDATAENTITIES/attendance_schedule.json"
+    },
+    "default" : true,
+    "filterParam" : true
+  }, {
+    "codeName" : "result_list",
+    "logicName" : "返回结果列表变量",
+    "name" : "返回结果列表变量",
+    "getParamPSDataEntity" : {
+      "modelref" : true,
+      "path" : "PSMODULES/attendance/PSDATAENTITIES/attendance_schedule.json"
+    },
+    "entityListParam" : true
+  } ],
+  "getStartPSDELogicNode" : {
+    "modelref" : true,
+    "id" : "Begin"
+  },
+  "enableBackend" : true,
+  "enableFront" : false
+}

@@ -1,0 +1,11 @@
+{
+  "dBType" : "MYSQL5",
+  "name" : "MySQL5",
+  "getPSDEDataQueryCodeConds" : [ {
+    "condType" : "CUSTOM",
+    "customCond" : "( t1.`TYPE` =  '1' )",
+    "name" : "查询条件"
+  } ],
+  "queryCode" : "SELECT\nt1.`CREATE_DATE`,\nt1.`CREATE_UID`,\nt1.`EMAIL`,\nt1.`ID`,\nt1.`IMAGE`,\nt1.`NAME`,\n(SELECT count(1) from hr_job_platform_account where Job_platform_id = t1.id ) AS `PLATFORM_ACCOUNT_COUNT`,\n(select case when count(1) >0 then '2' else '1'end  from hr_job_platform_record where job_id =${srfwebcontext('hr_job_id','{\"defname\":\"TYPE\",\"dename\":\"HR_JOB_PLATFORM\"}')} and job_platform_id = t1.id) AS `PUBLISH_STATUS`,\nt1.`TYPE`,\nt1.`URL`,\nt1.`WRITE_DATE`,\nt1.`WRITE_UID`\nFROM `hr_job_platform` t1",
+  "id" : "PSMODULES/hr/PSDATAENTITIES/hr_job_platform/PSDEDATAQUERIES/job_platform/PSDEDQCODES/MYSQL5.json"
+}

@@ -1,0 +1,206 @@
+{
+  "codeName" : "default",
+  "controlType" : "SEARCHFORM",
+  "defaultLabelWidth" : 130,
+  "dynaModelFilePath" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/attendance_schedule/PSSEARCHFORMS/default.json",
+  "hookEventNames" : [ "ONBEFORELOADDRAFT" ],
+  "logicName" : "默认搜索表单",
+  "getPSAppDataEntity" : {
+    "modelref" : true,
+    "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/attendance_schedule.json"
+  },
+  "getPSControlLogics" : [ {
+    "eventNames" : "onBeforeLoadDraft",
+    "logicTag" : "searchform",
+    "logicType" : "SCRIPT",
+    "name" : "logic",
+    "scriptCode" : "const today = new Date();\r\nconst year = today.getFullYear();\r\nconst month = String(today.getMonth() + 1).padStart(2, '0');\r\nconst choose_month = `${year}-${month}`;\r\nObject.assign(viewParam, { choose_month });"
+  } ],
+  "getPSDEFormItems" : [ {
+    "id" : "choose_month",
+    "dataType" : 25,
+    "createDVT" : "CURTIME"
+  }, {
+    "id" : "n_rule_id_eq",
+    "dataType" : 25,
+    "getPSAppDEField" : {
+      "name" : "RULE_ID",
+      "codeName" : "rule_id"
+    }
+  }, {
+    "id" : "n_member_id_in",
+    "dataType" : 25,
+    "getPSAppDEField" : {
+      "name" : "MEMBER_ID",
+      "codeName" : "member_id"
+    }
+  } ],
+  "getPSDEFormPages" : [ {
+    "getCapPSLanguageRes" : {
+      "lanResTag" : "CONTROL.DEFORM.ATTENDANCE_SCHEDULE.DEFAULT.FORMPAGE.FORMPAGE1"
+    },
+    "caption" : "常规条件",
+    "codeName" : "formpage1",
+    "detailStyle" : "DEFAULT",
+    "detailType" : "FORMPAGE",
+    "name" : "formpage1",
+    "getPSDEFormDetails" : [ {
+      "caption" : "选择日期",
+      "codeName" : "choose_month",
+      "createDVT" : "CURTIME",
+      "dataType" : 25,
+      "detailStyle" : "DEFAULT",
+      "detailType" : "FORMITEM",
+      "enableCond" : 3,
+      "fieldName" : "choose_month",
+      "ignoreInput" : 0,
+      "labelPos" : "LEFT",
+      "labelWidth" : 75,
+      "name" : "choose_month",
+      "noPrivDisplayMode" : 1,
+      "getPSEditor" : {
+        "editorParams" : {
+          "customprops" : "{\"clearable\":false}"
+        },
+        "editorType" : "DROPDOWNLIST",
+        "name" : "choose_month",
+        "getPSAppCodeList" : {
+          "modelref" : true,
+          "path" : "PSSYSAPPS/attendanceapp/PSAPPCODELISTS/attendance__search_month.json"
+        },
+        "singleSelect" : true
+      },
+      "getPSLayoutPos" : {
+        "colLG" : 5,
+        "colMD" : 5,
+        "layout" : "TABLE_24COL"
+      },
+      "allowEmpty" : true,
+      "needCodeListConfig" : true,
+      "showCaption" : true
+    }, {
+      "caption" : "考勤规则",
+      "codeName" : "n_rule_id_eq",
+      "dataType" : 25,
+      "detailStyle" : "DEFAULT",
+      "detailType" : "FORMITEM",
+      "enableCond" : 3,
+      "ignoreInput" : 0,
+      "labelPos" : "LEFT",
+      "labelWidth" : 75,
+      "name" : "n_rule_id_eq",
+      "noPrivDisplayMode" : 1,
+      "getPSAppDEField" : {
+        "name" : "RULE_ID",
+        "codeName" : "rule_id"
+      },
+      "getPSEditor" : {
+        "editorType" : "DROPDOWNLIST",
+        "name" : "n_rule_id_eq",
+        "getPSAppCodeList" : {
+          "modelref" : true,
+          "path" : "PSSYSAPPS/attendanceapp/PSAPPCODELISTS/attendance__attendance_rules.json"
+        },
+        "singleSelect" : true
+      },
+      "getPSLayoutPos" : {
+        "colLG" : 5,
+        "colMD" : 5,
+        "layout" : "TABLE_24COL"
+      },
+      "allowEmpty" : true,
+      "needCodeListConfig" : true,
+      "showCaption" : true
+    }, {
+      "caption" : "人员范围",
+      "codeName" : "n_member_id_in",
+      "dataType" : 25,
+      "detailStyle" : "DEFAULT",
+      "detailType" : "FORMITEM",
+      "enableCond" : 3,
+      "ignoreInput" : 0,
+      "labelPos" : "LEFT",
+      "labelWidth" : 75,
+      "name" : "n_member_id_in",
+      "noPrivDisplayMode" : 1,
+      "getPSAppDEField" : {
+        "name" : "MEMBER_ID",
+        "codeName" : "member_id"
+      },
+      "getPSControlAttributes" : [ {
+        "attrName" : "collapse-tags",
+        "attrValue" : "true",
+        "name" : "collapseTags"
+      }, {
+        "attrName" : "collapse-tags-tooltip",
+        "attrValue" : "true",
+        "name" : "collapseTagsTooltip"
+      }, {
+        "attrName" : "max-collapse-tags",
+        "attrValue" : "3",
+        "name" : "maxCollapseTags"
+      } ],
+      "getPSEditor" : {
+        "editorParams" : {
+          "valuetype" : "OBJECTS",
+          "objectnamefield" : "name",
+          "keymapping" : "type:type;",
+          "objectidfield" : "id",
+          "PICKUPVIEW" : "TRUE"
+        },
+        "editorType" : "ADDRESSPICKUP",
+        "name" : "n_member_id_in",
+        "objectIdField" : "id",
+        "objectNameField" : "name",
+        "getPSAppDEACMode" : {
+          "modelref" : true,
+          "id" : "people"
+        },
+        "getPSAppDEDataSet" : {
+          "modelref" : true,
+          "id" : "FetchDefault"
+        },
+        "getPSAppDataEntity" : {
+          "modelref" : true,
+          "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/user_object.json"
+        },
+        "getPickupPSAppView" : {
+          "modelref" : true,
+          "path" : "PSSYSAPPS/attendanceapp/PSAPPDEVIEWS/user_object_preson_limit_m_pickup_view.json",
+          "viewType" : "DEMPICKUPVIEW"
+        },
+        "valueType" : "OBJECTS",
+        "enableAC" : false,
+        "enablePickupView" : true,
+        "forceSelection" : true,
+        "showTrigger" : true
+      },
+      "getPSLayoutPos" : {
+        "colLG" : 5,
+        "colMD" : 5,
+        "layout" : "TABLE_24COL"
+      },
+      "allowEmpty" : true,
+      "showCaption" : true
+    } ],
+    "getPSLayout" : {
+      "childColMD" : 24,
+      "columnCount" : 24,
+      "layout" : "TABLE_24COL"
+    },
+    "infoGroupMode" : false
+  } ],
+  "getPSLayout" : {
+    "childColMD" : 24,
+    "columnCount" : 24,
+    "layout" : "TABLE_24COL"
+  },
+  "searchButtonStyle" : "NONE",
+  "tabHeaderPos" : "TOP",
+  "enableAdvanceSearch" : false,
+  "enableAutoSearch" : true,
+  "enableFilterSave" : false,
+  "noTabHeader" : true,
+  "modelid" : "8ad1ec538972d422906ef41a473c3251",
+  "modeltype" : "PSDEFORM_SEARCHFORM"
+}

@@ -1,0 +1,267 @@
+{
+  "codeName" : "action_schedule_activities",
+  "defaultParamName" : "Default",
+  "dynaModelFilePath" : "PSMODULES/mail/PSDATAENTITIES/mail_activity_schedule/PSDELOGICS/action_schedule_activities.json",
+  "logicName" : "安排",
+  "name" : "安排",
+  "getPSDELogicNodes" : [ {
+    "codeName" : "Begin",
+    "leftPos" : 296,
+    "logicNodeType" : "BEGIN",
+    "name" : "开始",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "DEACTION_01"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "Begin"
+      }
+    } ],
+    "topPos" : 140,
+    "parallelOutput" : true
+  }, {
+    "codeName" : "DEACTION_01",
+    "getDstPSDEAction" : {
+      "modelref" : true,
+      "path" : "PSMODULES/mail/PSDATAENTITIES/mail_activity_schedule/PSDEACTIONS/Create.json"
+    },
+    "getDstPSDELogicParam" : {
+      "modelref" : true,
+      "id" : "Default"
+    },
+    "getDstPSDataEntity" : {
+      "modelref" : true,
+      "path" : "PSMODULES/mail/PSDATAENTITIES/mail_activity_schedule.json"
+    },
+    "leftPos" : 256,
+    "logicNodeType" : "DEACTION",
+    "name" : "新建活动日程计划向导",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "PREPAREPARAM_01"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "DEACTION_01"
+      }
+    } ],
+    "topPos" : 310,
+    "parallelOutput" : true
+  }, {
+    "codeName" : "PREPAREPARAM_01",
+    "leftPos" : 256,
+    "logicNodeType" : "PREPAREPARAM",
+    "name" : "填充活动数据",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "RAWSFCODE_01"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "PREPAREPARAM_01"
+      }
+    } ],
+    "getPSDELogicNodeParams" : [ {
+      "dstFieldName" : "ACTIVITY_TYPE_ID",
+      "getDstPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "mail_activity"
+      },
+      "paramAction" : "SETPARAMVALUE",
+      "srcFieldName" : "ACTIVITY_TYPE_ID",
+      "getSrcPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "Default"
+      },
+      "srcValueType" : "SRCDLPARAM"
+    }, {
+      "dstFieldName" : "AUTOMATED",
+      "getDstPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "mail_activity"
+      },
+      "paramAction" : "SETPARAMVALUE",
+      "getSrcPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "Default"
+      },
+      "srcValue" : "0",
+      "srcValueType" : "SRCVALUE"
+    }, {
+      "dstFieldName" : "SUMMARY",
+      "getDstPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "mail_activity"
+      },
+      "paramAction" : "SETPARAMVALUE",
+      "srcFieldName" : "SUMMARY",
+      "getSrcPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "Default"
+      },
+      "srcValueType" : "SRCDLPARAM"
+    }, {
+      "dstFieldName" : "NOTE",
+      "getDstPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "mail_activity"
+      },
+      "paramAction" : "SETPARAMVALUE",
+      "srcFieldName" : "NOTE",
+      "getSrcPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "Default"
+      },
+      "srcValueType" : "SRCDLPARAM"
+    }, {
+      "dstFieldName" : "USER_ID",
+      "getDstPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "mail_activity"
+      },
+      "paramAction" : "SETPARAMVALUE",
+      "srcFieldName" : "ACTIVITY_USER_ID",
+      "getSrcPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "Default"
+      },
+      "srcValueType" : "SRCDLPARAM"
+    }, {
+      "dstFieldName" : "DATE_DEADLINE",
+      "getDstPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "mail_activity"
+      },
+      "paramAction" : "SETPARAMVALUE",
+      "srcFieldName" : "DATE_DEADLINE",
+      "getSrcPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "Default"
+      },
+      "srcValueType" : "SRCDLPARAM"
+    }, {
+      "dstFieldName" : "RES_ID",
+      "getDstPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "mail_activity"
+      },
+      "paramAction" : "SETPARAMVALUE",
+      "srcFieldName" : "RES_IDS",
+      "getSrcPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "Default"
+      },
+      "srcValueType" : "SRCDLPARAM"
+    }, {
+      "dstFieldName" : "RES_MODEL",
+      "getDstPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "mail_activity"
+      },
+      "paramAction" : "SETPARAMVALUE",
+      "srcFieldName" : "RES_MODEL",
+      "getSrcPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "Default"
+      },
+      "srcValueType" : "SRCDLPARAM"
+    } ],
+    "topPos" : 438,
+    "parallelOutput" : true
+  }, {
+    "codeName" : "DEACTION_02",
+    "getDstPSDEAction" : {
+      "modelref" : true,
+      "path" : "PSMODULES/mail/PSDATAENTITIES/mail_activity/PSDEACTIONS/Create.json"
+    },
+    "getDstPSDELogicParam" : {
+      "modelref" : true,
+      "id" : "mail_activity"
+    },
+    "getDstPSDataEntity" : {
+      "modelref" : true,
+      "path" : "PSMODULES/mail/PSDATAENTITIES/mail_activity.json"
+    },
+    "leftPos" : 470,
+    "logicNodeType" : "DEACTION",
+    "name" : "新建活动",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "END_01"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "DEACTION_02"
+      }
+    } ],
+    "topPos" : 438,
+    "parallelOutput" : true
+  }, {
+    "codeName" : "END_01",
+    "leftPos" : 680,
+    "logicNodeType" : "END",
+    "name" : "结束",
+    "getReturnParam" : {
+      "modelref" : true,
+      "id" : "Default"
+    },
+    "returnType" : "LOGICPARAM",
+    "topPos" : 440,
+    "parallelOutput" : true
+  }, {
+    "code" : "def mailActivity = logic.param('mail_activity').getReal();\r\ndef entityModelName=mailActivity.get(\"res_model\");\r\ndef entityId=mailActivity.get(\"res_id\");\r\ndef entityRuntime = sys.dataentity(entityModelName);\r\ndef entityObj = entityRuntime.get(entityId);\r\nmailActivity.set('res_name',entityObj.get('name'));\r\n",
+    "codeName" : "RAWSFCODE_01",
+    "codeType" : "Groovy",
+    "leftPos" : 256,
+    "logicNodeType" : "RAWSFCODE",
+    "name" : "获取活动re_name",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "DEACTION_02"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "RAWSFCODE_01"
+      }
+    } ],
+    "topPos" : 540,
+    "parallelOutput" : true
+  } ],
+  "getPSDELogicParams" : [ {
+    "codeName" : "Default",
+    "logicName" : "传入变量",
+    "name" : "传入变量",
+    "getParamPSDataEntity" : {
+      "modelref" : true,
+      "path" : "PSMODULES/mail/PSDATAENTITIES/mail_activity_schedule.json"
+    },
+    "default" : true,
+    "entityParam" : true
+  }, {
+    "codeName" : "mail_activity",
+    "logicName" : "活动",
+    "name" : "活动",
+    "getParamPSDataEntity" : {
+      "modelref" : true,
+      "path" : "PSMODULES/mail/PSDATAENTITIES/mail_activity.json"
+    },
+    "entityParam" : true
+  } ],
+  "getStartPSDELogicNode" : {
+    "modelref" : true,
+    "id" : "Begin"
+  },
+  "enableBackend" : true,
+  "enableFront" : false
+}

@@ -1,0 +1,70 @@
+package cn.ibizlab.attendance.logic.attendance_rulelogic.all;
+        import java.util.Map;
+        import java.util.HashMap;
+        import com.alibaba.fastjson.JSONObject;
+        import org.springframework.util.StringUtils;
+        import org.springframework.util.ObjectUtils;
+        import cn.ibizlab.util.errors.BadRequestAlertException;
+                global cn.ibizlab.core.attendance.domain.attendance_rule attendance_rulealldefault;
+                global cn.ibizlab.core.attendance.domain.attendance_rule attendance_ruleallrules;
+                global java.util.Map attendance_rulealltotal_members;
+                    global cn.ibizlab.core.attendance.service.Iattendance_ruleService attendance_ruleservice;
+        global cn.ibizlab.core.attendance.service.Iattendance_ruleService iBzSysAttendance_ruleDefaultService;
+        global cn.ibizlab.util.security.AuthenticationUser curuser;
+
+
+    no-loop
+
+            //逻辑处理节点[开始]
+            rule "begin"
+            ruleflow-group "attendance_ruleallbegin"
+            when
+            then
+            end
+
+            //逻辑处理节点[实体数据集]
+            rule "dedataset1"
+            ruleflow-group "attendance_rulealldedataset1"
+            when
+            then
+                        update(attendance_rulealldefault);//更新fact中变量值
+                        update(attendance_ruleallrules);//更新fact中变量值
+                        update(attendance_rulealltotal_members);//更新fact中变量值
+            end
+
+            //逻辑处理节点[直接sql调用]
+            rule "rawsqlcall1"
+            ruleflow-group "attendance_ruleallrawsqlcall1"
+            when
+            then
+                        Map param = null;
+                        String strSql="SELECT      RULE_ID,     COUNT(DISTINCT MEMBER_ID) AS total_members FROM attendance_schedule WHERE checkin_date >= CURDATE() GROUP BY RULE_ID";
+                        java.util.List<JSONObject> entities=iBzSysAttendance_ruleDefaultService.select(strSql,param);//SQL调用
+                            if(entities.size()>0){
+                            JSONObject entity=entities.get(0);
+                                attendance_rulealltotal_members.putAll(entity);
+                            }
+                        update(attendance_rulealldefault);//更新fact中变量值
+                        update(attendance_ruleallrules);//更新fact中变量值
+                        update(attendance_rulealltotal_members);//更新fact中变量值
+            end
+
+            //逻辑处理节点[执行脚本代码]
+            rule "rawsfcode1"
+            ruleflow-group "attendance_ruleallrawsfcode1"
+            when
+            then
+                        update(attendance_rulealldefault);//更新fact中变量值
+                        update(attendance_ruleallrules);//更新fact中变量值
+                        update(attendance_rulealltotal_members);//更新fact中变量值
+            end
+
+            //逻辑处理节点[结束]
+            rule "end1"
+            ruleflow-group "attendance_ruleallend1"
+            when
+            then
+                        update(attendance_rulealldefault);//更新fact中变量值
+                        update(attendance_ruleallrules);//更新fact中变量值
+                        update(attendance_rulealltotal_members);//更新fact中变量值
+            end

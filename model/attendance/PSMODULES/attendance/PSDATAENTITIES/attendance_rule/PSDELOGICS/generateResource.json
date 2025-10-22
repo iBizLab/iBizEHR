@@ -1,0 +1,381 @@
+{
+  "codeName" : "generateResource",
+  "defaultParamName" : "Default",
+  "dynaModelFilePath" : "PSMODULES/attendance/PSDATAENTITIES/attendance_rule/PSDELOGICS/generateResource.json",
+  "logicName" : "生成Odoo资源关联",
+  "name" : "生成Odoo资源关联",
+  "getPSDELogicNodes" : [ {
+    "codeName" : "Begin",
+    "leftPos" : 60,
+    "logicNodeType" : "BEGIN",
+    "name" : "开始",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "PREPAREPARAM_01"
+      },
+      "name" : "连接名称",
+      "getPSDELogicLinkGroupCond" : {
+        "groupOP" : "AND",
+        "logicType" : "GROUP",
+        "name" : "连接条件组",
+        "getPSDELogicLinkConds" : [ {
+          "condOP" : "EQ",
+          "dstFieldName" : "IS_ACTIVATE",
+          "getDstLogicParam" : {
+            "modelref" : true,
+            "id" : "Default"
+          },
+          "logicType" : "SINGLE",
+          "name" : "Default[IS_ACTIVATE] 等于(=) 1",
+          "paramValue" : "1"
+        }, {
+          "condOP" : "ISNOTNULL",
+          "dstFieldName" : "members",
+          "getDstLogicParam" : {
+            "modelref" : true,
+            "id" : "Default"
+          },
+          "logicType" : "SINGLE",
+          "name" : "Default[members] 值不为空(NotNil)"
+        } ]
+      },
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "Begin"
+      }
+    } ],
+    "topPos" : 266,
+    "parallelOutput" : true
+  }, {
+    "codeName" : "PREPAREPARAM_01",
+    "leftPos" : 244,
+    "logicNodeType" : "PREPAREPARAM",
+    "name" : "准备参数",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "LOOPSUBCALL_01"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "PREPAREPARAM_01"
+      }
+    } ],
+    "getPSDELogicNodeParams" : [ {
+      "getDstPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "members"
+      },
+      "paramAction" : "BINDPARAM",
+      "srcFieldName" : "members",
+      "getSrcPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "Default"
+      },
+      "srcValueType" : "SRCDLPARAM"
+    } ],
+    "topPos" : 264,
+    "parallelOutput" : true
+  }, {
+    "codeName" : "LOOPSUBCALL_01",
+    "getDstPSDELogicParam" : {
+      "modelref" : true,
+      "id" : "temp"
+    },
+    "leftPos" : 474,
+    "logicNodeType" : "LOOPSUBCALL",
+    "name" : "循环子调用",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "PREPAREPARAM_02"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "LOOPSUBCALL_01"
+      },
+      "subCallLink" : true
+    } ],
+    "getSrcPSDELogicParam" : {
+      "modelref" : true,
+      "id" : "members"
+    },
+    "topPos" : 264,
+    "parallelOutput" : true
+  }, {
+    "codeName" : "PREPAREPARAM_02",
+    "leftPos" : 244,
+    "logicNodeType" : "PREPAREPARAM",
+    "name" : "准备参数",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "DEDATASET_01"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "PREPAREPARAM_02"
+      }
+    } ],
+    "getPSDELogicNodeParams" : [ {
+      "getDstPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "Filter"
+      },
+      "paramAction" : "RENEWPARAM"
+    }, {
+      "getDstPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "empPage"
+      },
+      "paramAction" : "RENEWPARAM"
+    }, {
+      "dstFieldName" : "N_ID_EQ",
+      "getDstPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "Filter"
+      },
+      "paramAction" : "SETPARAMVALUE",
+      "srcFieldName" : "USER_ID",
+      "getSrcPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "temp"
+      },
+      "srcValueType" : "SRCDLPARAM"
+    }, {
+      "getDstPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "emp"
+      },
+      "paramAction" : "RENEWPARAM"
+    } ],
+    "topPos" : 380,
+    "parallelOutput" : true
+  }, {
+    "codeName" : "DEDATASET_01",
+    "getDstPSDEDataSet" : {
+      "modelref" : true,
+      "id" : "Default"
+    },
+    "getDstPSDELogicParam" : {
+      "modelref" : true,
+      "id" : "Filter"
+    },
+    "getDstPSDataEntity" : {
+      "modelref" : true,
+      "path" : "PSMODULES/hr/PSDATAENTITIES/hr_employee.json"
+    },
+    "leftPos" : 244,
+    "logicNodeType" : "DEDATASET",
+    "name" : "查询人员信息",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "PREPAREPARAM_03"
+      },
+      "name" : "连接名称",
+      "getPSDELogicLinkGroupCond" : {
+        "groupOP" : "AND",
+        "logicType" : "GROUP",
+        "name" : "连接条件组",
+        "getPSDELogicLinkConds" : [ {
+          "condOP" : "NOTEQ",
+          "dstFieldName" : "size",
+          "getDstLogicParam" : {
+            "modelref" : true,
+            "id" : "empPage"
+          },
+          "logicType" : "SINGLE",
+          "name" : "empPage[size] 不等于(<>) 0",
+          "paramValue" : "0"
+        } ]
+      },
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "DEDATASET_01"
+      }
+    } ],
+    "getRetPSDELogicParam" : {
+      "modelref" : true,
+      "id" : "empPage"
+    },
+    "topPos" : 500,
+    "parallelOutput" : true
+  }, {
+    "codeName" : "PREPAREPARAM_03",
+    "leftPos" : 484,
+    "logicNodeType" : "PREPAREPARAM",
+    "name" : "准备参数",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "RAWSQLCALL_02"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "PREPAREPARAM_03"
+      }
+    } ],
+    "getPSDELogicNodeParams" : [ {
+      "getDstPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "emp"
+      },
+      "paramAction" : "BINDPARAM",
+      "srcFieldName" : "0",
+      "getSrcPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "empPage"
+      },
+      "srcValueType" : "SRCDLPARAM"
+    } ],
+    "topPos" : 500,
+    "parallelOutput" : true
+  }, {
+    "codeName" : "RAWSQLCALL_02",
+    "leftPos" : 484,
+    "logicNodeType" : "RAWSQLCALL",
+    "name" : "更新人员关联工作时间",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "RAWSQLCALL_01"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "RAWSQLCALL_02"
+      }
+    } ],
+    "getPSDELogicNodeParams" : [ {
+      "paramAction" : "SQLPARAM",
+      "srcFieldName" : "ID",
+      "getSrcPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "Default"
+      },
+      "srcValueType" : "SRCDLPARAM"
+    }, {
+      "paramAction" : "SQLPARAM",
+      "srcFieldName" : "ID",
+      "getSrcPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "emp"
+      },
+      "srcValueType" : "SRCDLPARAM"
+    } ],
+    "sql" : "UPDATE hr_employee\nSET RESOURCE_CALENDAR_ID = ?\nWHERE ID = ?",
+    "topPos" : 620,
+    "parallelOutput" : true
+  }, {
+    "codeName" : "RAWSQLCALL_01",
+    "leftPos" : 484,
+    "logicNodeType" : "RAWSQLCALL",
+    "name" : "更新资源关联工作时间",
+    "getPSDELogicNodeParams" : [ {
+      "paramAction" : "SQLPARAM",
+      "srcFieldName" : "ID",
+      "getSrcPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "Default"
+      },
+      "srcValueType" : "SRCDLPARAM"
+    }, {
+      "paramAction" : "SQLPARAM",
+      "srcFieldName" : "RESOURCE_ID",
+      "getSrcPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "emp"
+      },
+      "srcValueType" : "SRCDLPARAM"
+    } ],
+    "sql" : "UPDATE resource_resource \nSET CALENDAR_ID = ?\nWHERE ID = ?",
+    "topPos" : 740,
+    "parallelOutput" : true
+  } ],
+  "getPSDELogicParams" : [ {
+    "codeName" : "Default",
+    "logicName" : "传入变量",
+    "name" : "传入变量",
+    "getParamPSDataEntity" : {
+      "modelref" : true,
+      "path" : "PSMODULES/attendance/PSDATAENTITIES/attendance_rule.json"
+    },
+    "default" : true,
+    "entityParam" : true
+  }, {
+    "codeName" : "Filter",
+    "logicName" : "Filter",
+    "name" : "Filter",
+    "getParamPSDataEntity" : {
+      "modelref" : true,
+      "path" : "PSMODULES/hr/PSDATAENTITIES/hr_employee.json"
+    },
+    "filterParam" : true
+  }, {
+    "codeName" : "emp",
+    "logicName" : "emp",
+    "name" : "emp",
+    "getParamPSDataEntity" : {
+      "modelref" : true,
+      "path" : "PSMODULES/hr/PSDATAENTITIES/hr_employee.json"
+    },
+    "entityParam" : true
+  }, {
+    "codeName" : "empPage",
+    "logicName" : "empPage",
+    "name" : "empPage",
+    "getParamPSDataEntity" : {
+      "modelref" : true,
+      "path" : "PSMODULES/hr/PSDATAENTITIES/hr_employee.json"
+    },
+    "entityPageParam" : true
+  }, {
+    "codeName" : "members",
+    "logicName" : "members",
+    "name" : "members",
+    "getParamPSDataEntity" : {
+      "modelref" : true,
+      "path" : "PSMODULES/attendance/PSDATAENTITIES/attendance_group_shift_member.json"
+    },
+    "entityListParam" : true
+  }, {
+    "codeName" : "resource",
+    "logicName" : "resource",
+    "name" : "resource",
+    "getParamPSDataEntity" : {
+      "modelref" : true,
+      "path" : "PSMODULES/resource/PSDATAENTITIES/resource_resource.json"
+    },
+    "entityParam" : true
+  }, {
+    "codeName" : "ret",
+    "logicName" : "ret",
+    "name" : "ret",
+    "getParamPSDataEntity" : {
+      "modelref" : true,
+      "path" : "PSMODULES/resource/PSDATAENTITIES/resource_resource.json"
+    },
+    "entityParam" : true
+  }, {
+    "codeName" : "temp",
+    "logicName" : "temp",
+    "name" : "temp",
+    "getParamPSDataEntity" : {
+      "modelref" : true,
+      "path" : "PSMODULES/attendance/PSDATAENTITIES/attendance_group_shift_member.json"
+    },
+    "entityParam" : true
+  } ],
+  "getStartPSDELogicNode" : {
+    "modelref" : true,
+    "id" : "Begin"
+  },
+  "enableBackend" : true,
+  "enableFront" : false
+}

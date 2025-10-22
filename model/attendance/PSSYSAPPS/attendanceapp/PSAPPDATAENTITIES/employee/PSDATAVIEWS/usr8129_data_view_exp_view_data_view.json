@@ -1,0 +1,218 @@
+{
+  "codeName" : "usr8129_data_view_exp_view_data_view",
+  "controlStyle" : "TAB_CARD",
+  "controlType" : "DATAVIEW",
+  "getCreatePSControlAction" : {
+    "modelref" : true,
+    "id" : "create",
+    "actionName" : "Create",
+    "actionType" : "DEACTION",
+    "dataAccessAction" : "CREATE",
+    "name" : "create",
+    "getPSAppDEMethod" : {
+      "modelref" : true,
+      "id" : "Create"
+    },
+    "getPSAppDataEntity" : {
+      "modelref" : true,
+      "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/employee.json"
+    }
+  },
+  "dynaModelFilePath" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/employee/PSDATAVIEWS/usr8129_data_view_exp_view_data_view.json",
+  "getFetchPSControlAction" : {
+    "modelref" : true,
+    "id" : "fetch",
+    "actionType" : "DEDATASET",
+    "name" : "fetch",
+    "getPSAppDEMethod" : {
+      "modelref" : true,
+      "id" : "FetchEmployee"
+    },
+    "getPSAppDataEntity" : {
+      "modelref" : true,
+      "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/employee.json"
+    }
+  },
+  "getGetPSControlAction" : {
+    "modelref" : true,
+    "id" : "load",
+    "actionName" : "Get",
+    "actionType" : "DEACTION",
+    "dataAccessAction" : "READ",
+    "name" : "load",
+    "getPSAppDEMethod" : {
+      "modelref" : true,
+      "id" : "Get"
+    },
+    "getPSAppDataEntity" : {
+      "modelref" : true,
+      "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/employee.json"
+    }
+  },
+  "groupMode" : "NONE",
+  "hookEventNames" : [ "SELECTIONCHANGE", "LOAD" ],
+  "getItemPSLayoutPanel" : {
+    "getAllPSPanelFields" : [ {
+      "id" : "field_text_dynamic",
+      "viewFieldName" : "NAME"
+    } ],
+    "codeName" : "usr0731571074",
+    "controlType" : "PANEL",
+    "dynaModelFilePath" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/employee/PSPANELS/usr0731571074.json",
+    "layoutMode" : "FLEX",
+    "logicName" : "Usr8129DataViewExpView_DataView卡片视图",
+    "getPSAppDataEntity" : {
+      "modelref" : true,
+      "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/employee.json"
+    },
+    "getPSControlParam" : { },
+    "getPSLayout" : {
+      "layout" : "FLEX"
+    },
+    "getRootPSPanelItems" : [ {
+      "caption" : "文本(动态)",
+      "itemStyle" : "DEFAULT",
+      "itemType" : "FIELD",
+      "name" : "field_text_dynamic",
+      "getPSEditor" : {
+        "editorType" : "SPAN",
+        "name" : "field_text_dynamic",
+        "predefinedType" : "FIELD_TEXT_DYNAMIC",
+        "renderMode" : "TEXT_DYNAMIC",
+        "enableLinkView" : false
+      },
+      "getPSLayoutPos" : {
+        "grow" : -1,
+        "layout" : "FLEX"
+      },
+      "viewFieldName" : "NAME"
+    } ],
+    "layoutPanel" : true,
+    "name" : "itemlayoutpanel",
+    "modelid" : "16e6dea97ab34453dac7b8bb647dce14",
+    "modeltype" : "PSSYSVIEWPANEL"
+  },
+  "logicName" : "月度汇总个人卡片导航视图_卡片视图",
+  "getNavPSAppView" : {
+    "modelref" : true,
+    "path" : "PSSYSAPPS/attendanceapp/PSAPPDEVIEWS/attendance_statistics_edit_view.json",
+    "viewType" : "DEEDITVIEW"
+  },
+  "getPSAppDataEntity" : {
+    "modelref" : true,
+    "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/employee.json"
+  },
+  "getPSControlLogics" : [ {
+    "eventNames" : "SELECTIONCHANGE",
+    "logicTag" : "dataviewexpbar_dataview",
+    "logicType" : "CUSTOM",
+    "name" : "dataviewexpbar_selectionchange"
+  }, {
+    "eventNames" : "LOAD",
+    "logicTag" : "dataviewexpbar_dataview",
+    "logicType" : "CUSTOM",
+    "name" : "dataviewexpbar_load"
+  } ],
+  "getPSDEDataViewDataItems" : [ {
+    "dataType" : 25,
+    "name" : "name",
+    "getPSAppDEField" : {
+      "name" : "NAME",
+      "codeName" : "name"
+    }
+  }, {
+    "dataType" : 25,
+    "name" : "srfkey",
+    "getPSAppDEField" : {
+      "name" : "ID",
+      "codeName" : "id"
+    }
+  }, {
+    "dataType" : 25,
+    "name" : "srfmajortext",
+    "getPSAppDEField" : {
+      "name" : "NAME",
+      "codeName" : "name"
+    }
+  } ],
+  "getPSDEDataViewItems" : [ {
+    "getCapPSLanguageRes" : {
+      "lanResTag" : "DEF.LNAME.EMPLOYEE.NAME"
+    },
+    "caption" : "员工姓名",
+    "dataItemName" : "name",
+    "itemType" : "DATAITEM",
+    "name" : "NAME",
+    "getPSAppDEField" : {
+      "name" : "NAME",
+      "codeName" : "name"
+    },
+    "enableSort" : true
+  } ],
+  "getPSNavigateContexts" : [ {
+    "key" : "ATTENDANCE_STATISTICS",
+    "name" : "ATTENDANCE_STATISTICS",
+    "value" : "id",
+    "rawValue" : false
+  }, {
+    "key" : "N_CHECKIN_DATE_GTANDEQ",
+    "name" : "N_CHECKIN_DATE_GTANDEQ",
+    "value" : "n_checkin_date_gtandeq",
+    "rawValue" : false
+  }, {
+    "key" : "N_CHECKIN_DATE_LTANDEQ",
+    "name" : "N_CHECKIN_DATE_LTANDEQ",
+    "value" : "n_checkin_date_ltandeq",
+    "rawValue" : false
+  } ],
+  "getPSSysPFPlugin" : {
+    "pluginType" : "DATAVIEW_RENDER",
+    "pluginCode" : "TAB_CARD",
+    "runtimeObject" : true
+  },
+  "pagingSize" : 1000,
+  "getRemovePSControlAction" : {
+    "modelref" : true,
+    "id" : "remove",
+    "actionName" : "Remove",
+    "actionType" : "DEACTION",
+    "dataAccessAction" : "DELETE",
+    "name" : "remove",
+    "getPSAppDEMethod" : {
+      "modelref" : true,
+      "id" : "Remove"
+    },
+    "getPSAppDataEntity" : {
+      "modelref" : true,
+      "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/employee.json"
+    }
+  },
+  "getUpdatePSControlAction" : {
+    "modelref" : true,
+    "id" : "update",
+    "actionName" : "Update",
+    "actionType" : "DEACTION",
+    "dataAccessAction" : "UPDATE",
+    "name" : "update",
+    "getPSAppDEMethod" : {
+      "modelref" : true,
+      "id" : "Update"
+    },
+    "getPSAppDataEntity" : {
+      "modelref" : true,
+      "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/employee.json"
+    }
+  },
+  "hasWFDataItems" : false,
+  "appendDEItems" : false,
+  "enableCardEdit" : false,
+  "enableCardEditGroup" : false,
+  "enableCardEditOrder" : false,
+  "enableCardNew" : false,
+  "enableGroup" : false,
+  "enablePagingBar" : false,
+  "noSort" : false,
+  "singleSelect" : false,
+  "modelid" : "5197f51434c5c4c4fe579b9bbd262758",
+  "modeltype" : "PSDEDATAVIEW"
+}

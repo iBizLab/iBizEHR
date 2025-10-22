@@ -1,0 +1,16 @@
+export default {
+  codeListTag: 'employee_management__copy_give',
+  codeListType: 'DYNAMIC',
+  codeName: 'employee_management__copy_give',
+  emptyText: '未定义',
+  orMode: 'STR',
+  appDEDataSetId: 'fetchdefault',
+  appDataEntityId: 'attendanceapp.employee',
+  textAppDEFieldId: 'name',
+  textSeparator: ',',
+  valueAppDEFieldId: 'id',
+  valueSeparator: ',',
+  enableCache: true,
+  name: '抄送人',
+  id: 'attendanceapp.employee_management__copy_give',
+};

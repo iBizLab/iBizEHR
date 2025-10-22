@@ -1,0 +1,109 @@
+## 数据查询(Default) <!-- {docsify-ignore-all} -->
+
+
+
+<p class="panel-title"><b>查看SQL语句</b></p>
+<br>
+
+<el-row>
+&nbsp;<el-tag @click="MYSQL5 = true">MYSQL5</el-tag>
+</el-row>
+
+<br>
+<p class="panel-title"><b>是否默认查询</b></p>
+
+* `是`
+
+<p class="panel-title"><b>是否权限使用</b></p>
+
+* `否`
+
+<p class="panel-title"><b>是否自定义SQL</b></p>
+
+* `否`
+
+<p class="panel-title"><b>查询列级别</b></p>
+
+* `默认（全部查询列）`
+
+
+
+
+
+
+<el-dialog v-model="MYSQL5" title="MYSQL5">
+
+```sql
+SELECT
+t11.`ADDRESS`,
+t1.`ANNUAL_PERFORMANCE_BONUS`,
+t1.`APPLICANT_ID`,
+t1.`APPROVAL_ATTACHMENT`,
+t1.`ATTACHMENT_PASSWORD`,
+t1.`BANK_CARD_INFO`,
+t11.`CANDIDATE_DISPLAY_NAME`,
+t1.`CHECKINDATE`,
+t1.`COMMUNICATION_ALLOWANCE`,
+t1.`CONTRACT_TERM`,
+t1.`CREATE_DATE`,
+t1.`CREATE_UID`,
+t1.`CURRENT_EMPLOYER`,
+t11.`EDUCATION`,
+t11.`EMAIL_FROM`,
+t1.`EMAIL_TEMPLATE`,
+t11.`EXPERIENCE`,
+t1.`HR_IDEA_ID`,
+t1.`HR_IDEA_NAME`,
+t1.`ID`,
+t1.`IS_ENCRYPTED`,
+t1.`IS_GENERATE_ATTACHMENT`,
+t1.`JOB_NAME`,
+t21.`NAME` AS `JOB_PLATFORM_NAME`,
+t1.`JOB_RANK_ID`,
+t1.`LOCATION_CITY`,
+t1.`LOCATION_ID`,
+t1.`MA_CURRENCY`,
+t1.`MEAL_ALLOWANCE`,
+t11.`MOBILE_PHONE`,
+t1.`NAME`,
+t1.`OFFER_ATTACHMENT_TEMPLATE`,
+t1.`OFFER_TYPE`,
+t1.`RES_COMPANY_ID`,
+t31.`NAME` AS `RES_COMPANY_NAME`,
+t1.`SALARY_1`,
+t1.`SALARY_2`,
+t1.`SALARY_3`,
+t1.`SALARY_4`,
+t1.`SALARY_5`,
+t1.`SALARY_6`,
+t1.`SALARY_METHOD`,
+t1.`SALARY_TYPE`,
+t1.`SMS_TEMPLATE`,
+t1.`TRANSPORTATION_ALLOWANCE`,
+t1.`WORKING_HOURS_AM`,
+t1.`WORKING_HOURS_PM`,
+t1.`WRITE_DATE`,
+t1.`WRITE_UID`
+FROM `hr_offer` t1 
+LEFT JOIN `hr_applicant` t11 ON t1.`APPLICANT_ID` = t11.`ID` 
+LEFT JOIN `hr_job_platform` t21 ON t11.`JOB_PLATFORM_ID` = t21.`ID` 
+LEFT JOIN `res_company` t31 ON t1.`RES_COMPANY_ID` = t31.`ID` 
+
+
+```
+
+</el-dialog>
+
+<script>
+ const { createApp } = Vue
+  createApp({
+    data() {
+      return {
+                MYSQL5 : false
+        
+      }
+    },
+    methods: {
+    }
+  }).use(ElementPlus).mount('#app')
+</script>

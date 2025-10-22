@@ -1,0 +1,17 @@
+{
+  "codeName" : "calcGroupNum",
+  "dEFLogicMode" : "COMPUTE",
+  "defaultParamName" : "DEFAULT",
+  "dynaModelFilePath" : "PSMODULES/attendance/PSDATAENTITIES/attendance_rule/PSDEFLOGICS/calcGroupNum.json",
+  "logicName" : "计算组排班数量",
+  "logicSubType" : "DEFIELD",
+  "name" : "计算组排班数量",
+  "getPSDEField" : {
+    "name" : "GROUP_NUM",
+    "codeName" : "group_num"
+  },
+  "scriptCode" : "if (data.group_num == null && (data.schedule_type == \"class_inversion\" || data.schedule_type == \"work_rest\") && data.attendance_group_shifts != null ) {\n    console.log(\"计算组排班数\")\n    // var attendance_group_shifts = data.attendance_group_shifts;\n    // data.group_num = attendance_group_shifts.length;\n}",
+  "customCode" : true,
+  "enableBackend" : false,
+  "enableFront" : true
+}

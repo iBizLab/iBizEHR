@@ -1,0 +1,42 @@
+# 招聘(odoo_index)  <!-- {docsify-ignore-all} -->
+
+
+
+## 控件
+#### 应用菜单(appmenu)
+#### CAPTIONBAR(captionbar)
+
+
+### 关联视图
+  * [候选人管理(hr_applicant_list_view)](app/view/hr_applicant_list_view)
+  * [筛选候选人明细(hr_candidate_filter_detail_manager_filter_grid_view)](app/view/hr_candidate_filter_detail_manager_filter_grid_view)
+  * [候选人(hr_candidate_talentpool_list_view)](app/view/hr_candidate_talentpool_list_view)
+  * [人才库(hr_candidate_talentpool_management_view)](app/view/hr_candidate_talentpool_management_view)
+  * [考试/评测(hr_exam_hm_grid_view)](app/view/hr_exam_hm_grid_view)
+  * [招聘需求(hr_idea_requirement_gridview)](app/view/hr_idea_requirement_gridview)
+  * [职位管理(hr_idea_tab_job_requirments)](app/view/hr_idea_tab_job_requirments)
+  * [我的面试(hr_interview_feedback_my_interview_list)](app/view/hr_interview_feedback_my_interview_list)
+  * [面试安排(hr_interview_interview_list_calendar_view)](app/view/hr_interview_interview_list_calendar_view)
+  * [面试安排(hr_interview_interview_list_grid_view)](app/view/hr_interview_interview_list_grid_view)
+  * [面试安排(hr_interview_interview_list_tab_exp_view)](app/view/hr_interview_interview_list_tab_exp_view)
+  * [招聘职位(hr_job_grid_view)](app/view/hr_job_grid_view)
+  * [招聘平台账号基础表格信息(hr_job_platform_account_platform_account_info)](app/view/hr_job_platform_account_platform_account_info)
+  * [招聘平台(hr_job_platform_platform_list_view)](app/view/hr_job_platform_platform_list_view)
+  * [Offer审核(hr_offer_approval_hm_grid_view)](app/view/hr_offer_approval_hm_grid_view)
+  * [招聘流程设置(hr_recruitment_progress_grid_view)](app/view/hr_recruitment_progress_grid_view)
+  * [招聘阶段设置(hr_recruitment_stage_grid_view)](app/view/hr_recruitment_stage_grid_view)
+  * [设置(system_setting_tree_exp_view)](app/view/system_setting_tree_exp_view)
+  * [重要事项(workspace_hr_work_bench)](app/view/workspace_hr_work_bench)
+  * [工作台(workspace_manager_index_view)](app/view/workspace_manager_index_view)
+  * [总览(workspace_over_view)](app/view/workspace_over_view)
+
+<script>
+ const { createApp } = Vue
+  createApp({
+    data() {
+      return {
+
+      }
+    }
+  }).use(ElementPlus).mount('#app')
+</script>

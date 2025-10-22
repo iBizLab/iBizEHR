@@ -1,0 +1,215 @@
+{
+  "codeName" : "base",
+  "getDefaultPSDEMSLogicNode" : {
+    "modelref" : true,
+    "id" : "MAINSTATE"
+  },
+  "dynaModelFilePath" : "PSMODULES/hr/PSDATAENTITIES/hr_applicant/PSDEMSLOGICS/base.json",
+  "logicName" : "常规流程",
+  "logicTag" : "base",
+  "name" : "常规流程",
+  "getPSDEMSLogicNodes" : [ {
+    "codeName" : "MAINSTATE",
+    "leftPos" : 30,
+    "logicNodeType" : "MAINSTATE",
+    "name" : "人才推荐",
+    "orderValue" : 180,
+    "getPSDEMSLogicLinks" : [ {
+      "getDstPSDEMSLogicNode" : {
+        "modelref" : true,
+        "id" : "MAINSTATE1"
+      },
+      "name" : "连接名称",
+      "getSrcPSDEMSLogicNode" : {
+        "modelref" : true,
+        "id" : "MAINSTATE"
+      }
+    } ],
+    "stateValue" : "10",
+    "topPos" : -180,
+    "defaultMode" : true
+  }, {
+    "codeName" : "MAINSTATE1",
+    "leftPos" : 30,
+    "logicNodeType" : "MAINSTATE",
+    "name" : "初筛",
+    "oPPrivs" : [ "UPDATE", "DELETE", "CANDIDATE_FILTER" ],
+    "orderValue" : 100,
+    "getPSDEMSLogicLinks" : [ {
+      "getDstPSDEMSLogicNode" : {
+        "modelref" : true,
+        "id" : "MAINSTATE2"
+      },
+      "name" : "连接名称",
+      "getPSDEMSLogicLinkGroupCond" : {
+        "groupOP" : "AND",
+        "logicType" : "GROUP",
+        "getPSDEMSLogicLinkConds" : [ {
+          "condOP" : "EQ",
+          "dstFieldName" : "LAST_EDU_ACADEMIC_DEGREE",
+          "logicType" : "SINGLE",
+          "name" : "[LAST_EDU_ACADEMIC_DEGREE] 等于(=) 7",
+          "paramValue" : "7"
+        } ]
+      },
+      "getSrcPSDEMSLogicNode" : {
+        "modelref" : true,
+        "id" : "MAINSTATE1"
+      }
+    } ],
+    "stateValue" : "20",
+    "topPos" : -60,
+    "oPPrivAllowMode" : true
+  }, {
+    "codeName" : "MAINSTATE2",
+    "leftPos" : 370,
+    "logicNodeType" : "MAINSTATE",
+    "name" : "用人部门筛选",
+    "oPPrivs" : [ "UPDATE", "DELETE", "FIRST_INTERVIEW" ],
+    "orderValue" : 110,
+    "getPSDEMSLogicLinks" : [ {
+      "getDstPSDEMSLogicNode" : {
+        "modelref" : true,
+        "id" : "MAINSTATE3"
+      },
+      "name" : "连接名称",
+      "getSrcPSDEMSLogicNode" : {
+        "modelref" : true,
+        "id" : "MAINSTATE2"
+      }
+    } ],
+    "stateValue" : "30",
+    "topPos" : -60,
+    "fieldAllowMode" : true,
+    "oPPrivAllowMode" : true
+  }, {
+    "codeName" : "MAINSTATE3",
+    "leftPos" : 370,
+    "logicNodeType" : "MAINSTATE",
+    "name" : "初试",
+    "oPPrivs" : [ "UPDATE", "DELETE", "EXAM" ],
+    "orderValue" : 120,
+    "getPSDEMSLogicLinks" : [ {
+      "getDstPSDEMSLogicNode" : {
+        "modelref" : true,
+        "id" : "MAINSTATE7"
+      },
+      "name" : "连接名称",
+      "getSrcPSDEMSLogicNode" : {
+        "modelref" : true,
+        "id" : "MAINSTATE3"
+      }
+    }, {
+      "getDstPSDEMSLogicNode" : {
+        "modelref" : true,
+        "id" : "MAINSTATE8"
+      },
+      "name" : "连接名称",
+      "getSrcPSDEMSLogicNode" : {
+        "modelref" : true,
+        "id" : "MAINSTATE3"
+      }
+    } ],
+    "stateValue" : "40",
+    "topPos" : 60,
+    "fieldAllowMode" : true,
+    "oPPrivAllowMode" : true
+  }, {
+    "codeName" : "MAINSTATE4",
+    "leftPos" : 370,
+    "logicNodeType" : "MAINSTATE",
+    "name" : "沟通Offer",
+    "oPPrivs" : [ "UPDATE", "DELETE", "PENDING_ONBOARDING" ],
+    "orderValue" : 130,
+    "getPSDEMSLogicLinks" : [ {
+      "getDstPSDEMSLogicNode" : {
+        "modelref" : true,
+        "id" : "MAINSTATE5"
+      },
+      "name" : "连接名称",
+      "getSrcPSDEMSLogicNode" : {
+        "modelref" : true,
+        "id" : "MAINSTATE4"
+      }
+    } ],
+    "stateValue" : "70",
+    "topPos" : 220,
+    "fieldAllowMode" : true,
+    "oPPrivAllowMode" : true
+  }, {
+    "codeName" : "MAINSTATE5",
+    "leftPos" : 370,
+    "logicNodeType" : "MAINSTATE",
+    "name" : "待入职",
+    "oPPrivs" : [ "UPDATE", "DELETE", "ONBOARDED" ],
+    "orderValue" : 140,
+    "getPSDEMSLogicLinks" : [ {
+      "getDstPSDEMSLogicNode" : {
+        "modelref" : true,
+        "id" : "MAINSTATE9"
+      },
+      "name" : "连接名称",
+      "getSrcPSDEMSLogicNode" : {
+        "modelref" : true,
+        "id" : "MAINSTATE5"
+      }
+    } ],
+    "stateValue" : "80",
+    "topPos" : 360,
+    "fieldAllowMode" : true,
+    "oPPrivAllowMode" : true
+  }, {
+    "codeName" : "MAINSTATE7",
+    "leftPos" : 30,
+    "logicNodeType" : "MAINSTATE",
+    "name" : "大五性格评测",
+    "oPPrivs" : [ "UPDATE", "DELETE", "SECOND_INTERVIEW" ],
+    "orderValue" : 150,
+    "getPSDEMSLogicLinks" : [ {
+      "getDstPSDEMSLogicNode" : {
+        "modelref" : true,
+        "id" : "MAINSTATE8"
+      },
+      "name" : "连接名称",
+      "getSrcPSDEMSLogicNode" : {
+        "modelref" : true,
+        "id" : "MAINSTATE7"
+      }
+    } ],
+    "stateValue" : "50",
+    "topPos" : 60,
+    "fieldAllowMode" : true,
+    "oPPrivAllowMode" : true
+  }, {
+    "codeName" : "MAINSTATE8",
+    "leftPos" : 30,
+    "logicNodeType" : "MAINSTATE",
+    "name" : "复试",
+    "oPPrivs" : [ "UPDATE", "DELETE", "OFFER" ],
+    "orderValue" : 160,
+    "getPSDEMSLogicLinks" : [ {
+      "getDstPSDEMSLogicNode" : {
+        "modelref" : true,
+        "id" : "MAINSTATE4"
+      },
+      "name" : "连接名称",
+      "getSrcPSDEMSLogicNode" : {
+        "modelref" : true,
+        "id" : "MAINSTATE8"
+      }
+    } ],
+    "stateValue" : "60",
+    "topPos" : 220,
+    "fieldAllowMode" : true,
+    "oPPrivAllowMode" : true
+  }, {
+    "codeName" : "MAINSTATE9",
+    "leftPos" : 30,
+    "logicNodeType" : "MAINSTATE",
+    "name" : "完成",
+    "orderValue" : 170,
+    "stateValue" : "90",
+    "topPos" : 360,
+    "fieldAllowMode" : true
+  } ]
+}

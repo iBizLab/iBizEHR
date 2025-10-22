@@ -1,0 +1,54 @@
+include:
+  - ./docker-compose-base.yml
+services:
+  #recruitservice
+  recruitservice:
+    env_file: .env
+    image: 	${IMAGE_URL}ibiz-service-runner:v8.1.0.572.10-1
+    container_name: recruitservice
+    ports:
+      - "30454:30454"
+    networks:
+      - agent_network
+    environment:
+      - TZ=Asia/Shanghai
+      - SYSTEM_NAME=recruit
+      - SYSTEM_REPO=https://gitee.com/ibizlab/recruitment/releases/download/V1.0-alpha.20251015/V1.0-alpha.20251013.zip
+      - SPRING_CLOUD_NACOS_DISCOVERY_SERVER-ADDR=http://${NACOS_HOST}:${NACOS_PORT}
+      - SPRING_CLOUD_NACOS_CONFIG_SERVER-ADDR=http://${NACOS_HOST}:${NACOS_PORT}
+      - SPRING_CLOUD_NACOS_DISCOVERY_IP=recruitservice
+      - SERVER_PORT=30454
+      - IBIZ_SERVICEHUB_INITMODE=auto
+      - SPRING_DATASOURCE_DRIVER-CLASS-NAME=com.mysql.jdbc.Driver
+      - SPRING_DATASOURCE_PASSWORD=ehr@2024
+      - SPRING_DATASOURCE_URL=jdbc:mysql://${MYSQL_HOST}:${MYSQL_PORT}/ehr?autoReconnect=true&useUnicode=true&characterEncoding=UTF-8&useOldAliasMetadataBehavior=true&serverTimezone=GMT%2B8&allowMultiQueries=true&useSSL=false
+      - SPRING_DATASOURCE_USERNAME=ehr
+      - SETTINGS_APPDATACTX_MODELDESIGNPATH=https://open.ibizlab.cn/modeldesign/#/psdevslnsys=72609486-e3e0-b83d-58aa-7718ba2ae047/modelingindex/
+      - SETTINGS_APPDATACTX_MODELDESIGNMODE=v9
+      - JAVA_OPTS=-Xms512m -Xmx2048m -Xss256K -Dgroovy.grape.report.downloads=true
+    entrypoint: /entrypoint-waitfor.sh
+    command: ibiz-ebsx-gateway:30086
+
+
+  #recruitweb
+  recruitweb:
+    env_file: .env
+    image: 	${IMAGE_URL}ibiz-cloud-web-runner:v9.0.7.41-alpha.31
+    container_name: recruitweb
+    ports:
+      - 30453:80
+    networks:
+      - agent_network
+    environment:
+      - TZ=Asia/Shanghai  
+      - FILE_PREVIEW_ADDRESS=http://${IPADDR:-10.144.0.1}:30012
+      - CUSTOMPARAMS={"file_preview_address":"http://${IPADDR:-10.144.0.1}:30012","ENABLEMULTILOGIN":false}
+      - MOCKDCSYSTEMID=recruit
+      - APPNAME=桌面端
+      - APPCODE=recruit-web
+      - APICODE=recruit__web
+      - BASEURL=recruit__web
+      - PLUGINBASEURL=https://npmjs.ibizlab.cn
+      - UPLOADFILEURL=/ibizutil/upload/ibizehr
+      - DOWNLOADFILEURL=/ibizutil/download/ibizehr
+

@@ -1,0 +1,1645 @@
+# MYSQL5 <!-- {docsify-ignore-all} -->
+
+## [激活规则(ATTENDANCE_ACTIVATE_RULE)](module/attendance/attendance_activate_rule.md) :id=attendance_activate_rule
+
+#### DEFAULT :id=attendance_activate_rule-Default
+```sql
+SELECT
+t1.`ID`,
+t1.`NAME`,
+t1.`RULE_DATA`,
+t1.`SCHEDULE_TYPE`
+FROM `ATTENDANCE_ACTIVATE_RULE` t1 
+
+```
+
+#### 默认（全部数据）(VIEW) :id=attendance_activate_rule-View
+```sql
+SELECT
+t1.`ID`,
+t1.`NAME`,
+t1.`RULE_DATA`,
+t1.`SCHEDULE_TYPE`
+FROM `ATTENDANCE_ACTIVATE_RULE` t1 
+
+```
+
+
+## [激活班次(ATTENDANCE_ACTIVATE_SHIFT)](module/attendance/attendance_activate_shift.md) :id=attendance_activate_shift
+
+#### DEFAULT :id=attendance_activate_shift-Default
+```sql
+SELECT
+t1.`CREATE_DATE`,
+t1.`CREATE_UID`,
+t1.`ID`,
+t1.`NAME`,
+t1.`RULE_ID`,
+t1.`SHIFT_DATA`,
+t1.`WRITE_DATE`,
+t1.`WRITE_UID`
+FROM `ATTENDANCE_ACTIVATE_SHIFT` t1 
+
+```
+
+#### 默认（全部数据）(VIEW) :id=attendance_activate_shift-View
+```sql
+SELECT
+t1.`CREATE_DATE`,
+t1.`CREATE_UID`,
+t1.`ID`,
+t1.`NAME`,
+t1.`RULE_ID`,
+t1.`SHIFT_DATA`,
+t1.`WRITE_DATE`,
+t1.`WRITE_UID`
+FROM `ATTENDANCE_ACTIVATE_SHIFT` t1 
+
+```
+
+
+## [考勤申请记录(ATTENDANCE_CHECKIN_APPLICATION)](module/attendance/attendance_checkin_application.md) :id=attendance_checkin_application
+
+#### DEFAULT :id=attendance_checkin_application-Default
+```sql
+SELECT
+t1.`APPLICANT_ID`,
+t1.`APPLICANT_NAME`,
+t1.`APPLY_TYPE`,
+t1.`APPROVER_ID`,
+t1.`APPROVER_NAME`,
+t1.`COPY_GIVE`,
+t1.`COPY_GIVE_NAMES`,
+t1.`CREATE_DATE`,
+t1.`CREATE_UID`,
+t1.`DAYS`,
+t1.`DEPARTURE_CITY`,
+t1.`DEPT_ID`,
+t1.`DEPT_NAME`,
+t1.`DESTINATION_CITY`,
+t1.`EMPLOYEE_NUM`,
+t1.`END_TIME`,
+t1.`GO_OUT_PLACE`,
+t1.`HOURS`,
+t1.`ID`,
+t1.`LEAVE_TYPE`,
+t1.`MINUTES`,
+t1.`NAME`,
+t1.`OVERTIME_TYPE`,
+t1.`REASON`,
+t1.`REISSUE_DATE`,
+t1.`REISSUE_TIME`,
+t1.`START_TIME`,
+t1.`STATUS`,
+t1.`WRITE_DATE`,
+t1.`WRITE_UID`
+FROM `ATTENDANCE_CHECKIN_APPLICATION` t1 
+
+```
+
+#### 正常(normal) :id=attendance_checkin_application-normal
+```sql
+SELECT
+t1.`APPLICANT_ID`,
+t1.`APPLICANT_NAME`,
+t1.`APPLY_TYPE`,
+t1.`APPROVER_ID`,
+t1.`APPROVER_NAME`,
+t1.`COPY_GIVE`,
+t1.`COPY_GIVE_NAMES`,
+t1.`CREATE_DATE`,
+t1.`CREATE_UID`,
+t1.`DAYS`,
+t1.`DEPARTURE_CITY`,
+t1.`DEPT_ID`,
+t1.`DEPT_NAME`,
+t1.`DESTINATION_CITY`,
+t1.`EMPLOYEE_NUM`,
+t1.`END_TIME`,
+t1.`GO_OUT_PLACE`,
+t1.`HOURS`,
+t1.`ID`,
+t1.`LEAVE_TYPE`,
+t1.`MINUTES`,
+t1.`NAME`,
+t1.`OVERTIME_TYPE`,
+t1.`REASON`,
+t1.`REISSUE_DATE`,
+t1.`REISSUE_TIME`,
+t1.`START_TIME`,
+t1.`STATUS`,
+t1.`WRITE_DATE`,
+t1.`WRITE_UID`
+FROM `ATTENDANCE_CHECKIN_APPLICATION` t1 
+
+WHERE ( t1.`STATUS` <> 'CANCELLATION' )
+```
+
+
+## [考勤设备关联(ATTENDANCE_CHECKIN_DEVICE)](module/attendance/attendance_checkin_device.md) :id=attendance_checkin_device
+
+#### DEFAULT :id=attendance_checkin_device-Default
+```sql
+SELECT
+t1.`CREATE_DATE`,
+t1.`CREATE_UID`,
+t1.`DEVICE_ID`,
+t11.`NAME` AS `DEVICE_NAME`,
+t1.`ID`,
+t1.`NAME`,
+t1.`RULE_ID`,
+t1.`WRITE_DATE`,
+t1.`WRITE_UID`
+FROM `ATTENDANCE_CHECKIN_DEVICE` t1 
+LEFT JOIN `ATTENDANCE_DEVICE` t11 ON t1.`DEVICE_ID` = t11.`ID` 
+
+```
+
+
+## [打卡记录(ATTENDANCE_CLOCK_IN_RECORD)](module/attendance/attendance_clock_in_record.md) :id=attendance_clock_in_record
+
+#### DEFAULT :id=attendance_clock_in_record-Default
+```sql
+SELECT
+t1.`CHECKIN_IMAGE`,
+t1.`CHECKIN_REMARK`,
+t1.`CHECKIN_RESULT`,
+t1.`CHECKIN_TIME`,
+t1.`CHECKIN_TYPE`,
+t1.`CLOCK_TYPE`,
+t1.`CMD`,
+t1.`CREATE_DATE`,
+t1.`CREATE_UID`,
+t1.`DATE`,
+t1.`DEPT_ID`,
+t1.`DEPT_NAME`,
+t1.`DEVICE_NAME`,
+t1.`DURATION_HOURS`,
+t1.`ID`,
+t1.`MEMBER_ID`,
+t1.`MEMBER_NAME`,
+t1.`MEMBER_NUM`,
+t1.`NAME`,
+t1.`SHOULD_CHECKIN_TIME`,
+t1.`SOURCE`,
+t1.`TERMINAL_ID`,
+t1.`WRITE_DATE`,
+t1.`WRITE_UID`
+FROM `ATTENDANCE_CLOCK_IN_RECORD` t1 
+
+```
+
+#### 我的打卡记录(MYCLOCKINRECORD) :id=attendance_clock_in_record-MyClockInRecord
+```sql
+SELECT
+t1.`CHECKIN_IMAGE`,
+t1.`CHECKIN_REMARK`,
+t1.`CHECKIN_RESULT`,
+t1.`CHECKIN_TIME`,
+t1.`CHECKIN_TYPE`,
+t1.`CLOCK_TYPE`,
+t1.`CMD`,
+t1.`CREATE_DATE`,
+t1.`CREATE_UID`,
+t1.`DATE`,
+t1.`DEPT_ID`,
+t1.`DEPT_NAME`,
+t1.`DEVICE_NAME`,
+t1.`DURATION_HOURS`,
+t1.`ID`,
+t1.`MEMBER_ID`,
+t1.`MEMBER_NAME`,
+t1.`MEMBER_NUM`,
+t1.`NAME`,
+t1.`SHOULD_CHECKIN_TIME`,
+t1.`SOURCE`,
+t1.`TERMINAL_ID`,
+t1.`WRITE_DATE`,
+t1.`WRITE_UID`
+FROM `ATTENDANCE_CLOCK_IN_RECORD` t1 
+
+WHERE ( t1.`MEMBER_ID` = #{ctx.sessioncontext.srfpersonid} )
+```
+
+
+## [设备信息(ATTENDANCE_DEVICE)](module/attendance/attendance_device.md) :id=attendance_device
+
+#### DEFAULT :id=attendance_device-Default
+```sql
+SELECT
+t1.`CREATE_DATE`,
+t1.`CREATE_UID`,
+t1.`DEVICE`,
+t1.`ID`,
+t1.`NAME`,
+t1.`WRITE_DATE`,
+t1.`WRITE_UID`
+FROM `ATTENDANCE_DEVICE` t1 
+
+```
+
+
+## [GPS定位配置(ATTENDANCE_GPS_LOCATION)](module/attendance/attendance_gps_location.md) :id=attendance_gps_location
+
+#### DEFAULT :id=attendance_gps_location-Default
+```sql
+SELECT
+t1.`CREATE_DATE`,
+t1.`CREATE_UID`,
+t1.`ID`,
+t1.`LATITUDE`,
+t1.`LOCATION`,
+t1.`LONGITUDE`,
+t1.`NAME`,
+t1.`RANGE`,
+t1.`RULE_ID`,
+t1.`WRITE_DATE`,
+t1.`WRITE_UID`
+FROM `ATTENDANCE_GPS_LOCATION` t1 
+
+```
+
+
+## [组排班(ATTENDANCE_GROUP_SHIFT)](module/attendance/attendance_group_shift.md) :id=attendance_group_shift
+
+#### DEFAULT :id=attendance_group_shift-Default
+```sql
+SELECT
+t1.`ALL_COMPANY`,
+t1.`CREATE_DATE`,
+t1.`CREATE_UID`,
+t1.`ID`,
+t1.`NAME`,
+t1.`ORDER_NUM`,
+t1.`RULE_ID`,
+t1.`RULE_NAME`,
+t1.`WORKDAYS`,
+t1.`WRITE_DATE`,
+t1.`WRITE_UID`
+FROM `ATTENDANCE_GROUP_SHIFT` t1 
+
+```
+
+
+## [考勤规则成员(ATTENDANCE_GROUP_SHIFT_MEMBER)](module/attendance/attendance_group_shift_member.md) :id=attendance_group_shift_member
+
+#### DEFAULT :id=attendance_group_shift_member-Default
+```sql
+SELECT
+t1.`CREATE_DATE`,
+t1.`CREATE_UID`,
+t1.`GROUP_ID`,
+t1.`ID`,
+t1.`NAME`,
+t1.`RULE_ID`,
+t1.`TYPE`,
+t1.`USER_ID`,
+t1.`WRITE_DATE`,
+t1.`WRITE_UID`
+FROM `ATTENDANCE_GROUP_SHIFT_MEMBER` t1 
+
+```
+
+#### members :id=attendance_group_shift_member-members
+```sql
+SELECT
+t1.`CREATE_DATE`,
+t1.`CREATE_UID`,
+t1.`GROUP_ID`,
+t1.`ID`,
+t1.`NAME`,
+t1.`RULE_ID`,
+t1.`TYPE`,
+t1.`USER_ID`,
+t1.`WRITE_DATE`,
+t1.`WRITE_UID`
+FROM `ATTENDANCE_GROUP_SHIFT_MEMBER` t1 
+
+WHERE ( t1.`GROUP_ID` = #{ctx.datacontext.attendance_group} )
+```
+
+
+## [假期类型(ATTENDANCE_LEAVE_TYPE)](module/attendance/attendance_leave_type.md) :id=attendance_leave_type
+
+#### DEFAULT :id=attendance_leave_type-Default
+```sql
+SELECT
+t1.`ALL_COMPANY`,
+t1.`ASK_UNIT`,
+t1.`CALCULATE_WAY`,
+t1.`CREATE_DATE`,
+t1.`CREATE_UID`,
+t1.`DAY_TO_HOUR`,
+t1.`DEPT_ID`,
+t1.`ID`,
+t1.`IS_DEFAULT`,
+t1.`MAX_APPLY_DAY`,
+t1.`NAME`,
+t1.`PERIOD_FROM`,
+t1.`PERIOD_TO`,
+t1.`STATUS`,
+t1.`TYPE`,
+t1.`UNIT`,
+t1.`WITH_SALARY`,
+t1.`WRITE_DATE`,
+t1.`WRITE_UID`
+FROM `ATTENDANCE_LEAVE_TYPE` t1 
+
+```
+
+
+## [考勤记录(ATTENDANCE_RECORD)](module/attendance/attendance_record.md) :id=attendance_record
+
+#### DEFAULT :id=attendance_record-Default
+```sql
+SELECT
+t1.`ACTUAL_ATTENDANCE_DAYS`,
+t1.`BILLABLE_HOURS`,
+t1.`BILLABLE_TIME`,
+t1.`CHECKIN_DATE`,
+t1.`CHECKIN_MESSAGE`,
+t1.`CHECKIN_MISSING_TIMES`,
+t1.`CHECKIN_RESULT`,
+t1.`CREATE_DATE`,
+t1.`CREATE_UID`,
+t1.`DEPT_ID`,
+t1.`DEPT_NAME`,
+t1.`ID`,
+t1.`IS_BUSINESS_TRIP`,
+t1.`IS_GO_OUT`,
+t1.`IS_LEAVE`,
+t1.`IS_OUT_WORK`,
+t1.`IS_OVERTIME`,
+t1.`IS_PAY_OVERTIME`,
+t1.`IS_REST_OVERTIME`,
+t1.`LATE_MINUTES`,
+t1.`LATE_TIME`,
+t1.`LATE_TIMES`,
+t1.`LEAVE_DURATION`,
+t1.`LEAVE_EARLY_MINUTES`,
+t1.`LEAVE_EARLY_TIME`,
+t1.`LEAVE_EARLY_TIMES`,
+t1.`LEAVE_TYPE`,
+t1.`MEMBER_ID`,
+t1.`MEMBER_NAME`,
+t1.`MEMBER_NUM`,
+t1.`NAME`,
+t1.`OFF_HOURS`,
+t1.`ON_BUSINESS_DAYS`,
+t1.`OUT_HOURS`,
+t1.`OUT_TIME`,
+t1.`OUT_WORK_HOURS`,
+t1.`OUT_WORK_TIME`,
+t1.`OVERTIME_HOURS`,
+t1.`OVERTIME_TIME`,
+t1.`RULE_ID`,
+t11.`NAME` AS `RULE_NAME`,
+t1.`SCHEDULE_TYPE`,
+t1.`SHIFT_MESSAGE`,
+t1.`SHOULD_ATTENDANCE_DAYS`,
+t1.`SHOULD_ATTENDANCE_HOURS`,
+t1.`SHOULD_ATTENDANCE_TIME`,
+t1.`TITLE`,
+t1.`WORKING_HOURS`,
+t1.`WORKING_TIME`,
+t1.`WRITE_DATE`,
+t1.`WRITE_UID`
+FROM `ATTENDANCE_RECORD` t1 
+LEFT JOIN `ATTENDANCE_RULE` t11 ON t1.`RULE_ID` = t11.`ID` 
+
+```
+
+#### 默认（全部数据）(VIEW) :id=attendance_record-View
+```sql
+SELECT
+t1.`ACTUAL_ATTENDANCE_DAYS`,
+t1.`BILLABLE_HOURS`,
+t1.`BILLABLE_TIME`,
+t1.`CHECKIN_DATE`,
+t1.`CHECKIN_MESSAGE`,
+t1.`CHECKIN_MISSING_TIMES`,
+t1.`CHECKIN_RESULT`,
+t1.`CREATE_DATE`,
+t1.`CREATE_UID`,
+t1.`DEPT_ID`,
+t1.`DEPT_NAME`,
+t1.`ID`,
+t1.`IS_BUSINESS_TRIP`,
+t1.`IS_GO_OUT`,
+t1.`IS_LEAVE`,
+t1.`IS_OUT_WORK`,
+t1.`IS_OVERTIME`,
+t1.`IS_PAY_OVERTIME`,
+t1.`IS_REST_OVERTIME`,
+t1.`LATE_MINUTES`,
+t1.`LATE_TIME`,
+t1.`LATE_TIMES`,
+t1.`LEAVE_DURATION`,
+t1.`LEAVE_EARLY_MINUTES`,
+t1.`LEAVE_EARLY_TIME`,
+t1.`LEAVE_EARLY_TIMES`,
+t1.`LEAVE_TYPE`,
+t1.`MEMBER_ID`,
+t1.`MEMBER_NAME`,
+t1.`MEMBER_NUM`,
+t1.`NAME`,
+t1.`OFF_HOURS`,
+t1.`ON_BUSINESS_DAYS`,
+t1.`OUT_HOURS`,
+t1.`OUT_TIME`,
+t1.`OUT_WORK_HOURS`,
+t1.`OUT_WORK_TIME`,
+t1.`OVERTIME_HOURS`,
+t1.`OVERTIME_TIME`,
+t1.`RULE_ID`,
+t11.`NAME` AS `RULE_NAME`,
+t1.`SCHEDULE_TYPE`,
+t1.`SHIFT_MESSAGE`,
+t1.`SHOULD_ATTENDANCE_DAYS`,
+t1.`SHOULD_ATTENDANCE_HOURS`,
+t1.`SHOULD_ATTENDANCE_TIME`,
+t1.`TITLE`,
+t1.`WORKING_HOURS`,
+t1.`WORKING_TIME`,
+t1.`WRITE_DATE`,
+t1.`WRITE_UID`
+FROM `ATTENDANCE_RECORD` t1 
+LEFT JOIN `ATTENDANCE_RULE` t11 ON t1.`RULE_ID` = t11.`ID` 
+
+```
+
+#### 异常考勤(abnormal_attendance) :id=attendance_record-abnormal_attendance
+```sql
+SELECT
+t1.`ACTUAL_ATTENDANCE_DAYS`,
+t1.`BILLABLE_HOURS`,
+t1.`BILLABLE_TIME`,
+t1.`CHECKIN_DATE`,
+t1.`CHECKIN_MESSAGE`,
+t1.`CHECKIN_MISSING_TIMES`,
+t1.`CHECKIN_RESULT`,
+t1.`CREATE_DATE`,
+t1.`CREATE_UID`,
+t1.`DEPT_ID`,
+t1.`DEPT_NAME`,
+t1.`ID`,
+t1.`IS_BUSINESS_TRIP`,
+t1.`IS_GO_OUT`,
+t1.`IS_LEAVE`,
+t1.`IS_OUT_WORK`,
+t1.`IS_OVERTIME`,
+t1.`IS_PAY_OVERTIME`,
+t1.`IS_REST_OVERTIME`,
+t1.`LATE_MINUTES`,
+t1.`LATE_TIME`,
+t1.`LATE_TIMES`,
+t1.`LEAVE_DURATION`,
+t1.`LEAVE_EARLY_MINUTES`,
+t1.`LEAVE_EARLY_TIME`,
+t1.`LEAVE_EARLY_TIMES`,
+t1.`LEAVE_TYPE`,
+t1.`MEMBER_ID`,
+t1.`MEMBER_NAME`,
+t1.`MEMBER_NUM`,
+t1.`NAME`,
+t1.`OFF_HOURS`,
+t1.`ON_BUSINESS_DAYS`,
+t1.`OUT_HOURS`,
+t1.`OUT_TIME`,
+t1.`OUT_WORK_HOURS`,
+t1.`OUT_WORK_TIME`,
+t1.`OVERTIME_HOURS`,
+t1.`OVERTIME_TIME`,
+t1.`RULE_ID`,
+t11.`NAME` AS `RULE_NAME`,
+t1.`SCHEDULE_TYPE`,
+t1.`SHIFT_MESSAGE`,
+t1.`SHOULD_ATTENDANCE_DAYS`,
+t1.`SHOULD_ATTENDANCE_HOURS`,
+t1.`SHOULD_ATTENDANCE_TIME`,
+t1.`TITLE`,
+t1.`WORKING_HOURS`,
+t1.`WORKING_TIME`,
+t1.`WRITE_DATE`,
+t1.`WRITE_UID`
+FROM `ATTENDANCE_RECORD` t1 
+LEFT JOIN `ATTENDANCE_RULE` t11 ON t1.`RULE_ID` = t11.`ID` 
+
+WHERE ( t1.`CHECKIN_RESULT` <> 'NORMAL' )
+```
+
+#### clock :id=attendance_record-clock
+```sql
+SELECT
+t1.`ACTUAL_ATTENDANCE_DAYS`,
+t1.`BILLABLE_HOURS`,
+t1.`BILLABLE_TIME`,
+t1.`CHECKIN_DATE`,
+t1.`CHECKIN_MESSAGE`,
+t1.`CHECKIN_MISSING_TIMES`,
+t1.`CHECKIN_RESULT`,
+t1.`CREATE_DATE`,
+t1.`CREATE_UID`,
+t1.`DEPT_ID`,
+t1.`DEPT_NAME`,
+t1.`ID`,
+t1.`IS_BUSINESS_TRIP`,
+t1.`IS_GO_OUT`,
+t1.`IS_LEAVE`,
+t1.`IS_OUT_WORK`,
+t1.`IS_OVERTIME`,
+t1.`IS_PAY_OVERTIME`,
+t1.`IS_REST_OVERTIME`,
+t1.`LATE_MINUTES`,
+t1.`LATE_TIME`,
+t1.`LATE_TIMES`,
+t1.`LEAVE_DURATION`,
+t1.`LEAVE_EARLY_MINUTES`,
+t1.`LEAVE_EARLY_TIME`,
+t1.`LEAVE_EARLY_TIMES`,
+t1.`LEAVE_TYPE`,
+t1.`MEMBER_ID`,
+t1.`MEMBER_NAME`,
+t1.`MEMBER_NUM`,
+t1.`NAME`,
+t1.`OFF_HOURS`,
+t1.`ON_BUSINESS_DAYS`,
+t1.`OUT_HOURS`,
+t1.`OUT_TIME`,
+t1.`OUT_WORK_HOURS`,
+t1.`OUT_WORK_TIME`,
+t1.`OVERTIME_HOURS`,
+t1.`OVERTIME_TIME`,
+t1.`RULE_ID`,
+t11.`NAME` AS `RULE_NAME`,
+t1.`SCHEDULE_TYPE`,
+t1.`SHIFT_MESSAGE`,
+t1.`SHOULD_ATTENDANCE_DAYS`,
+t1.`SHOULD_ATTENDANCE_HOURS`,
+t1.`SHOULD_ATTENDANCE_TIME`,
+t1.`TITLE`,
+t1.`WORKING_HOURS`,
+t1.`WORKING_TIME`,
+t1.`WRITE_DATE`,
+t1.`WRITE_UID`
+FROM `ATTENDANCE_RECORD` t1 
+LEFT JOIN `ATTENDANCE_RULE` t11 ON t1.`RULE_ID` = t11.`ID` 
+
+WHERE EXISTS(SELECT * FROM `ATTENDANCE_RECORD_DETAIL` t21 
+ WHERE 
+ t1.`ID` = t21.`RECORD_ID` )
+```
+
+
+## [打卡详情(ATTENDANCE_RECORD_DETAIL)](module/attendance/attendance_record_detail.md) :id=attendance_record_detail
+
+#### DEFAULT :id=attendance_record_detail-Default
+```sql
+SELECT
+t1.`CHECKIN_RESULT`,
+t1.`CHECKIN_TIME`,
+t1.`CREATE_DATE`,
+t1.`CREATE_UID`,
+t1.`DETAIL_INDEX`,
+t1.`ID`,
+t1.`IS_BUSINESS_TRIP`,
+t1.`IS_GO_OUT`,
+t1.`IS_LEAVE`,
+t1.`LEAVE_NAME`,
+t1.`NAME`,
+t1.`RECORD_ID`,
+t1.`SHOULD_CHECKIN_TIME`,
+t1.`WRITE_DATE`,
+t1.`WRITE_UID`
+FROM `ATTENDANCE_RECORD_DETAIL` t1 
+
+```
+
+#### 默认（全部数据）(VIEW) :id=attendance_record_detail-View
+```sql
+SELECT
+t1.`CHECKIN_RESULT`,
+t1.`CHECKIN_TIME`,
+t1.`CREATE_DATE`,
+t1.`CREATE_UID`,
+t1.`DETAIL_INDEX`,
+t1.`ID`,
+t1.`IS_BUSINESS_TRIP`,
+t1.`IS_GO_OUT`,
+t1.`IS_LEAVE`,
+t1.`LEAVE_NAME`,
+t1.`NAME`,
+t1.`RECORD_ID`,
+t1.`SHOULD_CHECKIN_TIME`,
+t1.`WRITE_DATE`,
+t1.`WRITE_UID`
+FROM `ATTENDANCE_RECORD_DETAIL` t1 
+
+```
+
+
+## [考勤规则(ATTENDANCE_RULE)](module/attendance/attendance_rule.md) :id=attendance_rule
+
+#### DEFAULT :id=attendance_rule-Default
+```sql
+SELECT
+t1.`AUTO_MATCH`,
+t1.`BIWEEKLY_CYCLE`,
+t1.`CHECKIN_METHOD`,
+t1.`CREATE_DATE`,
+t1.`CREATE_UID`,
+t1.`DEFAULT_FLAG`,
+t1.`EFFECT_TIME`,
+t1.`ELASTIC_MINUTES`,
+t1.`ELASTIC_VALID`,
+t1.`FREE_MIN_MINUTES`,
+t1.`FREE_RATIO`,
+t1.`HOLIDAY`,
+t1.`ID`,
+t1.`INVERSION_COUNT`,
+t1.`INVERSION_CYCLE`,
+t1.`INVERSION_DAYS`,
+t1.`IS_ACTIVATE`,
+t1.`NAME`,
+t1.`REQUIREMENT`,
+t1.`REST`,
+t1.`SAME_RESTDAY`,
+t1.`SCHEDULE_TYPE`,
+t1.`WORK`,
+t1.`WRITE_DATE`,
+t1.`WRITE_UID`
+FROM `ATTENDANCE_RULE` t1 
+
+```
+
+#### 默认（全部数据）(VIEW) :id=attendance_rule-View
+```sql
+SELECT
+t1.`AUTO_MATCH`,
+t1.`BIWEEKLY_CYCLE`,
+t1.`CHECKIN_METHOD`,
+t1.`CREATE_DATE`,
+t1.`CREATE_UID`,
+t1.`DEFAULT_FLAG`,
+t1.`EFFECT_TIME`,
+t1.`ELASTIC_MINUTES`,
+t1.`ELASTIC_VALID`,
+t1.`FREE_MIN_MINUTES`,
+t1.`FREE_RATIO`,
+t1.`HOLIDAY`,
+t1.`ID`,
+t1.`INVERSION_COUNT`,
+t1.`INVERSION_CYCLE`,
+t1.`INVERSION_DAYS`,
+t1.`IS_ACTIVATE`,
+t1.`NAME`,
+t1.`REQUIREMENT`,
+t1.`REST`,
+t1.`SAME_RESTDAY`,
+t1.`SCHEDULE_TYPE`,
+t1.`WORK`,
+t1.`WRITE_DATE`,
+t1.`WRITE_UID`
+FROM `ATTENDANCE_RULE` t1 
+
+```
+
+#### 需激活的规则(needActivate) :id=attendance_rule-needActivate
+```sql
+SELECT
+t1.`AUTO_MATCH`,
+t1.`BIWEEKLY_CYCLE`,
+t1.`CHECKIN_METHOD`,
+t1.`CREATE_DATE`,
+t1.`CREATE_UID`,
+t1.`DEFAULT_FLAG`,
+t1.`EFFECT_TIME`,
+t1.`ELASTIC_MINUTES`,
+t1.`ELASTIC_VALID`,
+t1.`FREE_MIN_MINUTES`,
+t1.`FREE_RATIO`,
+t1.`HOLIDAY`,
+t1.`ID`,
+t1.`INVERSION_COUNT`,
+t1.`INVERSION_CYCLE`,
+t1.`INVERSION_DAYS`,
+t1.`IS_ACTIVATE`,
+t1.`NAME`,
+t1.`REQUIREMENT`,
+t1.`REST`,
+t1.`SAME_RESTDAY`,
+t1.`SCHEDULE_TYPE`,
+t1.`WORK`,
+t1.`WRITE_DATE`,
+t1.`WRITE_UID`
+FROM `ATTENDANCE_RULE` t1 
+
+WHERE ( t1.`IS_ACTIVATE` = 0  AND  EFFECT_TIME <= CURDATE() )
+```
+
+
+## [排班(ATTENDANCE_SCHEDULE)](module/attendance/attendance_schedule.md) :id=attendance_schedule
+
+#### DEFAULT :id=attendance_schedule-Default
+```sql
+SELECT
+t1.`CHECKIN_DATE`,
+t1.`CREATE_DATE`,
+t1.`CREATE_UID`,
+t1.`DEPT_ID`,
+t1.`DEPT_NAME`,
+t1.`ID`,
+t1.`MANUAL`,
+t1.`MANUAL_TYPE`,
+t1.`MEMBER_ID`,
+t1.`MEMBER_NAME`,
+t1.`MEMBER_NUM`,
+t1.`NAME`,
+t1.`RULE_DATA`,
+t1.`RULE_ID`,
+t11.`NAME` AS `RULE_NAME`,
+t11.`SCHEDULE_TYPE`,
+t1.`SHIFT_DATA`,
+t1.`TITLE`,
+t1.`WORKDAY`,
+t1.`WORK_TIME`,
+t1.`WRITE_DATE`,
+t1.`WRITE_UID`
+FROM `ATTENDANCE_SCHEDULE` t1 
+LEFT JOIN `ATTENDANCE_ACTIVATE_RULE` t11 ON t1.`RULE_ID` = t11.`ID` 
+
+```
+
+#### 默认（全部数据）(VIEW) :id=attendance_schedule-View
+```sql
+SELECT
+t1.`CHECKIN_DATE`,
+t1.`CREATE_DATE`,
+t1.`CREATE_UID`,
+t1.`DEPT_ID`,
+t1.`DEPT_NAME`,
+t1.`ID`,
+t1.`MANUAL`,
+t1.`MANUAL_TYPE`,
+t1.`MEMBER_ID`,
+t1.`MEMBER_NAME`,
+t1.`MEMBER_NUM`,
+t1.`NAME`,
+t1.`RULE_DATA`,
+t1.`RULE_ID`,
+t11.`NAME` AS `RULE_NAME`,
+t11.`SCHEDULE_TYPE`,
+t1.`SHIFT_DATA`,
+t1.`TITLE`,
+t1.`WORKDAY`,
+t1.`WORK_TIME`,
+t1.`WRITE_DATE`,
+t1.`WRITE_UID`
+FROM `ATTENDANCE_SCHEDULE` t1 
+LEFT JOIN `ATTENDANCE_ACTIVATE_RULE` t11 ON t1.`RULE_ID` = t11.`ID` 
+
+```
+
+#### 全部(all) :id=attendance_schedule-all
+```sql
+SELECT
+t1.`CHECKIN_DATE`,
+t1.`CREATE_DATE`,
+t1.`CREATE_UID`,
+t1.`DEPT_ID`,
+t1.`DEPT_NAME`,
+t1.`ID`,
+t1.`MANUAL`,
+t1.`MANUAL_TYPE`,
+t1.`MEMBER_ID`,
+t1.`MEMBER_NAME`,
+t1.`MEMBER_NUM`,
+t1.`NAME`,
+t1.`RULE_DATA`,
+t1.`RULE_ID`,
+t11.`NAME` AS `RULE_NAME`,
+t11.`SCHEDULE_TYPE`,
+t1.`SHIFT_DATA`,
+t1.`TITLE`,
+t1.`WORKDAY`,
+t1.`WORK_TIME`,
+t1.`WRITE_DATE`,
+t1.`WRITE_UID`
+FROM `ATTENDANCE_SCHEDULE` t1 
+LEFT JOIN `ATTENDANCE_ACTIVATE_RULE` t11 ON t1.`RULE_ID` = t11.`ID` 
+
+```
+
+
+## [时间范围(ATTENDANCE_SCOPE)](module/attendance/attendance_scope.md) :id=attendance_scope
+
+#### DEFAULT :id=attendance_scope-Default
+```sql
+SELECT
+t1.`CREATE_DATE`,
+t1.`CREATE_UID`,
+t1.`EARLIEST_CHECKIN`,
+t1.`EARLY_FOR_ABSENTEEISM`,
+t1.`EARLY_FOR_EARLY`,
+t1.`END_BASE_TIME`,
+t1.`ID`,
+t1.`LATEST_CHECKOUT`,
+t1.`LATE_FOR_ABSENTEEISM`,
+t1.`LATE_FOR_LATE`,
+t1.`NAME`,
+t1.`NEXT_TAG`,
+t1.`ORDER_VALUE`,
+t1.`SHIFT_ID`,
+t1.`SHIFT_NAME`,
+t1.`START_BASE_TIME`,
+t1.`WRITE_DATE`,
+t1.`WRITE_UID`
+FROM `ATTENDANCE_SCOPE` t1 
+
+```
+
+
+## [班次(ATTENDANCE_SHIFT)](module/attendance/attendance_shift.md) :id=attendance_shift
+
+#### DEFAULT :id=attendance_shift-Default
+```sql
+SELECT
+t1.`ATTENDANCE_RATIO`,
+t1.`CREATE_DATE`,
+t1.`CREATE_UID`,
+t1.`DEFAULT_FLAG`,
+t1.`END_START`,
+t1.`ID`,
+t1.`INVALID_OVERTIME`,
+t1.`NAME`,
+t1.`ORDER_VALUE`,
+t1.`OVERTIME_VALID`,
+t1.`PUBLIC_FLAG`,
+t1.`REST_ENABLE`,
+t1.`REST_START`,
+t1.`RULE_ID`,
+t1.`RULE_NAME`,
+t1.`START_OVERTIME`,
+t1.`WORKING_NUMBER`,
+t1.`WRITE_DATE`,
+t1.`WRITE_UID`
+FROM `ATTENDANCE_SHIFT` t1 
+
+```
+
+
+## [WiFi定位配置(ATTENDANCE_WIFI_LOCATION)](module/attendance/attendance_wifi_location.md) :id=attendance_wifi_location
+
+#### DEFAULT :id=attendance_wifi_location-Default
+```sql
+SELECT
+t1.`CREATE_DATE`,
+t1.`CREATE_UID`,
+t1.`ID`,
+t1.`MAC_ADDRESS`,
+t1.`NAME`,
+t1.`RULE_ID`,
+t1.`WRITE_DATE`,
+t1.`WRITE_UID`
+FROM `ATTENDANCE_WIFI_LOCATION` t1 
+
+```
+
+
+## [工作日(ATTENDANCE_WORKDAY)](module/attendance/attendance_workday.md) :id=attendance_workday
+
+#### DEFAULT :id=attendance_workday-Default
+```sql
+SELECT
+t1.`CREATE_DATE`,
+t1.`CREATE_UID`,
+t1.`DAY_NUMBER`,
+t1.`ID`,
+t1.`NAME`,
+t1.`RULE_ID`,
+t1.`SHIFT_ID`,
+t1.`WRITE_DATE`,
+t1.`WRITE_UID`
+FROM `ATTENDANCE_WORKDAY` t1 
+
+```
+
+#### 默认（全部数据）(VIEW) :id=attendance_workday-View
+```sql
+SELECT
+t1.`CREATE_DATE`,
+t1.`CREATE_UID`,
+t1.`DAY_NUMBER`,
+t1.`ID`,
+t1.`NAME`,
+t1.`RULE_ID`,
+t1.`SHIFT_ID`,
+t1.`WRITE_DATE`,
+t1.`WRITE_UID`
+FROM `ATTENDANCE_WORKDAY` t1 
+
+```
+
+#### 大周(Week1) :id=attendance_workday-Week1
+```sql
+SELECT
+t1.`CREATE_DATE`,
+t1.`CREATE_UID`,
+t1.`DAY_NUMBER`,
+t1.`ID`,
+t1.`NAME`,
+t1.`RULE_ID`,
+t1.`SHIFT_ID`,
+t1.`WRITE_DATE`,
+t1.`WRITE_UID`
+FROM `ATTENDANCE_WORKDAY` t1 
+
+WHERE ( ( t1.`DAY_NUMBER` = 1  OR  t1.`DAY_NUMBER` = 2  OR  t1.`DAY_NUMBER` = 3  OR  t1.`DAY_NUMBER` = 4  OR  t1.`DAY_NUMBER` = 5  OR  t1.`DAY_NUMBER` = 6  OR  t1.`DAY_NUMBER` = 7 ) )
+```
+
+#### 小周(Week2) :id=attendance_workday-Week2
+```sql
+SELECT
+t1.`CREATE_DATE`,
+t1.`CREATE_UID`,
+t1.`DAY_NUMBER`,
+t1.`ID`,
+t1.`NAME`,
+t1.`RULE_ID`,
+t1.`SHIFT_ID`,
+t1.`WRITE_DATE`,
+t1.`WRITE_UID`
+FROM `ATTENDANCE_WORKDAY` t1 
+
+WHERE ( ( t1.`DAY_NUMBER` = 8  OR  t1.`DAY_NUMBER` = 9  OR  t1.`DAY_NUMBER` = 10  OR  t1.`DAY_NUMBER` = 11  OR  t1.`DAY_NUMBER` = 12  OR  t1.`DAY_NUMBER` = 13  OR  t1.`DAY_NUMBER` = 14 ) )
+```
+
+#### Week3 :id=attendance_workday-Week3
+```sql
+SELECT
+t1.`CREATE_DATE`,
+t1.`CREATE_UID`,
+t1.`DAY_NUMBER`,
+t1.`ID`,
+t1.`NAME`,
+t1.`RULE_ID`,
+t1.`SHIFT_ID`,
+t1.`WRITE_DATE`,
+t1.`WRITE_UID`
+FROM `ATTENDANCE_WORKDAY` t1 
+
+WHERE ( ( t1.`DAY_NUMBER` = 15  OR  t1.`DAY_NUMBER` = 16  OR  t1.`DAY_NUMBER` = 17  OR  t1.`DAY_NUMBER` = 18  OR  t1.`DAY_NUMBER` = 19  OR  t1.`DAY_NUMBER` = 20  OR  t1.`DAY_NUMBER` = 21 ) )
+```
+
+#### Week4 :id=attendance_workday-Week4
+```sql
+SELECT
+t1.`CREATE_DATE`,
+t1.`CREATE_UID`,
+t1.`DAY_NUMBER`,
+t1.`ID`,
+t1.`NAME`,
+t1.`RULE_ID`,
+t1.`SHIFT_ID`,
+t1.`WRITE_DATE`,
+t1.`WRITE_UID`
+FROM `ATTENDANCE_WORKDAY` t1 
+
+WHERE ( ( t1.`DAY_NUMBER` = 22  OR  t1.`DAY_NUMBER` = 23  OR  t1.`DAY_NUMBER` = 24  OR  t1.`DAY_NUMBER` = 25  OR  t1.`DAY_NUMBER` = 26  OR  t1.`DAY_NUMBER` = 27  OR  t1.`DAY_NUMBER` = 28 ) )
+```
+
+
+## [出勤(HR_ATTENDANCE)](module/hr/hr_attendance.md) :id=hr_attendance
+
+#### DEFAULT :id=hr_attendance-Default
+```sql
+SELECT
+t1.`CHECK_IN`,
+t1.`CHECK_OUT`,
+t1.`CREATE_DATE`,
+t1.`CREATE_UID`,
+t1.`EMPLOYEE_ID`,
+t11.`NAME` AS `EMPLOYEE_NAME`,
+t1.`EXPECTED_HOURS`,
+t1.`ID`,
+t1.`IN_BROWSER`,
+t1.`IN_CITY`,
+t1.`IN_COUNTRY_NAME`,
+t1.`IN_IP_ADDRESS`,
+t1.`IN_LATITUDE`,
+t1.`IN_LONGITUDE`,
+t1.`IN_MODE`,
+t1.`NAME`,
+t1.`OUT_BROWSER`,
+t1.`OUT_CITY`,
+t1.`OUT_COUNTRY_NAME`,
+t1.`OUT_IP_ADDRESS`,
+t1.`OUT_LATITUDE`,
+t1.`OUT_LONGITUDE`,
+t1.`OUT_MODE`,
+t1.`OVERTIME_HOURS`,
+t1.`OVERTIME_STATUS`,
+t1.`VALIDATED_OVERTIME_HOURS`,
+t1.`WORKED_HOURS`,
+t1.`WRITE_DATE`,
+t1.`WRITE_UID`
+FROM `hr_attendance` t1 
+LEFT JOIN `hr_employee` t11 ON t1.`EMPLOYEE_ID` = t11.`ID` 
+
+```
+
+#### 默认（全部数据）(VIEW) :id=hr_attendance-View
+```sql
+SELECT
+t1.`CHECK_IN`,
+t1.`CHECK_OUT`,
+t1.`CREATE_DATE`,
+t1.`CREATE_UID`,
+t1.`EMPLOYEE_ID`,
+t11.`NAME` AS `EMPLOYEE_NAME`,
+t1.`EXPECTED_HOURS`,
+t1.`ID`,
+t1.`IN_BROWSER`,
+t1.`IN_CITY`,
+t1.`IN_COUNTRY_NAME`,
+t1.`IN_IP_ADDRESS`,
+t1.`IN_LATITUDE`,
+t1.`IN_LONGITUDE`,
+t1.`IN_MODE`,
+t1.`NAME`,
+t1.`OUT_BROWSER`,
+t1.`OUT_CITY`,
+t1.`OUT_COUNTRY_NAME`,
+t1.`OUT_IP_ADDRESS`,
+t1.`OUT_LATITUDE`,
+t1.`OUT_LONGITUDE`,
+t1.`OUT_MODE`,
+t1.`OVERTIME_HOURS`,
+t1.`OVERTIME_STATUS`,
+t1.`VALIDATED_OVERTIME_HOURS`,
+t1.`WORKED_HOURS`,
+t1.`WRITE_DATE`,
+t1.`WRITE_UID`
+FROM `hr_attendance` t1 
+LEFT JOIN `hr_employee` t11 ON t1.`EMPLOYEE_ID` = t11.`ID` 
+
+```
+
+#### manage :id=hr_attendance-manage
+```sql
+SELECT
+t1.`CHECK_IN`,
+t1.`CHECK_OUT`,
+t1.`CREATE_DATE`,
+t1.`CREATE_UID`,
+t1.`EMPLOYEE_ID`,
+t11.`NAME` AS `EMPLOYEE_NAME`,
+t1.`EXPECTED_HOURS`,
+t1.`ID`,
+t1.`IN_BROWSER`,
+t1.`IN_CITY`,
+t1.`IN_COUNTRY_NAME`,
+t1.`IN_IP_ADDRESS`,
+t1.`IN_LATITUDE`,
+t1.`IN_LONGITUDE`,
+t1.`IN_MODE`,
+t1.`NAME`,
+t1.`OUT_BROWSER`,
+t1.`OUT_CITY`,
+t1.`OUT_COUNTRY_NAME`,
+t1.`OUT_IP_ADDRESS`,
+t1.`OUT_LATITUDE`,
+t1.`OUT_LONGITUDE`,
+t1.`OUT_MODE`,
+t1.`OVERTIME_HOURS`,
+t1.`OVERTIME_STATUS`,
+t1.`VALIDATED_OVERTIME_HOURS`,
+t1.`WORKED_HOURS`,
+t1.`WRITE_DATE`,
+t1.`WRITE_UID`
+FROM `hr_attendance` t1 
+LEFT JOIN `hr_employee` t11 ON t1.`EMPLOYEE_ID` = t11.`ID` 
+
+WHERE ( t1.`CHECK_OUT` IS NOT NULL  AND  t1.`CHECK_IN` IS NOT NULL )
+```
+
+
+## [出勤 加班(HR_ATTENDANCE_OVERTIME)](module/hr/hr_attendance_overtime.md) :id=hr_attendance_overtime
+
+#### DEFAULT :id=hr_attendance_overtime-Default
+```sql
+SELECT
+t1.`ADJUSTMENT`,
+t1.`CREATE_DATE`,
+t1.`CREATE_UID`,
+t1.`DATE`,
+t1.`DURATION`,
+t1.`DURATION_REAL`,
+t1.`EMPLOYEE_ID`,
+t1.`ID`,
+t1.`WRITE_DATE`,
+t1.`WRITE_UID`
+FROM `hr_attendance_overtime` t1 
+
+```
+
+
+## [部门(HR_DEPARTMENT)](module/hr/hr_department.md) :id=hr_department
+
+#### DEFAULT :id=hr_department-Default
+```sql
+SELECT
+t1.`ACTIVE`,
+t1.`COLOR`,
+t1.`COMPLETE_NAME`,
+t1.`CREATE_DATE`,
+t1.`CREATE_UID`,
+t1.`ID`,
+t1.`MANAGER_ID`,
+t11.`NAME` AS `MANAGER_NAME`,
+t1.`MASTER_DEPARTMENT_ID`,
+t1.`NAME`,
+t1.`PARENT_ID`,
+t21.`NAME` AS `PARENT_NAME`,
+t1.`PARENT_PATH`,
+t1.`WRITE_DATE`,
+t1.`WRITE_UID`
+FROM `hr_department` t1 
+LEFT JOIN `hr_employee` t11 ON t1.`MANAGER_ID` = t11.`ID` 
+LEFT JOIN `hr_department` t21 ON t1.`PARENT_ID` = t21.`ID` 
+
+```
+
+#### 默认（全部数据）(VIEW) :id=hr_department-View
+```sql
+SELECT
+t1.`ACTIVE`,
+t1.`COLOR`,
+t1.`COMPLETE_NAME`,
+t1.`CREATE_DATE`,
+t1.`CREATE_UID`,
+t1.`ID`,
+t1.`MANAGER_ID`,
+t11.`NAME` AS `MANAGER_NAME`,
+t1.`MASTER_DEPARTMENT_ID`,
+t1.`NAME`,
+t1.`NOTE`,
+t1.`PARENT_ID`,
+t21.`NAME` AS `PARENT_NAME`,
+t1.`PARENT_PATH`,
+t1.`WRITE_DATE`,
+t1.`WRITE_UID`
+FROM `hr_department` t1 
+LEFT JOIN `hr_employee` t11 ON t1.`MANAGER_ID` = t11.`ID` 
+LEFT JOIN `hr_department` t21 ON t1.`PARENT_ID` = t21.`ID` 
+
+```
+
+#### 根部门(ROOT) :id=hr_department-root
+```sql
+SELECT
+t1.`ACTIVE`,
+t1.`COLOR`,
+t1.`COMPLETE_NAME`,
+t1.`CREATE_DATE`,
+t1.`CREATE_UID`,
+t1.`ID`,
+t1.`MANAGER_ID`,
+t11.`NAME` AS `MANAGER_NAME`,
+t1.`MASTER_DEPARTMENT_ID`,
+t1.`NAME`,
+t1.`PARENT_ID`,
+t21.`NAME` AS `PARENT_NAME`,
+t1.`PARENT_PATH`,
+t1.`WRITE_DATE`,
+t1.`WRITE_UID`
+FROM `hr_department` t1 
+LEFT JOIN `hr_employee` t11 ON t1.`MANAGER_ID` = t11.`ID` 
+LEFT JOIN `hr_department` t21 ON t1.`PARENT_ID` = t21.`ID` 
+
+WHERE ( t1.`PARENT_ID` IS NULL )
+```
+
+
+## [员工(HR_EMPLOYEE)](module/hr/hr_employee.md) :id=hr_employee
+
+#### DEFAULT :id=hr_employee-Default
+```sql
+SELECT
+t1.`ACTIVE`,
+t1.`BARCODE`,
+t1.`BIRTHDAY`,
+t1.`CERTIFICATE`,
+t1.`CHILDREN`,
+t1.`COLOR`,
+t1.`CONTRACT_WARNING`,
+t1.`CREATE_DATE`,
+t1.`CREATE_UID`,
+t1.`DEPARTMENT_ID`,
+t21.`NAME` AS `DEPARTMENT_NAME`,
+t1.`DEPARTURE_DATE`,
+t1.`DISTANCE_HOME_WORK`,
+t1.`DISTANCE_HOME_WORK_UNIT`,
+t1.`EMERGENCY_CONTACT`,
+t1.`EMERGENCY_PHONE`,
+t1.`EMPLOYEE_TYPE`,
+t1.`FIRST_CONTRACT_DATE`,
+t1.`GENDER`,
+t1.`ID`,
+t1.`IDENTIFICATION_ID`,
+t1.`IS_FLEXIBLE`,
+t1.`IS_FULLY_FLEXIBLE`,
+t1.`JOB_TITLE`,
+t1.`KM_HOME_WORK`,
+t1.`LEGAL_NAME`,
+t1.`MOBILE_PHONE`,
+t1.`MOBILITY_CARD`,
+t1.`NAME`,
+t1.`PASSPORT_ID`,
+t1.`PERMIT_NO`,
+t1.`PIN`,
+t1.`PLACE_OF_BIRTH`,
+t1.`PRIVATE_CAR_PLATE`,
+t1.`PRIVATE_CITY`,
+t1.`PRIVATE_EMAIL`,
+t1.`PRIVATE_PHONE`,
+t1.`PRIVATE_STREET`,
+t1.`PRIVATE_STREET2`,
+t1.`PRIVATE_ZIP`,
+t1.`RESOURCE_CALENDAR_ID`,
+t11.`NAME` AS `RESOURCE_CALENDAR_NAME`,
+t1.`RESOURCE_ID`,
+t1.`SINID`,
+t1.`SPOUSE_BIRTHDATE`,
+t1.`SPOUSE_COMPLETE_NAME`,
+t1.`SSNID`,
+t1.`STUDY_FIELD`,
+t1.`STUDY_SCHOOL`,
+t1.`VEHICLE`,
+t1.`VISA_EXPIRE`,
+t1.`VISA_NO`,
+t1.`WORK_EMAIL`,
+t1.`WORK_PERMIT_EXPIRATION_DATE`,
+t1.`WORK_PERMIT_SCHEDULED_ACTIVITY`,
+t1.`WORK_PHONE`,
+t1.`WRITE_DATE`,
+t1.`WRITE_UID`
+FROM `hr_employee` t1 
+LEFT JOIN `resource_calendar` t11 ON t1.`RESOURCE_CALENDAR_ID` = t11.`ID` 
+LEFT JOIN `hr_department` t21 ON t1.`DEPARTMENT_ID` = t21.`ID` 
+
+```
+
+#### 默认（全部数据）(VIEW) :id=hr_employee-View
+```sql
+SELECT
+t1.`ACTIVE`,
+t1.`ADDITIONAL_NOTE`,
+t1.`BARCODE`,
+t1.`BIRTHDAY`,
+t1.`CERTIFICATE`,
+t1.`CHILDREN`,
+t1.`COLOR`,
+t1.`CONTRACT_WARNING`,
+t1.`CREATE_DATE`,
+t1.`CREATE_UID`,
+t1.`DEPARTMENT_ID`,
+t21.`NAME` AS `DEPARTMENT_NAME`,
+t1.`DEPARTURE_DATE`,
+t1.`DEPARTURE_DESCRIPTION`,
+t1.`DISTANCE_HOME_WORK`,
+t1.`DISTANCE_HOME_WORK_UNIT`,
+t1.`EMERGENCY_CONTACT`,
+t1.`EMERGENCY_PHONE`,
+t1.`EMPLOYEE_TYPE`,
+t1.`FIRST_CONTRACT_DATE`,
+t1.`GENDER`,
+t1.`ID`,
+t1.`IDENTIFICATION_ID`,
+t1.`IS_FLEXIBLE`,
+t1.`IS_FULLY_FLEXIBLE`,
+t1.`JOB_TITLE`,
+t1.`KM_HOME_WORK`,
+t1.`LEGAL_NAME`,
+t1.`MOBILE_PHONE`,
+t1.`MOBILITY_CARD`,
+t1.`NAME`,
+t1.`NOTES`,
+t1.`PASSPORT_ID`,
+t1.`PERMIT_NO`,
+t1.`PIN`,
+t1.`PLACE_OF_BIRTH`,
+t1.`PRIVATE_CAR_PLATE`,
+t1.`PRIVATE_CITY`,
+t1.`PRIVATE_EMAIL`,
+t1.`PRIVATE_PHONE`,
+t1.`PRIVATE_STREET`,
+t1.`PRIVATE_STREET2`,
+t1.`PRIVATE_ZIP`,
+t1.`RESOURCE_CALENDAR_ID`,
+t11.`NAME` AS `RESOURCE_CALENDAR_NAME`,
+t1.`RESOURCE_ID`,
+t1.`SINID`,
+t1.`SPOUSE_BIRTHDATE`,
+t1.`SPOUSE_COMPLETE_NAME`,
+t1.`SSNID`,
+t1.`STUDY_FIELD`,
+t1.`STUDY_SCHOOL`,
+t1.`VEHICLE`,
+t1.`VISA_EXPIRE`,
+t1.`VISA_NO`,
+t1.`WORK_EMAIL`,
+t1.`WORK_PERMIT_EXPIRATION_DATE`,
+t1.`WORK_PERMIT_SCHEDULED_ACTIVITY`,
+t1.`WORK_PHONE`,
+t1.`WRITE_DATE`,
+t1.`WRITE_UID`
+FROM `hr_employee` t1 
+LEFT JOIN `resource_calendar` t11 ON t1.`RESOURCE_CALENDAR_ID` = t11.`ID` 
+LEFT JOIN `hr_department` t21 ON t1.`DEPARTMENT_ID` = t21.`ID` 
+
+```
+
+
+## [公共假期类型(PUBLIC_LEAVE_TYPE)](module/resource/public_leave_type.md) :id=public_leave_type
+
+#### DEFAULT :id=public_leave_type-Default
+```sql
+SELECT
+t1.`CODE`,
+t1.`CREATE_DATE`,
+t1.`CREATE_UID`,
+t1.`ID`,
+t1.`NAME`,
+t1.`WRITE_DATE`,
+t1.`WRITE_UID`
+FROM `PUBLIC_LEAVE_TYPE` t1 
+
+```
+
+#### 默认（全部数据）(VIEW) :id=public_leave_type-View
+```sql
+SELECT
+t1.`CODE`,
+t1.`CREATE_DATE`,
+t1.`CREATE_UID`,
+t1.`ID`,
+t1.`NAME`,
+t1.`WRITE_DATE`,
+t1.`WRITE_UID`
+FROM `PUBLIC_LEAVE_TYPE` t1 
+
+```
+
+
+## [配置设定(RES_CONFIG_SETTINGS)](module/base/res_config_settings.md) :id=res_config_settings
+
+#### DEFAULT :id=res_config_settings-Default
+```sql
+SELECT
+t1.`ATTENDANCE_BARCODE_SOURCE`,
+t1.`ATTENDANCE_FROM_SYSTRAY`,
+t1.`ATTENDANCE_KIOSK_DELAY`,
+t1.`ATTENDANCE_KIOSK_MODE`,
+t1.`ATTENDANCE_KIOSK_URL`,
+t1.`ATTENDANCE_KIOSK_USE_PIN`,
+t1.`ATTENDANCE_OVERTIME_VALIDATION`,
+t1.`ID`
+FROM `res_config_settings` t1 
+
+```
+
+#### 默认（全部数据）(VIEW) :id=res_config_settings-View
+```sql
+SELECT
+t1.`ATTENDANCE_BARCODE_SOURCE`,
+t1.`ATTENDANCE_FROM_SYSTRAY`,
+t1.`ATTENDANCE_KIOSK_DELAY`,
+t1.`ATTENDANCE_KIOSK_MODE`,
+t1.`ATTENDANCE_KIOSK_URL`,
+t1.`ATTENDANCE_KIOSK_USE_PIN`,
+t1.`ATTENDANCE_OVERTIME_VALIDATION`,
+t1.`ID`
+FROM `res_config_settings` t1 
+
+```
+
+
+## [资源工作时间(RESOURCE_CALENDAR)](module/resource/resource_calendar.md) :id=resource_calendar
+
+#### DEFAULT :id=resource_calendar-Default
+```sql
+SELECT
+t1.`ACTIVE`,
+t1.`COMPANY_ID`,
+t1.`CREATE_DATE`,
+t1.`CREATE_UID`,
+t1.`FLEXIBLE_HOURS`,
+t1.`FULL_TIME_REQUIRED_HOURS`,
+t1.`HOURS_PER_DAY`,
+t1.`ID`,
+t1.`NAME`,
+t1.`TWO_WEEKS_CALENDAR`,
+t1.`WRITE_DATE`,
+t1.`WRITE_UID`
+FROM `resource_calendar` t1 
+
+WHERE t1.ACTIVE = 1
+```
+
+#### 默认（全部数据）(VIEW) :id=resource_calendar-View
+```sql
+SELECT
+t1.`ACTIVE`,
+t1.`COMPANY_ID`,
+t1.`CREATE_DATE`,
+t1.`CREATE_UID`,
+t1.`FLEXIBLE_HOURS`,
+t1.`FULL_TIME_REQUIRED_HOURS`,
+t1.`HOURS_PER_DAY`,
+t1.`ID`,
+t1.`NAME`,
+t1.`TWO_WEEKS_CALENDAR`,
+t1.`WRITE_DATE`,
+t1.`WRITE_UID`
+FROM `resource_calendar` t1 
+
+WHERE t1.ACTIVE = 1
+```
+
+
+## [工作细节(RESOURCE_CALENDAR_ATTENDANCE)](module/resource/resource_calendar_attendance.md) :id=resource_calendar_attendance
+
+#### DEFAULT :id=resource_calendar_attendance-Default
+```sql
+SELECT
+t1.`CALENDAR_ID`,
+t1.`CREATE_DATE`,
+t1.`CREATE_UID`,
+t1.`DATE_FROM`,
+t1.`DATE_TO`,
+t1.`DAYOFWEEK`,
+t1.`DAY_PERIOD`,
+t1.`DISPLAY_TYPE`,
+t1.`DURATION_DAYS`,
+t1.`HOUR_FROM`,
+t1.`HOUR_TO`,
+t1.`ID`,
+t1.`NAME`,
+t1.`SEQUENCE`,
+t1.`WEEK_TYPE`,
+t1.`WRITE_DATE`,
+t1.`WRITE_UID`
+FROM `resource_calendar_attendance` t1 
+
+```
+
+#### 默认（全部数据）(VIEW) :id=resource_calendar_attendance-View
+```sql
+SELECT
+t1.`CALENDAR_ID`,
+t1.`CREATE_DATE`,
+t1.`CREATE_UID`,
+t1.`DATE_FROM`,
+t1.`DATE_TO`,
+t1.`DAYOFWEEK`,
+t1.`DAY_PERIOD`,
+t1.`DISPLAY_TYPE`,
+t1.`DURATION_DAYS`,
+t1.`HOUR_FROM`,
+t1.`HOUR_TO`,
+t1.`ID`,
+t1.`NAME`,
+t1.`SEQUENCE`,
+t1.`WEEK_TYPE`,
+t1.`WRITE_DATE`,
+t1.`WRITE_UID`
+FROM `resource_calendar_attendance` t1 
+
+```
+
+
+## [休假详细信息(RESOURCE_CALENDAR_LEAVES)](module/resource/resource_calendar_leaves.md) :id=resource_calendar_leaves
+
+#### DEFAULT :id=resource_calendar_leaves-Default
+```sql
+SELECT
+t1.`CALENDAR_ID`,
+t11.`NAME` AS `CALENDAR_NAME`,
+t1.`CREATE_DATE`,
+t1.`CREATE_UID`,
+t1.`DATE_FROM`,
+t1.`DATE_TO`,
+t1.`HOLIDAY_ID`,
+t1.`HOLIDAY_TYPE`,
+t21.`NAME` AS `HOLNAMEAY_NAME`,
+t1.`ID`,
+t1.`NAME`,
+t1.`TIME_TYPE`,
+t1.`TYPE_ID`,
+t31.`NAME` AS `TYPE_NAME`,
+t1.`WRITE_DATE`,
+t1.`WRITE_UID`
+FROM `resource_calendar_leaves` t1 
+LEFT JOIN `resource_calendar` t11 ON t1.`CALENDAR_ID` = t11.`ID` 
+LEFT JOIN `hr_leave` t21 ON t1.`HOLIDAY_ID` = t21.`ID` 
+LEFT JOIN `PUBLIC_LEAVE_TYPE` t31 ON t1.`TYPE_ID` = t31.`ID` 
+
+```
+
+#### 默认（全部数据）(VIEW) :id=resource_calendar_leaves-View
+```sql
+SELECT
+t1.`CALENDAR_ID`,
+t11.`NAME` AS `CALENDAR_NAME`,
+t1.`CREATE_DATE`,
+t1.`CREATE_UID`,
+t1.`DATE_FROM`,
+t1.`DATE_TO`,
+t1.`HOLIDAY_ID`,
+t1.`HOLIDAY_TYPE`,
+t21.`NAME` AS `HOLNAMEAY_NAME`,
+t1.`ID`,
+t1.`NAME`,
+t1.`TIME_TYPE`,
+t1.`TYPE_ID`,
+t31.`NAME` AS `TYPE_NAME`,
+t1.`WRITE_DATE`,
+t1.`WRITE_UID`
+FROM `resource_calendar_leaves` t1 
+LEFT JOIN `resource_calendar` t11 ON t1.`CALENDAR_ID` = t11.`ID` 
+LEFT JOIN `hr_leave` t21 ON t1.`HOLIDAY_ID` = t21.`ID` 
+LEFT JOIN `PUBLIC_LEAVE_TYPE` t31 ON t1.`TYPE_ID` = t31.`ID` 
+
+```
+
+#### 公共节假日(PUBLIC) :id=resource_calendar_leaves-public
+```sql
+SELECT
+t1.`CALENDAR_ID`,
+t11.`NAME` AS `CALENDAR_NAME`,
+t1.`CREATE_DATE`,
+t1.`CREATE_UID`,
+t1.`DATE_FROM`,
+t1.`DATE_TO`,
+t1.`HOLIDAY_ID`,
+t1.`HOLIDAY_TYPE`,
+t21.`NAME` AS `HOLNAMEAY_NAME`,
+t1.`ID`,
+t1.`NAME`,
+t1.`TIME_TYPE`,
+t1.`TYPE_ID`,
+t31.`NAME` AS `TYPE_NAME`,
+t1.`WRITE_DATE`,
+t1.`WRITE_UID`
+FROM `resource_calendar_leaves` t1 
+LEFT JOIN `resource_calendar` t11 ON t1.`CALENDAR_ID` = t11.`ID` 
+LEFT JOIN `hr_leave` t21 ON t1.`HOLIDAY_ID` = t21.`ID` 
+LEFT JOIN `PUBLIC_LEAVE_TYPE` t31 ON t1.`TYPE_ID` = t31.`ID` 
+
+WHERE ( t1.`CALENDAR_ID` IS NULL )
+```
+
+
+## [资源(RESOURCE_RESOURCE)](module/resource/resource_resource.md) :id=resource_resource
+
+#### DEFAULT :id=resource_resource-Default
+```sql
+SELECT
+t1.`ACTIVE`,
+t1.`CALENDAR_ID`,
+t11.`NAME` AS `CALENDAR_NAME`,
+t1.`COMPANY_ID`,
+t1.`CREATE_DATE`,
+t1.`CREATE_UID`,
+t1.`ID`,
+t1.`NAME`,
+t1.`RESOURCE_TYPE`,
+t1.`TIME_EFFICIENCY`,
+t1.`WRITE_DATE`,
+t1.`WRITE_UID`
+FROM `resource_resource` t1 
+LEFT JOIN `resource_calendar` t11 ON t1.`CALENDAR_ID` = t11.`ID` 
+
+```
+
+#### 默认（全部数据）(VIEW) :id=resource_resource-View
+```sql
+SELECT
+t1.`ACTIVE`,
+t1.`CALENDAR_ID`,
+t11.`NAME` AS `CALENDAR_NAME`,
+t1.`COMPANY_ID`,
+t1.`CREATE_DATE`,
+t1.`CREATE_UID`,
+t1.`ID`,
+t1.`NAME`,
+t1.`RESOURCE_TYPE`,
+t1.`TIME_EFFICIENCY`,
+t1.`WRITE_DATE`,
+t1.`WRITE_UID`
+FROM `resource_resource` t1 
+LEFT JOIN `resource_calendar` t11 ON t1.`CALENDAR_ID` = t11.`ID` 
+
+```
+

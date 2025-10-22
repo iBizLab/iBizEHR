@@ -1,0 +1,114 @@
+{
+  "calendarStyle" : "MONTH",
+  "codeName" : "attendance_clock_in_record_calendar_view",
+  "controlType" : "CALENDAR",
+  "dynaModelFilePath" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/attendance_clock_in_record/PSCALENDARS/attendance_clock_in_record_calendar_view.json",
+  "groupMode" : "NONE",
+  "legendPos" : "NONE",
+  "logicName" : "打卡记录日历视图_日历部件",
+  "getPSAppDataEntity" : {
+    "modelref" : true,
+    "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/attendance_clock_in_record.json"
+  },
+  "getPSSysCalendarItems" : [ {
+    "getBeginTimePSAppDEField" : {
+      "name" : "DATE",
+      "codeName" : "date"
+    },
+    "getEndTimePSAppDEField" : {
+      "name" : "DATE",
+      "codeName" : "date"
+    },
+    "getIdPSAppDEField" : {
+      "name" : "ID",
+      "codeName" : "id"
+    },
+    "itemStyle" : "DEFAULT",
+    "itemType" : "MonthIndividuaSummary",
+    "maxSize" : -1,
+    "name" : "我的打卡记录",
+    "getPSAppDEDataSet" : {
+      "modelref" : true,
+      "id" : "fetch_my_clock_in_record"
+    },
+    "getPSAppDataEntity" : {
+      "modelref" : true,
+      "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/attendance_clock_in_record.json"
+    },
+    "getPSLayoutPanel" : {
+      "getAllPSPanelFields" : [ {
+        "id" : "checkin_time",
+        "viewFieldName" : "CHECKIN_TIME"
+      } ],
+      "codeName" : "attendance_calendar_date",
+      "controlType" : "PANEL",
+      "dynaModelFilePath" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/attendance_clock_in_record/PSPANELS/attendance_calendar_date.json",
+      "layoutMode" : "FLEX",
+      "logicName" : "考勤日历日期",
+      "getPSAppDataEntity" : {
+        "modelref" : true,
+        "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/attendance_clock_in_record.json"
+      },
+      "getPSControlParam" : { },
+      "getPSLayout" : {
+        "layout" : "FLEX"
+      },
+      "getRootPSPanelItems" : [ {
+        "caption" : "容器",
+        "itemStyle" : "DEFAULT",
+        "itemType" : "CONTAINER",
+        "name" : "container",
+        "getPSLayout" : {
+          "align" : "center",
+          "dir" : "column",
+          "layout" : "FLEX",
+          "vAlign" : "center"
+        },
+        "getPSLayoutPos" : {
+          "grow" : -1,
+          "layout" : "FLEX"
+        },
+        "getPSPanelItems" : [ {
+          "caption" : "文本(动态)",
+          "fieldStates" : 1,
+          "itemStyle" : "DEFAULT",
+          "itemType" : "FIELD",
+          "name" : "checkin_time",
+          "getPSEditor" : {
+            "dateTimeFormat" : "HH:mm",
+            "editorParams" : {
+              "TIMEFMT" : "HH:mm",
+              "READONLY" : "TRUE"
+            },
+            "editorType" : "DATEPICKEREX_NODAY_NOSECOND",
+            "name" : "checkin_time",
+            "predefinedType" : "FIELD_TEXT_DYNAMIC",
+            "readOnly" : true
+          },
+          "getPSLayoutPos" : {
+            "grow" : -1,
+            "hAlignSelf" : "CENTER",
+            "layout" : "FLEX",
+            "vAlignSelf" : "MIDDLE"
+          },
+          "getPSSysCss" : {
+            "cssName" : "checkin-time"
+          },
+          "viewFieldName" : "CHECKIN_TIME"
+        } ]
+      } ],
+      "name" : "monthindividuasummarylayoutpanel",
+      "modelid" : "a81fb321ebe21f5c345b10b9c796fab3",
+      "modeltype" : "PSSYSVIEWPANEL"
+    },
+    "getTextPSAppDEField" : {
+      "name" : "CHECKIN_TIME",
+      "codeName" : "checkin_time"
+    },
+    "enableQuickCreate" : false,
+    "id" : "MonthIndividuaSummary"
+  } ],
+  "enableGroup" : false,
+  "modelid" : "e650334c1d8b33dc34b6aef5958b1d9d",
+  "modeltype" : "PSSYSCALENDAR"
+}

@@ -1,0 +1,1393 @@
+{
+  "accUserMode" : 2,
+  "getCapPSLanguageRes" : {
+    "lanResTag" : "DE.LNAME.HR_EMPLOYEE"
+  },
+  "caption" : "员工",
+  "codeName" : "hr_employeeGridView",
+  "dynaModelFilePath" : "PSSYSAPPS/ehrapp/PSAPPDEVIEWS/hr_employeeGridView.json",
+  "funcViewMode" : "MDATAVIEW",
+  "gridRowActiveMode" : 2,
+  "memo" : "系统自动添加",
+  "name" : "hr_employeeGridView",
+  "getPSAppDataEntity" : {
+    "modelref" : true,
+    "path" : "PSSYSAPPS/ehrapp/PSAPPDATAENTITIES/hr_employee.json"
+  },
+  "getPSAppModule" : {
+    "modelref" : true,
+    "path" : "PSSYSAPPS/ehrapp/PSAPPMODULES/hr.json"
+  },
+  "getPSAppViewEngines" : [ {
+    "engineCat" : "VIEW",
+    "engineType" : "GridView",
+    "name" : "engine"
+  } ],
+  "getPSAppViewLogics" : [ {
+    "logicTrigger" : "CUSTOM",
+    "logicType" : "APPUILOGIC",
+    "name" : "newdata",
+    "getPSAppUILogic" : {
+      "actionAfterWizard" : "DEFAULT",
+      "logicType" : "PREDEFINED",
+      "name" : "新建数据",
+      "getNewDataPSAppView" : {
+        "openMode" : "INDEXVIEWTAB",
+        "getRefPSAppView" : {
+          "modelref" : true,
+          "path" : "PSSYSAPPS/ehrapp/PSAPPDEVIEWS/hr_employeemain_view.json",
+          "viewType" : "DEEDITVIEW"
+        }
+      },
+      "getPSAppUILogicRefViews" : [ {
+        "openMode" : "INDEXVIEWTAB",
+        "getRefPSAppView" : {
+          "modelref" : true,
+          "path" : "PSSYSAPPS/ehrapp/PSAPPDEVIEWS/hr_employeemain_view.json",
+          "viewType" : "DEEDITVIEW"
+        }
+      } ],
+      "viewLogicType" : "APP_NEWDATA",
+      "batchAddOnly" : false,
+      "enableBatchAdd" : false,
+      "enableWizardAdd" : false
+    }
+  }, {
+    "logicTrigger" : "CUSTOM",
+    "logicType" : "APPUILOGIC",
+    "name" : "opendata",
+    "getPSAppUILogic" : {
+      "logicType" : "PREDEFINED",
+      "name" : "打开数据",
+      "getOpenDataPSAppView" : {
+        "openMode" : "INDEXVIEWTAB",
+        "getRefPSAppView" : {
+          "modelref" : true,
+          "path" : "PSSYSAPPS/ehrapp/PSAPPDEVIEWS/hr_employeemain_view.json",
+          "viewType" : "DEEDITVIEW"
+        }
+      },
+      "getPSAppUILogicRefViews" : [ {
+        "openMode" : "INDEXVIEWTAB",
+        "getRefPSAppView" : {
+          "modelref" : true,
+          "path" : "PSSYSAPPS/ehrapp/PSAPPDEVIEWS/hr_employeemain_view.json",
+          "viewType" : "DEEDITVIEW"
+        }
+      } ],
+      "viewLogicType" : "APP_OPENDATA",
+      "editMode" : true
+    }
+  } ],
+  "getPSAppViewRefs" : [ {
+    "name" : "NEWDATA",
+    "realOpenMode" : "INDEXVIEWTAB",
+    "realTitle" : "员工编辑视图",
+    "getRealTitlePSLanguageRes" : {
+      "lanResTag" : "PAGE.TITLE.HR_EMPLOYEE.MAIN_VIEW"
+    },
+    "getRefPSAppView" : {
+      "modelref" : true,
+      "path" : "PSSYSAPPS/ehrapp/PSAPPDEVIEWS/hr_employeemain_view.json",
+      "viewType" : "DEEDITVIEW"
+    }
+  }, {
+    "name" : "EDITDATA",
+    "realOpenMode" : "INDEXVIEWTAB",
+    "realTitle" : "员工编辑视图",
+    "getRealTitlePSLanguageRes" : {
+      "lanResTag" : "PAGE.TITLE.HR_EMPLOYEE.MAIN_VIEW"
+    },
+    "getRefPSAppView" : {
+      "modelref" : true,
+      "path" : "PSSYSAPPS/ehrapp/PSAPPDEVIEWS/hr_employeemain_view.json",
+      "viewType" : "DEEDITVIEW"
+    }
+  } ],
+  "getPSControls" : [ {
+    "aggMode" : "NONE",
+    "codeName" : "Main",
+    "columnEnableFilter" : 2,
+    "columnEnableLink" : 2,
+    "controlStyle" : "ODOO_GROUP_GRID",
+    "controlType" : "GRID",
+    "dynaModelFilePath" : "PSSYSAPPS/ehrapp/PSAPPDATAENTITIES/hr_employee/PSGRIDS/Main.json",
+    "getFetchPSControlAction" : {
+      "modelref" : true,
+      "id" : "fetch",
+      "actionType" : "DEDATASET",
+      "name" : "fetch",
+      "getPSAppDEMethod" : {
+        "modelref" : true,
+        "id" : "fetch_default"
+      },
+      "getPSAppDataEntity" : {
+        "modelref" : true,
+        "path" : "PSSYSAPPS/ehrapp/PSAPPDATAENTITIES/hr_employee.json"
+      }
+    },
+    "groupMode" : "NONE",
+    "logicName" : "主表格",
+    "getPSAppDataEntity" : {
+      "modelref" : true,
+      "path" : "PSSYSAPPS/ehrapp/PSAPPDATAENTITIES/hr_employee.json"
+    },
+    "getPSControlHandler" : {
+      "getPSHandlerActions" : [ {
+        "actionName" : "Get",
+        "actionType" : "DEACTION",
+        "dataAccessAction" : "READ",
+        "name" : "load",
+        "getPSAppDEMethod" : {
+          "modelref" : true,
+          "id" : "get"
+        },
+        "getPSAppDataEntity" : {
+          "modelref" : true,
+          "path" : "PSSYSAPPS/ehrapp/PSAPPDATAENTITIES/hr_employee.json"
+        }
+      }, {
+        "actionName" : "Create",
+        "actionType" : "DEACTION",
+        "dataAccessAction" : "CREATE",
+        "name" : "create",
+        "getPSAppDEMethod" : {
+          "modelref" : true,
+          "id" : "create"
+        },
+        "getPSAppDataEntity" : {
+          "modelref" : true,
+          "path" : "PSSYSAPPS/ehrapp/PSAPPDATAENTITIES/hr_employee.json"
+        }
+      }, {
+        "actionName" : "Update",
+        "actionType" : "DEACTION",
+        "dataAccessAction" : "UPDATE",
+        "name" : "update",
+        "getPSAppDEMethod" : {
+          "modelref" : true,
+          "id" : "update"
+        },
+        "getPSAppDataEntity" : {
+          "modelref" : true,
+          "path" : "PSSYSAPPS/ehrapp/PSAPPDATAENTITIES/hr_employee.json"
+        }
+      }, {
+        "actionName" : "Remove",
+        "actionType" : "DEACTION",
+        "dataAccessAction" : "DELETE",
+        "name" : "remove",
+        "getPSAppDEMethod" : {
+          "modelref" : true,
+          "id" : "remove"
+        },
+        "getPSAppDataEntity" : {
+          "modelref" : true,
+          "path" : "PSSYSAPPS/ehrapp/PSAPPDATAENTITIES/hr_employee.json"
+        }
+      }, {
+        "actionName" : "GetDraft",
+        "actionType" : "DEACTION",
+        "dataAccessAction" : "CREATE",
+        "name" : "loaddraft",
+        "getPSAppDEMethod" : {
+          "modelref" : true,
+          "id" : "get_draft"
+        },
+        "getPSAppDataEntity" : {
+          "modelref" : true,
+          "path" : "PSSYSAPPS/ehrapp/PSAPPDATAENTITIES/hr_employee.json"
+        }
+      }, {
+        "actionType" : "DEDATASET",
+        "name" : "fetch",
+        "getPSAppDEMethod" : {
+          "modelref" : true,
+          "id" : "fetch_default"
+        },
+        "getPSAppDataEntity" : {
+          "modelref" : true,
+          "path" : "PSSYSAPPS/ehrapp/PSAPPDATAENTITIES/hr_employee.json"
+        }
+      } ],
+      "userDRAction" : "READ",
+      "enableDEFieldPrivilege" : false,
+      "id" : "数据表格处理器"
+    },
+    "getPSControlParam" : {
+      "autoLoad" : true,
+      "showBusyIndicator" : true,
+      "id" : "GRID"
+    },
+    "getPSDEGridColumns" : [ {
+      "align" : "LEFT",
+      "cLConvertMode" : "NONE",
+      "getCapPSLanguageRes" : {
+        "lanResTag" : "CONTROL.DEGRID.HR_EMPLOYEE.MAIN.DEFGRIDCOLUMN.NAME"
+      },
+      "caption" : "员工姓名",
+      "codeName" : "name",
+      "columnType" : "DEFGRIDCOLUMN",
+      "dataItemName" : "name",
+      "excelCaption" : "员工姓名",
+      "getLinkPSAppView" : {
+        "modelref" : true,
+        "path" : "PSSYSAPPS/ehrapp/PSAPPDEVIEWS/hr_employeemain_view.json",
+        "viewType" : "DEEDITVIEW"
+      },
+      "linkValueItem" : "srfkey",
+      "name" : "name",
+      "noPrivDisplayMode" : 1,
+      "getPSAppDEField" : {
+        "name" : "NAME",
+        "codeName" : "name"
+      },
+      "width" : 150,
+      "widthUnit" : "PX",
+      "enableLinkView" : true,
+      "enableSort" : true
+    }, {
+      "align" : "LEFT",
+      "cLConvertMode" : "NONE",
+      "getCapPSLanguageRes" : {
+        "lanResTag" : "DEF.LNAME.HR_EMPLOYEE.WORK_PHONE"
+      },
+      "caption" : "办公电话",
+      "codeName" : "work_phone",
+      "columnType" : "DEFGRIDCOLUMN",
+      "dataItemName" : "work_phone",
+      "excelCaption" : "办公电话",
+      "name" : "work_phone",
+      "noPrivDisplayMode" : 1,
+      "getPSAppDEField" : {
+        "name" : "WORK_PHONE",
+        "codeName" : "work_phone"
+      },
+      "width" : 200,
+      "widthUnit" : "PX",
+      "enableSort" : true
+    }, {
+      "align" : "LEFT",
+      "cLConvertMode" : "NONE",
+      "getCapPSLanguageRes" : {
+        "lanResTag" : "DEF.LNAME.HR_EMPLOYEE.WORK_EMAIL"
+      },
+      "caption" : "工作电子邮件",
+      "codeName" : "work_email",
+      "columnType" : "DEFGRIDCOLUMN",
+      "dataItemName" : "work_email",
+      "excelCaption" : "工作电子邮件",
+      "name" : "work_email",
+      "noPrivDisplayMode" : 1,
+      "getPSAppDEField" : {
+        "name" : "WORK_EMAIL",
+        "codeName" : "work_email"
+      },
+      "width" : 200,
+      "widthUnit" : "PX",
+      "enableSort" : true
+    }, {
+      "align" : "LEFT",
+      "cLConvertMode" : "FRONT",
+      "getCapPSLanguageRes" : {
+        "lanResTag" : "CONTROL.DEGRID.HR_EMPLOYEE.MAIN.DEFGRIDCOLUMN.HR_PRESENCE_STATE"
+      },
+      "caption" : "出席",
+      "codeName" : "hr_presence_state",
+      "columnType" : "DEFGRIDCOLUMN",
+      "dataItemName" : "hr_presence_state",
+      "excelCaption" : "出席",
+      "name" : "hr_presence_state",
+      "noPrivDisplayMode" : 1,
+      "getPSAppCodeList" : {
+        "modelref" : true,
+        "path" : "PSSYSAPPS/ehrapp/PSAPPCODELISTS/hr__hr_employee_hr_presence_state.json"
+      },
+      "getPSAppDEField" : {
+        "name" : "HR_PRESENCE_STATE",
+        "codeName" : "hr_presence_state"
+      },
+      "width" : 200,
+      "widthUnit" : "PX",
+      "enableSort" : false
+    }, {
+      "align" : "LEFT",
+      "cLConvertMode" : "NONE",
+      "getCapPSLanguageRes" : {
+        "lanResTag" : "DEF.LNAME.HR_EMPLOYEE.ACTIVITY_DATE_DEADLINE"
+      },
+      "caption" : "下一活动截止日期",
+      "codeName" : "activity_date_deadline",
+      "columnType" : "DEFGRIDCOLUMN",
+      "dataItemName" : "activity_date_deadline",
+      "excelCaption" : "下一活动截止日期",
+      "name" : "activity_date_deadline",
+      "noPrivDisplayMode" : 1,
+      "getPSAppDEField" : {
+        "name" : "ACTIVITY_DATE_DEADLINE",
+        "codeName" : "activity_date_deadline"
+      },
+      "valueFormat" : "YYYY-MM-DD",
+      "width" : 200,
+      "widthUnit" : "PX",
+      "enableSort" : false
+    }, {
+      "align" : "LEFT",
+      "cLConvertMode" : "NONE",
+      "getCapPSLanguageRes" : {
+        "lanResTag" : "CONTROL.DEGRID.HR_EMPLOYEE.MAIN.DEFGRIDCOLUMN.COMPANY_NAME"
+      },
+      "caption" : "公司",
+      "codeName" : "company_name",
+      "columnType" : "DEFGRIDCOLUMN",
+      "dataItemName" : "company_name",
+      "excelCaption" : "公司",
+      "name" : "company_name",
+      "noPrivDisplayMode" : 1,
+      "getPSAppDEField" : {
+        "name" : "COMPANY_NAME",
+        "codeName" : "company_name"
+      },
+      "width" : 200,
+      "widthUnit" : "PX",
+      "enableSort" : true
+    }, {
+      "align" : "LEFT",
+      "cLConvertMode" : "NONE",
+      "getCapPSLanguageRes" : {
+        "lanResTag" : "CONTROL.DEGRID.HR_EMPLOYEE.MAIN.DEFGRIDCOLUMN.DEPARTMENT_NAME"
+      },
+      "caption" : "部门",
+      "codeName" : "department_name",
+      "columnType" : "DEFGRIDCOLUMN",
+      "dataItemName" : "department_name",
+      "excelCaption" : "部门",
+      "name" : "department_name",
+      "noPrivDisplayMode" : 1,
+      "getPSAppDEField" : {
+        "name" : "DEPARTMENT_NAME",
+        "codeName" : "department_name"
+      },
+      "width" : 200,
+      "widthUnit" : "PX",
+      "enableSort" : true
+    }, {
+      "align" : "LEFT",
+      "cLConvertMode" : "NONE",
+      "getCapPSLanguageRes" : {
+        "lanResTag" : "CONTROL.DEGRID.HR_EMPLOYEE.MAIN.DEFGRIDCOLUMN.JOB_NAME"
+      },
+      "caption" : "工作岗位",
+      "codeName" : "job_name",
+      "columnType" : "DEFGRIDCOLUMN",
+      "dataItemName" : "job_name",
+      "excelCaption" : "工作岗位",
+      "name" : "job_name",
+      "noPrivDisplayMode" : 1,
+      "getPSAppDEField" : {
+        "name" : "JOB_NAME",
+        "codeName" : "job_name"
+      },
+      "width" : 150,
+      "widthUnit" : "PX",
+      "enableSort" : true
+    }, {
+      "align" : "LEFT",
+      "cLConvertMode" : "NONE",
+      "getCapPSLanguageRes" : {
+        "lanResTag" : "DEF.LNAME.HR_EMPLOYEE.PARENT_NAME"
+      },
+      "caption" : "管理员",
+      "codeName" : "parent_name",
+      "columnType" : "DEFGRIDCOLUMN",
+      "dataItemName" : "parent_name",
+      "excelCaption" : "管理员",
+      "name" : "parent_name",
+      "noPrivDisplayMode" : 1,
+      "getPSAppDEField" : {
+        "name" : "PARENT_NAME",
+        "codeName" : "parent_name"
+      },
+      "width" : 150,
+      "widthUnit" : "PX",
+      "enableRowEdit" : true,
+      "enableSort" : true
+    } ],
+    "getPSDEGridDataItems" : [ {
+      "dataType" : 25,
+      "name" : "name",
+      "getPSAppDEField" : {
+        "name" : "NAME",
+        "codeName" : "name"
+      }
+    }, {
+      "dataType" : 25,
+      "name" : "work_phone",
+      "getPSAppDEField" : {
+        "name" : "WORK_PHONE",
+        "codeName" : "work_phone"
+      }
+    }, {
+      "dataType" : 25,
+      "name" : "work_email",
+      "getPSAppDEField" : {
+        "name" : "WORK_EMAIL",
+        "codeName" : "work_email"
+      }
+    }, {
+      "dataType" : 25,
+      "name" : "hr_presence_state",
+      "getPSAppDEField" : {
+        "name" : "HR_PRESENCE_STATE",
+        "codeName" : "hr_presence_state"
+      }
+    }, {
+      "format" : "YYYY-MM-DD",
+      "dataType" : 5,
+      "name" : "activity_date_deadline",
+      "getPSAppDEField" : {
+        "name" : "ACTIVITY_DATE_DEADLINE",
+        "codeName" : "activity_date_deadline"
+      }
+    }, {
+      "dataType" : 25,
+      "name" : "company_name",
+      "getPSAppDEField" : {
+        "name" : "COMPANY_NAME",
+        "codeName" : "company_name"
+      }
+    }, {
+      "dataType" : 25,
+      "name" : "department_name",
+      "getPSAppDEField" : {
+        "name" : "DEPARTMENT_NAME",
+        "codeName" : "department_name"
+      }
+    }, {
+      "dataType" : 25,
+      "name" : "job_name",
+      "getPSAppDEField" : {
+        "name" : "JOB_NAME",
+        "codeName" : "job_name"
+      }
+    }, {
+      "dataType" : 25,
+      "name" : "parent_name",
+      "getPSAppDEField" : {
+        "name" : "PARENT_NAME",
+        "codeName" : "parent_name"
+      }
+    }, {
+      "dataType" : 25,
+      "name" : "avatar",
+      "getPSAppDEField" : {
+        "name" : "AVATAR",
+        "codeName" : "avatar"
+      }
+    }, {
+      "dataType" : 25,
+      "name" : "image",
+      "getPSAppDEField" : {
+        "name" : "IMAGE",
+        "codeName" : "image"
+      }
+    }, {
+      "dataType" : 25,
+      "name" : "srfkey",
+      "getPSAppDEField" : {
+        "name" : "ID",
+        "codeName" : "id"
+      }
+    }, {
+      "dataType" : 25,
+      "name" : "srfdataaccaction",
+      "getPSAppDEField" : {
+        "name" : "ID",
+        "codeName" : "id"
+      },
+      "dataAccessAction" : true
+    }, {
+      "dataType" : 25,
+      "name" : "company_id",
+      "getPSAppDEField" : {
+        "name" : "COMPANY_ID",
+        "codeName" : "company_id"
+      }
+    }, {
+      "dataType" : 25,
+      "name" : "message_main_attachment_id",
+      "getPSAppDEField" : {
+        "name" : "MESSAGE_MAIN_ATTACHMENT_ID",
+        "codeName" : "message_main_attachment_id"
+      }
+    }, {
+      "dataType" : 25,
+      "name" : "work_contact_id",
+      "getPSAppDEField" : {
+        "name" : "WORK_CONTACT_ID",
+        "codeName" : "work_contact_id"
+      }
+    }, {
+      "dataType" : 25,
+      "name" : "work_location_id",
+      "getPSAppDEField" : {
+        "name" : "WORK_LOCATION_ID",
+        "codeName" : "work_location_id"
+      }
+    }, {
+      "dataType" : 25,
+      "name" : "job_id",
+      "getPSAppDEField" : {
+        "name" : "JOB_ID",
+        "codeName" : "job_id"
+      }
+    }, {
+      "dataType" : 25,
+      "name" : "user_id",
+      "getPSAppDEField" : {
+        "name" : "USER_ID",
+        "codeName" : "user_id"
+      }
+    }, {
+      "dataType" : 25,
+      "name" : "department_id",
+      "getPSAppDEField" : {
+        "name" : "DEPARTMENT_ID",
+        "codeName" : "department_id"
+      }
+    }, {
+      "dataType" : 25,
+      "name" : "address_id",
+      "getPSAppDEField" : {
+        "name" : "ADDRESS_ID",
+        "codeName" : "address_id"
+      }
+    }, {
+      "dataType" : 25,
+      "name" : "private_country_id",
+      "getPSAppDEField" : {
+        "name" : "PRIVATE_COUNTRY_ID",
+        "codeName" : "private_country_id"
+      }
+    }, {
+      "dataType" : 25,
+      "name" : "private_state_id",
+      "getPSAppDEField" : {
+        "name" : "PRIVATE_STATE_ID",
+        "codeName" : "private_state_id"
+      }
+    }, {
+      "dataType" : 25,
+      "name" : "country_id",
+      "getPSAppDEField" : {
+        "name" : "COUNTRY_ID",
+        "codeName" : "country_id"
+      }
+    }, {
+      "dataType" : 25,
+      "name" : "parent_id",
+      "getPSAppDEField" : {
+        "name" : "PARENT_ID",
+        "codeName" : "parent_id"
+      }
+    }, {
+      "dataType" : 25,
+      "name" : "bank_account_id",
+      "getPSAppDEField" : {
+        "name" : "BANK_ACCOUNT_ID",
+        "codeName" : "bank_account_id"
+      }
+    }, {
+      "dataType" : 25,
+      "name" : "coach_id",
+      "getPSAppDEField" : {
+        "name" : "COACH_ID",
+        "codeName" : "coach_id"
+      }
+    }, {
+      "dataType" : 25,
+      "name" : "expense_manager_id",
+      "getPSAppDEField" : {
+        "name" : "EXPENSE_MANAGER_ID",
+        "codeName" : "expense_manager_id"
+      }
+    }, {
+      "dataType" : 25,
+      "name" : "attendance_manager_id",
+      "getPSAppDEField" : {
+        "name" : "ATTENDANCE_MANAGER_ID",
+        "codeName" : "attendance_manager_id"
+      }
+    }, {
+      "dataType" : 25,
+      "name" : "leave_manager_id",
+      "getPSAppDEField" : {
+        "name" : "LEAVE_MANAGER_ID",
+        "codeName" : "leave_manager_id"
+      }
+    }, {
+      "dataType" : 25,
+      "name" : "resource_id",
+      "getPSAppDEField" : {
+        "name" : "RESOURCE_ID",
+        "codeName" : "resource_id"
+      }
+    }, {
+      "dataType" : 25,
+      "name" : "resource_calendar_id",
+      "getPSAppDEField" : {
+        "name" : "RESOURCE_CALENDAR_ID",
+        "codeName" : "resource_calendar_id"
+      }
+    }, {
+      "dataType" : 25,
+      "name" : "srfmajortext",
+      "getPSAppDEField" : {
+        "name" : "NAME",
+        "codeName" : "name"
+      }
+    } ],
+    "getPSDEGridEditItems" : [ {
+      "caption" : "管理员",
+      "codeName" : "parent_name",
+      "enableCond" : 3,
+      "ignoreInput" : 0,
+      "name" : "parent_name",
+      "getPSAppDEField" : {
+        "name" : "PARENT_NAME",
+        "codeName" : "parent_name"
+      },
+      "getPSEditor" : {
+        "editorParams" : {
+          "URL" : "/res_users/fetch_simple",
+          "ISSHOWTAB" : "false",
+          "USERMAP" : "{\"id\":\"id\",\"name\":\"name\"}",
+          "userauthentity" : "ibizehrapp.res_user",
+          "AC" : "TRUE",
+          "USERMETHOD" : "post",
+          "TRIGGER" : "TRUE",
+          "PICKUPVIEW" : "FALSE"
+        },
+        "editorStyle" : "PERSONEL_SELECT_USER_ALL",
+        "editorType" : "PICKEREX_TRIGGER",
+        "name" : "parent_name",
+        "getPSAppDEACMode" : {
+          "modelref" : true,
+          "id" : "Default"
+        },
+        "getPSAppDEDataSet" : {
+          "modelref" : true,
+          "id" : "fetch_default"
+        },
+        "getPSAppDataEntity" : {
+          "modelref" : true,
+          "path" : "PSSYSAPPS/ehrapp/PSAPPDATAENTITIES/hr_employee.json"
+        },
+        "getPSEditorItems" : [ { } ],
+        "getPSSysPFPlugin" : {
+          "pluginType" : "EDITOR_CUSTOMSTYLE",
+          "pluginCode" : "PERSON_SELECT",
+          "runtimeObject" : true
+        },
+        "valueItemName" : "parent_id",
+        "enableAC" : true,
+        "enablePickupView" : false,
+        "forceSelection" : true,
+        "showTrigger" : true,
+        "singleSelect" : true
+      },
+      "valueItemName" : "parent_id",
+      "allowEmpty" : true
+    }, {
+      "caption" : "标识",
+      "codeName" : "srfkey",
+      "enableCond" : 3,
+      "ignoreInput" : 0,
+      "name" : "srfkey",
+      "getPSAppDEField" : {
+        "name" : "ID",
+        "codeName" : "id"
+      },
+      "getPSEditor" : {
+        "editorType" : "HIDDEN",
+        "name" : "srfkey"
+      },
+      "allowEmpty" : true
+    }, {
+      "enableCond" : 3,
+      "ignoreInput" : 0,
+      "name" : "parent_id",
+      "getPSAppDEField" : {
+        "name" : "PARENT_ID",
+        "codeName" : "parent_id"
+      },
+      "getPSEditor" : {
+        "editorType" : "HIDDEN"
+      },
+      "allowEmpty" : true
+    } ],
+    "getPSSysPFPlugin" : {
+      "pluginType" : "GRID_RENDER",
+      "pluginCode" : "ODOO_GROUP_GRID",
+      "runtimeObject" : true,
+      "pluginParams" : {
+        "replaceglobal" : "true"
+      }
+    },
+    "pagingMode" : 1,
+    "pagingSize" : 20,
+    "getRemovePSControlAction" : {
+      "actionName" : "Remove",
+      "actionType" : "DEACTION",
+      "dataAccessAction" : "DELETE",
+      "name" : "remove",
+      "getPSAppDEMethod" : {
+        "modelref" : true,
+        "id" : "remove"
+      },
+      "getPSAppDataEntity" : {
+        "modelref" : true,
+        "path" : "PSSYSAPPS/ehrapp/PSAPPDATAENTITIES/hr_employee.json"
+      }
+    },
+    "sortMode" : "REMOTE",
+    "hasWFDataItems" : false,
+    "enableColFilter" : false,
+    "enableCustomized" : true,
+    "enableGroup" : false,
+    "enablePagingBar" : true,
+    "enableRowEdit" : false,
+    "enableRowEditOrder" : false,
+    "enableRowNew" : false,
+    "forceFit" : false,
+    "hideHeader" : false,
+    "noSort" : false,
+    "singleSelect" : false,
+    "name" : "grid",
+    "modelid" : "0fb31c9c89cd1ceb97c544f29d4aaa5b",
+    "modeltype" : "PSDEGRID"
+  }, {
+    "codeName" : "Default",
+    "controlType" : "SEARCHFORM",
+    "defaultLabelWidth" : 130,
+    "dynaModelFilePath" : "PSSYSAPPS/ehrapp/PSAPPDATAENTITIES/hr_employee/PSSEARCHFORMS/Default.json",
+    "logicName" : "默认搜索表单",
+    "getPSAppDataEntity" : {
+      "modelref" : true,
+      "path" : "PSSYSAPPS/ehrapp/PSAPPDATAENTITIES/hr_employee.json"
+    },
+    "getPSControlHandler" : {
+      "getPSHandlerActions" : [ {
+        "actionType" : "FILTERACTION",
+        "name" : "load",
+        "getPSAppDEMethod" : {
+          "modelref" : true,
+          "id" : "FilterGet"
+        },
+        "getPSAppDataEntity" : {
+          "modelref" : true,
+          "path" : "PSSYSAPPS/ehrapp/PSAPPDATAENTITIES/hr_employee.json"
+        }
+      }, {
+        "actionType" : "FILTERACTION",
+        "name" : "loaddraft",
+        "getPSAppDEMethod" : {
+          "modelref" : true,
+          "id" : "FilterGetDraft"
+        },
+        "getPSAppDataEntity" : {
+          "modelref" : true,
+          "path" : "PSSYSAPPS/ehrapp/PSAPPDATAENTITIES/hr_employee.json"
+        }
+      }, {
+        "actionType" : "FILTERACTION",
+        "name" : "search",
+        "getPSAppDEMethod" : {
+          "modelref" : true,
+          "id" : "FilterSearch"
+        },
+        "getPSAppDataEntity" : {
+          "modelref" : true,
+          "path" : "PSSYSAPPS/ehrapp/PSAPPDATAENTITIES/hr_employee.json"
+        }
+      } ],
+      "enableDEFieldPrivilege" : false,
+      "id" : "搜索表单处理器"
+    },
+    "getPSControlParam" : {
+      "autoLoad" : true,
+      "showBusyIndicator" : true,
+      "id" : "SEARCHFORM"
+    },
+    "getPSDEFormPages" : [ {
+      "getCapPSLanguageRes" : {
+        "lanResTag" : "CONTROL.DEFORM.HR_EMPLOYEE.DEFAULT.FORMPAGE.FORMPAGE1"
+      },
+      "caption" : "常规条件",
+      "codeName" : "formpage1",
+      "detailStyle" : "DEFAULT",
+      "detailType" : "FORMPAGE",
+      "name" : "formpage1",
+      "getPSLayout" : {
+        "childColMD" : 24,
+        "columnCount" : 24,
+        "layout" : "TABLE_24COL"
+      },
+      "infoGroupMode" : false
+    } ],
+    "getPSLayout" : {
+      "childColMD" : 24,
+      "columnCount" : 24,
+      "layout" : "TABLE_24COL"
+    },
+    "searchButtonStyle" : "DEFAULT",
+    "tabHeaderPos" : "TOP",
+    "enableAdvanceSearch" : false,
+    "enableAutoSearch" : false,
+    "enableFilterSave" : false,
+    "noTabHeader" : true,
+    "name" : "searchform",
+    "modelid" : "6f38b372ee9e43803a7b1b507a64dff3",
+    "modeltype" : "PSDEFORM_SEARCHFORM"
+  }, {
+    "codeName" : "GridViewtoolbar",
+    "controlType" : "TOOLBAR",
+    "logicName" : "工具栏模板（默认表格界面）",
+    "name" : "toolbar",
+    "getPSAppDataEntity" : {
+      "modelref" : true,
+      "path" : "PSSYSAPPS/ehrapp/PSAPPDATAENTITIES/hr_employee.json"
+    },
+    "getPSControlParam" : {
+      "id" : "TOOLBAR"
+    },
+    "getPSDEToolbarItems" : [ {
+      "getCapPSLanguageRes" : {
+        "lanResTag" : "TBB.TEXT.*.NEW"
+      },
+      "caption" : "新建",
+      "groupExtractMode" : "ITEM",
+      "itemType" : "DEUIACTION",
+      "name" : "tbitem5",
+      "noPrivDisplayMode" : 2,
+      "getPSAppViewUIAction" : {
+        "modelref" : true,
+        "id" : "toolbar_tbitem5"
+      },
+      "getPSSysImage" : {
+        "glyph" : "xf0f6@FontAwesome",
+        "cssClass" : "fa fa-file-text-o"
+      },
+      "getPSUIAction" : {
+        "getCapPSLanguageRes" : {
+          "lanResTag" : "TBB.TEXT.*.NEW"
+        },
+        "caption" : "新建",
+        "codeName" : "New",
+        "fullCodeName" : "New",
+        "name" : "表格界面_新建操作",
+        "getPSSysImage" : {
+          "glyph" : "xf0f6@FontAwesome",
+          "cssClass" : "fa fa-file-text-o"
+        },
+        "predefinedType" : "GRIDVIEW_NEWACTION",
+        "timeout" : 60000,
+        "getTooltipPSLanguageRes" : {
+          "lanResTag" : "TBB.TOOLTIP.*.NEW"
+        },
+        "uIActionMode" : "SYS",
+        "uIActionTag" : "New",
+        "uIActionType" : "DEUIACTION"
+      },
+      "tooltip" : "新建",
+      "getTooltipPSLanguageRes" : {
+        "lanResTag" : "TBB.TOOLTIP.*.NEW"
+      },
+      "showCaption" : true,
+      "showIcon" : true
+    }, {
+      "getCapPSLanguageRes" : {
+        "lanResTag" : "TBB.TEXT.*.EDIT"
+      },
+      "caption" : "编辑",
+      "groupExtractMode" : "ITEM",
+      "itemType" : "DEUIACTION",
+      "name" : "tbitem2",
+      "noPrivDisplayMode" : 2,
+      "getPSAppViewUIAction" : {
+        "modelref" : true,
+        "id" : "toolbar_tbitem2"
+      },
+      "getPSSysImage" : {
+        "glyph" : "xf044@FontAwesome",
+        "cssClass" : "fa fa-edit"
+      },
+      "getPSUIAction" : {
+        "actionTarget" : "SINGLEKEY",
+        "getCapPSLanguageRes" : {
+          "lanResTag" : "TBB.TEXT.*.EDIT"
+        },
+        "caption" : "编辑",
+        "codeName" : "Edit",
+        "fullCodeName" : "Edit",
+        "name" : "表格界面_编辑操作",
+        "getPSSysImage" : {
+          "glyph" : "xf044@FontAwesome",
+          "cssClass" : "fa fa-edit"
+        },
+        "predefinedType" : "GRIDVIEW_EDITACTION",
+        "timeout" : 60000,
+        "getTooltipPSLanguageRes" : {
+          "lanResTag" : "TBB.TOOLTIP.*.EDIT"
+        },
+        "uIActionMode" : "SYS",
+        "uIActionTag" : "Edit",
+        "uIActionType" : "DEUIACTION"
+      },
+      "tooltip" : "编辑",
+      "getTooltipPSLanguageRes" : {
+        "lanResTag" : "TBB.TOOLTIP.*.EDIT"
+      },
+      "uIActionTarget" : "SINGLEKEY",
+      "showCaption" : true,
+      "showIcon" : true
+    }, {
+      "getCapPSLanguageRes" : {
+        "lanResTag" : "TBB.TEXT.*.COPY"
+      },
+      "caption" : "拷贝",
+      "groupExtractMode" : "ITEM",
+      "itemType" : "DEUIACTION",
+      "name" : "tbitem1",
+      "noPrivDisplayMode" : 2,
+      "getPSAppViewUIAction" : {
+        "modelref" : true,
+        "id" : "toolbar_tbitem1"
+      },
+      "getPSSysImage" : {
+        "glyph" : "xf0c5@FontAwesome",
+        "cssClass" : "fa fa-copy"
+      },
+      "getPSUIAction" : {
+        "actionTarget" : "SINGLEKEY",
+        "getCapPSLanguageRes" : {
+          "lanResTag" : "TBB.TEXT.*.COPY"
+        },
+        "caption" : "拷贝",
+        "codeName" : "Copy",
+        "fullCodeName" : "Copy",
+        "name" : "表格界面_拷贝操作",
+        "getPSSysImage" : {
+          "glyph" : "xf0c5@FontAwesome",
+          "cssClass" : "fa fa-copy"
+        },
+        "predefinedType" : "GRIDVIEW_COPYACTION",
+        "timeout" : 60000,
+        "getTooltipPSLanguageRes" : {
+          "lanResTag" : "TBB.TOOLTIP.*.COPY"
+        },
+        "uIActionMode" : "SYS",
+        "uIActionTag" : "Copy",
+        "uIActionType" : "DEUIACTION"
+      },
+      "tooltip" : "拷贝",
+      "getTooltipPSLanguageRes" : {
+        "lanResTag" : "TBB.TOOLTIP.*.COPY"
+      },
+      "uIActionTarget" : "SINGLEKEY",
+      "showCaption" : true,
+      "showIcon" : true
+    }, {
+      "itemType" : "SEPERATOR",
+      "name" : "tbitem15"
+    }, {
+      "getCapPSLanguageRes" : {
+        "lanResTag" : "TBB.TEXT.*.REMOVE"
+      },
+      "caption" : "删除",
+      "groupExtractMode" : "ITEM",
+      "itemType" : "DEUIACTION",
+      "name" : "tbitem8",
+      "noPrivDisplayMode" : 2,
+      "getPSAppViewUIAction" : {
+        "modelref" : true,
+        "id" : "toolbar_tbitem8"
+      },
+      "getPSSysImage" : {
+        "glyph" : "xf00d@FontAwesome",
+        "cssClass" : "fa fa-remove"
+      },
+      "getPSUIAction" : {
+        "actionTarget" : "MULTIKEY",
+        "getCapPSLanguageRes" : {
+          "lanResTag" : "TBB.TEXT.*.REMOVE"
+        },
+        "caption" : "删除",
+        "codeName" : "Remove",
+        "fullCodeName" : "Remove",
+        "name" : "表格界面_删除操作",
+        "getPSSysImage" : {
+          "glyph" : "xf00d@FontAwesome",
+          "cssClass" : "fa fa-remove"
+        },
+        "predefinedType" : "GRIDVIEW_REMOVEACTION",
+        "timeout" : 60000,
+        "getTooltipPSLanguageRes" : {
+          "lanResTag" : "TBB.TOOLTIP.*.REMOVE"
+        },
+        "uIActionMode" : "SYS",
+        "uIActionTag" : "Remove",
+        "uIActionType" : "DEUIACTION"
+      },
+      "tooltip" : "删除",
+      "getTooltipPSLanguageRes" : {
+        "lanResTag" : "TBB.TOOLTIP.*.REMOVE"
+      },
+      "uIActionTarget" : "MULTIKEY",
+      "showCaption" : true,
+      "showIcon" : true
+    }, {
+      "itemType" : "SEPERATOR",
+      "name" : "tbitem16"
+    }, {
+      "getCapPSLanguageRes" : {
+        "lanResTag" : "TBB.TEXT.*.EXPORT"
+      },
+      "caption" : "导出",
+      "groupExtractMode" : "ITEM",
+      "itemType" : "DEUIACTION",
+      "name" : "tbitem3",
+      "noPrivDisplayMode" : 2,
+      "getPSAppViewUIAction" : {
+        "modelref" : true,
+        "id" : "toolbar_tbitem3"
+      },
+      "getPSSysImage" : {
+        "glyph" : "xf1c3@FontAwesome",
+        "cssClass" : "fa fa-file-excel-o"
+      },
+      "getPSUIAction" : {
+        "getCapPSLanguageRes" : {
+          "lanResTag" : "TBB.TEXT.*.EXPORT"
+        },
+        "caption" : "导出",
+        "codeName" : "ExportExcel",
+        "fullCodeName" : "ExportExcel",
+        "name" : "表格界面_导出操作（Excel）",
+        "getPSSysImage" : {
+          "glyph" : "xf1c3@FontAwesome",
+          "cssClass" : "fa fa-file-excel-o"
+        },
+        "predefinedType" : "GRIDVIEW_EXPORTACTION",
+        "timeout" : 60000,
+        "getTooltipPSLanguageRes" : {
+          "lanResTag" : "TBB.TOOLTIP.*.EXPORT"
+        },
+        "uIActionMode" : "SYS",
+        "uIActionTag" : "ExportExcel",
+        "uIActionType" : "DEUIACTION"
+      },
+      "tooltip" : "导出",
+      "getTooltipPSLanguageRes" : {
+        "lanResTag" : "TBB.TOOLTIP.*.EXPORT"
+      },
+      "showCaption" : true,
+      "showIcon" : true
+    }, {
+      "itemType" : "SEPERATOR",
+      "name" : "tbitem17"
+    }, {
+      "caption" : "其它",
+      "itemType" : "ITEMS",
+      "name" : "tbitem20",
+      "getPSDEToolbarItems" : [ {
+        "getCapPSLanguageRes" : {
+          "lanResTag" : "MENUITEM.CAPTION.*.EXPORTSRF"
+        },
+        "caption" : "导出数据模型",
+        "groupExtractMode" : "ITEM",
+        "itemType" : "DEUIACTION",
+        "name" : "tbitem24",
+        "noPrivDisplayMode" : 2,
+        "getPSAppViewUIAction" : {
+          "modelref" : true,
+          "id" : "toolbar_tbitem24"
+        },
+        "getPSSysImage" : {
+          "glyph" : "xf019@FontAwesome",
+          "cssClass" : "fa fa-download"
+        },
+        "getPSUIAction" : {
+          "getCapPSLanguageRes" : {
+            "lanResTag" : "MENUITEM.CAPTION.*.EXPORTSRF"
+          },
+          "caption" : "导出数据模型",
+          "codeName" : "ExportModel",
+          "fullCodeName" : "ExportModel",
+          "name" : "表格界面_导出数据模型",
+          "getPSSysImage" : {
+            "glyph" : "xf019@FontAwesome",
+            "cssClass" : "fa fa-download"
+          },
+          "predefinedType" : "GRIDVIEW_EXPORTXMLACTION",
+          "timeout" : 60000,
+          "uIActionMode" : "SYS",
+          "uIActionTag" : "ExportModel",
+          "uIActionType" : "DEUIACTION"
+        },
+        "tooltip" : "导出数据模型",
+        "showCaption" : true,
+        "showIcon" : true
+      }, {
+        "caption" : "数据导入",
+        "groupExtractMode" : "ITEM",
+        "itemType" : "DEUIACTION",
+        "name" : "tbitem25",
+        "noPrivDisplayMode" : 2,
+        "getPSAppViewUIAction" : {
+          "modelref" : true,
+          "id" : "toolbar_tbitem25"
+        },
+        "getPSSysImage" : {
+          "glyph" : "xf093@FontAwesome",
+          "cssClass" : "fa fa-upload"
+        },
+        "getPSUIAction" : {
+          "caption" : "数据导入",
+          "codeName" : "Import",
+          "fullCodeName" : "Import",
+          "name" : "表格界面_数据导入栏",
+          "getPSSysImage" : {
+            "glyph" : "xf093@FontAwesome",
+            "cssClass" : "fa fa-upload"
+          },
+          "predefinedType" : "GRIDVIEW_IMPORTBAR",
+          "timeout" : 60000,
+          "uIActionMode" : "SYS",
+          "uIActionTag" : "Import",
+          "uIActionType" : "DEUIACTION"
+        },
+        "tooltip" : "数据导入",
+        "showCaption" : true,
+        "showIcon" : true
+      } ],
+      "tooltip" : "其它",
+      "showCaption" : true,
+      "showIcon" : true
+    }, {
+      "itemType" : "SEPERATOR",
+      "name" : "tbitem21"
+    }, {
+      "getCapPSLanguageRes" : {
+        "lanResTag" : "TBB.TEXT.*.FILTER"
+      },
+      "caption" : "过滤",
+      "groupExtractMode" : "ITEM",
+      "itemType" : "DEUIACTION",
+      "name" : "tbitem10",
+      "noPrivDisplayMode" : 2,
+      "getPSAppViewUIAction" : {
+        "modelref" : true,
+        "id" : "toolbar_tbitem10"
+      },
+      "getPSSysImage" : {
+        "glyph" : "xf0b0@FontAwesome",
+        "cssClass" : "fa fa-filter"
+      },
+      "getPSUIAction" : {
+        "getCapPSLanguageRes" : {
+          "lanResTag" : "TBB.TEXT.*.FILTER"
+        },
+        "caption" : "过滤",
+        "codeName" : "ToggleFilter",
+        "fullCodeName" : "ToggleFilter",
+        "name" : "表格界面_搜索栏",
+        "getPSSysImage" : {
+          "glyph" : "xf0b0@FontAwesome",
+          "cssClass" : "fa fa-filter"
+        },
+        "predefinedType" : "GRIDVIEW_SEARCHBAR",
+        "timeout" : 60000,
+        "getTooltipPSLanguageRes" : {
+          "lanResTag" : "TBB.TOOLTIP.*.FILTER"
+        },
+        "uIActionMode" : "SYS",
+        "uIActionTag" : "ToggleFilter",
+        "uIActionType" : "DEUIACTION",
+        "enableToggleMode" : true
+      },
+      "tooltip" : "过滤",
+      "getTooltipPSLanguageRes" : {
+        "lanResTag" : "TBB.TOOLTIP.*.FILTER"
+      },
+      "enableToggleMode" : true,
+      "showCaption" : true,
+      "showIcon" : true
+    }, {
+      "getCapPSLanguageRes" : {
+        "lanResTag" : "TBB.TEXT.*.HELP"
+      },
+      "caption" : "帮助",
+      "groupExtractMode" : "ITEM",
+      "itemType" : "DEUIACTION",
+      "name" : "tbitem4",
+      "noPrivDisplayMode" : 2,
+      "getPSAppViewUIAction" : {
+        "modelref" : true,
+        "id" : "toolbar_tbitem4"
+      },
+      "getPSSysImage" : {
+        "glyph" : "xf128@FontAwesome",
+        "cssClass" : "fa fa-question"
+      },
+      "getPSUIAction" : {
+        "getCapPSLanguageRes" : {
+          "lanResTag" : "TBB.TEXT.*.HELP"
+        },
+        "caption" : "帮助",
+        "codeName" : "Help",
+        "fullCodeName" : "Help",
+        "name" : "表格界面_帮助操作",
+        "getPSSysImage" : {
+          "glyph" : "xf128@FontAwesome",
+          "cssClass" : "fa fa-question"
+        },
+        "predefinedType" : "GRIDVIEW_HELPACTION",
+        "timeout" : 60000,
+        "getTooltipPSLanguageRes" : {
+          "lanResTag" : "TBB.TOOLTIP.*.HELP"
+        },
+        "uIActionMode" : "SYS",
+        "uIActionTag" : "Help",
+        "uIActionType" : "DEUIACTION"
+      },
+      "tooltip" : "帮助",
+      "getTooltipPSLanguageRes" : {
+        "lanResTag" : "TBB.TOOLTIP.*.HELP"
+      },
+      "showCaption" : true,
+      "showIcon" : true
+    } ],
+    "xDataControlName" : "grid",
+    "modelid" : "ec6fbb681f5e3e6783c2af57e5eefaaa",
+    "modeltype" : "PSDETOOLBAR"
+  }, {
+    "controlType" : "SEARCHBAR",
+    "name" : "searchbar",
+    "getPSAppDataEntity" : {
+      "modelref" : true,
+      "path" : "PSSYSAPPS/ehrapp/PSAPPDATAENTITIES/hr_employee.json"
+    },
+    "getPSControlParam" : {
+      "id" : "searchbar"
+    },
+    "quickGroupCount" : -1,
+    "quickSearchMode" : 1,
+    "quickSearchWidth" : 0,
+    "enableFilter" : false,
+    "enableGroup" : false,
+    "enableQuickSearch" : true,
+    "mobileSearchBar" : false
+  }, {
+    "getCapPSLanguageRes" : {
+      "lanResTag" : "DE.LNAME.HR_EMPLOYEE"
+    },
+    "caption" : "员工",
+    "codeName" : "GridViewcaptionbar",
+    "controlType" : "CAPTIONBAR",
+    "name" : "captionbar",
+    "getPSAppDataEntity" : {
+      "modelref" : true,
+      "path" : "PSSYSAPPS/ehrapp/PSAPPDATAENTITIES/hr_employee.json"
+    },
+    "getPSControlParam" : { }
+  } ],
+  "getPSDEViewCodeName" : "GridView",
+  "getPSDEViewId" : "731df640265742b1a612fca0c21487cc",
+  "getPSViewLayoutPanel" : {
+    "codeName" : "layoutpanel",
+    "controlStyle" : "APPDEGRIDVIEW",
+    "controlType" : "VIEWLAYOUTPANEL",
+    "name" : "layoutpanel",
+    "getPSAppDataEntity" : {
+      "modelref" : true,
+      "path" : "PSSYSAPPS/ehrapp/PSAPPDATAENTITIES/hr_employee.json"
+    },
+    "getPSControlParam" : { },
+    "layoutBodyOnly" : true,
+    "layoutPanel" : true,
+    "useDefaultLayout" : true
+  },
+  "refFlag" : false,
+  "title" : "员工表格视图",
+  "getTitlePSLanguageRes" : {
+    "lanResTag" : "PAGE.TITLE.HR_EMPLOYEE.GRIDVIEW"
+  },
+  "viewStyle" : "DEFAULT",
+  "viewType" : "DEGRIDVIEW",
+  "xDataControlName" : "grid",
+  "enableDP" : true,
+  "enableExport" : true,
+  "enableFilter" : true,
+  "enableImport" : true,
+  "enableQuickSearch" : true,
+  "enableRowEdit" : false,
+  "enableSearch" : true,
+  "rowEditDefault" : false,
+  "modelid" : "ccc76fbf43c5f180a7a90c1d7826b056",
+  "modeltype" : "PSAPPDEVIEW",
+  "getPSAppDERSPaths" : [ [ {
+    "actionRSMode" : 1,
+    "codeName" : "hr_employees",
+    "dataRSMode" : 0,
+    "majorDECodeName" : "res_company",
+    "majorDEName" : "RES_COMPANY",
+    "getMajorPSAppDataEntity" : {
+      "modelref" : true,
+      "path" : "PSSYSAPPS/ehrapp/PSAPPDATAENTITIES/res_company.json"
+    },
+    "minorDECodeName" : "hr_employee",
+    "minorDEName" : "HR_EMPLOYEE",
+    "getMinorPSAppDataEntity" : {
+      "modelref" : true,
+      "path" : "PSSYSAPPS/ehrapp/PSAPPDATAENTITIES/hr_employee.json"
+    },
+    "name" : "公司-员工",
+    "getParentPSAppDEField" : {
+      "name" : "COMPANY_ID",
+      "codeName" : "company_id"
+    },
+    "getParentTextPSAppDEField" : {
+      "name" : "COMPANY_NAME",
+      "codeName" : "company_name"
+    },
+    "rSMode" : 2
+  } ], [ {
+    "actionRSMode" : 1,
+    "codeName" : "hr_employees",
+    "dataRSMode" : 0,
+    "majorDECodeName" : "hr_department",
+    "majorDEName" : "HR_DEPARTMENT",
+    "getMajorPSAppDataEntity" : {
+      "modelref" : true,
+      "path" : "PSSYSAPPS/ehrapp/PSAPPDATAENTITIES/hr_department.json"
+    },
+    "minorDECodeName" : "hr_employee",
+    "minorDEName" : "HR_EMPLOYEE",
+    "getMinorPSAppDataEntity" : {
+      "modelref" : true,
+      "path" : "PSSYSAPPS/ehrapp/PSAPPDATAENTITIES/hr_employee.json"
+    },
+    "name" : " 部门-员工",
+    "getParentPSAppDEField" : {
+      "name" : "DEPARTMENT_ID",
+      "codeName" : "department_id"
+    },
+    "getParentTextPSAppDEField" : {
+      "name" : "DEPARTMENT_NAME",
+      "codeName" : "department_name"
+    },
+    "rSMode" : 2,
+    "tempDataOrder" : 10
+  } ] ]
+}

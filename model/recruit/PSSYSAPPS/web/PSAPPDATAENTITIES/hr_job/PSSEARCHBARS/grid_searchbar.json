@@ -1,0 +1,189 @@
+{
+  "codeName" : "grid_searchbar",
+  "controlStyle" : "FILTER_SEARCHBAR",
+  "controlType" : "SEARCHBAR",
+  "dynaModelFilePath" : "PSSYSAPPS/web/PSAPPDATAENTITIES/hr_job/PSSEARCHBARS/grid_searchbar.json",
+  "logicName" : "主界面搜索栏",
+  "getPSAppCounterRef" : {
+    "modelref" : true,
+    "id" : "56f3780dfcbc2210d461cfd077f43597"
+  },
+  "getPSAppCounterRefs" : [ {
+    "getPSAppCounter" : {
+      "codeName" : "job_status_count",
+      "counterType" : "DEDR",
+      "dynaModelFilePath" : "PSSYSAPPS/web/PSAPPCOUNTERS/job_status_count.json",
+      "getGetPSAppDEAction" : {
+        "modelref" : true,
+        "id" : "job_status_count"
+      },
+      "name" : "HR-职位搜索栏计数器",
+      "getPSAppDataEntity" : {
+        "modelref" : true,
+        "path" : "PSSYSAPPS/web/PSAPPDATAENTITIES/hr_job.json"
+      },
+      "timer" : 60000,
+      "uniqueTag" : "job_status_count"
+    },
+    "tag" : "56f3780dfcbc2210d461cfd077f43597",
+    "uniqueTag" : "job_status_count",
+    "id" : "56f3780dfcbc2210d461cfd077f43597"
+  } ],
+  "getPSAppDataEntity" : {
+    "modelref" : true,
+    "path" : "PSSYSAPPS/web/PSAPPDATAENTITIES/hr_job.json"
+  },
+  "getPSSearchBarFilters" : [ {
+    "caption" : "职位名称筛选",
+    "dataType" : 25,
+    "itemType" : "FILTER",
+    "labelPos" : "NONE",
+    "labelWidth" : 0,
+    "name" : "n_name_like",
+    "getPSAppDEField" : {
+      "name" : "NAME",
+      "codeName" : "name"
+    },
+    "getPSDEFSearchMode" : {
+      "codeName" : "N_NAME_LIKE",
+      "name" : "N_NAME_LIKE",
+      "stdDataType" : 25,
+      "valueOP" : "LIKE"
+    },
+    "getPSEditor" : {
+      "editorType" : "TEXTBOX",
+      "name" : "n_name_like"
+    },
+    "allowEmpty" : true,
+    "emptyCaption" : false,
+    "hidden" : false,
+    "showCaption" : false,
+    "getUserParam" : {
+      "defaultShow" : "true"
+    }
+  }, {
+    "caption" : "职位部门筛选",
+    "dataType" : 25,
+    "itemType" : "FILTER",
+    "labelPos" : "NONE",
+    "labelWidth" : 0,
+    "name" : "n_department_id_eq",
+    "getPSAppDEField" : {
+      "name" : "DEPARTMENT_ID",
+      "codeName" : "department_id"
+    },
+    "getPSEditor" : {
+      "editorType" : "TEXTBOX",
+      "name" : "n_department_id_eq"
+    },
+    "allowEmpty" : true,
+    "emptyCaption" : false,
+    "hidden" : false,
+    "showCaption" : false,
+    "getUserParam" : {
+      "defaultShow" : "true"
+    }
+  }, {
+    "caption" : "渠道筛选",
+    "dataType" : 25,
+    "itemType" : "FILTER",
+    "labelPos" : "NONE",
+    "labelWidth" : 0,
+    "name" : "n_job_platforms_like",
+    "getPSAppDEField" : {
+      "name" : "JOB_PLATFORMS",
+      "codeName" : "job_platforms"
+    },
+    "getPSDEFSearchMode" : {
+      "codeName" : "N_JOB_PLATFORMS_LIKE",
+      "name" : "N_JOB_PLATFORMS_LIKE",
+      "stdDataType" : 25,
+      "valueOP" : "LIKE"
+    },
+    "getPSEditor" : {
+      "editorType" : "TEXTBOX",
+      "name" : "n_job_platforms_like"
+    },
+    "allowEmpty" : true,
+    "emptyCaption" : false,
+    "hidden" : false,
+    "showCaption" : false,
+    "getUserParam" : {
+      "defaultShow" : "true"
+    }
+  }, {
+    "caption" : "负责人筛选",
+    "dataType" : 25,
+    "itemType" : "FILTER",
+    "labelPos" : "NONE",
+    "labelWidth" : 0,
+    "name" : "n_owner_id_eq",
+    "getPSAppDEField" : {
+      "name" : "OWNER_ID",
+      "codeName" : "owner_id"
+    },
+    "getPSDEFSearchMode" : {
+      "codeName" : "N_OWNER_ID_EQ",
+      "name" : "N_OWNER_ID_EQ",
+      "stdDataType" : 25,
+      "valueOP" : "EQ"
+    },
+    "getPSEditor" : {
+      "editorType" : "TEXTBOX",
+      "name" : "n_owner_id_eq"
+    },
+    "allowEmpty" : true,
+    "emptyCaption" : false,
+    "hidden" : false,
+    "showCaption" : false,
+    "getUserParam" : {
+      "defaultShow" : "true"
+    }
+  } ],
+  "getPSSearchBarGroups" : [ {
+    "caption" : "招聘中的职位",
+    "counterId" : "open",
+    "data" : "{\"theme_model\":{\"searchconds\":[{\"condtype\":\"GROUP\",\"condop\":\"AND\",\"bnotmode\":false,\"searchconds\":[{\"condtype\":\"DEFIELD\",\"fieldname\":\"status\",\"condop\":\"EQ\",\"value\":\"open\"}]}]}}",
+    "itemType" : "GROUP",
+    "name" : "open",
+    "getPSAppDEField" : {
+      "name" : "STATUS",
+      "codeName" : "status"
+    },
+    "width" : 0.0,
+    "addSeparator" : false,
+    "defaultGroup" : true,
+    "getUserParam" : {
+      "defaultShow" : "true"
+    }
+  }, {
+    "caption" : "已关闭的职位",
+    "counterId" : "closed",
+    "data" : "{\"theme_model\":{\"searchconds\":[{\"condtype\":\"GROUP\",\"condop\":\"AND\",\"bnotmode\":false,\"searchconds\":[{\"condtype\":\"DEFIELD\",\"fieldname\":\"status\",\"condop\":\"EQ\",\"value\":\"closed\"}]}]}}",
+    "itemType" : "GROUP",
+    "name" : "closed",
+    "getPSAppDEField" : {
+      "name" : "STATUS",
+      "codeName" : "status"
+    },
+    "width" : 0.0,
+    "addSeparator" : false,
+    "getUserParam" : {
+      "defaultShow" : "true"
+    }
+  } ],
+  "getPSSysPFPlugin" : {
+    "pluginType" : "CUSTOM",
+    "pluginCode" : "FILTER_SEARCHBAR",
+    "runtimeObject" : true
+  },
+  "quickGroupCount" : -1,
+  "quickSearchMode" : 1,
+  "quickSearchWidth" : 0,
+  "enableFilter" : true,
+  "enableGroup" : true,
+  "enableQuickSearch" : true,
+  "mobileSearchBar" : false,
+  "modelid" : "9ef3c581baeeefe03ad6dfa71d50082d",
+  "modeltype" : "PSSYSSEARCHBAR"
+}

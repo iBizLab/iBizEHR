@@ -1,0 +1,37 @@
+package cn.ibizlab.base.logic.avatar_mixinlogic.save_avater;
+        import java.util.Map;
+        import java.util.HashMap;
+        import com.alibaba.fastjson.JSONObject;
+        import org.springframework.util.StringUtils;
+        import org.springframework.util.ObjectUtils;
+        import cn.ibizlab.util.errors.BadRequestAlertException;
+                global cn.ibizlab.core.base.domain.avatar_mixin avatar_mixinsave_avaterdefault;
+        global cn.ibizlab.core.base.service.Iavatar_mixinService iBzSysAvatar_mixinDefaultService;
+        global cn.ibizlab.util.security.AuthenticationUser curuser;
+
+
+    no-loop
+
+            //逻辑处理节点[开始]
+            rule "begin"
+            ruleflow-group "avatar_mixinsave_avaterbegin"
+            when
+            then
+            end
+
+            //逻辑处理节点[准备参数]
+            rule "prepareparam_01"
+            ruleflow-group "avatar_mixinsave_avaterprepareparam_01"
+            when
+            then
+                            avatar_mixinsave_avaterdefault.set("image",avatar_mixinsave_avaterdefault.get("avatar"));
+                        update(avatar_mixinsave_avaterdefault);//更新fact中变量值
+            end
+
+            //逻辑处理节点[结束]
+            rule "end_01"
+            ruleflow-group "avatar_mixinsave_avaterend_01"
+            when
+            then
+                        update(avatar_mixinsave_avaterdefault);//更新fact中变量值
+            end

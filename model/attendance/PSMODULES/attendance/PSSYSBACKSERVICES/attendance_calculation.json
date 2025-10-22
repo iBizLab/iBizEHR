@@ -1,0 +1,24 @@
+{
+  "codeName" : "attendance_calculation",
+  "dynaModelFilePath" : "PSMODULES/attendance/PSSYSBACKSERVICES/attendance_calculation.json",
+  "memo" : "每天12:00 12:30 22:00 22:30",
+  "name" : "考勤计算任务",
+  "getPSDEAction" : {
+    "modelref" : true,
+    "path" : "PSMODULES/attendance/PSDATAENTITIES/attendance_clock_in_record/PSDEACTIONS/attendance_calculate.json"
+  },
+  "getPSDataEntity" : {
+    "modelref" : true,
+    "path" : "PSMODULES/attendance/PSDATAENTITIES/attendance_clock_in_record.json"
+  },
+  "getPSSystemModule" : {
+    "modelref" : true,
+    "path" : "PSMODULES/attendance.json"
+  },
+  "serviceContainer" : "SC01",
+  "serviceOrder" : 0,
+  "startMode" : "AUTO",
+  "taskType" : "DEACTION",
+  "timerPolicy" : "0,30 12,22 * * *",
+  "timerMode" : true
+}

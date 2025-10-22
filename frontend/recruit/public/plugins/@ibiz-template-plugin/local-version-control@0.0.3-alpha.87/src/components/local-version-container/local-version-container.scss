@@ -1,0 +1,55 @@
+/* stylelint-disable selector-class-pattern */
+@include b(local-version-container) {
+    width: 100%;
+    height: 100%;
+
+    @include e(header) {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        height: 40px;
+        padding: 0 getCssVar('spacing', 'base');
+        border-bottom: 1px solid getCssVar('color', 'border');
+    }
+
+    @include e(header-left) {
+        font-size: getCssVar('font-size', 'header-6');
+    }
+
+    @include e(header-button) {
+        i {
+            font-size: 16px;
+        }
+
+        span {
+            margin-left: getCssVar('spacing', 'extra-tight');
+        }
+    }
+
+    @include e(body) {
+        height: calc(100% - 80px);
+        padding: getCssVar('spacing', 'base');
+    }
+
+    @include e(footer) {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        height: 40px;
+        padding: 0 getCssVar('spacing', 'base');
+
+        .el-checkbox__input.is-checked+.el-checkbox__label{
+            color: getCssVar(color, text, 0);
+        }
+    }
+
+    @include e(footer-button) {
+        i {
+            font-size: 16px;
+        }
+
+        span {
+            margin-left: getCssVar('spacing', 'extra-tight');
+        }
+    }
+}

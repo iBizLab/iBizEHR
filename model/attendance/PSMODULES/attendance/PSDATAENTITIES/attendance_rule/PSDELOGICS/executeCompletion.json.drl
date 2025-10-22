@@ -1,0 +1,1612 @@
+package cn.ibizlab.attendance.logic.attendance_rulelogic.executecompletion;
+        import java.util.Map;
+        import java.util.HashMap;
+        import com.alibaba.fastjson.JSONObject;
+        import org.springframework.util.StringUtils;
+        import org.springframework.util.ObjectUtils;
+        import cn.ibizlab.util.errors.BadRequestAlertException;
+                global cn.ibizlab.core.attendance.domain.attendance_rule attendance_ruleexecutecompletiondefault;
+                global cn.ibizlab.core.attendance.domain.attendance_schedule attendance_ruleexecutecompletioncurruleschedules;
+                global cn.ibizlab.core.attendance.domain.attendance_activate_rule attendance_ruleexecutecompletionactivefilter;
+                global cn.ibizlab.core.attendance.domain.attendance_activate_rule attendance_ruleexecutecompletionactiverule;
+                global cn.ibizlab.core.attendance.domain.attendance_activate_shift attendance_ruleexecutecompletionactiveshift;
+                global cn.ibizlab.core.attendance.domain.attendance_activate_shift attendance_ruleexecutecompletionactiveshifts;
+                global cn.ibizlab.core.attendance.domain.attendance_group_shift_member attendance_ruleexecutecompletionalldeptemp;
+                global cn.ibizlab.core.attendance.domain.attendance_group_shift_member attendance_ruleexecutecompletionallmembers;
+                global cn.ibizlab.core.attendance.domain.attendance_group_shift attendance_ruleexecutecompletionattendance_group_shift;
+                global java.util.Map attendance_ruleexecutecompletionattendance_group_shifts;
+                global java.util.Map attendance_ruleexecutecompletionattendance_schedulefilter;
+                global cn.ibizlab.core.attendance.domain.attendance_schedule attendance_ruleexecutecompletionattendance_scheduletemp;
+                global cn.ibizlab.core.attendance.domain.attendance_schedule attendance_ruleexecutecompletionattendance_scheduletemps;
+                global java.util.Map attendance_ruleexecutecompletioncalendarfilter;
+                global java.util.Map attendance_ruleexecutecompletioncalendarlist;
+                global cn.ibizlab.core.attendance.domain.attendance_group_shift_member attendance_ruleexecutecompletioncuractivemember;
+                global cn.ibizlab.core.attendance.domain.attendance_group_shift_member attendance_ruleexecutecompletiondepttemp;
+                global cn.ibizlab.core.attendance.domain.attendance_group_shift_member attendance_ruleexecutecompletiondepts;
+                global cn.ibizlab.core.employee_management.domain.employee attendance_ruleexecutecompletionempfilter;
+                global cn.ibizlab.core.employee_management.domain.employee attendance_ruleexecutecompletionemployees;
+                global cn.ibizlab.core.attendance.domain.attendance_schedule attendance_ruleexecutecompletionlastschedules;
+                global cn.ibizlab.core.attendance.domain.attendance_group_shift_member attendance_ruleexecutecompletionmembertemp;
+                global cn.ibizlab.core.attendance.domain.attendance_group_shift_member attendance_ruleexecutecompletionmembers;
+                global cn.ibizlab.core.attendance.domain.attendance_schedule attendance_ruleexecutecompletionnewschedules;
+                global cn.ibizlab.core.attendance.domain.attendance_activate_shift attendance_ruleexecutecompletionshiftfilter;
+                global cn.ibizlab.core.attendance.domain.attendance_shift attendance_ruleexecutecompletionshifts;
+                global java.util.Map attendance_ruleexecutecompletionsrfactionparam;
+                global java.util.Map attendance_ruleexecutecompletiontemp;
+                global cn.ibizlab.core.attendance.domain.attendance_activate_rule attendance_ruleexecutecompletionwaitrulepage;
+                global java.util.Map attendance_ruleexecutecompletionworkdays;
+                    global cn.ibizlab.core.attendance.service.Iattendance_activate_shiftService attendance_activate_shiftservice;
+                    global cn.ibizlab.core.attendance.service.Iattendance_ruleService attendance_ruleservice;
+                    global cn.ibizlab.core.attendance.service.Iattendance_activate_ruleService attendance_activate_ruleservice;
+                    global cn.ibizlab.core.employee_management.service.IemployeeService employeeservice;
+                    global cn.ibizlab.core.attendance.service.Iattendance_scheduleService attendance_scheduleservice;
+        global cn.ibizlab.core.attendance.service.Iattendance_ruleService iBzSysAttendance_ruleDefaultService;
+        global cn.ibizlab.util.security.AuthenticationUser curuser;
+
+
+    no-loop
+
+            //逻辑处理节点[开始]
+            rule "begin"
+            ruleflow-group "attendance_ruleexecutecompletionbegin"
+            when
+            then
+            end
+
+            //逻辑处理节点[获取当前规则激活班次]
+            rule "dedataset_05"
+            ruleflow-group "attendance_ruleexecutecompletiondedataset_05"
+            when
+            then
+                        update(attendance_ruleexecutecompletiondefault);//更新fact中变量值
+                        update(attendance_ruleexecutecompletioncurruleschedules);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionactivefilter);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionactiverule);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionactiveshift);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionactiveshifts);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionalldeptemp);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionallmembers);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionattendance_group_shift);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionattendance_group_shifts);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionattendance_schedulefilter);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionattendance_scheduletemp);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionattendance_scheduletemps);//更新fact中变量值
+                        update(attendance_ruleexecutecompletioncalendarfilter);//更新fact中变量值
+                        update(attendance_ruleexecutecompletioncalendarlist);//更新fact中变量值
+                        update(attendance_ruleexecutecompletioncuractivemember);//更新fact中变量值
+                        update(attendance_ruleexecutecompletiondepttemp);//更新fact中变量值
+                        update(attendance_ruleexecutecompletiondepts);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionempfilter);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionemployees);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionlastschedules);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionmembertemp);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionmembers);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionnewschedules);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionshiftfilter);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionshifts);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionsrfactionparam);//更新fact中变量值
+                        update(attendance_ruleexecutecompletiontemp);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionwaitrulepage);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionworkdays);//更新fact中变量值
+            end
+
+            //逻辑处理节点[设置日历参数]
+            rule "rawsfcode_013"
+            ruleflow-group "attendance_ruleexecutecompletionrawsfcode_013"
+            when
+            then
+                        update(attendance_ruleexecutecompletiondefault);//更新fact中变量值
+                        update(attendance_ruleexecutecompletioncurruleschedules);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionactivefilter);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionactiverule);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionactiveshift);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionactiveshifts);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionalldeptemp);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionallmembers);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionattendance_group_shift);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionattendance_group_shifts);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionattendance_schedulefilter);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionattendance_scheduletemp);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionattendance_scheduletemps);//更新fact中变量值
+                        update(attendance_ruleexecutecompletioncalendarfilter);//更新fact中变量值
+                        update(attendance_ruleexecutecompletioncalendarlist);//更新fact中变量值
+                        update(attendance_ruleexecutecompletioncuractivemember);//更新fact中变量值
+                        update(attendance_ruleexecutecompletiondepttemp);//更新fact中变量值
+                        update(attendance_ruleexecutecompletiondepts);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionempfilter);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionemployees);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionlastschedules);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionmembertemp);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionmembers);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionnewschedules);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionshiftfilter);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionshifts);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionsrfactionparam);//更新fact中变量值
+                        update(attendance_ruleexecutecompletiontemp);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionwaitrulepage);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionworkdays);//更新fact中变量值
+            end
+
+            //逻辑处理节点[获取节假日配置]
+            rule "dedataset_03"
+            ruleflow-group "attendance_ruleexecutecompletiondedataset_03"
+            when
+            then
+                        update(attendance_ruleexecutecompletiondefault);//更新fact中变量值
+                        update(attendance_ruleexecutecompletioncurruleschedules);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionactivefilter);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionactiverule);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionactiveshift);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionactiveshifts);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionalldeptemp);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionallmembers);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionattendance_group_shift);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionattendance_group_shifts);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionattendance_schedulefilter);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionattendance_scheduletemp);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionattendance_scheduletemps);//更新fact中变量值
+                        update(attendance_ruleexecutecompletioncalendarfilter);//更新fact中变量值
+                        update(attendance_ruleexecutecompletioncalendarlist);//更新fact中变量值
+                        update(attendance_ruleexecutecompletioncuractivemember);//更新fact中变量值
+                        update(attendance_ruleexecutecompletiondepttemp);//更新fact中变量值
+                        update(attendance_ruleexecutecompletiondepts);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionempfilter);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionemployees);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionlastschedules);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionmembertemp);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionmembers);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionnewschedules);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionshiftfilter);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionshifts);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionsrfactionparam);//更新fact中变量值
+                        update(attendance_ruleexecutecompletiontemp);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionwaitrulepage);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionworkdays);//更新fact中变量值
+            end
+
+            //逻辑处理节点[循环子调用]
+            rule "loopsubcall_05"
+            ruleflow-group "attendance_ruleexecutecompletionloopsubcall_05"
+            when
+            then
+                        update(attendance_ruleexecutecompletiondefault);//更新fact中变量值
+                        update(attendance_ruleexecutecompletioncurruleschedules);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionactivefilter);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionactiverule);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionactiveshift);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionactiveshifts);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionalldeptemp);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionallmembers);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionattendance_group_shift);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionattendance_group_shifts);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionattendance_schedulefilter);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionattendance_scheduletemp);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionattendance_scheduletemps);//更新fact中变量值
+                        update(attendance_ruleexecutecompletioncalendarfilter);//更新fact中变量值
+                        update(attendance_ruleexecutecompletioncalendarlist);//更新fact中变量值
+                        update(attendance_ruleexecutecompletioncuractivemember);//更新fact中变量值
+                        update(attendance_ruleexecutecompletiondepttemp);//更新fact中变量值
+                        update(attendance_ruleexecutecompletiondepts);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionempfilter);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionemployees);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionlastschedules);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionmembertemp);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionmembers);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionnewschedules);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionshiftfilter);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionshifts);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionsrfactionparam);//更新fact中变量值
+                        update(attendance_ruleexecutecompletiontemp);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionwaitrulepage);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionworkdays);//更新fact中变量值
+            end
+
+            //逻辑处理节点[准备参数]
+            rule "prepareparam_06"
+            ruleflow-group "attendance_ruleexecutecompletionprepareparam_06"
+            when
+            then
+                            attendance_ruleexecutecompletionshiftfilter.set("n_rule_id_eq",attendance_ruleexecutecompletionactiverule.get("id"));
+                        update(attendance_ruleexecutecompletiondefault);//更新fact中变量值
+                        update(attendance_ruleexecutecompletioncurruleschedules);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionactivefilter);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionactiverule);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionactiveshift);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionactiveshifts);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionalldeptemp);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionallmembers);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionattendance_group_shift);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionattendance_group_shifts);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionattendance_schedulefilter);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionattendance_scheduletemp);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionattendance_scheduletemps);//更新fact中变量值
+                        update(attendance_ruleexecutecompletioncalendarfilter);//更新fact中变量值
+                        update(attendance_ruleexecutecompletioncalendarlist);//更新fact中变量值
+                        update(attendance_ruleexecutecompletioncuractivemember);//更新fact中变量值
+                        update(attendance_ruleexecutecompletiondepttemp);//更新fact中变量值
+                        update(attendance_ruleexecutecompletiondepts);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionempfilter);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionemployees);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionlastschedules);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionmembertemp);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionmembers);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionnewschedules);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionshiftfilter);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionshifts);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionsrfactionparam);//更新fact中变量值
+                        update(attendance_ruleexecutecompletiontemp);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionwaitrulepage);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionworkdays);//更新fact中变量值
+            end
+
+            //逻辑处理节点[删除当前规则旧排班]
+            rule "rawsqlcall_01"
+            ruleflow-group "attendance_ruleexecutecompletionrawsqlcall_01"
+            when
+            then
+    Map param =new HashMap();
+        param.put("param0",attendance_ruleexecutecompletionactiverule.get("id"));
+        param.put("param1",attendance_ruleexecutecompletiondefault.get("effecttime"));
+    String strSql="DELETE FROM attendance_schedule WHERE rule_id = #{et.param0} AND checkin_date >= #{et.param1}";
+                        iBzSysAttendance_ruleDefaultService.execute(strSql,param);//SQL调用
+                        update(attendance_ruleexecutecompletiondefault);//更新fact中变量值
+                        update(attendance_ruleexecutecompletioncurruleschedules);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionactivefilter);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionactiverule);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionactiveshift);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionactiveshifts);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionalldeptemp);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionallmembers);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionattendance_group_shift);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionattendance_group_shifts);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionattendance_schedulefilter);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionattendance_scheduletemp);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionattendance_scheduletemps);//更新fact中变量值
+                        update(attendance_ruleexecutecompletioncalendarfilter);//更新fact中变量值
+                        update(attendance_ruleexecutecompletioncalendarlist);//更新fact中变量值
+                        update(attendance_ruleexecutecompletioncuractivemember);//更新fact中变量值
+                        update(attendance_ruleexecutecompletiondepttemp);//更新fact中变量值
+                        update(attendance_ruleexecutecompletiondepts);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionempfilter);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionemployees);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionlastschedules);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionmembertemp);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionmembers);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionnewschedules);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionshiftfilter);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionshifts);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionsrfactionparam);//更新fact中变量值
+                        update(attendance_ruleexecutecompletiontemp);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionwaitrulepage);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionworkdays);//更新fact中变量值
+            end
+
+            //逻辑处理节点[大小周构造新排班]
+            rule "rawsfcode_08"
+            ruleflow-group "attendance_ruleexecutecompletionrawsfcode_08"
+            when
+            then
+                        update(attendance_ruleexecutecompletiondefault);//更新fact中变量值
+                        update(attendance_ruleexecutecompletioncurruleschedules);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionactivefilter);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionactiverule);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionactiveshift);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionactiveshifts);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionalldeptemp);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionallmembers);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionattendance_group_shift);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionattendance_group_shifts);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionattendance_schedulefilter);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionattendance_scheduletemp);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionattendance_scheduletemps);//更新fact中变量值
+                        update(attendance_ruleexecutecompletioncalendarfilter);//更新fact中变量值
+                        update(attendance_ruleexecutecompletioncalendarlist);//更新fact中变量值
+                        update(attendance_ruleexecutecompletioncuractivemember);//更新fact中变量值
+                        update(attendance_ruleexecutecompletiondepttemp);//更新fact中变量值
+                        update(attendance_ruleexecutecompletiondepts);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionempfilter);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionemployees);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionlastschedules);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionmembertemp);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionmembers);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionnewschedules);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionshiftfilter);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionshifts);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionsrfactionparam);//更新fact中变量值
+                        update(attendance_ruleexecutecompletiontemp);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionwaitrulepage);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionworkdays);//更新fact中变量值
+            end
+
+            //逻辑处理节点[固定排班/灵活打卡构造新排班]
+            rule "rawsfcode_02"
+            ruleflow-group "attendance_ruleexecutecompletionrawsfcode_02"
+            when
+            then
+                        update(attendance_ruleexecutecompletiondefault);//更新fact中变量值
+                        update(attendance_ruleexecutecompletioncurruleschedules);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionactivefilter);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionactiverule);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionactiveshift);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionactiveshifts);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionalldeptemp);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionallmembers);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionattendance_group_shift);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionattendance_group_shifts);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionattendance_schedulefilter);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionattendance_scheduletemp);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionattendance_scheduletemps);//更新fact中变量值
+                        update(attendance_ruleexecutecompletioncalendarfilter);//更新fact中变量值
+                        update(attendance_ruleexecutecompletioncalendarlist);//更新fact中变量值
+                        update(attendance_ruleexecutecompletioncuractivemember);//更新fact中变量值
+                        update(attendance_ruleexecutecompletiondepttemp);//更新fact中变量值
+                        update(attendance_ruleexecutecompletiondepts);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionempfilter);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionemployees);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionlastschedules);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionmembertemp);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionmembers);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionnewschedules);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionshiftfilter);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionshifts);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionsrfactionparam);//更新fact中变量值
+                        update(attendance_ruleexecutecompletiontemp);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionwaitrulepage);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionworkdays);//更新fact中变量值
+            end
+
+            //逻辑处理节点[手动排班构造新排班]
+            rule "rawsfcode_06"
+            ruleflow-group "attendance_ruleexecutecompletionrawsfcode_06"
+            when
+            then
+                        update(attendance_ruleexecutecompletiondefault);//更新fact中变量值
+                        update(attendance_ruleexecutecompletioncurruleschedules);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionactivefilter);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionactiverule);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionactiveshift);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionactiveshifts);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionalldeptemp);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionallmembers);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionattendance_group_shift);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionattendance_group_shifts);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionattendance_schedulefilter);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionattendance_scheduletemp);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionattendance_scheduletemps);//更新fact中变量值
+                        update(attendance_ruleexecutecompletioncalendarfilter);//更新fact中变量值
+                        update(attendance_ruleexecutecompletioncalendarlist);//更新fact中变量值
+                        update(attendance_ruleexecutecompletioncuractivemember);//更新fact中变量值
+                        update(attendance_ruleexecutecompletiondepttemp);//更新fact中变量值
+                        update(attendance_ruleexecutecompletiondepts);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionempfilter);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionemployees);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionlastschedules);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionmembertemp);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionmembers);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionnewschedules);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionshiftfilter);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionshifts);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionsrfactionparam);//更新fact中变量值
+                        update(attendance_ruleexecutecompletiontemp);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionwaitrulepage);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionworkdays);//更新fact中变量值
+            end
+
+            //逻辑处理节点[自由班构造新排班]
+            rule "rawsfcode_01"
+            ruleflow-group "attendance_ruleexecutecompletionrawsfcode_01"
+            when
+            then
+                        update(attendance_ruleexecutecompletiondefault);//更新fact中变量值
+                        update(attendance_ruleexecutecompletioncurruleschedules);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionactivefilter);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionactiverule);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionactiveshift);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionactiveshifts);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionalldeptemp);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionallmembers);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionattendance_group_shift);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionattendance_group_shifts);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionattendance_schedulefilter);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionattendance_scheduletemp);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionattendance_scheduletemps);//更新fact中变量值
+                        update(attendance_ruleexecutecompletioncalendarfilter);//更新fact中变量值
+                        update(attendance_ruleexecutecompletioncalendarlist);//更新fact中变量值
+                        update(attendance_ruleexecutecompletioncuractivemember);//更新fact中变量值
+                        update(attendance_ruleexecutecompletiondepttemp);//更新fact中变量值
+                        update(attendance_ruleexecutecompletiondepts);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionempfilter);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionemployees);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionlastschedules);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionmembertemp);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionmembers);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionnewschedules);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionshiftfilter);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionshifts);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionsrfactionparam);//更新fact中变量值
+                        update(attendance_ruleexecutecompletiontemp);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionwaitrulepage);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionworkdays);//更新fact中变量值
+            end
+
+            //逻辑处理节点[获取所有激活规则]
+            rule "dedataset_04"
+            ruleflow-group "attendance_ruleexecutecompletiondedataset_04"
+            when
+            then
+                        update(attendance_ruleexecutecompletiondefault);//更新fact中变量值
+                        update(attendance_ruleexecutecompletioncurruleschedules);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionactivefilter);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionactiverule);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionactiveshift);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionactiveshifts);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionalldeptemp);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionallmembers);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionattendance_group_shift);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionattendance_group_shifts);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionattendance_schedulefilter);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionattendance_scheduletemp);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionattendance_scheduletemps);//更新fact中变量值
+                        update(attendance_ruleexecutecompletioncalendarfilter);//更新fact中变量值
+                        update(attendance_ruleexecutecompletioncalendarlist);//更新fact中变量值
+                        update(attendance_ruleexecutecompletioncuractivemember);//更新fact中变量值
+                        update(attendance_ruleexecutecompletiondepttemp);//更新fact中变量值
+                        update(attendance_ruleexecutecompletiondepts);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionempfilter);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionemployees);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionlastschedules);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionmembertemp);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionmembers);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionnewschedules);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionshiftfilter);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionshifts);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionsrfactionparam);//更新fact中变量值
+                        update(attendance_ruleexecutecompletiontemp);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionwaitrulepage);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionworkdays);//更新fact中变量值
+            end
+
+            //逻辑处理节点[免考勤]
+            rule "rawsfcode_016"
+            ruleflow-group "attendance_ruleexecutecompletionrawsfcode_016"
+            when
+            then
+                        update(attendance_ruleexecutecompletiondefault);//更新fact中变量值
+                        update(attendance_ruleexecutecompletioncurruleschedules);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionactivefilter);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionactiverule);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionactiveshift);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionactiveshifts);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionalldeptemp);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionallmembers);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionattendance_group_shift);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionattendance_group_shifts);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionattendance_schedulefilter);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionattendance_scheduletemp);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionattendance_scheduletemps);//更新fact中变量值
+                        update(attendance_ruleexecutecompletioncalendarfilter);//更新fact中变量值
+                        update(attendance_ruleexecutecompletioncalendarlist);//更新fact中变量值
+                        update(attendance_ruleexecutecompletioncuractivemember);//更新fact中变量值
+                        update(attendance_ruleexecutecompletiondepttemp);//更新fact中变量值
+                        update(attendance_ruleexecutecompletiondepts);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionempfilter);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionemployees);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionlastschedules);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionmembertemp);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionmembers);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionnewschedules);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionshiftfilter);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionshifts);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionsrfactionparam);//更新fact中变量值
+                        update(attendance_ruleexecutecompletiontemp);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionwaitrulepage);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionworkdays);//更新fact中变量值
+            end
+
+            //逻辑处理节点[调试逻辑参数]
+            rule "debugparam_03"
+            ruleflow-group "attendance_ruleexecutecompletiondebugparam_03"
+            when
+            then
+                        update(attendance_ruleexecutecompletiondefault);//更新fact中变量值
+                        update(attendance_ruleexecutecompletioncurruleschedules);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionactivefilter);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionactiverule);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionactiveshift);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionactiveshifts);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionalldeptemp);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionallmembers);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionattendance_group_shift);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionattendance_group_shifts);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionattendance_schedulefilter);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionattendance_scheduletemp);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionattendance_scheduletemps);//更新fact中变量值
+                        update(attendance_ruleexecutecompletioncalendarfilter);//更新fact中变量值
+                        update(attendance_ruleexecutecompletioncalendarlist);//更新fact中变量值
+                        update(attendance_ruleexecutecompletioncuractivemember);//更新fact中变量值
+                        update(attendance_ruleexecutecompletiondepttemp);//更新fact中变量值
+                        update(attendance_ruleexecutecompletiondepts);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionempfilter);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionemployees);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionlastschedules);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionmembertemp);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionmembers);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionnewschedules);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionshiftfilter);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionshifts);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionsrfactionparam);//更新fact中变量值
+                        update(attendance_ruleexecutecompletiontemp);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionwaitrulepage);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionworkdays);//更新fact中变量值
+            end
+
+            //逻辑处理节点[循环子调用]
+            rule "loopsubcall_03"
+            ruleflow-group "attendance_ruleexecutecompletionloopsubcall_03"
+            when
+            then
+                        update(attendance_ruleexecutecompletiondefault);//更新fact中变量值
+                        update(attendance_ruleexecutecompletioncurruleschedules);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionactivefilter);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionactiverule);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionactiveshift);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionactiveshifts);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionalldeptemp);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionallmembers);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionattendance_group_shift);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionattendance_group_shifts);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionattendance_schedulefilter);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionattendance_scheduletemp);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionattendance_scheduletemps);//更新fact中变量值
+                        update(attendance_ruleexecutecompletioncalendarfilter);//更新fact中变量值
+                        update(attendance_ruleexecutecompletioncalendarlist);//更新fact中变量值
+                        update(attendance_ruleexecutecompletioncuractivemember);//更新fact中变量值
+                        update(attendance_ruleexecutecompletiondepttemp);//更新fact中变量值
+                        update(attendance_ruleexecutecompletiondepts);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionempfilter);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionemployees);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionlastschedules);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionmembertemp);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionmembers);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionnewschedules);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionshiftfilter);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionshifts);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionsrfactionparam);//更新fact中变量值
+                        update(attendance_ruleexecutecompletiontemp);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionwaitrulepage);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionworkdays);//更新fact中变量值
+            end
+
+            //逻辑处理节点[n班倒构造新排班]
+            rule "rawsfcode_010"
+            ruleflow-group "attendance_ruleexecutecompletionrawsfcode_010"
+            when
+            then
+                        update(attendance_ruleexecutecompletiondefault);//更新fact中变量值
+                        update(attendance_ruleexecutecompletioncurruleschedules);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionactivefilter);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionactiverule);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionactiveshift);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionactiveshifts);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionalldeptemp);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionallmembers);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionattendance_group_shift);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionattendance_group_shifts);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionattendance_schedulefilter);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionattendance_scheduletemp);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionattendance_scheduletemps);//更新fact中变量值
+                        update(attendance_ruleexecutecompletioncalendarfilter);//更新fact中变量值
+                        update(attendance_ruleexecutecompletioncalendarlist);//更新fact中变量值
+                        update(attendance_ruleexecutecompletioncuractivemember);//更新fact中变量值
+                        update(attendance_ruleexecutecompletiondepttemp);//更新fact中变量值
+                        update(attendance_ruleexecutecompletiondepts);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionempfilter);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionemployees);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionlastschedules);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionmembertemp);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionmembers);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionnewschedules);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionshiftfilter);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionshifts);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionsrfactionparam);//更新fact中变量值
+                        update(attendance_ruleexecutecompletiontemp);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionwaitrulepage);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionworkdays);//更新fact中变量值
+            end
+
+            //逻辑处理节点[判断节假日]
+            rule "rawsfcode_015"
+            ruleflow-group "attendance_ruleexecutecompletionrawsfcode_015"
+            when
+            then
+                        update(attendance_ruleexecutecompletiondefault);//更新fact中变量值
+                        update(attendance_ruleexecutecompletioncurruleschedules);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionactivefilter);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionactiverule);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionactiveshift);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionactiveshifts);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionalldeptemp);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionallmembers);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionattendance_group_shift);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionattendance_group_shifts);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionattendance_schedulefilter);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionattendance_scheduletemp);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionattendance_scheduletemps);//更新fact中变量值
+                        update(attendance_ruleexecutecompletioncalendarfilter);//更新fact中变量值
+                        update(attendance_ruleexecutecompletioncalendarlist);//更新fact中变量值
+                        update(attendance_ruleexecutecompletioncuractivemember);//更新fact中变量值
+                        update(attendance_ruleexecutecompletiondepttemp);//更新fact中变量值
+                        update(attendance_ruleexecutecompletiondepts);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionempfilter);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionemployees);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionlastschedules);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionmembertemp);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionmembers);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionnewschedules);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionshiftfilter);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionshifts);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionsrfactionparam);//更新fact中变量值
+                        update(attendance_ruleexecutecompletiontemp);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionwaitrulepage);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionworkdays);//更新fact中变量值
+            end
+
+            //逻辑处理节点[调试逻辑参数]
+            rule "debugparam_01"
+            ruleflow-group "attendance_ruleexecutecompletiondebugparam_01"
+            when
+            then
+                        update(attendance_ruleexecutecompletiondefault);//更新fact中变量值
+                        update(attendance_ruleexecutecompletioncurruleschedules);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionactivefilter);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionactiverule);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionactiveshift);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionactiveshifts);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionalldeptemp);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionallmembers);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionattendance_group_shift);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionattendance_group_shifts);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionattendance_schedulefilter);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionattendance_scheduletemp);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionattendance_scheduletemps);//更新fact中变量值
+                        update(attendance_ruleexecutecompletioncalendarfilter);//更新fact中变量值
+                        update(attendance_ruleexecutecompletioncalendarlist);//更新fact中变量值
+                        update(attendance_ruleexecutecompletioncuractivemember);//更新fact中变量值
+                        update(attendance_ruleexecutecompletiondepttemp);//更新fact中变量值
+                        update(attendance_ruleexecutecompletiondepts);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionempfilter);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionemployees);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionlastschedules);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionmembertemp);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionmembers);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionnewschedules);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionshiftfilter);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionshifts);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionsrfactionparam);//更新fact中变量值
+                        update(attendance_ruleexecutecompletiontemp);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionwaitrulepage);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionworkdays);//更新fact中变量值
+            end
+
+            //逻辑处理节点[上a休b构造新排班]
+            rule "rawsfcode_05"
+            ruleflow-group "attendance_ruleexecutecompletionrawsfcode_05"
+            when
+            then
+                        update(attendance_ruleexecutecompletiondefault);//更新fact中变量值
+                        update(attendance_ruleexecutecompletioncurruleschedules);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionactivefilter);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionactiverule);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionactiveshift);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionactiveshifts);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionalldeptemp);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionallmembers);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionattendance_group_shift);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionattendance_group_shifts);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionattendance_schedulefilter);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionattendance_scheduletemp);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionattendance_scheduletemps);//更新fact中变量值
+                        update(attendance_ruleexecutecompletioncalendarfilter);//更新fact中变量值
+                        update(attendance_ruleexecutecompletioncalendarlist);//更新fact中变量值
+                        update(attendance_ruleexecutecompletioncuractivemember);//更新fact中变量值
+                        update(attendance_ruleexecutecompletiondepttemp);//更新fact中变量值
+                        update(attendance_ruleexecutecompletiondepts);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionempfilter);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionemployees);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionlastschedules);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionmembertemp);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionmembers);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionnewschedules);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionshiftfilter);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionshifts);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionsrfactionparam);//更新fact中变量值
+                        update(attendance_ruleexecutecompletiontemp);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionwaitrulepage);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionworkdays);//更新fact中变量值
+            end
+
+            //逻辑处理节点[判断节假日]
+            rule "rawsfcode_014"
+            ruleflow-group "attendance_ruleexecutecompletionrawsfcode_014"
+            when
+            then
+                        update(attendance_ruleexecutecompletiondefault);//更新fact中变量值
+                        update(attendance_ruleexecutecompletioncurruleschedules);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionactivefilter);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionactiverule);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionactiveshift);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionactiveshifts);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionalldeptemp);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionallmembers);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionattendance_group_shift);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionattendance_group_shifts);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionattendance_schedulefilter);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionattendance_scheduletemp);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionattendance_scheduletemps);//更新fact中变量值
+                        update(attendance_ruleexecutecompletioncalendarfilter);//更新fact中变量值
+                        update(attendance_ruleexecutecompletioncalendarlist);//更新fact中变量值
+                        update(attendance_ruleexecutecompletioncuractivemember);//更新fact中变量值
+                        update(attendance_ruleexecutecompletiondepttemp);//更新fact中变量值
+                        update(attendance_ruleexecutecompletiondepts);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionempfilter);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionemployees);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionlastschedules);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionmembertemp);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionmembers);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionnewschedules);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionshiftfilter);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionshifts);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionsrfactionparam);//更新fact中变量值
+                        update(attendance_ruleexecutecompletiontemp);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionwaitrulepage);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionworkdays);//更新fact中变量值
+            end
+
+            //逻辑处理节点[获取所有人员]
+            rule "dedataset_02"
+            ruleflow-group "attendance_ruleexecutecompletiondedataset_02"
+            when
+            then
+                        update(attendance_ruleexecutecompletiondefault);//更新fact中变量值
+                        update(attendance_ruleexecutecompletioncurruleschedules);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionactivefilter);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionactiverule);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionactiveshift);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionactiveshifts);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionalldeptemp);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionallmembers);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionattendance_group_shift);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionattendance_group_shifts);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionattendance_schedulefilter);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionattendance_scheduletemp);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionattendance_scheduletemps);//更新fact中变量值
+                        update(attendance_ruleexecutecompletioncalendarfilter);//更新fact中变量值
+                        update(attendance_ruleexecutecompletioncalendarlist);//更新fact中变量值
+                        update(attendance_ruleexecutecompletioncuractivemember);//更新fact中变量值
+                        update(attendance_ruleexecutecompletiondepttemp);//更新fact中变量值
+                        update(attendance_ruleexecutecompletiondepts);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionempfilter);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionemployees);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionlastschedules);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionmembertemp);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionmembers);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionnewschedules);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionshiftfilter);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionshifts);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionsrfactionparam);//更新fact中变量值
+                        update(attendance_ruleexecutecompletiontemp);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionwaitrulepage);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionworkdays);//更新fact中变量值
+            end
+
+            //逻辑处理节点[输出deptids]
+            rule "debugparam_02"
+            ruleflow-group "attendance_ruleexecutecompletiondebugparam_02"
+            when
+            then
+                        update(attendance_ruleexecutecompletiondefault);//更新fact中变量值
+                        update(attendance_ruleexecutecompletioncurruleschedules);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionactivefilter);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionactiverule);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionactiveshift);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionactiveshifts);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionalldeptemp);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionallmembers);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionattendance_group_shift);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionattendance_group_shifts);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionattendance_schedulefilter);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionattendance_scheduletemp);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionattendance_scheduletemps);//更新fact中变量值
+                        update(attendance_ruleexecutecompletioncalendarfilter);//更新fact中变量值
+                        update(attendance_ruleexecutecompletioncalendarlist);//更新fact中变量值
+                        update(attendance_ruleexecutecompletioncuractivemember);//更新fact中变量值
+                        update(attendance_ruleexecutecompletiondepttemp);//更新fact中变量值
+                        update(attendance_ruleexecutecompletiondepts);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionempfilter);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionemployees);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionlastschedules);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionmembertemp);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionmembers);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionnewschedules);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionshiftfilter);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionshifts);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionsrfactionparam);//更新fact中变量值
+                        update(attendance_ruleexecutecompletiontemp);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionwaitrulepage);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionworkdays);//更新fact中变量值
+            end
+
+            //逻辑处理节点[查询部门下人员]
+            rule "dedataset_01"
+            ruleflow-group "attendance_ruleexecutecompletiondedataset_01"
+            when
+            then
+                        update(attendance_ruleexecutecompletiondefault);//更新fact中变量值
+                        update(attendance_ruleexecutecompletioncurruleschedules);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionactivefilter);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionactiverule);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionactiveshift);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionactiveshifts);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionalldeptemp);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionallmembers);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionattendance_group_shift);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionattendance_group_shifts);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionattendance_schedulefilter);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionattendance_scheduletemp);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionattendance_scheduletemps);//更新fact中变量值
+                        update(attendance_ruleexecutecompletioncalendarfilter);//更新fact中变量值
+                        update(attendance_ruleexecutecompletioncalendarlist);//更新fact中变量值
+                        update(attendance_ruleexecutecompletioncuractivemember);//更新fact中变量值
+                        update(attendance_ruleexecutecompletiondepttemp);//更新fact中变量值
+                        update(attendance_ruleexecutecompletiondepts);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionempfilter);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionemployees);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionlastschedules);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionmembertemp);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionmembers);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionnewschedules);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionshiftfilter);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionshifts);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionsrfactionparam);//更新fact中变量值
+                        update(attendance_ruleexecutecompletiontemp);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionwaitrulepage);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionworkdays);//更新fact中变量值
+            end
+
+            //逻辑处理节点[人员转换]
+            rule "rawsfcode_012"
+            ruleflow-group "attendance_ruleexecutecompletionrawsfcode_012"
+            when
+            then
+                        update(attendance_ruleexecutecompletiondefault);//更新fact中变量值
+                        update(attendance_ruleexecutecompletioncurruleschedules);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionactivefilter);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionactiverule);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionactiveshift);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionactiveshifts);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionalldeptemp);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionallmembers);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionattendance_group_shift);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionattendance_group_shifts);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionattendance_schedulefilter);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionattendance_scheduletemp);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionattendance_scheduletemps);//更新fact中变量值
+                        update(attendance_ruleexecutecompletioncalendarfilter);//更新fact中变量值
+                        update(attendance_ruleexecutecompletioncalendarlist);//更新fact中变量值
+                        update(attendance_ruleexecutecompletioncuractivemember);//更新fact中变量值
+                        update(attendance_ruleexecutecompletiondepttemp);//更新fact中变量值
+                        update(attendance_ruleexecutecompletiondepts);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionempfilter);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionemployees);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionlastschedules);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionmembertemp);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionmembers);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionnewschedules);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionshiftfilter);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionshifts);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionsrfactionparam);//更新fact中变量值
+                        update(attendance_ruleexecutecompletiontemp);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionwaitrulepage);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionworkdays);//更新fact中变量值
+            end
+
+            //逻辑处理节点[准备参数]
+            rule "prepareparam_02"
+            ruleflow-group "attendance_ruleexecutecompletionprepareparam_02"
+            when
+            then
+                            attendance_ruleexecutecompletionattendance_group_shifts.set("",attendance_ruleexecutecompletiondefault.get("attendance_group_shifts"));
+                            attendance_ruleexecutecompletionworkdays.set("",attendance_ruleexecutecompletiondefault.get("workdays"));
+                        update(attendance_ruleexecutecompletiondefault);//更新fact中变量值
+                        update(attendance_ruleexecutecompletioncurruleschedules);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionactivefilter);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionactiverule);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionactiveshift);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionactiveshifts);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionalldeptemp);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionallmembers);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionattendance_group_shift);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionattendance_group_shifts);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionattendance_schedulefilter);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionattendance_scheduletemp);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionattendance_scheduletemps);//更新fact中变量值
+                        update(attendance_ruleexecutecompletioncalendarfilter);//更新fact中变量值
+                        update(attendance_ruleexecutecompletioncalendarlist);//更新fact中变量值
+                        update(attendance_ruleexecutecompletioncuractivemember);//更新fact中变量值
+                        update(attendance_ruleexecutecompletiondepttemp);//更新fact中变量值
+                        update(attendance_ruleexecutecompletiondepts);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionempfilter);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionemployees);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionlastschedules);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionmembertemp);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionmembers);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionnewschedules);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionshiftfilter);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionshifts);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionsrfactionparam);//更新fact中变量值
+                        update(attendance_ruleexecutecompletiontemp);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionwaitrulepage);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionworkdays);//更新fact中变量值
+            end
+
+            //逻辑处理节点[获取激活信息]
+            rule "rawsfcode_017"
+            ruleflow-group "attendance_ruleexecutecompletionrawsfcode_017"
+            when
+            then
+                        update(attendance_ruleexecutecompletiondefault);//更新fact中变量值
+                        update(attendance_ruleexecutecompletioncurruleschedules);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionactivefilter);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionactiverule);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionactiveshift);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionactiveshifts);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionalldeptemp);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionallmembers);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionattendance_group_shift);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionattendance_group_shifts);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionattendance_schedulefilter);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionattendance_scheduletemp);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionattendance_scheduletemps);//更新fact中变量值
+                        update(attendance_ruleexecutecompletioncalendarfilter);//更新fact中变量值
+                        update(attendance_ruleexecutecompletioncalendarlist);//更新fact中变量值
+                        update(attendance_ruleexecutecompletioncuractivemember);//更新fact中变量值
+                        update(attendance_ruleexecutecompletiondepttemp);//更新fact中变量值
+                        update(attendance_ruleexecutecompletiondepts);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionempfilter);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionemployees);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionlastschedules);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionmembertemp);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionmembers);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionnewschedules);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionshiftfilter);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionshifts);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionsrfactionparam);//更新fact中变量值
+                        update(attendance_ruleexecutecompletiontemp);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionwaitrulepage);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionworkdays);//更新fact中变量值
+            end
+
+            //逻辑处理节点[重新建立参数]
+            rule "prepareparam_05"
+            ruleflow-group "attendance_ruleexecutecompletionprepareparam_05"
+            when
+            then
+                        update(attendance_ruleexecutecompletiondefault);//更新fact中变量值
+                        update(attendance_ruleexecutecompletioncurruleschedules);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionactivefilter);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionactiverule);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionactiveshift);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionactiveshifts);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionalldeptemp);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionallmembers);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionattendance_group_shift);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionattendance_group_shifts);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionattendance_schedulefilter);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionattendance_scheduletemp);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionattendance_scheduletemps);//更新fact中变量值
+                        update(attendance_ruleexecutecompletioncalendarfilter);//更新fact中变量值
+                        update(attendance_ruleexecutecompletioncalendarlist);//更新fact中变量值
+                        update(attendance_ruleexecutecompletioncuractivemember);//更新fact中变量值
+                        update(attendance_ruleexecutecompletiondepttemp);//更新fact中变量值
+                        update(attendance_ruleexecutecompletiondepts);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionempfilter);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionemployees);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionlastschedules);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionmembertemp);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionmembers);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionnewschedules);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionshiftfilter);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionshifts);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionsrfactionparam);//更新fact中变量值
+                        update(attendance_ruleexecutecompletiontemp);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionwaitrulepage);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionworkdays);//更新fact中变量值
+            end
+
+            //逻辑处理节点[准备参数]
+            rule "prepareparam_04"
+            ruleflow-group "attendance_ruleexecutecompletionprepareparam_04"
+            when
+            then
+                            attendance_ruleexecutecompletionattendance_group_shift.set("",attendance_ruleexecutecompletionattendance_group_shifts.get("0"));
+                            attendance_ruleexecutecompletionempfilter.set("size","9999");
+                        update(attendance_ruleexecutecompletiondefault);//更新fact中变量值
+                        update(attendance_ruleexecutecompletioncurruleschedules);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionactivefilter);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionactiverule);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionactiveshift);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionactiveshifts);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionalldeptemp);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionallmembers);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionattendance_group_shift);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionattendance_group_shifts);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionattendance_schedulefilter);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionattendance_scheduletemp);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionattendance_scheduletemps);//更新fact中变量值
+                        update(attendance_ruleexecutecompletioncalendarfilter);//更新fact中变量值
+                        update(attendance_ruleexecutecompletioncalendarlist);//更新fact中变量值
+                        update(attendance_ruleexecutecompletioncuractivemember);//更新fact中变量值
+                        update(attendance_ruleexecutecompletiondepttemp);//更新fact中变量值
+                        update(attendance_ruleexecutecompletiondepts);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionempfilter);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionemployees);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionlastschedules);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionmembertemp);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionmembers);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionnewschedules);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionshiftfilter);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionshifts);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionsrfactionparam);//更新fact中变量值
+                        update(attendance_ruleexecutecompletiontemp);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionwaitrulepage);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionworkdays);//更新fact中变量值
+            end
+
+            //逻辑处理节点[计算规则成员]
+            rule "rawsfcode_04"
+            ruleflow-group "attendance_ruleexecutecompletionrawsfcode_04"
+            when
+            then
+                        update(attendance_ruleexecutecompletiondefault);//更新fact中变量值
+                        update(attendance_ruleexecutecompletioncurruleschedules);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionactivefilter);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionactiverule);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionactiveshift);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionactiveshifts);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionalldeptemp);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionallmembers);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionattendance_group_shift);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionattendance_group_shifts);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionattendance_schedulefilter);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionattendance_scheduletemp);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionattendance_scheduletemps);//更新fact中变量值
+                        update(attendance_ruleexecutecompletioncalendarfilter);//更新fact中变量值
+                        update(attendance_ruleexecutecompletioncalendarlist);//更新fact中变量值
+                        update(attendance_ruleexecutecompletioncuractivemember);//更新fact中变量值
+                        update(attendance_ruleexecutecompletiondepttemp);//更新fact中变量值
+                        update(attendance_ruleexecutecompletiondepts);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionempfilter);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionemployees);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionlastschedules);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionmembertemp);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionmembers);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionnewschedules);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionshiftfilter);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionshifts);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionsrfactionparam);//更新fact中变量值
+                        update(attendance_ruleexecutecompletiontemp);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionwaitrulepage);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionworkdays);//更新fact中变量值
+            end
+
+            //逻辑处理节点[遍历规则人员]
+            rule "loopsubcall_04"
+            ruleflow-group "attendance_ruleexecutecompletionloopsubcall_04"
+            when
+            then
+                        update(attendance_ruleexecutecompletiondefault);//更新fact中变量值
+                        update(attendance_ruleexecutecompletioncurruleschedules);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionactivefilter);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionactiverule);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionactiveshift);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionactiveshifts);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionalldeptemp);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionallmembers);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionattendance_group_shift);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionattendance_group_shifts);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionattendance_schedulefilter);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionattendance_scheduletemp);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionattendance_scheduletemps);//更新fact中变量值
+                        update(attendance_ruleexecutecompletioncalendarfilter);//更新fact中变量值
+                        update(attendance_ruleexecutecompletioncalendarlist);//更新fact中变量值
+                        update(attendance_ruleexecutecompletioncuractivemember);//更新fact中变量值
+                        update(attendance_ruleexecutecompletiondepttemp);//更新fact中变量值
+                        update(attendance_ruleexecutecompletiondepts);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionempfilter);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionemployees);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionlastschedules);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionmembertemp);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionmembers);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionnewschedules);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionshiftfilter);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionshifts);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionsrfactionparam);//更新fact中变量值
+                        update(attendance_ruleexecutecompletiontemp);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionwaitrulepage);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionworkdays);//更新fact中变量值
+            end
+
+            //逻辑处理节点[删除人员旧排班]
+            rule "rawsqlcall_02"
+            ruleflow-group "attendance_ruleexecutecompletionrawsqlcall_02"
+            when
+            then
+    Map param =new HashMap();
+        param.put("param0",attendance_ruleexecutecompletiondefault.get("fill_time"));
+        param.put("param1",attendance_ruleexecutecompletionmembertemp.get("userid"));
+    String strSql="DELETE FROM attendance_schedule WHERE  checkin_date >= #{et.param0} AND member_id = #{et.param1}";
+                        java.util.List<JSONObject> entities=iBzSysAttendance_ruleDefaultService.select(strSql,param);//SQL调用
+                            if(entities.size()>0){
+                            JSONObject entity=entities.get(0);
+                                    for (Map.Entry entry : entity.entrySet()) {
+                                    attendance_ruleexecutecompletionmembers.set(String.valueOf(entry.getKey()),entry.getValue());
+                                    }
+                            }
+                        update(attendance_ruleexecutecompletiondefault);//更新fact中变量值
+                        update(attendance_ruleexecutecompletioncurruleschedules);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionactivefilter);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionactiverule);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionactiveshift);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionactiveshifts);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionalldeptemp);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionallmembers);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionattendance_group_shift);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionattendance_group_shifts);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionattendance_schedulefilter);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionattendance_scheduletemp);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionattendance_scheduletemps);//更新fact中变量值
+                        update(attendance_ruleexecutecompletioncalendarfilter);//更新fact中变量值
+                        update(attendance_ruleexecutecompletioncalendarlist);//更新fact中变量值
+                        update(attendance_ruleexecutecompletioncuractivemember);//更新fact中变量值
+                        update(attendance_ruleexecutecompletiondepttemp);//更新fact中变量值
+                        update(attendance_ruleexecutecompletiondepts);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionempfilter);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionemployees);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionlastschedules);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionmembertemp);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionmembers);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionnewschedules);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionshiftfilter);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionshifts);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionsrfactionparam);//更新fact中变量值
+                        update(attendance_ruleexecutecompletiontemp);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionwaitrulepage);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionworkdays);//更新fact中变量值
+            end
+
+            //逻辑处理节点[设置时间]
+            rule "rawsfcode_03"
+            ruleflow-group "attendance_ruleexecutecompletionrawsfcode_03"
+            when
+            then
+                        update(attendance_ruleexecutecompletiondefault);//更新fact中变量值
+                        update(attendance_ruleexecutecompletioncurruleschedules);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionactivefilter);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionactiverule);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionactiveshift);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionactiveshifts);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionalldeptemp);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionallmembers);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionattendance_group_shift);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionattendance_group_shifts);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionattendance_schedulefilter);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionattendance_scheduletemp);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionattendance_scheduletemps);//更新fact中变量值
+                        update(attendance_ruleexecutecompletioncalendarfilter);//更新fact中变量值
+                        update(attendance_ruleexecutecompletioncalendarlist);//更新fact中变量值
+                        update(attendance_ruleexecutecompletioncuractivemember);//更新fact中变量值
+                        update(attendance_ruleexecutecompletiondepttemp);//更新fact中变量值
+                        update(attendance_ruleexecutecompletiondepts);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionempfilter);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionemployees);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionlastschedules);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionmembertemp);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionmembers);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionnewschedules);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionshiftfilter);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionshifts);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionsrfactionparam);//更新fact中变量值
+                        update(attendance_ruleexecutecompletiontemp);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionwaitrulepage);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionworkdays);//更新fact中变量值
+            end
+
+            //逻辑处理节点[循环子调用]
+            rule "loopsubcall_02"
+            ruleflow-group "attendance_ruleexecutecompletionloopsubcall_02"
+            when
+            then
+                        update(attendance_ruleexecutecompletiondefault);//更新fact中变量值
+                        update(attendance_ruleexecutecompletioncurruleschedules);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionactivefilter);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionactiverule);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionactiveshift);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionactiveshifts);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionalldeptemp);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionallmembers);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionattendance_group_shift);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionattendance_group_shifts);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionattendance_schedulefilter);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionattendance_scheduletemp);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionattendance_scheduletemps);//更新fact中变量值
+                        update(attendance_ruleexecutecompletioncalendarfilter);//更新fact中变量值
+                        update(attendance_ruleexecutecompletioncalendarlist);//更新fact中变量值
+                        update(attendance_ruleexecutecompletioncuractivemember);//更新fact中变量值
+                        update(attendance_ruleexecutecompletiondepttemp);//更新fact中变量值
+                        update(attendance_ruleexecutecompletiondepts);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionempfilter);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionemployees);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionlastschedules);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionmembertemp);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionmembers);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionnewschedules);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionshiftfilter);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionshifts);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionsrfactionparam);//更新fact中变量值
+                        update(attendance_ruleexecutecompletiontemp);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionwaitrulepage);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionworkdays);//更新fact中变量值
+            end
+
+            //逻辑处理节点[过滤出不在其他生效规则内的人员]
+            rule "rawsfcode_09"
+            ruleflow-group "attendance_ruleexecutecompletionrawsfcode_09"
+            when
+            then
+                        update(attendance_ruleexecutecompletiondefault);//更新fact中变量值
+                        update(attendance_ruleexecutecompletioncurruleschedules);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionactivefilter);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionactiverule);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionactiveshift);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionactiveshifts);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionalldeptemp);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionallmembers);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionattendance_group_shift);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionattendance_group_shifts);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionattendance_schedulefilter);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionattendance_scheduletemp);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionattendance_scheduletemps);//更新fact中变量值
+                        update(attendance_ruleexecutecompletioncalendarfilter);//更新fact中变量值
+                        update(attendance_ruleexecutecompletioncalendarlist);//更新fact中变量值
+                        update(attendance_ruleexecutecompletioncuractivemember);//更新fact中变量值
+                        update(attendance_ruleexecutecompletiondepttemp);//更新fact中变量值
+                        update(attendance_ruleexecutecompletiondepts);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionempfilter);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionemployees);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionlastschedules);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionmembertemp);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionmembers);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionnewschedules);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionshiftfilter);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionshifts);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionsrfactionparam);//更新fact中变量值
+                        update(attendance_ruleexecutecompletiontemp);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionwaitrulepage);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionworkdays);//更新fact中变量值
+            end
+
+            //逻辑处理节点[为规则人员生成新排班]
+            rule "rawsfcode_07"
+            ruleflow-group "attendance_ruleexecutecompletionrawsfcode_07"
+            when
+            then
+                        update(attendance_ruleexecutecompletiondefault);//更新fact中变量值
+                        update(attendance_ruleexecutecompletioncurruleschedules);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionactivefilter);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionactiverule);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionactiveshift);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionactiveshifts);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionalldeptemp);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionallmembers);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionattendance_group_shift);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionattendance_group_shifts);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionattendance_schedulefilter);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionattendance_scheduletemp);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionattendance_scheduletemps);//更新fact中变量值
+                        update(attendance_ruleexecutecompletioncalendarfilter);//更新fact中变量值
+                        update(attendance_ruleexecutecompletioncalendarlist);//更新fact中变量值
+                        update(attendance_ruleexecutecompletioncuractivemember);//更新fact中变量值
+                        update(attendance_ruleexecutecompletiondepttemp);//更新fact中变量值
+                        update(attendance_ruleexecutecompletiondepts);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionempfilter);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionemployees);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionlastschedules);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionmembertemp);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionmembers);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionnewschedules);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionshiftfilter);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionshifts);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionsrfactionparam);//更新fact中变量值
+                        update(attendance_ruleexecutecompletiontemp);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionwaitrulepage);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionworkdays);//更新fact中变量值
+            end
+
+            //逻辑处理节点[结束]
+            rule "end_02"
+            ruleflow-group "attendance_ruleexecutecompletionend_02"
+            when
+            then
+                        update(attendance_ruleexecutecompletiondefault);//更新fact中变量值
+                        update(attendance_ruleexecutecompletioncurruleschedules);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionactivefilter);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionactiverule);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionactiveshift);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionactiveshifts);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionalldeptemp);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionallmembers);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionattendance_group_shift);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionattendance_group_shifts);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionattendance_schedulefilter);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionattendance_scheduletemp);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionattendance_scheduletemps);//更新fact中变量值
+                        update(attendance_ruleexecutecompletioncalendarfilter);//更新fact中变量值
+                        update(attendance_ruleexecutecompletioncalendarlist);//更新fact中变量值
+                        update(attendance_ruleexecutecompletioncuractivemember);//更新fact中变量值
+                        update(attendance_ruleexecutecompletiondepttemp);//更新fact中变量值
+                        update(attendance_ruleexecutecompletiondepts);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionempfilter);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionemployees);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionlastschedules);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionmembertemp);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionmembers);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionnewschedules);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionshiftfilter);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionshifts);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionsrfactionparam);//更新fact中变量值
+                        update(attendance_ruleexecutecompletiontemp);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionwaitrulepage);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionworkdays);//更新fact中变量值
+            end
+
+            //逻辑处理节点[n班倒构造新排班]
+            rule "rawsfcode_011"
+            ruleflow-group "attendance_ruleexecutecompletionrawsfcode_011"
+            when
+            then
+                        update(attendance_ruleexecutecompletiondefault);//更新fact中变量值
+                        update(attendance_ruleexecutecompletioncurruleschedules);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionactivefilter);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionactiverule);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionactiveshift);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionactiveshifts);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionalldeptemp);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionallmembers);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionattendance_group_shift);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionattendance_group_shifts);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionattendance_schedulefilter);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionattendance_scheduletemp);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionattendance_scheduletemps);//更新fact中变量值
+                        update(attendance_ruleexecutecompletioncalendarfilter);//更新fact中变量值
+                        update(attendance_ruleexecutecompletioncalendarlist);//更新fact中变量值
+                        update(attendance_ruleexecutecompletioncuractivemember);//更新fact中变量值
+                        update(attendance_ruleexecutecompletiondepttemp);//更新fact中变量值
+                        update(attendance_ruleexecutecompletiondepts);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionempfilter);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionemployees);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionlastschedules);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionmembertemp);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionmembers);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionnewschedules);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionshiftfilter);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionshifts);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionsrfactionparam);//更新fact中变量值
+                        update(attendance_ruleexecutecompletiontemp);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionwaitrulepage);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionworkdays);//更新fact中变量值
+            end
+
+            //逻辑处理节点[查询当前生效规则成员]
+            rule "rawsqlcall_05"
+            ruleflow-group "attendance_ruleexecutecompletionrawsqlcall_05"
+            when
+            then
+    Map param =new HashMap();
+        param.put("param0",attendance_ruleexecutecompletiondefault.get("id"));
+    String strSql="select * FROM attendance_group_shift_member WHERE  rule_id != #{et.param0}  AND EXISTS (     SELECT 1      FROM attendance_rule rule       WHERE        rule.id = attendance_group_shift_member.rule_id        AND rule.IS_ACTIVATE  = 1   )";
+                        java.util.List<JSONObject> entities=iBzSysAttendance_ruleDefaultService.select(strSql,param);//SQL调用
+                            if(entities.size()>0){
+                            JSONObject entity=entities.get(0);
+                                    cn.ibizlab.core.attendance.domain.attendance_group_shift_member targetEntity =new cn.ibizlab.core.attendance.domain.attendance_group_shift_member();
+                                    for (Map.Entry entry : entity.entrySet()) {
+                                    targetEntity.set(String.valueOf(entry.getKey()),entry.getValue());
+                                    }
+                                    org.springframework.cglib.beans.BeanCopier copier= org.springframework.cglib.beans.BeanCopier.create(targetEntity.getClass(),attendance_ruleexecutecompletioncuractivemember.getClass(), false);
+                                    copier.copy(targetEntity,attendance_ruleexecutecompletioncuractivemember,null);
+                            }
+                        update(attendance_ruleexecutecompletiondefault);//更新fact中变量值
+                        update(attendance_ruleexecutecompletioncurruleschedules);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionactivefilter);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionactiverule);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionactiveshift);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionactiveshifts);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionalldeptemp);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionallmembers);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionattendance_group_shift);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionattendance_group_shifts);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionattendance_schedulefilter);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionattendance_scheduletemp);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionattendance_scheduletemps);//更新fact中变量值
+                        update(attendance_ruleexecutecompletioncalendarfilter);//更新fact中变量值
+                        update(attendance_ruleexecutecompletioncalendarlist);//更新fact中变量值
+                        update(attendance_ruleexecutecompletioncuractivemember);//更新fact中变量值
+                        update(attendance_ruleexecutecompletiondepttemp);//更新fact中变量值
+                        update(attendance_ruleexecutecompletiondepts);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionempfilter);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionemployees);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionlastschedules);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionmembertemp);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionmembers);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionnewschedules);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionshiftfilter);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionshifts);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionsrfactionparam);//更新fact中变量值
+                        update(attendance_ruleexecutecompletiontemp);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionwaitrulepage);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionworkdays);//更新fact中变量值
+            end
+
+            //逻辑处理节点[准备参数]
+            rule "prepareparam_01"
+            ruleflow-group "attendance_ruleexecutecompletionprepareparam_01"
+            when
+            then
+                            attendance_ruleexecutecompletionempfilter.set("n_dept_id_eq",attendance_ruleexecutecompletiondepttemp.get("userid"));
+                        update(attendance_ruleexecutecompletiondefault);//更新fact中变量值
+                        update(attendance_ruleexecutecompletioncurruleschedules);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionactivefilter);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionactiverule);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionactiveshift);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionactiveshifts);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionalldeptemp);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionallmembers);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionattendance_group_shift);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionattendance_group_shifts);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionattendance_schedulefilter);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionattendance_scheduletemp);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionattendance_scheduletemps);//更新fact中变量值
+                        update(attendance_ruleexecutecompletioncalendarfilter);//更新fact中变量值
+                        update(attendance_ruleexecutecompletioncalendarlist);//更新fact中变量值
+                        update(attendance_ruleexecutecompletioncuractivemember);//更新fact中变量值
+                        update(attendance_ruleexecutecompletiondepttemp);//更新fact中变量值
+                        update(attendance_ruleexecutecompletiondepts);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionempfilter);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionemployees);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionlastschedules);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionmembertemp);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionmembers);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionnewschedules);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionshiftfilter);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionshifts);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionsrfactionparam);//更新fact中变量值
+                        update(attendance_ruleexecutecompletiontemp);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionwaitrulepage);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionworkdays);//更新fact中变量值
+            end
+
+            //逻辑处理节点[将该部门在其他生效规则内移除]
+            rule "rawsqlcall_04"
+            ruleflow-group "attendance_ruleexecutecompletionrawsqlcall_04"
+            when
+            then
+    Map param =new HashMap();
+        param.put("param0",attendance_ruleexecutecompletiondepttemp.get("userid"));
+        param.put("param1",attendance_ruleexecutecompletiondefault.get("id"));
+    String strSql="DELETE FROM attendance_group_shift_member WHERE  user_id = #{et.param0} and  rule_id != #{et.param1}  AND EXISTS (     SELECT 1      FROM attendance_rule rule       WHERE        rule.id = attendance_group_shift_member.rule_id        AND rule.IS_ACTIVATE  = 1   )";
+                        iBzSysAttendance_ruleDefaultService.execute(strSql,param);//SQL调用
+                        update(attendance_ruleexecutecompletiondefault);//更新fact中变量值
+                        update(attendance_ruleexecutecompletioncurruleschedules);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionactivefilter);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionactiverule);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionactiveshift);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionactiveshifts);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionalldeptemp);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionallmembers);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionattendance_group_shift);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionattendance_group_shifts);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionattendance_schedulefilter);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionattendance_scheduletemp);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionattendance_scheduletemps);//更新fact中变量值
+                        update(attendance_ruleexecutecompletioncalendarfilter);//更新fact中变量值
+                        update(attendance_ruleexecutecompletioncalendarlist);//更新fact中变量值
+                        update(attendance_ruleexecutecompletioncuractivemember);//更新fact中变量值
+                        update(attendance_ruleexecutecompletiondepttemp);//更新fact中变量值
+                        update(attendance_ruleexecutecompletiondepts);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionempfilter);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionemployees);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionlastschedules);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionmembertemp);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionmembers);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionnewschedules);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionshiftfilter);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionshifts);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionsrfactionparam);//更新fact中变量值
+                        update(attendance_ruleexecutecompletiontemp);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionwaitrulepage);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionworkdays);//更新fact中变量值
+            end
+
+            //逻辑处理节点[保存排班]
+            rule "deaction_04"
+            ruleflow-group "attendance_ruleexecutecompletiondeaction_04"
+            when
+            then
+                        attendance_scheduleservice.create(attendance_ruleexecutecompletionlastschedules);
+                        update(attendance_ruleexecutecompletiondefault);//更新fact中变量值
+                        update(attendance_ruleexecutecompletioncurruleschedules);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionactivefilter);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionactiverule);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionactiveshift);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionactiveshifts);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionalldeptemp);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionallmembers);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionattendance_group_shift);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionattendance_group_shifts);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionattendance_schedulefilter);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionattendance_scheduletemp);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionattendance_scheduletemps);//更新fact中变量值
+                        update(attendance_ruleexecutecompletioncalendarfilter);//更新fact中变量值
+                        update(attendance_ruleexecutecompletioncalendarlist);//更新fact中变量值
+                        update(attendance_ruleexecutecompletioncuractivemember);//更新fact中变量值
+                        update(attendance_ruleexecutecompletiondepttemp);//更新fact中变量值
+                        update(attendance_ruleexecutecompletiondepts);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionempfilter);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionemployees);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionlastschedules);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionmembertemp);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionmembers);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionnewschedules);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionshiftfilter);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionshifts);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionsrfactionparam);//更新fact中变量值
+                        update(attendance_ruleexecutecompletiontemp);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionwaitrulepage);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionworkdays);//更新fact中变量值
+            end
+
+            //逻辑处理节点[重置参数]
+            rule "resetparam_01"
+            ruleflow-group "attendance_ruleexecutecompletionresetparam_01"
+            when
+            then
+                        update(attendance_ruleexecutecompletiondefault);//更新fact中变量值
+                        update(attendance_ruleexecutecompletioncurruleschedules);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionactivefilter);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionactiverule);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionactiveshift);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionactiveshifts);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionalldeptemp);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionallmembers);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionattendance_group_shift);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionattendance_group_shifts);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionattendance_schedulefilter);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionattendance_scheduletemp);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionattendance_scheduletemps);//更新fact中变量值
+                        update(attendance_ruleexecutecompletioncalendarfilter);//更新fact中变量值
+                        update(attendance_ruleexecutecompletioncalendarlist);//更新fact中变量值
+                        update(attendance_ruleexecutecompletioncuractivemember);//更新fact中变量值
+                        update(attendance_ruleexecutecompletiondepttemp);//更新fact中变量值
+                        update(attendance_ruleexecutecompletiondepts);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionempfilter);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionemployees);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionlastschedules);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionmembertemp);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionmembers);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionnewschedules);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionshiftfilter);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionshifts);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionsrfactionparam);//更新fact中变量值
+                        update(attendance_ruleexecutecompletiontemp);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionwaitrulepage);//更新fact中变量值
+                        update(attendance_ruleexecutecompletionworkdays);//更新fact中变量值
+            end

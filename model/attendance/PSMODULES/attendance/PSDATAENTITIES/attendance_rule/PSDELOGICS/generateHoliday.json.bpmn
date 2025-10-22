@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+    <definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:g="http://www.jboss.org/drools/flow/gpd" xmlns:tns="http://www.jboss.org/drools" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" expressionLanguage="http://www.mvel.org/2.0" id="Definition" name="" targetNamespace="http://www.jboss.org/drools" typeLanguage="http://www.java.com/javaTypes">
+        <process id="cn.ibizlab.core.attendance.service.logic.attendance_rulegenerateholiday" isClosed="false" isExecutable="true" name="attendance_attendance_rule_generateholiday_ruleFlow" processType="Private" tns:packageName="cn.ibizlab.core.attendance.service.logic.attendance_rulegenerateholiday">
+            <extensionElements>
+                <tns:import name="java.util.Map" />
+                <tns:import name="org.springframework.util.StringUtils"/>
+                <tns:import name="cn.ibizlab.util.helper.RuleUtils"/>
+                                <tns:metaData express="" name="attendance_rulegenerateholidaydefault" type="entity"/>
+                                <tns:metaData express="new cn.ibizlab.core.resource.domain.resource_calendar_leaves()" name="attendance_rulegenerateholidayholidays" type="refentity"/>
+                                <tns:metaData express="new cn.ibizlab.core.resource.domain.resource_calendar_leaves()" name="attendance_rulegenerateholidaytemp" type="refentity"/>
+                                    <tns:metaData express="T(cn.ibizlab.util.security.SpringContextHolder).getBean(T(cn.ibizlab.core.resource.service.Iresource_calendar_leavesService))" name="resource_calendar_leavesservice" type="service"/>
+                    <tns:metaData express="T(cn.ibizlab.util.security.SpringContextHolder).getBean(T(cn.ibizlab.core.attendance.service.Iattendance_ruleService))" name="iBzSysAttendance_ruleDefaultService" type="service"/>
+                    <tns:metaData express="T(cn.ibizlab.util.security.AuthenticationUser).getAuthenticationUser()" name="curuser" type="session"/>
+                            <tns:global identifier="attendance_rulegenerateholidaydefault" type="cn.ibizlab.core.attendance.domain.attendance_rule" />
+                            <tns:global identifier="attendance_rulegenerateholidayholidays" type="cn.ibizlab.core.resource.domain.resource_calendar_leaves" />
+                            <tns:global identifier="attendance_rulegenerateholidaytemp" type="cn.ibizlab.core.resource.domain.resource_calendar_leaves" />
+            </extensionElements>
+                        <startEvent id="begin" isInterrupting="true"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="attendance_rulegenerateholidayrawsqlcall_02" id="rawsqlcall_02" implementation="http://www.jboss.org/drools/rule" name="获取今年的公共假期"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="attendance_rulegenerateholidayloopsubcall_01" id="loopsubcall_01" implementation="http://www.jboss.org/drools/rule" name="循环子调用"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="attendance_rulegenerateholidayrawsqlcall_01" id="rawsqlcall_01" implementation="http://www.jboss.org/drools/rule" name="删除规则关联的公共假期"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="attendance_rulegenerateholidayend_01" id="end_01" implementation="http://www.jboss.org/drools/rule" name="结束"/>
+                        <endEvent id="end_01_end" name="end"/>
+                        <sequenceFlow id="end_01_end_line" sourceRef="end_01" targetRef="end_01_end"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="attendance_rulegenerateholidayprepareparam_01" id="prepareparam_01" implementation="http://www.jboss.org/drools/rule" name="准备参数"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="attendance_rulegenerateholidaydeaction_01" id="deaction_01" implementation="http://www.jboss.org/drools/rule" name="实体行为"/>
+                        <endEvent id="deaction_01_end" name="end"/>
+                        <sequenceFlow id="deaction_01_end_line" sourceRef="deaction_01" targetRef="deaction_01_end"/>
+                    <sequenceFlow id="begin_rawsqlcall_01" sourceRef="begin" targetRef="rawsqlcall_01">
+                    </sequenceFlow>
+                    <sequenceFlow id="rawsqlcall_02_loopsubcall_01" sourceRef="rawsqlcall_02" targetRef="loopsubcall_01">
+                    </sequenceFlow>
+                    <sequenceFlow id="gateway-loopsubcall_01_prepareparam_01" sourceRef="gateway-loopsubcall_01" targetRef="prepareparam_01">
+                            <conditionExpression  language="http://www.jboss.org/drools/rule" ><![CDATA[
+                                            $attendance_rulegenerateholidaydefault:attendance_rule();
+                                            $attendance_rulegenerateholidayholidays:resource_calendar_leaves();
+                                            $attendance_rulegenerateholidaytemp:resource_calendar_leaves();
+                                    eval($attendance_rulegenerateholidaydefault==attendance_rulegenerateholidaydefault && $attendance_rulegenerateholidayholidays==attendance_rulegenerateholidayholidays && $attendance_rulegenerateholidaytemp==attendance_rulegenerateholidaytemp);
+                                eval((RuleUtils.test($attendance_rulegenerateholidaytemp.get("holidayType"),"ISNOTNULL",""))&&(RuleUtils.test($attendance_rulegenerateholidaydefault.get("holiday"),"LIKE","holiday_type")))
+                                ]]>
+                            </conditionExpression>
+                    </sequenceFlow>
+                    <sequenceFlow id="loopsubcall_01_end_01" sourceRef="loopsubcall_01" targetRef="end_01">
+                    </sequenceFlow>
+                    <sequenceFlow id="rawsqlcall_01_rawsqlcall_02" sourceRef="rawsqlcall_01" targetRef="rawsqlcall_02">
+                    </sequenceFlow>
+                    <sequenceFlow id="prepareparam_01_deaction_01" sourceRef="prepareparam_01" targetRef="deaction_01">
+                    </sequenceFlow>
+                            <exclusiveGateway id="gateway-loopsubcall_01" name="Gateway" gatewayDirection="Diverging" default="gateway-loopsubcall_01_end_line"></exclusiveGateway>
+                            <sequenceFlow id="loopsubcall_01_gateway-loopsubcall_01_gatewayline" sourceRef="loopsubcall_01" targetRef="gateway-loopsubcall_01"></sequenceFlow>
+                            <sequenceFlow id="gateway-loopsubcall_01_end_line" sourceRef="gateway-loopsubcall_01" targetRef="gateway-loopsubcall_01_end"/>
+                            <endEvent id="gateway-loopsubcall_01_end" name="end"/>
+        </process>
+    </definitions>

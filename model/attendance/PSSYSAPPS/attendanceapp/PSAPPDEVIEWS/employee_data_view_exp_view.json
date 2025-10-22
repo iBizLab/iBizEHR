@@ -1,0 +1,561 @@
+{
+  "accUserMode" : 2,
+  "getCapPSLanguageRes" : {
+    "lanResTag" : "DE.LNAME.EMPLOYEE"
+  },
+  "caption" : "个人月度汇总",
+  "codeName" : "employee_data_view_exp_view",
+  "dynaModelFilePath" : "PSSYSAPPS/attendanceapp/PSAPPDEVIEWS/employee_data_view_exp_view.json",
+  "name" : "employeeDataViewExpView",
+  "getPSAppDataEntity" : {
+    "modelref" : true,
+    "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/employee.json"
+  },
+  "getPSAppModule" : {
+    "modelref" : true,
+    "path" : "PSSYSAPPS/attendanceapp/PSAPPMODULES/employee_management.json"
+  },
+  "getPSDEViewCodeName" : "DataViewExpView",
+  "getPSDEViewId" : "ddc91702c5e3c162091a907ef6f21e05",
+  "getPSViewLayoutPanel" : {
+    "codeName" : "usr0730502478",
+    "controlType" : "VIEWLAYOUTPANEL",
+    "layoutMode" : "FLEX",
+    "logicName" : "Usr8129DataViewExpView实体卡片视图导航视图布局面板",
+    "name" : "layoutpanel",
+    "getPSAppDataEntity" : {
+      "modelref" : true,
+      "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/employee.json"
+    },
+    "getPSControlParam" : { },
+    "getPSLayout" : {
+      "layout" : "FLEX"
+    },
+    "getRootPSPanelItems" : [ {
+      "caption" : "滚动条容器",
+      "itemStyle" : "DEFAULT",
+      "itemType" : "CONTAINER",
+      "name" : "container_scroll",
+      "getPSLayout" : {
+        "layout" : "BORDER"
+      },
+      "getPSLayoutPos" : {
+        "grow" : -1,
+        "layout" : "FLEX"
+      },
+      "getPSPanelItems" : [ {
+        "caption" : "面板容器",
+        "itemStyle" : "DEFAULT",
+        "itemType" : "CONTAINER",
+        "name" : "container_scroll_main",
+        "getPSLayout" : {
+          "layout" : "BORDER"
+        },
+        "getPSLayoutPos" : {
+          "layout" : "BORDER",
+          "layoutPos" : "CENTER"
+        },
+        "getPSPanelItems" : [ {
+          "caption" : "导航区占位",
+          "itemStyle" : "DEFAULT",
+          "itemType" : "RAWITEM",
+          "name" : "nav_pos",
+          "getPSLayoutPos" : {
+            "layout" : "BORDER",
+            "layoutPos" : "CENTER"
+          },
+          "getPSRawItem" : {
+            "name" : "nav_pos",
+            "predefinedType" : "NAV_POS"
+          },
+          "showCaption" : true
+        } ],
+        "predefinedType" : "CONTAINER_SCROLL_MAIN",
+        "showCaption" : true
+      }, {
+        "caption" : "面板容器",
+        "contentHeight" : 80.0,
+        "height" : 80.0,
+        "itemStyle" : "DEFAULT",
+        "itemType" : "CONTAINER",
+        "name" : "container_scroll_bottom",
+        "getPSLayout" : {
+          "layout" : "BORDER"
+        },
+        "getPSLayoutPos" : {
+          "height" : 80,
+          "heightMode" : "PX",
+          "layout" : "BORDER",
+          "layoutPos" : "SOUTH"
+        },
+        "getPSPanelItems" : [ {
+          "caption" : "卡片导航",
+          "itemStyle" : "DEFAULT",
+          "itemType" : "CTRLPOS",
+          "name" : "dataviewexpbar",
+          "getPSLayoutPos" : {
+            "layout" : "BORDER",
+            "layoutPos" : "CENTER"
+          },
+          "showCaption" : true
+        } ],
+        "predefinedType" : "CONTAINER_SCROLL_BOTTOM",
+        "showCaption" : true
+      } ],
+      "predefinedType" : "CONTAINER_SCROLL"
+    } ],
+    "layoutBodyOnly" : false,
+    "layoutPanel" : true,
+    "useDefaultLayout" : false,
+    "viewProxyMode" : true,
+    "modelid" : "9b9841c1ebf034b6b7c74d19ece725d5",
+    "modeltype" : "PSSYSVIEWLAYOUTPANEL",
+    "getPSAppViewEngines" : [ {
+      "engineCat" : "VIEW",
+      "engineType" : "DataViewExpView",
+      "name" : "engine"
+    } ],
+    "getPSAppViewLogics" : [ {
+      "logicTrigger" : "CUSTOM",
+      "logicType" : "APPUILOGIC",
+      "name" : "newdata",
+      "getPSAppUILogic" : {
+        "actionAfterWizard" : "DEFAULT",
+        "logicType" : "PREDEFINED",
+        "name" : "新建数据",
+        "viewLogicType" : "APP_NEWDATA",
+        "batchAddOnly" : false,
+        "enableBatchAdd" : false,
+        "enableWizardAdd" : false
+      }
+    }, {
+      "logicTrigger" : "CUSTOM",
+      "logicType" : "APPUILOGIC",
+      "name" : "opendata",
+      "getPSAppUILogic" : {
+        "logicType" : "PREDEFINED",
+        "name" : "打开数据",
+        "viewLogicType" : "APP_OPENDATA",
+        "editMode" : true
+      }
+    } ],
+    "getPSControls" : [ {
+      "codeName" : "data_view_exp_view_tabtoolbar1",
+      "controlType" : "TOOLBAR",
+      "logicName" : "个人统计工具栏",
+      "name" : "tabtoolbar1",
+      "getPSAppDataEntity" : {
+        "modelref" : true,
+        "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/attendance_statistics.json"
+      },
+      "getPSControlParam" : {
+        "ctrlParams" : {
+          "TELEPORTFLAG" : "true"
+        },
+        "id" : "TABTOOLBAR1"
+      },
+      "getPSDEToolbarItems" : [ {
+        "caption" : "导出报表",
+        "groupExtractMode" : "ITEM",
+        "itemType" : "DEUIACTION",
+        "name" : "deuiaction1",
+        "noPrivDisplayMode" : 2,
+        "getPSAppViewUIAction" : {
+          "modelref" : true,
+          "id" : "tabtoolbar1_deuiaction1"
+        },
+        "getPSUIAction" : {
+          "actionTarget" : "NONE",
+          "caption" : "导出报表",
+          "codeName" : "personal",
+          "frontProcessType" : "OTHER",
+          "fullCodeName" : "attendance_statistics_personal",
+          "name" : "导出个人统计报表",
+          "getPSAppDataEntity" : {
+            "modelref" : true,
+            "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/attendance_statistics.json"
+          },
+          "scriptCode" : "const viewC = view;\r\nconst tempPatams = {...viewC.params};\r\nif (viewC) {\r\n    const navView = viewC.getController(\"attendance_statisticsEditView\");\r\n    if (navView) {\r\n        const formC = navView.getController(\"form\");\r\n        if (!formC) {\r\n            const data = formC.data;\r\n            Object.assign(tempPatams, {\r\n                base_info: data.base_info,\r\n                attendance: data.attendance,\r\n                abnormal: data.abnormal,\r\n                leave: data.leave,\r\n                daily: data.daily,\r\n            });\r\n        }\r\n    }\r\n}\r\ndelete tempPatams.n_checkin_date_gtandeq;\r\ndelete tempPatams.n_checkin_date_ltandeq;\r\ndelete tempPatams.n_member_id_in;\r\nconst urlParam = new URLSearchParams(tempPatams);\r\nconst exportUrl = `/attendance_statistics/exportdata/fetch_month_report/?srfexporttag=DataExport2&${decodeURIComponent(urlParam)}`;\r\nconst app = ibiz.hub.getApp(context.srfappid);\r\nconst {data: file} = await app.net.request(exportUrl, {\r\n    method: 'post',\r\n    data: tempPatams,\r\n    responseType: 'blob',\r\n});\r\n\r\nif (file) {\r\n    const title = viewC.model.title;\r\n    const fileName = `个人月度汇总表.xlsx`;\r\n    const filetype = 'application/vnd.ms-excel';\r\n    const blob = new Blob([file], {type: filetype});\r\n    const href = URL.createObjectURL(blob);\r\n    const a = document.createElement('a');\r\n    a.href = href;\r\n    a.download = fileName;\r\n    document.body.appendChild(a);\r\n    a.click();\r\n    document.body.removeChild(a);\r\n    URL.revokeObjectURL(href);\r\n}",
+          "uIActionMode" : "FRONT",
+          "uIActionTag" : "personal",
+          "uIActionType" : "DEUIACTION",
+          "globalUIAction" : true,
+          "id" : "personal@attendance_statistics"
+        },
+        "tooltip" : "导出报表",
+        "uIActionTarget" : "NONE",
+        "showCaption" : true,
+        "showIcon" : true
+      } ],
+      "modelid" : "b6b12929af54941610c665de6418af1d",
+      "modeltype" : "PSDETOOLBAR"
+    }, {
+      "codeName" : "data_view_exp_view_dataviewexpbar",
+      "controlType" : "DATAVIEWEXPBAR",
+      "name" : "dataviewexpbar",
+      "getPSAppDataEntity" : {
+        "modelref" : true,
+        "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/employee.json"
+      },
+      "getPSAppViewRefs" : [ {
+        "name" : "EXPITEM:DEFAULT",
+        "realTitle" : "考勤统计编辑视图",
+        "getRefPSAppView" : {
+          "modelref" : true,
+          "path" : "PSSYSAPPS/attendanceapp/PSAPPDEVIEWS/attendance_statistics_edit_view.json",
+          "viewType" : "DEEDITVIEW"
+        }
+      } ],
+      "getPSControlHandler" : {
+        "enableDEFieldPrivilege" : false,
+        "id" : "dataviewexpbar"
+      },
+      "getPSControlParam" : {
+        "autoLoad" : true,
+        "showBusyIndicator" : true,
+        "id" : "DATAVIEWEXPBAR"
+      },
+      "getPSControls" : [ {
+        "codeName" : "usr8129_data_view_exp_view_data_view",
+        "controlStyle" : "TAB_CARD",
+        "controlType" : "DATAVIEW",
+        "getCreatePSControlAction" : {
+          "modelref" : true,
+          "id" : "create",
+          "actionName" : "Create",
+          "actionType" : "DEACTION",
+          "dataAccessAction" : "CREATE",
+          "name" : "create",
+          "getPSAppDEMethod" : {
+            "modelref" : true,
+            "id" : "Create"
+          },
+          "getPSAppDataEntity" : {
+            "modelref" : true,
+            "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/employee.json"
+          }
+        },
+        "dynaModelFilePath" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/employee/PSDATAVIEWS/usr8129_data_view_exp_view_data_view.json",
+        "getFetchPSControlAction" : {
+          "modelref" : true,
+          "id" : "fetch",
+          "actionType" : "DEDATASET",
+          "name" : "fetch",
+          "getPSAppDEMethod" : {
+            "modelref" : true,
+            "id" : "FetchEmployee"
+          },
+          "getPSAppDataEntity" : {
+            "modelref" : true,
+            "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/employee.json"
+          }
+        },
+        "getGetPSControlAction" : {
+          "modelref" : true,
+          "id" : "load",
+          "actionName" : "Get",
+          "actionType" : "DEACTION",
+          "dataAccessAction" : "READ",
+          "name" : "load",
+          "getPSAppDEMethod" : {
+            "modelref" : true,
+            "id" : "Get"
+          },
+          "getPSAppDataEntity" : {
+            "modelref" : true,
+            "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/employee.json"
+          }
+        },
+        "groupMode" : "NONE",
+        "hookEventNames" : [ "SELECTIONCHANGE", "LOAD" ],
+        "getItemPSLayoutPanel" : {
+          "getAllPSPanelFields" : [ {
+            "id" : "field_text_dynamic",
+            "viewFieldName" : "NAME"
+          } ],
+          "codeName" : "usr0731571074",
+          "controlType" : "PANEL",
+          "dynaModelFilePath" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/employee/PSPANELS/usr0731571074.json",
+          "layoutMode" : "FLEX",
+          "logicName" : "Usr8129DataViewExpView_DataView卡片视图",
+          "getPSAppDataEntity" : {
+            "modelref" : true,
+            "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/employee.json"
+          },
+          "getPSControlParam" : { },
+          "getPSLayout" : {
+            "layout" : "FLEX"
+          },
+          "getRootPSPanelItems" : [ {
+            "caption" : "文本(动态)",
+            "itemStyle" : "DEFAULT",
+            "itemType" : "FIELD",
+            "name" : "field_text_dynamic",
+            "getPSEditor" : {
+              "editorType" : "SPAN",
+              "name" : "field_text_dynamic",
+              "predefinedType" : "FIELD_TEXT_DYNAMIC",
+              "renderMode" : "TEXT_DYNAMIC",
+              "enableLinkView" : false
+            },
+            "getPSLayoutPos" : {
+              "grow" : -1,
+              "layout" : "FLEX"
+            },
+            "viewFieldName" : "NAME"
+          } ],
+          "layoutPanel" : true,
+          "name" : "itemlayoutpanel",
+          "modelid" : "16e6dea97ab34453dac7b8bb647dce14",
+          "modeltype" : "PSSYSVIEWPANEL"
+        },
+        "logicName" : "月度汇总个人卡片导航视图_卡片视图",
+        "getNavPSAppView" : {
+          "modelref" : true,
+          "path" : "PSSYSAPPS/attendanceapp/PSAPPDEVIEWS/attendance_statistics_edit_view.json",
+          "viewType" : "DEEDITVIEW"
+        },
+        "getPSAppDataEntity" : {
+          "modelref" : true,
+          "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/employee.json"
+        },
+        "getPSControlHandler" : {
+          "getPSHandlerActions" : [ {
+            "actionName" : "Get",
+            "actionType" : "DEACTION",
+            "dataAccessAction" : "READ",
+            "name" : "load",
+            "getPSAppDEMethod" : {
+              "modelref" : true,
+              "id" : "Get"
+            },
+            "getPSAppDataEntity" : {
+              "modelref" : true,
+              "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/employee.json"
+            }
+          }, {
+            "actionName" : "Create",
+            "actionType" : "DEACTION",
+            "dataAccessAction" : "CREATE",
+            "name" : "create",
+            "getPSAppDEMethod" : {
+              "modelref" : true,
+              "id" : "Create"
+            },
+            "getPSAppDataEntity" : {
+              "modelref" : true,
+              "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/employee.json"
+            }
+          }, {
+            "actionName" : "Update",
+            "actionType" : "DEACTION",
+            "dataAccessAction" : "UPDATE",
+            "name" : "update",
+            "getPSAppDEMethod" : {
+              "modelref" : true,
+              "id" : "Update"
+            },
+            "getPSAppDataEntity" : {
+              "modelref" : true,
+              "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/employee.json"
+            }
+          }, {
+            "actionName" : "Remove",
+            "actionType" : "DEACTION",
+            "dataAccessAction" : "DELETE",
+            "name" : "remove",
+            "getPSAppDEMethod" : {
+              "modelref" : true,
+              "id" : "Remove"
+            },
+            "getPSAppDataEntity" : {
+              "modelref" : true,
+              "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/employee.json"
+            }
+          }, {
+            "actionType" : "DEDATASET",
+            "name" : "fetch",
+            "getPSAppDEMethod" : {
+              "modelref" : true,
+              "id" : "FetchEmployee"
+            },
+            "getPSAppDataEntity" : {
+              "modelref" : true,
+              "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/employee.json"
+            }
+          } ],
+          "userDRAction" : "READ",
+          "enableDEFieldPrivilege" : false,
+          "id" : "数据视图处理器"
+        },
+        "getPSControlLogics" : [ {
+          "eventNames" : "SELECTIONCHANGE",
+          "logicTag" : "dataviewexpbar_dataview",
+          "logicType" : "CUSTOM",
+          "name" : "dataviewexpbar_selectionchange"
+        }, {
+          "eventNames" : "LOAD",
+          "logicTag" : "dataviewexpbar_dataview",
+          "logicType" : "CUSTOM",
+          "name" : "dataviewexpbar_load"
+        } ],
+        "getPSControlParam" : {
+          "autoLoad" : true,
+          "showBusyIndicator" : true,
+          "id" : "dataviewexpbar_dataview"
+        },
+        "getPSDEDataViewDataItems" : [ {
+          "dataType" : 25,
+          "name" : "name",
+          "getPSAppDEField" : {
+            "name" : "NAME",
+            "codeName" : "name"
+          }
+        }, {
+          "dataType" : 25,
+          "name" : "srfkey",
+          "getPSAppDEField" : {
+            "name" : "ID",
+            "codeName" : "id"
+          }
+        }, {
+          "dataType" : 25,
+          "name" : "srfmajortext",
+          "getPSAppDEField" : {
+            "name" : "NAME",
+            "codeName" : "name"
+          }
+        } ],
+        "getPSDEDataViewItems" : [ {
+          "getCapPSLanguageRes" : {
+            "lanResTag" : "DEF.LNAME.EMPLOYEE.NAME"
+          },
+          "caption" : "员工姓名",
+          "dataItemName" : "name",
+          "itemType" : "DATAITEM",
+          "name" : "NAME",
+          "getPSAppDEField" : {
+            "name" : "NAME",
+            "codeName" : "name"
+          },
+          "enableSort" : true
+        } ],
+        "getPSNavigateContexts" : [ {
+          "key" : "ATTENDANCE_STATISTICS",
+          "name" : "ATTENDANCE_STATISTICS",
+          "value" : "id",
+          "rawValue" : false
+        }, {
+          "key" : "N_CHECKIN_DATE_GTANDEQ",
+          "name" : "N_CHECKIN_DATE_GTANDEQ",
+          "value" : "n_checkin_date_gtandeq",
+          "rawValue" : false
+        }, {
+          "key" : "N_CHECKIN_DATE_LTANDEQ",
+          "name" : "N_CHECKIN_DATE_LTANDEQ",
+          "value" : "n_checkin_date_ltandeq",
+          "rawValue" : false
+        } ],
+        "getPSSysPFPlugin" : {
+          "pluginType" : "DATAVIEW_RENDER",
+          "pluginCode" : "TAB_CARD",
+          "runtimeObject" : true
+        },
+        "pagingSize" : 1000,
+        "getRemovePSControlAction" : {
+          "modelref" : true,
+          "id" : "remove",
+          "actionName" : "Remove",
+          "actionType" : "DEACTION",
+          "dataAccessAction" : "DELETE",
+          "name" : "remove",
+          "getPSAppDEMethod" : {
+            "modelref" : true,
+            "id" : "Remove"
+          },
+          "getPSAppDataEntity" : {
+            "modelref" : true,
+            "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/employee.json"
+          }
+        },
+        "getUpdatePSControlAction" : {
+          "modelref" : true,
+          "id" : "update",
+          "actionName" : "Update",
+          "actionType" : "DEACTION",
+          "dataAccessAction" : "UPDATE",
+          "name" : "update",
+          "getPSAppDEMethod" : {
+            "modelref" : true,
+            "id" : "Update"
+          },
+          "getPSAppDataEntity" : {
+            "modelref" : true,
+            "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/employee.json"
+          }
+        },
+        "hasWFDataItems" : false,
+        "appendDEItems" : false,
+        "enableCardEdit" : false,
+        "enableCardEditGroup" : false,
+        "enableCardEditOrder" : false,
+        "enableCardNew" : false,
+        "enableGroup" : false,
+        "enablePagingBar" : false,
+        "noSort" : false,
+        "singleSelect" : false,
+        "name" : "dataviewexpbar_dataview",
+        "modelid" : "5197f51434c5c4c4fe579b9bbd262758",
+        "modeltype" : "PSDEDATAVIEW"
+      } ],
+      "xDataControlName" : "dataviewexpbar_dataview",
+      "enableCounter" : true,
+      "enableSearch" : false,
+      "showTitleBar" : true,
+      "modelid" : "0aefebdf12d8c2b4bc9f15f3b93a251e_dataviewexpbar",
+      "modeltype" : "PSEXPBAR"
+    }, {
+      "controlType" : "SEARCHBAR",
+      "name" : "searchbar",
+      "getPSAppDataEntity" : {
+        "modelref" : true,
+        "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/employee.json"
+      },
+      "getPSControlParam" : {
+        "id" : "searchbar"
+      },
+      "quickGroupCount" : -1,
+      "quickSearchMode" : 1,
+      "quickSearchWidth" : 0,
+      "enableFilter" : false,
+      "enableGroup" : false,
+      "enableQuickSearch" : true,
+      "mobileSearchBar" : false
+    }, {
+      "getCapPSLanguageRes" : {
+        "lanResTag" : "DE.LNAME.EMPLOYEE"
+      },
+      "caption" : "个人月度汇总",
+      "codeName" : "data_view_exp_view_captionbar",
+      "controlType" : "CAPTIONBAR",
+      "name" : "captionbar",
+      "getPSAppDataEntity" : {
+        "modelref" : true,
+        "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/employee.json"
+      },
+      "getPSControlParam" : { }
+    } ]
+  },
+  "sideBarLayout" : "LEFT",
+  "title" : "月度汇总个人卡片导航视图",
+  "viewStyle" : "DEFAULT",
+  "viewType" : "DEDATAVIEWEXPVIEW",
+  "enableDP" : true,
+  "enableFilter" : true,
+  "enableQuickSearch" : true,
+  "enableSearch" : true,
+  "showCaptionBar" : false,
+  "showDataInfoBar" : true,
+  "modelid" : "0aefebdf12d8c2b4bc9f15f3b93a251e",
+  "modeltype" : "PSAPPDEVIEW"
+}

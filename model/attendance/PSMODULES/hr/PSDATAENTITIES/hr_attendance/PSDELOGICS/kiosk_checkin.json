@@ -1,0 +1,490 @@
+{
+  "codeName" : "kiosk_checkin",
+  "defaultParamName" : "Default",
+  "dynaModelFilePath" : "PSMODULES/hr/PSDATAENTITIES/hr_attendance/PSDELOGICS/kiosk_checkin.json",
+  "logicName" : "自助终端考勤",
+  "name" : "自助终端考勤",
+  "getPSDELogicNodes" : [ {
+    "codeName" : "Begin",
+    "leftPos" : 396,
+    "logicNodeType" : "BEGIN",
+    "name" : "开始",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "PREPAREPARAM_01"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "Begin"
+      }
+    } ],
+    "topPos" : 10,
+    "parallelOutput" : true
+  }, {
+    "codeName" : "PREPAREPARAM_01",
+    "leftPos" : 356,
+    "logicNodeType" : "PREPAREPARAM",
+    "name" : "准备参数",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "DEACTION_05"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "PREPAREPARAM_01"
+      }
+    } ],
+    "getPSDELogicNodeParams" : [ {
+      "dstFieldName" : "ID",
+      "getDstPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "emp"
+      },
+      "paramAction" : "SETPARAMVALUE",
+      "srcFieldName" : "hr_employee",
+      "getSrcPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "Default"
+      },
+      "srcValueType" : "SRCDLPARAM"
+    } ],
+    "topPos" : 120,
+    "parallelOutput" : true
+  }, {
+    "codeName" : "DEACTION_05",
+    "getDstPSDEAction" : {
+      "modelref" : true,
+      "path" : "PSMODULES/hr/PSDATAENTITIES/hr_employee/PSDEACTIONS/Get.json"
+    },
+    "getDstPSDELogicParam" : {
+      "modelref" : true,
+      "id" : "emp"
+    },
+    "getDstPSDataEntity" : {
+      "modelref" : true,
+      "path" : "PSMODULES/hr/PSDATAENTITIES/hr_employee.json"
+    },
+    "leftPos" : 356,
+    "logicNodeType" : "DEACTION",
+    "name" : "获取人员数据",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "RAWSQLCALL_01"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "DEACTION_05"
+      }
+    } ],
+    "getRetPSDELogicParam" : {
+      "modelref" : true,
+      "id" : "emp"
+    },
+    "topPos" : 230,
+    "parallelOutput" : true
+  }, {
+    "codeName" : "RAWSQLCALL_01",
+    "getDstPSDELogicParam" : {
+      "modelref" : true,
+      "id" : "last"
+    },
+    "leftPos" : 356,
+    "logicNodeType" : "RAWSQLCALL",
+    "name" : "获取最近一次考勤记录",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "RAWSQLCALL_02"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "RAWSQLCALL_01"
+      }
+    } ],
+    "getPSDELogicNodeParams" : [ {
+      "paramAction" : "SQLPARAM",
+      "srcFieldName" : "ID",
+      "getSrcPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "emp"
+      },
+      "srcValueType" : "SRCDLPARAM"
+    } ],
+    "sql" : "SELECT * \nFROM hr_attendance \nWHERE employee_id = ?\nORDER BY WRITE_DATE  DESC \nLIMIT 1;",
+    "topPos" : 330,
+    "fillDstLogicParam" : true,
+    "ignoreResetDstLogicParam" : false,
+    "parallelOutput" : true
+  }, {
+    "codeName" : "RAWSQLCALL_02",
+    "getDstPSDELogicParam" : {
+      "modelref" : true,
+      "id" : "hours_previously_today"
+    },
+    "leftPos" : 356,
+    "logicNodeType" : "RAWSQLCALL",
+    "name" : "计算今日时时数",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "RAWSFCODE_01"
+      },
+      "name" : "签离",
+      "getPSDELogicLinkGroupCond" : {
+        "groupOP" : "AND",
+        "logicType" : "GROUP",
+        "name" : "连接条件组",
+        "getPSDELogicLinkConds" : [ {
+          "condOP" : "ISNOTNULL",
+          "getDstLogicParam" : {
+            "modelref" : true,
+            "id" : "last"
+          },
+          "logicType" : "SINGLE",
+          "name" : "last 值不为空(NotNil)"
+        }, {
+          "condOP" : "ISNOTNULL",
+          "dstFieldName" : "CHECK_IN",
+          "getDstLogicParam" : {
+            "modelref" : true,
+            "id" : "last"
+          },
+          "logicType" : "SINGLE",
+          "name" : "last[CHECK_IN] 值不为空(NotNil)"
+        }, {
+          "condOP" : "ISNULL",
+          "dstFieldName" : "CHECK_OUT",
+          "getDstLogicParam" : {
+            "modelref" : true,
+            "id" : "last"
+          },
+          "logicType" : "SINGLE",
+          "name" : "last[CHECK_OUT] 值为空(Nil)"
+        } ]
+      },
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "RAWSQLCALL_02"
+      }
+    }, {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "RAWSFCODE_02"
+      },
+      "name" : "签到",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "RAWSQLCALL_02"
+      }
+    } ],
+    "getPSDELogicNodeParams" : [ {
+      "paramAction" : "SQLPARAM",
+      "srcFieldName" : "ID",
+      "getSrcPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "emp"
+      },
+      "srcValueType" : "SRCDLPARAM"
+    } ],
+    "sql" : "SELECT COALESCE(SUM(WORKED_HOURS), 0) AS hours_previously_today\nFROM hr_attendance \nWHERE employee_id = ?\n  AND DATE(CHECK_IN) = CURDATE();",
+    "topPos" : 432,
+    "fillDstLogicParam" : true,
+    "ignoreResetDstLogicParam" : false
+  }, {
+    "codeName" : "DEBUGPARAM_01",
+    "getDstPSDELogicParam" : {
+      "modelref" : true,
+      "id" : "new_attendance"
+    },
+    "leftPos" : 32,
+    "logicNodeType" : "DEBUGPARAM",
+    "name" : "调试逻辑参数",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "DEACTION_04"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "DEBUGPARAM_01"
+      }
+    } ],
+    "topPos" : 590,
+    "parallelOutput" : true
+  }, {
+    "code" : "def new_attendance = logic.param('new_attendance').getReal()\r\ndef emp = logic.param('emp').getReal()\r\ndef now = java.time.LocalDateTime.now()\r\ndef formatter = java.time.format.DateTimeFormatter.ofPattern(\"yyyy-MM-dd HH:mm:ss\")\r\n\r\nnew_attendance.set(\"check_in\",now.format(formatter))\r\nnew_attendance.set(\"in_mode\",\"kiosk\")\r\nnew_attendance.set(\"employee_id\",emp.get(\"id\"))\r\nnew_attendance.set(\"employee_name\",emp.get(\"name\"))\r\nnew_attendance.set(\"overtime_status\",\"to_approve\")",
+    "codeName" : "RAWSFCODE_02",
+    "codeType" : "Groovy",
+    "leftPos" : 236,
+    "logicNodeType" : "RAWSFCODE",
+    "name" : "构造出勤",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "DEBUGPARAM_01"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "RAWSFCODE_02"
+      }
+    } ],
+    "topPos" : 590,
+    "parallelOutput" : true
+  }, {
+    "code" : "def last = logic.param('last').getReal()\r\ndef now = java.time.LocalDateTime.now()\r\ndef formatter = java.time.format.DateTimeFormatter.ofPattern(\"yyyy-MM-dd HH:mm:ss\")\r\n\r\nlast.set(\"check_out\", now.format(formatter))\r\nlast.set(\"out_mode\", \"kiosk\")\r\nlast.set(\"overtime_status\", \"to_approve\")",
+    "codeName" : "RAWSFCODE_01",
+    "codeType" : "Groovy",
+    "leftPos" : 492,
+    "logicNodeType" : "RAWSFCODE",
+    "name" : "构造出勤",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "DEACTION_02"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "RAWSFCODE_01"
+      }
+    } ],
+    "topPos" : 590,
+    "parallelOutput" : true
+  }, {
+    "codeName" : "DEACTION_01",
+    "getDstPSDEAction" : {
+      "modelref" : true,
+      "path" : "PSMODULES/hr/PSDATAENTITIES/hr_attendance/PSDEACTIONS/ComputeWorkHour.json"
+    },
+    "getDstPSDELogicParam" : {
+      "modelref" : true,
+      "id" : "last"
+    },
+    "getDstPSDataEntity" : {
+      "modelref" : true,
+      "path" : "PSMODULES/hr/PSDATAENTITIES/hr_attendance.json"
+    },
+    "leftPos" : 822,
+    "logicNodeType" : "DEACTION",
+    "name" : "计算工作时间",
+    "getRetPSDELogicParam" : {
+      "modelref" : true,
+      "id" : "last"
+    },
+    "topPos" : 650,
+    "parallelOutput" : true
+  }, {
+    "codeName" : "DEACTION_04",
+    "getDstPSDEAction" : {
+      "modelref" : true,
+      "path" : "PSMODULES/hr/PSDATAENTITIES/hr_attendance/PSDEACTIONS/Create.json"
+    },
+    "getDstPSDELogicParam" : {
+      "modelref" : true,
+      "id" : "new_attendance"
+    },
+    "getDstPSDataEntity" : {
+      "modelref" : true,
+      "path" : "PSMODULES/hr/PSDATAENTITIES/hr_attendance.json"
+    },
+    "leftPos" : 236,
+    "logicNodeType" : "DEACTION",
+    "name" : "实体行为",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "RAWSFCODE_04"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "DEACTION_04"
+      }
+    } ],
+    "getRetPSDELogicParam" : {
+      "modelref" : true,
+      "id" : "new_attendance"
+    },
+    "topPos" : 783,
+    "parallelOutput" : true
+  }, {
+    "codeName" : "DEACTION_02",
+    "getDstPSDEAction" : {
+      "modelref" : true,
+      "path" : "PSMODULES/hr/PSDATAENTITIES/hr_attendance/PSDEACTIONS/Update.json"
+    },
+    "getDstPSDELogicParam" : {
+      "modelref" : true,
+      "id" : "last"
+    },
+    "getDstPSDataEntity" : {
+      "modelref" : true,
+      "path" : "PSMODULES/hr/PSDATAENTITIES/hr_attendance.json"
+    },
+    "leftPos" : 492,
+    "logicNodeType" : "DEACTION",
+    "name" : "实体行为",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "RAWSFCODE_03"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "DEACTION_02"
+      }
+    } ],
+    "getRetPSDELogicParam" : {
+      "modelref" : true,
+      "id" : "last"
+    },
+    "topPos" : 793,
+    "parallelOutput" : true
+  }, {
+    "codeName" : "DEACTION_03",
+    "getDstPSDEAction" : {
+      "modelref" : true,
+      "path" : "PSMODULES/hr/PSDATAENTITIES/hr_attendance/PSDEACTIONS/ComputeWorkHour.json"
+    },
+    "getDstPSDELogicParam" : {
+      "modelref" : true,
+      "id" : "new_attendance"
+    },
+    "getDstPSDataEntity" : {
+      "modelref" : true,
+      "path" : "PSMODULES/hr/PSDATAENTITIES/hr_attendance.json"
+    },
+    "leftPos" : -14,
+    "logicNodeType" : "DEACTION",
+    "name" : "计算工作时间",
+    "getRetPSDELogicParam" : {
+      "modelref" : true,
+      "id" : "new_attendance"
+    },
+    "topPos" : 793,
+    "parallelOutput" : true
+  }, {
+    "code" : "def new_attendance = logic.param('new_attendance').getReal()\r\ndef res = logic.param('hours_previously_today').getReal()\r\ndef hours_previously_today = res.get(\"hours_previously_today\") as BigDecimal\r\n\r\nnew_attendance.set(\"hours_previously_today\",hours_previously_today.setScale(2, BigDecimal.ROUND_HALF_UP))\r\nnew_attendance.set(\"hours_today\",hours_previously_today.setScale(2, BigDecimal.ROUND_HALF_UP))\r\nnew_attendance.set(\"attendance_state\",\"checked_in\")\r\n\r\n// 签到时间处理\r\ndef check_in = new_attendance.get(\"check_in\")\r\ndef inputFormat = new java.text.SimpleDateFormat(\"yyyy-MM-dd HH:mm:ss\")\r\ndef outputFormat = new java.text.SimpleDateFormat(\"yyyy年MM月dd日 HH时mm分ss秒\")\r\noutputFormat.setTimeZone(TimeZone.getTimeZone(\"Asia/Shanghai\"))\r\n\r\n// 转换并存储结果\r\ndef formattedCheckOut = outputFormat.format(inputFormat.parse(check_in.toString()))\r\nnew_attendance.set(\"check_in_display\", formattedCheckOut)",
+    "codeName" : "RAWSFCODE_04",
+    "codeType" : "Groovy",
+    "leftPos" : 236,
+    "logicNodeType" : "RAWSFCODE",
+    "name" : "今日时数",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "END_02"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "RAWSFCODE_04"
+      }
+    } ],
+    "topPos" : 907,
+    "parallelOutput" : true
+  }, {
+    "code" : "def last = logic.param('last').getReal()\r\ndef res = logic.param('hours_previously_today').getReal()\r\ndef hours_previously_today = res.get(\"hours_previously_today\") as BigDecimal\r\n\r\ndef worked_hours = last.get(\"worked_hours\") as BigDecimal\r\n\r\n// 计算并保留两位小数\r\ndef hours_today = (hours_previously_today + worked_hours).setScale(2, BigDecimal.ROUND_HALF_UP)\r\n\r\nlast.set(\"hours_today\", hours_today)\r\nlast.set(\"hours_previously_today\", hours_previously_today.setScale(2, BigDecimal.ROUND_HALF_UP))\r\nlast.set(\"attendance_state\", \"checked_out\")\r\n\r\n// 签退时间处理\r\ndef check_out = last.get(\"check_out\")\r\ndef inputFormat = new java.text.SimpleDateFormat(\"yyyy-MM-dd HH:mm:ss\")\r\ndef outputFormat = new java.text.SimpleDateFormat(\"yyyy年MM月dd日 HH时mm分ss秒\")\r\noutputFormat.setTimeZone(TimeZone.getTimeZone(\"Asia/Shanghai\"))\r\n\r\n// 转换并存储结果\r\ndef formattedCheckOut = outputFormat.format(inputFormat.parse(check_out.toString()))\r\nlast.set(\"check_out_display\", formattedCheckOut)",
+    "codeName" : "RAWSFCODE_03",
+    "codeType" : "Groovy",
+    "leftPos" : 492,
+    "logicNodeType" : "RAWSFCODE",
+    "name" : "今日时数",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "END_01"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "RAWSFCODE_03"
+      }
+    } ],
+    "topPos" : 907,
+    "parallelOutput" : true
+  }, {
+    "codeName" : "END_02",
+    "leftPos" : 276,
+    "logicNodeType" : "END",
+    "name" : "结束",
+    "getReturnParam" : {
+      "modelref" : true,
+      "id" : "new_attendance"
+    },
+    "returnType" : "LOGICPARAM",
+    "topPos" : 1019,
+    "parallelOutput" : true
+  }, {
+    "codeName" : "END_01",
+    "leftPos" : 532,
+    "logicNodeType" : "END",
+    "name" : "结束",
+    "getReturnParam" : {
+      "modelref" : true,
+      "id" : "last"
+    },
+    "returnType" : "LOGICPARAM",
+    "topPos" : 1019,
+    "parallelOutput" : true
+  } ],
+  "getPSDELogicParams" : [ {
+    "codeName" : "Default",
+    "logicName" : "传入变量",
+    "name" : "传入变量",
+    "getParamPSDataEntity" : {
+      "modelref" : true,
+      "path" : "PSMODULES/hr/PSDATAENTITIES/hr_attendance.json"
+    },
+    "default" : true,
+    "entityParam" : true
+  }, {
+    "codeName" : "emp",
+    "logicName" : "emp",
+    "name" : "emp",
+    "getParamPSDataEntity" : {
+      "modelref" : true,
+      "path" : "PSMODULES/hr/PSDATAENTITIES/hr_employee.json"
+    },
+    "entityParam" : true
+  }, {
+    "codeName" : "hours_previously_today",
+    "logicName" : "今日工作时数",
+    "name" : "今日工作时数",
+    "entityParam" : true
+  }, {
+    "codeName" : "last",
+    "logicName" : "last",
+    "name" : "last",
+    "getParamPSDataEntity" : {
+      "modelref" : true,
+      "path" : "PSMODULES/hr/PSDATAENTITIES/hr_attendance.json"
+    },
+    "entityParam" : true
+  }, {
+    "codeName" : "new_attendance",
+    "logicName" : "new_attendance",
+    "name" : "new_attendance",
+    "getParamPSDataEntity" : {
+      "modelref" : true,
+      "path" : "PSMODULES/hr/PSDATAENTITIES/hr_attendance.json"
+    },
+    "entityParam" : true
+  } ],
+  "getStartPSDELogicNode" : {
+    "modelref" : true,
+    "id" : "Begin"
+  },
+  "enableBackend" : true,
+  "enableFront" : false
+}

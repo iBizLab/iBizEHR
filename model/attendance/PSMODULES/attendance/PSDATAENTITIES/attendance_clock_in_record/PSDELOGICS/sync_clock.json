@@ -1,0 +1,142 @@
+{
+  "codeName" : "sync_clock",
+  "defaultParamName" : "Default",
+  "dynaModelFilePath" : "PSMODULES/attendance/PSDATAENTITIES/attendance_clock_in_record/PSDELOGICS/sync_clock.json",
+  "logicName" : "同步补卡至Odoo",
+  "name" : "同步补卡至Odoo",
+  "getPSDELogicNodes" : [ {
+    "codeName" : "Begin",
+    "leftPos" : 200,
+    "logicNodeType" : "BEGIN",
+    "name" : "开始",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "RAWSQLCALL_01"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "Begin"
+      }
+    } ],
+    "topPos" : 200,
+    "parallelOutput" : true
+  }, {
+    "codeName" : "RAWSQLCALL_01",
+    "getDstPSDELogicParam" : {
+      "modelref" : true,
+      "id" : "attendances"
+    },
+    "leftPos" : 386,
+    "logicNodeType" : "RAWSQLCALL",
+    "name" : "查询当天出勤记录",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "DEBUGPARAM_01"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "RAWSQLCALL_01"
+      }
+    } ],
+    "getPSDELogicNodeParams" : [ {
+      "paramAction" : "SQLPARAM",
+      "srcFieldName" : "MEMBER_ID",
+      "getSrcPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "Default"
+      },
+      "srcValueType" : "SRCDLPARAM"
+    }, {
+      "paramAction" : "SQLPARAM",
+      "srcFieldName" : "CHECKIN_TIME",
+      "getSrcPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "Default"
+      },
+      "srcValueType" : "SRCDLPARAM"
+    }, {
+      "paramAction" : "SQLPARAM",
+      "srcFieldName" : "CHECKIN_TIME",
+      "getSrcPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "Default"
+      },
+      "srcValueType" : "SRCDLPARAM"
+    } ],
+    "sql" : "select\n\t*\nfrom\n\thr_attendance ha\nwhere\n\tEMPLOYEE_ID = ?\n\tand DATE(CHECK_IN) = DATE(?)\n\tand CHECK_IN < ?\n\tand CHECK_OUT is null",
+    "topPos" : 198,
+    "fillDstLogicParam" : true,
+    "ignoreResetDstLogicParam" : false,
+    "parallelOutput" : true
+  }, {
+    "codeName" : "DEBUGPARAM_01",
+    "getDstPSDELogicParam" : {
+      "modelref" : true,
+      "id" : "attendances"
+    },
+    "leftPos" : 630,
+    "logicNodeType" : "DEBUGPARAM",
+    "name" : "调试逻辑参数",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "RAWSFCODE_01"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "DEBUGPARAM_01"
+      }
+    } ],
+    "topPos" : 198,
+    "parallelOutput" : true
+  }, {
+    "code" : "def attendances = logic.param('attendances').getReal()\r\ndef _default = logic.param('Default').getReal()\r\ndef hr_attendanceRuntime = sys.dataentity('hr_attendance')\r\nif(!attendances.isEmpty()){\r\n    //取第一项进行更新\r\n    def hr_attendance = attendances[0]\r\n    hr_attendance.set('check_out',_default.get('checkin_time'))\r\n    hr_attendanceRuntime.update(hr_attendance)\r\n\r\n}else{\r\n    def hr_attendance = sys.entity('hr_attendance')\r\n    hr_attendance.set(\"id\",net.ibizsys.runtime.util.KeyValueUtils.genUniqueId())\r\n    hr_attendance.set('check_in',_default.get('checkin_time'))\r\n    hr_attendance.set('employee_id',_default.get('member_id'))\r\n    hr_attendanceRuntime.create(hr_attendance)\r\n}",
+    "codeName" : "RAWSFCODE_01",
+    "codeType" : "Groovy",
+    "leftPos" : 630,
+    "logicNodeType" : "RAWSFCODE",
+    "name" : "执行脚本代码",
+    "topPos" : 336,
+    "parallelOutput" : true
+  } ],
+  "getPSDELogicParams" : [ {
+    "codeName" : "Default",
+    "logicName" : "传入变量",
+    "name" : "传入变量",
+    "getParamPSDataEntity" : {
+      "modelref" : true,
+      "path" : "PSMODULES/attendance/PSDATAENTITIES/attendance_clock_in_record.json"
+    },
+    "default" : true,
+    "entityParam" : true
+  }, {
+    "codeName" : "attendances",
+    "logicName" : "出勤记录",
+    "name" : "出勤记录",
+    "getParamPSDataEntity" : {
+      "modelref" : true,
+      "path" : "PSMODULES/hr/PSDATAENTITIES/hr_attendance.json"
+    },
+    "entityListParam" : true
+  }, {
+    "codeName" : "hr_attendance",
+    "logicName" : "hr_attendance",
+    "name" : "hr_attendance",
+    "getParamPSDataEntity" : {
+      "modelref" : true,
+      "path" : "PSMODULES/hr/PSDATAENTITIES/hr_attendance.json"
+    },
+    "entityParam" : true
+  } ],
+  "getStartPSDELogicNode" : {
+    "modelref" : true,
+    "id" : "Begin"
+  },
+  "enableBackend" : true,
+  "enableFront" : false
+}

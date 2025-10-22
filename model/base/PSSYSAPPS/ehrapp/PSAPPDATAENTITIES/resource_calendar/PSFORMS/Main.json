@@ -1,0 +1,1805 @@
+{
+  "codeName" : "Main",
+  "controlType" : "FORM",
+  "getCreatePSControlAction" : {
+    "modelref" : true,
+    "id" : "create",
+    "actionName" : "Create",
+    "actionType" : "DEACTION",
+    "dataAccessAction" : "CREATE",
+    "name" : "create",
+    "getPSAppDEMethod" : {
+      "modelref" : true,
+      "id" : "create"
+    },
+    "getPSAppDataEntity" : {
+      "modelref" : true,
+      "path" : "PSSYSAPPS/ehrapp/PSAPPDATAENTITIES/resource_calendar.json"
+    }
+  },
+  "defaultLabelWidth" : 130,
+  "dynaModelFilePath" : "PSSYSAPPS/ehrapp/PSAPPDATAENTITIES/resource_calendar/PSFORMS/Main.json",
+  "getGetDraftFromPSControlAction" : {
+    "modelref" : true,
+    "id" : "loaddraftfrom",
+    "actionName" : "GETDRAFTFROM",
+    "actionType" : "DEACTION",
+    "dataAccessAction" : "CREATE",
+    "name" : "loaddraftfrom",
+    "getPSAppDataEntity" : {
+      "modelref" : true,
+      "path" : "PSSYSAPPS/ehrapp/PSAPPDATAENTITIES/resource_calendar.json"
+    }
+  },
+  "getGetDraftPSControlAction" : {
+    "modelref" : true,
+    "id" : "loaddraft",
+    "actionName" : "GetDraft",
+    "actionType" : "DEACTION",
+    "dataAccessAction" : "CREATE",
+    "name" : "loaddraft",
+    "getPSAppDEMethod" : {
+      "modelref" : true,
+      "id" : "get_draft"
+    },
+    "getPSAppDataEntity" : {
+      "modelref" : true,
+      "path" : "PSSYSAPPS/ehrapp/PSAPPDATAENTITIES/resource_calendar.json"
+    }
+  },
+  "getGetPSControlAction" : {
+    "modelref" : true,
+    "id" : "load",
+    "actionName" : "Get",
+    "actionType" : "DEACTION",
+    "dataAccessAction" : "READ",
+    "name" : "load",
+    "getPSAppDEMethod" : {
+      "modelref" : true,
+      "id" : "get"
+    },
+    "getPSAppDataEntity" : {
+      "modelref" : true,
+      "path" : "PSSYSAPPS/ehrapp/PSAPPDATAENTITIES/resource_calendar.json"
+    }
+  },
+  "logicName" : "资源工作时间实体主视图_表单",
+  "getPSAppDataEntity" : {
+    "modelref" : true,
+    "path" : "PSSYSAPPS/ehrapp/PSAPPDATAENTITIES/resource_calendar.json"
+  },
+  "getPSDEFormItemUpdates" : [ {
+    "codeName" : "update_hours_per_day",
+    "name" : "update_hours_per_day",
+    "getPSDEFIUpdateDetails" : [ {
+      "name" : "hours_per_day"
+    } ],
+    "scriptCode" : "if(data.flexible_hours == 1){\r\n    return;\r\n}\r\n// 获取应用实例\r\nconst app = ibiz.hub.getApp(context.srfappid);\r\n// 获取指定实体服务\r\nconst deService = await app.deService.getService(\r\n    context,\r\n    \"ehrapp.resource_calendar_attendance\", // 实体标识\r\n);\r\n// 获取实体所有缓存数据\r\nvar list = deService.local.getList();\r\n//过滤满足业务的数据\r\nvar list1=list.filter(attendance => \r\n             attendance.day_period !== 'lunch' &&\r\n            !attendance.date_from && !attendance.date_to &&\r\n            !attendance.resource_id && !attendance.display_type);\r\n\r\nif(list1.length == 0){\r\n    data.hours_per_day=0;\r\n}else{\r\n    let hourCount = 0;\r\n    //总小时数\r\n    for (const attendance of list1) {\r\n        hourCount += attendance.hour_to - attendance.hour_from;\r\n    }\r\n   //总天数\r\n    let numberOfDays;\r\n    if (data.two_weeks_calendar) {\r\n        // 初始化一个对象来存储每周类型对应的天数\r\n        const weekTypeGroups = {};\r\n        // 遍历所有日历项\r\n        for (const cal of list1) {\r\n            // 如果该周类型不存在则初始化空集合\r\n            if (!weekTypeGroups[cal.week_type]) {\r\n                weekTypeGroups[cal.week_type] = new Set();\r\n            }\r\n            // 添加当前日期到对应周类型的集合\r\n            weekTypeGroups[cal.week_type].add(cal.dayofweek);\r\n        }\r\n        \r\n        // 计算所有周类型的总天数\r\n        let totalDays = 0;\r\n        for (const type in weekTypeGroups) {\r\n            totalDays += weekTypeGroups[type].size;\r\n        }\r\n        numberOfDays = totalDays;\r\n    } else {\r\n            numberOfDays = new Set(list1.map(cal => cal.dayofweek)).size;\r\n    }   \r\n    if (numberOfDays === 0) {\r\n        data.hours_per_day=0;\r\n    }\r\n    const average = hourCount / numberOfDays;\r\n    data.hours_per_day=average;\r\n}",
+    "customCode" : true
+  } ],
+  "getPSDEFormItems" : [ {
+    "id" : "srfupdatedate",
+    "hidden" : true,
+    "dataType" : 5,
+    "getPSAppDEField" : {
+      "name" : "WRITE_DATE",
+      "codeName" : "write_date"
+    }
+  }, {
+    "id" : "srforikey",
+    "hidden" : true,
+    "dataType" : 25
+  }, {
+    "id" : "srfkey",
+    "hidden" : true,
+    "dataType" : 25,
+    "getPSAppDEField" : {
+      "name" : "ID",
+      "codeName" : "id"
+    }
+  }, {
+    "id" : "srfmajortext",
+    "hidden" : true,
+    "dataType" : 25,
+    "getPSAppDEField" : {
+      "name" : "NAME",
+      "codeName" : "name"
+    }
+  }, {
+    "id" : "srftempmode",
+    "hidden" : true,
+    "dataType" : 25
+  }, {
+    "id" : "srfuf",
+    "hidden" : true,
+    "dataType" : 25
+  }, {
+    "id" : "srfdeid",
+    "hidden" : true,
+    "dataType" : 25
+  }, {
+    "id" : "srfsourcekey",
+    "hidden" : true,
+    "dataType" : 25
+  }, {
+    "id" : "name",
+    "dataType" : 25,
+    "getPSAppDEField" : {
+      "name" : "NAME",
+      "codeName" : "name"
+    }
+  }, {
+    "id" : "flexible_hours",
+    "dataType" : 9,
+    "createDV" : "0",
+    "getPSAppDEField" : {
+      "name" : "FLEXIBLE_HOURS",
+      "codeName" : "flexible_hours"
+    }
+  }, {
+    "id" : "company_name",
+    "dataType" : 25,
+    "getPSAppDEField" : {
+      "name" : "COMPANY_NAME",
+      "codeName" : "company_name"
+    }
+  }, {
+    "id" : "full_time_required_hours1",
+    "dataType" : 7,
+    "getPSAppDEField" : {
+      "name" : "FULL_TIME_REQUIRED_HOURS",
+      "codeName" : "full_time_required_hours"
+    }
+  }, {
+    "id" : "full_time_required_hours",
+    "dataType" : 7,
+    "getPSAppDEField" : {
+      "name" : "FULL_TIME_REQUIRED_HOURS",
+      "codeName" : "full_time_required_hours"
+    }
+  }, {
+    "id" : "formitem1",
+    "dataType" : 25
+  }, {
+    "id" : "hours_per_day",
+    "dataType" : 7,
+    "getPSAppDEField" : {
+      "name" : "HOURS_PER_DAY",
+      "codeName" : "hours_per_day"
+    }
+  }, {
+    "id" : "company_id",
+    "hidden" : true,
+    "dataType" : 25,
+    "getPSAppDEField" : {
+      "name" : "COMPANY_ID",
+      "codeName" : "company_id"
+    }
+  }, {
+    "id" : "id",
+    "hidden" : true,
+    "dataType" : 25,
+    "getPSAppDEField" : {
+      "name" : "ID",
+      "codeName" : "id"
+    }
+  } ],
+  "getPSDEFormPages" : [ {
+    "caption" : "基本信息",
+    "codeName" : "formpage1",
+    "detailStyle" : "DEFAULT",
+    "detailType" : "FORMPAGE",
+    "name" : "formpage1",
+    "getPSDEFormDetails" : [ {
+      "caption" : "资源工作时间基本信息",
+      "codeName" : "group1",
+      "detailStyle" : "DEFAULT",
+      "detailType" : "GROUPPANEL",
+      "name" : "group1",
+      "getPSDEFormDetails" : [ {
+        "getCapPSLanguageRes" : {
+          "lanResTag" : "DEF.LNAME.RESOURCE_CALENDAR.NAME"
+        },
+        "caption" : "名称",
+        "codeName" : "name",
+        "dataType" : 25,
+        "detailStyle" : "DEFAULT",
+        "detailType" : "FORMITEM",
+        "enableCond" : 3,
+        "ignoreInput" : 0,
+        "labelPos" : "NONE",
+        "labelWidth" : 0,
+        "name" : "name",
+        "noPrivDisplayMode" : 1,
+        "getPSAppDEField" : {
+          "name" : "NAME",
+          "codeName" : "name"
+        },
+        "getPSEditor" : {
+          "editorType" : "TEXTBOX",
+          "maxLength" : 200,
+          "name" : "name"
+        },
+        "getPSLayoutPos" : {
+          "colLG" : 24,
+          "colMD" : 24,
+          "layout" : "TABLE_24COL"
+        },
+        "allowEmpty" : true
+      }, {
+        "getCapPSLanguageRes" : {
+          "lanResTag" : "DEF.LNAME.RESOURCE_CALENDAR.FLEXIBLE_HOURS"
+        },
+        "caption" : "灵活时间",
+        "codeName" : "flexible_hours",
+        "createDV" : "0",
+        "dataType" : 9,
+        "detailStyle" : "DEFAULT",
+        "detailType" : "FORMITEM",
+        "enableCond" : 3,
+        "ignoreInput" : 0,
+        "labelPos" : "LEFT",
+        "labelWidth" : 130,
+        "name" : "flexible_hours",
+        "noPrivDisplayMode" : 1,
+        "getPSAppDEField" : {
+          "name" : "FLEXIBLE_HOURS",
+          "codeName" : "flexible_hours"
+        },
+        "getPSDEFormItemUpdate" : {
+          "modelref" : true,
+          "id" : "update_hours_per_day"
+        },
+        "getPSEditor" : {
+          "editorType" : "CHECKBOX",
+          "name" : "flexible_hours"
+        },
+        "getPSLayoutPos" : {
+          "colLG" : 12,
+          "colMD" : 24,
+          "layout" : "TABLE_24COL"
+        },
+        "allowEmpty" : true,
+        "showCaption" : true
+      }, {
+        "getCapPSLanguageRes" : {
+          "lanResTag" : "DEF.LNAME.RESOURCE_CALENDAR.COMPANY_ID"
+        },
+        "caption" : "公司",
+        "codeName" : "company_name",
+        "dataType" : 25,
+        "detailStyle" : "DEFAULT",
+        "detailType" : "FORMITEM",
+        "enableCond" : 3,
+        "ignoreInput" : 0,
+        "labelPos" : "LEFT",
+        "labelWidth" : 130,
+        "name" : "company_name",
+        "noPrivDisplayMode" : 1,
+        "getPSAppDEField" : {
+          "name" : "COMPANY_NAME",
+          "codeName" : "company_name"
+        },
+        "getPSEditor" : {
+          "editorParams" : {
+            "AC" : "TRUE",
+            "PICKUPVIEW" : "TRUE"
+          },
+          "editorType" : "PICKER",
+          "handlerType" : "PickupText",
+          "getLinkPSAppView" : {
+            "modelref" : true,
+            "path" : "PSSYSAPPS/ehrapp/PSAPPDEVIEWS/res_companymain_view.json",
+            "viewType" : "DEEDITVIEW"
+          },
+          "name" : "company_name",
+          "getPSAppDEACMode" : {
+            "modelref" : true,
+            "id" : "Default"
+          },
+          "getPSAppDEDataSet" : {
+            "modelref" : true,
+            "id" : "fetch_default"
+          },
+          "getPSAppDataEntity" : {
+            "modelref" : true,
+            "path" : "PSSYSAPPS/ehrapp/PSAPPDATAENTITIES/res_company.json"
+          },
+          "getPSEditorItems" : [ {
+            "name" : "company_id"
+          } ],
+          "getPickupPSAppView" : {
+            "modelref" : true,
+            "path" : "PSSYSAPPS/ehrapp/PSAPPDEVIEWS/res_companyPickupView.json",
+            "viewType" : "DEPICKUPVIEW"
+          },
+          "valueItemName" : "company_id",
+          "enableAC" : true,
+          "enablePickupView" : true,
+          "forceSelection" : true,
+          "showTrigger" : true,
+          "singleSelect" : true
+        },
+        "getPSLayoutPos" : {
+          "colLG" : 12,
+          "colMD" : 24,
+          "layout" : "TABLE_24COL"
+        },
+        "valueItemName" : "company_id",
+        "allowEmpty" : true,
+        "showCaption" : true
+      }, {
+        "codeName" : "grouppanel2",
+        "detailStyle" : "DEFAULT",
+        "detailType" : "GROUPPANEL",
+        "name" : "grouppanel2",
+        "getPSDEFormDetails" : [ {
+          "getCapPSLanguageRes" : {
+            "lanResTag" : "DEF.LNAME.RESOURCE_CALENDAR.FULL_TIME_REQUIRED_HOURS"
+          },
+          "caption" : "公司全职",
+          "codeName" : "full_time_required_hours1",
+          "dataType" : 7,
+          "detailStyle" : "DEFAULT",
+          "detailType" : "FORMITEM",
+          "enableCond" : 3,
+          "ignoreInput" : 0,
+          "labelPos" : "LEFT",
+          "labelWidth" : 130,
+          "name" : "full_time_required_hours1",
+          "noPrivDisplayMode" : 1,
+          "getPSAppDEField" : {
+            "name" : "FULL_TIME_REQUIRED_HOURS",
+            "codeName" : "full_time_required_hours"
+          },
+          "getPSDEFDGroupLogics" : [ {
+            "groupOP" : "AND",
+            "logicCat" : "PANELVISIBLE",
+            "logicType" : "GROUP",
+            "getPSDEFDLogics" : [ {
+              "condOP" : "EQ",
+              "dEFDName" : "flexible_hours",
+              "logicType" : "SINGLE",
+              "name" : "flexible_hours等于(=) 0",
+              "value" : "0"
+            } ],
+            "relatedDetailNames" : [ "flexible_hours" ],
+            "notMode" : false
+          } ],
+          "getPSEditor" : {
+            "editorType" : "TEXTBOX",
+            "name" : "full_time_required_hours1"
+          },
+          "getPSLayoutPos" : {
+            "colMD" : 24,
+            "layout" : "TABLE_24COL"
+          },
+          "allowEmpty" : true,
+          "showCaption" : true
+        }, {
+          "getCapPSLanguageRes" : {
+            "lanResTag" : "DEF.LNAME.RESOURCE_CALENDAR.FULL_TIME_REQUIRED_HOURS"
+          },
+          "caption" : "周小时／周",
+          "codeName" : "full_time_required_hours",
+          "dataType" : 7,
+          "detailStyle" : "DEFAULT",
+          "detailType" : "FORMITEM",
+          "enableCond" : 3,
+          "ignoreInput" : 0,
+          "labelPos" : "LEFT",
+          "labelWidth" : 130,
+          "name" : "full_time_required_hours",
+          "noPrivDisplayMode" : 1,
+          "getPSAppDEField" : {
+            "name" : "FULL_TIME_REQUIRED_HOURS",
+            "codeName" : "full_time_required_hours"
+          },
+          "getPSDEFDGroupLogics" : [ {
+            "groupOP" : "AND",
+            "logicCat" : "PANELVISIBLE",
+            "logicType" : "GROUP",
+            "getPSDEFDLogics" : [ {
+              "condOP" : "EQ",
+              "dEFDName" : "flexible_hours",
+              "logicType" : "SINGLE",
+              "name" : "flexible_hours等于(=) 1",
+              "value" : "1"
+            } ],
+            "relatedDetailNames" : [ "flexible_hours" ],
+            "notMode" : false
+          } ],
+          "getPSEditor" : {
+            "editorType" : "TEXTBOX",
+            "name" : "full_time_required_hours"
+          },
+          "getPSLayoutPos" : {
+            "colMD" : 24,
+            "layout" : "TABLE_24COL"
+          },
+          "allowEmpty" : true,
+          "showCaption" : true
+        } ],
+        "getPSLayout" : {
+          "childColMD" : 24,
+          "columnCount" : 24,
+          "layout" : "TABLE_24COL"
+        },
+        "getPSLayoutPos" : {
+          "colLG" : 4,
+          "colMD" : 24,
+          "layout" : "TABLE_24COL"
+        },
+        "infoGroupMode" : false,
+        "showCaption" : false
+      }, {
+        "codeName" : "rawitem3",
+        "contentType" : "RAW",
+        "detailStyle" : "DEFAULT",
+        "detailType" : "RAWITEM",
+        "name" : "rawitem3",
+        "getPSLayoutPos" : {
+          "colLG" : 8,
+          "colMD" : 24,
+          "layout" : "TABLE_24COL"
+        },
+        "getPSRawItem" : {
+          "caption" : "小时/周",
+          "contentType" : "RAW",
+          "name" : "rawitem3",
+          "rawItemHeight" : -1.0,
+          "rawItemWidth" : -1.0
+        },
+        "rawContent" : "小时/周",
+        "rawItemHeight" : -1.0,
+        "rawItemWidth" : -1.0,
+        "showCaption" : true
+      }, {
+        "caption" : "时区",
+        "codeName" : "formitem1",
+        "dataType" : 25,
+        "detailStyle" : "DEFAULT",
+        "detailType" : "FORMITEM",
+        "enableCond" : 3,
+        "ignoreInput" : 0,
+        "labelPos" : "LEFT",
+        "labelWidth" : 130,
+        "name" : "formitem1",
+        "noPrivDisplayMode" : 1,
+        "getPSEditor" : {
+          "editorType" : "TEXTBOX",
+          "name" : "formitem1"
+        },
+        "getPSLayoutPos" : {
+          "colLG" : 12,
+          "colMD" : 24,
+          "layout" : "TABLE_24COL"
+        },
+        "allowEmpty" : true,
+        "showCaption" : true
+      }, {
+        "getCapPSLanguageRes" : {
+          "lanResTag" : "DEF.LNAME.RESOURCE_CALENDAR.HOURS_PER_DAY"
+        },
+        "caption" : "每天平均小时数",
+        "codeName" : "hours_per_day",
+        "dataType" : 7,
+        "detailStyle" : "DEFAULT",
+        "detailType" : "FORMITEM",
+        "enableCond" : 3,
+        "ignoreInput" : 0,
+        "labelPos" : "LEFT",
+        "labelWidth" : 130,
+        "name" : "hours_per_day",
+        "noPrivDisplayMode" : 1,
+        "getPSAppDEField" : {
+          "name" : "HOURS_PER_DAY",
+          "codeName" : "hours_per_day"
+        },
+        "getPSDEFDGroupLogics" : [ {
+          "groupOP" : "AND",
+          "logicCat" : "ITEMENABLE",
+          "logicType" : "GROUP",
+          "getPSDEFDLogics" : [ {
+            "condOP" : "EQ",
+            "dEFDName" : "flexible_hours",
+            "logicType" : "SINGLE",
+            "name" : "flexible_hours等于(=) 1",
+            "value" : "1"
+          } ],
+          "relatedDetailNames" : [ "flexible_hours" ],
+          "notMode" : false
+        } ],
+        "getPSEditor" : {
+          "editorType" : "TEXTBOX",
+          "name" : "hours_per_day"
+        },
+        "getPSLayoutPos" : {
+          "colLG" : 12,
+          "colMD" : 24,
+          "layout" : "TABLE_24COL"
+        },
+        "allowEmpty" : true,
+        "showCaption" : true
+      } ],
+      "getPSLayout" : {
+        "childColMD" : 24,
+        "columnCount" : 24,
+        "layout" : "TABLE_24COL"
+      },
+      "getPSLayoutPos" : {
+        "colMD" : 24,
+        "layout" : "TABLE_24COL"
+      },
+      "infoGroupMode" : false,
+      "showCaption" : false
+    }, {
+      "codeName" : "tabpanel1",
+      "detailStyle" : "DEFAULT",
+      "detailType" : "TABPANEL",
+      "name" : "tabpanel1",
+      "getPSDEFDGroupLogics" : [ {
+        "groupOP" : "AND",
+        "logicCat" : "PANELVISIBLE",
+        "logicType" : "GROUP",
+        "getPSDEFDLogics" : [ {
+          "condOP" : "EQ",
+          "dEFDName" : "flexible_hours",
+          "logicType" : "SINGLE",
+          "name" : "flexible_hours等于(=) 0",
+          "value" : "0"
+        } ],
+        "relatedDetailNames" : [ "flexible_hours" ],
+        "notMode" : false
+      } ],
+      "getPSDEFormTabPages" : [ {
+        "caption" : "工作时间",
+        "codeName" : "tabpage1",
+        "detailStyle" : "DEFAULT",
+        "detailType" : "TABPAGE",
+        "name" : "tabpage1",
+        "getPSDEFormDetails" : [ {
+          "codeName" : "druipart1",
+          "dRItemTag" : "Auto81849946",
+          "detailStyle" : "DEFAULT",
+          "detailType" : "DRUIPART",
+          "maskMode" : 0,
+          "name" : "druipart1",
+          "getPSAppView" : {
+            "accUserMode" : 2,
+            "getCapPSLanguageRes" : {
+              "lanResTag" : "DE.LNAME.RESOURCE_CALENDAR_ATTENDANCE"
+            },
+            "caption" : "工作细节",
+            "codeName" : "resource_calendar_attendancegrid_view_nested",
+            "dynaModelFilePath" : "PSSYSAPPS/ehrapp/PSAPPDEVIEWS/resource_calendar_attendancegrid_view_nested.json",
+            "gridRowActiveMode" : 2,
+            "memo" : "系统自动添加",
+            "name" : "resource_calendar_attendancegrid_view_nested",
+            "getPSAppDataEntity" : {
+              "modelref" : true,
+              "path" : "PSSYSAPPS/ehrapp/PSAPPDATAENTITIES/resource_calendar_attendance.json"
+            },
+            "getPSAppModule" : {
+              "modelref" : true,
+              "path" : "PSSYSAPPS/ehrapp/PSAPPMODULES/resource.json"
+            },
+            "getPSDEViewCodeName" : "grid_view_nested",
+            "getPSDEViewId" : "11b6f763fa23987232cf19f8cde449ba",
+            "getPSViewLayoutPanel" : {
+              "codeName" : "Auto94410878",
+              "controlType" : "VIEWLAYOUTPANEL",
+              "layoutMode" : "FLEX",
+              "logicName" : "表格视图布局_工具栏置底部",
+              "name" : "layoutpanel",
+              "getPSAppDataEntity" : {
+                "modelref" : true,
+                "path" : "PSSYSAPPS/ehrapp/PSAPPDATAENTITIES/resource_calendar_attendance.json"
+              },
+              "getPSControlParam" : { },
+              "getPSLayout" : {
+                "layout" : "FLEX"
+              },
+              "getRootPSPanelItems" : [ {
+                "itemStyle" : "DEFAULT",
+                "itemType" : "CONTAINER",
+                "name" : "view_searchform",
+                "getPSLayout" : {
+                  "dir" : "column",
+                  "layout" : "FLEX"
+                },
+                "getPSLayoutPos" : {
+                  "grow" : -1,
+                  "layout" : "FLEX",
+                  "shrink" : 0
+                },
+                "getPSPanelItems" : [ {
+                  "caption" : "搜索表单",
+                  "itemStyle" : "DEFAULT",
+                  "itemType" : "CTRLPOS",
+                  "name" : "searchform",
+                  "getPSLayoutPos" : {
+                    "grow" : -1,
+                    "layout" : "FLEX"
+                  },
+                  "showCaption" : true
+                } ]
+              }, {
+                "caption" : "容器",
+                "itemStyle" : "DEFAULT",
+                "itemType" : "CONTAINER",
+                "name" : "view_content",
+                "getPSLayout" : {
+                  "layout" : "FLEX"
+                },
+                "getPSLayoutPos" : {
+                  "grow" : 1,
+                  "layout" : "FLEX"
+                },
+                "getPSPanelItems" : [ {
+                  "caption" : "表格",
+                  "itemStyle" : "DEFAULT",
+                  "itemType" : "CTRLPOS",
+                  "name" : "grid",
+                  "getPSLayoutPos" : {
+                    "grow" : 1,
+                    "layout" : "FLEX"
+                  },
+                  "showCaption" : true
+                } ],
+                "predefinedType" : "VIEWCONTENT"
+              }, {
+                "caption" : "容器",
+                "itemStyle" : "DEFAULT",
+                "itemType" : "CONTAINER",
+                "name" : "view_header",
+                "getPSLayout" : {
+                  "align" : "space-between",
+                  "dir" : "row",
+                  "layout" : "FLEX",
+                  "vAlign" : "center"
+                },
+                "getPSLayoutPos" : {
+                  "grow" : -1,
+                  "layout" : "FLEX",
+                  "shrink" : 0
+                },
+                "getPSPanelItems" : [ {
+                  "caption" : "容器",
+                  "itemStyle" : "DEFAULT",
+                  "itemType" : "CONTAINER",
+                  "name" : "view_header_left",
+                  "getPSLayout" : {
+                    "dir" : "row",
+                    "layout" : "FLEX"
+                  },
+                  "getPSLayoutPos" : {
+                    "grow" : -1,
+                    "heightMode" : "FULL",
+                    "layout" : "FLEX"
+                  },
+                  "getPSPanelItems" : [ {
+                    "caption" : "容器",
+                    "itemStyle" : "DEFAULT",
+                    "itemType" : "CONTAINER",
+                    "name" : "view_toolbar",
+                    "getPSLayout" : {
+                      "align" : "center",
+                      "layout" : "FLEX"
+                    },
+                    "getPSLayoutPos" : {
+                      "grow" : -1,
+                      "heightMode" : "FULL",
+                      "layout" : "FLEX",
+                      "spacingLeft" : "OUTERLARGE"
+                    },
+                    "getPSPanelItems" : [ {
+                      "caption" : "工具栏",
+                      "itemStyle" : "DEFAULT",
+                      "itemType" : "CTRLPOS",
+                      "name" : "toolbar",
+                      "getPSLayoutPos" : {
+                        "grow" : -1,
+                        "layout" : "FLEX"
+                      },
+                      "showCaption" : true
+                    } ]
+                  } ]
+                } ],
+                "predefinedType" : "VIEWHEADER"
+              } ],
+              "layoutBodyOnly" : true,
+              "layoutPanel" : true,
+              "useDefaultLayout" : false,
+              "viewProxyMode" : true,
+              "modelid" : "a13eeb1a845a3db03d246911b7ccb2bf",
+              "modeltype" : "PSSYSVIEWLAYOUTPANEL",
+              "getPSAppViewEngines" : [ {
+                "engineCat" : "VIEW",
+                "engineType" : "GridView",
+                "name" : "engine"
+              } ],
+              "getPSAppViewLogics" : [ {
+                "logicTrigger" : "CUSTOM",
+                "logicType" : "APPUILOGIC",
+                "name" : "newdata",
+                "getPSAppUILogic" : {
+                  "actionAfterWizard" : "DEFAULT",
+                  "logicType" : "PREDEFINED",
+                  "name" : "新建数据",
+                  "getNewDataPSAppView" : {
+                    "getRefPSAppView" : {
+                      "modelref" : true,
+                      "path" : "PSSYSAPPS/ehrapp/PSAPPDEVIEWS/resource_calendar_attendanceEditView.json",
+                      "viewType" : "DEEDITVIEW"
+                    }
+                  },
+                  "getPSAppUILogicRefViews" : [ {
+                    "getRefPSAppView" : {
+                      "modelref" : true,
+                      "path" : "PSSYSAPPS/ehrapp/PSAPPDEVIEWS/resource_calendar_attendanceEditView.json",
+                      "viewType" : "DEEDITVIEW"
+                    }
+                  } ],
+                  "viewLogicType" : "APP_NEWDATA",
+                  "batchAddOnly" : false,
+                  "enableBatchAdd" : false,
+                  "enableWizardAdd" : false
+                }
+              }, {
+                "logicTrigger" : "CUSTOM",
+                "logicType" : "APPUILOGIC",
+                "name" : "opendata",
+                "getPSAppUILogic" : {
+                  "logicType" : "PREDEFINED",
+                  "name" : "打开数据",
+                  "getOpenDataPSAppView" : {
+                    "getRefPSAppView" : {
+                      "modelref" : true,
+                      "path" : "PSSYSAPPS/ehrapp/PSAPPDEVIEWS/resource_calendar_attendanceEditView.json",
+                      "viewType" : "DEEDITVIEW"
+                    }
+                  },
+                  "getPSAppUILogicRefViews" : [ {
+                    "getRefPSAppView" : {
+                      "modelref" : true,
+                      "path" : "PSSYSAPPS/ehrapp/PSAPPDEVIEWS/resource_calendar_attendanceEditView.json",
+                      "viewType" : "DEEDITVIEW"
+                    }
+                  } ],
+                  "viewLogicType" : "APP_OPENDATA",
+                  "editMode" : true
+                }
+              } ],
+              "getPSAppViewRefs" : [ {
+                "name" : "EDITDATA",
+                "realTitle" : "工作细节编辑视图",
+                "getRefPSAppView" : {
+                  "modelref" : true,
+                  "path" : "PSSYSAPPS/ehrapp/PSAPPDEVIEWS/resource_calendar_attendanceEditView.json",
+                  "viewType" : "DEEDITVIEW"
+                }
+              }, {
+                "name" : "NEWDATA",
+                "realTitle" : "工作细节编辑视图",
+                "getRefPSAppView" : {
+                  "modelref" : true,
+                  "path" : "PSSYSAPPS/ehrapp/PSAPPDEVIEWS/resource_calendar_attendanceEditView.json",
+                  "viewType" : "DEEDITVIEW"
+                }
+              } ],
+              "getPSControls" : [ {
+                "aggMode" : "NONE",
+                "codeName" : "EditMain",
+                "columnEnableFilter" : 2,
+                "columnEnableLink" : 2,
+                "controlType" : "GRID",
+                "getCreatePSControlAction" : {
+                  "actionName" : "Create",
+                  "actionType" : "DEACTION",
+                  "dataAccessAction" : "CREATE",
+                  "name" : "create",
+                  "getPSAppDEMethod" : {
+                    "modelref" : true,
+                    "id" : "create"
+                  },
+                  "getPSAppDataEntity" : {
+                    "modelref" : true,
+                    "path" : "PSSYSAPPS/ehrapp/PSAPPDATAENTITIES/resource_calendar_attendance.json"
+                  }
+                },
+                "dynaModelFilePath" : "PSSYSAPPS/ehrapp/PSAPPDATAENTITIES/resource_calendar_attendance/PSGRIDS/EditMain.json",
+                "getFetchPSControlAction" : {
+                  "modelref" : true,
+                  "id" : "fetch",
+                  "actionType" : "DEDATASET",
+                  "name" : "fetch",
+                  "getPSAppDEMethod" : {
+                    "modelref" : true,
+                    "id" : "fetch_default"
+                  },
+                  "getPSAppDataEntity" : {
+                    "modelref" : true,
+                    "path" : "PSSYSAPPS/ehrapp/PSAPPDATAENTITIES/resource_calendar_attendance.json"
+                  }
+                },
+                "getGetDraftPSControlAction" : {
+                  "actionName" : "GetDraft",
+                  "actionType" : "DEACTION",
+                  "dataAccessAction" : "CREATE",
+                  "name" : "loaddraft",
+                  "getPSAppDEMethod" : {
+                    "modelref" : true,
+                    "id" : "get_draft"
+                  },
+                  "getPSAppDataEntity" : {
+                    "modelref" : true,
+                    "path" : "PSSYSAPPS/ehrapp/PSAPPDATAENTITIES/resource_calendar_attendance.json"
+                  }
+                },
+                "getGetPSControlAction" : {
+                  "actionName" : "Get",
+                  "actionType" : "DEACTION",
+                  "dataAccessAction" : "READ",
+                  "name" : "load",
+                  "getPSAppDEMethod" : {
+                    "modelref" : true,
+                    "id" : "get"
+                  },
+                  "getPSAppDataEntity" : {
+                    "modelref" : true,
+                    "path" : "PSSYSAPPS/ehrapp/PSAPPDATAENTITIES/resource_calendar_attendance.json"
+                  }
+                },
+                "groupMode" : "NONE",
+                "hookEventNames" : [ "ONMOUNTED" ],
+                "logicName" : "行编辑主表格",
+                "getPSAppDataEntity" : {
+                  "modelref" : true,
+                  "path" : "PSSYSAPPS/ehrapp/PSAPPDATAENTITIES/resource_calendar_attendance.json"
+                },
+                "getPSControlHandler" : {
+                  "getPSHandlerActions" : [ {
+                    "actionName" : "Get",
+                    "actionType" : "DEACTION",
+                    "dataAccessAction" : "READ",
+                    "name" : "load",
+                    "getPSAppDEMethod" : {
+                      "modelref" : true,
+                      "id" : "get"
+                    },
+                    "getPSAppDataEntity" : {
+                      "modelref" : true,
+                      "path" : "PSSYSAPPS/ehrapp/PSAPPDATAENTITIES/resource_calendar_attendance.json"
+                    }
+                  }, {
+                    "actionName" : "Create",
+                    "actionType" : "DEACTION",
+                    "dataAccessAction" : "CREATE",
+                    "name" : "create",
+                    "getPSAppDEMethod" : {
+                      "modelref" : true,
+                      "id" : "create"
+                    },
+                    "getPSAppDataEntity" : {
+                      "modelref" : true,
+                      "path" : "PSSYSAPPS/ehrapp/PSAPPDATAENTITIES/resource_calendar_attendance.json"
+                    }
+                  }, {
+                    "actionName" : "Update",
+                    "actionType" : "DEACTION",
+                    "dataAccessAction" : "UPDATE",
+                    "name" : "update",
+                    "getPSAppDEMethod" : {
+                      "modelref" : true,
+                      "id" : "update"
+                    },
+                    "getPSAppDataEntity" : {
+                      "modelref" : true,
+                      "path" : "PSSYSAPPS/ehrapp/PSAPPDATAENTITIES/resource_calendar_attendance.json"
+                    }
+                  }, {
+                    "actionName" : "Remove",
+                    "actionType" : "DEACTION",
+                    "dataAccessAction" : "DELETE",
+                    "name" : "remove",
+                    "getPSAppDEMethod" : {
+                      "modelref" : true,
+                      "id" : "remove"
+                    },
+                    "getPSAppDataEntity" : {
+                      "modelref" : true,
+                      "path" : "PSSYSAPPS/ehrapp/PSAPPDATAENTITIES/resource_calendar_attendance.json"
+                    }
+                  }, {
+                    "actionName" : "GetDraft",
+                    "actionType" : "DEACTION",
+                    "dataAccessAction" : "CREATE",
+                    "name" : "loaddraft",
+                    "getPSAppDEMethod" : {
+                      "modelref" : true,
+                      "id" : "get_draft"
+                    },
+                    "getPSAppDataEntity" : {
+                      "modelref" : true,
+                      "path" : "PSSYSAPPS/ehrapp/PSAPPDATAENTITIES/resource_calendar_attendance.json"
+                    }
+                  }, {
+                    "actionType" : "DEDATASET",
+                    "name" : "fetch",
+                    "getPSAppDEMethod" : {
+                      "modelref" : true,
+                      "id" : "fetch_default"
+                    },
+                    "getPSAppDataEntity" : {
+                      "modelref" : true,
+                      "path" : "PSSYSAPPS/ehrapp/PSAPPDATAENTITIES/resource_calendar_attendance.json"
+                    }
+                  } ],
+                  "userDRAction" : "READ",
+                  "enableDEFieldPrivilege" : false,
+                  "id" : "数据表格处理器"
+                },
+                "getPSControlLogics" : [ {
+                  "eventNames" : "onMounted",
+                  "logicTag" : "grid",
+                  "logicType" : "SCRIPT",
+                  "name" : "logic_row_edit_open",
+                  "scriptCode" : "var gridCtrl = view.getCtrl(\"GRID\", \"grid\");\nif (gridCtrl) {\n  gridCtrl.state.rowEditOpen=true;\n}"
+                } ],
+                "getPSControlParam" : {
+                  "autoLoad" : true,
+                  "showBusyIndicator" : true,
+                  "id" : "GRID"
+                },
+                "getPSDEGridColumns" : [ {
+                  "align" : "LEFT",
+                  "cLConvertMode" : "NONE",
+                  "getCapPSLanguageRes" : {
+                    "lanResTag" : "DEF.LNAME.RESOURCE_CALENDAR_ATTENDANCE.NAME"
+                  },
+                  "caption" : "名称",
+                  "codeName" : "name",
+                  "columnType" : "DEFGRIDCOLUMN",
+                  "dataItemName" : "name",
+                  "excelCaption" : "名称",
+                  "name" : "name",
+                  "noPrivDisplayMode" : 1,
+                  "getPSAppDEField" : {
+                    "name" : "NAME",
+                    "codeName" : "name"
+                  },
+                  "width" : 300,
+                  "widthUnit" : "PX",
+                  "enableRowEdit" : true,
+                  "enableSort" : true
+                }, {
+                  "align" : "LEFT",
+                  "cLConvertMode" : "FRONT",
+                  "getCapPSLanguageRes" : {
+                    "lanResTag" : "DEF.LNAME.RESOURCE_CALENDAR_ATTENDANCE.DAYOFWEEK"
+                  },
+                  "caption" : "星期",
+                  "codeName" : "dayofweek",
+                  "columnType" : "DEFGRIDCOLUMN",
+                  "dataItemName" : "dayofweek",
+                  "excelCaption" : "星期",
+                  "name" : "dayofweek",
+                  "noPrivDisplayMode" : 1,
+                  "getPSAppCodeList" : {
+                    "modelref" : true,
+                    "path" : "PSSYSAPPS/ehrapp/PSAPPCODELISTS/resource__resource_calendar_attendance_dayofweek.json"
+                  },
+                  "getPSAppDEField" : {
+                    "name" : "DAYOFWEEK",
+                    "codeName" : "dayofweek"
+                  },
+                  "width" : 1,
+                  "widthUnit" : "STAR",
+                  "enableRowEdit" : true,
+                  "enableSort" : true
+                }, {
+                  "align" : "LEFT",
+                  "cLConvertMode" : "FRONT",
+                  "getCapPSLanguageRes" : {
+                    "lanResTag" : "DEF.LNAME.RESOURCE_CALENDAR_ATTENDANCE.DAY_PERIOD"
+                  },
+                  "caption" : "日期",
+                  "codeName" : "day_period",
+                  "columnType" : "DEFGRIDCOLUMN",
+                  "dataItemName" : "day_period",
+                  "excelCaption" : "日期",
+                  "name" : "day_period",
+                  "noPrivDisplayMode" : 1,
+                  "getPSAppCodeList" : {
+                    "modelref" : true,
+                    "path" : "PSSYSAPPS/ehrapp/PSAPPCODELISTS/resource__resource_calendar_attendance_day_period.json"
+                  },
+                  "getPSAppDEField" : {
+                    "name" : "DAY_PERIOD",
+                    "codeName" : "day_period"
+                  },
+                  "width" : 100,
+                  "widthUnit" : "PX",
+                  "enableRowEdit" : true,
+                  "enableSort" : true
+                }, {
+                  "align" : "LEFT",
+                  "cLConvertMode" : "NONE",
+                  "getCapPSLanguageRes" : {
+                    "lanResTag" : "DEF.LNAME.RESOURCE_CALENDAR_ATTENDANCE.HOUR_FROM"
+                  },
+                  "caption" : "工作起始",
+                  "codeName" : "hour_from",
+                  "columnType" : "DEFGRIDCOLUMN",
+                  "dataItemName" : "hour_from",
+                  "excelCaption" : "工作起始",
+                  "name" : "hour_from",
+                  "noPrivDisplayMode" : 1,
+                  "getPSAppDEField" : {
+                    "name" : "HOUR_FROM",
+                    "codeName" : "hour_from"
+                  },
+                  "width" : 200,
+                  "widthUnit" : "PX",
+                  "enableRowEdit" : true,
+                  "enableSort" : true
+                }, {
+                  "align" : "LEFT",
+                  "cLConvertMode" : "NONE",
+                  "getCapPSLanguageRes" : {
+                    "lanResTag" : "DEF.LNAME.RESOURCE_CALENDAR_ATTENDANCE.HOUR_TO"
+                  },
+                  "caption" : "工作截止",
+                  "codeName" : "hour_to",
+                  "columnType" : "DEFGRIDCOLUMN",
+                  "dataItemName" : "hour_to",
+                  "excelCaption" : "工作截止",
+                  "name" : "hour_to",
+                  "noPrivDisplayMode" : 1,
+                  "getPSAppDEField" : {
+                    "name" : "HOUR_TO",
+                    "codeName" : "hour_to"
+                  },
+                  "width" : 200,
+                  "widthUnit" : "PX",
+                  "enableRowEdit" : true,
+                  "enableSort" : true
+                }, {
+                  "align" : "LEFT",
+                  "cLConvertMode" : "NONE",
+                  "getCapPSLanguageRes" : {
+                    "lanResTag" : "DEF.LNAME.RESOURCE_CALENDAR_ATTENDANCE.DURATION_DAYS"
+                  },
+                  "caption" : "持续时间 (天)",
+                  "codeName" : "duration_days",
+                  "columnType" : "DEFGRIDCOLUMN",
+                  "dataItemName" : "duration_days",
+                  "excelCaption" : "持续时间 (天)",
+                  "hideMode" : 1,
+                  "name" : "duration_days",
+                  "noPrivDisplayMode" : 1,
+                  "getPSAppDEField" : {
+                    "name" : "DURATION_DAYS",
+                    "codeName" : "duration_days"
+                  },
+                  "width" : 200,
+                  "widthUnit" : "PX",
+                  "enableRowEdit" : true,
+                  "enableSort" : true,
+                  "hideDefault" : true
+                }, {
+                  "align" : "LEFT",
+                  "cLConvertMode" : "NONE",
+                  "getCapPSLanguageRes" : {
+                    "lanResTag" : "DEF.LNAME.RESOURCE_CALENDAR_ATTENDANCE.DATE_FROM"
+                  },
+                  "caption" : "起始日期",
+                  "codeName" : "date_from",
+                  "columnType" : "DEFGRIDCOLUMN",
+                  "dataItemName" : "date_from",
+                  "excelCaption" : "起始日期",
+                  "hideMode" : 1,
+                  "name" : "date_from",
+                  "noPrivDisplayMode" : 1,
+                  "getPSAppDEField" : {
+                    "name" : "DATE_FROM",
+                    "codeName" : "date_from"
+                  },
+                  "valueFormat" : "YYYY-MM-DD",
+                  "width" : 200,
+                  "widthUnit" : "PX",
+                  "enableRowEdit" : true,
+                  "enableSort" : true,
+                  "hideDefault" : true
+                }, {
+                  "align" : "LEFT",
+                  "cLConvertMode" : "NONE",
+                  "getCapPSLanguageRes" : {
+                    "lanResTag" : "DEF.LNAME.RESOURCE_CALENDAR_ATTENDANCE.DATE_TO"
+                  },
+                  "caption" : "结束日期",
+                  "codeName" : "date_to",
+                  "columnType" : "DEFGRIDCOLUMN",
+                  "dataItemName" : "date_to",
+                  "excelCaption" : "结束日期",
+                  "hideMode" : 1,
+                  "name" : "date_to",
+                  "noPrivDisplayMode" : 1,
+                  "getPSAppDEField" : {
+                    "name" : "DATE_TO",
+                    "codeName" : "date_to"
+                  },
+                  "valueFormat" : "YYYY-MM-DD",
+                  "width" : 200,
+                  "widthUnit" : "PX",
+                  "enableRowEdit" : true,
+                  "enableSort" : true,
+                  "hideDefault" : true
+                }, {
+                  "align" : "LEFT",
+                  "cLConvertMode" : "FRONT",
+                  "getCapPSLanguageRes" : {
+                    "lanResTag" : "DEF.LNAME.RESOURCE_CALENDAR_ATTENDANCE.WEEK_TYPE"
+                  },
+                  "caption" : "周数",
+                  "codeName" : "week_type",
+                  "columnType" : "DEFGRIDCOLUMN",
+                  "dataItemName" : "week_type",
+                  "excelCaption" : "周数",
+                  "hideMode" : 1,
+                  "name" : "week_type",
+                  "noPrivDisplayMode" : 1,
+                  "getPSAppCodeList" : {
+                    "modelref" : true,
+                    "path" : "PSSYSAPPS/ehrapp/PSAPPCODELISTS/resource__resource_calendar_attendance_week_type.json"
+                  },
+                  "getPSAppDEField" : {
+                    "name" : "WEEK_TYPE",
+                    "codeName" : "week_type"
+                  },
+                  "width" : 100,
+                  "widthUnit" : "PX",
+                  "enableRowEdit" : true,
+                  "enableSort" : true,
+                  "hideDefault" : true
+                } ],
+                "getPSDEGridDataItems" : [ {
+                  "dataType" : 25,
+                  "name" : "name",
+                  "getPSAppDEField" : {
+                    "name" : "NAME",
+                    "codeName" : "name"
+                  }
+                }, {
+                  "dataType" : 25,
+                  "name" : "dayofweek",
+                  "getPSAppDEField" : {
+                    "name" : "DAYOFWEEK",
+                    "codeName" : "dayofweek"
+                  }
+                }, {
+                  "dataType" : 25,
+                  "name" : "day_period",
+                  "getPSAppDEField" : {
+                    "name" : "DAY_PERIOD",
+                    "codeName" : "day_period"
+                  }
+                }, {
+                  "dataType" : 7,
+                  "name" : "hour_from",
+                  "getPSAppDEField" : {
+                    "name" : "HOUR_FROM",
+                    "codeName" : "hour_from"
+                  }
+                }, {
+                  "dataType" : 7,
+                  "name" : "hour_to",
+                  "getPSAppDEField" : {
+                    "name" : "HOUR_TO",
+                    "codeName" : "hour_to"
+                  }
+                }, {
+                  "dataType" : 7,
+                  "name" : "duration_days",
+                  "getPSAppDEField" : {
+                    "name" : "DURATION_DAYS",
+                    "codeName" : "duration_days"
+                  }
+                }, {
+                  "format" : "YYYY-MM-DD",
+                  "dataType" : 5,
+                  "name" : "date_from",
+                  "getPSAppDEField" : {
+                    "name" : "DATE_FROM",
+                    "codeName" : "date_from"
+                  }
+                }, {
+                  "format" : "YYYY-MM-DD",
+                  "dataType" : 5,
+                  "name" : "date_to",
+                  "getPSAppDEField" : {
+                    "name" : "DATE_TO",
+                    "codeName" : "date_to"
+                  }
+                }, {
+                  "dataType" : 25,
+                  "name" : "week_type",
+                  "getPSAppDEField" : {
+                    "name" : "WEEK_TYPE",
+                    "codeName" : "week_type"
+                  }
+                }, {
+                  "dataType" : 25,
+                  "name" : "srfkey",
+                  "getPSAppDEField" : {
+                    "name" : "ID",
+                    "codeName" : "id"
+                  }
+                }, {
+                  "dataType" : 25,
+                  "name" : "srfdataaccaction",
+                  "getPSAppDEField" : {
+                    "name" : "ID",
+                    "codeName" : "id"
+                  },
+                  "dataAccessAction" : true
+                }, {
+                  "dataType" : 25,
+                  "name" : "calendar_id",
+                  "getPSAppDEField" : {
+                    "name" : "CALENDAR_ID",
+                    "codeName" : "calendar_id"
+                  }
+                }, {
+                  "dataType" : 25,
+                  "name" : "resource_id",
+                  "getPSAppDEField" : {
+                    "name" : "RESOURCE_ID",
+                    "codeName" : "resource_id"
+                  }
+                }, {
+                  "dataType" : 25,
+                  "name" : "srfmajortext",
+                  "getPSAppDEField" : {
+                    "name" : "NAME",
+                    "codeName" : "name"
+                  }
+                } ],
+                "getPSDEGridEditItems" : [ {
+                  "caption" : "名称",
+                  "codeName" : "name",
+                  "enableCond" : 3,
+                  "ignoreInput" : 0,
+                  "name" : "name",
+                  "getPSAppDEField" : {
+                    "name" : "NAME",
+                    "codeName" : "name"
+                  },
+                  "getPSEditor" : {
+                    "editorType" : "TEXTBOX",
+                    "maxLength" : 200,
+                    "name" : "name"
+                  },
+                  "allowEmpty" : true
+                }, {
+                  "caption" : "星期",
+                  "codeName" : "dayofweek",
+                  "enableCond" : 3,
+                  "ignoreInput" : 0,
+                  "name" : "dayofweek",
+                  "getPSAppDEField" : {
+                    "name" : "DAYOFWEEK",
+                    "codeName" : "dayofweek"
+                  },
+                  "getPSEditor" : {
+                    "editorType" : "DROPDOWNLIST",
+                    "name" : "dayofweek",
+                    "getPSAppCodeList" : {
+                      "modelref" : true,
+                      "path" : "PSSYSAPPS/ehrapp/PSAPPCODELISTS/resource__resource_calendar_attendance_dayofweek.json"
+                    },
+                    "singleSelect" : true
+                  },
+                  "allowEmpty" : false,
+                  "needCodeListConfig" : true
+                }, {
+                  "caption" : "日期",
+                  "codeName" : "day_period",
+                  "enableCond" : 3,
+                  "ignoreInput" : 0,
+                  "name" : "day_period",
+                  "getPSAppDEField" : {
+                    "name" : "DAY_PERIOD",
+                    "codeName" : "day_period"
+                  },
+                  "getPSEditor" : {
+                    "editorType" : "DROPDOWNLIST",
+                    "name" : "day_period",
+                    "getPSAppCodeList" : {
+                      "modelref" : true,
+                      "path" : "PSSYSAPPS/ehrapp/PSAPPCODELISTS/resource__resource_calendar_attendance_day_period.json"
+                    },
+                    "singleSelect" : true
+                  },
+                  "allowEmpty" : false,
+                  "needCodeListConfig" : true
+                }, {
+                  "caption" : "工作起始",
+                  "codeName" : "hour_from",
+                  "enableCond" : 3,
+                  "ignoreInput" : 0,
+                  "name" : "hour_from",
+                  "getPSAppDEField" : {
+                    "name" : "HOUR_FROM",
+                    "codeName" : "hour_from"
+                  },
+                  "getPSEditor" : {
+                    "editorType" : "TEXTBOX",
+                    "name" : "hour_from"
+                  },
+                  "allowEmpty" : false
+                }, {
+                  "caption" : "工作截止",
+                  "codeName" : "hour_to",
+                  "enableCond" : 3,
+                  "ignoreInput" : 0,
+                  "name" : "hour_to",
+                  "getPSAppDEField" : {
+                    "name" : "HOUR_TO",
+                    "codeName" : "hour_to"
+                  },
+                  "getPSEditor" : {
+                    "editorType" : "TEXTBOX",
+                    "name" : "hour_to"
+                  },
+                  "allowEmpty" : false
+                }, {
+                  "caption" : "持续时间 (天)",
+                  "codeName" : "duration_days",
+                  "enableCond" : 3,
+                  "ignoreInput" : 0,
+                  "name" : "duration_days",
+                  "getPSAppDEField" : {
+                    "name" : "DURATION_DAYS",
+                    "codeName" : "duration_days"
+                  },
+                  "getPSEditor" : {
+                    "editorType" : "TEXTBOX",
+                    "name" : "duration_days"
+                  },
+                  "allowEmpty" : true
+                }, {
+                  "caption" : "起始日期",
+                  "codeName" : "date_from",
+                  "enableCond" : 3,
+                  "ignoreInput" : 0,
+                  "name" : "date_from",
+                  "getPSAppDEField" : {
+                    "name" : "DATE_FROM",
+                    "codeName" : "date_from"
+                  },
+                  "getPSEditor" : {
+                    "dateTimeFormat" : "YYYY-MM-DD",
+                    "editorParams" : {
+                      "TIMEFMT" : "YYYY-MM-DD"
+                    },
+                    "editorType" : "DATEPICKEREX_NOTIME",
+                    "name" : "date_from"
+                  },
+                  "allowEmpty" : true
+                }, {
+                  "caption" : "结束日期",
+                  "codeName" : "date_to",
+                  "enableCond" : 3,
+                  "ignoreInput" : 0,
+                  "name" : "date_to",
+                  "getPSAppDEField" : {
+                    "name" : "DATE_TO",
+                    "codeName" : "date_to"
+                  },
+                  "getPSEditor" : {
+                    "dateTimeFormat" : "YYYY-MM-DD",
+                    "editorParams" : {
+                      "TIMEFMT" : "YYYY-MM-DD"
+                    },
+                    "editorType" : "DATEPICKEREX_NOTIME",
+                    "name" : "date_to"
+                  },
+                  "allowEmpty" : true
+                }, {
+                  "caption" : "周数",
+                  "codeName" : "week_type",
+                  "enableCond" : 3,
+                  "ignoreInput" : 0,
+                  "name" : "week_type",
+                  "getPSAppDEField" : {
+                    "name" : "WEEK_TYPE",
+                    "codeName" : "week_type"
+                  },
+                  "getPSEditor" : {
+                    "editorType" : "DROPDOWNLIST",
+                    "name" : "week_type",
+                    "getPSAppCodeList" : {
+                      "modelref" : true,
+                      "path" : "PSSYSAPPS/ehrapp/PSAPPCODELISTS/resource__resource_calendar_attendance_week_type.json"
+                    },
+                    "singleSelect" : true
+                  },
+                  "allowEmpty" : true,
+                  "needCodeListConfig" : true
+                }, {
+                  "caption" : "标识",
+                  "codeName" : "srfkey",
+                  "enableCond" : 3,
+                  "ignoreInput" : 0,
+                  "name" : "srfkey",
+                  "getPSAppDEField" : {
+                    "name" : "ID",
+                    "codeName" : "id"
+                  },
+                  "getPSEditor" : {
+                    "editorType" : "HIDDEN",
+                    "name" : "srfkey"
+                  },
+                  "allowEmpty" : true
+                } ],
+                "pagingSize" : 20,
+                "getRemovePSControlAction" : {
+                  "actionName" : "Remove",
+                  "actionType" : "DEACTION",
+                  "dataAccessAction" : "DELETE",
+                  "name" : "remove",
+                  "getPSAppDEMethod" : {
+                    "modelref" : true,
+                    "id" : "remove"
+                  },
+                  "getPSAppDataEntity" : {
+                    "modelref" : true,
+                    "path" : "PSSYSAPPS/ehrapp/PSAPPDATAENTITIES/resource_calendar_attendance.json"
+                  }
+                },
+                "sortMode" : "REMOTE",
+                "getUpdatePSControlAction" : {
+                  "actionName" : "Update",
+                  "actionType" : "DEACTION",
+                  "dataAccessAction" : "UPDATE",
+                  "name" : "update",
+                  "getPSAppDEMethod" : {
+                    "modelref" : true,
+                    "id" : "update"
+                  },
+                  "getPSAppDataEntity" : {
+                    "modelref" : true,
+                    "path" : "PSSYSAPPS/ehrapp/PSAPPDATAENTITIES/resource_calendar_attendance.json"
+                  }
+                },
+                "hasWFDataItems" : false,
+                "enableColFilter" : false,
+                "enableCustomized" : true,
+                "enableGroup" : false,
+                "enablePagingBar" : false,
+                "enableRowEdit" : true,
+                "enableRowEditOrder" : true,
+                "enableRowNew" : true,
+                "forceFit" : false,
+                "hideHeader" : false,
+                "noSort" : false,
+                "singleSelect" : true,
+                "name" : "grid",
+                "modelid" : "60b7da8ec861e6df5d2b3f055260fa97",
+                "modeltype" : "PSDEGRID"
+              }, {
+                "codeName" : "grid_view_nestedtoolbar",
+                "controlType" : "TOOLBAR",
+                "logicName" : "工作细节实体表格视图(嵌套资源工作时间实体)_工具栏",
+                "name" : "toolbar",
+                "getPSAppDataEntity" : {
+                  "modelref" : true,
+                  "path" : "PSSYSAPPS/ehrapp/PSAPPDATAENTITIES/resource_calendar_attendance.json"
+                },
+                "getPSControlParam" : {
+                  "id" : "TOOLBAR"
+                },
+                "getPSDEToolbarItems" : [ {
+                  "caption" : "添加行",
+                  "groupExtractMode" : "ITEM",
+                  "itemType" : "DEUIACTION",
+                  "name" : "deuiaction1",
+                  "noPrivDisplayMode" : 2,
+                  "getPSAppViewUIAction" : {
+                    "modelref" : true,
+                    "id" : "toolbar_deuiaction1"
+                  },
+                  "getPSSysImage" : {
+                    "glyph" : "xf067@FontAwesome",
+                    "cssClass" : "fa fa-plus"
+                  },
+                  "getPSUIAction" : {
+                    "caption" : "新建行",
+                    "codeName" : "NewRow",
+                    "fullCodeName" : "NewRow",
+                    "name" : "表格界面_新建行",
+                    "getPSSysImage" : {
+                      "glyph" : "xf067@FontAwesome",
+                      "cssClass" : "fa fa-plus"
+                    },
+                    "predefinedType" : "GRIDVIEW_NEWROWACTION",
+                    "timeout" : 60000,
+                    "uIActionMode" : "SYS",
+                    "uIActionTag" : "NewRow",
+                    "uIActionType" : "DEUIACTION"
+                  },
+                  "tooltip" : "添加行",
+                  "showCaption" : true,
+                  "showIcon" : true
+                } ],
+                "xDataControlName" : "grid",
+                "modelid" : "d3efa0a306621715749a23d7a35fc649",
+                "modeltype" : "PSDETOOLBAR"
+              }, {
+                "codeName" : "Main2",
+                "controlType" : "SEARCHFORM",
+                "defaultLabelWidth" : 130,
+                "dynaModelFilePath" : "PSSYSAPPS/ehrapp/PSAPPDATAENTITIES/resource_calendar_attendance/PSSEARCHFORMS/Main2.json",
+                "logicName" : "工作细节实体表格视图(嵌套资源工作时间实体)_搜索表单",
+                "getPSAppDataEntity" : {
+                  "modelref" : true,
+                  "path" : "PSSYSAPPS/ehrapp/PSAPPDATAENTITIES/resource_calendar_attendance.json"
+                },
+                "getPSControlHandler" : {
+                  "getPSHandlerActions" : [ {
+                    "actionType" : "FILTERACTION",
+                    "name" : "load",
+                    "getPSAppDEMethod" : {
+                      "modelref" : true,
+                      "id" : "FilterGet"
+                    },
+                    "getPSAppDataEntity" : {
+                      "modelref" : true,
+                      "path" : "PSSYSAPPS/ehrapp/PSAPPDATAENTITIES/resource_calendar_attendance.json"
+                    }
+                  }, {
+                    "actionType" : "FILTERACTION",
+                    "name" : "loaddraft",
+                    "getPSAppDEMethod" : {
+                      "modelref" : true,
+                      "id" : "FilterGetDraft"
+                    },
+                    "getPSAppDataEntity" : {
+                      "modelref" : true,
+                      "path" : "PSSYSAPPS/ehrapp/PSAPPDATAENTITIES/resource_calendar_attendance.json"
+                    }
+                  }, {
+                    "actionType" : "FILTERACTION",
+                    "name" : "search",
+                    "getPSAppDEMethod" : {
+                      "modelref" : true,
+                      "id" : "FilterSearch"
+                    },
+                    "getPSAppDataEntity" : {
+                      "modelref" : true,
+                      "path" : "PSSYSAPPS/ehrapp/PSAPPDATAENTITIES/resource_calendar_attendance.json"
+                    }
+                  } ],
+                  "enableDEFieldPrivilege" : false,
+                  "id" : "搜索表单处理器"
+                },
+                "getPSControlParam" : {
+                  "autoLoad" : true,
+                  "showBusyIndicator" : true,
+                  "id" : "SEARCHFORM"
+                },
+                "getPSDEFormPages" : [ {
+                  "caption" : "常规条件",
+                  "codeName" : "formpage1",
+                  "detailStyle" : "DEFAULT",
+                  "detailType" : "FORMPAGE",
+                  "name" : "formpage1",
+                  "getPSLayout" : {
+                    "childColMD" : 24,
+                    "columnCount" : 24,
+                    "layout" : "TABLE_24COL"
+                  },
+                  "infoGroupMode" : false
+                } ],
+                "getPSLayout" : {
+                  "childColMD" : 24,
+                  "columnCount" : 24,
+                  "layout" : "TABLE_24COL"
+                },
+                "searchButtonStyle" : "DEFAULT",
+                "tabHeaderPos" : "TOP",
+                "enableAdvanceSearch" : false,
+                "enableAutoSearch" : false,
+                "enableFilterSave" : false,
+                "noTabHeader" : true,
+                "name" : "searchform",
+                "modelid" : "7492d79fc9eaa95c88f2c72f25c90f58",
+                "modeltype" : "PSDEFORM_SEARCHFORM"
+              }, {
+                "controlType" : "SEARCHBAR",
+                "name" : "searchbar",
+                "getPSAppDataEntity" : {
+                  "modelref" : true,
+                  "path" : "PSSYSAPPS/ehrapp/PSAPPDATAENTITIES/resource_calendar_attendance.json"
+                },
+                "getPSControlParam" : {
+                  "id" : "searchbar"
+                },
+                "quickGroupCount" : -1,
+                "quickSearchMode" : 0,
+                "quickSearchWidth" : 0,
+                "enableFilter" : false,
+                "enableGroup" : false,
+                "enableQuickSearch" : false,
+                "mobileSearchBar" : false
+              }, {
+                "getCapPSLanguageRes" : {
+                  "lanResTag" : "DE.LNAME.RESOURCE_CALENDAR_ATTENDANCE"
+                },
+                "caption" : "工作细节",
+                "codeName" : "grid_view_nestedcaptionbar",
+                "controlType" : "CAPTIONBAR",
+                "name" : "captionbar",
+                "getPSAppDataEntity" : {
+                  "modelref" : true,
+                  "path" : "PSSYSAPPS/ehrapp/PSAPPDATAENTITIES/resource_calendar_attendance.json"
+                },
+                "getPSControlParam" : { }
+              } ]
+            },
+            "title" : "工作细节",
+            "viewStyle" : "DEFAULT",
+            "viewType" : "DEGRIDVIEW",
+            "xDataControlName" : "grid",
+            "enableDP" : true,
+            "enableExport" : true,
+            "enableFilter" : true,
+            "enableImport" : true,
+            "enableRowEdit" : true,
+            "enableSearch" : true,
+            "rowEditDefault" : false,
+            "showCaptionBar" : false,
+            "modelid" : "e7a9014be4ef0a5fbf7c4f611932cd6f",
+            "modeltype" : "PSAPPDEVIEW"
+          },
+          "getPSDEFormItemUpdate" : {
+            "modelref" : true,
+            "id" : "update_hours_per_day"
+          },
+          "getPSLayoutPos" : {
+            "colMD" : 24,
+            "layout" : "TABLE_24COL"
+          },
+          "parentDataJO" : {
+            "SRFPARENTTYPE" : "DER1N",
+            "srfparentdename" : "RESOURCE_CALENDAR",
+            "srfparentmode" : "DER1N_RESOURCE_CALENDAR_ATTENDANCE_RESOURCE_CALENDAR_CALENDAR_ID",
+            "srfparentdefname" : "CALENDAR_ID",
+            "SRFDER1NID" : "DER1N_RESOURCE_CALENDAR_ATTENDANCE_RESOURCE_CALENDAR_CALENDAR_ID"
+          },
+          "needSave" : false,
+          "refreshItemsSetParamOnly" : false,
+          "showCaption" : true
+        } ],
+        "getPSLayout" : {
+          "childColMD" : 24,
+          "columnCount" : 24,
+          "layout" : "TABLE_24COL"
+        },
+        "infoGroupMode" : false,
+        "showCaption" : true
+      } ],
+      "getPSLayoutPos" : {
+        "colMD" : 24,
+        "layout" : "TABLE_24COL"
+      }
+    }, {
+      "getCapPSLanguageRes" : {
+        "lanResTag" : "DEF.LNAME.RESOURCE_CALENDAR.COMPANY_ID"
+      },
+      "caption" : "公司",
+      "codeName" : "company_id",
+      "dataType" : 25,
+      "detailStyle" : "DEFAULT",
+      "detailType" : "FORMITEM",
+      "enableCond" : 3,
+      "ignoreInput" : 0,
+      "labelPos" : "LEFT",
+      "labelWidth" : 130,
+      "name" : "company_id",
+      "noPrivDisplayMode" : 1,
+      "getPSAppDEField" : {
+        "name" : "COMPANY_ID",
+        "codeName" : "company_id"
+      },
+      "getPSEditor" : {
+        "editorType" : "HIDDEN",
+        "name" : "company_id"
+      },
+      "getPSLayoutPos" : {
+        "colMD" : 24,
+        "layout" : "TABLE_24COL"
+      },
+      "allowEmpty" : true,
+      "hidden" : true
+    }, {
+      "getCapPSLanguageRes" : {
+        "lanResTag" : "DEF.LNAME.RESOURCE_CALENDAR.ID"
+      },
+      "caption" : "标识",
+      "codeName" : "id",
+      "dataType" : 25,
+      "detailStyle" : "DEFAULT",
+      "detailType" : "FORMITEM",
+      "enableCond" : 3,
+      "ignoreInput" : 0,
+      "labelPos" : "LEFT",
+      "labelWidth" : 130,
+      "name" : "id",
+      "noPrivDisplayMode" : 1,
+      "getPSAppDEField" : {
+        "name" : "ID",
+        "codeName" : "id"
+      },
+      "getPSEditor" : {
+        "editorType" : "HIDDEN",
+        "name" : "id"
+      },
+      "getPSLayoutPos" : {
+        "colMD" : 24,
+        "layout" : "TABLE_24COL"
+      },
+      "allowEmpty" : true,
+      "hidden" : true
+    } ],
+    "getPSLayout" : {
+      "childColMD" : 24,
+      "columnCount" : 24,
+      "layout" : "TABLE_24COL"
+    },
+    "infoGroupMode" : false
+  } ],
+  "getPSLayout" : {
+    "childColMD" : 24,
+    "columnCount" : 24,
+    "layout" : "TABLE_24COL"
+  },
+  "getRemovePSControlAction" : {
+    "modelref" : true,
+    "id" : "remove",
+    "actionName" : "Remove",
+    "actionType" : "DEACTION",
+    "dataAccessAction" : "DELETE",
+    "name" : "remove",
+    "getPSAppDEMethod" : {
+      "modelref" : true,
+      "id" : "remove"
+    },
+    "getPSAppDataEntity" : {
+      "modelref" : true,
+      "path" : "PSSYSAPPS/ehrapp/PSAPPDATAENTITIES/resource_calendar.json"
+    }
+  },
+  "tabHeaderPos" : "TOP",
+  "getUpdatePSControlAction" : {
+    "modelref" : true,
+    "id" : "update",
+    "actionName" : "Update",
+    "actionType" : "DEACTION",
+    "dataAccessAction" : "UPDATE",
+    "name" : "update",
+    "getPSAppDEMethod" : {
+      "modelref" : true,
+      "id" : "update"
+    },
+    "getPSAppDataEntity" : {
+      "modelref" : true,
+      "path" : "PSSYSAPPS/ehrapp/PSAPPDATAENTITIES/resource_calendar.json"
+    }
+  },
+  "noTabHeader" : true,
+  "modelid" : "6d385f924a494c5b24b9e0813228f236",
+  "modeltype" : "PSDEFORM_EDITFORM"
+}

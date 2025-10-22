@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+    <definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:g="http://www.jboss.org/drools/flow/gpd" xmlns:tns="http://www.jboss.org/drools" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" expressionLanguage="http://www.mvel.org/2.0" id="Definition" name="" targetNamespace="http://www.jboss.org/drools" typeLanguage="http://www.java.com/javaTypes">
+        <process id="cn.ibizlab.core.attendance.service.logic.attendance_scheduleattendance_schedules" isClosed="false" isExecutable="true" name="attendance_attendance_schedule_attendance_schedules_ruleFlow" processType="Private" tns:packageName="cn.ibizlab.core.attendance.service.logic.attendance_scheduleattendance_schedules">
+            <extensionElements>
+                <tns:import name="java.util.Map" />
+                <tns:import name="org.springframework.util.StringUtils"/>
+                <tns:import name="cn.ibizlab.util.helper.RuleUtils"/>
+                                <tns:metaData express="" name="attendance_scheduleattendance_schedulesdefault" type="entity"/>
+                                <tns:metaData express="new cn.ibizlab.core.attendance.domain.attendance_schedule()" name="attendance_scheduleattendance_schedulesfilter" type="refentity"/>
+                                <tns:metaData express="new cn.ibizlab.core.attendance.domain.attendance_schedule()" name="attendance_scheduleattendance_schedulesattendance_schedules" type="refentity"/>
+                                <tns:metaData express="new cn.ibizlab.core.attendance.domain.attendance_schedule()" name="attendance_scheduleattendance_schedulesdata" type="refentity"/>
+                                <tns:metaData express="new cn.ibizlab.core.attendance.domain.attendance_schedule()" name="attendance_scheduleattendance_schedulestemp" type="refentity"/>
+                                    <tns:metaData express="T(cn.ibizlab.util.security.SpringContextHolder).getBean(T(cn.ibizlab.core.attendance.service.Iattendance_scheduleService))" name="attendance_scheduleservice" type="service"/>
+                    <tns:metaData express="T(cn.ibizlab.util.security.SpringContextHolder).getBean(T(cn.ibizlab.core.attendance.service.Iattendance_scheduleService))" name="iBzSysAttendance_scheduleDefaultService" type="service"/>
+                    <tns:metaData express="T(cn.ibizlab.util.security.AuthenticationUser).getAuthenticationUser()" name="curuser" type="session"/>
+                            <tns:global identifier="attendance_scheduleattendance_schedulesdefault" type="cn.ibizlab.core.attendance.domain.attendance_schedule" />
+                            <tns:global identifier="attendance_scheduleattendance_schedulesfilter" type="cn.ibizlab.core.attendance.domain.attendance_schedule" />
+                            <tns:global identifier="attendance_scheduleattendance_schedulesattendance_schedules" type="cn.ibizlab.core.attendance.domain.attendance_schedule" />
+                            <tns:global identifier="attendance_scheduleattendance_schedulesdata" type="cn.ibizlab.core.attendance.domain.attendance_schedule" />
+                            <tns:global identifier="attendance_scheduleattendance_schedulestemp" type="cn.ibizlab.core.attendance.domain.attendance_schedule" />
+            </extensionElements>
+                        <startEvent id="begin" isInterrupting="true"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="attendance_scheduleattendance_schedulesdedataset_01" id="dedataset_01" implementation="http://www.jboss.org/drools/rule" name="实体数据集"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="attendance_scheduleattendance_schedulesloopsubcall_01" id="loopsubcall_01" implementation="http://www.jboss.org/drools/rule" name="循环子调用"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="attendance_scheduleattendance_schedulesend_01" id="end_01" implementation="http://www.jboss.org/drools/rule" name="结束"/>
+                        <endEvent id="end_01_end" name="end"/>
+                        <sequenceFlow id="end_01_end_line" sourceRef="end_01" targetRef="end_01_end"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="attendance_scheduleattendance_schedulesprepareparam_01" id="prepareparam_01" implementation="http://www.jboss.org/drools/rule" name="准备参数"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="attendance_scheduleattendance_schedulesdedataset_02" id="dedataset_02" implementation="http://www.jboss.org/drools/rule" name="实体数据集"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="attendance_scheduleattendance_schedulesprepareparam_02" id="prepareparam_02" implementation="http://www.jboss.org/drools/rule" name="准备参数"/>
+                        <endEvent id="prepareparam_02_end" name="end"/>
+                        <sequenceFlow id="prepareparam_02_end_line" sourceRef="prepareparam_02" targetRef="prepareparam_02_end"/>
+                    <sequenceFlow id="begin_dedataset_01" sourceRef="begin" targetRef="dedataset_01">
+                    </sequenceFlow>
+                    <sequenceFlow id="dedataset_01_loopsubcall_01" sourceRef="dedataset_01" targetRef="loopsubcall_01">
+                    </sequenceFlow>
+                    <sequenceFlow id="loopsubcall_01_prepareparam_01" sourceRef="loopsubcall_01" targetRef="prepareparam_01">
+                    </sequenceFlow>
+                    <sequenceFlow id="loopsubcall_01_end_01" sourceRef="loopsubcall_01" targetRef="end_01">
+                    </sequenceFlow>
+                    <sequenceFlow id="prepareparam_01_dedataset_02" sourceRef="prepareparam_01" targetRef="dedataset_02">
+                    </sequenceFlow>
+                    <sequenceFlow id="dedataset_02_prepareparam_02" sourceRef="dedataset_02" targetRef="prepareparam_02">
+                    </sequenceFlow>
+        </process>
+    </definitions>

@@ -1,0 +1,67 @@
+export default {
+  funcViewMode: 'PICKUPVIEW',
+  deviewCodeName: 'PickupView',
+  deviewId: 'acde771b72393dd55477bd837aa20bc9',
+  accUserMode: 2,
+  capLanguageRes: {
+    lanResTag: 'DE.LNAME.HR_APPLICANT',
+  },
+  caption: '候选人申请',
+  codeName: 'hr_applicant_pickup_view',
+  appDataEntityId: 'web.hr_applicant',
+  appViewEngines: [
+    {
+      engineCat: 'VIEW',
+      engineType: 'PickupView',
+      id: 'engine',
+    },
+  ],
+  controls: [
+    {
+      embeddedAppDEViewId: 'web.hr_applicant_pickup_grid_view',
+      codeName: 'pickup_view_pickupviewpanel',
+      controlType: 'PICKUPVIEWPANEL',
+      appDataEntityId: 'web.hr_applicant',
+      controlParam: {
+        id: 'pickupviewpanel',
+      },
+      name: 'pickupviewpanel',
+      id: 'pickup_view_pickupviewpanel',
+    },
+    {
+      capLanguageRes: {
+        lanResTag: 'DE.LNAME.HR_APPLICANT',
+      },
+      caption: '候选人申请',
+      codeName: 'pickup_view_captionbar',
+      controlType: 'CAPTIONBAR',
+      appDataEntityId: 'web.hr_applicant',
+      controlParam: {},
+      name: 'captionbar',
+      id: 'pickup_view_captionbar',
+    },
+  ],
+  viewLayoutPanel: {
+    layoutBodyOnly: true,
+    useDefaultLayout: true,
+    layoutPanel: true,
+    codeName: 'layoutpanel',
+    controlStyle: 'APPDEPICKUPVIEW',
+    controlType: 'VIEWLAYOUTPANEL',
+    appDataEntityId: 'web.hr_applicant',
+    controlParam: {},
+    id: 'layoutpanel',
+  },
+  title: '候选人申请数据选择视图',
+  titleLanguageRes: {
+    lanResTag: 'PAGE.TITLE.HR_APPLICANT.PICKUPVIEW',
+  },
+  viewStyle: 'DEFAULT',
+  viewType: 'DEPICKUPVIEW',
+  enableDP: true,
+  showCaptionBar: false,
+  modelId: '6245509284e8d10c3efc61db51066935',
+  modelType: 'PSAPPDEVIEW',
+  name: 'hr_applicantPickupView',
+  id: 'web.hr_applicant_pickup_view',
+};

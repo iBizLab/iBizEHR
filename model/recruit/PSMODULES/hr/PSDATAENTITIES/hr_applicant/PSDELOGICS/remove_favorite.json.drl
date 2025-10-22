@@ -1,0 +1,105 @@
+package cn.ibizlab.hr.logic.hr_applicantlogic.remove_favorite;
+        import java.util.Map;
+        import java.util.HashMap;
+        import com.alibaba.fastjson.JSONObject;
+        import org.springframework.util.StringUtils;
+        import org.springframework.util.ObjectUtils;
+        import cn.ibizlab.util.errors.BadRequestAlertException;
+                global cn.ibizlab.core.hr.domain.hr_applicant hr_applicantremove_favoritedefault;
+                global cn.ibizlab.core.base.domain.favorite hr_applicantremove_favoritefavorite;
+                global cn.ibizlab.core.base.domain.favorite hr_applicantremove_favoritefavorite_file;
+                global cn.ibizlab.core.base.domain.favorite hr_applicantremove_favoritefavorite_list;
+                    global cn.ibizlab.core.base.service.IfavoriteService favoriteservice;
+        global cn.ibizlab.core.hr.service.Ihr_applicantService iBzSysHr_applicantDefaultService;
+        global cn.ibizlab.util.security.AuthenticationUser curuser;
+
+
+    no-loop
+
+            //逻辑处理节点[开始]
+            rule "begin"
+            ruleflow-group "hr_applicantremove_favoritebegin"
+            when
+            then
+            end
+
+            //逻辑处理节点[准备参数]
+            rule "prepareparam1"
+            ruleflow-group "hr_applicantremove_favoriteprepareparam1"
+            when
+            then
+                                hr_applicantremove_favoritefavorite_file.set("n_create_man_eq",curuser.getSessionParams().get("srfuserid"));
+                            hr_applicantremove_favoritefavorite_file.set("n_owner_id_eq",hr_applicantremove_favoritedefault.get("id"));
+                            hr_applicantremove_favoritefavorite_file.set("n_owner_type_eq","hr_applicant");
+                        update(hr_applicantremove_favoritedefault);//更新fact中变量值
+                        update(hr_applicantremove_favoritefavorite);//更新fact中变量值
+                        update(hr_applicantremove_favoritefavorite_file);//更新fact中变量值
+                        update(hr_applicantremove_favoritefavorite_list);//更新fact中变量值
+            end
+
+            //逻辑处理节点[调试逻辑参数]
+            rule "debugparam2"
+            ruleflow-group "hr_applicantremove_favoritedebugparam2"
+            when
+            then
+                        update(hr_applicantremove_favoritedefault);//更新fact中变量值
+                        update(hr_applicantremove_favoritefavorite);//更新fact中变量值
+                        update(hr_applicantremove_favoritefavorite_file);//更新fact中变量值
+                        update(hr_applicantremove_favoritefavorite_list);//更新fact中变量值
+            end
+
+            //逻辑处理节点[结束]
+            rule "end1"
+            ruleflow-group "hr_applicantremove_favoriteend1"
+            when
+            then
+                        update(hr_applicantremove_favoritedefault);//更新fact中变量值
+                        update(hr_applicantremove_favoritefavorite);//更新fact中变量值
+                        update(hr_applicantremove_favoritefavorite_file);//更新fact中变量值
+                        update(hr_applicantremove_favoritefavorite_list);//更新fact中变量值
+            end
+
+            //逻辑处理节点[实体数据查询]
+            rule "dedataquery1"
+            ruleflow-group "hr_applicantremove_favoritededataquery1"
+            when
+            then
+                        update(hr_applicantremove_favoritedefault);//更新fact中变量值
+                        update(hr_applicantremove_favoritefavorite);//更新fact中变量值
+                        update(hr_applicantremove_favoritefavorite_file);//更新fact中变量值
+                        update(hr_applicantremove_favoritefavorite_list);//更新fact中变量值
+            end
+
+            //逻辑处理节点[调试逻辑参数******]
+            rule "debugparam1"
+            ruleflow-group "hr_applicantremove_favoritedebugparam1"
+            when
+            then
+                        update(hr_applicantremove_favoritedefault);//更新fact中变量值
+                        update(hr_applicantremove_favoritefavorite);//更新fact中变量值
+                        update(hr_applicantremove_favoritefavorite_file);//更新fact中变量值
+                        update(hr_applicantremove_favoritefavorite_list);//更新fact中变量值
+            end
+
+            //逻辑处理节点[实体行为]
+            rule "deaction1"
+            ruleflow-group "hr_applicantremove_favoritedeaction1"
+            when
+            then
+                        favoriteservice.remove(hr_applicantremove_favoritefavorite_list.getId());
+                        update(hr_applicantremove_favoritedefault);//更新fact中变量值
+                        update(hr_applicantremove_favoritefavorite);//更新fact中变量值
+                        update(hr_applicantremove_favoritefavorite_file);//更新fact中变量值
+                        update(hr_applicantremove_favoritefavorite_list);//更新fact中变量值
+            end
+
+            //逻辑处理节点[执行脚本代码]
+            rule "rawsfcode1"
+            ruleflow-group "hr_applicantremove_favoriterawsfcode1"
+            when
+            then
+                        update(hr_applicantremove_favoritedefault);//更新fact中变量值
+                        update(hr_applicantremove_favoritefavorite);//更新fact中变量值
+                        update(hr_applicantremove_favoritefavorite_file);//更新fact中变量值
+                        update(hr_applicantremove_favoritefavorite_list);//更新fact中变量值
+            end

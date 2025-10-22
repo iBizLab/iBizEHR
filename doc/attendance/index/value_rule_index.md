@@ -1,0 +1,50 @@
+# 属性值规则 <!-- {docsify-ignore-all} -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## [出勤(HR_ATTENDANCE)](module/hr/hr_attendance.md)  :id=hr_attendance
+
+<p class="panel-title"><b>签离(CHECK_OUT)</b></p>
+
+* [变更校验](module/hr/hr_attendance/value_rule/check_out#check_validity)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

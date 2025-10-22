@@ -1,0 +1,187 @@
+{
+  "codeName" : "get_info",
+  "defaultParamName" : "Default",
+  "dynaModelFilePath" : "PSMODULES/hr/PSDATAENTITIES/hr_candidate_filter/PSDELOGICS/get_info.json",
+  "logicName" : "获取信息",
+  "name" : "获取信息",
+  "getPSDELogicNodes" : [ {
+    "codeName" : "Begin",
+    "leftPos" : 200,
+    "logicNodeType" : "BEGIN",
+    "name" : "开始",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "PREPAREPARAM1"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "Begin"
+      }
+    } ],
+    "topPos" : 200,
+    "parallelOutput" : true
+  }, {
+    "codeName" : "PREPAREPARAM1",
+    "leftPos" : 410,
+    "logicNodeType" : "PREPAREPARAM",
+    "name" : "设置过滤器参数",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "DEDATASET1"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "PREPAREPARAM1"
+      }
+    } ],
+    "getPSDELogicNodeParams" : [ {
+      "dstFieldName" : "N_APPLICANT_ID_EQ",
+      "getDstPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "filter"
+      },
+      "name" : "Default[ID] ==> filter[N_APPLICANT_ID_EQ]",
+      "paramAction" : "SETPARAMVALUE",
+      "srcFieldName" : "ID",
+      "getSrcPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "Default"
+      },
+      "srcValueType" : "SRCDLPARAM"
+    } ],
+    "topPos" : 290
+  }, {
+    "codeName" : "DEDATASET1",
+    "getDstPSDEDataSet" : {
+      "modelref" : true,
+      "id" : "Default"
+    },
+    "getDstPSDELogicParam" : {
+      "modelref" : true,
+      "id" : "filter"
+    },
+    "getDstPSDataEntity" : {
+      "modelref" : true,
+      "path" : "PSMODULES/hr/PSDATAENTITIES/hr_candidate_filter.json"
+    },
+    "leftPos" : 420,
+    "logicNodeType" : "DEDATASET",
+    "name" : "获取数据",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "PREPAREPARAM2"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "DEDATASET1"
+      }
+    } ],
+    "getRetPSDELogicParam" : {
+      "modelref" : true,
+      "id" : "list"
+    },
+    "topPos" : 420
+  }, {
+    "code" : "def _default = logic.param('Default').getReal()\r\nprintln \" _default ${_default}\"\r\n\r\n\r\ndef hr_candidate_filter = logic.param('filter').getReal()\r\n\r\nString applicant_id = _default.get('id')\r\n\r\ndef hrCandidateFilterRuntime = sys.dataentity('hr_candidate_filter')\r\n\r\n\r\ndef filter = hrCandidateFilterRuntime.filter()\r\nfilter.eq('applicant_id', applicant_id)\r\nhr_candidate_filter = hrCandidateFilterRuntime.selectOne(filter) as IEntityDTO\r\n\r\nprintln \"${hr_candidate_filter}\"\r\n",
+    "codeName" : "RAWSFCODE1",
+    "codeType" : "Groovy",
+    "leftPos" : 970,
+    "logicNodeType" : "RAWSFCODE",
+    "name" : "执行脚本代码",
+    "topPos" : 500
+  }, {
+    "codeName" : "PREPAREPARAM2",
+    "leftPos" : 440,
+    "logicNodeType" : "PREPAREPARAM",
+    "name" : "赋值",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "END1"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "PREPAREPARAM2"
+      }
+    } ],
+    "getPSDELogicNodeParams" : [ {
+      "dstFieldName" : "HR_CANDIDATE_FILTER",
+      "getDstPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "Default"
+      },
+      "name" : "list[0] ==> Default[HR_CANDIDATE_FILTER]",
+      "paramAction" : "SETPARAMVALUE",
+      "srcFieldName" : "0",
+      "getSrcPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "list"
+      },
+      "srcValueType" : "SRCDLPARAM"
+    } ],
+    "topPos" : 570
+  }, {
+    "codeName" : "END1",
+    "dstFieldName" : "HR_CANDIDATE_FILTER",
+    "leftPos" : 200,
+    "logicNodeType" : "END",
+    "name" : "结束",
+    "getReturnParam" : {
+      "modelref" : true,
+      "id" : "Default"
+    },
+    "returnType" : "LOGICPARAMFIELD",
+    "topPos" : 665
+  } ],
+  "getPSDELogicParams" : [ {
+    "codeName" : "Default",
+    "logicName" : "传入变量",
+    "name" : "传入变量",
+    "getParamPSDataEntity" : {
+      "modelref" : true,
+      "path" : "PSMODULES/hr/PSDATAENTITIES/hr_candidate_filter.json"
+    },
+    "default" : true,
+    "entityParam" : true
+  }, {
+    "codeName" : "HR_CANDIDATE_FILTER",
+    "logicName" : "HR_CANDIDATE_FILTER",
+    "name" : "HR_CANDIDATE_FILTER",
+    "getParamPSDataEntity" : {
+      "modelref" : true,
+      "path" : "PSMODULES/hr/PSDATAENTITIES/hr_candidate_filter.json"
+    },
+    "entityParam" : true
+  }, {
+    "codeName" : "filter",
+    "logicName" : "filter",
+    "name" : "filter",
+    "getParamPSDataEntity" : {
+      "modelref" : true,
+      "path" : "PSMODULES/hr/PSDATAENTITIES/hr_candidate_filter.json"
+    },
+    "filterParam" : true
+  }, {
+    "codeName" : "list",
+    "logicName" : "list",
+    "name" : "list",
+    "getParamPSDataEntity" : {
+      "modelref" : true,
+      "path" : "PSMODULES/hr/PSDATAENTITIES/hr_candidate_filter.json"
+    },
+    "entityPageParam" : true
+  } ],
+  "getStartPSDELogicNode" : {
+    "modelref" : true,
+    "id" : "Begin"
+  },
+  "enableBackend" : true,
+  "enableFront" : false
+}

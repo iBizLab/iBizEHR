@@ -1,0 +1,78 @@
+@include b(local-version-item) {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: getCssVar('spacing', 'base');
+    border-bottom: 1px solid getCssVar('color', 'border');
+
+    @include e(popover) {
+        #{getCssVarName(color, bg, 1)}: getCssVar(color, bg, 3);
+    }
+    @include when('active'){
+     background-color: getCssVar(color, bg, 3);
+    }
+}
+
+@include b(local-version-item-left-top){
+    display: flex;
+    align-items: center;
+    padding: 0 getCssVar('spacing', 'base');
+    font-size: getCssVar('font-size', 'header-6');
+    font-weight: getCssVar('font-weight', 'bold');
+    line-height: getCssVar(height, control, default);
+
+    ion-icon {
+        width: getCssVar('font-size', 'header-5');
+        height: getCssVar('font-size', 'header-5');
+        margin-left: getCssVar('spacing', 'tight');
+        cursor: pointer;
+    }
+}
+
+@include b(local-version-item-left-bottom){
+    display: flex;
+    gap: getCssVar('spacing', 'base');
+    padding: getCssVar('spacing', 'base');
+    font-size: getCssVar('font-size', 'regular');
+    font-weight: getCssVar('font-weight', 'regular');
+}
+
+@include b(local-version-item-right) {
+    .el-button {
+        ion-icon {
+            width: getCssVar(width, icon, medium);
+            height: getCssVar(width, icon, medium);
+            margin-right: getCssVar('spacing', 'extra', 'tight');
+        }
+
+        @include when('hidden'){
+            display: none;
+        }
+    }
+}
+
+@include b(local-version-item-actions) {
+    display: flex;
+    flex-direction: column;
+    gap: getCssVar('spacing', 'extra', 'tight');
+    align-items: flex-start;
+
+    >div {
+        display: flex;
+        align-items: center;
+        width: 100%;
+        padding: 0 getCssVar('spacing', 'tight');
+        line-height: getCssVar(height, control, default);
+        cursor: pointer;
+
+        ion-icon {
+            width: getCssVar(width, icon, medium);
+            height: getCssVar(width, icon, medium);
+            margin-right: getCssVar('spacing', 'extra', 'tight');
+        }
+
+        &:hover {
+            background-color: getCssVar(color, fill, 0);
+        }
+    }
+}

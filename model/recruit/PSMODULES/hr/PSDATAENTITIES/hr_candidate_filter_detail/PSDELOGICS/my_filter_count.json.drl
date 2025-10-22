@@ -1,0 +1,98 @@
+package cn.ibizlab.hr.logic.hr_candidate_filter_detaillogic.my_filter_count;
+        import java.util.Map;
+        import java.util.HashMap;
+        import com.alibaba.fastjson.JSONObject;
+        import org.springframework.util.StringUtils;
+        import org.springframework.util.ObjectUtils;
+        import cn.ibizlab.util.errors.BadRequestAlertException;
+                global cn.ibizlab.core.hr.domain.hr_candidate_filter_detail hr_candidate_filter_detailmy_filter_countdefault;
+                global java.util.Map hr_candidate_filter_detailmy_filter_countresult;
+        global cn.ibizlab.core.hr.service.Ihr_candidate_filter_detailService iBzSysHr_candidate_filter_detailDefaultService;
+        global cn.ibizlab.util.security.AuthenticationUser curuser;
+
+
+    no-loop
+
+            //逻辑处理节点[开始]
+            rule "begin"
+            ruleflow-group "hr_candidate_filter_detailmy_filter_countbegin"
+            when
+            then
+            end
+
+            //逻辑处理节点[待筛选的候选人]
+            rule "rawsqlcall_01"
+            ruleflow-group "hr_candidate_filter_detailmy_filter_countrawsqlcall_01"
+            when
+            then
+    Map param =new HashMap();
+        param.put("param0",curuser.getSessionParams().get("srfuserid"));
+    String strSql="SELECT COUNT(1) as todo FROM hr_candidate_filter_detail hcfd where hcfd.status = 1 and hcfd.USER_ID = #{et.param0}";
+                        java.util.List<JSONObject> entities=iBzSysHr_candidate_filter_detailDefaultService.select(strSql,param);//SQL调用
+                            if(entities.size()>0){
+                            JSONObject entity=entities.get(0);
+                                hr_candidate_filter_detailmy_filter_countresult.putAll(entity);
+                            }
+                        update(hr_candidate_filter_detailmy_filter_countdefault);//更新fact中变量值
+                        update(hr_candidate_filter_detailmy_filter_countresult);//更新fact中变量值
+            end
+
+            //逻辑处理节点[可面试的候选人]
+            rule "rawsqlcall_02"
+            ruleflow-group "hr_candidate_filter_detailmy_filter_countrawsqlcall_02"
+            when
+            then
+    Map param =new HashMap();
+        param.put("param0",curuser.getSessionParams().get("srfuserid"));
+    String strSql="SELECT COUNT(1) as doing FROM hr_candidate_filter_detail hcfd where hcfd.status = 4 and hcfd.USER_ID = #{et.param0}";
+                        java.util.List<JSONObject> entities=iBzSysHr_candidate_filter_detailDefaultService.select(strSql,param);//SQL调用
+                            if(entities.size()>0){
+                            JSONObject entity=entities.get(0);
+                                hr_candidate_filter_detailmy_filter_countresult.putAll(entity);
+                            }
+                        update(hr_candidate_filter_detailmy_filter_countdefault);//更新fact中变量值
+                        update(hr_candidate_filter_detailmy_filter_countresult);//更新fact中变量值
+            end
+
+            //逻辑处理节点[已推荐的候选人]
+            rule "rawsqlcall_03"
+            ruleflow-group "hr_candidate_filter_detailmy_filter_countrawsqlcall_03"
+            when
+            then
+    Map param =new HashMap();
+        param.put("param0",curuser.getSessionParams().get("srfuserid"));
+    String strSql="SELECT COUNT(1) as recommend FROM hr_candidate_filter_detail hcfd where hcfd.status = 4  and hcfd.USER_ID = #{et.param0}";
+                        java.util.List<JSONObject> entities=iBzSysHr_candidate_filter_detailDefaultService.select(strSql,param);//SQL调用
+                            if(entities.size()>0){
+                            JSONObject entity=entities.get(0);
+                                hr_candidate_filter_detailmy_filter_countresult.putAll(entity);
+                            }
+                        update(hr_candidate_filter_detailmy_filter_countdefault);//更新fact中变量值
+                        update(hr_candidate_filter_detailmy_filter_countresult);//更新fact中变量值
+            end
+
+            //逻辑处理节点[筛选记录]
+            rule "rawsqlcall_04"
+            ruleflow-group "hr_candidate_filter_detailmy_filter_countrawsqlcall_04"
+            when
+            then
+    Map param =new HashMap();
+        param.put("param0",curuser.getSessionParams().get("srfuserid"));
+    String strSql="SELECT COUNT(1) as done FROM hr_candidate_filter_detail hcfd where hcfd.status <> 1 and  hcfd.STATUS  is not null  and hcfd.USER_ID = #{et.param0}";
+                        java.util.List<JSONObject> entities=iBzSysHr_candidate_filter_detailDefaultService.select(strSql,param);//SQL调用
+                            if(entities.size()>0){
+                            JSONObject entity=entities.get(0);
+                                hr_candidate_filter_detailmy_filter_countresult.putAll(entity);
+                            }
+                        update(hr_candidate_filter_detailmy_filter_countdefault);//更新fact中变量值
+                        update(hr_candidate_filter_detailmy_filter_countresult);//更新fact中变量值
+            end
+
+            //逻辑处理节点[结束]
+            rule "end_01"
+            ruleflow-group "hr_candidate_filter_detailmy_filter_countend_01"
+            when
+            then
+                        update(hr_candidate_filter_detailmy_filter_countdefault);//更新fact中变量值
+                        update(hr_candidate_filter_detailmy_filter_countresult);//更新fact中变量值
+            end

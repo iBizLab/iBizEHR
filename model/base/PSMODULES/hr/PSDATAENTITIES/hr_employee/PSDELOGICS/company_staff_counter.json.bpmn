@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+    <definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:g="http://www.jboss.org/drools/flow/gpd" xmlns:tns="http://www.jboss.org/drools" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" expressionLanguage="http://www.mvel.org/2.0" id="Definition" name="" targetNamespace="http://www.jboss.org/drools" typeLanguage="http://www.java.com/javaTypes">
+        <process id="cn.ibizlab.core.hr.service.logic.hr_employeecompany_staff_counter" isClosed="false" isExecutable="true" name="hr_hr_employee_company_staff_counter_ruleFlow" processType="Private" tns:packageName="cn.ibizlab.core.hr.service.logic.hr_employeecompany_staff_counter">
+            <extensionElements>
+                <tns:import name="java.util.Map" />
+                <tns:import name="org.springframework.util.StringUtils"/>
+                <tns:import name="cn.ibizlab.util.helper.RuleUtils"/>
+                                <tns:metaData express="" name="hr_employeecompany_staff_counterdefault" type="entity"/>
+                                <tns:metaData express="new cn.ibizlab.core.hr.domain.hr_employee()" name="hr_employeecompany_staff_counterempfilter" type="refentity"/>
+                                <tns:metaData express="new cn.ibizlab.core.hr.domain.hr_employee()" name="hr_employeecompany_staff_counteremps" type="refentity"/>
+                                    <tns:metaData express="T(cn.ibizlab.util.security.SpringContextHolder).getBean(T(cn.ibizlab.core.hr.service.Ihr_employeeService))" name="hr_employeeservice" type="service"/>
+                    <tns:metaData express="T(cn.ibizlab.util.security.SpringContextHolder).getBean(T(cn.ibizlab.core.hr.service.Ihr_employeeService))" name="iBzSysHr_employeeDefaultService" type="service"/>
+                    <tns:metaData express="T(cn.ibizlab.util.security.AuthenticationUser).getAuthenticationUser()" name="curuser" type="session"/>
+                            <tns:global identifier="hr_employeecompany_staff_counterdefault" type="cn.ibizlab.core.hr.domain.hr_employee" />
+                            <tns:global identifier="hr_employeecompany_staff_counterempfilter" type="cn.ibizlab.core.hr.domain.hr_employee" />
+                            <tns:global identifier="hr_employeecompany_staff_counteremps" type="cn.ibizlab.core.hr.domain.hr_employee" />
+            </extensionElements>
+                        <startEvent id="begin" isInterrupting="true"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="hr_employeecompany_staff_counterdedataquery_01" id="dedataquery_01" implementation="http://www.jboss.org/drools/rule" name="实体数据查询"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="hr_employeecompany_staff_counterprepareparam_01" id="prepareparam_01" implementation="http://www.jboss.org/drools/rule" name="准备参数"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="hr_employeecompany_staff_counterdebugparam_01" id="debugparam_01" implementation="http://www.jboss.org/drools/rule" name="查看default的值"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="hr_employeecompany_staff_counterprepareparam_02" id="prepareparam_02" implementation="http://www.jboss.org/drools/rule" name="准备参数"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="hr_employeecompany_staff_counterend_01" id="end_01" implementation="http://www.jboss.org/drools/rule" name="结束"/>
+                        <endEvent id="end_01_end" name="end"/>
+                        <sequenceFlow id="end_01_end_line" sourceRef="end_01" targetRef="end_01_end"/>
+                    <sequenceFlow id="begin_debugparam_01" sourceRef="begin" targetRef="debugparam_01">
+                    </sequenceFlow>
+                    <sequenceFlow id="dedataquery_01_prepareparam_02" sourceRef="dedataquery_01" targetRef="prepareparam_02">
+                    </sequenceFlow>
+                    <sequenceFlow id="prepareparam_01_dedataquery_01" sourceRef="prepareparam_01" targetRef="dedataquery_01">
+                    </sequenceFlow>
+                    <sequenceFlow id="debugparam_01_prepareparam_01" sourceRef="debugparam_01" targetRef="prepareparam_01">
+                    </sequenceFlow>
+                    <sequenceFlow id="prepareparam_02_end_01" sourceRef="prepareparam_02" targetRef="end_01">
+                    </sequenceFlow>
+        </process>
+    </definitions>

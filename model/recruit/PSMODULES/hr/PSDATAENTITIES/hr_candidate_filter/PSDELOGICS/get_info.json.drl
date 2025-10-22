@@ -1,0 +1,81 @@
+package cn.ibizlab.hr.logic.hr_candidate_filterlogic.get_info;
+        import java.util.Map;
+        import java.util.HashMap;
+        import com.alibaba.fastjson.JSONObject;
+        import org.springframework.util.StringUtils;
+        import org.springframework.util.ObjectUtils;
+        import cn.ibizlab.util.errors.BadRequestAlertException;
+                global cn.ibizlab.core.hr.domain.hr_candidate_filter hr_candidate_filterget_infodefault;
+                global cn.ibizlab.core.hr.domain.hr_candidate_filter hr_candidate_filterget_infohr_candidate_filter;
+                global cn.ibizlab.core.hr.domain.hr_candidate_filter hr_candidate_filterget_infofilter;
+                global cn.ibizlab.core.hr.domain.hr_candidate_filter hr_candidate_filterget_infolist;
+                    global cn.ibizlab.core.hr.service.Ihr_candidate_filterService hr_candidate_filterservice;
+        global cn.ibizlab.core.hr.service.Ihr_candidate_filterService iBzSysHr_candidate_filterDefaultService;
+        global cn.ibizlab.util.security.AuthenticationUser curuser;
+
+
+    no-loop
+
+            //逻辑处理节点[开始]
+            rule "begin"
+            ruleflow-group "hr_candidate_filterget_infobegin"
+            when
+            then
+            end
+
+            //逻辑处理节点[设置过滤器参数]
+            rule "prepareparam1"
+            ruleflow-group "hr_candidate_filterget_infoprepareparam1"
+            when
+            then
+                            hr_candidate_filterget_infofilter.set("n_applicant_id_eq",hr_candidate_filterget_infodefault.get("id"));
+                        update(hr_candidate_filterget_infodefault);//更新fact中变量值
+                        update(hr_candidate_filterget_infohr_candidate_filter);//更新fact中变量值
+                        update(hr_candidate_filterget_infofilter);//更新fact中变量值
+                        update(hr_candidate_filterget_infolist);//更新fact中变量值
+            end
+
+            //逻辑处理节点[获取数据]
+            rule "dedataset1"
+            ruleflow-group "hr_candidate_filterget_infodedataset1"
+            when
+            then
+                        update(hr_candidate_filterget_infodefault);//更新fact中变量值
+                        update(hr_candidate_filterget_infohr_candidate_filter);//更新fact中变量值
+                        update(hr_candidate_filterget_infofilter);//更新fact中变量值
+                        update(hr_candidate_filterget_infolist);//更新fact中变量值
+            end
+
+            //逻辑处理节点[执行脚本代码]
+            rule "rawsfcode1"
+            ruleflow-group "hr_candidate_filterget_inforawsfcode1"
+            when
+            then
+                        update(hr_candidate_filterget_infodefault);//更新fact中变量值
+                        update(hr_candidate_filterget_infohr_candidate_filter);//更新fact中变量值
+                        update(hr_candidate_filterget_infofilter);//更新fact中变量值
+                        update(hr_candidate_filterget_infolist);//更新fact中变量值
+            end
+
+            //逻辑处理节点[赋值]
+            rule "prepareparam2"
+            ruleflow-group "hr_candidate_filterget_infoprepareparam2"
+            when
+            then
+                            hr_candidate_filterget_infodefault.set("hr_candidate_filter",hr_candidate_filterget_infolist.get("0"));
+                        update(hr_candidate_filterget_infodefault);//更新fact中变量值
+                        update(hr_candidate_filterget_infohr_candidate_filter);//更新fact中变量值
+                        update(hr_candidate_filterget_infofilter);//更新fact中变量值
+                        update(hr_candidate_filterget_infolist);//更新fact中变量值
+            end
+
+            //逻辑处理节点[结束]
+            rule "end1"
+            ruleflow-group "hr_candidate_filterget_infoend1"
+            when
+            then
+                        update(hr_candidate_filterget_infodefault);//更新fact中变量值
+                        update(hr_candidate_filterget_infohr_candidate_filter);//更新fact中变量值
+                        update(hr_candidate_filterget_infofilter);//更新fact中变量值
+                        update(hr_candidate_filterget_infolist);//更新fact中变量值
+            end

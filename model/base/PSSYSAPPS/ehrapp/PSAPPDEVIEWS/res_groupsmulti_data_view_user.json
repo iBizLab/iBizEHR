@@ -1,0 +1,1152 @@
+{
+  "accUserMode" : 2,
+  "getCapPSLanguageRes" : {
+    "lanResTag" : "DE.LNAME.RES_GROUPS"
+  },
+  "caption" : "用户所属群组",
+  "codeName" : "res_groupsmulti_data_view_user",
+  "dynaModelFilePath" : "PSSYSAPPS/ehrapp/PSAPPDEVIEWS/res_groupsmulti_data_view_user.json",
+  "mDCtrlActiveMode" : 1,
+  "memo" : "系统自动添加",
+  "name" : "res_groupsmulti_data_view_user",
+  "getPSAppDataEntity" : {
+    "modelref" : true,
+    "path" : "PSSYSAPPS/ehrapp/PSAPPDATAENTITIES/res_groups.json"
+  },
+  "getPSAppModule" : {
+    "modelref" : true,
+    "path" : "PSSYSAPPS/ehrapp/PSAPPMODULES/base.json"
+  },
+  "getPSDEViewCodeName" : "multi_data_view_user",
+  "getPSDEViewId" : "117fdd68a4b861426f0ebbb4745aab0b",
+  "getPSViewLayoutPanel" : {
+    "getAllPSPanelFields" : [ {
+      "id" : "active_ctrl",
+      "hidden" : true,
+      "viewFieldName" : "active_ctrl"
+    }, {
+      "id" : "default_ctrl",
+      "hidden" : true,
+      "viewFieldName" : "default_ctrl"
+    } ],
+    "codeName" : "mdcustomview",
+    "controlType" : "VIEWLAYOUTPANEL",
+    "hookEventNames" : [ "ONMOUNTED", "ONCONTROLEVENT", "ONCLICK" ],
+    "layoutMode" : "FLEX",
+    "logicName" : "多数据视图布局面板",
+    "name" : "layoutpanel",
+    "getPSAppDataEntity" : {
+      "modelref" : true,
+      "path" : "PSSYSAPPS/ehrapp/PSAPPDATAENTITIES/res_groups.json"
+    },
+    "getPSControlLogics" : [ {
+      "eventNames" : "onMounted",
+      "itemName" : "ACTIVITY",
+      "logicTag" : "layoutpanel",
+      "logicType" : "SCRIPT",
+      "name" : "init_activity_params",
+      "scriptCode" : "// 获取视图上下文\r\nconst appEntityId = view.model.appDataEntityId;\r\nconst srfmodelname = appEntityId.split('.').pop(); // 取点号后最后一段\r\n\r\nview.params.srfmodelname = srfmodelname;"
+    }, {
+      "eventNames" : "onControlEvent",
+      "logicTag" : "layoutpanel",
+      "logicType" : "SCRIPT",
+      "name" : "logic",
+      "scriptCode" : "if (triggerEventName && triggerEventName === 'onActive' && triggerEvent.ctrl.name == view.state.xdatacontrolname) {\n    if(triggerEvent.ctrl.name!=\"activity\"){\n        view.call('Edit', { \n            context: view.context,\n            params: view.params,\n            data: triggerEvent.data,\n            view,\n            ctrl: triggerEvent.ctrl,\n        });\n    }\n   \n}"
+    }, {
+      "eventNames" : "onClick",
+      "itemName" : "activity_toggle",
+      "logicTag" : "layoutpanel",
+      "logicType" : "SCRIPT",
+      "name" : "activity_click",
+      "scriptCode" : "// 获取部件并显示\nconst curctrl = \"activity\";\nconst activectrl = view.layoutPanel.findPanelItemByName(curctrl);\nif (activectrl) {\n  activectrl.state.visible = true;\n}\n//隐藏左侧过滤区\nconst view_exp_split = view.layoutPanel.findPanelItemByName('view_exp_split');\nif (view_exp_split) {\n  view_exp_split.hiddenPanel(\"left\");\n}\n// 定义需要隐藏的部件标识\nconst keepVisibleItems = ['dataview', 'grid','activity', 'pivottable', 'calendar', 'chart','hierarchy'];\nconst index = keepVisibleItems.indexOf(curctrl);\nif (index !== -1) {\n  keepVisibleItems.splice(index, 1);\n}\n// 隐藏部件\nconst allItems = view.layoutPanel.panelItems;\nObject.keys(allItems).forEach(key => {\n  if (keepVisibleItems.includes(key)) {\n    allItems[key].state.visible = false;\n  }\n});\n\nconst activectrlname = view.layoutPanel.findPanelItemByName('active_ctrl');\nactivectrlname.setDataValue(curctrl);\n\nview.state.xdatacontrolname =curctrl;\n\n// 获取当前的路由对象\nconst currentRoute = ibiz.appUtil.router.currentRoute._value;\n\n// 创建一个新的 query 对象，保留现有查询参数，并添加新的参数\nconst newQuery = {\n  ...currentRoute.query, \n  srfnav: curctrl         \n};\nconst defaultctrlname = view.layoutPanel.findPanelItemByName('default_ctrl');\nif(defaultctrlname.value == curctrl){\n  delete newQuery.srfnav;\n}\n// 使用 $router.push 更新 URL 并导航到相同的路径\nif(newQuery.srfnav != currentRoute.query.srfnav){\n  ibiz.appUtil.router.push({\n    path: currentRoute.path, \n    query: newQuery \n  });\n}\n\n// activity不显示分组筛选\nconst searchBar = view.getController('searchbar');\nif(searchBar){\n  if(searchBar.state.selectedGroup&&searchBar.state.selectedGroup.length>0){\n      viewSession.selectedGroup = [...searchBar.state.selectedGroup];\n      searchBar.state.selectedGroup=[];\n  }\n  searchBar.state.selectedGroup=[];\n  searchBar.state.showGroup=false; \n  searchBar.state.showCollect=true; \n}\n"
+    }, {
+      "eventNames" : "onClick",
+      "itemName" : "calendar_toggle",
+      "logicTag" : "layoutpanel",
+      "logicType" : "SCRIPT",
+      "name" : "calendar_click",
+      "scriptCode" : "// 获取部件并显示\nconst curctrl = \"calendar\";\nconst activectrl = view.layoutPanel.findPanelItemByName(curctrl);\nif (activectrl) {\n  activectrl.state.visible = true;\n}\n//隐藏左侧过滤区\nconst view_exp_split = view.layoutPanel.findPanelItemByName('view_exp_split');\nif (view_exp_split) {\n  view_exp_split.hiddenPanel(\"left\");\n}\n// 定义需要隐藏的部件标识\nconst keepVisibleItems = ['dataview', 'grid','activity', 'pivottable', 'calendar', 'chart','hierarchy'];\nconst index = keepVisibleItems.indexOf(curctrl);\nif (index !== -1) {\n  keepVisibleItems.splice(index, 1);\n}\n// 隐藏部件\nconst allItems = view.layoutPanel.panelItems;\nObject.keys(allItems).forEach(key => {\n  if (keepVisibleItems.includes(key)) {\n    allItems[key].state.visible = false;\n  }\n});\n\nconst activectrlname = view.layoutPanel.findPanelItemByName('active_ctrl');\nactivectrlname.setDataValue(curctrl);\n\nview.state.xdatacontrolname =curctrl;\n\n// 获取当前的路由对象\nconst currentRoute = ibiz.appUtil.router.currentRoute._value;\n\n// 创建一个新的 query 对象，保留现有查询参数，并添加新的参数\nconst newQuery = {\n  ...currentRoute.query, \n  srfnav: curctrl         \n};\nconst defaultctrlname = view.layoutPanel.findPanelItemByName('default_ctrl');\nif(defaultctrlname.value == curctrl){\n  delete newQuery.srfnav;\n}\n// 使用 $router.push 更新 URL 并导航到相同的路径\nif(newQuery.srfnav != currentRoute.query.srfnav){\n  ibiz.appUtil.router.push({\n    path: currentRoute.path, \n    query: newQuery \n  });\n}\n\n// calendar不显示分组筛选\nconst searchBar = view.getController('searchbar');\nif(searchBar){\n  if(searchBar.state.selectedGroup&&searchBar.state.selectedGroup.length>0){\n      viewSession.selectedGroup = [...searchBar.state.selectedGroup];\n      searchBar.state.selectedGroup=[];\n  }\n  searchBar.state.showGroup=false; \n  searchBar.state.showCollect=true; \n}\n"
+    }, {
+      "eventNames" : "onClick",
+      "itemName" : "chart_toggle",
+      "logicTag" : "layoutpanel",
+      "logicType" : "SCRIPT",
+      "name" : "chart_click",
+      "scriptCode" : "// 获取部件并显示\nconst curctrl = \"chart\";\nconst activectrl = view.layoutPanel.findPanelItemByName(curctrl);\nif (activectrl) {\n  activectrl.state.visible = true;\n}\n//隐藏左侧过滤区\nconst view_exp_split = view.layoutPanel.findPanelItemByName('view_exp_split');\nif (view_exp_split) {\n  view_exp_split.hiddenPanel(\"left\");\n}\n// 定义需要隐藏的部件标识\nconst keepVisibleItems = ['dataview', 'grid','activity', 'pivottable', 'calendar', 'chart','hierarchy'];\nconst index = keepVisibleItems.indexOf(curctrl);\nif (index !== -1) {\n  keepVisibleItems.splice(index, 1);\n}\n// 隐藏部件\nconst allItems = view.layoutPanel.panelItems;\nObject.keys(allItems).forEach(key => {\n  if (keepVisibleItems.includes(key)) {\n    allItems[key].state.visible = false;\n  }\n});\n\nconst activectrlname = view.layoutPanel.findPanelItemByName('active_ctrl');\nactivectrlname.setDataValue(curctrl);\n\nview.state.xdatacontrolname =curctrl;\n\n// 获取当前的路由对象\nconst currentRoute = ibiz.appUtil.router.currentRoute._value;\n\n// 创建一个新的 query 对象，保留现有查询参数，并添加新的参数\nconst newQuery = {\n  ...currentRoute.query, \n  srfnav: curctrl         \n};\nconst defaultctrlname = view.layoutPanel.findPanelItemByName('default_ctrl');\nif(defaultctrlname.value == curctrl){\n  delete newQuery.srfnav;\n}\n// 使用 $router.push 更新 URL 并导航到相同的路径\nif(newQuery.srfnav != currentRoute.query.srfnav){\n  ibiz.appUtil.router.push({\n    path: currentRoute.path, \n    query: newQuery \n  });\n}\n\n// 显示分组筛选，并还原选项\nconst searchBar = view.getController('searchbar');\nif(searchBar){\n  if(viewSession.selectedGroup&&viewSession.selectedGroup.length>0){\n      searchBar.state.selectedGroup=[...viewSession.selectedGroup];\n      viewSession.selectedGroup=[];\n  }\n  searchBar.state.showGroup=true; \n  searchBar.state.showCollect=true; \n}"
+    }, {
+      "eventNames" : "onMounted",
+      "logicTag" : "layoutpanel",
+      "logicType" : "SCRIPT",
+      "name" : "ctrl_toggle_init",
+      "scriptCode" : "console.log(\"\");\nconst targets = ['dataview', 'grid', 'activity', 'pivottable', 'calendar', 'chart','hierarchy'];\nconst activectrlname = view.layoutPanel.findPanelItemByName('active_ctrl');\nconst defaultctrlname = view.layoutPanel.findPanelItemByName('default_ctrl');\n\nlet firstVisible = null;\nlet default_ctrl = null;\n// 从路由获取\nconst currentRoute = ibiz.appUtil.router.currentRoute._value;\nif(currentRoute.query.srfnav){\n  firstVisible = currentRoute.query.srfnav;\n  const toggleitem = view.layoutPanel.findPanelItemByName(firstVisible+'_toggle');\n  toggleitem.onClick();\n  //activectrlname.setDataValue(firstVisible);\n  //view.state.xdatacontrolname = firstVisible;\n}\n// 挂载清空缓存\nif(appSession.guard){\n    appSession.guard();\n    appSession.guard = undefined;\n}\nif(!appSession.guard){\n  //注册路由监听\n  const afterEachHook = ibiz.appUtil.router.afterEach((to, from) => {\n    let toUrlArray = to.path.split('/');\n    if(toUrlArray.length<=2){\n      return;\n    }\n    const viewName = toUrlArray[toUrlArray.length - 2];\n    // const pathNodes = ibiz.appUtil.route2routeObject().pathNodes;\n    // const viewName = toUrlArray[pathNodes.length - 1].viewName;\n    const cacheView = ibiz.appUtil.viewCacheCenter.get(viewName);\n    const toView = cacheView;\n    // const curView = cacheView ? cacheView : view;\n    console.log('目标视图----',toView);\n    // let toUrlArray = to.path.split('/');\n    // let fromUrlArray = from.path.split('/');\n    // if(toUrlArray.length<=2 || fromUrlArray.length<=2){\n    //   return;\n    // }\n    //判断是否支持切换器\n    if(toView){\n      if(toView.layoutPanel.findPanelItemByName(\"switch_panel\")){\n        var active_ctrl = to.query.srfnav;\n        if(active_ctrl){\n          const toggleitem = toView.layoutPanel.findPanelItemByName(active_ctrl+'_toggle');\n          toggleitem.onClick();\n        }else{\n          // 恢复默认部件\n          const toggleitem = toView.layoutPanel.findPanelItemByName(defaultctrlname.value+'_toggle');\n          toggleitem.onClick();\n        }\n      }\n    }\n  });\n  appSession.guard = afterEachHook;\n}\n// 查找第一个存在的部件\nlet ctrlcount = 0;\nfor (const name of targets) {\n  const item = view.getCtrl(\"\", name);\n  if (item) {\n     if(firstVisible == null){\n        firstVisible = name;\n        activectrlname.setDataValue(firstVisible);\n        view.state.xdatacontrolname = firstVisible;\n      }\n      if(default_ctrl == null){\n        default_ctrl = name;\n        defaultctrlname.setDataValue(default_ctrl);\n      }\n    ctrlcount++;\n  }\n}\n\n// 设置可见性状态\ntargets.forEach(name => {\n  const item = view.layoutPanel.findPanelItemByName(name);\n  if (item) {\n    item.state.visible = name === firstVisible;\n  }\n});\n\n// 仅一个部件时隐藏切换器\nif(ctrlcount == 1){\n   const switch_panel_container = view.layoutPanel.findPanelItemByName('switch_panel_container');\n     if (switch_panel_container) {\n      switch_panel_container.state.visible = false;\n    }\n}\n\nconst searchBar = view.getController('searchbar');\n//解决多数据部件异步加载导致重复加载问题\nif(searchBar.model.searchBarGroups.find(group=> group.defaultGroup)){\n    const item = view.layoutPanel.findPanelItemByName(view.state.xdatacontrolname);\n    item.control.state.loadDefault = false;\n}"
+    }, {
+      "eventNames" : "onClick",
+      "itemName" : "dataview_toggle",
+      "logicTag" : "layoutpanel",
+      "logicType" : "SCRIPT",
+      "name" : "dataview_click",
+      "scriptCode" : "// 获取部件并显示\nconst curctrl = \"dataview\";\nconst activectrl = view.layoutPanel.findPanelItemByName(curctrl);\nif (activectrl) {\n  activectrl.state.visible = true;\n}\n//恢复显示左侧过滤区\nconst view_exp_split = view.layoutPanel.findPanelItemByName('view_exp_split');\nif (view_exp_split) {\n  view_exp_split.showPanel();\n}\n// 定义需要隐藏的部件标识\nconst keepVisibleItems = ['dataview', 'grid', 'activity', 'pivottable', 'calendar', 'chart','hierarchy'];\nconst index = keepVisibleItems.indexOf(curctrl);\nif (index !== -1) {\n  keepVisibleItems.splice(index, 1);\n}\n// 隐藏部件\nconst allItems = view.layoutPanel.panelItems;\nObject.keys(allItems).forEach(key => {\n  if (keepVisibleItems.includes(key)) {\n    allItems[key].state.visible = false;\n  }\n});\n\nconst activectrlname = view.layoutPanel.findPanelItemByName('active_ctrl');\nactivectrlname.setDataValue(curctrl);\n\nview.state.xdatacontrolname =curctrl;\n\n// 获取当前的路由对象\nconst currentRoute = ibiz.appUtil.router.currentRoute._value;\n\n// 创建一个新的 query 对象，保留现有查询参数，并添加新的参数\nconst newQuery = {\n  ...currentRoute.query, \n  srfnav: curctrl         \n};\nconst defaultctrlname = view.layoutPanel.findPanelItemByName('default_ctrl');\nif(defaultctrlname.value == curctrl){\n  delete newQuery.srfnav;\n}\n// 使用 $router.push 更新 URL 并导航到相同的路径\nif(newQuery.srfnav != currentRoute.query.srfnav){\n  ibiz.appUtil.router.push({\n    path: currentRoute.path, \n    query: newQuery \n  });\n}\n\n// 显示分组筛选，并还原选项\nconst searchBar = view.getController('searchbar');\nif(searchBar){\n  if(viewSession.selectedGroup&&viewSession.selectedGroup.length>0){\n      searchBar.state.selectedGroup=[...viewSession.selectedGroup];\n      viewSession.selectedGroup=[];\n  }\n  searchBar.state.showGroup=true; \n  searchBar.state.showCollect=true; \n}"
+    }, {
+      "eventNames" : "onClick",
+      "itemName" : "grid_toggle",
+      "logicTag" : "layoutpanel",
+      "logicType" : "SCRIPT",
+      "name" : "grid_click",
+      "scriptCode" : "// 获取部件并显示\nconsole.log(\"\");\nconst curctrl = \"grid\";\nconst activectrl = view.layoutPanel.findPanelItemByName(curctrl);\nif (activectrl) {\n  activectrl.state.visible = true;\n}\n//恢复显示左侧过滤区\nconst view_exp_split = view.layoutPanel.findPanelItemByName('view_exp_split');\nif (view_exp_split) {\n  view_exp_split.showPanel();\n}\n// 定义需要隐藏的部件标识\nconst keepVisibleItems = ['dataview', 'grid','activity', 'pivottable', 'calendar', 'chart','hierarchy'];\nconst index = keepVisibleItems.indexOf(curctrl);\nif (index !== -1) {\n  keepVisibleItems.splice(index, 1);\n}\n// 隐藏部件\nconst allItems = view.layoutPanel.panelItems;\nObject.keys(allItems).forEach(key => {\n  if (keepVisibleItems.includes(key)) {\n    allItems[key].state.visible = false;\n  }\n});\n\nconst activectrlname = view.layoutPanel.findPanelItemByName('active_ctrl');\nactivectrlname.setDataValue(curctrl);\n\nview.state.xdatacontrolname =curctrl;\n\n// 获取当前的路由对象\nconst currentRoute = ibiz.appUtil.router.currentRoute._value;\n\n// 创建一个新的 query 对象，保留现有查询参数，并添加新的参数\nconst newQuery = {\n  ...currentRoute.query, \n  srfnav: curctrl         \n};\n\n//默认部件忽略参数\nconst defaultctrlname = view.layoutPanel.findPanelItemByName('default_ctrl');\nif(defaultctrlname.value == curctrl){\n  delete newQuery.srfnav;\n}\n\n// 使用 $router.push 更新 URL 并导航到相同的路径\nif(newQuery.srfnav != currentRoute.query.srfnav){\n  ibiz.appUtil.router.push({\n    path: currentRoute.path, \n    query: newQuery \n  });\n}\n\n// 显示分组筛选，并还原选项\nconst searchBar = view.getController('searchbar');\nif(searchBar){\n  if(viewSession.selectedGroup&&viewSession.selectedGroup.length>0){\n      searchBar.state.selectedGroup=[...viewSession.selectedGroup];\n      viewSession.selectedGroup=[];\n  }\n  searchBar.state.showGroup=true; \n  searchBar.state.showCollect=true; \n}\n"
+    }, {
+      "eventNames" : "onClick",
+      "itemName" : "hierarchy_toggle",
+      "logicTag" : "layoutpanel",
+      "logicType" : "SCRIPT",
+      "name" : "hierarchy_click",
+      "scriptCode" : "// 获取部件并显示\nconst curctrl = \"hierarchy\";\nconst activectrl = view.layoutPanel.findPanelItemByName(curctrl);\nif (activectrl) {\n  activectrl.state.visible = true;\n}\n//隐藏左侧过滤区\nconst view_exp_split = view.layoutPanel.findPanelItemByName('view_exp_split');\nif (view_exp_split) {\n  view_exp_split.hiddenPanel(\"left\");\n}\n// 定义需要隐藏的部件标识\nconst keepVisibleItems = ['dataview', 'grid','activity', 'pivottable', 'calendar', 'chart','hierarchy'];\nconst index = keepVisibleItems.indexOf(curctrl);\nif (index !== -1) {\n  keepVisibleItems.splice(index, 1);\n}\n// 隐藏部件\nconst allItems = view.layoutPanel.panelItems;\nObject.keys(allItems).forEach(key => {\n  if (keepVisibleItems.includes(key)) {\n    allItems[key].state.visible = false;\n  }\n});\n\nconst activectrlname = view.layoutPanel.findPanelItemByName('active_ctrl');\nactivectrlname.setDataValue(curctrl);\n\nview.state.xdatacontrolname =curctrl;\n\n// 获取当前的路由对象\nconst currentRoute = ibiz.appUtil.router.currentRoute._value;\n\n// 创建一个新的 query 对象，保留现有查询参数，并添加新的参数\nconst newQuery = {\n  ...currentRoute.query, \n  srfnav: curctrl         \n};\nconst defaultctrlname = view.layoutPanel.findPanelItemByName('default_ctrl');\nif(defaultctrlname.value == curctrl){\n  delete newQuery.srfnav;\n}\n// 使用 $router.push 更新 URL 并导航到相同的路径\nif(newQuery.srfnav != currentRoute.query.srfnav){\n  ibiz.appUtil.router.push({\n    path: currentRoute.path, \n    query: newQuery \n  });\n}\n\n// hierarchy不显示分组筛选\nconst searchBar = view.getController('searchbar');\nif(searchBar){\n  if(searchBar.state.selectedGroup&&searchBar.state.selectedGroup.length>0){\n      viewSession.selectedGroup = [...searchBar.state.selectedGroup];\n      searchBar.state.selectedGroup=[];\n  }\n  searchBar.state.showGroup=false; \n  searchBar.state.showCollect=true; \n}\n"
+    }, {
+      "eventNames" : "onControlEvent",
+      "logicTag" : "layoutpanel",
+      "logicType" : "SCRIPT",
+      "name" : "onControlEvent",
+      "scriptCode" : "// 多数据部件\nconst targets = [\n  'dataview',\n  'grid',\n  'activity',\n  'pivottable',\n  'calendar',\n  'chart',\n  'hierarchy',\n];\n// 获取搜索栏\nconst searchBar = view.getController('searchbar');\n// 处理多数据部件事件\nif (searchBar && targets.includes(triggerControlName)) {\n  // 表格默认不加载在执行execGroup时加载\n  if (triggerControlName === 'grid' ) {\n    triggerEvent.ctrl.state.loadDefault = false;\n  }\n  // 多数据部件初始化时合并搜索参数\n  if (triggerEventName === 'onCreated') {\n    triggerEvent.ctrl.state.searchParams = searchBar.getFilterParams();\n  }\n  // 多数据部件绘制完成后执行搜索栏分组\n  if (triggerEventName === 'onMounted') {\n    searchBar.execGroup();\n  }\n}"
+    }, {
+      "eventNames" : "onClick",
+      "itemName" : "pivottable_toggle",
+      "logicTag" : "layoutpanel",
+      "logicType" : "SCRIPT",
+      "name" : "pivottable_click",
+      "scriptCode" : "// 获取部件并显示\nconst curctrl = \"pivottable\";\nconst activectrl = view.layoutPanel.findPanelItemByName(curctrl);\nif (activectrl) {\n  activectrl.state.visible = true;\n}\n//隐藏左侧过滤区\nconst view_exp_split = view.layoutPanel.findPanelItemByName('view_exp_split');\nif (view_exp_split) {\n  view_exp_split.hiddenPanel(\"left\");\n}\n// 定义需要隐藏的部件标识\nconst keepVisibleItems = ['dataview', 'grid','activity', 'pivottable', 'calendar', 'chart','hierarchy'];\nconst index = keepVisibleItems.indexOf(curctrl);\nif (index !== -1) {\n  keepVisibleItems.splice(index, 1);\n}\n// 隐藏部件\nconst allItems = view.layoutPanel.panelItems;\nObject.keys(allItems).forEach(key => {\n  if (keepVisibleItems.includes(key)) {\n    allItems[key].state.visible = false;\n  }\n});\n\nconst activectrlname = view.layoutPanel.findPanelItemByName('active_ctrl');\nactivectrlname.setDataValue(curctrl);\n\nview.state.xdatacontrolname =curctrl;\n\n// 获取当前的路由对象\nconst currentRoute = ibiz.appUtil.router.currentRoute._value;\n\n// 创建一个新的 query 对象，保留现有查询参数，并添加新的参数\nconst newQuery = {\n  ...currentRoute.query, \n  srfnav: curctrl         \n};\nconst defaultctrlname = view.layoutPanel.findPanelItemByName('default_ctrl');\nif(defaultctrlname.value == curctrl){\n  delete newQuery.srfnav;\n}\n// 使用 $router.push 更新 URL 并导航到相同的路径\nif(newQuery.srfnav != currentRoute.query.srfnav){\n  ibiz.appUtil.router.push({\n    path: currentRoute.path, \n    query: newQuery \n  });\n}\n\n// 显示分组筛选，并还原选项\nconst searchBar = view.getController('searchbar');\nif(searchBar){\n  if(viewSession.selectedGroup&&viewSession.selectedGroup.length>0){\n      searchBar.state.selectedGroup=[...viewSession.selectedGroup];\n      viewSession.selectedGroup=[];\n  }\n  searchBar.state.showGroup=true; \n  searchBar.state.showCollect=true; \n}"
+    } ],
+    "getPSControlParam" : { },
+    "getPSLayout" : {
+      "layout" : "FLEX"
+    },
+    "getRootPSPanelItems" : [ {
+      "caption" : "容器",
+      "itemStyle" : "DEFAULT",
+      "itemType" : "CONTAINER",
+      "name" : "view_header",
+      "getPSLayout" : {
+        "align" : "space-between",
+        "dir" : "row",
+        "layout" : "FLEX",
+        "vAlign" : "center"
+      },
+      "getPSLayoutPos" : {
+        "grow" : -1,
+        "layout" : "FLEX",
+        "shrink" : 0
+      },
+      "getPSPanelItems" : [ {
+        "caption" : "容器",
+        "itemStyle" : "DEFAULT",
+        "itemType" : "CONTAINER",
+        "name" : "view_header_left",
+        "getPSLayout" : {
+          "dir" : "row",
+          "layout" : "FLEX"
+        },
+        "getPSLayoutPos" : {
+          "grow" : -1,
+          "heightMode" : "FULL",
+          "layout" : "FLEX"
+        },
+        "getPSPanelItems" : [ {
+          "caption" : "容器",
+          "itemStyle" : "DEFAULT",
+          "itemType" : "CONTAINER",
+          "name" : "view_toolbar",
+          "getPSLayout" : {
+            "align" : "center",
+            "layout" : "FLEX"
+          },
+          "getPSLayoutPos" : {
+            "grow" : -1,
+            "heightMode" : "FULL",
+            "layout" : "FLEX"
+          },
+          "getPSPanelItems" : [ {
+            "caption" : "工具栏",
+            "itemStyle" : "DEFAULT",
+            "itemType" : "CTRLPOS",
+            "name" : "toolbar",
+            "getPSLayoutPos" : {
+              "grow" : -1,
+              "layout" : "FLEX"
+            },
+            "showCaption" : true
+          } ]
+        }, {
+          "caption" : "容器",
+          "itemStyle" : "DEFAULT",
+          "itemType" : "CONTAINER",
+          "name" : "view_captionbar",
+          "getPSLayout" : {
+            "align" : "center",
+            "layout" : "FLEX"
+          },
+          "getPSLayoutPos" : {
+            "grow" : -1,
+            "heightMode" : "FULL",
+            "layout" : "FLEX"
+          },
+          "getPSPanelItems" : [ {
+            "caption" : "页面标题",
+            "itemStyle" : "DEFAULT",
+            "itemType" : "CTRLPOS",
+            "name" : "captionbar",
+            "getPSLayoutPos" : {
+              "grow" : -1,
+              "layout" : "FLEX"
+            },
+            "showCaption" : true
+          } ]
+        } ]
+      }, {
+        "caption" : "搜索栏",
+        "itemStyle" : "DEFAULT",
+        "itemType" : "CTRLPOS",
+        "name" : "searchbar",
+        "getPSLayoutPos" : {
+          "grow" : -1,
+          "layout" : "FLEX"
+        },
+        "showCaption" : true
+      }, {
+        "caption" : "引用布局面板",
+        "itemStyle" : "DEFAULT",
+        "itemType" : "CONTAINER",
+        "name" : "panelpart",
+        "getPSLayout" : {
+          "layout" : "FLEX"
+        },
+        "getPSLayoutPos" : {
+          "grow" : -1,
+          "layout" : "FLEX",
+          "shrink" : 0
+        },
+        "getPSPanelItems" : [ {
+          "caption" : "容器",
+          "itemStyle" : "DEFAULT",
+          "itemType" : "CONTAINER",
+          "name" : "switch_panel",
+          "getPSLayout" : {
+            "layout" : "FLEX"
+          },
+          "getPSLayoutPos" : {
+            "grow" : -1,
+            "layout" : "FLEX",
+            "spacingLeft" : "INNERMEDIUM",
+            "spacingRight" : "INNERMEDIUM"
+          },
+          "getPSPanelItems" : [ {
+            "caption" : "容器",
+            "itemStyle" : "DEFAULT",
+            "itemType" : "CONTAINER",
+            "name" : "switch_panel_container",
+            "getPSLayout" : {
+              "align" : "flex-start",
+              "dir" : "row",
+              "layout" : "FLEX",
+              "vAlign" : "center"
+            },
+            "getPSLayoutPos" : {
+              "grow" : -1,
+              "layout" : "FLEX",
+              "shrink" : 0
+            },
+            "getPSPanelItems" : [ {
+              "caption" : "卡片",
+              "contentType" : "IMAGE",
+              "itemStyle" : "DEFAULT",
+              "itemType" : "RAWITEM",
+              "name" : "dataview_toggle",
+              "getPSControlLogics" : [ {
+                "itemName" : "dataview_toggle",
+                "logicTag" : "layoutpanel",
+                "logicType" : "SCRIPT",
+                "name" : "visable_card",
+                "scriptCode" : "view.layoutPanel.model.controls.find(ctrl=>ctrl.name === \"dataview\")?true:false",
+                "triggerType" : "ITEMVISIBLE"
+              } ],
+              "getPSLayoutPos" : {
+                "grow" : -1,
+                "layout" : "FLEX",
+                "shrink" : 0
+              },
+              "getPSRawItem" : {
+                "contentType" : "IMAGE",
+                "dynaClass" : "{\"ctrl-switch-active\": data.active_ctrl ===\"dataview\" }",
+                "name" : "dataview_toggle",
+                "getPSSysCss" : {
+                  "cssName" : "ctrl-switch"
+                },
+                "getPSSysImage" : {
+                  "glyph" : "xf0db@FontAwesome",
+                  "cssClass" : "fa fa-columns"
+                },
+                "predefinedType" : "STATIC_IMAGE"
+              },
+              "getPSSysCss" : {
+                "cssName" : "ctrl-switch"
+              },
+              "getPSSysImage" : {
+                "glyph" : "xf0db@FontAwesome",
+                "cssClass" : "fa fa-columns"
+              },
+              "showCaption" : true
+            }, {
+              "caption" : "表格",
+              "contentType" : "IMAGE",
+              "itemStyle" : "DEFAULT",
+              "itemType" : "RAWITEM",
+              "name" : "grid_toggle",
+              "getPSControlLogics" : [ {
+                "itemName" : "grid_toggle",
+                "logicTag" : "layoutpanel",
+                "logicType" : "SCRIPT",
+                "name" : "visable_grid",
+                "scriptCode" : "view.layoutPanel.model.controls.find(ctrl=>ctrl.name === \"grid\")?true:false",
+                "triggerType" : "ITEMVISIBLE"
+              } ],
+              "getPSLayoutPos" : {
+                "grow" : -1,
+                "layout" : "FLEX",
+                "shrink" : 0
+              },
+              "getPSRawItem" : {
+                "contentType" : "IMAGE",
+                "dynaClass" : "{\"ctrl-switch-active\": data.active_ctrl ===\"grid\" }",
+                "name" : "grid_toggle",
+                "getPSSysCss" : {
+                  "cssName" : "ctrl-switch"
+                },
+                "getPSSysImage" : {
+                  "glyph" : "xf0c9@FontAwesome",
+                  "cssClass" : "fa fa-reorder"
+                },
+                "predefinedType" : "STATIC_IMAGE"
+              },
+              "getPSSysCss" : {
+                "cssName" : "ctrl-switch"
+              },
+              "getPSSysImage" : {
+                "glyph" : "xf0c9@FontAwesome",
+                "cssClass" : "fa fa-reorder"
+              },
+              "showCaption" : true
+            }, {
+              "caption" : "活动",
+              "contentType" : "IMAGE",
+              "itemStyle" : "DEFAULT",
+              "itemType" : "RAWITEM",
+              "name" : "activity_toggle",
+              "getPSControlLogics" : [ {
+                "itemName" : "activity_toggle",
+                "logicTag" : "layoutpanel",
+                "logicType" : "SCRIPT",
+                "name" : "visable_activity",
+                "scriptCode" : "\nview.layoutPanel.model.controls.find(ctrl=>ctrl.name === \"activity\")?true:false",
+                "triggerType" : "ITEMVISIBLE"
+              } ],
+              "getPSLayoutPos" : {
+                "grow" : -1,
+                "layout" : "FLEX",
+                "shrink" : 0
+              },
+              "getPSRawItem" : {
+                "contentType" : "IMAGE",
+                "dynaClass" : "{\"ctrl-switch-active\": data.active_ctrl ===\"activity\" }",
+                "name" : "activity_toggle",
+                "getPSSysCss" : {
+                  "cssName" : "ctrl-switch"
+                },
+                "getPSSysImage" : {
+                  "glyph" : "xf017@FontAwesome",
+                  "cssClass" : "fa fa-clock-o"
+                },
+                "predefinedType" : "STATIC_IMAGE"
+              },
+              "getPSSysCss" : {
+                "cssName" : "ctrl-switch"
+              },
+              "getPSSysImage" : {
+                "glyph" : "xf017@FontAwesome",
+                "cssClass" : "fa fa-clock-o"
+              },
+              "showCaption" : true
+            }, {
+              "caption" : "透视表",
+              "contentType" : "IMAGE",
+              "itemStyle" : "DEFAULT",
+              "itemType" : "RAWITEM",
+              "name" : "pivottable_toggle",
+              "getPSControlLogics" : [ {
+                "itemName" : "pivottable_toggle",
+                "logicTag" : "layoutpanel",
+                "logicType" : "SCRIPT",
+                "name" : "pivottable_visable",
+                "scriptCode" : "view.getCtrl(\"GRID\", \"pivottable\")?true:false",
+                "triggerType" : "ITEMVISIBLE"
+              } ],
+              "getPSLayoutPos" : {
+                "grow" : -1,
+                "layout" : "FLEX",
+                "shrink" : 0
+              },
+              "getPSRawItem" : {
+                "contentType" : "IMAGE",
+                "dynaClass" : "{\"ctrl-switch-active\": data.active_ctrl ===\"pivottable\" }",
+                "name" : "pivottable_toggle",
+                "getPSSysCss" : {
+                  "cssName" : "ctrl-switch"
+                },
+                "getPSSysImage" : {
+                  "glyph" : "xf0ce@FontAwesome",
+                  "cssClass" : "fa fa-table"
+                },
+                "predefinedType" : "STATIC_IMAGE"
+              },
+              "getPSSysCss" : {
+                "cssName" : "ctrl-switch"
+              },
+              "getPSSysImage" : {
+                "glyph" : "xf0ce@FontAwesome",
+                "cssClass" : "fa fa-table"
+              },
+              "showCaption" : true
+            }, {
+              "caption" : "日历",
+              "contentType" : "IMAGE",
+              "itemStyle" : "DEFAULT",
+              "itemType" : "RAWITEM",
+              "name" : "calendar_toggle",
+              "getPSControlLogics" : [ {
+                "itemName" : "calendar_toggle",
+                "logicTag" : "layoutpanel",
+                "logicType" : "SCRIPT",
+                "name" : "calendar_visable",
+                "scriptCode" : "view.layoutPanel.model.controls.find(ctrl=>ctrl.name === \"calendar\")?true:false",
+                "triggerType" : "ITEMVISIBLE"
+              } ],
+              "getPSLayoutPos" : {
+                "grow" : -1,
+                "layout" : "FLEX",
+                "shrink" : 0
+              },
+              "getPSRawItem" : {
+                "contentType" : "IMAGE",
+                "dynaClass" : "{\"ctrl-switch-active\": data.active_ctrl ===\"calendar\" }",
+                "name" : "calendar_toggle",
+                "getPSSysCss" : {
+                  "cssName" : "ctrl-switch"
+                },
+                "getPSSysImage" : {
+                  "glyph" : "xf073@FontAwesome",
+                  "cssClass" : "fa fa-calendar"
+                },
+                "predefinedType" : "STATIC_IMAGE"
+              },
+              "getPSSysCss" : {
+                "cssName" : "ctrl-switch"
+              },
+              "getPSSysImage" : {
+                "glyph" : "xf073@FontAwesome",
+                "cssClass" : "fa fa-calendar"
+              },
+              "showCaption" : true
+            }, {
+              "caption" : "图表",
+              "contentType" : "IMAGE",
+              "itemStyle" : "DEFAULT",
+              "itemType" : "RAWITEM",
+              "name" : "chart_toggle",
+              "getPSControlLogics" : [ {
+                "itemName" : "chart_toggle",
+                "logicTag" : "layoutpanel",
+                "logicType" : "SCRIPT",
+                "name" : "chart_visable",
+                "scriptCode" : "view.layoutPanel.model.controls.find(ctrl=>ctrl.name === \"chart\")?true:false",
+                "triggerType" : "ITEMVISIBLE"
+              } ],
+              "getPSLayoutPos" : {
+                "grow" : -1,
+                "layout" : "FLEX",
+                "shrink" : 0
+              },
+              "getPSRawItem" : {
+                "contentType" : "IMAGE",
+                "dynaClass" : "{\"ctrl-switch-active\": data.active_ctrl ===\"chart\" }",
+                "name" : "chart_toggle",
+                "getPSSysCss" : {
+                  "cssName" : "ctrl-switch"
+                },
+                "getPSSysImage" : {
+                  "glyph" : "xf1fe@FontAwesome",
+                  "cssClass" : "fa fa-area-chart"
+                },
+                "predefinedType" : "STATIC_IMAGE"
+              },
+              "getPSSysCss" : {
+                "cssName" : "ctrl-switch"
+              },
+              "getPSSysImage" : {
+                "glyph" : "xf1fe@FontAwesome",
+                "cssClass" : "fa fa-area-chart"
+              },
+              "showCaption" : true
+            }, {
+              "caption" : "图表",
+              "contentType" : "IMAGE",
+              "itemStyle" : "DEFAULT",
+              "itemType" : "RAWITEM",
+              "name" : "hierarchy_toggle",
+              "getPSControlLogics" : [ {
+                "itemName" : "hierarchy_toggle",
+                "logicTag" : "layoutpanel",
+                "logicType" : "SCRIPT",
+                "name" : "hierarchy_visable",
+                "scriptCode" : "view.layoutPanel.model.controls.find(ctrl=>ctrl.name === \"hierarchy\")?true:false",
+                "triggerType" : "ITEMVISIBLE"
+              } ],
+              "getPSLayoutPos" : {
+                "grow" : -1,
+                "layout" : "FLEX",
+                "shrink" : 0
+              },
+              "getPSRawItem" : {
+                "contentType" : "IMAGE",
+                "dynaClass" : "{\"ctrl-switch-active\": data.active_ctrl ===\"hierarchy\" }",
+                "name" : "hierarchy_toggle",
+                "getPSSysCss" : {
+                  "cssName" : "ctrl-switch"
+                },
+                "getPSSysImage" : {
+                  "glyph" : "xf0e8@FontAwesome",
+                  "cssClass" : "fa fa-sitemap"
+                },
+                "predefinedType" : "STATIC_IMAGE",
+                "tooltip" : "层级"
+              },
+              "getPSSysCss" : {
+                "cssName" : "ctrl-switch"
+              },
+              "getPSSysImage" : {
+                "glyph" : "xf0e8@FontAwesome",
+                "cssClass" : "fa fa-sitemap"
+              },
+              "showCaption" : true
+            } ]
+          }, {
+            "caption" : "文本(动态)",
+            "itemType" : "FIELD",
+            "name" : "active_ctrl",
+            "getPSEditor" : {
+              "editorType" : "HIDDEN",
+              "name" : "active_ctrl",
+              "predefinedType" : "FIELD_TEXT_DYNAMIC"
+            },
+            "getPSLayoutPos" : {
+              "grow" : -1,
+              "layout" : "FLEX"
+            },
+            "getPSSysCss" : {
+              "cssName" : "ctrl-switch-active"
+            },
+            "viewFieldName" : "active_ctrl",
+            "hidden" : true
+          }, {
+            "caption" : "文本(动态)",
+            "itemType" : "FIELD",
+            "name" : "default_ctrl",
+            "getPSEditor" : {
+              "editorType" : "HIDDEN",
+              "name" : "default_ctrl",
+              "predefinedType" : "FIELD_TEXT_DYNAMIC"
+            },
+            "getPSLayoutPos" : {
+              "grow" : -1,
+              "layout" : "FLEX"
+            },
+            "viewFieldName" : "default_ctrl",
+            "hidden" : true
+          } ]
+        } ],
+        "predefinedType" : "PANELPART",
+        "showCaption" : true
+      } ],
+      "predefinedType" : "VIEWHEADER"
+    }, {
+      "caption" : "容器",
+      "itemStyle" : "DEFAULT",
+      "itemType" : "CONTAINER",
+      "name" : "container",
+      "getPSLayout" : {
+        "dir" : "column",
+        "layout" : "FLEX"
+      },
+      "getPSLayoutPos" : {
+        "grow" : 1,
+        "heightMode" : "FULL",
+        "layout" : "FLEX"
+      },
+      "getPSPanelItems" : [ {
+        "caption" : "数据视图",
+        "itemStyle" : "DEFAULT",
+        "itemType" : "CTRLPOS",
+        "name" : "dataview",
+        "getPSLayoutPos" : {
+          "grow" : 1,
+          "layout" : "FLEX"
+        },
+        "showCaption" : true
+      }, {
+        "caption" : "表格",
+        "itemStyle" : "DEFAULT",
+        "itemType" : "CTRLPOS",
+        "name" : "grid",
+        "getPSLayoutPos" : {
+          "grow" : 1,
+          "layout" : "FLEX"
+        },
+        "showCaption" : true
+      }, {
+        "caption" : "活动",
+        "itemStyle" : "DEFAULT",
+        "itemType" : "CTRLPOS",
+        "name" : "activity",
+        "getPSLayoutPos" : {
+          "grow" : 1,
+          "layout" : "FLEX"
+        },
+        "showCaption" : true
+      }, {
+        "caption" : "日历",
+        "itemStyle" : "DEFAULT",
+        "itemType" : "CTRLPOS",
+        "name" : "calendar",
+        "getPSLayoutPos" : {
+          "grow" : 1,
+          "layout" : "FLEX"
+        },
+        "showCaption" : true
+      }, {
+        "caption" : "图表",
+        "itemStyle" : "DEFAULT",
+        "itemType" : "CTRLPOS",
+        "name" : "chart",
+        "getPSLayoutPos" : {
+          "grow" : 1,
+          "layout" : "FLEX"
+        },
+        "showCaption" : true
+      }, {
+        "caption" : "层级",
+        "itemStyle" : "DEFAULT",
+        "itemType" : "CTRLPOS",
+        "name" : "hierarchy",
+        "getPSLayoutPos" : {
+          "grow" : -1,
+          "layout" : "FLEX"
+        },
+        "showCaption" : true
+      } ]
+    } ],
+    "layoutBodyOnly" : false,
+    "layoutPanel" : true,
+    "useDefaultLayout" : false,
+    "viewProxyMode" : true,
+    "modelid" : "4db373066a152684f6838426ca29b4a9",
+    "modeltype" : "PSSYSVIEWLAYOUTPANEL",
+    "getPSAppViewLogics" : [ {
+      "logicTrigger" : "CUSTOM",
+      "logicType" : "APPUILOGIC",
+      "name" : "newdata",
+      "getPSAppUILogic" : {
+        "actionAfterWizard" : "DEFAULT",
+        "logicType" : "PREDEFINED",
+        "name" : "新建数据",
+        "getNewDataPSAppView" : {
+          "getRefPSAppView" : {
+            "modelref" : true,
+            "path" : "PSSYSAPPS/ehrapp/PSAPPDEVIEWS/res_groupsmain_view.json",
+            "viewType" : "DEEDITVIEW"
+          }
+        },
+        "getPSAppUILogicRefViews" : [ {
+          "getRefPSAppView" : {
+            "modelref" : true,
+            "path" : "PSSYSAPPS/ehrapp/PSAPPDEVIEWS/res_groupsmain_view.json",
+            "viewType" : "DEEDITVIEW"
+          }
+        } ],
+        "viewLogicType" : "APP_NEWDATA",
+        "batchAddOnly" : false,
+        "enableBatchAdd" : false,
+        "enableWizardAdd" : false
+      }
+    }, {
+      "logicTrigger" : "CUSTOM",
+      "logicType" : "APPUILOGIC",
+      "name" : "opendata",
+      "getPSAppUILogic" : {
+        "logicType" : "PREDEFINED",
+        "name" : "打开数据",
+        "getOpenDataPSAppView" : {
+          "getRefPSAppView" : {
+            "modelref" : true,
+            "path" : "PSSYSAPPS/ehrapp/PSAPPDEVIEWS/res_groupsmain_view.json",
+            "viewType" : "DEEDITVIEW"
+          }
+        },
+        "getPSAppUILogicRefViews" : [ {
+          "getRefPSAppView" : {
+            "modelref" : true,
+            "path" : "PSSYSAPPS/ehrapp/PSAPPDEVIEWS/res_groupsmain_view.json",
+            "viewType" : "DEEDITVIEW"
+          }
+        } ],
+        "viewLogicType" : "APP_OPENDATA",
+        "editMode" : true
+      }
+    } ],
+    "getPSAppViewRefs" : [ {
+      "name" : "EDITDATA",
+      "realTitle" : "权限组信息",
+      "getRealTitlePSLanguageRes" : {
+        "lanResTag" : "PAGE.TITLE.RES_GROUPS.MAIN_VIEW"
+      },
+      "getRefPSAppView" : {
+        "modelref" : true,
+        "path" : "PSSYSAPPS/ehrapp/PSAPPDEVIEWS/res_groupsmain_view.json",
+        "viewType" : "DEEDITVIEW"
+      }
+    }, {
+      "name" : "NEWDATA",
+      "realTitle" : "权限组信息",
+      "getRealTitlePSLanguageRes" : {
+        "lanResTag" : "PAGE.TITLE.RES_GROUPS.MAIN_VIEW"
+      },
+      "getRefPSAppView" : {
+        "modelref" : true,
+        "path" : "PSSYSAPPS/ehrapp/PSAPPDEVIEWS/res_groupsmain_view.json",
+        "viewType" : "DEEDITVIEW"
+      }
+    } ],
+    "getPSControls" : [ {
+      "codeName" : "multi_data_view_usertoolbar",
+      "controlType" : "TOOLBAR",
+      "logicName" : "权限组实体管理视图_工具栏",
+      "name" : "toolbar",
+      "getPSAppDataEntity" : {
+        "modelref" : true,
+        "path" : "PSSYSAPPS/ehrapp/PSAPPDATAENTITIES/res_groups.json"
+      },
+      "getPSControlParam" : {
+        "id" : "TOOLBAR"
+      },
+      "getPSDEToolbarItems" : [ {
+        "getCapPSLanguageRes" : {
+          "lanResTag" : "TBB.TEXT.*.NEW"
+        },
+        "caption" : "新建",
+        "groupExtractMode" : "ITEM",
+        "itemType" : "DEUIACTION",
+        "name" : "deuiaction1",
+        "noPrivDisplayMode" : 2,
+        "getPSAppViewUIAction" : {
+          "modelref" : true,
+          "id" : "toolbar_deuiaction1"
+        },
+        "getPSSysImage" : {
+          "glyph" : "xf0f6@FontAwesome",
+          "cssClass" : "fa fa-file-text-o"
+        },
+        "getPSUIAction" : {
+          "getCapPSLanguageRes" : {
+            "lanResTag" : "TBB.TEXT.*.NEW"
+          },
+          "caption" : "新建",
+          "codeName" : "New",
+          "fullCodeName" : "New",
+          "name" : "表格界面_新建操作",
+          "getPSSysImage" : {
+            "glyph" : "xf0f6@FontAwesome",
+            "cssClass" : "fa fa-file-text-o"
+          },
+          "predefinedType" : "GRIDVIEW_NEWACTION",
+          "timeout" : 60000,
+          "getTooltipPSLanguageRes" : {
+            "lanResTag" : "TBB.TOOLTIP.*.NEW"
+          },
+          "uIActionMode" : "SYS",
+          "uIActionTag" : "New",
+          "uIActionType" : "DEUIACTION"
+        },
+        "tooltip" : "新建",
+        "getTooltipPSLanguageRes" : {
+          "lanResTag" : "TBB.TOOLTIP.*.NEW"
+        },
+        "showCaption" : true,
+        "showIcon" : true
+      } ],
+      "modelid" : "ed0db69dcef9a767ef59deff78c69ed0",
+      "modeltype" : "PSDETOOLBAR"
+    }, {
+      "codeName" : "Main2",
+      "controlType" : "SEARCHFORM",
+      "defaultLabelWidth" : 130,
+      "dynaModelFilePath" : "PSSYSAPPS/ehrapp/PSAPPDATAENTITIES/res_groups/PSSEARCHFORMS/Main2.json",
+      "logicName" : "权限组实体管理视图_搜索表单",
+      "getPSAppDataEntity" : {
+        "modelref" : true,
+        "path" : "PSSYSAPPS/ehrapp/PSAPPDATAENTITIES/res_groups.json"
+      },
+      "getPSControlHandler" : {
+        "getPSHandlerActions" : [ {
+          "actionType" : "FILTERACTION",
+          "name" : "load",
+          "getPSAppDEMethod" : {
+            "modelref" : true,
+            "id" : "FilterGet"
+          },
+          "getPSAppDataEntity" : {
+            "modelref" : true,
+            "path" : "PSSYSAPPS/ehrapp/PSAPPDATAENTITIES/res_groups.json"
+          }
+        }, {
+          "actionType" : "FILTERACTION",
+          "name" : "loaddraft",
+          "getPSAppDEMethod" : {
+            "modelref" : true,
+            "id" : "FilterGetDraft"
+          },
+          "getPSAppDataEntity" : {
+            "modelref" : true,
+            "path" : "PSSYSAPPS/ehrapp/PSAPPDATAENTITIES/res_groups.json"
+          }
+        }, {
+          "actionType" : "FILTERACTION",
+          "name" : "search",
+          "getPSAppDEMethod" : {
+            "modelref" : true,
+            "id" : "FilterSearch"
+          },
+          "getPSAppDataEntity" : {
+            "modelref" : true,
+            "path" : "PSSYSAPPS/ehrapp/PSAPPDATAENTITIES/res_groups.json"
+          }
+        } ],
+        "enableDEFieldPrivilege" : false,
+        "id" : "搜索表单处理器"
+      },
+      "getPSControlParam" : {
+        "autoLoad" : true,
+        "showBusyIndicator" : true,
+        "id" : "SEARCHFORM"
+      },
+      "getPSDEFormPages" : [ {
+        "caption" : "常规条件",
+        "codeName" : "formpage1",
+        "detailStyle" : "DEFAULT",
+        "detailType" : "FORMPAGE",
+        "name" : "formpage1",
+        "getPSLayout" : {
+          "childColMD" : 24,
+          "columnCount" : 24,
+          "layout" : "TABLE_24COL"
+        },
+        "infoGroupMode" : false
+      } ],
+      "getPSLayout" : {
+        "childColMD" : 24,
+        "columnCount" : 24,
+        "layout" : "TABLE_24COL"
+      },
+      "searchButtonStyle" : "DEFAULT",
+      "tabHeaderPos" : "TOP",
+      "enableAdvanceSearch" : false,
+      "enableAutoSearch" : false,
+      "enableFilterSave" : false,
+      "noTabHeader" : true,
+      "name" : "searchform",
+      "modelid" : "c90dda73fb5cc19d81854f68276007f2",
+      "modeltype" : "PSDEFORM_SEARCHFORM"
+    }, {
+      "codeName" : "search_bar_user",
+      "controlStyle" : "ODOO_SEARCH_BAR",
+      "controlType" : "SEARCHBAR",
+      "dynaModelFilePath" : "PSSYSAPPS/ehrapp/PSAPPDATAENTITIES/res_groups/PSSEARCHBARS/search_bar_user.json",
+      "logicName" : "用户权限组搜索栏",
+      "getPSAppDataEntity" : {
+        "modelref" : true,
+        "path" : "PSSYSAPPS/ehrapp/PSAPPDATAENTITIES/res_groups.json"
+      },
+      "getPSControlParam" : {
+        "id" : "SEARCHBAR"
+      },
+      "getPSSearchBarGroups" : [ {
+        "caption" : "内部权限组",
+        "data" : "{\"theme_model\":{\"searchconds\":[{\"condtype\":\"GROUP\",\"condop\":\"AND\",\"bnotmode\":false,\"searchconds\":[{\"condtype\":\"DEFIELD\",\"fieldname\":\"share\",\"condop\":\"EQ\",\"value\":\"0\"}]}]}}",
+        "itemType" : "GROUP",
+        "name" : "internal",
+        "width" : 0.0,
+        "addSeparator" : false
+      } ],
+      "getPSSysPFPlugin" : {
+        "pluginType" : "CUSTOM",
+        "pluginCode" : "ODOO_SEARCH_BAR",
+        "runtimeObject" : true
+      },
+      "quickGroupCount" : 1,
+      "quickSearchMode" : 1,
+      "quickSearchWidth" : 0,
+      "enableFilter" : false,
+      "enableGroup" : true,
+      "enableQuickSearch" : true,
+      "mobileSearchBar" : false,
+      "name" : "searchbar",
+      "modelid" : "7f943bae8bfaeb299c9047ec753882d7",
+      "modeltype" : "PSSYSSEARCHBAR"
+    }, {
+      "aggMode" : "NONE",
+      "codeName" : "Main",
+      "columnEnableFilter" : 2,
+      "columnEnableLink" : 2,
+      "controlType" : "GRID",
+      "dynaModelFilePath" : "PSSYSAPPS/ehrapp/PSAPPDATAENTITIES/res_groups/PSGRIDS/Main.json",
+      "getFetchPSControlAction" : {
+        "modelref" : true,
+        "id" : "fetch",
+        "actionType" : "DEDATASET",
+        "name" : "fetch",
+        "getPSAppDEMethod" : {
+          "modelref" : true,
+          "id" : "fetch_user_ref"
+        },
+        "getPSAppDataEntity" : {
+          "modelref" : true,
+          "path" : "PSSYSAPPS/ehrapp/PSAPPDATAENTITIES/res_groups.json"
+        }
+      },
+      "groupMode" : "NONE",
+      "logicName" : "主表格",
+      "getPSAppDataEntity" : {
+        "modelref" : true,
+        "path" : "PSSYSAPPS/ehrapp/PSAPPDATAENTITIES/res_groups.json"
+      },
+      "getPSControlHandler" : {
+        "getPSHandlerActions" : [ {
+          "actionName" : "Get",
+          "actionType" : "DEACTION",
+          "dataAccessAction" : "READ",
+          "name" : "load",
+          "getPSAppDEMethod" : {
+            "modelref" : true,
+            "id" : "get"
+          },
+          "getPSAppDataEntity" : {
+            "modelref" : true,
+            "path" : "PSSYSAPPS/ehrapp/PSAPPDATAENTITIES/res_groups.json"
+          }
+        }, {
+          "actionName" : "Create",
+          "actionType" : "DEACTION",
+          "dataAccessAction" : "CREATE",
+          "name" : "create",
+          "getPSAppDEMethod" : {
+            "modelref" : true,
+            "id" : "create"
+          },
+          "getPSAppDataEntity" : {
+            "modelref" : true,
+            "path" : "PSSYSAPPS/ehrapp/PSAPPDATAENTITIES/res_groups.json"
+          }
+        }, {
+          "actionName" : "Update",
+          "actionType" : "DEACTION",
+          "dataAccessAction" : "UPDATE",
+          "name" : "update",
+          "getPSAppDEMethod" : {
+            "modelref" : true,
+            "id" : "update"
+          },
+          "getPSAppDataEntity" : {
+            "modelref" : true,
+            "path" : "PSSYSAPPS/ehrapp/PSAPPDATAENTITIES/res_groups.json"
+          }
+        }, {
+          "actionName" : "Remove",
+          "actionType" : "DEACTION",
+          "dataAccessAction" : "DELETE",
+          "name" : "remove",
+          "getPSAppDEMethod" : {
+            "modelref" : true,
+            "id" : "remove"
+          },
+          "getPSAppDataEntity" : {
+            "modelref" : true,
+            "path" : "PSSYSAPPS/ehrapp/PSAPPDATAENTITIES/res_groups.json"
+          }
+        }, {
+          "actionName" : "GetDraft",
+          "actionType" : "DEACTION",
+          "dataAccessAction" : "CREATE",
+          "name" : "loaddraft",
+          "getPSAppDEMethod" : {
+            "modelref" : true,
+            "id" : "get_draft"
+          },
+          "getPSAppDataEntity" : {
+            "modelref" : true,
+            "path" : "PSSYSAPPS/ehrapp/PSAPPDATAENTITIES/res_groups.json"
+          }
+        }, {
+          "actionType" : "DEDATASET",
+          "name" : "fetch",
+          "getPSAppDEMethod" : {
+            "modelref" : true,
+            "id" : "fetch_user_ref"
+          },
+          "getPSAppDataEntity" : {
+            "modelref" : true,
+            "path" : "PSSYSAPPS/ehrapp/PSAPPDATAENTITIES/res_groups.json"
+          }
+        } ],
+        "userDRAction" : "READ",
+        "enableDEFieldPrivilege" : false,
+        "id" : "数据表格处理器"
+      },
+      "getPSControlParam" : {
+        "autoLoad" : true,
+        "showBusyIndicator" : true,
+        "id" : "GRID"
+      },
+      "getPSDEGridColumns" : [ {
+        "align" : "LEFT",
+        "cLConvertMode" : "NONE",
+        "getCapPSLanguageRes" : {
+          "lanResTag" : "DEF.LNAME.RES_GROUPS.FULL_NAME"
+        },
+        "caption" : "组名称",
+        "codeName" : "full_name",
+        "columnType" : "DEFGRIDCOLUMN",
+        "dataItemName" : "full_name",
+        "excelCaption" : "组名称",
+        "name" : "full_name",
+        "noPrivDisplayMode" : 1,
+        "getPSAppDEField" : {
+          "name" : "FULL_NAME",
+          "codeName" : "full_name"
+        },
+        "width" : 1,
+        "widthUnit" : "STAR",
+        "enableSort" : false
+      } ],
+      "getPSDEGridDataItems" : [ {
+        "dataType" : 25,
+        "name" : "full_name",
+        "getPSAppDEField" : {
+          "name" : "FULL_NAME",
+          "codeName" : "full_name"
+        }
+      }, {
+        "dataType" : 25,
+        "name" : "srfkey",
+        "getPSAppDEField" : {
+          "name" : "ID",
+          "codeName" : "id"
+        }
+      }, {
+        "dataType" : 25,
+        "name" : "srfdataaccaction",
+        "getPSAppDEField" : {
+          "name" : "ID",
+          "codeName" : "id"
+        },
+        "dataAccessAction" : true
+      }, {
+        "dataType" : 25,
+        "name" : "category_id",
+        "getPSAppDEField" : {
+          "name" : "CATEGORY_ID",
+          "codeName" : "category_id"
+        }
+      }, {
+        "dataType" : 25,
+        "name" : "srfmajortext",
+        "getPSAppDEField" : {
+          "name" : "NAME",
+          "codeName" : "name"
+        }
+      } ],
+      "getPSDEGridEditItems" : [ {
+        "caption" : "标识",
+        "codeName" : "srfkey",
+        "enableCond" : 3,
+        "ignoreInput" : 0,
+        "name" : "srfkey",
+        "getPSAppDEField" : {
+          "name" : "ID",
+          "codeName" : "id"
+        },
+        "getPSEditor" : {
+          "editorType" : "HIDDEN",
+          "name" : "srfkey"
+        },
+        "allowEmpty" : true
+      } ],
+      "pagingMode" : 1,
+      "pagingSize" : 20,
+      "getRemovePSControlAction" : {
+        "actionName" : "Remove",
+        "actionType" : "DEACTION",
+        "dataAccessAction" : "DELETE",
+        "name" : "remove",
+        "getPSAppDEMethod" : {
+          "modelref" : true,
+          "id" : "remove"
+        },
+        "getPSAppDataEntity" : {
+          "modelref" : true,
+          "path" : "PSSYSAPPS/ehrapp/PSAPPDATAENTITIES/res_groups.json"
+        }
+      },
+      "sortMode" : "REMOTE",
+      "hasWFDataItems" : false,
+      "enableColFilter" : false,
+      "enableCustomized" : false,
+      "enableGroup" : false,
+      "enablePagingBar" : true,
+      "enableRowEdit" : false,
+      "enableRowEditOrder" : false,
+      "enableRowNew" : false,
+      "forceFit" : false,
+      "hideHeader" : false,
+      "noSort" : false,
+      "singleSelect" : false,
+      "name" : "grid",
+      "modelid" : "0e10ff51246a5e888f0b57d352a96b56",
+      "modeltype" : "PSDEGRID"
+    }, {
+      "getCapPSLanguageRes" : {
+        "lanResTag" : "DE.LNAME.RES_GROUPS"
+      },
+      "caption" : "用户所属群组",
+      "codeName" : "multi_data_view_usercaptionbar",
+      "controlType" : "CAPTIONBAR",
+      "name" : "captionbar",
+      "getPSAppDataEntity" : {
+        "modelref" : true,
+        "path" : "PSSYSAPPS/ehrapp/PSAPPDATAENTITIES/res_groups.json"
+      },
+      "getPSControlParam" : { }
+    } ]
+  },
+  "title" : "群组",
+  "viewStyle" : "DEFAULT",
+  "viewType" : "DEMDCUSTOMVIEW",
+  "enableDP" : true,
+  "enableFilter" : true,
+  "enableQuickSearch" : true,
+  "enableSearch" : true,
+  "modelid" : "3e70742f1b569154f8564487008dc607",
+  "modeltype" : "PSAPPDEVIEW"
+}

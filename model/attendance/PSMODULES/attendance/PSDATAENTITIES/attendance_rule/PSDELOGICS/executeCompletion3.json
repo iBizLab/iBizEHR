@@ -1,0 +1,228 @@
+{
+  "codeName" : "executeCompletion3",
+  "defaultParamName" : "Default",
+  "dynaModelFilePath" : "PSMODULES/attendance/PSDATAENTITIES/attendance_rule/PSDELOGICS/executeCompletion3.json",
+  "logicName" : "定时补充排班3",
+  "memo" : "为已激活规则补全排班，每月1日执行，生成下个月排班",
+  "name" : "定时补充排班3",
+  "getPSDELogicNodes" : [ {
+    "codeName" : "Begin",
+    "leftPos" : 200,
+    "logicNodeType" : "BEGIN",
+    "name" : "开始",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "RAWSQLCALL1"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "Begin"
+      }
+    } ],
+    "topPos" : 188,
+    "parallelOutput" : true
+  }, {
+    "codeName" : "RAWSQLCALL1",
+    "getDstPSDELogicParam" : {
+      "modelref" : true,
+      "id" : "rules"
+    },
+    "leftPos" : 330,
+    "logicNodeType" : "RAWSQLCALL",
+    "name" : "需补全排班的规则",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "LOOPSUBCALL_01"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "RAWSQLCALL1"
+      }
+    } ],
+    "sql" : "SELECT \r\n   *\r\nFROM \r\n    attendance_activate_rule r\r\nWHERE \r\n    EXISTS (\r\n        SELECT \r\n            1\r\n        FROM \r\n            attendance_group_shift_member gsm\r\n        WHERE \r\n            gsm.rule_id = r.id\r\n    )",
+    "topPos" : 196,
+    "fillDstLogicParam" : true,
+    "ignoreResetDstLogicParam" : false
+  }, {
+    "codeName" : "LOOPSUBCALL_01",
+    "getDstPSDELogicParam" : {
+      "modelref" : true,
+      "id" : "temp"
+    },
+    "leftPos" : 540,
+    "logicNodeType" : "LOOPSUBCALL",
+    "name" : "循环子调用",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "RAWSFCODE2"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "LOOPSUBCALL_01"
+      },
+      "subCallLink" : true
+    }, {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "END_01"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "LOOPSUBCALL_01"
+      }
+    } ],
+    "getSrcPSDELogicParam" : {
+      "modelref" : true,
+      "id" : "rules"
+    },
+    "topPos" : 196,
+    "parallelOutput" : true
+  }, {
+    "code" : "def temp = logic.param('temp').getReal()\r\ndef rule = logic.param('rule').getReal()\r\n\r\ndef rule_data = temp.get(\"rule_data\").any()\r\nif (rule_data){\r\n\r\n    def rule_runtime = sys.dataentity('attendance_rule')\r\n    rule_runtime.createEntity(rule_data).copyTo(rule)\r\n    // 获取下个月第一天\r\n    def calendar = Calendar.getInstance()\r\n    calendar.time = new Date()\r\n    calendar.add(Calendar.MONTH, 1)\r\n    calendar.set(Calendar.DAY_OF_MONTH, 1)\r\n    calendar.set(Calendar.HOUR_OF_DAY, 0)\r\n    calendar.set(Calendar.MINUTE, 0)\r\n    calendar.set(Calendar.SECOND, 0)\r\n    calendar.set(Calendar.MILLISECOND, 0)\r\n    rule.set(\"limitTime\", calendar.getTime())\r\n    //转换scope\r\n    def shifts = temp.get(\"rule_data\").any().get(\"shifts\")\r\n    if(shifts){\r\n        def _shifts = logic.param('shifts').getReal()\r\n        shifts.forEach { shift ->\r\n            def newShift = sys.entity('shift')\r\n            shift.copyTo(newShift)\r\n            _shifts.add(newShift)\r\n        }\r\n        rule.set(\"shifts\",_shifts)\r\n    }\r\n}",
+    "codeName" : "RAWSFCODE2",
+    "codeType" : "Groovy",
+    "leftPos" : 835,
+    "logicNodeType" : "RAWSFCODE",
+    "name" : "执行脚本代码",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "DELOGIC_01"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "RAWSFCODE2"
+      }
+    } ],
+    "topPos" : 196
+  }, {
+    "codeName" : "DELOGIC_01",
+    "getDstPSDELogic" : {
+      "modelref" : true,
+      "path" : "PSMODULES/attendance/PSDATAENTITIES/attendance_rule/PSDELOGICS/activeRule.json"
+    },
+    "getDstPSDELogicParam" : {
+      "modelref" : true,
+      "id" : "rule"
+    },
+    "getDstPSDataEntity" : {
+      "modelref" : true,
+      "path" : "PSMODULES/attendance/PSDATAENTITIES/attendance_rule.json"
+    },
+    "leftPos" : 1000,
+    "logicNodeType" : "DELOGIC",
+    "name" : "按限制时间补全规则",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "PREPAREPARAM1"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "DELOGIC_01"
+      }
+    } ],
+    "topPos" : 388,
+    "parallelOutput" : true
+  }, {
+    "codeName" : "END_01",
+    "leftPos" : 755,
+    "logicNodeType" : "END",
+    "name" : "结束",
+    "topPos" : 420,
+    "parallelOutput" : true
+  }, {
+    "codeName" : "PREPAREPARAM1",
+    "leftPos" : 1200,
+    "logicNodeType" : "PREPAREPARAM",
+    "name" : "准备参数",
+    "getPSDELogicNodeParams" : [ {
+      "getDstPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "shifts"
+      },
+      "name" : " ==> shifts",
+      "paramAction" : "RENEWPARAM"
+    }, {
+      "getDstPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "rule"
+      },
+      "name" : " ==> rule",
+      "paramAction" : "RENEWPARAM"
+    } ],
+    "topPos" : 520,
+    "parallelOutput" : true
+  } ],
+  "getPSDELogicParams" : [ {
+    "codeName" : "Default",
+    "logicName" : "传入变量",
+    "name" : "传入变量",
+    "getParamPSDataEntity" : {
+      "modelref" : true,
+      "path" : "PSMODULES/attendance/PSDATAENTITIES/attendance_rule.json"
+    },
+    "default" : true,
+    "entityParam" : true
+  }, {
+    "codeName" : "rule",
+    "logicName" : "rule",
+    "name" : "rule",
+    "getParamPSDataEntity" : {
+      "modelref" : true,
+      "path" : "PSMODULES/attendance/PSDATAENTITIES/attendance_rule.json"
+    },
+    "entityParam" : true
+  }, {
+    "codeName" : "ruleFilter",
+    "logicName" : "ruleFilter",
+    "name" : "ruleFilter",
+    "getParamPSDataEntity" : {
+      "modelref" : true,
+      "path" : "PSMODULES/attendance/PSDATAENTITIES/attendance_activate_rule.json"
+    },
+    "filterParam" : true
+  }, {
+    "codeName" : "rules",
+    "logicName" : "rules",
+    "name" : "rules",
+    "getParamPSDataEntity" : {
+      "modelref" : true,
+      "path" : "PSMODULES/attendance/PSDATAENTITIES/attendance_activate_rule.json"
+    },
+    "entityListParam" : true
+  }, {
+    "codeName" : "shifts",
+    "logicName" : "shifts",
+    "name" : "shifts",
+    "getParamPSDataEntity" : {
+      "modelref" : true,
+      "path" : "PSMODULES/attendance/PSDATAENTITIES/attendance_shift.json"
+    },
+    "entityListParam" : true
+  }, {
+    "codeName" : "temp",
+    "logicName" : "temp",
+    "name" : "temp",
+    "getParamPSDataEntity" : {
+      "modelref" : true,
+      "path" : "PSMODULES/attendance/PSDATAENTITIES/attendance_activate_rule.json"
+    },
+    "entityParam" : true
+  } ],
+  "getStartPSDELogicNode" : {
+    "modelref" : true,
+    "id" : "Begin"
+  },
+  "enableBackend" : true,
+  "enableFront" : false
+}

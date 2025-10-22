@@ -1,0 +1,26 @@
+{
+  "actionMode" : "CUSTOM",
+  "actionType" : "SCRIPT",
+  "codeName" : "emp_counter",
+  "dataAccessAction" : "READ",
+  "dynaModelFilePath" : "PSMODULES/hr/PSDATAENTITIES/hr_employee/PSDEACTIONS/emp_counter.json",
+  "logicName" : "员工计数器",
+  "name" : "emp_counter",
+  "getPSDEActionInput" : {
+    "name" : "Emp_counterInput",
+    "getPSDEMethodDTO" : {
+      "modelref" : true,
+      "id" : "hr_employee_dto"
+    },
+    "type" : "DTO"
+  },
+  "getPSDEActionReturn" : {
+    "name" : "Emp_counterResult",
+    "getPSDEMethodDTO" : {
+      "modelref" : true,
+      "id" : "hr_employee_counter_dto"
+    },
+    "type" : "DTO"
+  },
+  "scriptCode" : "//Groovy\r\ndef last = entity.callEntity()\r\nif(entity.getId() != null || entity.getId() != \"undefined\"){\r\n\tlast.rawSelect(true);\r\n}\r\n// 1. 从当前实体对象获取work_contact_id值\r\ndef workContactId = last.get(\"work_contact_id\")\r\n\r\nif(workContactId){\r\n\tlast.set(\"related_partners_count\",1)\r\n}\r\n\r\n\r\nreturn last;"
+}

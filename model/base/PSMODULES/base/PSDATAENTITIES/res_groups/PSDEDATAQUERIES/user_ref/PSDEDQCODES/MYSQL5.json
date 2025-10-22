@@ -1,0 +1,48 @@
+{
+  "dBType" : "MYSQL5",
+  "name" : "MySQL5",
+  "getPSDEDataQueryCodeConds" : [ {
+    "condType" : "CUSTOM",
+    "customCond" : "EXISTS(SELECT * FROM `res_groups_users_rel` t21 \n WHERE \n t1.`ID` = t21.`GID`  AND  ( t21.`USER_ID` = #{ctx.datacontext.user_id} ) )",
+    "name" : "查询条件"
+  } ],
+  "getPSDEDataQueryCodeExps" : [ {
+    "expression" : "t1.`COMMENT`",
+    "name" : "COMMENT"
+  }, {
+    "expression" : "t1.`API_KEY_DURATION`",
+    "name" : "API_KEY_DURATION"
+  }, {
+    "expression" : "t1.`CATEGORY_ID`",
+    "name" : "CATEGORY_ID"
+  }, {
+    "expression" : "t11.`NAME`",
+    "name" : "CATEGORY_NAME"
+  }, {
+    "expression" : "t1.`COLOR`",
+    "name" : "COLOR"
+  }, {
+    "expression" : "t1.`CREATE_DATE`",
+    "name" : "CREATE_DATE"
+  }, {
+    "expression" : "t1.`CREATE_UID`",
+    "name" : "CREATE_UID"
+  }, {
+    "expression" : "t1.`ID`",
+    "name" : "ID"
+  }, {
+    "expression" : "t1.`NAME`",
+    "name" : "NAME"
+  }, {
+    "expression" : "t1.`SHARE`",
+    "name" : "SHARE"
+  }, {
+    "expression" : "t1.`WRITE_DATE`",
+    "name" : "WRITE_DATE"
+  }, {
+    "expression" : "t1.`WRITE_UID`",
+    "name" : "WRITE_UID"
+  } ],
+  "queryCode" : "SELECT\nt1.`API_KEY_DURATION`,\nt1.`CATEGORY_ID`,\nt11.`NAME` AS `CATEGORY_NAME`,\nt1.`COLOR`,\nt1.`CREATE_DATE`,\nt1.`CREATE_UID`,\nt1.`ID`,\nt1.`NAME`,\nt1.`SHARE`,\nt1.`WRITE_DATE`,\nt1.`WRITE_UID`\nFROM `res_groups` t1 \nLEFT JOIN `ir_module_category` t11 ON t1.`CATEGORY_ID` = t11.`ID` \n",
+  "id" : "PSMODULES/base/PSDATAENTITIES/res_groups/PSDEDATAQUERIES/user_ref/PSDEDQCODES/MYSQL5.json"
+}

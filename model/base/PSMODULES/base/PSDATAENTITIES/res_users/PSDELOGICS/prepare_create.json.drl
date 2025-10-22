@@ -1,0 +1,30 @@
+package cn.ibizlab.base.logic.res_userslogic.prepare_create;
+        import java.util.Map;
+        import java.util.HashMap;
+        import com.alibaba.fastjson.JSONObject;
+        import org.springframework.util.StringUtils;
+        import org.springframework.util.ObjectUtils;
+        import cn.ibizlab.util.errors.BadRequestAlertException;
+                global cn.ibizlab.core.base.domain.res_users res_usersprepare_createdefault;
+                global java.util.Map res_usersprepare_createdefault_user;
+        global cn.ibizlab.core.base.service.Ires_usersService iBzSysRes_usersDefaultService;
+        global cn.ibizlab.util.security.AuthenticationUser curuser;
+
+
+    no-loop
+
+            //逻辑处理节点[开始]
+            rule "begin"
+            ruleflow-group "res_usersprepare_createbegin"
+            when
+            then
+            end
+
+            //逻辑处理节点[拷贝参数]
+            rule "copyparam_01"
+            ruleflow-group "res_usersprepare_createcopyparam_01"
+            when
+            then
+                        update(res_usersprepare_createdefault);//更新fact中变量值
+                        update(res_usersprepare_createdefault_user);//更新fact中变量值
+            end

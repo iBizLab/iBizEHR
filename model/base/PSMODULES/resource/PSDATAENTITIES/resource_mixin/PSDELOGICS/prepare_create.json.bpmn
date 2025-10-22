@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+    <definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:g="http://www.jboss.org/drools/flow/gpd" xmlns:tns="http://www.jboss.org/drools" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" expressionLanguage="http://www.mvel.org/2.0" id="Definition" name="" targetNamespace="http://www.jboss.org/drools" typeLanguage="http://www.java.com/javaTypes">
+        <process id="cn.ibizlab.core.resource.service.logic.resource_mixinprepare_create" isClosed="false" isExecutable="true" name="resource_resource_mixin_prepare_create_ruleFlow" processType="Private" tns:packageName="cn.ibizlab.core.resource.service.logic.resource_mixinprepare_create">
+            <extensionElements>
+                <tns:import name="java.util.Map" />
+                <tns:import name="org.springframework.util.StringUtils"/>
+                <tns:import name="cn.ibizlab.util.helper.RuleUtils"/>
+                                <tns:metaData express="" name="resource_mixinprepare_createdefault" type="entity"/>
+                                <tns:metaData express="new cn.ibizlab.core.resource.domain.resource_resource()" name="resource_mixinprepare_createresource" type="refentity"/>
+                                    <tns:metaData express="T(cn.ibizlab.util.security.SpringContextHolder).getBean(T(cn.ibizlab.core.resource.service.Iresource_resourceService))" name="resource_resourceservice" type="service"/>
+                    <tns:metaData express="T(cn.ibizlab.util.security.SpringContextHolder).getBean(T(cn.ibizlab.core.resource.service.Iresource_mixinService))" name="iBzSysResource_mixinDefaultService" type="service"/>
+                    <tns:metaData express="T(cn.ibizlab.util.security.AuthenticationUser).getAuthenticationUser()" name="curuser" type="session"/>
+                            <tns:global identifier="resource_mixinprepare_createdefault" type="cn.ibizlab.core.resource.domain.resource_mixin" />
+                            <tns:global identifier="resource_mixinprepare_createresource" type="cn.ibizlab.core.resource.domain.resource_resource" />
+            </extensionElements>
+                        <startEvent id="begin" isInterrupting="true"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="resource_mixinprepare_createprepareparam_01" id="prepareparam_01" implementation="http://www.jboss.org/drools/rule" name="准备资源数据对象"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="resource_mixinprepare_createdeaction_01" id="deaction_01" implementation="http://www.jboss.org/drools/rule" name="建立资源"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="resource_mixinprepare_createprepareparam_02" id="prepareparam_02" implementation="http://www.jboss.org/drools/rule" name="回填数据对象"/>
+                        <endEvent id="prepareparam_02_end" name="end"/>
+                        <sequenceFlow id="prepareparam_02_end_line" sourceRef="prepareparam_02" targetRef="prepareparam_02_end"/>
+                    <sequenceFlow id="begin_prepareparam_01" sourceRef="begin" targetRef="prepareparam_01">
+                    </sequenceFlow>
+                    <sequenceFlow id="prepareparam_01_deaction_01" sourceRef="prepareparam_01" targetRef="deaction_01">
+                    </sequenceFlow>
+                    <sequenceFlow id="deaction_01_prepareparam_02" sourceRef="deaction_01" targetRef="prepareparam_02">
+                    </sequenceFlow>
+        </process>
+    </definitions>

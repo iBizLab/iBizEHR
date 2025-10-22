@@ -1,0 +1,61 @@
+{
+  "dBType" : "MYSQL5",
+  "name" : "MySQL5",
+  "getPSDEDataQueryCodeExps" : [ {
+    "expression" : "t1.`NOTE`",
+    "name" : "NOTE"
+  }, {
+    "expression" : "t1.`ACTIVITY_TYPE_ID`",
+    "name" : "ACTIVITY_TYPE_ID"
+  }, {
+    "expression" : "t31.`NAME`",
+    "name" : "ACTIVITY_TYPE_NAME"
+  }, {
+    "expression" : "t1.`CREATE_DATE`",
+    "name" : "CREATE_DATE"
+  }, {
+    "expression" : "t1.`CREATE_UID`",
+    "name" : "CREATE_UID"
+  }, {
+    "expression" : "t1.`DELAY_COUNT`",
+    "name" : "DELAY_COUNT"
+  }, {
+    "expression" : "t1.`DELAY_FROM`",
+    "name" : "DELAY_FROM"
+  }, {
+    "expression" : "t1.`DELAY_UNIT`",
+    "name" : "DELAY_UNIT"
+  }, {
+    "expression" : "t1.`ID`",
+    "name" : "ID"
+  }, {
+    "expression" : "t1.`PLAN_ID`",
+    "name" : "PLAN_ID"
+  }, {
+    "expression" : "t41.`NAME`",
+    "name" : "PLAN_NAME"
+  }, {
+    "expression" : "t1.`RESPONSIBLE_ID`",
+    "name" : "RESPONSIBLE_ID"
+  }, {
+    "expression" : "t21.`NAME`",
+    "name" : "RESPONSIBLE_NAME"
+  }, {
+    "expression" : "t1.`RESPONSIBLE_TYPE`",
+    "name" : "RESPONSIBLE_TYPE"
+  }, {
+    "expression" : "t1.`SEQUENCE`",
+    "name" : "SEQUENCE"
+  }, {
+    "expression" : "t1.`SUMMARY`",
+    "name" : "SUMMARY"
+  }, {
+    "expression" : "t1.`WRITE_DATE`",
+    "name" : "WRITE_DATE"
+  }, {
+    "expression" : "t1.`WRITE_UID`",
+    "name" : "WRITE_UID"
+  } ],
+  "queryCode" : "SELECT\nt1.`ACTIVITY_TYPE_ID`,\nt31.`NAME` AS `ACTIVITY_TYPE_NAME`,\nt1.`CREATE_DATE`,\nt1.`CREATE_UID`,\nt1.`DELAY_COUNT`,\nt1.`DELAY_FROM`,\nt1.`DELAY_UNIT`,\nt1.`ID`,\nt1.`PLAN_ID`,\nt41.`NAME` AS `PLAN_NAME`,\nt1.`RESPONSIBLE_ID`,\nt21.`NAME` AS `RESPONSIBLE_NAME`,\nt1.`RESPONSIBLE_TYPE`,\nt1.`SEQUENCE`,\nt1.`SUMMARY`,\nt1.`WRITE_DATE`,\nt1.`WRITE_UID`\nFROM `mail_activity_plan_template` t1 \nLEFT JOIN `res_users` t11 ON t1.`RESPONSIBLE_ID` = t11.`ID` \nLEFT JOIN `res_partner` t21 ON t11.`PARTNER_ID` = t21.`ID` \nLEFT JOIN `mail_activity_type` t31 ON t1.`ACTIVITY_TYPE_ID` = t31.`ID` \nLEFT JOIN `mail_activity_plan` t41 ON t1.`PLAN_ID` = t41.`ID` \n",
+  "id" : "PSMODULES/mail/PSDATAENTITIES/mail_activity_plan_template/PSDEDATAQUERIES/Default/PSDEDQCODES/MYSQL5.json"
+}

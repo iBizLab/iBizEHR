@@ -1,0 +1,834 @@
+{
+  "calendarStyle" : "TIMELINE",
+  "codeName" : "main_view_calendar",
+  "controlType" : "CALENDAR",
+  "dynaModelFilePath" : "PSSYSAPPS/web/PSAPPDATAENTITIES/hr_interview/PSCALENDARS/main_view_calendar.json",
+  "groupMode" : "NONE",
+  "legendPos" : "NONE",
+  "logicName" : "面试安排列表_日历部件",
+  "getPSAppDataEntity" : {
+    "modelref" : true,
+    "path" : "PSSYSAPPS/web/PSAPPDATAENTITIES/hr_interview.json"
+  },
+  "getPSSysCalendarItems" : [ {
+    "getBeginTimePSAppDEField" : {
+      "name" : "START_DATE",
+      "codeName" : "start_date"
+    },
+    "getEndTimePSAppDEField" : {
+      "name" : "START_DATE",
+      "codeName" : "start_date"
+    },
+    "getIdPSAppDEField" : {
+      "name" : "ID",
+      "codeName" : "id"
+    },
+    "itemStyle" : "DEFAULT",
+    "itemType" : "master",
+    "maxSize" : -1,
+    "name" : "主数据",
+    "getPSAppDEDataSet" : {
+      "modelref" : true,
+      "id" : "fetch_default"
+    },
+    "getPSAppDataEntity" : {
+      "modelref" : true,
+      "path" : "PSSYSAPPS/web/PSAPPDATAENTITIES/hr_interview.json"
+    },
+    "getPSLayoutPanel" : {
+      "getAllPSPanelFields" : [ {
+        "id" : "owner_name",
+        "viewFieldName" : "owner_name"
+      }, {
+        "id" : "candidate_url",
+        "viewFieldName" : "candidate_url"
+      }, {
+        "id" : "meeting_id",
+        "viewFieldName" : "meeting_id"
+      }, {
+        "id" : "stage_id",
+        "viewFieldName" : "stage_id"
+      }, {
+        "id" : "start_time",
+        "viewFieldName" : "start_time"
+      }, {
+        "id" : "duration",
+        "viewFieldName" : "duration"
+      }, {
+        "id" : "interviewer_name2",
+        "viewFieldName" : "interviewer_name"
+      }, {
+        "id" : "interviewer_name3",
+        "viewFieldName" : "interviewer_name"
+      }, {
+        "id" : "result_type",
+        "viewFieldName" : "result_type"
+      }, {
+        "id" : "video_url",
+        "viewFieldName" : "video_url"
+      } ],
+      "codeName" : "usr0813095453",
+      "controlType" : "PANEL",
+      "dynaModelFilePath" : "PSSYSAPPS/web/PSAPPDATAENTITIES/hr_interview/PSPANELS/usr0813095453.json",
+      "layoutMode" : "FLEX",
+      "logicName" : "面试安排列表布局面板",
+      "getPSAppDataEntity" : {
+        "modelref" : true,
+        "path" : "PSSYSAPPS/web/PSAPPDATAENTITIES/hr_interview.json"
+      },
+      "getPSControlParam" : { },
+      "getPSLayout" : {
+        "layout" : "FLEX"
+      },
+      "getRootPSPanelItems" : [ {
+        "caption" : "容器",
+        "itemStyle" : "DEFAULT",
+        "itemType" : "CONTAINER",
+        "name" : "container",
+        "getPSLayout" : {
+          "layout" : "FLEX"
+        },
+        "getPSLayoutPos" : {
+          "grow" : -1,
+          "layout" : "FLEX"
+        },
+        "getPSPanelItems" : [ {
+          "caption" : "容器",
+          "itemStyle" : "DEFAULT",
+          "itemType" : "CONTAINER",
+          "name" : "container1",
+          "getPSLayout" : {
+            "dir" : "row",
+            "layout" : "FLEX"
+          },
+          "getPSLayoutPos" : {
+            "grow" : -1,
+            "layout" : "FLEX",
+            "spacingBottom" : "OUTERMEDIUM"
+          },
+          "getPSPanelItems" : [ {
+            "caption" : "文本",
+            "contentType" : "RAW",
+            "contentWidth" : 200.0,
+            "itemStyle" : "DEFAULT",
+            "itemType" : "RAWITEM",
+            "name" : "static_text2",
+            "getPSLayoutPos" : {
+              "grow" : -1,
+              "layout" : "FLEX",
+              "width" : 200,
+              "widthMode" : "PX"
+            },
+            "getPSRawItem" : {
+              "caption" : "面试负责人",
+              "contentType" : "RAW",
+              "name" : "static_text2",
+              "predefinedType" : "STATIC_TEXT",
+              "rawItemWidth" : 200.0,
+              "renderMode" : "TEXT"
+            },
+            "rawContent" : "面试负责人",
+            "rawItemWidth" : 200.0,
+            "width" : 200.0,
+            "showCaption" : true
+          }, {
+            "caption" : "文本(动态)",
+            "itemStyle" : "DEFAULT",
+            "itemType" : "FIELD",
+            "name" : "owner_name",
+            "getPSEditor" : {
+              "editorType" : "SPAN",
+              "name" : "owner_name",
+              "predefinedType" : "FIELD_TEXT_DYNAMIC",
+              "renderMode" : "TEXT_DYNAMIC",
+              "enableLinkView" : false
+            },
+            "getPSLayoutPos" : {
+              "grow" : -1,
+              "layout" : "FLEX"
+            },
+            "viewFieldName" : "owner_name"
+          } ]
+        }, {
+          "caption" : "容器",
+          "itemStyle" : "DEFAULT",
+          "itemType" : "CONTAINER",
+          "name" : "container2",
+          "getPSLayout" : {
+            "dir" : "row",
+            "layout" : "FLEX"
+          },
+          "getPSLayoutPos" : {
+            "grow" : -1,
+            "layout" : "FLEX",
+            "spacingBottom" : "OUTERMEDIUM"
+          },
+          "getPSPanelItems" : [ {
+            "caption" : "文本",
+            "contentType" : "RAW",
+            "contentWidth" : 200.0,
+            "itemStyle" : "DEFAULT",
+            "itemType" : "RAWITEM",
+            "name" : "static_text",
+            "getPSLayoutPos" : {
+              "grow" : -1,
+              "layout" : "FLEX",
+              "width" : 200,
+              "widthMode" : "PX"
+            },
+            "getPSRawItem" : {
+              "caption" : "候选人链接",
+              "contentType" : "RAW",
+              "name" : "static_text",
+              "predefinedType" : "STATIC_TEXT",
+              "rawItemWidth" : 200.0,
+              "renderMode" : "TEXT"
+            },
+            "rawContent" : "候选人链接",
+            "rawItemWidth" : 200.0,
+            "width" : 200.0,
+            "showCaption" : true
+          }, {
+            "caption" : "文本(动态)",
+            "itemStyle" : "DEFAULT",
+            "itemType" : "FIELD",
+            "name" : "candidate_url",
+            "getPSEditor" : {
+              "editorType" : "SPAN",
+              "name" : "candidate_url",
+              "predefinedType" : "FIELD_TEXT_DYNAMIC",
+              "renderMode" : "TEXT_DYNAMIC",
+              "enableLinkView" : false
+            },
+            "getPSLayoutPos" : {
+              "grow" : -1,
+              "layout" : "FLEX"
+            },
+            "viewFieldName" : "candidate_url"
+          } ]
+        }, {
+          "caption" : "容器",
+          "itemStyle" : "DEFAULT",
+          "itemType" : "CONTAINER",
+          "name" : "container3",
+          "getPSLayout" : {
+            "dir" : "row",
+            "layout" : "FLEX"
+          },
+          "getPSLayoutPos" : {
+            "grow" : -1,
+            "layout" : "FLEX",
+            "spacingBottom" : "OUTERMEDIUM"
+          },
+          "getPSPanelItems" : [ {
+            "caption" : "文本",
+            "contentType" : "RAW",
+            "contentWidth" : 200.0,
+            "itemStyle" : "DEFAULT",
+            "itemType" : "RAWITEM",
+            "name" : "static_text1",
+            "getPSLayoutPos" : {
+              "grow" : -1,
+              "layout" : "FLEX",
+              "width" : 200,
+              "widthMode" : "PX"
+            },
+            "getPSRawItem" : {
+              "caption" : "会议号",
+              "contentType" : "RAW",
+              "name" : "static_text1",
+              "predefinedType" : "STATIC_TEXT",
+              "rawItemWidth" : 200.0,
+              "renderMode" : "TEXT"
+            },
+            "rawContent" : "会议号",
+            "rawItemWidth" : 200.0,
+            "width" : 200.0,
+            "showCaption" : true
+          }, {
+            "caption" : "文本(动态)",
+            "itemStyle" : "DEFAULT",
+            "itemType" : "FIELD",
+            "name" : "meeting_id",
+            "getPSEditor" : {
+              "editorType" : "SPAN",
+              "name" : "meeting_id",
+              "predefinedType" : "FIELD_TEXT_DYNAMIC",
+              "renderMode" : "TEXT_DYNAMIC",
+              "enableLinkView" : false
+            },
+            "getPSLayoutPos" : {
+              "grow" : -1,
+              "layout" : "FLEX"
+            },
+            "viewFieldName" : "meeting_id"
+          } ]
+        }, {
+          "caption" : "容器",
+          "itemStyle" : "DEFAULT",
+          "itemType" : "CONTAINER",
+          "name" : "container5",
+          "getPSLayout" : {
+            "layout" : "FLEX"
+          },
+          "getPSLayoutPos" : {
+            "grow" : -1,
+            "layout" : "FLEX"
+          },
+          "getPSPanelItems" : [ {
+            "caption" : "容器",
+            "itemStyle" : "DEFAULT",
+            "itemType" : "CONTAINER",
+            "name" : "container4",
+            "getPSLayout" : {
+              "dir" : "row",
+              "layout" : "FLEX"
+            },
+            "getPSLayoutPos" : {
+              "grow" : -1,
+              "layout" : "FLEX",
+              "spacingBottom" : "OUTERMEDIUM"
+            },
+            "getPSPanelItems" : [ {
+              "caption" : "文本",
+              "contentType" : "RAW",
+              "contentWidth" : 200.0,
+              "itemStyle" : "DEFAULT",
+              "itemType" : "RAWITEM",
+              "name" : "static_text3",
+              "getPSLayoutPos" : {
+                "grow" : -1,
+                "layout" : "FLEX",
+                "width" : 200,
+                "widthMode" : "PX"
+              },
+              "getPSRawItem" : {
+                "caption" : "面试信息",
+                "contentType" : "RAW",
+                "name" : "static_text3",
+                "predefinedType" : "STATIC_TEXT",
+                "rawItemWidth" : 200.0,
+                "renderMode" : "TEXT"
+              },
+              "rawContent" : "面试信息",
+              "rawItemWidth" : 200.0,
+              "width" : 200.0,
+              "showCaption" : true
+            }, {
+              "caption" : "文本(动态)",
+              "itemStyle" : "DEFAULT",
+              "itemType" : "FIELD",
+              "name" : "stage_id",
+              "getPSEditor" : {
+                "editorType" : "SPAN",
+                "name" : "stage_id",
+                "getPSAppCodeList" : {
+                  "modelref" : true,
+                  "path" : "PSSYSAPPS/web/PSAPPCODELISTS/hr__interview_stage.json"
+                },
+                "predefinedType" : "FIELD_TEXT_DYNAMIC",
+                "renderMode" : "TEXT_DYNAMIC",
+                "enableLinkView" : false
+              },
+              "getPSLayoutPos" : {
+                "grow" : -1,
+                "layout" : "FLEX",
+                "spacingRight" : "OUTERMEDIUM"
+              },
+              "viewFieldName" : "stage_id",
+              "convertToCodeItemText" : true
+            }, {
+              "caption" : "文本(动态)",
+              "itemStyle" : "DEFAULT",
+              "itemType" : "FIELD",
+              "name" : "start_time",
+              "getPSEditor" : {
+                "editorType" : "SPAN",
+                "name" : "start_time",
+                "getPSAppCodeList" : {
+                  "modelref" : true,
+                  "path" : "PSSYSAPPS/web/PSAPPCODELISTS/hr__interview_start_time.json"
+                },
+                "predefinedType" : "FIELD_TEXT_DYNAMIC",
+                "renderMode" : "TEXT_DYNAMIC",
+                "enableLinkView" : false
+              },
+              "getPSLayoutPos" : {
+                "grow" : -1,
+                "layout" : "FLEX",
+                "spacingRight" : "OUTERMEDIUM"
+              },
+              "viewFieldName" : "start_time",
+              "convertToCodeItemText" : true
+            }, {
+              "caption" : "文本",
+              "contentType" : "RAW",
+              "itemStyle" : "DEFAULT",
+              "itemType" : "RAWITEM",
+              "name" : "static_text4",
+              "getPSLayoutPos" : {
+                "grow" : -1,
+                "layout" : "FLEX",
+                "spacingRight" : "OUTERSMALL"
+              },
+              "getPSRawItem" : {
+                "caption" : "时长:",
+                "contentType" : "RAW",
+                "name" : "static_text4",
+                "predefinedType" : "STATIC_TEXT",
+                "renderMode" : "TEXT"
+              },
+              "rawContent" : "时长:",
+              "showCaption" : true
+            }, {
+              "caption" : "文本(动态)",
+              "itemStyle" : "DEFAULT",
+              "itemType" : "FIELD",
+              "name" : "duration",
+              "getPSEditor" : {
+                "editorType" : "SPAN",
+                "name" : "duration",
+                "getPSAppCodeList" : {
+                  "modelref" : true,
+                  "path" : "PSSYSAPPS/web/PSAPPCODELISTS/hr__interview_duration.json"
+                },
+                "predefinedType" : "FIELD_TEXT_DYNAMIC",
+                "renderMode" : "TEXT_DYNAMIC",
+                "enableLinkView" : false
+              },
+              "getPSLayoutPos" : {
+                "grow" : -1,
+                "layout" : "FLEX"
+              },
+              "viewFieldName" : "duration",
+              "convertToCodeItemText" : true
+            } ]
+          }, {
+            "caption" : "容器",
+            "itemStyle" : "DEFAULT",
+            "itemType" : "CONTAINER",
+            "name" : "container6",
+            "getPSLayout" : {
+              "layout" : "FLEX"
+            },
+            "getPSLayoutPos" : {
+              "grow" : -1,
+              "layout" : "FLEX"
+            },
+            "getPSPanelItems" : [ {
+              "caption" : "多项数据容器",
+              "dataName" : "interview_feedbacks",
+              "dataRegionType" : "MULTIDATA",
+              "dataSourceType" : "ACTIVEDATAPARAM",
+              "itemStyle" : "DEFAULT",
+              "itemType" : "CONTAINER",
+              "name" : "container_multidata",
+              "getPSLayout" : {
+                "layout" : "FLEX"
+              },
+              "getPSLayoutPos" : {
+                "grow" : -1,
+                "layout" : "FLEX"
+              },
+              "getPSPanelItems" : [ {
+                "caption" : "容器",
+                "itemStyle" : "DEFAULT",
+                "itemType" : "CONTAINER",
+                "name" : "container7",
+                "getPSLayout" : {
+                  "dir" : "row",
+                  "layout" : "FLEX"
+                },
+                "getPSLayoutPos" : {
+                  "grow" : -1,
+                  "layout" : "FLEX",
+                  "spacingBottom" : "OUTERMEDIUM"
+                },
+                "getPSPanelItemGroupLogics" : [ {
+                  "groupOP" : "AND",
+                  "logicCat" : "PANELVISIBLE",
+                  "logicType" : "GROUP",
+                  "getPSPanelItemLogics" : [ {
+                    "condOp" : "ISNULL",
+                    "dstModelField" : "result_type",
+                    "logicType" : "SINGLE",
+                    "name" : "逻辑项"
+                  } ],
+                  "relatedItemNames" : [ "result_type" ],
+                  "notMode" : false
+                } ],
+                "getPSPanelItems" : [ {
+                  "caption" : "文本(动态)",
+                  "contentWidth" : 200.0,
+                  "itemStyle" : "DEFAULT",
+                  "itemType" : "FIELD",
+                  "name" : "interviewer_name2",
+                  "getPSEditor" : {
+                    "editorType" : "SPAN",
+                    "editorWidth" : 200.0,
+                    "name" : "interviewer_name2",
+                    "predefinedType" : "FIELD_TEXT_DYNAMIC",
+                    "renderMode" : "TEXT_DYNAMIC",
+                    "enableLinkView" : false
+                  },
+                  "getPSLayoutPos" : {
+                    "grow" : -1,
+                    "layout" : "FLEX",
+                    "width" : 200,
+                    "widthMode" : "PX"
+                  },
+                  "viewFieldName" : "interviewer_name",
+                  "width" : 200.0
+                }, {
+                  "caption" : "容器",
+                  "contentHeight" : 32.0,
+                  "height" : 32.0,
+                  "itemStyle" : "DEFAULT",
+                  "itemType" : "CONTAINER",
+                  "name" : "container8",
+                  "getPSLayout" : {
+                    "dir" : "row",
+                    "layout" : "FLEX"
+                  },
+                  "getPSLayoutPos" : {
+                    "grow" : 1,
+                    "height" : 32,
+                    "heightMode" : "PX",
+                    "layout" : "FLEX"
+                  },
+                  "getPSPanelItems" : [ {
+                    "caption" : "图片",
+                    "contentHeight" : 20.0,
+                    "contentType" : "IMAGE",
+                    "height" : 20.0,
+                    "itemStyle" : "DEFAULT",
+                    "itemType" : "RAWITEM",
+                    "name" : "static_image",
+                    "getPSLayoutPos" : {
+                      "grow" : -1,
+                      "height" : 20,
+                      "heightMode" : "PX",
+                      "layout" : "FLEX",
+                      "spacingLeft" : "OUTERSMALL",
+                      "spacingRight" : "OUTERSMALL"
+                    },
+                    "getPSRawItem" : {
+                      "contentType" : "IMAGE",
+                      "name" : "static_image",
+                      "getPSSysImage" : {
+                        "glyph" : "xf071@FontAwesome",
+                        "cssClass" : "fa fa-warning"
+                      },
+                      "predefinedType" : "STATIC_IMAGE",
+                      "rawItemHeight" : 20.0
+                    },
+                    "getPSSysImage" : {
+                      "glyph" : "xf071@FontAwesome",
+                      "cssClass" : "fa fa-warning"
+                    },
+                    "rawItemHeight" : 20.0,
+                    "showCaption" : true
+                  }, {
+                    "caption" : "文本",
+                    "contentType" : "RAW",
+                    "itemStyle" : "DEFAULT",
+                    "itemType" : "RAWITEM",
+                    "name" : "static_text6",
+                    "getPSLayoutPos" : {
+                      "grow" : -1,
+                      "heightMode" : "FULL",
+                      "layout" : "FLEX"
+                    },
+                    "getPSPanelItemGroupLogics" : [ {
+                      "groupOP" : "AND",
+                      "logicCat" : "PANELVISIBLE",
+                      "logicType" : "GROUP",
+                      "getPSPanelItemLogics" : [ {
+                        "condOp" : "ISNULL",
+                        "dstModelField" : "result_type",
+                        "logicType" : "SINGLE",
+                        "name" : "逻辑项"
+                      } ],
+                      "relatedItemNames" : [ "result_type" ],
+                      "notMode" : false
+                    } ],
+                    "getPSRawItem" : {
+                      "caption" : "未评估",
+                      "contentType" : "RAW",
+                      "name" : "static_text6",
+                      "predefinedType" : "STATIC_TEXT",
+                      "renderMode" : "TEXT"
+                    },
+                    "rawContent" : "未评估",
+                    "showCaption" : true
+                  } ]
+                }, {
+                  "actionType" : "UIACTION",
+                  "buttonStyle" : "DEFAULT",
+                  "caption" : "填写反馈",
+                  "itemStyle" : "DEFAULT",
+                  "itemType" : "BUTTON",
+                  "name" : "button_link",
+                  "getPSAppViewUIAction" : {
+                    "modelref" : true,
+                    "id" : "masterlayoutpanel_button_link"
+                  },
+                  "getPSLayoutPos" : {
+                    "grow" : -1,
+                    "layout" : "FLEX",
+                    "spacingRight" : "OUTERMEDIUM"
+                  },
+                  "getPSSysCss" : {
+                    "cssName" : "add_feedback"
+                  },
+                  "getPSUIAction" : {
+                    "actionTarget" : "NONE",
+                    "caption" : "填写反馈",
+                    "codeName" : "add_feedback_hr",
+                    "getFrontPSAppView" : {
+                      "modelref" : true,
+                      "path" : "PSSYSAPPS/web/PSAPPDEVIEWS/hr_interview_feedback_interview_result_option_view.json",
+                      "viewType" : "DEOPTVIEW"
+                    },
+                    "frontProcessType" : "WIZARD",
+                    "fullCodeName" : "hr_interview_feedback_add_feedback_hr",
+                    "name" : "填写面试反馈（HR端）",
+                    "getPSAppDataEntity" : {
+                      "modelref" : true,
+                      "path" : "PSSYSAPPS/web/PSAPPDATAENTITIES/hr_interview_feedback.json"
+                    },
+                    "getPSNavigateContexts" : [ {
+                      "key" : "HR_INTERVIEW_FEEDBACK",
+                      "name" : "HR_INTERVIEW_FEEDBACK",
+                      "value" : "id",
+                      "rawValue" : false
+                    } ],
+                    "refreshMode" : 1,
+                    "uIActionMode" : "FRONT",
+                    "uIActionTag" : "add_feedback_hr",
+                    "uIActionType" : "DEUIACTION",
+                    "reloadData" : true,
+                    "id" : "add_feedback_hr@hr_interview_feedback"
+                  },
+                  "renderMode" : "LINK",
+                  "tooltip" : "填写反馈",
+                  "uIActionTarget" : "NONE",
+                  "showCaption" : true
+                } ]
+              }, {
+                "caption" : "容器",
+                "itemStyle" : "DEFAULT",
+                "itemType" : "CONTAINER",
+                "name" : "container9",
+                "getPSLayout" : {
+                  "dir" : "row",
+                  "layout" : "FLEX"
+                },
+                "getPSLayoutPos" : {
+                  "grow" : -1,
+                  "layout" : "FLEX"
+                },
+                "getPSPanelItemGroupLogics" : [ {
+                  "groupOP" : "AND",
+                  "logicCat" : "PANELVISIBLE",
+                  "logicType" : "GROUP",
+                  "getPSPanelItemLogics" : [ {
+                    "condOp" : "ISNOTNULL",
+                    "dstModelField" : "result_type",
+                    "logicType" : "SINGLE",
+                    "name" : "逻辑项"
+                  } ],
+                  "relatedItemNames" : [ "result_type" ],
+                  "notMode" : false
+                } ],
+                "getPSPanelItems" : [ {
+                  "caption" : "文本(动态)",
+                  "contentWidth" : 200.0,
+                  "itemStyle" : "DEFAULT",
+                  "itemType" : "FIELD",
+                  "name" : "interviewer_name3",
+                  "getPSEditor" : {
+                    "editorType" : "SPAN",
+                    "editorWidth" : 200.0,
+                    "name" : "interviewer_name3",
+                    "predefinedType" : "FIELD_TEXT_DYNAMIC",
+                    "renderMode" : "TEXT_DYNAMIC",
+                    "enableLinkView" : false
+                  },
+                  "getPSLayoutPos" : {
+                    "grow" : -1,
+                    "layout" : "FLEX",
+                    "width" : 200,
+                    "widthMode" : "PX"
+                  },
+                  "viewFieldName" : "interviewer_name",
+                  "width" : 200.0
+                }, {
+                  "caption" : "容器",
+                  "itemStyle" : "DEFAULT",
+                  "itemType" : "CONTAINER",
+                  "name" : "container11",
+                  "getPSLayout" : {
+                    "dir" : "row",
+                    "layout" : "FLEX"
+                  },
+                  "getPSLayoutPos" : {
+                    "grow" : 1,
+                    "layout" : "FLEX"
+                  },
+                  "getPSPanelItems" : [ {
+                    "caption" : "文本(动态)",
+                    "itemStyle" : "DEFAULT",
+                    "itemType" : "FIELD",
+                    "name" : "result_type",
+                    "getPSEditor" : {
+                      "editorType" : "SPAN",
+                      "name" : "result_type",
+                      "getPSAppCodeList" : {
+                        "modelref" : true,
+                        "path" : "PSSYSAPPS/web/PSAPPCODELISTS/hr__interview_result_type.json"
+                      },
+                      "predefinedType" : "FIELD_TEXT_DYNAMIC",
+                      "renderMode" : "TEXT_DYNAMIC",
+                      "enableLinkView" : false
+                    },
+                    "getPSLayoutPos" : {
+                      "grow" : -1,
+                      "layout" : "FLEX",
+                      "spacingLeft" : "OUTERSMALL"
+                    },
+                    "viewFieldName" : "result_type",
+                    "convertToCodeItemText" : true
+                  } ]
+                }, {
+                  "actionType" : "UIACTION",
+                  "buttonStyle" : "DEFAULT",
+                  "caption" : "查看反馈",
+                  "itemStyle" : "DEFAULT",
+                  "itemType" : "BUTTON",
+                  "name" : "button_link1",
+                  "getPSAppViewUIAction" : {
+                    "modelref" : true,
+                    "id" : "masterlayoutpanel_button_link1"
+                  },
+                  "getPSLayoutPos" : {
+                    "grow" : -1,
+                    "layout" : "FLEX",
+                    "spacingRight" : "OUTERMEDIUM"
+                  },
+                  "getPSSysCss" : {
+                    "cssName" : "add_feedback"
+                  },
+                  "getPSUIAction" : {
+                    "actionTarget" : "NONE",
+                    "caption" : "填写反馈",
+                    "codeName" : "add_feedback_hr",
+                    "getFrontPSAppView" : {
+                      "modelref" : true,
+                      "path" : "PSSYSAPPS/web/PSAPPDEVIEWS/hr_interview_feedback_interview_result_option_view.json",
+                      "viewType" : "DEOPTVIEW"
+                    },
+                    "frontProcessType" : "WIZARD",
+                    "fullCodeName" : "hr_interview_feedback_add_feedback_hr",
+                    "name" : "填写面试反馈（HR端）",
+                    "getPSAppDataEntity" : {
+                      "modelref" : true,
+                      "path" : "PSSYSAPPS/web/PSAPPDATAENTITIES/hr_interview_feedback.json"
+                    },
+                    "getPSNavigateContexts" : [ {
+                      "key" : "HR_INTERVIEW_FEEDBACK",
+                      "name" : "HR_INTERVIEW_FEEDBACK",
+                      "value" : "id",
+                      "rawValue" : false
+                    } ],
+                    "refreshMode" : 1,
+                    "uIActionMode" : "FRONT",
+                    "uIActionTag" : "add_feedback_hr",
+                    "uIActionType" : "DEUIACTION",
+                    "reloadData" : true,
+                    "id" : "add_feedback_hr@hr_interview_feedback"
+                  },
+                  "renderMode" : "LINK",
+                  "tooltip" : "查看反馈",
+                  "uIActionTarget" : "NONE",
+                  "showCaption" : true
+                } ]
+              }, {
+                "caption" : "容器",
+                "itemStyle" : "DEFAULT",
+                "itemType" : "CONTAINER",
+                "name" : "container10",
+                "getPSLayout" : {
+                  "dir" : "row",
+                  "layout" : "FLEX"
+                },
+                "getPSLayoutPos" : {
+                  "grow" : -1,
+                  "layout" : "FLEX",
+                  "spacingBottom" : "OUTERMEDIUM"
+                },
+                "getPSPanelItems" : [ {
+                  "caption" : "文本",
+                  "contentType" : "RAW",
+                  "contentWidth" : 200.0,
+                  "itemStyle" : "DEFAULT",
+                  "itemType" : "RAWITEM",
+                  "name" : "static_text5",
+                  "getPSLayoutPos" : {
+                    "grow" : -1,
+                    "layout" : "FLEX",
+                    "width" : 200,
+                    "widthMode" : "PX"
+                  },
+                  "getPSRawItem" : {
+                    "caption" : "面试官链接",
+                    "contentType" : "RAW",
+                    "name" : "static_text5",
+                    "predefinedType" : "STATIC_TEXT",
+                    "rawItemWidth" : 200.0,
+                    "renderMode" : "TEXT"
+                  },
+                  "rawContent" : "面试官链接",
+                  "rawItemWidth" : 200.0,
+                  "width" : 200.0,
+                  "showCaption" : true
+                }, {
+                  "caption" : "文本(动态)",
+                  "itemStyle" : "DEFAULT",
+                  "itemType" : "FIELD",
+                  "name" : "video_url",
+                  "getPSEditor" : {
+                    "editorType" : "SPAN",
+                    "name" : "video_url",
+                    "predefinedType" : "FIELD_TEXT_DYNAMIC",
+                    "renderMode" : "TEXT_DYNAMIC",
+                    "enableLinkView" : false
+                  },
+                  "getPSLayoutPos" : {
+                    "grow" : -1,
+                    "layout" : "FLEX"
+                  },
+                  "viewFieldName" : "video_url"
+                } ]
+              } ],
+              "predefinedType" : "CONTAINER_MULTIDATA"
+            } ]
+          } ]
+        } ]
+      } ],
+      "layoutPanel" : true,
+      "name" : "masterlayoutpanel",
+      "modelid" : "ed65fb5e50687e863fe1bd0bd34aa9d9",
+      "modeltype" : "PSSYSVIEWPANEL"
+    },
+    "getTextPSAppDEField" : {
+      "name" : "NAME",
+      "codeName" : "name"
+    },
+    "enableQuickCreate" : false,
+    "id" : "master"
+  } ],
+  "enableGroup" : false,
+  "modelid" : "a11ba7af8831ab5727aeb38dd8ebf3ab",
+  "modeltype" : "PSSYSCALENDAR"
+}

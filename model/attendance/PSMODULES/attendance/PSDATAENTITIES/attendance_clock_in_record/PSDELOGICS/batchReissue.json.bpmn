@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+    <definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:g="http://www.jboss.org/drools/flow/gpd" xmlns:tns="http://www.jboss.org/drools" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" expressionLanguage="http://www.mvel.org/2.0" id="Definition" name="" targetNamespace="http://www.jboss.org/drools" typeLanguage="http://www.java.com/javaTypes">
+        <process id="cn.ibizlab.core.attendance.service.logic.attendance_clock_in_recordbatchreissue" isClosed="false" isExecutable="true" name="attendance_attendance_clock_in_record_batchreissue_ruleFlow" processType="Private" tns:packageName="cn.ibizlab.core.attendance.service.logic.attendance_clock_in_recordbatchreissue">
+            <extensionElements>
+                <tns:import name="java.util.Map" />
+                <tns:import name="org.springframework.util.StringUtils"/>
+                <tns:import name="cn.ibizlab.util.helper.RuleUtils"/>
+                                <tns:metaData express="" name="attendance_clock_in_recordbatchreissuedefault" type="entity"/>
+                                <tns:metaData express="new cn.ibizlab.core.employee_management.domain.user_object()" name="attendance_clock_in_recordbatchreissueallmembers" type="refentity"/>
+                                <tns:metaData express="new cn.ibizlab.core.employee_management.domain.user_object()" name="attendance_clock_in_recordbatchreissuedepts" type="refentity"/>
+                                <tns:metaData express="new cn.ibizlab.core.employee_management.domain.employee()" name="attendance_clock_in_recordbatchreissueemployees" type="refentity"/>
+                                <tns:metaData express="new cn.ibizlab.core.employee_management.domain.user_object()" name="attendance_clock_in_recordbatchreissuefilter" type="refentity"/>
+                                <tns:metaData express="new cn.ibizlab.core.employee_management.domain.employee()" name="attendance_clock_in_recordbatchreissuepersons" type="refentity"/>
+                                <tns:metaData express="new cn.ibizlab.core.employee_management.domain.user_object()" name="attendance_clock_in_recordbatchreissuetemp" type="refentity"/>
+                                    <tns:metaData express="T(cn.ibizlab.util.security.SpringContextHolder).getBean(T(cn.ibizlab.core.employee_management.service.IemployeeService))" name="employeeservice" type="service"/>
+                    <tns:metaData express="T(cn.ibizlab.util.security.SpringContextHolder).getBean(T(cn.ibizlab.core.attendance.service.Iattendance_clock_in_recordService))" name="iBzSysAttendance_clock_in_recordDefaultService" type="service"/>
+                    <tns:metaData express="T(cn.ibizlab.util.security.AuthenticationUser).getAuthenticationUser()" name="curuser" type="session"/>
+                            <tns:global identifier="attendance_clock_in_recordbatchreissuedefault" type="cn.ibizlab.core.attendance.domain.attendance_clock_in_record" />
+                            <tns:global identifier="attendance_clock_in_recordbatchreissueallmembers" type="cn.ibizlab.core.employee_management.domain.user_object" />
+                            <tns:global identifier="attendance_clock_in_recordbatchreissuedepts" type="cn.ibizlab.core.employee_management.domain.user_object" />
+                            <tns:global identifier="attendance_clock_in_recordbatchreissueemployees" type="cn.ibizlab.core.employee_management.domain.employee" />
+                            <tns:global identifier="attendance_clock_in_recordbatchreissuefilter" type="cn.ibizlab.core.employee_management.domain.user_object" />
+                            <tns:global identifier="attendance_clock_in_recordbatchreissuepersons" type="cn.ibizlab.core.employee_management.domain.employee" />
+                            <tns:global identifier="attendance_clock_in_recordbatchreissuetemp" type="cn.ibizlab.core.employee_management.domain.user_object" />
+            </extensionElements>
+                        <startEvent id="begin" isInterrupting="true"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="attendance_clock_in_recordbatchreissuedebugparam_01" id="debugparam_01" implementation="http://www.jboss.org/drools/rule" name="调试逻辑参数"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="attendance_clock_in_recordbatchreissuerawsfcode_01" id="rawsfcode_01" implementation="http://www.jboss.org/drools/rule" name="执行脚本代码"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="attendance_clock_in_recordbatchreissueloopsubcall_01" id="loopsubcall_01" implementation="http://www.jboss.org/drools/rule" name="循环子调用"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="attendance_clock_in_recordbatchreissuerawsfcode_03" id="rawsfcode_03" implementation="http://www.jboss.org/drools/rule" name="创建打卡记录"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="attendance_clock_in_recordbatchreissueend_01" id="end_01" implementation="http://www.jboss.org/drools/rule" name="结束"/>
+                        <endEvent id="end_01_end" name="end"/>
+                        <sequenceFlow id="end_01_end_line" sourceRef="end_01" targetRef="end_01_end"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="attendance_clock_in_recordbatchreissueprepareparam_01" id="prepareparam_01" implementation="http://www.jboss.org/drools/rule" name="准备参数"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="attendance_clock_in_recordbatchreissuededataset_01" id="dedataset_01" implementation="http://www.jboss.org/drools/rule" name="实体数据集"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="attendance_clock_in_recordbatchreissuerawsfcode_02" id="rawsfcode_02" implementation="http://www.jboss.org/drools/rule" name="执行脚本代码"/>
+                        <endEvent id="rawsfcode_02_end" name="end"/>
+                        <sequenceFlow id="rawsfcode_02_end_line" sourceRef="rawsfcode_02" targetRef="rawsfcode_02_end"/>
+                    <sequenceFlow id="begin_debugparam_01" sourceRef="begin" targetRef="debugparam_01">
+                    </sequenceFlow>
+                    <sequenceFlow id="debugparam_01_rawsfcode_01" sourceRef="debugparam_01" targetRef="rawsfcode_01">
+                    </sequenceFlow>
+                    <sequenceFlow id="rawsfcode_01_loopsubcall_01" sourceRef="rawsfcode_01" targetRef="loopsubcall_01">
+                    </sequenceFlow>
+                    <sequenceFlow id="loopsubcall_01_prepareparam_01" sourceRef="loopsubcall_01" targetRef="prepareparam_01">
+                    </sequenceFlow>
+                    <sequenceFlow id="loopsubcall_01_rawsfcode_03" sourceRef="loopsubcall_01" targetRef="rawsfcode_03">
+                    </sequenceFlow>
+                    <sequenceFlow id="rawsfcode_03_end_01" sourceRef="rawsfcode_03" targetRef="end_01">
+                    </sequenceFlow>
+                    <sequenceFlow id="prepareparam_01_dedataset_01" sourceRef="prepareparam_01" targetRef="dedataset_01">
+                    </sequenceFlow>
+                    <sequenceFlow id="dedataset_01_rawsfcode_02" sourceRef="dedataset_01" targetRef="rawsfcode_02">
+                    </sequenceFlow>
+        </process>
+    </definitions>

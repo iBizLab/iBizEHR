@@ -1,0 +1,11 @@
+```sql
+SELECT
+t1.`COMPANY_ID`,
+t1.`ID`,
+t1.`NAME`,
+t1.`RESOURCE_CALENDAR_ID`,
+t1.`RESOURCE_ID`
+FROM `` t1 
+
+
+```

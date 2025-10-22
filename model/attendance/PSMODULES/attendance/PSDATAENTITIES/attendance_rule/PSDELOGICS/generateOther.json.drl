@@ -1,0 +1,54 @@
+package cn.ibizlab.attendance.logic.attendance_rulelogic.generateother;
+        import java.util.Map;
+        import java.util.HashMap;
+        import com.alibaba.fastjson.JSONObject;
+        import org.springframework.util.StringUtils;
+        import org.springframework.util.ObjectUtils;
+        import cn.ibizlab.util.errors.BadRequestAlertException;
+                global cn.ibizlab.core.attendance.domain.attendance_rule attendance_rulegenerateotherdefault;
+                global cn.ibizlab.core.resource.domain.resource_calendar_attendance attendance_rulegenerateotherattendances;
+                global cn.ibizlab.core.resource.domain.resource_calendar attendance_rulegenerateotherresource_calendar;
+                    global cn.ibizlab.core.resource.service.Iresource_calendarService resource_calendarservice;
+        global cn.ibizlab.core.attendance.service.Iattendance_ruleService iBzSysAttendance_ruleDefaultService;
+        global cn.ibizlab.util.security.AuthenticationUser curuser;
+
+
+    no-loop
+
+            //逻辑处理节点[开始]
+            rule "begin"
+            ruleflow-group "attendance_rulegenerateotherbegin"
+            when
+            then
+            end
+
+            //逻辑处理节点[构造工作时间]
+            rule "rawsfcode_01"
+            ruleflow-group "attendance_rulegenerateotherrawsfcode_01"
+            when
+            then
+                        update(attendance_rulegenerateotherdefault);//更新fact中变量值
+                        update(attendance_rulegenerateotherattendances);//更新fact中变量值
+                        update(attendance_rulegenerateotherresource_calendar);//更新fact中变量值
+            end
+
+            //逻辑处理节点[实体行为]
+            rule "deaction_01"
+            ruleflow-group "attendance_rulegenerateotherdeaction_01"
+            when
+            then
+                        resource_calendarservice.save(attendance_rulegenerateotherresource_calendar);
+                        update(attendance_rulegenerateotherdefault);//更新fact中变量值
+                        update(attendance_rulegenerateotherattendances);//更新fact中变量值
+                        update(attendance_rulegenerateotherresource_calendar);//更新fact中变量值
+            end
+
+            //逻辑处理节点[结束]
+            rule "end_01"
+            ruleflow-group "attendance_rulegenerateotherend_01"
+            when
+            then
+                        update(attendance_rulegenerateotherdefault);//更新fact中变量值
+                        update(attendance_rulegenerateotherattendances);//更新fact中变量值
+                        update(attendance_rulegenerateotherresource_calendar);//更新fact中变量值
+            end

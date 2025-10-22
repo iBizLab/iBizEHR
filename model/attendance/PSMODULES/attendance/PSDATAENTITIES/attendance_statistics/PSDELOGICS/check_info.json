@@ -1,0 +1,150 @@
+{
+  "codeName" : "check_info",
+  "defaultParamName" : "Default",
+  "dynaModelFilePath" : "PSMODULES/attendance/PSDATAENTITIES/attendance_statistics/PSDELOGICS/check_info.json",
+  "logicName" : "信息反查",
+  "name" : "信息反查",
+  "getPSDELogicNodes" : [ {
+    "codeName" : "Begin",
+    "leftPos" : 200,
+    "logicNodeType" : "BEGIN",
+    "name" : "开始",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "PREPAREPARAM1"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "Begin"
+      }
+    } ],
+    "topPos" : 200,
+    "parallelOutput" : true
+  }, {
+    "codeName" : "PREPAREPARAM1",
+    "leftPos" : 160,
+    "logicNodeType" : "PREPAREPARAM",
+    "name" : "准备参数",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "DEACTION1"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "PREPAREPARAM1"
+      }
+    } ],
+    "getPSDELogicNodeParams" : [ {
+      "dstFieldName" : "ID",
+      "getDstPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "emp"
+      },
+      "name" : "Default[ID] ==> emp[ID]",
+      "paramAction" : "SETPARAMVALUE",
+      "srcFieldName" : "MEMBER_ID",
+      "getSrcPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "Default"
+      },
+      "srcValue" : "4e5a5b08a9a90190f8351990d7d62722",
+      "srcValueType" : "SRCDLPARAM"
+    } ],
+    "topPos" : 360,
+    "parallelOutput" : true
+  }, {
+    "codeName" : "DEACTION1",
+    "getDstPSDEAction" : {
+      "modelref" : true,
+      "path" : "PSMODULES/employee_management/PSDATAENTITIES/employee/PSDEACTIONS/Get.json"
+    },
+    "getDstPSDELogicParam" : {
+      "modelref" : true,
+      "id" : "emp"
+    },
+    "getDstPSDataEntity" : {
+      "modelref" : true,
+      "path" : "PSMODULES/employee_management/PSDATAENTITIES/employee.json"
+    },
+    "leftPos" : 160,
+    "logicNodeType" : "DEACTION",
+    "name" : "获取员工",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "RAWSFCODE1"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "DEACTION1"
+      }
+    } ],
+    "getRetPSDELogicParam" : {
+      "modelref" : true,
+      "id" : "emp"
+    },
+    "topPos" : 470
+  }, {
+    "code" : "def _default = logic.param('Default').getReal()\r\ndef emp = logic.param('emp').getReal()\r\n\r\ndef sdf = new java.text.SimpleDateFormat(\"HH:mm:ss\")\r\ndef checkin_date = _default.get(\"checkin_date\")\r\n\r\n//获取排班\r\ndef attendance_schedule_runtime = sys.dataentity('attendance_schedule')\r\ndef attendance_schedule_filter = attendance_schedule_runtime.filter()\r\nattendance_schedule_filter.all()\r\nattendance_schedule_filter.eq('member_id', emp.get(\"id\"))\r\nattendance_schedule_filter.custom(\" DATE_FORMAT(t1.CHECKIN_DATE, '%Y-%m-%d') = '\"+ checkin_date +\"'\")\r\ndef attendance_schedule_list = attendance_schedule_filter.select('')\r\n\r\n//规则名称\r\ndef rule_name = \"\";\r\n//班次名称\r\ndef shift_name = \"\";\r\n//获取班次\r\nif (attendance_schedule_list != null) {\r\n    attendance_schedule_list.each { item ->\r\n        def work_times = item.get(\"work_time\")\r\n        if (work_times != null) {\r\n            work_times.each { it ->\r\n                shift_name += it.get(\"shift_name\") + \" \" + it.get(\"start_base_time\") + \"-\" + it.get(\"end_base_time\")\r\n            }\r\n        }\r\n        rule_name = item.get(\"rule_name\")\r\n    }\r\n}\r\n\r\nemp.set(\"rule_name\", rule_name)\r\nemp.set(\"shift_name\", shift_name)\r\n\r\n//获取打卡记录\r\ndef clock_runtime = sys.dataentity('attendance_clock_in_record')\r\ndef clock_filter = clock_runtime.filter()\r\nclock_filter.all()\r\nclock_filter.eq('member_id', emp.get(\"id\"))\r\nclock_filter.custom(\" DATE_FORMAT(t1.CHECKIN_TIME, '%Y-%m-%d') = '\"+ checkin_date +\"'\")\r\ndef clock_list = clock_filter.select('')\r\nif (clock_list != null) {\r\n    clock_list.each { item ->\r\n        if (item.get('checkin_time') != null) {\r\n            item.set('clock_checkin_time', sdf.format(item.get('checkin_time')))\r\n        }\r\n    }\r\n    emp.set(\"clock_list\", clock_list)\r\n}\r\n\r\n//获取考勤记录\r\ndef record_runtime = sys.dataentity('attendance_record')\r\ndef details = []\r\ndef record_filter = record_runtime.filter()\r\nrecord_filter.all()\r\nrecord_filter.eq('member_id', emp.get(\"id\"))\r\nrecord_filter.custom(\" DATE_FORMAT(t1.CHECKIN_DATE, '%Y-%m-%d') = '\"+ checkin_date +\"'\")\r\nrecord_filter.setPageable(0,1000,0)\r\ndef record_list = record_filter.fetch()\r\nif (record_list != null) {\r\n    record_list.each { item ->\r\n        details = item.get('details')\r\n    }\r\n}\r\n\r\nif (details != null) {\r\n    details.each { item ->\r\n        if (item.get('detail_index') != null) {\r\n            if (item.get('detail_index').startsWith(\"end\")) {\r\n                if (item.get('should_checkin_time') != null) {\r\n                    item.set('end_base_time', sdf.format(item.get('should_checkin_time')))\r\n                }\r\n            } else {\r\n                if (item.get('should_checkin_time') != null) {\r\n                    item.set('start_base_time', sdf.format(item.get('should_checkin_time')))\r\n                }\r\n            }\r\n        }\r\n        if (item.get('checkin_time') != null) {\r\n            item.set('detail_checkin_time', sdf.format(item.get('checkin_time')))\r\n        }\r\n    }\r\n    details.sort { a, b ->\r\n        def timeA = java.time.LocalTime.parse(sdf.format(a.get('should_checkin_time')))\r\n        def timeB = java.time.LocalTime.parse(sdf.format(b.get('should_checkin_time')))\r\n        timeA <=> timeB\r\n    }\r\n}\r\n\r\nemp.set(\"record_list\", details)",
+    "codeName" : "RAWSFCODE1",
+    "codeType" : "Groovy",
+    "leftPos" : 160,
+    "logicNodeType" : "RAWSFCODE",
+    "name" : "获取数据明细",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "END1"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "RAWSFCODE1"
+      }
+    } ],
+    "topPos" : 580
+  }, {
+    "codeName" : "END1",
+    "leftPos" : 200,
+    "logicNodeType" : "END",
+    "name" : "结束",
+    "getReturnParam" : {
+      "modelref" : true,
+      "id" : "emp"
+    },
+    "returnType" : "LOGICPARAM",
+    "topPos" : 699,
+    "parallelOutput" : true
+  } ],
+  "getPSDELogicParams" : [ {
+    "codeName" : "Default",
+    "logicName" : "传入变量",
+    "name" : "传入变量",
+    "getParamPSDataEntity" : {
+      "modelref" : true,
+      "path" : "PSMODULES/attendance/PSDATAENTITIES/attendance_statistics.json"
+    },
+    "default" : true,
+    "entityParam" : true
+  }, {
+    "codeName" : "emp",
+    "logicName" : "人员",
+    "name" : "人员",
+    "getParamPSDataEntity" : {
+      "modelref" : true,
+      "path" : "PSMODULES/employee_management/PSDATAENTITIES/employee.json"
+    },
+    "entityParam" : true
+  } ],
+  "getStartPSDELogicNode" : {
+    "modelref" : true,
+    "id" : "Begin"
+  },
+  "enableBackend" : true,
+  "enableFront" : false
+}

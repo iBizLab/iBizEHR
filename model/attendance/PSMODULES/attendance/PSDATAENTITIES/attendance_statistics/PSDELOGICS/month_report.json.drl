@@ -1,0 +1,83 @@
+package cn.ibizlab.attendance.logic.attendance_statisticslogic.month_report;
+        import java.util.Map;
+        import java.util.HashMap;
+        import com.alibaba.fastjson.JSONObject;
+        import org.springframework.util.StringUtils;
+        import org.springframework.util.ObjectUtils;
+        import cn.ibizlab.util.errors.BadRequestAlertException;
+                global cn.ibizlab.core.attendance.domain.attendance_statistics attendance_statisticsmonth_reportdefault;
+                global cn.ibizlab.core.employee_management.domain.employee attendance_statisticsmonth_reportemp_page;
+                global cn.ibizlab.core.employee_management.domain.employee attendance_statisticsmonth_reportemp_temp;
+                    global cn.ibizlab.core.employee_management.service.IemployeeService employeeservice;
+        global cn.ibizlab.core.attendance.service.Iattendance_statisticsService iBzSysAttendance_statisticsDefaultService;
+        global cn.ibizlab.util.security.AuthenticationUser curuser;
+
+
+    no-loop
+
+            //逻辑处理节点[开始]
+            rule "begin"
+            ruleflow-group "attendance_statisticsmonth_reportbegin"
+            when
+            then
+            end
+
+            //逻辑处理节点[解析搜索条件]
+            rule "rawsfcode2"
+            ruleflow-group "attendance_statisticsmonth_reportrawsfcode2"
+            when
+            then
+                        update(attendance_statisticsmonth_reportdefault);//更新fact中变量值
+                        update(attendance_statisticsmonth_reportemp_page);//更新fact中变量值
+                        update(attendance_statisticsmonth_reportemp_temp);//更新fact中变量值
+            end
+
+            //逻辑处理节点[查询人员]
+            rule "dedataset1"
+            ruleflow-group "attendance_statisticsmonth_reportdedataset1"
+            when
+            then
+                        update(attendance_statisticsmonth_reportdefault);//更新fact中变量值
+                        update(attendance_statisticsmonth_reportemp_page);//更新fact中变量值
+                        update(attendance_statisticsmonth_reportemp_temp);//更新fact中变量值
+            end
+
+            //逻辑处理节点[循环子调用]
+            rule "loopsubcall1"
+            ruleflow-group "attendance_statisticsmonth_reportloopsubcall1"
+            when
+            then
+                        update(attendance_statisticsmonth_reportdefault);//更新fact中变量值
+                        update(attendance_statisticsmonth_reportemp_page);//更新fact中变量值
+                        update(attendance_statisticsmonth_reportemp_temp);//更新fact中变量值
+            end
+
+            //逻辑处理节点[查询考勤记录]
+            rule "rawsfcode1"
+            ruleflow-group "attendance_statisticsmonth_reportrawsfcode1"
+            when
+            then
+                        update(attendance_statisticsmonth_reportdefault);//更新fact中变量值
+                        update(attendance_statisticsmonth_reportemp_page);//更新fact中变量值
+                        update(attendance_statisticsmonth_reportemp_temp);//更新fact中变量值
+            end
+
+            //逻辑处理节点[调试逻辑参数]
+            rule "debugparam_01"
+            ruleflow-group "attendance_statisticsmonth_reportdebugparam_01"
+            when
+            then
+                        update(attendance_statisticsmonth_reportdefault);//更新fact中变量值
+                        update(attendance_statisticsmonth_reportemp_page);//更新fact中变量值
+                        update(attendance_statisticsmonth_reportemp_temp);//更新fact中变量值
+            end
+
+            //逻辑处理节点[结束]
+            rule "end1"
+            ruleflow-group "attendance_statisticsmonth_reportend1"
+            when
+            then
+                        update(attendance_statisticsmonth_reportdefault);//更新fact中变量值
+                        update(attendance_statisticsmonth_reportemp_page);//更新fact中变量值
+                        update(attendance_statisticsmonth_reportemp_temp);//更新fact中变量值
+            end

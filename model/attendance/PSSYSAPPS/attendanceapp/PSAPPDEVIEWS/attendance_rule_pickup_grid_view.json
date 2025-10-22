@@ -1,0 +1,671 @@
+{
+  "accUserMode" : 2,
+  "caption" : "考勤规则",
+  "codeName" : "attendance_rule_pickup_grid_view",
+  "dynaModelFilePath" : "PSSYSAPPS/attendanceapp/PSAPPDEVIEWS/attendance_rule_pickup_grid_view.json",
+  "gridRowActiveMode" : 2,
+  "name" : "attendance_rulePickupGridView",
+  "getPSAppDataEntity" : {
+    "modelref" : true,
+    "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/attendance_rule.json"
+  },
+  "getPSAppModule" : {
+    "modelref" : true,
+    "path" : "PSSYSAPPS/attendanceapp/PSAPPMODULES/attendance.json"
+  },
+  "getPSAppViewEngines" : [ {
+    "engineCat" : "VIEW",
+    "engineType" : "PickupGridView",
+    "name" : "engine"
+  } ],
+  "getPSControls" : [ {
+    "aggMode" : "NONE",
+    "codeName" : "main",
+    "columnEnableFilter" : 2,
+    "columnEnableLink" : 2,
+    "controlType" : "GRID",
+    "dynaModelFilePath" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/attendance_rule/PSGRIDS/main.json",
+    "getFetchPSControlAction" : {
+      "modelref" : true,
+      "id" : "fetch",
+      "actionType" : "DEDATASET",
+      "name" : "fetch",
+      "getPSAppDEMethod" : {
+        "modelref" : true,
+        "id" : "fetch_default"
+      },
+      "getPSAppDataEntity" : {
+        "modelref" : true,
+        "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/attendance_rule.json"
+      }
+    },
+    "groupMode" : "NONE",
+    "logicName" : "主表格",
+    "getPSAppDataEntity" : {
+      "modelref" : true,
+      "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/attendance_rule.json"
+    },
+    "getPSControlHandler" : {
+      "getPSHandlerActions" : [ {
+        "actionName" : "Get",
+        "actionType" : "DEACTION",
+        "dataAccessAction" : "READ",
+        "name" : "load",
+        "getPSAppDEMethod" : {
+          "modelref" : true,
+          "id" : "get"
+        },
+        "getPSAppDataEntity" : {
+          "modelref" : true,
+          "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/attendance_rule.json"
+        }
+      }, {
+        "actionName" : "Create",
+        "actionType" : "DEACTION",
+        "dataAccessAction" : "CREATE",
+        "name" : "create",
+        "getPSAppDEMethod" : {
+          "modelref" : true,
+          "id" : "create"
+        },
+        "getPSAppDataEntity" : {
+          "modelref" : true,
+          "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/attendance_rule.json"
+        }
+      }, {
+        "actionName" : "Update",
+        "actionType" : "DEACTION",
+        "dataAccessAction" : "UPDATE",
+        "name" : "update",
+        "getPSAppDEMethod" : {
+          "modelref" : true,
+          "id" : "update"
+        },
+        "getPSAppDataEntity" : {
+          "modelref" : true,
+          "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/attendance_rule.json"
+        }
+      }, {
+        "actionName" : "Remove",
+        "actionType" : "DEACTION",
+        "dataAccessAction" : "DELETE",
+        "name" : "remove",
+        "getPSAppDEMethod" : {
+          "modelref" : true,
+          "id" : "remove"
+        },
+        "getPSAppDataEntity" : {
+          "modelref" : true,
+          "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/attendance_rule.json"
+        }
+      }, {
+        "actionName" : "GetDraft",
+        "actionType" : "DEACTION",
+        "dataAccessAction" : "CREATE",
+        "name" : "loaddraft",
+        "getPSAppDEMethod" : {
+          "modelref" : true,
+          "id" : "get_draft"
+        },
+        "getPSAppDataEntity" : {
+          "modelref" : true,
+          "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/attendance_rule.json"
+        }
+      }, {
+        "actionType" : "DEDATASET",
+        "name" : "fetch",
+        "getPSAppDEMethod" : {
+          "modelref" : true,
+          "id" : "fetch_default"
+        },
+        "getPSAppDataEntity" : {
+          "modelref" : true,
+          "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/attendance_rule.json"
+        }
+      } ],
+      "userDRAction" : "READ",
+      "enableDEFieldPrivilege" : false,
+      "id" : "日历控件处理器"
+    },
+    "getPSControlParam" : {
+      "autoLoad" : true,
+      "showBusyIndicator" : true,
+      "id" : "GRID"
+    },
+    "getPSDEGridColumns" : [ {
+      "align" : "CENTER",
+      "cLConvertMode" : "NONE",
+      "getCapPSLanguageRes" : {
+        "lanResTag" : "DEF.LNAME.ATTENDANCE_RULE.NAME"
+      },
+      "caption" : "规则名称",
+      "codeName" : "name",
+      "columnType" : "DEFGRIDCOLUMN",
+      "dataItemName" : "name",
+      "excelCaption" : "规则名称",
+      "name" : "name",
+      "noPrivDisplayMode" : 1,
+      "getPSAppDEField" : {
+        "name" : "NAME",
+        "codeName" : "name"
+      },
+      "width" : 360,
+      "widthUnit" : "PX",
+      "enableSort" : true
+    }, {
+      "align" : "CENTER",
+      "cLConvertMode" : "FRONT",
+      "getCapPSLanguageRes" : {
+        "lanResTag" : "DEF.LNAME.ATTENDANCE_RULE.SCHEDULE_TYPE"
+      },
+      "caption" : "考勤类型",
+      "codeName" : "schedule_type",
+      "columnType" : "DEFGRIDCOLUMN",
+      "dataItemName" : "schedule_type",
+      "excelCaption" : "考勤类型",
+      "name" : "schedule_type",
+      "noPrivDisplayMode" : 1,
+      "getPSAppCodeList" : {
+        "modelref" : true,
+        "path" : "PSSYSAPPS/attendanceapp/PSAPPCODELISTS/attendance__all_schedule_type.json"
+      },
+      "getPSAppDEField" : {
+        "name" : "SCHEDULE_TYPE",
+        "codeName" : "schedule_type"
+      },
+      "width" : 200,
+      "widthUnit" : "PX",
+      "enableSort" : true
+    }, {
+      "align" : "CENTER",
+      "cLConvertMode" : "NONE",
+      "caption" : "人数",
+      "codeName" : "total_members",
+      "columnType" : "DEFGRIDCOLUMN",
+      "dataItemName" : "total_members",
+      "excelCaption" : "人数",
+      "name" : "total_members",
+      "noPrivDisplayMode" : 1,
+      "getPSAppDEField" : {
+        "name" : "TOTAL_MEMBERS",
+        "codeName" : "total_members"
+      },
+      "width" : 200,
+      "widthUnit" : "PX",
+      "enableSort" : false
+    }, {
+      "align" : "CENTER",
+      "cLConvertMode" : "NONE",
+      "caption" : "考勤时段",
+      "getCellPSSysCss" : {
+        "cssName" : "grid-script-column"
+      },
+      "codeName" : "work_times",
+      "columnType" : "DEFGRIDCOLUMN",
+      "dataItemName" : "work_times",
+      "excelCaption" : "考勤时段",
+      "name" : "work_times",
+      "noPrivDisplayMode" : 1,
+      "getPSAppDEField" : {
+        "name" : "WORK_TIMES",
+        "codeName" : "work_times"
+      },
+      "valueType" : "OBJECTS",
+      "width" : 300,
+      "widthUnit" : "STAR",
+      "enableSort" : false
+    }, {
+      "align" : "CENTER",
+      "cLConvertMode" : "NONE",
+      "caption" : "生效时间",
+      "codeName" : "effect_time",
+      "columnType" : "DEFGRIDCOLUMN",
+      "dataItemName" : "effect_time",
+      "excelCaption" : "生效时间",
+      "name" : "effect_time",
+      "noPrivDisplayMode" : 1,
+      "getPSAppDEField" : {
+        "name" : "EFFECT_TIME",
+        "codeName" : "effect_time"
+      },
+      "valueFormat" : "YYYY-MM-DD HH:mm:ss",
+      "width" : 200,
+      "widthUnit" : "PX",
+      "enableSort" : true
+    }, {
+      "align" : "CENTER",
+      "cLConvertMode" : "FRONT",
+      "getCapPSLanguageRes" : {
+        "lanResTag" : "DEF.LNAME.ATTENDANCE_RULE.WRITE_UID"
+      },
+      "caption" : "最后操作人",
+      "codeName" : "write_uid",
+      "columnType" : "DEFGRIDCOLUMN",
+      "dataItemName" : "write_uid",
+      "excelCaption" : "最后操作人",
+      "name" : "write_uid",
+      "noPrivDisplayMode" : 1,
+      "getPSAppCodeList" : {
+        "modelref" : true,
+        "path" : "PSSYSAPPS/attendanceapp/PSAPPCODELISTS/SysOperator.json"
+      },
+      "getPSAppDEField" : {
+        "name" : "WRITE_UID",
+        "codeName" : "write_uid"
+      },
+      "width" : 200,
+      "widthUnit" : "PX",
+      "enableSort" : true
+    }, {
+      "align" : "CENTER",
+      "caption" : "操作",
+      "codeName" : "uagridcolumn1",
+      "columnType" : "UAGRIDCOLUMN",
+      "name" : "uagridcolumn1",
+      "noPrivDisplayMode" : 1,
+      "getPSDEUIActionGroup" : {
+        "codeName" : "A7bd49c5fe104a9e587",
+        "name" : "操作",
+        "getPSAppDataEntity" : {
+          "modelref" : true,
+          "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/attendance_rule.json"
+        },
+        "getPSUIActionGroupDetails" : [ {
+          "caption" : "手动排班",
+          "detailType" : "DEUIACTION",
+          "enableScriptCode" : "data.schedule_type ==\"manual\"",
+          "name" : "u755368d",
+          "getPSUIAction" : {
+            "actionTarget" : "NONE",
+            "caption" : "手动排班",
+            "codeName" : "openSchedule",
+            "getFrontPSAppView" : {
+              "modelref" : true,
+              "path" : "PSSYSAPPS/attendanceapp/PSAPPDEVIEWS/attendance_schedule_overview_grid_view.json",
+              "viewType" : "DEGRIDVIEW"
+            },
+            "frontProcessType" : "WIZARD",
+            "fullCodeName" : "attendance_rule_openSchedule",
+            "name" : "手动排班",
+            "getPSAppDataEntity" : {
+              "modelref" : true,
+              "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/attendance_rule.json"
+            },
+            "uIActionMode" : "FRONT",
+            "uIActionTag" : "openSchedule",
+            "uIActionType" : "DEUIACTION",
+            "id" : "openSchedule@attendance_rule"
+          },
+          "visibleScriptCode" : "data.schedule_type ==\"manual\"",
+          "addSeparator" : false,
+          "showCaption" : true,
+          "showIcon" : false
+        }, {
+          "caption" : "编辑排班",
+          "detailType" : "DEUIACTION",
+          "enableScriptCode" : "data.schedule_type !=\"no_required\"",
+          "name" : "u921821c",
+          "getPSUIAction" : {
+            "actionTarget" : "SINGLEKEY",
+            "caption" : "编辑排班",
+            "codeName" : "edit",
+            "getFrontPSAppView" : {
+              "modelref" : true,
+              "path" : "PSSYSAPPS/attendanceapp/PSAPPDEVIEWS/attendance_rule_edit_view.json",
+              "viewType" : "DEEDITVIEW"
+            },
+            "frontProcessType" : "WIZARD",
+            "fullCodeName" : "attendance_rule_edit",
+            "name" : "编辑排班",
+            "getPSAppDataEntity" : {
+              "modelref" : true,
+              "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/attendance_rule.json"
+            },
+            "uIActionMode" : "FRONT",
+            "uIActionTag" : "edit",
+            "uIActionType" : "DEUIACTION",
+            "id" : "edit@attendance_rule"
+          },
+          "visibleScriptCode" : "data.schedule_type !=\"no_required\"",
+          "addSeparator" : false,
+          "showCaption" : true,
+          "showIcon" : false
+        }, {
+          "caption" : "删除",
+          "detailType" : "DEUIACTION",
+          "enableScriptCode" : "data.schedule_type !=\"no_required\"",
+          "name" : "u4760b66",
+          "getPSSysCss" : {
+            "cssName" : "danger-text-button"
+          },
+          "getPSUIAction" : {
+            "actionTarget" : "SINGLEKEY",
+            "caption" : "删除",
+            "codeName" : "remove",
+            "confirmMsg" : "是否删除该规则？",
+            "fullCodeName" : "attendance_rule_remove",
+            "name" : "删除",
+            "getPSAppDEMethod" : {
+              "modelref" : true,
+              "id" : "remove"
+            },
+            "getPSAppDataEntity" : {
+              "modelref" : true,
+              "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/attendance_rule.json"
+            },
+            "refreshMode" : 1,
+            "timeout" : 60000,
+            "uIActionMode" : "BACKEND",
+            "uIActionTag" : "remove",
+            "uIActionType" : "DEUIACTION",
+            "enableConfirm" : true,
+            "reloadData" : true,
+            "id" : "remove@attendance_rule"
+          },
+          "visibleScriptCode" : "data.schedule_type !=\"no_required\"",
+          "addSeparator" : false,
+          "showCaption" : true,
+          "showIcon" : false
+        }, {
+          "caption" : "添加人员",
+          "detailType" : "DEUIACTION",
+          "enableScriptCode" : "data.schedule_type ==\"no_required\"",
+          "name" : "uf371582",
+          "getPSUIAction" : {
+            "actionTarget" : "SINGLEKEY",
+            "caption" : "添加人员",
+            "codeName" : "addMembers",
+            "getFrontPSAppView" : {
+              "modelref" : true,
+              "path" : "PSSYSAPPS/attendanceapp/PSAPPDEVIEWS/attendance_rule_no_required_edit_view.json",
+              "viewType" : "DEEDITVIEW"
+            },
+            "frontProcessType" : "WIZARD",
+            "fullCodeName" : "attendance_rule_addMembers",
+            "name" : "添加人员",
+            "getPSAppDataEntity" : {
+              "modelref" : true,
+              "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/attendance_rule.json"
+            },
+            "uIActionMode" : "FRONT",
+            "uIActionTag" : "addMembers",
+            "uIActionType" : "DEUIACTION",
+            "id" : "addMembers@attendance_rule"
+          },
+          "visibleScriptCode" : "data.schedule_type ==\"no_required\"",
+          "addSeparator" : false,
+          "showCaption" : true,
+          "showIcon" : false
+        } ],
+        "uniqueTag" : "attendance_rule__A7bd49c5fe104a9e587"
+      },
+      "width" : 380,
+      "widthUnit" : "PX",
+      "enableSort" : false
+    } ],
+    "getPSDEGridDataItems" : [ {
+      "dataType" : 25,
+      "name" : "name",
+      "getPSAppDEField" : {
+        "name" : "NAME",
+        "codeName" : "name"
+      }
+    }, {
+      "dataType" : 25,
+      "name" : "schedule_type",
+      "getPSAppDEField" : {
+        "name" : "SCHEDULE_TYPE",
+        "codeName" : "schedule_type"
+      }
+    }, {
+      "dataType" : 25,
+      "name" : "total_members",
+      "getPSAppDEField" : {
+        "name" : "TOTAL_MEMBERS",
+        "codeName" : "total_members"
+      }
+    }, {
+      "dataType" : 21,
+      "name" : "work_times",
+      "getPSAppDEField" : {
+        "name" : "WORK_TIMES",
+        "codeName" : "work_times"
+      },
+      "scriptCode" : "var worktimeParts = [];\r\nif ((data.schedule_type == \"alternate_week\" || data.schedule_type == \"fixed\" || data.schedule_type == \"flexible\" || data.schedule_type == \"work_rest\" || data.schedule_type == \"free\") && data.shifts != null) {\r\n    var shift = data.shifts.find(item => item.default_flag == 1);\r\n    if (shift != null && shift.scopes != null) {\r\n        var scopes = shift.scopes\r\n        var parts = [];\r\n        scopes.forEach(scope => {\r\n            var start = scope.start_base_time.substring(0, 5);\r\n            if(scope.next_tag === \"1,0\"||scope.next_tag === \"1,1\"){\r\n                start = \"次日\" + start;\r\n            }\r\n            var end = scope.end_base_time.substring(0, 5);\r\n            if(scope.next_tag === \"0,1\"||scope.next_tag === \"1,1\"){\r\n                end = \"次日\" + end;\r\n            }\r\n            parts.push(start + '~' + end);\r\n        })\r\n        data.work_times = worktimeParts.push(parts.join('，'))\r\n    }\r\n}\r\nif (data.schedule_type == \"manual\" || data.schedule_type == 'class_inversion') {\r\n    var shifts = data.shifts\r\n    if (shifts == null) {\r\n        return;\r\n    }\r\n    shifts.forEach(shift => {\r\n        if (shift.scopes != null) {\r\n            var scopes = shift.scopes\r\n            var scopeParts = [];\r\n            scopes.forEach(scope => {\r\n                var start = scope.start_base_time.substring(0, 5);\r\n                if(scope.next_tag === \"1,0\"||scope.next_tag === \"1,1\"){\r\n                    start = \"次日\" + start;\r\n                }\r\n                var end = scope.end_base_time.substring(0, 5);\r\n                if(scope.next_tag === \"0,1\"||scope.next_tag === \"1,1\"){\r\n                    end = \"次日\" + end;\r\n                }\r\n                scopeParts.push(start + '~' + end);\r\n            })\r\n            worktimeParts.push(shift.name + '：' +scopeParts.join('，'))\r\n        }\r\n    })\r\n\r\n}\r\nif (data.schedule_type == \"no_required\"){\r\n    worktimeParts.push(\"无需考勤\")\r\n}\r\nreturn worktimeParts.join('\\n');",
+      "valueType" : "OBJECTS",
+      "customCode" : true
+    }, {
+      "format" : "YYYY-MM-DD HH:mm:ss",
+      "dataType" : 5,
+      "name" : "effect_time",
+      "getPSAppDEField" : {
+        "name" : "EFFECT_TIME",
+        "codeName" : "effect_time"
+      },
+      "scriptCode" : "return data.effect_time.split(' ')[0];",
+      "customCode" : true
+    }, {
+      "dataType" : 25,
+      "name" : "write_uid",
+      "getPSAppDEField" : {
+        "name" : "WRITE_UID",
+        "codeName" : "write_uid"
+      }
+    }, {
+      "dataType" : 25,
+      "name" : "srfkey",
+      "getPSAppDEField" : {
+        "name" : "ID",
+        "codeName" : "id"
+      }
+    }, {
+      "dataType" : 25,
+      "name" : "srfdataaccaction",
+      "getPSAppDEField" : {
+        "name" : "ID",
+        "codeName" : "id"
+      },
+      "dataAccessAction" : true
+    }, {
+      "dataType" : 25,
+      "name" : "srfmajortext",
+      "getPSAppDEField" : {
+        "name" : "NAME",
+        "codeName" : "name"
+      }
+    } ],
+    "getPSDEGridEditItems" : [ {
+      "caption" : "主键",
+      "codeName" : "srfkey",
+      "enableCond" : 3,
+      "ignoreInput" : 0,
+      "name" : "srfkey",
+      "getPSAppDEField" : {
+        "name" : "ID",
+        "codeName" : "id"
+      },
+      "getPSEditor" : {
+        "editorType" : "HIDDEN",
+        "name" : "srfkey"
+      },
+      "allowEmpty" : true
+    } ],
+    "pagingMode" : 1,
+    "pagingSize" : 20,
+    "getRemovePSControlAction" : {
+      "actionName" : "Remove",
+      "actionType" : "DEACTION",
+      "dataAccessAction" : "DELETE",
+      "name" : "remove",
+      "getPSAppDEMethod" : {
+        "modelref" : true,
+        "id" : "remove"
+      },
+      "getPSAppDataEntity" : {
+        "modelref" : true,
+        "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/attendance_rule.json"
+      }
+    },
+    "sortMode" : "REMOTE",
+    "hasWFDataItems" : false,
+    "enableColFilter" : false,
+    "enableCustomized" : true,
+    "enableGroup" : false,
+    "enablePagingBar" : true,
+    "enableRowEdit" : false,
+    "enableRowEditOrder" : false,
+    "enableRowNew" : false,
+    "forceFit" : false,
+    "hideHeader" : false,
+    "noSort" : false,
+    "singleSelect" : false,
+    "name" : "grid",
+    "modelid" : "6cd7965118802af306eb9683d03469a9",
+    "modeltype" : "PSDEGRID"
+  }, {
+    "codeName" : "default",
+    "controlType" : "SEARCHFORM",
+    "defaultLabelWidth" : 130,
+    "dynaModelFilePath" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/attendance_rule/PSSEARCHFORMS/default.json",
+    "logicName" : "默认搜索表单",
+    "getPSAppDataEntity" : {
+      "modelref" : true,
+      "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/attendance_rule.json"
+    },
+    "getPSControlHandler" : {
+      "getPSHandlerActions" : [ {
+        "actionType" : "FILTERACTION",
+        "name" : "load",
+        "getPSAppDEMethod" : {
+          "modelref" : true,
+          "id" : "FilterGet"
+        },
+        "getPSAppDataEntity" : {
+          "modelref" : true,
+          "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/attendance_rule.json"
+        }
+      }, {
+        "actionType" : "FILTERACTION",
+        "name" : "loaddraft",
+        "getPSAppDEMethod" : {
+          "modelref" : true,
+          "id" : "FilterGetDraft"
+        },
+        "getPSAppDataEntity" : {
+          "modelref" : true,
+          "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/attendance_rule.json"
+        }
+      }, {
+        "actionType" : "FILTERACTION",
+        "name" : "search",
+        "getPSAppDEMethod" : {
+          "modelref" : true,
+          "id" : "FilterSearch"
+        },
+        "getPSAppDataEntity" : {
+          "modelref" : true,
+          "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/attendance_rule.json"
+        }
+      } ],
+      "enableDEFieldPrivilege" : false,
+      "id" : "日历控件处理器"
+    },
+    "getPSControlParam" : {
+      "autoLoad" : true,
+      "showBusyIndicator" : true,
+      "id" : "SEARCHFORM"
+    },
+    "getPSDEFormPages" : [ {
+      "getCapPSLanguageRes" : {
+        "lanResTag" : "CONTROL.DEFORM.ATTENDANCE_RULE.DEFAULT.FORMPAGE.FORMPAGE1"
+      },
+      "caption" : "常规条件",
+      "codeName" : "formpage1",
+      "detailStyle" : "DEFAULT",
+      "detailType" : "FORMPAGE",
+      "name" : "formpage1",
+      "getPSLayout" : {
+        "childColMD" : 24,
+        "columnCount" : 24,
+        "layout" : "TABLE_24COL"
+      },
+      "infoGroupMode" : false
+    } ],
+    "getPSLayout" : {
+      "childColMD" : 24,
+      "columnCount" : 24,
+      "layout" : "TABLE_24COL"
+    },
+    "searchButtonStyle" : "DEFAULT",
+    "tabHeaderPos" : "TOP",
+    "enableAdvanceSearch" : false,
+    "enableAutoSearch" : false,
+    "enableFilterSave" : false,
+    "noTabHeader" : true,
+    "name" : "searchform",
+    "modelid" : "5802b9a7317d0ac6051872719b999281",
+    "modeltype" : "PSDEFORM_SEARCHFORM"
+  }, {
+    "controlType" : "SEARCHBAR",
+    "name" : "searchbar",
+    "getPSAppDataEntity" : {
+      "modelref" : true,
+      "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/attendance_rule.json"
+    },
+    "getPSControlParam" : {
+      "id" : "searchbar"
+    },
+    "quickGroupCount" : -1,
+    "quickSearchMode" : 0,
+    "quickSearchWidth" : 0,
+    "enableFilter" : false,
+    "enableGroup" : false,
+    "enableQuickSearch" : false,
+    "mobileSearchBar" : false
+  }, {
+    "caption" : "考勤规则",
+    "codeName" : "pickup_grid_view_captionbar",
+    "controlType" : "CAPTIONBAR",
+    "name" : "captionbar",
+    "getPSAppDataEntity" : {
+      "modelref" : true,
+      "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/attendance_rule.json"
+    },
+    "getPSControlParam" : { }
+  } ],
+  "getPSDEViewCodeName" : "PickupGridView",
+  "getPSDEViewId" : "5aec65587e080981fdb744573bf262ee",
+  "getPSViewLayoutPanel" : {
+    "codeName" : "layoutpanel",
+    "controlStyle" : "APPDEPICKUPGRIDVIEW",
+    "controlType" : "VIEWLAYOUTPANEL",
+    "name" : "layoutpanel",
+    "getPSAppDataEntity" : {
+      "modelref" : true,
+      "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/attendance_rule.json"
+    },
+    "getPSControlParam" : { },
+    "layoutBodyOnly" : true,
+    "layoutPanel" : true,
+    "useDefaultLayout" : true
+  },
+  "refFlag" : false,
+  "title" : "考勤规则选择表格视图",
+  "getTitlePSLanguageRes" : {
+    "lanResTag" : "PAGE.TITLE.ATTENDANCE_RULE.PICKUPGRIDVIEW"
+  },
+  "viewStyle" : "DEFAULT",
+  "viewType" : "DEPICKUPGRIDVIEW",
+  "xDataControlName" : "grid",
+  "enableDP" : true,
+  "enableExport" : true,
+  "enableFilter" : true,
+  "enableImport" : true,
+  "enableRowEdit" : false,
+  "enableSearch" : true,
+  "expandSearchForm" : true,
+  "pickupMode" : true,
+  "rowEditDefault" : false,
+  "modelid" : "622580b555b85b03825cf3532d83832c",
+  "modeltype" : "PSAPPDEVIEW"
+}

@@ -1,0 +1,71 @@
+{
+  "codeName" : "search_bar",
+  "controlStyle" : "ODOO_SEARCH_BAR",
+  "controlType" : "SEARCHBAR",
+  "dynaModelFilePath" : "PSSYSAPPS/ehrapp/PSAPPDATAENTITIES/ir_model_access/PSSEARCHBARS/search_bar.json",
+  "groupMode" : "AND",
+  "logicName" : "模型访问搜索栏",
+  "getPSAppDataEntity" : {
+    "modelref" : true,
+    "path" : "PSSYSAPPS/ehrapp/PSAPPDATAENTITIES/ir_model_access.json"
+  },
+  "getPSSearchBarGroups" : [ {
+    "caption" : "全局",
+    "data" : "{\"theme_model\":{\"searchconds\":[{\"condtype\":\"GROUP\",\"condop\":\"AND\",\"bnotmode\":false,\"searchconds\":[{\"condtype\":\"DEFIELD\",\"fieldname\":\"group_id\",\"condop\":\"ISNULL\",\"value\":\"\"}]}]}}",
+    "itemType" : "GROUP",
+    "name" : "global",
+    "width" : 0.0,
+    "addSeparator" : true
+  }, {
+    "caption" : "全部",
+    "data" : "{\"theme_model\":{\"searchconds\":[{\"condtype\":\"GROUP\",\"condop\":\"AND\",\"bnotmode\":false,\"searchconds\":[{\"condtype\":\"DEFIELD\",\"fieldname\":\"perm_read\",\"condop\":\"EQ\",\"value\":\"1\"},{\"condtype\":\"DEFIELD\",\"fieldname\":\"perm_create\",\"condop\":\"EQ\",\"value\":\"1\"},{\"condtype\":\"DEFIELD\",\"fieldname\":\"perm_write\",\"condop\":\"EQ\",\"value\":\"1\"},{\"condtype\":\"DEFIELD\",\"fieldname\":\"perm_unlink\",\"condop\":\"EQ\",\"value\":\"1\"}]}]}}",
+    "itemType" : "GROUP",
+    "name" : "all",
+    "width" : 0.0,
+    "addSeparator" : false,
+    "getUserParam" : {
+      "filterorgroup" : "group1"
+    }
+  }, {
+    "caption" : "读取",
+    "data" : "{\"theme_model\":{\"searchconds\":[{\"condtype\":\"GROUP\",\"condop\":\"AND\",\"bnotmode\":false,\"searchconds\":[{\"condtype\":\"DEFIELD\",\"fieldname\":\"perm_read\",\"condop\":\"EQ\",\"value\":\"1\"}]}]}}",
+    "itemType" : "GROUP",
+    "name" : "perm_read",
+    "width" : 0.0,
+    "addSeparator" : false,
+    "getUserParam" : {
+      "filterorgroup" : "group1"
+    }
+  }, {
+    "caption" : "写入",
+    "data" : "{\"theme_model\":{\"searchconds\":[{\"condtype\":\"GROUP\",\"condop\":\"AND\",\"bnotmode\":false,\"searchconds\":[{\"condtype\":\"DEFIELD\",\"fieldname\":\"perm_write\",\"condop\":\"EQ\",\"value\":\"1\"}]}]}}",
+    "itemType" : "GROUP",
+    "name" : "perm_write",
+    "width" : 0.0,
+    "addSeparator" : true,
+    "getUserParam" : {
+      "filterorgroup" : "group1"
+    }
+  }, {
+    "caption" : "已归档",
+    "data" : "{\"theme_model\":{\"searchconds\":[{\"condtype\":\"GROUP\",\"condop\":\"AND\",\"bnotmode\":false,\"searchconds\":[{\"condtype\":\"DEFIELD\",\"fieldname\":\"active\",\"condop\":\"EQ\",\"value\":\"0\"}]}]}}",
+    "itemType" : "GROUP",
+    "name" : "inactive",
+    "width" : 0.0,
+    "addSeparator" : true
+  } ],
+  "getPSSysPFPlugin" : {
+    "pluginType" : "CUSTOM",
+    "pluginCode" : "ODOO_SEARCH_BAR",
+    "runtimeObject" : true
+  },
+  "quickGroupCount" : 1,
+  "quickSearchMode" : 1,
+  "quickSearchWidth" : 0,
+  "enableFilter" : false,
+  "enableGroup" : true,
+  "enableQuickSearch" : true,
+  "mobileSearchBar" : false,
+  "modelid" : "401aa3d5bd08fdcd295460c5fd8c0a94",
+  "modeltype" : "PSSYSSEARCHBAR"
+}

@@ -1,0 +1,1 @@
+export { TypeScriptLanguage } from './typescript';

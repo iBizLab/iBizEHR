@@ -1,0 +1,51 @@
+{
+  "dynaModelFilePath" : "PSSYSAPPS/ehrapp/PSAPPBISCHEMES/default.json",
+  "name" : "默认智能报表",
+  "getPSAppBICubes" : [ {
+    "codeName" : "employee",
+    "name" : "employee",
+    "getPSAppBICubeDimensions" : [ {
+      "codeName" : "department_id",
+      "dimensionType" : "COMMON",
+      "name" : "department_id",
+      "getPSAppDEField" : {
+        "name" : "DEPARTMENT_ID",
+        "codeName" : "department_id"
+      },
+      "stdDataType" : 25,
+      "getTextPSAppDEField" : {
+        "name" : "DEPARTMENT_NAME",
+        "codeName" : "department_name"
+      }
+    }, {
+      "codeName" : "parent_id",
+      "dimensionType" : "COMMON",
+      "name" : "parent_id",
+      "getPSAppDEField" : {
+        "name" : "PARENT_ID",
+        "codeName" : "parent_id"
+      },
+      "stdDataType" : 25,
+      "getTextPSAppDEField" : {
+        "name" : "PARENT_NAME",
+        "codeName" : "parent_name"
+      }
+    } ],
+    "getPSAppBICubeMeasures" : [ {
+      "aggMode" : "COUNT",
+      "codeName" : "count",
+      "measureType" : "COMMON",
+      "name" : "count",
+      "getPSAppDEField" : {
+        "name" : "ID",
+        "codeName" : "id"
+      },
+      "stdDataType" : 25
+    } ],
+    "getPSAppDataEntity" : {
+      "modelref" : true,
+      "path" : "PSSYSAPPS/ehrapp/PSAPPDATAENTITIES/hr_employee.json"
+    }
+  } ],
+  "uniqueTag" : "default"
+}

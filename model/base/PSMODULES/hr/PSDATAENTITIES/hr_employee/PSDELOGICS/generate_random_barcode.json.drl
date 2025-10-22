@@ -1,0 +1,55 @@
+package cn.ibizlab.hr.logic.hr_employeelogic.generate_random_barcode;
+        import java.util.Map;
+        import java.util.HashMap;
+        import com.alibaba.fastjson.JSONObject;
+        import org.springframework.util.StringUtils;
+        import org.springframework.util.ObjectUtils;
+        import cn.ibizlab.util.errors.BadRequestAlertException;
+                global cn.ibizlab.core.hr.domain.hr_employee hr_employeegenerate_random_barcodedefault;
+                    global cn.ibizlab.core.hr.service.Ihr_employeeService hr_employeeservice;
+        global cn.ibizlab.core.hr.service.Ihr_employeeService iBzSysHr_employeeDefaultService;
+        global cn.ibizlab.util.security.AuthenticationUser curuser;
+
+
+    no-loop
+
+            //逻辑处理节点[开始]
+            rule "begin"
+            ruleflow-group "hr_employeegenerate_random_barcodebegin"
+            when
+            then
+            end
+
+            //逻辑处理节点[生成徽标id]
+            rule "rawsfcode_01"
+            ruleflow-group "hr_employeegenerate_random_barcoderawsfcode_01"
+            when
+            then
+                        update(hr_employeegenerate_random_barcodedefault);//更新fact中变量值
+            end
+
+            //逻辑处理节点[获取员工信息]
+            rule "deaction_01"
+            ruleflow-group "hr_employeegenerate_random_barcodedeaction_01"
+            when
+            then
+                            cn.ibizlab.util.helper.CachedBeanCopier.copy(hr_employeeservice.get(hr_employeegenerate_random_barcodedefault.getId()),hr_employeegenerate_random_barcodedefault);
+                        update(hr_employeegenerate_random_barcodedefault);//更新fact中变量值
+            end
+
+            //逻辑处理节点[更新员工信息]
+            rule "deaction_02"
+            ruleflow-group "hr_employeegenerate_random_barcodedeaction_02"
+            when
+            then
+                        hr_employeeservice.update(hr_employeegenerate_random_barcodedefault);
+                        update(hr_employeegenerate_random_barcodedefault);//更新fact中变量值
+            end
+
+            //逻辑处理节点[结束]
+            rule "end_01"
+            ruleflow-group "hr_employeegenerate_random_barcodeend_01"
+            when
+            then
+                        update(hr_employeegenerate_random_barcodedefault);//更新fact中变量值
+            end

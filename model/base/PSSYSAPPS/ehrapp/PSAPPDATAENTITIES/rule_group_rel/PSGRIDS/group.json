@@ -1,0 +1,624 @@
+{
+  "aggMode" : "NONE",
+  "codeName" : "group",
+  "columnEnableFilter" : 2,
+  "columnEnableLink" : 2,
+  "controlType" : "GRID",
+  "getCreatePSControlAction" : {
+    "actionName" : "Create",
+    "actionType" : "DEACTION",
+    "dataAccessAction" : "CREATE",
+    "name" : "create",
+    "getPSAppDEMethod" : {
+      "modelref" : true,
+      "id" : "create"
+    },
+    "getPSAppDataEntity" : {
+      "modelref" : true,
+      "path" : "PSSYSAPPS/ehrapp/PSAPPDATAENTITIES/rule_group_rel.json"
+    }
+  },
+  "dynaModelFilePath" : "PSSYSAPPS/ehrapp/PSAPPDATAENTITIES/rule_group_rel/PSGRIDS/group.json",
+  "getFetchPSControlAction" : {
+    "modelref" : true,
+    "id" : "fetch",
+    "actionType" : "DEDATASET",
+    "name" : "fetch",
+    "getPSAppDEMethod" : {
+      "modelref" : true,
+      "id" : "fetch_default"
+    },
+    "getPSAppDataEntity" : {
+      "modelref" : true,
+      "path" : "PSSYSAPPS/ehrapp/PSAPPDATAENTITIES/rule_group_rel.json"
+    }
+  },
+  "getGetDraftPSControlAction" : {
+    "actionName" : "GetDraft",
+    "actionType" : "DEACTION",
+    "dataAccessAction" : "CREATE",
+    "name" : "loaddraft",
+    "getPSAppDEMethod" : {
+      "modelref" : true,
+      "id" : "get_draft"
+    },
+    "getPSAppDataEntity" : {
+      "modelref" : true,
+      "path" : "PSSYSAPPS/ehrapp/PSAPPDATAENTITIES/rule_group_rel.json"
+    }
+  },
+  "getGetPSControlAction" : {
+    "actionName" : "Get",
+    "actionType" : "DEACTION",
+    "dataAccessAction" : "READ",
+    "name" : "load",
+    "getPSAppDEMethod" : {
+      "modelref" : true,
+      "id" : "get"
+    },
+    "getPSAppDataEntity" : {
+      "modelref" : true,
+      "path" : "PSSYSAPPS/ehrapp/PSAPPDATAENTITIES/rule_group_rel.json"
+    }
+  },
+  "groupMode" : "NONE",
+  "hookEventNames" : [ "ONMOUNTED" ],
+  "logicName" : "嵌入权限组表格",
+  "getPSAppDataEntity" : {
+    "modelref" : true,
+    "path" : "PSSYSAPPS/ehrapp/PSAPPDATAENTITIES/rule_group_rel.json"
+  },
+  "getPSControlLogics" : [ {
+    "eventNames" : "onMounted",
+    "logicTag" : "grid",
+    "logicType" : "SCRIPT",
+    "name" : "logic_row_edit_open",
+    "scriptCode" : "var gridCtrl = view.getCtrl(\"GRID\", \"grid\");\nif (gridCtrl) {\n  gridCtrl.state.rowEditOpen=true;\n}"
+  } ],
+  "getPSDEGridColumns" : [ {
+    "align" : "LEFT",
+    "cLConvertMode" : "NONE",
+    "caption" : "名称",
+    "codeName" : "rule_name",
+    "columnType" : "DEFGRIDCOLUMN",
+    "dataItemName" : "rule_name",
+    "excelCaption" : "名称",
+    "name" : "rule_name",
+    "noPrivDisplayMode" : 1,
+    "getPSAppDEField" : {
+      "name" : "RULE_NAME",
+      "codeName" : "rule_name"
+    },
+    "width" : 1,
+    "widthUnit" : "STAR",
+    "enableRowEdit" : true,
+    "enableSort" : true
+  }, {
+    "align" : "LEFT",
+    "cLConvertMode" : "FRONT",
+    "caption" : "模型",
+    "codeName" : "model_id",
+    "columnType" : "DEFGRIDCOLUMN",
+    "dataItemName" : "model_id_text",
+    "excelCaption" : "模型",
+    "name" : "model_id",
+    "noPrivDisplayMode" : 1,
+    "getPSAppCodeList" : {
+      "modelref" : true,
+      "path" : "PSSYSAPPS/ehrapp/PSAPPCODELISTS/base__ir_model.json"
+    },
+    "getPSAppDEField" : {
+      "name" : "MODEL_ID",
+      "codeName" : "model_id"
+    },
+    "width" : 200,
+    "widthUnit" : "PX",
+    "enableRowEdit" : true,
+    "enableSort" : true
+  }, {
+    "align" : "LEFT",
+    "cLConvertMode" : "NONE",
+    "getCapPSLanguageRes" : {
+      "lanResTag" : "DEF.LNAME.IR_RULE.DOMAIN_FORCE"
+    },
+    "caption" : "域名",
+    "codeName" : "domain_force",
+    "columnType" : "DEFGRIDCOLUMN",
+    "dataItemName" : "domain_force",
+    "excelCaption" : "域名",
+    "name" : "domain_force",
+    "noPrivDisplayMode" : 1,
+    "getPSAppDEField" : {
+      "name" : "DOMAIN_FORCE",
+      "codeName" : "domain_force"
+    },
+    "width" : 250,
+    "widthUnit" : "PX",
+    "enableRowEdit" : true,
+    "enableSort" : false
+  }, {
+    "align" : "LEFT",
+    "cLConvertMode" : "FRONT",
+    "getCapPSLanguageRes" : {
+      "lanResTag" : "DEF.LNAME.IR_RULE.PERM_READ"
+    },
+    "caption" : "读取",
+    "codeName" : "perm_read",
+    "columnType" : "DEFGRIDCOLUMN",
+    "dataItemName" : "perm_read",
+    "excelCaption" : "读取",
+    "name" : "perm_read",
+    "noPrivDisplayMode" : 1,
+    "getPSAppCodeList" : {
+      "modelref" : true,
+      "path" : "PSSYSAPPS/ehrapp/PSAPPCODELISTS/YesNo.json"
+    },
+    "getPSAppDEField" : {
+      "name" : "PERM_READ",
+      "codeName" : "perm_read"
+    },
+    "width" : 100,
+    "widthUnit" : "PX",
+    "enableRowEdit" : true,
+    "enableSort" : true
+  }, {
+    "align" : "LEFT",
+    "cLConvertMode" : "FRONT",
+    "getCapPSLanguageRes" : {
+      "lanResTag" : "DEF.LNAME.IR_RULE.PERM_WRITE"
+    },
+    "caption" : "写入",
+    "codeName" : "perm_write",
+    "columnType" : "DEFGRIDCOLUMN",
+    "dataItemName" : "perm_write",
+    "excelCaption" : "写入",
+    "name" : "perm_write",
+    "noPrivDisplayMode" : 1,
+    "getPSAppCodeList" : {
+      "modelref" : true,
+      "path" : "PSSYSAPPS/ehrapp/PSAPPCODELISTS/YesNo.json"
+    },
+    "getPSAppDEField" : {
+      "name" : "PERM_WRITE",
+      "codeName" : "perm_write"
+    },
+    "width" : 100,
+    "widthUnit" : "PX",
+    "enableRowEdit" : true,
+    "enableSort" : true
+  }, {
+    "align" : "LEFT",
+    "cLConvertMode" : "FRONT",
+    "getCapPSLanguageRes" : {
+      "lanResTag" : "DEF.LNAME.IR_RULE.PERM_CREATE"
+    },
+    "caption" : "创建",
+    "codeName" : "perm_create",
+    "columnType" : "DEFGRIDCOLUMN",
+    "dataItemName" : "perm_create",
+    "excelCaption" : "创建",
+    "name" : "perm_create",
+    "noPrivDisplayMode" : 1,
+    "getPSAppCodeList" : {
+      "modelref" : true,
+      "path" : "PSSYSAPPS/ehrapp/PSAPPCODELISTS/YesNo.json"
+    },
+    "getPSAppDEField" : {
+      "name" : "PERM_CREATE",
+      "codeName" : "perm_create"
+    },
+    "width" : 100,
+    "widthUnit" : "PX",
+    "enableRowEdit" : true,
+    "enableSort" : true
+  }, {
+    "align" : "LEFT",
+    "cLConvertMode" : "FRONT",
+    "getCapPSLanguageRes" : {
+      "lanResTag" : "DEF.LNAME.IR_RULE.PERM_UNLINK"
+    },
+    "caption" : "删除",
+    "codeName" : "perm_unlink",
+    "columnType" : "DEFGRIDCOLUMN",
+    "dataItemName" : "perm_unlink",
+    "excelCaption" : "删除",
+    "name" : "perm_unlink",
+    "noPrivDisplayMode" : 1,
+    "getPSAppCodeList" : {
+      "modelref" : true,
+      "path" : "PSSYSAPPS/ehrapp/PSAPPCODELISTS/YesNo.json"
+    },
+    "getPSAppDEField" : {
+      "name" : "PERM_UNLINK",
+      "codeName" : "perm_unlink"
+    },
+    "width" : 100,
+    "widthUnit" : "PX",
+    "enableRowEdit" : true,
+    "enableSort" : true
+  }, {
+    "align" : "RIGHT",
+    "codeName" : "uagridcolumn1",
+    "columnType" : "UAGRIDCOLUMN",
+    "name" : "uagridcolumn1",
+    "noPrivDisplayMode" : 1,
+    "getPSDEUIActionGroup" : {
+      "codeName" : "Auto83146635",
+      "name" : "通用表格界面删除界面行为组",
+      "getPSUIActionGroupDetails" : [ {
+        "actionLevel" : 200,
+        "detailType" : "DEUIACTION",
+        "name" : "u75c8830",
+        "getPSSysImage" : {
+          "glyph" : "xf014@FontAwesome",
+          "cssClass" : "fa fa-trash-o"
+        },
+        "getPSUIAction" : {
+          "actionTarget" : "MULTIKEY",
+          "getCapPSLanguageRes" : {
+            "lanResTag" : "TBB.TEXT.*.REMOVE"
+          },
+          "caption" : "删除",
+          "codeName" : "Remove",
+          "fullCodeName" : "Remove",
+          "name" : "表格界面_删除操作",
+          "getPSSysImage" : {
+            "glyph" : "xf00d@FontAwesome",
+            "cssClass" : "fa fa-remove"
+          },
+          "predefinedType" : "GRIDVIEW_REMOVEACTION",
+          "timeout" : 60000,
+          "getTooltipPSLanguageRes" : {
+            "lanResTag" : "TBB.TOOLTIP.*.REMOVE"
+          },
+          "uIActionMode" : "SYS",
+          "uIActionTag" : "Remove",
+          "uIActionType" : "DEUIACTION"
+        },
+        "getTooltipPSLanguageRes" : {
+          "lanResTag" : "TBB.TOOLTIP.*.REMOVE"
+        },
+        "addSeparator" : false,
+        "showCaption" : false,
+        "showIcon" : true
+      } ]
+    },
+    "width" : 100,
+    "widthUnit" : "PX",
+    "enableSort" : false
+  } ],
+  "getPSDEGridDataItems" : [ {
+    "dataType" : 25,
+    "name" : "rule_name",
+    "getPSAppDEField" : {
+      "name" : "RULE_NAME",
+      "codeName" : "rule_name"
+    }
+  }, {
+    "dataType" : 25,
+    "name" : "model_id_text",
+    "getPSAppDEField" : {
+      "name" : "MODEL_ID",
+      "codeName" : "model_id"
+    }
+  }, {
+    "dataType" : 25,
+    "name" : "model_id",
+    "getPSAppDEField" : {
+      "name" : "MODEL_ID",
+      "codeName" : "model_id"
+    }
+  }, {
+    "dataType" : 21,
+    "name" : "domain_force",
+    "getPSAppDEField" : {
+      "name" : "DOMAIN_FORCE",
+      "codeName" : "domain_force"
+    }
+  }, {
+    "dataType" : 9,
+    "name" : "perm_read",
+    "getPSAppDEField" : {
+      "name" : "PERM_READ",
+      "codeName" : "perm_read"
+    }
+  }, {
+    "dataType" : 9,
+    "name" : "perm_write",
+    "getPSAppDEField" : {
+      "name" : "PERM_WRITE",
+      "codeName" : "perm_write"
+    }
+  }, {
+    "dataType" : 9,
+    "name" : "perm_create",
+    "getPSAppDEField" : {
+      "name" : "PERM_CREATE",
+      "codeName" : "perm_create"
+    }
+  }, {
+    "dataType" : 9,
+    "name" : "perm_unlink",
+    "getPSAppDEField" : {
+      "name" : "PERM_UNLINK",
+      "codeName" : "perm_unlink"
+    }
+  }, {
+    "dataType" : 25,
+    "name" : "id",
+    "getPSAppDEField" : {
+      "name" : "ID",
+      "codeName" : "id"
+    }
+  }, {
+    "dataType" : 25,
+    "name" : "rule_id",
+    "getPSAppDEField" : {
+      "name" : "RULE_ID",
+      "codeName" : "rule_id"
+    }
+  }, {
+    "dataType" : 25,
+    "name" : "gid",
+    "getPSAppDEField" : {
+      "name" : "GID",
+      "codeName" : "gid"
+    }
+  }, {
+    "dataType" : 25,
+    "name" : "srfkey",
+    "getPSAppDEField" : {
+      "name" : "ID",
+      "codeName" : "id"
+    }
+  }, {
+    "dataType" : 25,
+    "name" : "srfdataaccaction",
+    "getPSAppDEField" : {
+      "name" : "ID",
+      "codeName" : "id"
+    },
+    "dataAccessAction" : true
+  }, {
+    "dataType" : 25,
+    "name" : "srfmajortext",
+    "getPSAppDEField" : {
+      "name" : "NAME",
+      "codeName" : "name"
+    }
+  } ],
+  "getPSDEGridEditItems" : [ {
+    "caption" : "名称",
+    "codeName" : "rule_name",
+    "enableCond" : 3,
+    "ignoreInput" : 0,
+    "name" : "rule_name",
+    "getPSAppDEField" : {
+      "name" : "RULE_NAME",
+      "codeName" : "rule_name"
+    },
+    "getPSEditor" : {
+      "editorParams" : {
+        "AC" : "TRUE",
+        "PICKUPVIEW" : "TRUE"
+      },
+      "editorType" : "PICKER",
+      "handlerType" : "PickupText",
+      "itemParamJO" : {
+        "temprs" : true
+      },
+      "name" : "rule_name",
+      "getPSAppDEACMode" : {
+        "modelref" : true,
+        "id" : "Default"
+      },
+      "getPSAppDEDataSet" : {
+        "modelref" : true,
+        "id" : "fetch_default"
+      },
+      "getPSAppDataEntity" : {
+        "modelref" : true,
+        "path" : "PSSYSAPPS/ehrapp/PSAPPDATAENTITIES/ir_rule.json"
+      },
+      "getPSEditorItems" : [ { } ],
+      "getPickupPSAppView" : {
+        "modelref" : true,
+        "path" : "PSSYSAPPS/ehrapp/PSAPPDEVIEWS/ir_rulePickupView.json",
+        "viewType" : "DEPICKUPVIEW"
+      },
+      "valueItemName" : "rule_id",
+      "enableAC" : true,
+      "enablePickupView" : true,
+      "forceSelection" : true,
+      "showTrigger" : true,
+      "singleSelect" : true
+    },
+    "valueItemName" : "rule_id",
+    "allowEmpty" : true
+  }, {
+    "caption" : "模型",
+    "codeName" : "model_id",
+    "enableCond" : 3,
+    "ignoreInput" : 0,
+    "name" : "model_id",
+    "getPSAppDEField" : {
+      "name" : "MODEL_ID",
+      "codeName" : "model_id"
+    },
+    "getPSEditor" : {
+      "editorType" : "DROPDOWNLIST",
+      "name" : "model_id",
+      "getPSAppCodeList" : {
+        "modelref" : true,
+        "path" : "PSSYSAPPS/ehrapp/PSAPPCODELISTS/base__ir_model.json"
+      },
+      "getPSEditorItems" : [ {
+        "name" : "model_id",
+        "getPSAppDEACMode" : {
+          "modelref" : true,
+          "id" : "Default"
+        },
+        "getPSAppDEDataSet" : {
+          "modelref" : true,
+          "id" : "fetch_default"
+        },
+        "getPSAppDataEntity" : {
+          "modelref" : true,
+          "path" : "PSSYSAPPS/ehrapp/PSAPPDATAENTITIES/ir_rule.json"
+        }
+      } ],
+      "singleSelect" : true
+    },
+    "valueItemName" : "model_id",
+    "allowEmpty" : true,
+    "needCodeListConfig" : true
+  }, {
+    "caption" : "域名",
+    "codeName" : "domain_force",
+    "enableCond" : 3,
+    "ignoreInput" : 0,
+    "name" : "domain_force",
+    "getPSAppDEField" : {
+      "name" : "DOMAIN_FORCE",
+      "codeName" : "domain_force"
+    },
+    "getPSEditor" : {
+      "editorType" : "SPAN",
+      "name" : "domain_force",
+      "enableLinkView" : false
+    },
+    "allowEmpty" : true
+  }, {
+    "caption" : "读取",
+    "codeName" : "perm_read",
+    "enableCond" : 3,
+    "ignoreInput" : 0,
+    "name" : "perm_read",
+    "getPSAppDEField" : {
+      "name" : "PERM_READ",
+      "codeName" : "perm_read"
+    },
+    "getPSEditor" : {
+      "editorType" : "CHECKBOX",
+      "name" : "perm_read"
+    },
+    "allowEmpty" : true
+  }, {
+    "caption" : "写入",
+    "codeName" : "perm_write",
+    "enableCond" : 3,
+    "ignoreInput" : 0,
+    "name" : "perm_write",
+    "getPSAppDEField" : {
+      "name" : "PERM_WRITE",
+      "codeName" : "perm_write"
+    },
+    "getPSEditor" : {
+      "editorType" : "CHECKBOX",
+      "name" : "perm_write"
+    },
+    "allowEmpty" : true
+  }, {
+    "caption" : "创建",
+    "codeName" : "perm_create",
+    "enableCond" : 3,
+    "ignoreInput" : 0,
+    "name" : "perm_create",
+    "getPSAppDEField" : {
+      "name" : "PERM_CREATE",
+      "codeName" : "perm_create"
+    },
+    "getPSEditor" : {
+      "editorType" : "CHECKBOX",
+      "name" : "perm_create"
+    },
+    "allowEmpty" : true
+  }, {
+    "caption" : "删除",
+    "codeName" : "perm_unlink",
+    "enableCond" : 3,
+    "ignoreInput" : 0,
+    "name" : "perm_unlink",
+    "getPSAppDEField" : {
+      "name" : "PERM_UNLINK",
+      "codeName" : "perm_unlink"
+    },
+    "getPSEditor" : {
+      "editorType" : "CHECKBOX",
+      "name" : "perm_unlink"
+    },
+    "allowEmpty" : true
+  }, {
+    "caption" : "标识",
+    "codeName" : "srfkey",
+    "enableCond" : 3,
+    "ignoreInput" : 0,
+    "name" : "srfkey",
+    "getPSAppDEField" : {
+      "name" : "ID",
+      "codeName" : "id"
+    },
+    "getPSEditor" : {
+      "editorType" : "HIDDEN",
+      "name" : "srfkey"
+    },
+    "allowEmpty" : true
+  }, {
+    "enableCond" : 3,
+    "ignoreInput" : 0,
+    "name" : "rule_id",
+    "getPSAppDEField" : {
+      "name" : "RULE_ID",
+      "codeName" : "rule_id"
+    },
+    "getPSEditor" : {
+      "editorType" : "HIDDEN"
+    },
+    "allowEmpty" : true
+  } ],
+  "pagingSize" : 100,
+  "getRemovePSControlAction" : {
+    "actionName" : "Remove",
+    "actionType" : "DEACTION",
+    "dataAccessAction" : "DELETE",
+    "name" : "remove",
+    "getPSAppDEMethod" : {
+      "modelref" : true,
+      "id" : "remove"
+    },
+    "getPSAppDataEntity" : {
+      "modelref" : true,
+      "path" : "PSSYSAPPS/ehrapp/PSAPPDATAENTITIES/rule_group_rel.json"
+    }
+  },
+  "sortMode" : "REMOTE",
+  "getUpdatePSControlAction" : {
+    "actionName" : "Update",
+    "actionType" : "DEACTION",
+    "dataAccessAction" : "UPDATE",
+    "name" : "update",
+    "getPSAppDEMethod" : {
+      "modelref" : true,
+      "id" : "update"
+    },
+    "getPSAppDataEntity" : {
+      "modelref" : true,
+      "path" : "PSSYSAPPS/ehrapp/PSAPPDATAENTITIES/rule_group_rel.json"
+    }
+  },
+  "hasWFDataItems" : false,
+  "enableColFilter" : false,
+  "enableCustomized" : false,
+  "enableGroup" : false,
+  "enablePagingBar" : false,
+  "enableRowEdit" : true,
+  "enableRowEditChangedOnly" : true,
+  "enableRowEditOrder" : false,
+  "enableRowNew" : true,
+  "forceFit" : false,
+  "hideHeader" : false,
+  "noSort" : false,
+  "singleSelect" : true,
+  "modelid" : "6a3504f901f4af8067588df1d6ab9866",
+  "modeltype" : "PSDEGRID"
+}

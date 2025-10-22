@@ -1,0 +1,456 @@
+package cn.ibizlab.mail.logic.mail_activitylogic.action_done;
+        import java.util.Map;
+        import java.util.HashMap;
+        import com.alibaba.fastjson.JSONObject;
+        import org.springframework.util.StringUtils;
+        import org.springframework.util.ObjectUtils;
+        import cn.ibizlab.util.errors.BadRequestAlertException;
+                global cn.ibizlab.core.mail.domain.mail_activity mail_activityaction_donedefault;
+                global cn.ibizlab.core.base.domain.ir_attachment mail_activityaction_doneattachment;
+                global cn.ibizlab.core.base.domain.ir_attachment mail_activityaction_doneattachment_filter;
+                global cn.ibizlab.core.base.domain.ir_attachment mail_activityaction_doneattachment_page;
+                global cn.ibizlab.core.mail.domain.mail_activity_type mail_activityaction_donemail_activity_type;
+                global cn.ibizlab.core.mail.domain.mail_message mail_activityaction_donemail_message;
+                global cn.ibizlab.core.mail.domain.mail_thread mail_activityaction_donemail_thread;
+                global cn.ibizlab.core.mail.domain.mail_activity mail_activityaction_donenext_activity;
+                global cn.ibizlab.core.mail.domain.mail_activity_type mail_activityaction_donetriggered_next_type;
+                    global cn.ibizlab.core.mail.service.Imail_activity_typeService mail_activity_typeservice;
+                    global cn.ibizlab.core.base.service.Iir_attachmentService ir_attachmentservice;
+                    global cn.ibizlab.core.mail.service.Imail_activityService mail_activityservice;
+        global cn.ibizlab.core.mail.service.Imail_activityService iBzSysMail_activityDefaultService;
+        global cn.ibizlab.util.security.AuthenticationUser curuser;
+
+
+    no-loop
+
+            //逻辑处理节点[开始]
+            rule "begin"
+            ruleflow-group "mail_activityaction_donebegin"
+            when
+            then
+            end
+
+            //逻辑处理节点[查看默认]
+            rule "debugparam_03"
+            ruleflow-group "mail_activityaction_donedebugparam_03"
+            when
+            then
+                        update(mail_activityaction_donedefault);//更新fact中变量值
+                        update(mail_activityaction_doneattachment);//更新fact中变量值
+                        update(mail_activityaction_doneattachment_filter);//更新fact中变量值
+                        update(mail_activityaction_doneattachment_page);//更新fact中变量值
+                        update(mail_activityaction_donemail_activity_type);//更新fact中变量值
+                        update(mail_activityaction_donemail_message);//更新fact中变量值
+                        update(mail_activityaction_donemail_thread);//更新fact中变量值
+                        update(mail_activityaction_donenext_activity);//更新fact中变量值
+                        update(mail_activityaction_donetriggered_next_type);//更新fact中变量值
+            end
+
+            //逻辑处理节点[准备活动类型参数]
+            rule "prepareparam_02"
+            ruleflow-group "mail_activityaction_doneprepareparam_02"
+            when
+            then
+                            mail_activityaction_donemail_activity_type.set("id",mail_activityaction_donedefault.get("activitytypeid"));
+                        update(mail_activityaction_donedefault);//更新fact中变量值
+                        update(mail_activityaction_doneattachment);//更新fact中变量值
+                        update(mail_activityaction_doneattachment_filter);//更新fact中变量值
+                        update(mail_activityaction_doneattachment_page);//更新fact中变量值
+                        update(mail_activityaction_donemail_activity_type);//更新fact中变量值
+                        update(mail_activityaction_donemail_message);//更新fact中变量值
+                        update(mail_activityaction_donemail_thread);//更新fact中变量值
+                        update(mail_activityaction_donenext_activity);//更新fact中变量值
+                        update(mail_activityaction_donetriggered_next_type);//更新fact中变量值
+            end
+
+            //逻辑处理节点[获取触发活动类型数据]
+            rule "deaction_04"
+            ruleflow-group "mail_activityaction_donedeaction_04"
+            when
+            then
+                            cn.ibizlab.util.helper.CachedBeanCopier.copy(mail_activity_typeservice.get(mail_activityaction_donetriggered_next_type.getId()),mail_activityaction_donetriggered_next_type);
+                        update(mail_activityaction_donedefault);//更新fact中变量值
+                        update(mail_activityaction_doneattachment);//更新fact中变量值
+                        update(mail_activityaction_doneattachment_filter);//更新fact中变量值
+                        update(mail_activityaction_doneattachment_page);//更新fact中变量值
+                        update(mail_activityaction_donemail_activity_type);//更新fact中变量值
+                        update(mail_activityaction_donemail_message);//更新fact中变量值
+                        update(mail_activityaction_donemail_thread);//更新fact中变量值
+                        update(mail_activityaction_donenext_activity);//更新fact中变量值
+                        update(mail_activityaction_donetriggered_next_type);//更新fact中变量值
+            end
+
+            //逻辑处理节点[获取活动类型对象]
+            rule "deaction_01"
+            ruleflow-group "mail_activityaction_donedeaction_01"
+            when
+            then
+                            cn.ibizlab.util.helper.CachedBeanCopier.copy(mail_activity_typeservice.get(mail_activityaction_donemail_activity_type.getId()),mail_activityaction_donemail_activity_type);
+                        update(mail_activityaction_donedefault);//更新fact中变量值
+                        update(mail_activityaction_doneattachment);//更新fact中变量值
+                        update(mail_activityaction_doneattachment_filter);//更新fact中变量值
+                        update(mail_activityaction_doneattachment_page);//更新fact中变量值
+                        update(mail_activityaction_donemail_activity_type);//更新fact中变量值
+                        update(mail_activityaction_donemail_message);//更新fact中变量值
+                        update(mail_activityaction_donemail_thread);//更新fact中变量值
+                        update(mail_activityaction_donenext_activity);//更新fact中变量值
+                        update(mail_activityaction_donetriggered_next_type);//更新fact中变量值
+            end
+
+            //逻辑处理节点[准备下一个活动参数]
+            rule "prepareparam_03"
+            ruleflow-group "mail_activityaction_doneprepareparam_03"
+            when
+            then
+                            mail_activityaction_donenext_activity.set("previousactivitytypeid",mail_activityaction_donedefault.get("activitytypeid"));
+                            mail_activityaction_donenext_activity.set("resid",mail_activityaction_donedefault.get("resid"));
+                            mail_activityaction_donenext_activity.set("resmodel",mail_activityaction_donedefault.get("resmodel"));
+                            mail_activityaction_donenext_activity.set("activitytypeid",mail_activityaction_donemail_activity_type.get("triggerednexttypeid"));
+                            mail_activityaction_donenext_activity.set("summary",mail_activityaction_donetriggered_next_type.get("summary"));
+                            mail_activityaction_donenext_activity.set("note",mail_activityaction_donetriggered_next_type.get("defaultnote"));
+                            mail_activityaction_donenext_activity.set("userid",mail_activityaction_donedefault.get("srfuserid"));
+                            mail_activityaction_donenext_activity.set("resname",mail_activityaction_donedefault.get("resname"));
+                        update(mail_activityaction_donedefault);//更新fact中变量值
+                        update(mail_activityaction_doneattachment);//更新fact中变量值
+                        update(mail_activityaction_doneattachment_filter);//更新fact中变量值
+                        update(mail_activityaction_doneattachment_page);//更新fact中变量值
+                        update(mail_activityaction_donemail_activity_type);//更新fact中变量值
+                        update(mail_activityaction_donemail_message);//更新fact中变量值
+                        update(mail_activityaction_donemail_thread);//更新fact中变量值
+                        update(mail_activityaction_donenext_activity);//更新fact中变量值
+                        update(mail_activityaction_donetriggered_next_type);//更新fact中变量值
+            end
+
+            //逻辑处理节点[准备触发活动类型参数]
+            rule "prepareparam_04"
+            ruleflow-group "mail_activityaction_doneprepareparam_04"
+            when
+            then
+                            mail_activityaction_donetriggered_next_type.set("id",mail_activityaction_donemail_activity_type.get("triggerednexttypeid"));
+                        update(mail_activityaction_donedefault);//更新fact中变量值
+                        update(mail_activityaction_doneattachment);//更新fact中变量值
+                        update(mail_activityaction_doneattachment_filter);//更新fact中变量值
+                        update(mail_activityaction_doneattachment_page);//更新fact中变量值
+                        update(mail_activityaction_donemail_activity_type);//更新fact中变量值
+                        update(mail_activityaction_donemail_message);//更新fact中变量值
+                        update(mail_activityaction_donemail_thread);//更新fact中变量值
+                        update(mail_activityaction_donenext_activity);//更新fact中变量值
+                        update(mail_activityaction_donetriggered_next_type);//更新fact中变量值
+            end
+
+            //逻辑处理节点[准备附件参数]
+            rule "prepareparam_01"
+            ruleflow-group "mail_activityaction_doneprepareparam_01"
+            when
+            then
+                            mail_activityaction_doneattachment_filter.set("n_res_id_eq",mail_activityaction_donedefault.get("id"));
+                            mail_activityaction_doneattachment_filter.set("n_res_model_eq","mail_activity");
+                        update(mail_activityaction_donedefault);//更新fact中变量值
+                        update(mail_activityaction_doneattachment);//更新fact中变量值
+                        update(mail_activityaction_doneattachment_filter);//更新fact中变量值
+                        update(mail_activityaction_doneattachment_page);//更新fact中变量值
+                        update(mail_activityaction_donemail_activity_type);//更新fact中变量值
+                        update(mail_activityaction_donemail_message);//更新fact中变量值
+                        update(mail_activityaction_donemail_thread);//更新fact中变量值
+                        update(mail_activityaction_donenext_activity);//更新fact中变量值
+                        update(mail_activityaction_donetriggered_next_type);//更新fact中变量值
+            end
+
+            //逻辑处理节点[生成message]
+            rule "rawsfcode_03"
+            ruleflow-group "mail_activityaction_donerawsfcode_03"
+            when
+            then
+                        update(mail_activityaction_donedefault);//更新fact中变量值
+                        update(mail_activityaction_doneattachment);//更新fact中变量值
+                        update(mail_activityaction_doneattachment_filter);//更新fact中变量值
+                        update(mail_activityaction_doneattachment_page);//更新fact中变量值
+                        update(mail_activityaction_donemail_activity_type);//更新fact中变量值
+                        update(mail_activityaction_donemail_message);//更新fact中变量值
+                        update(mail_activityaction_donemail_thread);//更新fact中变量值
+                        update(mail_activityaction_donenext_activity);//更新fact中变量值
+                        update(mail_activityaction_donetriggered_next_type);//更新fact中变量值
+            end
+
+            //逻辑处理节点[填充message数据]
+            rule "rawsfcode_01"
+            ruleflow-group "mail_activityaction_donerawsfcode_01"
+            when
+            then
+                        update(mail_activityaction_donedefault);//更新fact中变量值
+                        update(mail_activityaction_doneattachment);//更新fact中变量值
+                        update(mail_activityaction_doneattachment_filter);//更新fact中变量值
+                        update(mail_activityaction_doneattachment_page);//更新fact中变量值
+                        update(mail_activityaction_donemail_activity_type);//更新fact中变量值
+                        update(mail_activityaction_donemail_message);//更新fact中变量值
+                        update(mail_activityaction_donemail_thread);//更新fact中变量值
+                        update(mail_activityaction_donenext_activity);//更新fact中变量值
+                        update(mail_activityaction_donetriggered_next_type);//更新fact中变量值
+            end
+
+            //逻辑处理节点[获取到期日期]
+            rule "deaction_010"
+            ruleflow-group "mail_activityaction_donedeaction_010"
+            when
+            then
+                        mail_activity_typeservice.get_date_deadline(mail_activityaction_donemail_activity_type);
+                        update(mail_activityaction_donedefault);//更新fact中变量值
+                        update(mail_activityaction_doneattachment);//更新fact中变量值
+                        update(mail_activityaction_doneattachment_filter);//更新fact中变量值
+                        update(mail_activityaction_doneattachment_page);//更新fact中变量值
+                        update(mail_activityaction_donemail_activity_type);//更新fact中变量值
+                        update(mail_activityaction_donemail_message);//更新fact中变量值
+                        update(mail_activityaction_donemail_thread);//更新fact中变量值
+                        update(mail_activityaction_donenext_activity);//更新fact中变量值
+                        update(mail_activityaction_donetriggered_next_type);//更新fact中变量值
+            end
+
+            //逻辑处理节点[获取当前活动的所有附件]
+            rule "dedataset_01"
+            ruleflow-group "mail_activityaction_donededataset_01"
+            when
+            then
+                        update(mail_activityaction_donedefault);//更新fact中变量值
+                        update(mail_activityaction_doneattachment);//更新fact中变量值
+                        update(mail_activityaction_doneattachment_filter);//更新fact中变量值
+                        update(mail_activityaction_doneattachment_page);//更新fact中变量值
+                        update(mail_activityaction_donemail_activity_type);//更新fact中变量值
+                        update(mail_activityaction_donemail_message);//更新fact中变量值
+                        update(mail_activityaction_donemail_thread);//更新fact中变量值
+                        update(mail_activityaction_donenext_activity);//更新fact中变量值
+                        update(mail_activityaction_donetriggered_next_type);//更新fact中变量值
+            end
+
+            //逻辑处理节点[循环子调用]
+            rule "loopsubcall_01"
+            ruleflow-group "mail_activityaction_doneloopsubcall_01"
+            when
+            then
+                        update(mail_activityaction_donedefault);//更新fact中变量值
+                        update(mail_activityaction_doneattachment);//更新fact中变量值
+                        update(mail_activityaction_doneattachment_filter);//更新fact中变量值
+                        update(mail_activityaction_doneattachment_page);//更新fact中变量值
+                        update(mail_activityaction_donemail_activity_type);//更新fact中变量值
+                        update(mail_activityaction_donemail_message);//更新fact中变量值
+                        update(mail_activityaction_donemail_thread);//更新fact中变量值
+                        update(mail_activityaction_donenext_activity);//更新fact中变量值
+                        update(mail_activityaction_donetriggered_next_type);//更新fact中变量值
+            end
+
+            //逻辑处理节点[到期日期参数]
+            rule "prepareparam_09"
+            ruleflow-group "mail_activityaction_doneprepareparam_09"
+            when
+            then
+                            mail_activityaction_donemail_activity_type.set("activity_previous_deadline",mail_activityaction_donedefault.get("datedeadline"));
+                        update(mail_activityaction_donedefault);//更新fact中变量值
+                        update(mail_activityaction_doneattachment);//更新fact中变量值
+                        update(mail_activityaction_doneattachment_filter);//更新fact中变量值
+                        update(mail_activityaction_doneattachment_page);//更新fact中变量值
+                        update(mail_activityaction_donemail_activity_type);//更新fact中变量值
+                        update(mail_activityaction_donemail_message);//更新fact中变量值
+                        update(mail_activityaction_donemail_thread);//更新fact中变量值
+                        update(mail_activityaction_donenext_activity);//更新fact中变量值
+                        update(mail_activityaction_donetriggered_next_type);//更新fact中变量值
+            end
+
+            //逻辑处理节点[准备归档参数]
+            rule "rawsfcode_02"
+            ruleflow-group "mail_activityaction_donerawsfcode_02"
+            when
+            then
+                        update(mail_activityaction_donedefault);//更新fact中变量值
+                        update(mail_activityaction_doneattachment);//更新fact中变量值
+                        update(mail_activityaction_doneattachment_filter);//更新fact中变量值
+                        update(mail_activityaction_doneattachment_page);//更新fact中变量值
+                        update(mail_activityaction_donemail_activity_type);//更新fact中变量值
+                        update(mail_activityaction_donemail_message);//更新fact中变量值
+                        update(mail_activityaction_donemail_thread);//更新fact中变量值
+                        update(mail_activityaction_donenext_activity);//更新fact中变量值
+                        update(mail_activityaction_donetriggered_next_type);//更新fact中变量值
+            end
+
+            //逻辑处理节点[删除活动数据]
+            rule "deaction_03"
+            ruleflow-group "mail_activityaction_donedeaction_03"
+            when
+            then
+                        mail_activityservice.remove(mail_activityaction_donedefault.getId());
+                        update(mail_activityaction_donedefault);//更新fact中变量值
+                        update(mail_activityaction_doneattachment);//更新fact中变量值
+                        update(mail_activityaction_doneattachment_filter);//更新fact中变量值
+                        update(mail_activityaction_doneattachment_page);//更新fact中变量值
+                        update(mail_activityaction_donemail_activity_type);//更新fact中变量值
+                        update(mail_activityaction_donemail_message);//更新fact中变量值
+                        update(mail_activityaction_donemail_thread);//更新fact中变量值
+                        update(mail_activityaction_donenext_activity);//更新fact中变量值
+                        update(mail_activityaction_donetriggered_next_type);//更新fact中变量值
+            end
+
+            //逻辑处理节点[归档]
+            rule "deaction_02"
+            ruleflow-group "mail_activityaction_donedeaction_02"
+            when
+            then
+                        mail_activityservice.update(mail_activityaction_donedefault);
+                        update(mail_activityaction_donedefault);//更新fact中变量值
+                        update(mail_activityaction_doneattachment);//更新fact中变量值
+                        update(mail_activityaction_doneattachment_filter);//更新fact中变量值
+                        update(mail_activityaction_doneattachment_page);//更新fact中变量值
+                        update(mail_activityaction_donemail_activity_type);//更新fact中变量值
+                        update(mail_activityaction_donemail_message);//更新fact中变量值
+                        update(mail_activityaction_donemail_thread);//更新fact中变量值
+                        update(mail_activityaction_donenext_activity);//更新fact中变量值
+                        update(mail_activityaction_donetriggered_next_type);//更新fact中变量值
+            end
+
+            //逻辑处理节点[查看下一个活动]
+            rule "debugparam_01"
+            ruleflow-group "mail_activityaction_donedebugparam_01"
+            when
+            then
+                        update(mail_activityaction_donedefault);//更新fact中变量值
+                        update(mail_activityaction_doneattachment);//更新fact中变量值
+                        update(mail_activityaction_doneattachment_filter);//更新fact中变量值
+                        update(mail_activityaction_doneattachment_page);//更新fact中变量值
+                        update(mail_activityaction_donemail_activity_type);//更新fact中变量值
+                        update(mail_activityaction_donemail_message);//更新fact中变量值
+                        update(mail_activityaction_donemail_thread);//更新fact中变量值
+                        update(mail_activityaction_donenext_activity);//更新fact中变量值
+                        update(mail_activityaction_donetriggered_next_type);//更新fact中变量值
+            end
+
+            //逻辑处理节点[准备下一个活动参数]
+            rule "prepareparam_07"
+            ruleflow-group "mail_activityaction_doneprepareparam_07"
+            when
+            then
+                            mail_activityaction_donenext_activity.set("datedeadline",mail_activityaction_donemail_activity_type.get("actual_deadline"));
+                        update(mail_activityaction_donedefault);//更新fact中变量值
+                        update(mail_activityaction_doneattachment);//更新fact中变量值
+                        update(mail_activityaction_doneattachment_filter);//更新fact中变量值
+                        update(mail_activityaction_doneattachment_page);//更新fact中变量值
+                        update(mail_activityaction_donemail_activity_type);//更新fact中变量值
+                        update(mail_activityaction_donemail_message);//更新fact中变量值
+                        update(mail_activityaction_donemail_thread);//更新fact中变量值
+                        update(mail_activityaction_donenext_activity);//更新fact中变量值
+                        update(mail_activityaction_donetriggered_next_type);//更新fact中变量值
+            end
+
+            //逻辑处理节点[准备附件换绑参数]
+            rule "prepareparam_05"
+            ruleflow-group "mail_activityaction_doneprepareparam_05"
+            when
+            then
+                            mail_activityaction_doneattachment.set("resid",mail_activityaction_donemail_message.get("id"));
+                            mail_activityaction_doneattachment.set("resmodel","mail_message");
+                        update(mail_activityaction_donedefault);//更新fact中变量值
+                        update(mail_activityaction_doneattachment);//更新fact中变量值
+                        update(mail_activityaction_doneattachment_filter);//更新fact中变量值
+                        update(mail_activityaction_doneattachment_page);//更新fact中变量值
+                        update(mail_activityaction_donemail_activity_type);//更新fact中变量值
+                        update(mail_activityaction_donemail_message);//更新fact中变量值
+                        update(mail_activityaction_donemail_thread);//更新fact中变量值
+                        update(mail_activityaction_donenext_activity);//更新fact中变量值
+                        update(mail_activityaction_donetriggered_next_type);//更新fact中变量值
+            end
+
+            //逻辑处理节点[生成下一个活动]
+            rule "deaction_08"
+            ruleflow-group "mail_activityaction_donedeaction_08"
+            when
+            then
+                        mail_activityservice.create(mail_activityaction_donenext_activity);
+                        update(mail_activityaction_donedefault);//更新fact中变量值
+                        update(mail_activityaction_doneattachment);//更新fact中变量值
+                        update(mail_activityaction_doneattachment_filter);//更新fact中变量值
+                        update(mail_activityaction_doneattachment_page);//更新fact中变量值
+                        update(mail_activityaction_donemail_activity_type);//更新fact中变量值
+                        update(mail_activityaction_donemail_message);//更新fact中变量值
+                        update(mail_activityaction_donemail_thread);//更新fact中变量值
+                        update(mail_activityaction_donenext_activity);//更新fact中变量值
+                        update(mail_activityaction_donetriggered_next_type);//更新fact中变量值
+            end
+
+            //逻辑处理节点[换绑到消息]
+            rule "deaction_05"
+            ruleflow-group "mail_activityaction_donedeaction_05"
+            when
+            then
+                        ir_attachmentservice.update(mail_activityaction_doneattachment);
+                        update(mail_activityaction_donedefault);//更新fact中变量值
+                        update(mail_activityaction_doneattachment);//更新fact中变量值
+                        update(mail_activityaction_doneattachment_filter);//更新fact中变量值
+                        update(mail_activityaction_doneattachment_page);//更新fact中变量值
+                        update(mail_activityaction_donemail_activity_type);//更新fact中变量值
+                        update(mail_activityaction_donemail_message);//更新fact中变量值
+                        update(mail_activityaction_donemail_thread);//更新fact中变量值
+                        update(mail_activityaction_donenext_activity);//更新fact中变量值
+                        update(mail_activityaction_donetriggered_next_type);//更新fact中变量值
+            end
+
+            //逻辑处理节点[最后返回的活动]
+            rule "debugparam_02"
+            ruleflow-group "mail_activityaction_donedebugparam_02"
+            when
+            then
+                        update(mail_activityaction_donedefault);//更新fact中变量值
+                        update(mail_activityaction_doneattachment);//更新fact中变量值
+                        update(mail_activityaction_doneattachment_filter);//更新fact中变量值
+                        update(mail_activityaction_doneattachment_page);//更新fact中变量值
+                        update(mail_activityaction_donemail_activity_type);//更新fact中变量值
+                        update(mail_activityaction_donemail_message);//更新fact中变量值
+                        update(mail_activityaction_donemail_thread);//更新fact中变量值
+                        update(mail_activityaction_donenext_activity);//更新fact中变量值
+                        update(mail_activityaction_donetriggered_next_type);//更新fact中变量值
+            end
+
+            //逻辑处理节点[准备参数]
+            rule "prepareparam_06"
+            ruleflow-group "mail_activityaction_doneprepareparam_06"
+            when
+            then
+                                mail_activityaction_donedefault.set("next_act_id",null);
+                        update(mail_activityaction_donedefault);//更新fact中变量值
+                        update(mail_activityaction_doneattachment);//更新fact中变量值
+                        update(mail_activityaction_doneattachment_filter);//更新fact中变量值
+                        update(mail_activityaction_doneattachment_page);//更新fact中变量值
+                        update(mail_activityaction_donemail_activity_type);//更新fact中变量值
+                        update(mail_activityaction_donemail_message);//更新fact中变量值
+                        update(mail_activityaction_donemail_thread);//更新fact中变量值
+                        update(mail_activityaction_donenext_activity);//更新fact中变量值
+                        update(mail_activityaction_donetriggered_next_type);//更新fact中变量值
+            end
+
+            //逻辑处理节点[准备参数]
+            rule "prepareparam_010"
+            ruleflow-group "mail_activityaction_doneprepareparam_010"
+            when
+            then
+                            mail_activityaction_donedefault.set("next_act_id",mail_activityaction_donenext_activity.get("id"));
+                        update(mail_activityaction_donedefault);//更新fact中变量值
+                        update(mail_activityaction_doneattachment);//更新fact中变量值
+                        update(mail_activityaction_doneattachment_filter);//更新fact中变量值
+                        update(mail_activityaction_doneattachment_page);//更新fact中变量值
+                        update(mail_activityaction_donemail_activity_type);//更新fact中变量值
+                        update(mail_activityaction_donemail_message);//更新fact中变量值
+                        update(mail_activityaction_donemail_thread);//更新fact中变量值
+                        update(mail_activityaction_donenext_activity);//更新fact中变量值
+                        update(mail_activityaction_donetriggered_next_type);//更新fact中变量值
+            end
+
+            //逻辑处理节点[结束]
+            rule "end_01"
+            ruleflow-group "mail_activityaction_doneend_01"
+            when
+            then
+                        update(mail_activityaction_donedefault);//更新fact中变量值
+                        update(mail_activityaction_doneattachment);//更新fact中变量值
+                        update(mail_activityaction_doneattachment_filter);//更新fact中变量值
+                        update(mail_activityaction_doneattachment_page);//更新fact中变量值
+                        update(mail_activityaction_donemail_activity_type);//更新fact中变量值
+                        update(mail_activityaction_donemail_message);//更新fact中变量值
+                        update(mail_activityaction_donemail_thread);//更新fact中变量值
+                        update(mail_activityaction_donenext_activity);//更新fact中变量值
+                        update(mail_activityaction_donetriggered_next_type);//更新fact中变量值
+            end

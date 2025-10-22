@@ -1,0 +1,320 @@
+package cn.ibizlab.attendance.logic.attendance_rulelogic.judgingmember;
+        import java.util.Map;
+        import java.util.HashMap;
+        import com.alibaba.fastjson.JSONObject;
+        import org.springframework.util.StringUtils;
+        import org.springframework.util.ObjectUtils;
+        import cn.ibizlab.util.errors.BadRequestAlertException;
+                global cn.ibizlab.core.attendance.domain.attendance_rule attendance_rulejudgingmemberdefault;
+                global cn.ibizlab.core.attendance.domain.attendance_rule attendance_rulejudgingmemberfilter;
+                global cn.ibizlab.core.attendance.domain.attendance_group_shift_member attendance_rulejudgingmembergroupresult;
+                global cn.ibizlab.core.attendance.domain.attendance_group_shift_member attendance_rulejudgingmembermemberresult;
+                global cn.ibizlab.core.attendance.domain.attendance_group_shift_member attendance_rulejudgingmembermembertemp;
+                global cn.ibizlab.core.attendance.domain.attendance_group_shift_member attendance_rulejudgingmembermembers;
+                global java.util.Map attendance_rulejudgingmembermsg;
+                global cn.ibizlab.core.attendance.domain.attendance_group_shift_member attendance_rulejudgingmemberresults;
+                global cn.ibizlab.core.attendance.domain.attendance_rule attendance_rulejudgingmemberrule;
+                global cn.ibizlab.core.attendance.domain.attendance_rule attendance_rulejudgingmemberrules;
+                global cn.ibizlab.core.attendance.domain.attendance_group_shift_member attendance_rulejudgingmembertemp;
+                    global cn.ibizlab.core.attendance.service.Iattendance_ruleService attendance_ruleservice;
+        global cn.ibizlab.core.attendance.service.Iattendance_ruleService iBzSysAttendance_ruleDefaultService;
+        global cn.ibizlab.util.security.AuthenticationUser curuser;
+
+
+    no-loop
+
+            //逻辑处理节点[开始]
+            rule "begin"
+            ruleflow-group "attendance_rulejudgingmemberbegin"
+            when
+            then
+            end
+
+            //逻辑处理节点[调试逻辑参数]
+            rule "debugparam_01"
+            ruleflow-group "attendance_rulejudgingmemberdebugparam_01"
+            when
+            then
+                        update(attendance_rulejudgingmemberdefault);//更新fact中变量值
+                        update(attendance_rulejudgingmemberfilter);//更新fact中变量值
+                        update(attendance_rulejudgingmembergroupresult);//更新fact中变量值
+                        update(attendance_rulejudgingmembermemberresult);//更新fact中变量值
+                        update(attendance_rulejudgingmembermembertemp);//更新fact中变量值
+                        update(attendance_rulejudgingmembermembers);//更新fact中变量值
+                        update(attendance_rulejudgingmembermsg);//更新fact中变量值
+                        update(attendance_rulejudgingmemberresults);//更新fact中变量值
+                        update(attendance_rulejudgingmemberrule);//更新fact中变量值
+                        update(attendance_rulejudgingmemberrules);//更新fact中变量值
+                        update(attendance_rulejudgingmembertemp);//更新fact中变量值
+            end
+
+            //逻辑处理节点[准备参数]
+            rule "prepareparam_01"
+            ruleflow-group "attendance_rulejudgingmemberprepareparam_01"
+            when
+            then
+                            attendance_rulejudgingmembermembers.set("",attendance_rulejudgingmemberdefault.get("members"));
+                        update(attendance_rulejudgingmemberdefault);//更新fact中变量值
+                        update(attendance_rulejudgingmemberfilter);//更新fact中变量值
+                        update(attendance_rulejudgingmembergroupresult);//更新fact中变量值
+                        update(attendance_rulejudgingmembermemberresult);//更新fact中变量值
+                        update(attendance_rulejudgingmembermembertemp);//更新fact中变量值
+                        update(attendance_rulejudgingmembermembers);//更新fact中变量值
+                        update(attendance_rulejudgingmembermsg);//更新fact中变量值
+                        update(attendance_rulejudgingmemberresults);//更新fact中变量值
+                        update(attendance_rulejudgingmemberrule);//更新fact中变量值
+                        update(attendance_rulejudgingmemberrules);//更新fact中变量值
+                        update(attendance_rulejudgingmembertemp);//更新fact中变量值
+            end
+
+            //逻辑处理节点[循环子调用]
+            rule "loopsubcall_01"
+            ruleflow-group "attendance_rulejudgingmemberloopsubcall_01"
+            when
+            then
+                        update(attendance_rulejudgingmemberdefault);//更新fact中变量值
+                        update(attendance_rulejudgingmemberfilter);//更新fact中变量值
+                        update(attendance_rulejudgingmembergroupresult);//更新fact中变量值
+                        update(attendance_rulejudgingmembermemberresult);//更新fact中变量值
+                        update(attendance_rulejudgingmembermembertemp);//更新fact中变量值
+                        update(attendance_rulejudgingmembermembers);//更新fact中变量值
+                        update(attendance_rulejudgingmembermsg);//更新fact中变量值
+                        update(attendance_rulejudgingmemberresults);//更新fact中变量值
+                        update(attendance_rulejudgingmemberrule);//更新fact中变量值
+                        update(attendance_rulejudgingmemberrules);//更新fact中变量值
+                        update(attendance_rulejudgingmembertemp);//更新fact中变量值
+            end
+
+            //逻辑处理节点[准备参数]
+            rule "prepareparam_02"
+            ruleflow-group "attendance_rulejudgingmemberprepareparam_02"
+            when
+            then
+                        update(attendance_rulejudgingmemberdefault);//更新fact中变量值
+                        update(attendance_rulejudgingmemberfilter);//更新fact中变量值
+                        update(attendance_rulejudgingmembergroupresult);//更新fact中变量值
+                        update(attendance_rulejudgingmembermemberresult);//更新fact中变量值
+                        update(attendance_rulejudgingmembermembertemp);//更新fact中变量值
+                        update(attendance_rulejudgingmembermembers);//更新fact中变量值
+                        update(attendance_rulejudgingmembermsg);//更新fact中变量值
+                        update(attendance_rulejudgingmemberresults);//更新fact中变量值
+                        update(attendance_rulejudgingmemberrule);//更新fact中变量值
+                        update(attendance_rulejudgingmemberrules);//更新fact中变量值
+                        update(attendance_rulejudgingmembertemp);//更新fact中变量值
+            end
+
+            //逻辑处理节点[判断是否在其他生效规则内]
+            rule "rawsqlcall_01"
+            ruleflow-group "attendance_rulejudgingmemberrawsqlcall_01"
+            when
+            then
+    Map param =new HashMap();
+        param.put("param0",attendance_rulejudgingmemberdefault.get("id"));
+        param.put("param1",attendance_rulejudgingmembermembertemp.get("id"));
+    String strSql="select * FROM attendance_group_shift_member WHERE  rule_id != #{et.param0} and user_id = #{et.param1}  AND EXISTS (     SELECT 1      FROM attendance_rule rule       WHERE        rule.id = attendance_group_shift_member.rule_id        AND rule.IS_ACTIVATE  = 1   )";
+                        java.util.List<JSONObject> entities=iBzSysAttendance_ruleDefaultService.select(strSql,param);//SQL调用
+                            if(entities.size()>0){
+                            JSONObject entity=entities.get(0);
+                                    cn.ibizlab.core.attendance.domain.attendance_group_shift_member targetEntity =new cn.ibizlab.core.attendance.domain.attendance_group_shift_member();
+                                    for (Map.Entry entry : entity.entrySet()) {
+                                    targetEntity.set(String.valueOf(entry.getKey()),entry.getValue());
+                                    }
+                                    org.springframework.cglib.beans.BeanCopier copier= org.springframework.cglib.beans.BeanCopier.create(targetEntity.getClass(),attendance_rulejudgingmembermemberresult.getClass(), false);
+                                    copier.copy(targetEntity,attendance_rulejudgingmembermemberresult,null);
+                            }
+                        update(attendance_rulejudgingmemberdefault);//更新fact中变量值
+                        update(attendance_rulejudgingmemberfilter);//更新fact中变量值
+                        update(attendance_rulejudgingmembergroupresult);//更新fact中变量值
+                        update(attendance_rulejudgingmembermemberresult);//更新fact中变量值
+                        update(attendance_rulejudgingmembermembertemp);//更新fact中变量值
+                        update(attendance_rulejudgingmembermembers);//更新fact中变量值
+                        update(attendance_rulejudgingmembermsg);//更新fact中变量值
+                        update(attendance_rulejudgingmemberresults);//更新fact中变量值
+                        update(attendance_rulejudgingmemberrule);//更新fact中变量值
+                        update(attendance_rulejudgingmemberrules);//更新fact中变量值
+                        update(attendance_rulejudgingmembertemp);//更新fact中变量值
+            end
+
+            //逻辑处理节点[附加到判断结果]
+            rule "rawsfcode_01"
+            ruleflow-group "attendance_rulejudgingmemberrawsfcode_01"
+            when
+            then
+                        update(attendance_rulejudgingmemberdefault);//更新fact中变量值
+                        update(attendance_rulejudgingmemberfilter);//更新fact中变量值
+                        update(attendance_rulejudgingmembergroupresult);//更新fact中变量值
+                        update(attendance_rulejudgingmembermemberresult);//更新fact中变量值
+                        update(attendance_rulejudgingmembermembertemp);//更新fact中变量值
+                        update(attendance_rulejudgingmembermembers);//更新fact中变量值
+                        update(attendance_rulejudgingmembermsg);//更新fact中变量值
+                        update(attendance_rulejudgingmemberresults);//更新fact中变量值
+                        update(attendance_rulejudgingmemberrule);//更新fact中变量值
+                        update(attendance_rulejudgingmemberrules);//更新fact中变量值
+                        update(attendance_rulejudgingmembertemp);//更新fact中变量值
+            end
+
+            //逻辑处理节点[执行脚本代码]
+            rule "rawsfcode_02"
+            ruleflow-group "attendance_rulejudgingmemberrawsfcode_02"
+            when
+            then
+                        update(attendance_rulejudgingmemberdefault);//更新fact中变量值
+                        update(attendance_rulejudgingmemberfilter);//更新fact中变量值
+                        update(attendance_rulejudgingmembergroupresult);//更新fact中变量值
+                        update(attendance_rulejudgingmembermemberresult);//更新fact中变量值
+                        update(attendance_rulejudgingmembermembertemp);//更新fact中变量值
+                        update(attendance_rulejudgingmembermembers);//更新fact中变量值
+                        update(attendance_rulejudgingmembermsg);//更新fact中变量值
+                        update(attendance_rulejudgingmemberresults);//更新fact中变量值
+                        update(attendance_rulejudgingmemberrule);//更新fact中变量值
+                        update(attendance_rulejudgingmemberrules);//更新fact中变量值
+                        update(attendance_rulejudgingmembertemp);//更新fact中变量值
+            end
+
+            //逻辑处理节点[循环子调用]
+            rule "loopsubcall_02"
+            ruleflow-group "attendance_rulejudgingmemberloopsubcall_02"
+            when
+            then
+                        update(attendance_rulejudgingmemberdefault);//更新fact中变量值
+                        update(attendance_rulejudgingmemberfilter);//更新fact中变量值
+                        update(attendance_rulejudgingmembergroupresult);//更新fact中变量值
+                        update(attendance_rulejudgingmembermemberresult);//更新fact中变量值
+                        update(attendance_rulejudgingmembermembertemp);//更新fact中变量值
+                        update(attendance_rulejudgingmembermembers);//更新fact中变量值
+                        update(attendance_rulejudgingmembermsg);//更新fact中变量值
+                        update(attendance_rulejudgingmemberresults);//更新fact中变量值
+                        update(attendance_rulejudgingmemberrule);//更新fact中变量值
+                        update(attendance_rulejudgingmemberrules);//更新fact中变量值
+                        update(attendance_rulejudgingmembertemp);//更新fact中变量值
+            end
+
+            //逻辑处理节点[准备参数]
+            rule "prepareparam_04"
+            ruleflow-group "attendance_rulejudgingmemberprepareparam_04"
+            when
+            then
+                            attendance_rulejudgingmemberfilter.set("n_id_eq",attendance_rulejudgingmembertemp.get("ruleid"));
+                        update(attendance_rulejudgingmemberdefault);//更新fact中变量值
+                        update(attendance_rulejudgingmemberfilter);//更新fact中变量值
+                        update(attendance_rulejudgingmembergroupresult);//更新fact中变量值
+                        update(attendance_rulejudgingmembermemberresult);//更新fact中变量值
+                        update(attendance_rulejudgingmembermembertemp);//更新fact中变量值
+                        update(attendance_rulejudgingmembermembers);//更新fact中变量值
+                        update(attendance_rulejudgingmembermsg);//更新fact中变量值
+                        update(attendance_rulejudgingmemberresults);//更新fact中变量值
+                        update(attendance_rulejudgingmemberrule);//更新fact中变量值
+                        update(attendance_rulejudgingmemberrules);//更新fact中变量值
+                        update(attendance_rulejudgingmembertemp);//更新fact中变量值
+            end
+
+            //逻辑处理节点[实体数据集]
+            rule "dedataset_01"
+            ruleflow-group "attendance_rulejudgingmemberdedataset_01"
+            when
+            then
+                        update(attendance_rulejudgingmemberdefault);//更新fact中变量值
+                        update(attendance_rulejudgingmemberfilter);//更新fact中变量值
+                        update(attendance_rulejudgingmembergroupresult);//更新fact中变量值
+                        update(attendance_rulejudgingmembermemberresult);//更新fact中变量值
+                        update(attendance_rulejudgingmembermembertemp);//更新fact中变量值
+                        update(attendance_rulejudgingmembermembers);//更新fact中变量值
+                        update(attendance_rulejudgingmembermsg);//更新fact中变量值
+                        update(attendance_rulejudgingmemberresults);//更新fact中变量值
+                        update(attendance_rulejudgingmemberrule);//更新fact中变量值
+                        update(attendance_rulejudgingmemberrules);//更新fact中变量值
+                        update(attendance_rulejudgingmembertemp);//更新fact中变量值
+            end
+
+            //逻辑处理节点[准备参数]
+            rule "prepareparam_05"
+            ruleflow-group "attendance_rulejudgingmemberprepareparam_05"
+            when
+            then
+                            attendance_rulejudgingmemberrule.set("",attendance_rulejudgingmemberrules.get("0"));
+                            attendance_rulejudgingmembertemp.set("rule_name",attendance_rulejudgingmemberrule.get("name"));
+                        update(attendance_rulejudgingmemberdefault);//更新fact中变量值
+                        update(attendance_rulejudgingmemberfilter);//更新fact中变量值
+                        update(attendance_rulejudgingmembergroupresult);//更新fact中变量值
+                        update(attendance_rulejudgingmembermemberresult);//更新fact中变量值
+                        update(attendance_rulejudgingmembermembertemp);//更新fact中变量值
+                        update(attendance_rulejudgingmembermembers);//更新fact中变量值
+                        update(attendance_rulejudgingmembermsg);//更新fact中变量值
+                        update(attendance_rulejudgingmemberresults);//更新fact中变量值
+                        update(attendance_rulejudgingmemberrule);//更新fact中变量值
+                        update(attendance_rulejudgingmemberrules);//更新fact中变量值
+                        update(attendance_rulejudgingmembertemp);//更新fact中变量值
+            end
+
+            //逻辑处理节点[调试逻辑参数]
+            rule "debugparam_02"
+            ruleflow-group "attendance_rulejudgingmemberdebugparam_02"
+            when
+            then
+                        update(attendance_rulejudgingmemberdefault);//更新fact中变量值
+                        update(attendance_rulejudgingmemberfilter);//更新fact中变量值
+                        update(attendance_rulejudgingmembergroupresult);//更新fact中变量值
+                        update(attendance_rulejudgingmembermemberresult);//更新fact中变量值
+                        update(attendance_rulejudgingmembermembertemp);//更新fact中变量值
+                        update(attendance_rulejudgingmembermembers);//更新fact中变量值
+                        update(attendance_rulejudgingmembermsg);//更新fact中变量值
+                        update(attendance_rulejudgingmemberresults);//更新fact中变量值
+                        update(attendance_rulejudgingmemberrule);//更新fact中变量值
+                        update(attendance_rulejudgingmemberrules);//更新fact中变量值
+                        update(attendance_rulejudgingmembertemp);//更新fact中变量值
+            end
+
+            //逻辑处理节点[准备参数]
+            rule "prepareparam_03"
+            ruleflow-group "attendance_rulejudgingmemberprepareparam_03"
+            when
+            then
+                            attendance_rulejudgingmemberdefault.set("id","1");
+                        update(attendance_rulejudgingmemberdefault);//更新fact中变量值
+                        update(attendance_rulejudgingmemberfilter);//更新fact中变量值
+                        update(attendance_rulejudgingmembergroupresult);//更新fact中变量值
+                        update(attendance_rulejudgingmembermemberresult);//更新fact中变量值
+                        update(attendance_rulejudgingmembermembertemp);//更新fact中变量值
+                        update(attendance_rulejudgingmembermembers);//更新fact中变量值
+                        update(attendance_rulejudgingmembermsg);//更新fact中变量值
+                        update(attendance_rulejudgingmemberresults);//更新fact中变量值
+                        update(attendance_rulejudgingmemberrule);//更新fact中变量值
+                        update(attendance_rulejudgingmemberrules);//更新fact中变量值
+                        update(attendance_rulejudgingmembertemp);//更新fact中变量值
+            end
+
+            //逻辑处理节点[执行脚本代码]
+            rule "rawsfcode_03"
+            ruleflow-group "attendance_rulejudgingmemberrawsfcode_03"
+            when
+            then
+                        update(attendance_rulejudgingmemberdefault);//更新fact中变量值
+                        update(attendance_rulejudgingmemberfilter);//更新fact中变量值
+                        update(attendance_rulejudgingmembergroupresult);//更新fact中变量值
+                        update(attendance_rulejudgingmembermemberresult);//更新fact中变量值
+                        update(attendance_rulejudgingmembermembertemp);//更新fact中变量值
+                        update(attendance_rulejudgingmembermembers);//更新fact中变量值
+                        update(attendance_rulejudgingmembermsg);//更新fact中变量值
+                        update(attendance_rulejudgingmemberresults);//更新fact中变量值
+                        update(attendance_rulejudgingmemberrule);//更新fact中变量值
+                        update(attendance_rulejudgingmemberrules);//更新fact中变量值
+                        update(attendance_rulejudgingmembertemp);//更新fact中变量值
+            end
+
+            //逻辑处理节点[结束]
+            rule "end_01"
+            ruleflow-group "attendance_rulejudgingmemberend_01"
+            when
+            then
+                        update(attendance_rulejudgingmemberdefault);//更新fact中变量值
+                        update(attendance_rulejudgingmemberfilter);//更新fact中变量值
+                        update(attendance_rulejudgingmembergroupresult);//更新fact中变量值
+                        update(attendance_rulejudgingmembermemberresult);//更新fact中变量值
+                        update(attendance_rulejudgingmembermembertemp);//更新fact中变量值
+                        update(attendance_rulejudgingmembermembers);//更新fact中变量值
+                        update(attendance_rulejudgingmembermsg);//更新fact中变量值
+                        update(attendance_rulejudgingmemberresults);//更新fact中变量值
+                        update(attendance_rulejudgingmemberrule);//更新fact中变量值
+                        update(attendance_rulejudgingmemberrules);//更新fact中变量值
+                        update(attendance_rulejudgingmembertemp);//更新fact中变量值
+            end

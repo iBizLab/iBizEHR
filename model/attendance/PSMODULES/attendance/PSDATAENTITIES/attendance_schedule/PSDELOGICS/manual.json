@@ -1,0 +1,83 @@
+{
+  "codeName" : "manual",
+  "defaultParamName" : "Default",
+  "dynaModelFilePath" : "PSMODULES/attendance/PSDATAENTITIES/attendance_schedule/PSDELOGICS/manual.json",
+  "logicName" : "手动排班",
+  "name" : "手动排班",
+  "getPSDELogicNodes" : [ {
+    "codeName" : "Begin",
+    "leftPos" : 200,
+    "logicNodeType" : "BEGIN",
+    "name" : "开始",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "RAWSFCODE1"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "Begin"
+      }
+    } ],
+    "topPos" : 60,
+    "parallelOutput" : true
+  }, {
+    "code" : "def _default = logic.param('Default').getReal()\r\ndef attendance_schedule_runtime = sys.dataentity('attendance_schedule')\r\n\r\nif(_default != null){\r\n    _default.each { it ->\r\n        def attendance_schedule = attendance_schedule_runtime.entity()\r\n        def attendance_schedule_id = it.get(\"id\")\r\n        def workday = it.get(\"workday\")\r\n        if(attendance_schedule_id != null){\r\n            attendance_schedule.set(\"id\", attendance_schedule_id)\r\n            attendance_schedule.set(\"manual\", 1)\r\n            attendance_schedule.set(\"workday\", workday)\r\n            def choose_shift = it.get(\"choose_shift\")\r\n            if(choose_shift != null){\r\n                def shift_data = choose_shift.get(\"shift_data\")\r\n                def work_time = choose_shift.get(\"work_times\")?choose_shift.get(\"work_times\"):shift_data.get(\"work_times\")\r\n                attendance_schedule.set(\"work_time\", work_time)\r\n                attendance_schedule.set(\"shift_data\", shift_data)\r\n            }\r\n            attendance_schedule_runtime.update(attendance_schedule)\r\n        }\r\n    }\r\n}\r\n\r\n",
+    "codeName" : "RAWSFCODE1",
+    "codeType" : "Groovy",
+    "leftPos" : 160,
+    "logicNodeType" : "RAWSFCODE",
+    "name" : "手动调班",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "END1"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "RAWSFCODE1"
+      }
+    } ],
+    "topPos" : 255
+  }, {
+    "codeName" : "END1",
+    "leftPos" : 200,
+    "logicNodeType" : "END",
+    "name" : "结束",
+    "getReturnParam" : {
+      "modelref" : true,
+      "id" : "attendance_schedule"
+    },
+    "returnType" : "LOGICPARAM",
+    "topPos" : 630,
+    "parallelOutput" : true
+  } ],
+  "getPSDELogicParams" : [ {
+    "codeName" : "Default",
+    "logicName" : "传入变量",
+    "name" : "传入变量",
+    "getParamPSDataEntity" : {
+      "modelref" : true,
+      "path" : "PSMODULES/attendance/PSDATAENTITIES/attendance_schedule.json"
+    },
+    "default" : true,
+    "entityParam" : true
+  }, {
+    "codeName" : "attendance_schedule",
+    "logicName" : "排班",
+    "name" : "排班",
+    "getParamPSDataEntity" : {
+      "modelref" : true,
+      "path" : "PSMODULES/attendance/PSDATAENTITIES/attendance_schedule.json"
+    },
+    "entityParam" : true
+  } ],
+  "getStartPSDELogicNode" : {
+    "modelref" : true,
+    "id" : "Begin"
+  },
+  "enableBackend" : true,
+  "enableFront" : false
+}

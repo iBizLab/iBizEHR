@@ -1,0 +1,55 @@
+{
+  "dBType" : "MYSQL5",
+  "name" : "MySQL5",
+  "getPSDEDataQueryCodeExps" : [ {
+    "expression" : "t1.`CALENDAR_ID`",
+    "name" : "CALENDAR_ID"
+  }, {
+    "expression" : "t11.`NAME`",
+    "name" : "CALENDAR_NAME"
+  }, {
+    "expression" : "t1.`CREATE_DATE`",
+    "name" : "CREATE_DATE"
+  }, {
+    "expression" : "t1.`CREATE_UID`",
+    "name" : "CREATE_UID"
+  }, {
+    "expression" : "t1.`DATE_FROM`",
+    "name" : "DATE_FROM"
+  }, {
+    "expression" : "t1.`DATE_TO`",
+    "name" : "DATE_TO"
+  }, {
+    "expression" : "t1.`HOLIDAY_ID`",
+    "name" : "HOLIDAY_ID"
+  }, {
+    "expression" : "t1.`HOLIDAY_TYPE`",
+    "name" : "HOLIDAY_TYPE"
+  }, {
+    "expression" : "t21.`NAME`",
+    "name" : "HOLNAMEAY_NAME"
+  }, {
+    "expression" : "t1.`ID`",
+    "name" : "ID"
+  }, {
+    "expression" : "t1.`NAME`",
+    "name" : "NAME"
+  }, {
+    "expression" : "t1.`TIME_TYPE`",
+    "name" : "TIME_TYPE"
+  }, {
+    "expression" : "t1.`TYPE_ID`",
+    "name" : "TYPE_ID"
+  }, {
+    "expression" : "t31.`NAME`",
+    "name" : "TYPE_NAME"
+  }, {
+    "expression" : "t1.`WRITE_DATE`",
+    "name" : "WRITE_DATE"
+  }, {
+    "expression" : "t1.`WRITE_UID`",
+    "name" : "WRITE_UID"
+  } ],
+  "queryCode" : "SELECT\nt1.`CALENDAR_ID`,\nt11.`NAME` AS `CALENDAR_NAME`,\nt1.`CREATE_DATE`,\nt1.`CREATE_UID`,\nt1.`DATE_FROM`,\nt1.`DATE_TO`,\nt1.`HOLIDAY_ID`,\nt1.`HOLIDAY_TYPE`,\nt21.`NAME` AS `HOLNAMEAY_NAME`,\nt1.`ID`,\nt1.`NAME`,\nt1.`TIME_TYPE`,\nt1.`TYPE_ID`,\nt31.`NAME` AS `TYPE_NAME`,\nt1.`WRITE_DATE`,\nt1.`WRITE_UID`\nFROM `resource_calendar_leaves` t1 \nLEFT JOIN `resource_calendar` t11 ON t1.`CALENDAR_ID` = t11.`ID` \nLEFT JOIN `hr_leave` t21 ON t1.`HOLIDAY_ID` = t21.`ID` \nLEFT JOIN `PUBLIC_LEAVE_TYPE` t31 ON t1.`TYPE_ID` = t31.`ID` \n",
+  "id" : "PSMODULES/resource/PSDATAENTITIES/resource_calendar_leaves/PSDEDATAQUERIES/View/PSDEDQCODES/MYSQL5.json"
+}

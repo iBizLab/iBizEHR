@@ -1,0 +1,18 @@
+```sql
+SELECT
+t1.`CREATE_DATE`,
+t1.`CREATE_UID`,
+t1.`DEPT_ID`,
+t1.`DEPT_NAME`,
+t1.`EMPLOYEE_NUM`,
+t1.`ID`,
+t1.`MEMBER_TYPE`,
+t1.`MOBILE`,
+t1.`NAME`,
+t1.`STATUS`,
+t1.`TITLE`,
+t1.`WRITE_UID`
+FROM `` t1 
+
+
+```

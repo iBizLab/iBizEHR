@@ -1,0 +1,19 @@
+```sql
+SELECT
+t1.`ACTIVE`,
+t1.`CALENDAR_ID`,
+t11.`NAME` AS `CALENDAR_NAME`,
+t1.`COMPANY_ID`,
+t1.`CREATE_DATE`,
+t1.`CREATE_UID`,
+t1.`ID`,
+t1.`NAME`,
+t1.`RESOURCE_TYPE`,
+t1.`TIME_EFFICIENCY`,
+t1.`WRITE_DATE`,
+t1.`WRITE_UID`
+FROM `resource_resource` t1 
+LEFT JOIN `resource_calendar` t11 ON t1.`CALENDAR_ID` = t11.`ID` 
+
+
+```

@@ -1,0 +1,68 @@
+{
+  "codeName" : "recommend_department",
+  "defaultParamName" : "Default",
+  "dynaModelFilePath" : "PSMODULES/hr/PSDATAENTITIES/hr_applicant/PSDELOGICS/recommend_department.json",
+  "logicName" : "推荐给用人部门",
+  "name" : "推荐给用人部门",
+  "getPSDELogicNodes" : [ {
+    "codeName" : "Begin",
+    "leftPos" : 360,
+    "logicNodeType" : "BEGIN",
+    "name" : "开始",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "RAWSFCODE1"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "Begin"
+      }
+    } ],
+    "topPos" : 150,
+    "parallelOutput" : true
+  }, {
+    "code" : "// 获取默认参数\r\ndef _default = logic.param('Default').getReal()\r\n\r\n// 直接获取srfactionparam为List<Map>，无需转换为IEntityDTO\r\nList<Map> srfactionparam = _default.get('srfactionparam')\r\nMap actionParam = srfactionparam.get(0) // 取第一个元素（Map类型）\r\n\r\n// 从Map中直接获取reviewer_user_ids字段\r\nString reviewerUserIds = actionParam.get('reviewer_user_ids')\r\n\r\n// 解析JSON并提取id列表\r\ndef jsonSlurper = new groovy.json.JsonSlurper()\r\ndef list = jsonSlurper.parseText(reviewerUserIds)\r\ndef ids = list.collect { it.id } // 提取所有id\r\n\r\n// 输出结果\r\nprintln \"提取的id列表：\"\r\nids.each { println it }\r\n\r\n// 从Map中获取其他字段\r\nString applicant_id = actionParam.get('applicant_id')\r\nString type = actionParam.get('type')\r\nString memo = actionParam.get('memo')\r\n\r\n// 创建主表实体\r\ndef hrCandidateFilterRuntime = sys.dataentity('hr_candidate_filter')\r\ndef hrCandidateFilterEntity = hrCandidateFilterRuntime.createEntity()\r\nhrCandidateFilterEntity.set(\"applicant_id\", applicant_id)\r\nhrCandidateFilterEntity.set(\"type\", type)\r\nhrCandidateFilterRuntime.create(hrCandidateFilterEntity)\r\n\r\n// 创建明细表实体\r\ndef hrCandidateFilterDetailRuntime = sys.dataentity('hr_candidate_filter_detail')\r\nString candidateFilterId = hrCandidateFilterEntity.get(\"id\")\r\n\r\nids.each { id ->\r\n    def hrCandidateFilterDetailEntity = hrCandidateFilterDetailRuntime.createEntity()\r\n    hrCandidateFilterDetailEntity.set(\"candidate_filter_id\", candidateFilterId)\r\n    hrCandidateFilterDetailEntity.set(\"memo\", memo)\r\n    hrCandidateFilterDetailEntity.set(\"user_id\", id)\r\n    hrCandidateFilterDetailEntity.set(\"applicant_id\", applicant_id)\r\n    hrCandidateFilterDetailRuntime.save(hrCandidateFilterDetailEntity)\r\n}\r\n",
+    "codeName" : "RAWSFCODE1",
+    "codeType" : "Groovy",
+    "leftPos" : 320,
+    "logicNodeType" : "RAWSFCODE",
+    "name" : "执行脚本代码",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "END1"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "RAWSFCODE1"
+      }
+    } ],
+    "topPos" : 287
+  }, {
+    "codeName" : "END1",
+    "leftPos" : 360,
+    "logicNodeType" : "END",
+    "name" : "结束",
+    "topPos" : 419
+  } ],
+  "getPSDELogicParams" : [ {
+    "codeName" : "Default",
+    "logicName" : "传入变量",
+    "name" : "传入变量",
+    "getParamPSDataEntity" : {
+      "modelref" : true,
+      "path" : "PSMODULES/hr/PSDATAENTITIES/hr_applicant.json"
+    },
+    "default" : true,
+    "entityParam" : true
+  } ],
+  "getStartPSDELogicNode" : {
+    "modelref" : true,
+    "id" : "Begin"
+  },
+  "enableBackend" : true,
+  "enableFront" : false
+}

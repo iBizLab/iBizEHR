@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+    <definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:g="http://www.jboss.org/drools/flow/gpd" xmlns:tns="http://www.jboss.org/drools" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" expressionLanguage="http://www.mvel.org/2.0" id="Definition" name="" targetNamespace="http://www.jboss.org/drools" typeLanguage="http://www.java.com/javaTypes">
+        <process id="cn.ibizlab.core.attendance.attendance_rule.remove.afterLogic" isClosed="false" isExecutable="true" name="attendance_attendance_rule_remove_afterLogic" processType="Private" tns:packageName="cn.ibizlab.core.attendance.attendance_rule.remove.afterLogic">
+            <extensionElements>
+                <tns:import name="java.util.Map"/>
+                <tns:import name="org.springframework.util.StringUtils"/>
+                <tns:import name="cn.ibizlab.util.helper.RuleUtils"/>
+                <tns:import name="cn.ibizlab.core.attendance.domain.attendance_rule"/>
+            </extensionElements>
+                <startEvent id="begin" isInterrupting="true"/>
+                <endEvent id="prepareparam1_end" name="end"/>
+                            <callActivity activiti:exclusive="true" calledElement="cn.ibizlab.core.attendance.service.logic.attendance_ruledeleteotherinfo" id="cbba84135e55a3dd3f0ce54d6d8face3" name="deleteOtherInfo.json.bpmn"/>
+                        <sequenceFlow id="begin_cbba84135e55a3dd3f0ce54d6d8face3" sourceRef="begin" targetRef="cbba84135e55a3dd3f0ce54d6d8face3"/>
+                            <callActivity activiti:exclusive="true" calledElement="cn.ibizlab.core.attendance.service.logic.attendance_ruleremoveodoodata" id="e6ffa423f8328e9f2ed2920991b7224d" name="removeOdooData.json.bpmn"/>
+                        <sequenceFlow id="cbba84135e55a3dd3f0ce54d6d8face3_e6ffa423f8328e9f2ed2920991b7224d" sourceRef="cbba84135e55a3dd3f0ce54d6d8face3" targetRef="e6ffa423f8328e9f2ed2920991b7224d"/>
+                            <sequenceFlow id="e6ffa423f8328e9f2ed2920991b7224d_prepareparam1_end" sourceRef="e6ffa423f8328e9f2ed2920991b7224d" targetRef="prepareparam1_end"/>
+        </process>
+    </definitions>

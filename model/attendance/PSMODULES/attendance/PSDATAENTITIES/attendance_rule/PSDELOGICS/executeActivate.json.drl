@@ -1,0 +1,80 @@
+package cn.ibizlab.attendance.logic.attendance_rulelogic.executeactivate;
+        import java.util.Map;
+        import java.util.HashMap;
+        import com.alibaba.fastjson.JSONObject;
+        import org.springframework.util.StringUtils;
+        import org.springframework.util.ObjectUtils;
+        import cn.ibizlab.util.errors.BadRequestAlertException;
+                global cn.ibizlab.core.attendance.domain.attendance_rule attendance_ruleexecuteactivatedefault;
+                global cn.ibizlab.core.attendance.domain.attendance_rule attendance_ruleexecuteactivatefilter;
+                global cn.ibizlab.core.attendance.domain.attendance_rule attendance_ruleexecuteactivaterule;
+                global cn.ibizlab.core.attendance.domain.attendance_rule attendance_ruleexecuteactivaterules;
+                    global cn.ibizlab.core.attendance.service.Iattendance_ruleService attendance_ruleservice;
+        global cn.ibizlab.core.attendance.service.Iattendance_ruleService iBzSysAttendance_ruleDefaultService;
+        global cn.ibizlab.util.security.AuthenticationUser curuser;
+
+
+    no-loop
+
+            //逻辑处理节点[开始]
+            rule "begin"
+            ruleflow-group "attendance_ruleexecuteactivatebegin"
+            when
+            then
+            end
+
+            //逻辑处理节点[调试逻辑参数]
+            rule "debugparam_01"
+            ruleflow-group "attendance_ruleexecuteactivatedebugparam_01"
+            when
+            then
+                        update(attendance_ruleexecuteactivatedefault);//更新fact中变量值
+                        update(attendance_ruleexecuteactivatefilter);//更新fact中变量值
+                        update(attendance_ruleexecuteactivaterule);//更新fact中变量值
+                        update(attendance_ruleexecuteactivaterules);//更新fact中变量值
+            end
+
+            //逻辑处理节点[实体数据集]
+            rule "dedataset_01"
+            ruleflow-group "attendance_ruleexecuteactivatededataset_01"
+            when
+            then
+                        update(attendance_ruleexecuteactivatedefault);//更新fact中变量值
+                        update(attendance_ruleexecuteactivatefilter);//更新fact中变量值
+                        update(attendance_ruleexecuteactivaterule);//更新fact中变量值
+                        update(attendance_ruleexecuteactivaterules);//更新fact中变量值
+            end
+
+            //逻辑处理节点[循环子调用]
+            rule "loopsubcall_01"
+            ruleflow-group "attendance_ruleexecuteactivateloopsubcall_01"
+            when
+            then
+                        update(attendance_ruleexecuteactivatedefault);//更新fact中变量值
+                        update(attendance_ruleexecuteactivatefilter);//更新fact中变量值
+                        update(attendance_ruleexecuteactivaterule);//更新fact中变量值
+                        update(attendance_ruleexecuteactivaterules);//更新fact中变量值
+            end
+
+            //逻辑处理节点[实体行为]
+            rule "deaction_01"
+            ruleflow-group "attendance_ruleexecuteactivatedeaction_01"
+            when
+            then
+                        attendance_ruleservice.update(attendance_ruleexecuteactivaterule);
+                        update(attendance_ruleexecuteactivatedefault);//更新fact中变量值
+                        update(attendance_ruleexecuteactivatefilter);//更新fact中变量值
+                        update(attendance_ruleexecuteactivaterule);//更新fact中变量值
+                        update(attendance_ruleexecuteactivaterules);//更新fact中变量值
+            end
+
+            //逻辑处理节点[结束]
+            rule "end_01"
+            ruleflow-group "attendance_ruleexecuteactivateend_01"
+            when
+            then
+                        update(attendance_ruleexecuteactivatedefault);//更新fact中变量值
+                        update(attendance_ruleexecuteactivatefilter);//更新fact中变量值
+                        update(attendance_ruleexecuteactivaterule);//更新fact中变量值
+                        update(attendance_ruleexecuteactivaterules);//更新fact中变量值
+            end

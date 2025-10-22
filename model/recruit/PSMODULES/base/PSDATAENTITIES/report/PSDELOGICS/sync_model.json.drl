@@ -1,0 +1,71 @@
+package cn.ibizlab.base.logic.reportlogic.sync_model;
+        import java.util.Map;
+        import java.util.HashMap;
+        import com.alibaba.fastjson.JSONObject;
+        import org.springframework.util.StringUtils;
+        import org.springframework.util.ObjectUtils;
+        import cn.ibizlab.util.errors.BadRequestAlertException;
+                global cn.ibizlab.core.base.domain.report reportsync_modeldefault;
+                global cn.ibizlab.core.extension.domain.PSSysBIReport reportsync_modelbireport;
+                    global cn.ibizlab.core.extension.service.IPSSysBIReportService pssysbireportservice;
+                    global cn.ibizlab.core.base.service.IreportService reportservice;
+        global cn.ibizlab.core.base.service.IreportService iBzSysReportDefaultService;
+        global cn.ibizlab.util.security.AuthenticationUser curuser;
+
+
+    no-loop
+
+            //逻辑处理节点[开始]
+            rule "begin"
+            ruleflow-group "reportsync_modelbegin"
+            when
+            then
+            end
+
+            //逻辑处理节点[结束]
+            rule "end1"
+            ruleflow-group "reportsync_modelend1"
+            when
+            then
+                        update(reportsync_modeldefault);//更新fact中变量值
+                        update(reportsync_modelbireport);//更新fact中变量值
+            end
+
+            //逻辑处理节点[准备report标识]
+            rule "prepareparam1"
+            ruleflow-group "reportsync_modelprepareparam1"
+            when
+            then
+                            reportsync_modelbireport.set("pssysbireportid",reportsync_modeldefault.get("id"));
+                        update(reportsync_modeldefault);//更新fact中变量值
+                        update(reportsync_modelbireport);//更新fact中变量值
+            end
+
+            //逻辑处理节点[获取bireport]
+            rule "deaction1"
+            ruleflow-group "reportsync_modeldeaction1"
+            when
+            then
+                            cn.ibizlab.util.helper.CachedBeanCopier.copy(pssysbireportservice.get(reportsync_modelbireport.getPssysbireportid()),reportsync_modelbireport);
+                        update(reportsync_modeldefault);//更新fact中变量值
+                        update(reportsync_modelbireport);//更新fact中变量值
+            end
+
+            //逻辑处理节点[dump模型]
+            rule "rawsfcode1"
+            ruleflow-group "reportsync_modelrawsfcode1"
+            when
+            then
+                        update(reportsync_modeldefault);//更新fact中变量值
+                        update(reportsync_modelbireport);//更新fact中变量值
+            end
+
+            //逻辑处理节点[更新模型属性]
+            rule "deaction2"
+            ruleflow-group "reportsync_modeldeaction2"
+            when
+            then
+                        reportservice.update(reportsync_modeldefault);
+                        update(reportsync_modeldefault);//更新fact中变量值
+                        update(reportsync_modelbireport);//更新fact中变量值
+            end

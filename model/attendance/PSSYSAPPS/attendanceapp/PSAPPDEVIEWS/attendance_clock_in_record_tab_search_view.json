@@ -1,0 +1,1655 @@
+{
+  "accUserMode" : 2,
+  "getCapPSLanguageRes" : {
+    "lanResTag" : "DE.LNAME.ATTENDANCE_CLOCK_IN_RECORD"
+  },
+  "caption" : "打卡记录",
+  "codeName" : "attendance_clock_in_record_tab_search_view",
+  "dynaModelFilePath" : "PSSYSAPPS/attendanceapp/PSAPPDEVIEWS/attendance_clock_in_record_tab_search_view.json",
+  "name" : "attendance_clock_in_recordTabSearchView",
+  "getPSAppDataEntity" : {
+    "modelref" : true,
+    "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/attendance_clock_in_record.json"
+  },
+  "getPSAppModule" : {
+    "modelref" : true,
+    "path" : "PSSYSAPPS/attendanceapp/PSAPPMODULES/attendance.json"
+  },
+  "getPSDEViewCodeName" : "TabSearchView",
+  "getPSDEViewId" : "6c385e85153ebb6fabbf32e3f426234b",
+  "getPSViewLayoutPanel" : {
+    "codeName" : "usr0731975787",
+    "controlType" : "VIEWLAYOUTPANEL",
+    "hookEventNames" : [ "ONBEFORELOADDRAFT" ],
+    "layoutMode" : "FLEX",
+    "logicName" : "打卡记录分页搜索视图布局面板",
+    "name" : "layoutpanel",
+    "getPSAppDataEntity" : {
+      "modelref" : true,
+      "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/attendance_clock_in_record.json"
+    },
+    "getPSControlLogics" : [ {
+      "eventNames" : "onBeforeLoadDraft",
+      "itemName" : "SEARCHFORM",
+      "logicTag" : "layoutpanel",
+      "logicType" : "SCRIPT",
+      "name" : "logic1",
+      "scriptCode" : "console.log('打卡记录搜索表单加载');\r\nconst curDate = new Date();\r\n// 几种默认值处理方式\r\nconst year = curDate.getFullYear();\r\nconst month = curDate.getMonth() + 1;\r\nconst day = curDate.getDate();\r\nconst tempMonth = month < 10 ? `0${month}` : month\r\nconst tempDay = day < 10 ? `0${day}` : day;\r\n// 今天\r\nconst end = `${year}-${tempMonth}-${tempDay}`;\r\n// 默认值为今天\r\nconst starttime = `${end} 00:00:00`;\r\nconst endtime = `${end} 23:59:59`\r\n\r\nObject.assign(ctrl.data, {\r\n    date_range: `${starttime},${endtime}`,\r\n    n_checkin_time_gtandeq: starttime,\r\n    n_checkin_time_ltandeq: endtime\r\n})\r\nObject.assign(view.params, {\r\n    date_range: `${starttime},${endtime}`,\r\n    n_checkin_time_gtandeq: starttime,\r\n    n_checkin_time_ltandeq: endtime\r\n})\r\nObject.assign(viewParam, {\r\n    date_range: `${starttime},${endtime}`,\r\n    n_checkin_time_gtandeq: starttime,\r\n    n_checkin_time_ltandeq: endtime\r\n})"
+    } ],
+    "getPSControlParam" : { },
+    "getPSLayout" : {
+      "layout" : "FLEX"
+    },
+    "getRootPSPanelItems" : [ {
+      "caption" : "容器",
+      "itemStyle" : "DEFAULT",
+      "itemType" : "CONTAINER",
+      "name" : "view_header",
+      "getPSLayout" : {
+        "align" : "space-between",
+        "dir" : "row",
+        "layout" : "FLEX",
+        "vAlign" : "center"
+      },
+      "getPSLayoutPos" : {
+        "grow" : -1,
+        "layout" : "FLEX",
+        "shrink" : 0
+      },
+      "getPSPanelItems" : [ {
+        "caption" : "容器",
+        "itemStyle" : "DEFAULT",
+        "itemType" : "CONTAINER",
+        "name" : "view_header_left",
+        "getPSLayout" : {
+          "layout" : "FLEX"
+        },
+        "getPSLayoutPos" : {
+          "grow" : -1,
+          "heightMode" : "FULL",
+          "layout" : "FLEX"
+        },
+        "getPSPanelItems" : [ {
+          "caption" : "容器",
+          "itemStyle" : "DEFAULT",
+          "itemType" : "CONTAINER",
+          "name" : "view_captionbar",
+          "getPSLayout" : {
+            "align" : "center",
+            "layout" : "FLEX"
+          },
+          "getPSLayoutPos" : {
+            "grow" : -1,
+            "heightMode" : "FULL",
+            "layout" : "FLEX"
+          },
+          "getPSPanelItems" : [ {
+            "caption" : "页面标题",
+            "itemStyle" : "DEFAULT",
+            "itemType" : "CTRLPOS",
+            "name" : "captionbar",
+            "getPSLayoutPos" : {
+              "grow" : -1,
+              "layout" : "FLEX"
+            },
+            "showCaption" : true
+          } ]
+        } ]
+      }, {
+        "caption" : "容器",
+        "itemStyle" : "DEFAULT",
+        "itemType" : "CONTAINER",
+        "name" : "view_header_right",
+        "getPSLayout" : {
+          "layout" : "FLEX"
+        },
+        "getPSLayoutPos" : {
+          "grow" : -1,
+          "heightMode" : "FULL",
+          "layout" : "FLEX"
+        },
+        "getPSPanelItems" : [ {
+          "caption" : "容器",
+          "itemStyle" : "DEFAULT",
+          "itemType" : "CONTAINER",
+          "name" : "view_toolbar",
+          "getPSLayout" : {
+            "align" : "center",
+            "layout" : "FLEX"
+          },
+          "getPSLayoutPos" : {
+            "grow" : -1,
+            "heightMode" : "FULL",
+            "layout" : "FLEX"
+          }
+        } ]
+      } ],
+      "predefinedType" : "VIEWHEADER"
+    }, {
+      "caption" : "容器",
+      "itemStyle" : "DEFAULT",
+      "itemType" : "CONTAINER",
+      "name" : "view_searchform",
+      "getPSLayout" : {
+        "layout" : "FLEX"
+      },
+      "getPSLayoutPos" : {
+        "grow" : -1,
+        "layout" : "FLEX",
+        "shrink" : 0
+      },
+      "getPSPanelItems" : [ {
+        "caption" : "容器",
+        "itemStyle" : "DEFAULT",
+        "itemType" : "CONTAINER",
+        "name" : "container3",
+        "getPSLayout" : {
+          "align" : "flex-start",
+          "dir" : "row",
+          "layout" : "FLEX"
+        },
+        "getPSLayoutPos" : {
+          "grow" : -1,
+          "layout" : "FLEX"
+        },
+        "getPSPanelItems" : [ {
+          "caption" : "搜索表单",
+          "itemStyle" : "DEFAULT",
+          "itemType" : "CTRLPOS",
+          "name" : "searchform",
+          "getPSLayoutPos" : {
+            "grow" : -1,
+            "layout" : "FLEX"
+          },
+          "showCaption" : true
+        }, {
+          "caption" : "传送部件占位",
+          "itemStyle" : "DEFAULT",
+          "itemType" : "RAWITEM",
+          "name" : "tabtoolbar",
+          "getPSLayoutPos" : {
+            "grow" : -1,
+            "layout" : "FLEX"
+          },
+          "getPSRawItem" : {
+            "cssStyle" : "padding-top :16px",
+            "name" : "tabtoolbar",
+            "predefinedType" : "TELEPORT_PLACEHOLDER"
+          },
+          "showCaption" : true
+        }, {
+          "caption" : "传送部件占位",
+          "itemStyle" : "DEFAULT",
+          "itemType" : "RAWITEM",
+          "name" : "tabtoolbar1",
+          "getPSLayoutPos" : {
+            "grow" : -1,
+            "layout" : "FLEX"
+          },
+          "getPSRawItem" : {
+            "cssStyle" : "padding-top :16px",
+            "name" : "tabtoolbar1",
+            "predefinedType" : "TELEPORT_PLACEHOLDER"
+          },
+          "showCaption" : true
+        } ]
+      } ]
+    }, {
+      "caption" : "容器",
+      "itemStyle" : "DEFAULT",
+      "itemType" : "CONTAINER",
+      "name" : "view_content",
+      "getPSLayout" : {
+        "layout" : "FLEX"
+      },
+      "getPSLayoutPos" : {
+        "grow" : 1,
+        "layout" : "FLEX"
+      },
+      "getPSPanelItems" : [ {
+        "caption" : "容器",
+        "contentHeight" : 54.0,
+        "height" : 54.0,
+        "itemStyle" : "DEFAULT",
+        "itemType" : "CONTAINER",
+        "name" : "view_tabexppanel",
+        "getPSLayout" : {
+          "layout" : "FLEX"
+        },
+        "getPSLayoutPos" : {
+          "grow" : -1,
+          "height" : 54,
+          "heightMode" : "PX",
+          "layout" : "FLEX",
+          "shrink" : 0
+        },
+        "getPSPanelItems" : [ {
+          "caption" : "关系分页部件",
+          "itemStyle" : "DEFAULT",
+          "itemType" : "CTRLPOS",
+          "name" : "tabexppanel",
+          "getPSLayoutPos" : {
+            "grow" : -1,
+            "layout" : "FLEX"
+          },
+          "showCaption" : true
+        } ]
+      }, {
+        "caption" : "容器",
+        "itemStyle" : "DEFAULT",
+        "itemType" : "CONTAINER",
+        "name" : "view_nav_pos",
+        "getPSLayout" : {
+          "layout" : "FLEX"
+        },
+        "getPSLayoutPos" : {
+          "grow" : 1,
+          "layout" : "FLEX"
+        },
+        "getPSPanelItems" : [ {
+          "caption" : "导航区占位",
+          "itemStyle" : "DEFAULT",
+          "itemType" : "RAWITEM",
+          "name" : "nav_pos",
+          "getPSLayoutPos" : {
+            "grow" : -1,
+            "layout" : "FLEX"
+          },
+          "getPSRawItem" : {
+            "name" : "nav_pos",
+            "predefinedType" : "NAV_POS"
+          },
+          "showCaption" : true
+        } ]
+      } ],
+      "predefinedType" : "VIEWCONTENT"
+    } ],
+    "layoutBodyOnly" : false,
+    "layoutPanel" : true,
+    "useDefaultLayout" : false,
+    "viewProxyMode" : true,
+    "modelid" : "e80589aa962349589d1fdb6a9139a15d",
+    "modeltype" : "PSSYSVIEWLAYOUTPANEL",
+    "getPSControls" : [ {
+      "codeName" : "search_form",
+      "controlType" : "SEARCHFORM",
+      "defaultLabelWidth" : 130,
+      "dynaModelFilePath" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/attendance_clock_in_record/PSSEARCHFORMS/search_form.json",
+      "logicName" : "打卡记录搜索表单",
+      "getPSAppDataEntity" : {
+        "modelref" : true,
+        "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/attendance_clock_in_record.json"
+      },
+      "getPSControlHandler" : {
+        "getPSHandlerActions" : [ {
+          "actionType" : "FILTERACTION",
+          "name" : "load",
+          "getPSAppDEMethod" : {
+            "modelref" : true,
+            "id" : "FilterGet"
+          },
+          "getPSAppDataEntity" : {
+            "modelref" : true,
+            "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/attendance_clock_in_record.json"
+          }
+        }, {
+          "actionType" : "FILTERACTION",
+          "name" : "loaddraft",
+          "getPSAppDEMethod" : {
+            "modelref" : true,
+            "id" : "FilterGetDraft"
+          },
+          "getPSAppDataEntity" : {
+            "modelref" : true,
+            "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/attendance_clock_in_record.json"
+          }
+        }, {
+          "actionType" : "FILTERACTION",
+          "name" : "search",
+          "getPSAppDEMethod" : {
+            "modelref" : true,
+            "id" : "FilterSearch"
+          },
+          "getPSAppDataEntity" : {
+            "modelref" : true,
+            "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/attendance_clock_in_record.json"
+          }
+        } ],
+        "enableDEFieldPrivilege" : false,
+        "id" : "搜索表单处理器"
+      },
+      "getPSControlParam" : {
+        "autoLoad" : true,
+        "showBusyIndicator" : true,
+        "id" : "SEARCHFORM"
+      },
+      "getPSDEFormItems" : [ {
+        "id" : "n_member_id_in",
+        "dataType" : 25
+      }, {
+        "id" : "date_range",
+        "dataType" : 25
+      }, {
+        "id" : "n_checkin_time_ltandeq",
+        "hidden" : true,
+        "dataType" : 25
+      }, {
+        "id" : "n_checkin_time_gtandeq",
+        "hidden" : true,
+        "dataType" : 25
+      } ],
+      "getPSDEFormPages" : [ {
+        "caption" : "常规条件",
+        "codeName" : "formpage1",
+        "detailStyle" : "DEFAULT",
+        "detailType" : "FORMPAGE",
+        "name" : "formpage1",
+        "getPSDEFormDetails" : [ {
+          "codeName" : "grouppanel1",
+          "detailStyle" : "DEFAULT",
+          "detailType" : "GROUPPANEL",
+          "name" : "grouppanel1",
+          "getPSDEFormDetails" : [ {
+            "caption" : "人员范围",
+            "codeName" : "n_member_id_in",
+            "dataType" : 25,
+            "detailStyle" : "DEFAULT",
+            "detailType" : "FORMITEM",
+            "enableCond" : 3,
+            "ignoreInput" : 0,
+            "labelPos" : "LEFT",
+            "labelWidth" : 85,
+            "name" : "n_member_id_in",
+            "noPrivDisplayMode" : 1,
+            "getPSEditor" : {
+              "editorParams" : {
+                "valuetype" : "OBJECTS",
+                "objectnamefield" : "name",
+                "keymapping" : "type:type",
+                "objectidfield" : "id",
+                "PICKUPVIEW" : "TRUE"
+              },
+              "editorType" : "ADDRESSPICKUP",
+              "name" : "n_member_id_in",
+              "objectIdField" : "id",
+              "objectNameField" : "name",
+              "getPSAppDEACMode" : {
+                "modelref" : true,
+                "id" : "people"
+              },
+              "getPSAppDEDataSet" : {
+                "modelref" : true,
+                "id" : "FetchDefault"
+              },
+              "getPSAppDataEntity" : {
+                "modelref" : true,
+                "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/user_object.json"
+              },
+              "getPickupPSAppView" : {
+                "modelref" : true,
+                "path" : "PSSYSAPPS/attendanceapp/PSAPPDEVIEWS/user_object_preson_limit_m_pickup_view.json",
+                "viewType" : "DEMPICKUPVIEW"
+              },
+              "valueType" : "OBJECTS",
+              "enableAC" : false,
+              "enablePickupView" : true,
+              "forceSelection" : true,
+              "showTrigger" : true
+            },
+            "getPSLayoutPos" : {
+              "grow" : -1,
+              "layout" : "FLEX"
+            },
+            "allowEmpty" : true,
+            "showCaption" : true
+          }, {
+            "caption" : "时间范围",
+            "codeName" : "date_range",
+            "dataType" : 25,
+            "detailStyle" : "DEFAULT",
+            "detailType" : "FORMITEM",
+            "enableCond" : 3,
+            "ignoreInput" : 0,
+            "labelPos" : "LEFT",
+            "labelWidth" : 85,
+            "name" : "date_range",
+            "noPrivDisplayMode" : 1,
+            "getPSEditor" : {
+              "dateTimeFormat" : "YYYY-MM-DD",
+              "editorParams" : {
+                "TIMEFMT" : "YYYY-MM-DD",
+                "customProps" : "{\"format\":\"yyyy-MM-dd\"}"
+              },
+              "editorStyle" : "DATE_RANGE_EX",
+              "editorType" : "DATERANGE_NOTIME",
+              "name" : "date_range",
+              "getPSEditorItems" : [ {
+                "name" : "n_checkin_time_gtandeq"
+              }, {
+                "name" : "n_checkin_time_ltandeq"
+              } ],
+              "getPSSysPFPlugin" : {
+                "pluginType" : "EDITOR_CUSTOMSTYLE",
+                "pluginCode" : "DATE_RANGE_EX",
+                "runtimeObject" : true
+              }
+            },
+            "getPSLayoutPos" : {
+              "grow" : -1,
+              "layout" : "FLEX"
+            },
+            "valueItemName" : "n_checkin_time_gtandeq",
+            "allowEmpty" : true,
+            "showCaption" : true
+          }, {
+            "actionType" : "UIACTION",
+            "caption" : "查询",
+            "codeName" : "button1",
+            "detailStyle" : "DEFAULT",
+            "detailType" : "BUTTON",
+            "name" : "button1",
+            "getPSAppViewUIAction" : {
+              "modelref" : true,
+              "id" : "searchform_button1"
+            },
+            "getPSLayoutPos" : {
+              "grow" : -1,
+              "layout" : "FLEX",
+              "width" : 100,
+              "widthMode" : "PX"
+            },
+            "getPSUIAction" : {
+              "actionTarget" : "NONE",
+              "caption" : "搜索",
+              "codeName" : "searchButtonClick",
+              "frontProcessType" : "OTHER",
+              "fullCodeName" : "searchButtonClick",
+              "name" : "搜索表单搜索",
+              "scriptCode" : "const n_checkin_date_gtandeq = ctrl.data.n_checkin_date_gtandeq;\r\nconst n_checkin_date_ltandeq = ctrl.data.n_checkin_date_ltandeq;\r\nview.params.n_checkin_date_gtandeq = n_checkin_date_gtandeq\r\nview.params.n_checkin_date_ltandeq = n_checkin_date_ltandeq\r\n// const n_checkin_time_gtandeq = ctrl.data.n_checkin_time_gtandeq;\r\n// const n_checkin_time_ltandeq = ctrl.data.n_checkin_time_ltandeq;\r\n// view.params.n_checkin_time_gtandeq = n_checkin_time_gtandeq\r\n// view.params.n_checkin_time_ltandeq = n_checkin_time_ltandeq\r\nctrl.onSearchButtonClick()",
+              "uIActionMode" : "FRONT",
+              "uIActionTag" : "searchButtonClick",
+              "uIActionType" : "DEUIACTION",
+              "globalUIAction" : true
+            },
+            "tooltip" : "查询",
+            "uIActionTarget" : "NONE",
+            "showCaption" : true
+          } ],
+          "getPSLayout" : {
+            "align" : "flex-start",
+            "dir" : "row",
+            "layout" : "FLEX",
+            "vAlign" : "center"
+          },
+          "getPSLayoutPos" : {
+            "colMD" : 24,
+            "layout" : "TABLE_24COL"
+          },
+          "infoGroupMode" : false,
+          "showCaption" : false
+        }, {
+          "caption" : "打卡时间",
+          "codeName" : "n_checkin_time_ltandeq",
+          "dataType" : 25,
+          "detailStyle" : "DEFAULT",
+          "detailType" : "FORMITEM",
+          "enableCond" : 3,
+          "ignoreInput" : 0,
+          "labelPos" : "LEFT",
+          "labelWidth" : 130,
+          "name" : "n_checkin_time_ltandeq",
+          "noPrivDisplayMode" : 1,
+          "getPSEditor" : {
+            "editorType" : "HIDDEN",
+            "name" : "n_checkin_time_ltandeq"
+          },
+          "getPSLayoutPos" : {
+            "colMD" : 24,
+            "layout" : "TABLE_24COL"
+          },
+          "allowEmpty" : true,
+          "hidden" : true
+        }, {
+          "caption" : "打卡时间",
+          "codeName" : "n_checkin_time_gtandeq",
+          "dataType" : 25,
+          "detailStyle" : "DEFAULT",
+          "detailType" : "FORMITEM",
+          "enableCond" : 3,
+          "ignoreInput" : 0,
+          "labelPos" : "LEFT",
+          "labelWidth" : 130,
+          "name" : "n_checkin_time_gtandeq",
+          "noPrivDisplayMode" : 1,
+          "getPSEditor" : {
+            "editorType" : "HIDDEN",
+            "name" : "n_checkin_time_gtandeq"
+          },
+          "getPSLayoutPos" : {
+            "colMD" : 24,
+            "layout" : "TABLE_24COL"
+          },
+          "allowEmpty" : true,
+          "hidden" : true
+        } ],
+        "getPSLayout" : {
+          "childColMD" : 24,
+          "columnCount" : 24,
+          "layout" : "TABLE_24COL"
+        },
+        "infoGroupMode" : false
+      } ],
+      "getPSLayout" : {
+        "childColMD" : 24,
+        "columnCount" : 24,
+        "layout" : "TABLE_24COL"
+      },
+      "getPSSysCss" : {
+        "cssName" : "search_form_style"
+      },
+      "searchButtonStyle" : "NONE",
+      "tabHeaderPos" : "TOP",
+      "enableAdvanceSearch" : false,
+      "enableAutoSearch" : false,
+      "enableFilterSave" : false,
+      "noTabHeader" : true,
+      "name" : "searchform",
+      "modelid" : "c7eadd1d63a6b6f11e6af9a3696fc657",
+      "modeltype" : "PSDEFORM_SEARCHFORM"
+    }, {
+      "codeName" : "tab_search_view_tabexppanel",
+      "controlType" : "TABEXPPANEL",
+      "name" : "tabexppanel",
+      "getPSAppDataEntity" : {
+        "modelref" : true,
+        "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/attendance_clock_in_record.json"
+      },
+      "getPSAppViewRefs" : [ {
+        "name" : "EXPITEM:list",
+        "realTitle" : "打卡记录表格视图",
+        "getRefPSAppView" : {
+          "modelref" : true,
+          "path" : "PSSYSAPPS/attendanceapp/PSAPPDEVIEWS/attendance_clock_in_record_grid_view.json",
+          "viewType" : "DEGRIDVIEW"
+        }
+      }, {
+        "name" : "EXPITEM:month",
+        "realTitle" : "月度视图",
+        "getRefPSAppView" : {
+          "modelref" : true,
+          "path" : "PSSYSAPPS/attendanceapp/PSAPPDEVIEWS/attendance_clock_in_record_monthly_clock_in_record.json",
+          "viewType" : "DEGRIDVIEW"
+        }
+      } ],
+      "getPSControlParam" : { },
+      "getPSControls" : [ {
+        "caption" : "列表视图",
+        "codeName" : "tab_search_view_list",
+        "controlType" : "TABVIEWPANEL",
+        "name" : "list",
+        "getPSAppDataEntity" : {
+          "modelref" : true,
+          "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/attendance_clock_in_record.json"
+        },
+        "getPSControlParam" : {
+          "id" : "list"
+        },
+        "modelid" : "6d814db5ec949ad3df21eefa8399b004_list",
+        "modeltype" : "PSVIEWPANEL",
+        "getEmbeddedPSAppDEView" : {
+          "accUserMode" : 2,
+          "getCapPSLanguageRes" : {
+            "lanResTag" : "DE.LNAME.ATTENDANCE_CLOCK_IN_RECORD"
+          },
+          "caption" : "打卡记录",
+          "codeName" : "attendance_clock_in_record_grid_view",
+          "dynaModelFilePath" : "PSSYSAPPS/attendanceapp/PSAPPDEVIEWS/attendance_clock_in_record_grid_view.json",
+          "funcViewMode" : "MDATAVIEW",
+          "gridRowActiveMode" : 0,
+          "name" : "attendance_clock_in_recordGridView",
+          "getPSAppDataEntity" : {
+            "modelref" : true,
+            "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/attendance_clock_in_record.json"
+          },
+          "getPSAppModule" : {
+            "modelref" : true,
+            "path" : "PSSYSAPPS/attendanceapp/PSAPPMODULES/attendance.json"
+          },
+          "getPSDEViewCodeName" : "GridView",
+          "getPSDEViewId" : "59f5be23b6c6b8707f06e29ef2051c4d",
+          "getPSViewLayoutPanel" : {
+            "codeName" : "ad851390bb0006f2229",
+            "controlType" : "VIEWLAYOUTPANEL",
+            "layoutMode" : "FLEX",
+            "logicName" : "GridView表格视图布局",
+            "name" : "layoutpanel",
+            "getPSAppDataEntity" : {
+              "modelref" : true,
+              "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/attendance_clock_in_record.json"
+            },
+            "getPSControlParam" : { },
+            "getPSLayout" : {
+              "layout" : "FLEX"
+            },
+            "getRootPSPanelItems" : [ {
+              "caption" : "容器",
+              "itemStyle" : "DEFAULT",
+              "itemType" : "CONTAINER",
+              "name" : "view_header",
+              "getPSLayout" : {
+                "align" : "space-between",
+                "dir" : "row",
+                "layout" : "FLEX",
+                "vAlign" : "center"
+              },
+              "getPSLayoutPos" : {
+                "grow" : -1,
+                "layout" : "FLEX",
+                "shrink" : 0
+              },
+              "getPSPanelItems" : [ {
+                "caption" : "容器",
+                "itemStyle" : "DEFAULT",
+                "itemType" : "CONTAINER",
+                "name" : "view_header_left",
+                "getPSLayout" : {
+                  "layout" : "FLEX"
+                },
+                "getPSLayoutPos" : {
+                  "grow" : -1,
+                  "heightMode" : "FULL",
+                  "layout" : "FLEX"
+                },
+                "getPSPanelItems" : [ {
+                  "caption" : "容器",
+                  "itemStyle" : "DEFAULT",
+                  "itemType" : "CONTAINER",
+                  "name" : "view_captionbar",
+                  "getPSLayout" : {
+                    "align" : "center",
+                    "layout" : "FLEX"
+                  },
+                  "getPSLayoutPos" : {
+                    "grow" : -1,
+                    "heightMode" : "FULL",
+                    "layout" : "FLEX"
+                  },
+                  "getPSPanelItems" : [ {
+                    "caption" : "页面标题",
+                    "itemStyle" : "DEFAULT",
+                    "itemType" : "CTRLPOS",
+                    "name" : "captionbar",
+                    "getPSLayoutPos" : {
+                      "grow" : -1,
+                      "layout" : "FLEX"
+                    },
+                    "showCaption" : true
+                  } ]
+                } ]
+              }, {
+                "caption" : "容器",
+                "itemStyle" : "DEFAULT",
+                "itemType" : "CONTAINER",
+                "name" : "view_header_right",
+                "getPSLayout" : {
+                  "layout" : "FLEX"
+                },
+                "getPSLayoutPos" : {
+                  "grow" : -1,
+                  "heightMode" : "FULL",
+                  "layout" : "FLEX"
+                },
+                "getPSPanelItems" : [ {
+                  "caption" : "容器",
+                  "itemStyle" : "DEFAULT",
+                  "itemType" : "CONTAINER",
+                  "name" : "view_toolbar",
+                  "getPSLayout" : {
+                    "align" : "center",
+                    "layout" : "FLEX"
+                  },
+                  "getPSLayoutPos" : {
+                    "grow" : -1,
+                    "heightMode" : "FULL",
+                    "layout" : "FLEX"
+                  },
+                  "getPSPanelItems" : [ {
+                    "caption" : "工具栏",
+                    "itemStyle" : "DEFAULT",
+                    "itemType" : "CTRLPOS",
+                    "name" : "toolbar",
+                    "getPSLayoutPos" : {
+                      "grow" : -1,
+                      "layout" : "FLEX"
+                    },
+                    "showCaption" : true
+                  } ]
+                } ]
+              } ],
+              "predefinedType" : "VIEWHEADER"
+            }, {
+              "itemStyle" : "DEFAULT",
+              "itemType" : "CONTAINER",
+              "name" : "view_searchform",
+              "getPSLayout" : {
+                "dir" : "column",
+                "layout" : "FLEX"
+              },
+              "getPSLayoutPos" : {
+                "grow" : -1,
+                "layout" : "FLEX",
+                "shrink" : 0
+              },
+              "getPSPanelItems" : [ {
+                "caption" : "搜索表单",
+                "itemStyle" : "DEFAULT",
+                "itemType" : "CTRLPOS",
+                "name" : "searchform",
+                "getPSLayoutPos" : {
+                  "grow" : -1,
+                  "layout" : "FLEX"
+                },
+                "showCaption" : true
+              } ]
+            }, {
+              "caption" : "容器",
+              "itemStyle" : "DEFAULT",
+              "itemType" : "CONTAINER",
+              "name" : "view_content",
+              "getPSLayout" : {
+                "layout" : "FLEX"
+              },
+              "getPSLayoutPos" : {
+                "grow" : 1,
+                "layout" : "FLEX"
+              },
+              "getPSPanelItems" : [ {
+                "caption" : "表格",
+                "itemStyle" : "DEFAULT",
+                "itemType" : "CTRLPOS",
+                "name" : "grid",
+                "getPSLayoutPos" : {
+                  "grow" : 1,
+                  "layout" : "FLEX"
+                },
+                "showCaption" : true
+              } ],
+              "predefinedType" : "VIEWCONTENT"
+            }, {
+              "caption" : "工具栏",
+              "itemStyle" : "DEFAULT",
+              "itemType" : "CTRLPOS",
+              "name" : "tabtoolbar1",
+              "getPSLayoutPos" : {
+                "grow" : -1,
+                "layout" : "FLEX"
+              },
+              "showCaption" : true
+            } ],
+            "layoutBodyOnly" : true,
+            "layoutPanel" : true,
+            "useDefaultLayout" : false,
+            "viewProxyMode" : true,
+            "modelid" : "d57a26df579583790bbd8467046efbfa",
+            "modeltype" : "PSSYSVIEWLAYOUTPANEL",
+            "getPSAppViewEngines" : [ {
+              "engineCat" : "VIEW",
+              "engineType" : "GridView",
+              "name" : "engine"
+            } ],
+            "getPSAppViewLogics" : [ {
+              "eventNames" : "onBeforeLoadDraft",
+              "logicTrigger" : "CTRLEVENT",
+              "logicType" : "SCRIPT",
+              "name" : "LOGIC",
+              "getPSViewCtrlName" : "searchform",
+              "scriptCode" : "if (!viewParam.date_range || !viewParam.n_checkin_time_gtandeq || !viewParam.n_checkin_time_ltandeq) {\r\n    const curDate = new Date();\r\n    // 几种默认值处理方式\r\n    const year = curDate.getFullYear();\r\n    const month = curDate.getMonth() + 1;\r\n    const day = curDate.getDate();\r\n    const tempMonth = month < 10 ? `0${month}` : month\r\n    const tempDay = day < 10 ? `0${day}` : day;\r\n    // 今天\r\n    const end = `${year}-${tempMonth}-${tempDay}`;\r\n    // 默认值为今天\r\n    const starttime = `${end} 00:00:00`;\r\n    const endtime = `${end} 23:59:59`\r\n    Object.assign(view.params, {\r\n        date_range: `${starttime},${endtime}`,\r\n        n_checkin_time_gtandeq: starttime,\r\n        n_checkin_time_ltandeq: endtime\r\n    })\r\n    Object.assign(viewParam, {\r\n        date_range: `${starttime},${endtime}`,\r\n        n_checkin_time_gtandeq: starttime,\r\n        n_checkin_time_ltandeq: endtime\r\n    })\r\n}"
+            }, {
+              "logicTrigger" : "CUSTOM",
+              "logicType" : "APPUILOGIC",
+              "name" : "newdata",
+              "getPSAppUILogic" : {
+                "actionAfterWizard" : "DEFAULT",
+                "logicType" : "PREDEFINED",
+                "name" : "新建数据",
+                "getNewDataPSAppView" : {
+                  "openMode" : "POPUPMODAL",
+                  "getRefPSAppView" : {
+                    "modelref" : true,
+                    "path" : "PSSYSAPPS/attendanceapp/PSAPPDEVIEWS/attendance_clock_in_record_recalculate_option_view.json",
+                    "viewType" : "DEOPTVIEW"
+                  }
+                },
+                "getPSAppUILogicRefViews" : [ {
+                  "openMode" : "POPUPMODAL",
+                  "getRefPSAppView" : {
+                    "modelref" : true,
+                    "path" : "PSSYSAPPS/attendanceapp/PSAPPDEVIEWS/attendance_clock_in_record_recalculate_option_view.json",
+                    "viewType" : "DEOPTVIEW"
+                  }
+                } ],
+                "viewLogicType" : "APP_NEWDATA",
+                "batchAddOnly" : false,
+                "enableBatchAdd" : false,
+                "enableWizardAdd" : false
+              }
+            }, {
+              "logicTrigger" : "CUSTOM",
+              "logicType" : "APPUILOGIC",
+              "name" : "opendata",
+              "getPSAppUILogic" : {
+                "logicType" : "PREDEFINED",
+                "name" : "打开数据",
+                "getOpenDataPSAppView" : {
+                  "getRefPSAppView" : {
+                    "modelref" : true,
+                    "path" : "PSSYSAPPS/attendanceapp/PSAPPDEVIEWS/attendance_clock_in_record_edit_view.json",
+                    "viewType" : "DEEDITVIEW"
+                  }
+                },
+                "getPSAppUILogicRefViews" : [ {
+                  "getRefPSAppView" : {
+                    "modelref" : true,
+                    "path" : "PSSYSAPPS/attendanceapp/PSAPPDEVIEWS/attendance_clock_in_record_edit_view.json",
+                    "viewType" : "DEEDITVIEW"
+                  }
+                } ],
+                "viewLogicType" : "APP_OPENDATA",
+                "editMode" : true
+              }
+            } ],
+            "getPSAppViewRefs" : [ {
+              "name" : "NEWDATA",
+              "realOpenMode" : "POPUPMODAL",
+              "realTitle" : "重新计算",
+              "getRefPSAppView" : {
+                "modelref" : true,
+                "path" : "PSSYSAPPS/attendanceapp/PSAPPDEVIEWS/attendance_clock_in_record_recalculate_option_view.json",
+                "viewType" : "DEOPTVIEW"
+              }
+            }, {
+              "name" : "EDITDATA",
+              "realTitle" : "打卡记录编辑视图",
+              "getRefPSAppView" : {
+                "modelref" : true,
+                "path" : "PSSYSAPPS/attendanceapp/PSAPPDEVIEWS/attendance_clock_in_record_edit_view.json",
+                "viewType" : "DEEDITVIEW"
+              }
+            } ],
+            "getPSControls" : [ {
+              "codeName" : "grid_view_tabtoolbar1",
+              "controlType" : "TOOLBAR",
+              "logicName" : "主表格_工具栏",
+              "name" : "tabtoolbar1",
+              "getPSAppDataEntity" : {
+                "modelref" : true,
+                "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/attendance_clock_in_record.json"
+              },
+              "getPSControlParam" : {
+                "ctrlParams" : {
+                  "TELEPORTFLAG" : "true"
+                },
+                "id" : "TABTOOLBAR1"
+              },
+              "getPSDEToolbarItems" : [ {
+                "caption" : "导出报表",
+                "groupExtractMode" : "ITEM",
+                "itemType" : "DEUIACTION",
+                "name" : "deuiaction1",
+                "noPrivDisplayMode" : 2,
+                "getPSAppViewUIAction" : {
+                  "modelref" : true,
+                  "id" : "tabtoolbar1_deuiaction1"
+                },
+                "getPSUIAction" : {
+                  "actionTarget" : "NONE",
+                  "caption" : "导出报表",
+                  "codeName" : "export_report_list",
+                  "frontProcessType" : "OTHER",
+                  "fullCodeName" : "attendance_clock_in_record_export_report_list",
+                  "name" : "导出列表视图打卡记录",
+                  "getPSAppDataEntity" : {
+                    "modelref" : true,
+                    "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/attendance_clock_in_record.json"
+                  },
+                  "scriptCode" : "const viewC = view\nconst tempPatams = {...viewC.params};\nif (viewC.getController(\"searchform\")) {\n    const searchForm = viewC.getController(\"searchform\");\n    Object.assign(tempPatams, {...searchForm.data});\n}\nconsole.log('导出报表参数：', tempPatams);\ndelete tempPatams.n_checkin_date_gtandeq;\ndelete tempPatams.n_checkin_date_ltandeq;\ndelete tempPatams.n_member_id_in;\nconst urlParam = new URLSearchParams(tempPatams);\nconst exportUrl = `/attendance_clock_in_records/exportdata/fetch_record_list/?srfexporttag=DataExport&${decodeURIComponent(urlParam)}`;\nconst app = ibiz.hub.getApp(context.srfappid);\nconst { data: file } = await app.net.request(exportUrl, {\n    method: 'post',\n    data: tempPatams,\n    responseType: 'blob',\n});\nif (file) {\n    const title = viewC.model.title;\n    const fileName = `${title}表.xlsx`;\n    const filetype = 'application/vnd.ms-excel';\n    const blob = new Blob([file], { type: filetype });\n    const href = URL.createObjectURL(blob);\n    const a = document.createElement('a');\n    a.href = href;\n    a.download = fileName;\n    document.body.appendChild(a);\n    a.click();\n    document.body.removeChild(a);\n    URL.revokeObjectURL(href);\n}",
+                  "uIActionMode" : "FRONT",
+                  "uIActionTag" : "export_report_list",
+                  "uIActionType" : "DEUIACTION",
+                  "globalUIAction" : true,
+                  "id" : "export_report_list@attendance_clock_in_record"
+                },
+                "tooltip" : "导出报表",
+                "uIActionTarget" : "NONE",
+                "showCaption" : true,
+                "showIcon" : true
+              }, {
+                "caption" : "批量补卡",
+                "groupExtractMode" : "ITEM",
+                "itemType" : "DEUIACTION",
+                "name" : "deuiaction7",
+                "noPrivDisplayMode" : 2,
+                "getPSAppViewUIAction" : {
+                  "modelref" : true,
+                  "id" : "tabtoolbar1_deuiaction7"
+                },
+                "getPSUIAction" : {
+                  "actionTarget" : "NONE",
+                  "caption" : "批量补卡",
+                  "codeName" : "batchReissue",
+                  "getFrontPSAppView" : {
+                    "modelref" : true,
+                    "path" : "PSSYSAPPS/attendanceapp/PSAPPDEVIEWS/attendance_clock_in_record_reissue_option_view.json",
+                    "viewType" : "DEOPTVIEW"
+                  },
+                  "frontProcessType" : "WIZARD",
+                  "fullCodeName" : "attendance_clock_in_record_batchReissue",
+                  "name" : "批量补卡",
+                  "getPSAppDEMethod" : {
+                    "modelref" : true,
+                    "id" : "batch_reissue"
+                  },
+                  "getPSAppDataEntity" : {
+                    "modelref" : true,
+                    "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/attendance_clock_in_record.json"
+                  },
+                  "uIActionMode" : "FRONT",
+                  "uIActionTag" : "batchReissue",
+                  "uIActionType" : "DEUIACTION",
+                  "id" : "batchReissue@attendance_clock_in_record"
+                },
+                "tooltip" : "批量补卡",
+                "uIActionTarget" : "NONE",
+                "showCaption" : true,
+                "showIcon" : true
+              }, {
+                "getCapPSLanguageRes" : {
+                  "lanResTag" : "TBB.TEXT.*.NEW"
+                },
+                "caption" : "计算考勤",
+                "groupExtractMode" : "ITEM",
+                "itemType" : "DEUIACTION",
+                "name" : "deuiaction2",
+                "noPrivDisplayMode" : 2,
+                "getPSAppViewUIAction" : {
+                  "modelref" : true,
+                  "id" : "tabtoolbar1_deuiaction2"
+                },
+                "getPSSysImage" : {
+                  "glyph" : "xf0f6@FontAwesome",
+                  "cssClass" : "fa fa-file-text-o"
+                },
+                "getPSUIAction" : {
+                  "getCapPSLanguageRes" : {
+                    "lanResTag" : "TBB.TEXT.*.NEW"
+                  },
+                  "caption" : "新建",
+                  "codeName" : "New",
+                  "fullCodeName" : "New",
+                  "name" : "表格界面_新建操作",
+                  "getPSSysImage" : {
+                    "glyph" : "xf0f6@FontAwesome",
+                    "cssClass" : "fa fa-file-text-o"
+                  },
+                  "predefinedType" : "GRIDVIEW_NEWACTION",
+                  "timeout" : 60000,
+                  "getTooltipPSLanguageRes" : {
+                    "lanResTag" : "TBB.TOOLTIP.*.NEW"
+                  },
+                  "uIActionMode" : "SYS",
+                  "uIActionTag" : "New",
+                  "uIActionType" : "DEUIACTION"
+                },
+                "tooltip" : "计算考勤",
+                "getTooltipPSLanguageRes" : {
+                  "lanResTag" : "TBB.TOOLTIP.*.NEW"
+                },
+                "showCaption" : true,
+                "showIcon" : true
+              }, {
+                "caption" : "删除",
+                "groupExtractMode" : "ITEM",
+                "itemType" : "DEUIACTION",
+                "name" : "deuiaction3",
+                "noPrivDisplayMode" : 1,
+                "getPSAppViewUIAction" : {
+                  "modelref" : true,
+                  "id" : "tabtoolbar1_deuiaction3"
+                },
+                "getPSUIAction" : {
+                  "actionTarget" : "MULTIKEY",
+                  "noPrivDisplayMode" : 1,
+                  "caption" : "删除",
+                  "codeName" : "delete",
+                  "confirmMsg" : "确认执行删除操作？",
+                  "dataAccessAction" : "SRFUR__DELETE",
+                  "frontProcessType" : "OTHER",
+                  "fullCodeName" : "attendance_clock_in_record_delete",
+                  "name" : "删除",
+                  "getPSAppDEMethod" : {
+                    "modelref" : true,
+                    "id" : "remove"
+                  },
+                  "getPSAppDataEntity" : {
+                    "modelref" : true,
+                    "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/attendance_clock_in_record.json"
+                  },
+                  "getPSDEOPPriv" : {
+                    "modelref" : true,
+                    "id" : "SRFUR__DELETE"
+                  },
+                  "refreshMode" : 1,
+                  "successMsg" : "删除成功",
+                  "timeout" : 60000,
+                  "uIActionMode" : "BACKEND",
+                  "uIActionTag" : "delete",
+                  "uIActionType" : "DEUIACTION",
+                  "enableConfirm" : true,
+                  "reloadData" : true,
+                  "id" : "delete@attendance_clock_in_record"
+                },
+                "tooltip" : "删除",
+                "uIActionTarget" : "MULTIKEY",
+                "showCaption" : true,
+                "showIcon" : true
+              } ],
+              "xDataControlName" : "grid",
+              "modelid" : "83132e51b1b4e2783b0b58c58578653a",
+              "modeltype" : "PSDETOOLBAR"
+            }, {
+              "aggMode" : "NONE",
+              "codeName" : "main",
+              "columnEnableFilter" : 2,
+              "columnEnableLink" : 2,
+              "controlType" : "GRID",
+              "dynaModelFilePath" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/attendance_clock_in_record/PSGRIDS/main.json",
+              "getFetchPSControlAction" : {
+                "modelref" : true,
+                "id" : "fetch",
+                "actionType" : "DEDATASET",
+                "name" : "fetch",
+                "getPSAppDEMethod" : {
+                  "modelref" : true,
+                  "id" : "fetch_record_list"
+                },
+                "getPSAppDataEntity" : {
+                  "modelref" : true,
+                  "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/attendance_clock_in_record.json"
+                }
+              },
+              "groupMode" : "NONE",
+              "logicName" : "主表格",
+              "getPSAppDataEntity" : {
+                "modelref" : true,
+                "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/attendance_clock_in_record.json"
+              },
+              "getPSControlHandler" : {
+                "getPSHandlerActions" : [ {
+                  "actionName" : "Get",
+                  "actionType" : "DEACTION",
+                  "dataAccessAction" : "READ",
+                  "name" : "load",
+                  "getPSAppDEMethod" : {
+                    "modelref" : true,
+                    "id" : "get"
+                  },
+                  "getPSAppDataEntity" : {
+                    "modelref" : true,
+                    "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/attendance_clock_in_record.json"
+                  }
+                }, {
+                  "actionName" : "Create",
+                  "actionType" : "DEACTION",
+                  "dataAccessAction" : "CREATE",
+                  "name" : "create",
+                  "getPSAppDEMethod" : {
+                    "modelref" : true,
+                    "id" : "create"
+                  },
+                  "getPSAppDataEntity" : {
+                    "modelref" : true,
+                    "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/attendance_clock_in_record.json"
+                  }
+                }, {
+                  "actionName" : "Update",
+                  "actionType" : "DEACTION",
+                  "dataAccessAction" : "UPDATE",
+                  "name" : "update",
+                  "getPSAppDEMethod" : {
+                    "modelref" : true,
+                    "id" : "update"
+                  },
+                  "getPSAppDataEntity" : {
+                    "modelref" : true,
+                    "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/attendance_clock_in_record.json"
+                  }
+                }, {
+                  "actionName" : "Remove",
+                  "actionType" : "DEACTION",
+                  "dataAccessAction" : "DELETE",
+                  "name" : "remove",
+                  "getPSAppDEMethod" : {
+                    "modelref" : true,
+                    "id" : "remove"
+                  },
+                  "getPSAppDataEntity" : {
+                    "modelref" : true,
+                    "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/attendance_clock_in_record.json"
+                  }
+                }, {
+                  "actionName" : "GetDraft",
+                  "actionType" : "DEACTION",
+                  "dataAccessAction" : "CREATE",
+                  "name" : "loaddraft",
+                  "getPSAppDEMethod" : {
+                    "modelref" : true,
+                    "id" : "get_draft"
+                  },
+                  "getPSAppDataEntity" : {
+                    "modelref" : true,
+                    "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/attendance_clock_in_record.json"
+                  }
+                }, {
+                  "actionType" : "DEDATASET",
+                  "name" : "fetch",
+                  "getPSAppDEMethod" : {
+                    "modelref" : true,
+                    "id" : "fetch_record_list"
+                  },
+                  "getPSAppDataEntity" : {
+                    "modelref" : true,
+                    "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/attendance_clock_in_record.json"
+                  }
+                } ],
+                "userDRAction" : "READ",
+                "enableDEFieldPrivilege" : false,
+                "id" : "数据表格处理器"
+              },
+              "getPSControlParam" : {
+                "autoLoad" : true,
+                "showBusyIndicator" : true,
+                "id" : "GRID"
+              },
+              "getPSDEDataExport" : {
+                "modelref" : true,
+                "id" : "DataExport"
+              },
+              "getPSDEGridColumns" : [ {
+                "align" : "LEFT",
+                "cLConvertMode" : "NONE",
+                "caption" : "姓名",
+                "codeName" : "member_name",
+                "columnType" : "DEFGRIDCOLUMN",
+                "dataItemName" : "member_name",
+                "excelCaption" : "姓名",
+                "name" : "member_name",
+                "noPrivDisplayMode" : 1,
+                "getPSAppDEField" : {
+                  "name" : "MEMBER_NAME",
+                  "codeName" : "member_name"
+                },
+                "width" : 150,
+                "widthUnit" : "STAR",
+                "enableSort" : true
+              }, {
+                "align" : "LEFT",
+                "cLConvertMode" : "NONE",
+                "caption" : "工号",
+                "codeName" : "member_num",
+                "columnType" : "DEFGRIDCOLUMN",
+                "dataItemName" : "member_num",
+                "excelCaption" : "工号",
+                "name" : "member_num",
+                "noPrivDisplayMode" : 1,
+                "getPSAppDEField" : {
+                  "name" : "MEMBER_NUM",
+                  "codeName" : "member_num"
+                },
+                "width" : 150,
+                "widthUnit" : "PX",
+                "enableSort" : true
+              }, {
+                "align" : "LEFT",
+                "cLConvertMode" : "NONE",
+                "caption" : "部门",
+                "codeName" : "dept_name",
+                "columnType" : "DEFGRIDCOLUMN",
+                "dataItemName" : "dept_name",
+                "excelCaption" : "部门",
+                "name" : "dept_name",
+                "noPrivDisplayMode" : 1,
+                "getPSAppDEField" : {
+                  "name" : "DEPT_NAME",
+                  "codeName" : "dept_name"
+                },
+                "width" : 150,
+                "widthUnit" : "PX",
+                "enableSort" : true
+              }, {
+                "align" : "LEFT",
+                "cLConvertMode" : "NONE",
+                "getCapPSLanguageRes" : {
+                  "lanResTag" : "DEF.LNAME.ATTENDANCE_CLOCK_IN_RECORD.CHECKIN_TIME"
+                },
+                "caption" : "打卡时间",
+                "codeName" : "checkin_time",
+                "columnType" : "DEFGRIDCOLUMN",
+                "dataItemName" : "checkin_time",
+                "excelCaption" : "打卡时间",
+                "name" : "checkin_time",
+                "noPrivDisplayMode" : 1,
+                "getPSAppDEField" : {
+                  "name" : "CHECKIN_TIME",
+                  "codeName" : "checkin_time"
+                },
+                "valueFormat" : "YYYY-MM-DD HH:mm:ss",
+                "width" : 250,
+                "widthUnit" : "PX",
+                "enableSort" : true
+              }, {
+                "align" : "LEFT",
+                "cLConvertMode" : "FRONT",
+                "getCapPSLanguageRes" : {
+                  "lanResTag" : "DEF.LNAME.ATTENDANCE_CLOCK_IN_RECORD.CHECKIN_TYPE"
+                },
+                "caption" : "打卡方式",
+                "codeName" : "checkin_type",
+                "columnType" : "DEFGRIDCOLUMN",
+                "dataItemName" : "checkin_type",
+                "excelCaption" : "打卡方式",
+                "name" : "checkin_type",
+                "noPrivDisplayMode" : 1,
+                "getPSAppCodeList" : {
+                  "modelref" : true,
+                  "path" : "PSSYSAPPS/attendanceapp/PSAPPCODELISTS/deli_checkin_type.json"
+                },
+                "getPSAppDEField" : {
+                  "name" : "CHECKIN_TYPE",
+                  "codeName" : "checkin_type"
+                },
+                "width" : 150,
+                "widthUnit" : "PX",
+                "enableSort" : true
+              }, {
+                "align" : "LEFT",
+                "cLConvertMode" : "NONE",
+                "getCapPSLanguageRes" : {
+                  "lanResTag" : "DEF.LNAME.ATTENDANCE_CLOCK_IN_RECORD.DEVICE_NAME"
+                },
+                "caption" : "打卡详情",
+                "codeName" : "device_name",
+                "columnType" : "DEFGRIDCOLUMN",
+                "dataItemName" : "device_name",
+                "excelCaption" : "打卡详情",
+                "name" : "device_name",
+                "noPrivDisplayMode" : 1,
+                "getPSAppDEField" : {
+                  "name" : "DEVICE_NAME",
+                  "codeName" : "device_name"
+                },
+                "width" : 200,
+                "widthUnit" : "PX",
+                "enableSort" : true
+              }, {
+                "align" : "LEFT",
+                "cLConvertMode" : "NONE",
+                "getCapPSLanguageRes" : {
+                  "lanResTag" : "DEF.LNAME.ATTENDANCE_CLOCK_IN_RECORD.CHECKIN_REMARK"
+                },
+                "caption" : "打卡备注",
+                "codeName" : "checkin_remark",
+                "columnType" : "DEFGRIDCOLUMN",
+                "dataItemName" : "checkin_remark",
+                "excelCaption" : "打卡备注",
+                "name" : "checkin_remark",
+                "noPrivDisplayMode" : 1,
+                "getPSAppDEField" : {
+                  "name" : "CHECKIN_REMARK",
+                  "codeName" : "checkin_remark"
+                },
+                "width" : 200,
+                "widthUnit" : "STAR",
+                "enableSort" : true
+              }, {
+                "align" : "LEFT",
+                "cLConvertMode" : "NONE",
+                "getCapPSLanguageRes" : {
+                  "lanResTag" : "DEF.LNAME.ATTENDANCE_CLOCK_IN_RECORD.CHECKIN_IMAGE"
+                },
+                "caption" : "打卡图片",
+                "codeName" : "checkin_image",
+                "columnType" : "DEFGRIDCOLUMN",
+                "dataItemName" : "checkin_image",
+                "excelCaption" : "打卡图片",
+                "name" : "checkin_image",
+                "noPrivDisplayMode" : 1,
+                "getPSAppDEField" : {
+                  "name" : "CHECKIN_IMAGE",
+                  "codeName" : "checkin_image"
+                },
+                "width" : 200,
+                "widthUnit" : "PX",
+                "enableSort" : true
+              } ],
+              "getPSDEGridDataItems" : [ {
+                "dataType" : 25,
+                "name" : "member_name",
+                "getPSAppDEField" : {
+                  "name" : "MEMBER_NAME",
+                  "codeName" : "member_name"
+                }
+              }, {
+                "dataType" : 25,
+                "name" : "member_num",
+                "getPSAppDEField" : {
+                  "name" : "MEMBER_NUM",
+                  "codeName" : "member_num"
+                }
+              }, {
+                "dataType" : 25,
+                "name" : "dept_name",
+                "getPSAppDEField" : {
+                  "name" : "DEPT_NAME",
+                  "codeName" : "dept_name"
+                }
+              }, {
+                "format" : "YYYY-MM-DD HH:mm:ss",
+                "dataType" : 5,
+                "name" : "checkin_time",
+                "getPSAppDEField" : {
+                  "name" : "CHECKIN_TIME",
+                  "codeName" : "checkin_time"
+                }
+              }, {
+                "dataType" : 25,
+                "name" : "checkin_type",
+                "getPSAppDEField" : {
+                  "name" : "CHECKIN_TYPE",
+                  "codeName" : "checkin_type"
+                }
+              }, {
+                "dataType" : 25,
+                "name" : "device_name",
+                "getPSAppDEField" : {
+                  "name" : "DEVICE_NAME",
+                  "codeName" : "device_name"
+                }
+              }, {
+                "dataType" : 25,
+                "name" : "checkin_remark",
+                "getPSAppDEField" : {
+                  "name" : "CHECKIN_REMARK",
+                  "codeName" : "checkin_remark"
+                }
+              }, {
+                "dataType" : 25,
+                "name" : "checkin_image",
+                "getPSAppDEField" : {
+                  "name" : "CHECKIN_IMAGE",
+                  "codeName" : "checkin_image"
+                }
+              }, {
+                "dataType" : 25,
+                "name" : "srfkey",
+                "getPSAppDEField" : {
+                  "name" : "ID",
+                  "codeName" : "id"
+                }
+              }, {
+                "dataType" : 25,
+                "name" : "srfdataaccaction",
+                "getPSAppDEField" : {
+                  "name" : "ID",
+                  "codeName" : "id"
+                },
+                "dataAccessAction" : true
+              }, {
+                "dataType" : 25,
+                "name" : "terminal_id",
+                "getPSAppDEField" : {
+                  "name" : "TERMINAL_ID",
+                  "codeName" : "terminal_id"
+                }
+              }, {
+                "dataType" : 25,
+                "name" : "srfmajortext",
+                "getPSAppDEField" : {
+                  "name" : "NAME",
+                  "codeName" : "name"
+                }
+              } ],
+              "getPSDEGridEditItems" : [ {
+                "caption" : "记录ID",
+                "codeName" : "srfkey",
+                "enableCond" : 3,
+                "ignoreInput" : 0,
+                "name" : "srfkey",
+                "getPSAppDEField" : {
+                  "name" : "ID",
+                  "codeName" : "id"
+                },
+                "getPSEditor" : {
+                  "editorType" : "HIDDEN",
+                  "name" : "srfkey"
+                },
+                "allowEmpty" : true
+              } ],
+              "pagingMode" : 1,
+              "pagingSize" : 20,
+              "getRemovePSControlAction" : {
+                "actionName" : "Remove",
+                "actionType" : "DEACTION",
+                "dataAccessAction" : "DELETE",
+                "name" : "remove",
+                "getPSAppDEMethod" : {
+                  "modelref" : true,
+                  "id" : "remove"
+                },
+                "getPSAppDataEntity" : {
+                  "modelref" : true,
+                  "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/attendance_clock_in_record.json"
+                }
+              },
+              "sortMode" : "REMOTE",
+              "hasWFDataItems" : false,
+              "enableColFilter" : false,
+              "enableCustomized" : true,
+              "enableGroup" : false,
+              "enablePagingBar" : true,
+              "enableRowEdit" : false,
+              "enableRowEditOrder" : false,
+              "enableRowNew" : false,
+              "forceFit" : false,
+              "hideHeader" : false,
+              "noSort" : false,
+              "singleSelect" : false,
+              "name" : "grid",
+              "modelid" : "ec614cd8dcccb9199bd38780ac2f397e",
+              "modeltype" : "PSDEGRID"
+            }, {
+              "codeName" : "default",
+              "controlType" : "SEARCHFORM",
+              "defaultLabelWidth" : 130,
+              "dynaModelFilePath" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/attendance_clock_in_record/PSSEARCHFORMS/default.json",
+              "logicName" : "默认搜索表单",
+              "getPSAppDataEntity" : {
+                "modelref" : true,
+                "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/attendance_clock_in_record.json"
+              },
+              "getPSControlHandler" : {
+                "getPSHandlerActions" : [ {
+                  "actionType" : "FILTERACTION",
+                  "name" : "load",
+                  "getPSAppDEMethod" : {
+                    "modelref" : true,
+                    "id" : "FilterGet"
+                  },
+                  "getPSAppDataEntity" : {
+                    "modelref" : true,
+                    "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/attendance_clock_in_record.json"
+                  }
+                }, {
+                  "actionType" : "FILTERACTION",
+                  "name" : "loaddraft",
+                  "getPSAppDEMethod" : {
+                    "modelref" : true,
+                    "id" : "FilterGetDraft"
+                  },
+                  "getPSAppDataEntity" : {
+                    "modelref" : true,
+                    "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/attendance_clock_in_record.json"
+                  }
+                }, {
+                  "actionType" : "FILTERACTION",
+                  "name" : "search",
+                  "getPSAppDEMethod" : {
+                    "modelref" : true,
+                    "id" : "FilterSearch"
+                  },
+                  "getPSAppDataEntity" : {
+                    "modelref" : true,
+                    "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/attendance_clock_in_record.json"
+                  }
+                } ],
+                "enableDEFieldPrivilege" : false,
+                "id" : "搜索表单处理器"
+              },
+              "getPSControlParam" : {
+                "autoLoad" : true,
+                "showBusyIndicator" : true,
+                "id" : "SEARCHFORM"
+              },
+              "getPSDEFormPages" : [ {
+                "getCapPSLanguageRes" : {
+                  "lanResTag" : "CONTROL.DEFORM.ATTENDANCE_CLOCK_IN_RECORD.DEFAULT.FORMPAGE.FORMPAGE1"
+                },
+                "caption" : "常规条件",
+                "codeName" : "formpage1",
+                "detailStyle" : "DEFAULT",
+                "detailType" : "FORMPAGE",
+                "name" : "formpage1",
+                "getPSLayout" : {
+                  "childColMD" : 24,
+                  "columnCount" : 24,
+                  "layout" : "TABLE_24COL"
+                },
+                "infoGroupMode" : false
+              } ],
+              "getPSLayout" : {
+                "childColMD" : 24,
+                "columnCount" : 24,
+                "layout" : "TABLE_24COL"
+              },
+              "searchButtonStyle" : "DEFAULT",
+              "tabHeaderPos" : "TOP",
+              "enableAdvanceSearch" : false,
+              "enableAutoSearch" : false,
+              "enableFilterSave" : false,
+              "noTabHeader" : true,
+              "name" : "searchform",
+              "modelid" : "93684deb74dec3d1dfcd24812dd50a28",
+              "modeltype" : "PSDEFORM_SEARCHFORM"
+            }, {
+              "controlType" : "SEARCHBAR",
+              "name" : "searchbar",
+              "getPSAppDataEntity" : {
+                "modelref" : true,
+                "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/attendance_clock_in_record.json"
+              },
+              "getPSControlParam" : {
+                "id" : "searchbar"
+              },
+              "quickGroupCount" : -1,
+              "quickSearchMode" : 0,
+              "quickSearchWidth" : 0,
+              "enableFilter" : false,
+              "enableGroup" : false,
+              "enableQuickSearch" : false,
+              "mobileSearchBar" : false
+            }, {
+              "getCapPSLanguageRes" : {
+                "lanResTag" : "DE.LNAME.ATTENDANCE_CLOCK_IN_RECORD"
+              },
+              "caption" : "打卡记录",
+              "codeName" : "grid_view_captionbar",
+              "controlType" : "CAPTIONBAR",
+              "name" : "captionbar",
+              "getPSAppDataEntity" : {
+                "modelref" : true,
+                "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/attendance_clock_in_record.json"
+              },
+              "getPSControlParam" : { }
+            } ]
+          },
+          "title" : "打卡记录表格视图",
+          "viewStyle" : "DEFAULT",
+          "viewType" : "DEGRIDVIEW",
+          "xDataControlName" : "grid",
+          "enableDP" : true,
+          "enableExport" : true,
+          "enableFilter" : true,
+          "enableImport" : true,
+          "enableRowEdit" : false,
+          "enableSearch" : true,
+          "rowEditDefault" : false,
+          "showCaptionBar" : false,
+          "modelid" : "029afc2e9f435d91c9b764c86fb89ed3",
+          "modeltype" : "PSAPPDEVIEW"
+        }
+      }, {
+        "caption" : "月度视图",
+        "codeName" : "tab_search_view_month",
+        "controlType" : "TABVIEWPANEL",
+        "getEmbeddedPSAppDEView" : {
+          "modelref" : true,
+          "path" : "PSSYSAPPS/attendanceapp/PSAPPDEVIEWS/attendance_clock_in_record_monthly_clock_in_record.json",
+          "viewType" : "DEGRIDVIEW"
+        },
+        "name" : "month",
+        "getPSAppDataEntity" : {
+          "modelref" : true,
+          "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/attendance_clock_in_record.json"
+        },
+        "getPSControlParam" : {
+          "id" : "month"
+        },
+        "modelid" : "6d814db5ec949ad3df21eefa8399b004_month",
+        "modeltype" : "PSVIEWPANEL"
+      } ],
+      "getPSTabExpPages" : [ {
+        "name" : "list"
+      }, {
+        "name" : "month"
+      } ],
+      "tabLayout" : "TOP",
+      "uniqueTag" : "attendance_clock_in_record_tab_search_view__tabexppanel",
+      "modelid" : "6d814db5ec949ad3df21eefa8399b004_tabexppanel",
+      "modeltype" : "PSTABEXPPANEL"
+    }, {
+      "getCapPSLanguageRes" : {
+        "lanResTag" : "DE.LNAME.ATTENDANCE_CLOCK_IN_RECORD"
+      },
+      "caption" : "打卡记录",
+      "codeName" : "tab_search_view_captionbar",
+      "controlType" : "CAPTIONBAR",
+      "name" : "captionbar",
+      "getPSAppDataEntity" : {
+        "modelref" : true,
+        "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/attendance_clock_in_record.json"
+      },
+      "getPSControlParam" : { }
+    } ]
+  },
+  "tabLayout" : "TOP",
+  "title" : "打卡记录",
+  "viewStyle" : "DEFAULT",
+  "viewType" : "DETABSEARCHVIEW",
+  "enableDP" : true,
+  "enableQuickSearch" : false,
+  "enableSearch" : true,
+  "expandSearchForm" : true,
+  "loadDefault" : true,
+  "showDataInfoBar" : true,
+  "modelid" : "6d814db5ec949ad3df21eefa8399b004",
+  "modeltype" : "PSAPPDEVIEW"
+}

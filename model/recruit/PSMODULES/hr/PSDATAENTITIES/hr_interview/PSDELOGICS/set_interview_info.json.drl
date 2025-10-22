@@ -1,0 +1,52 @@
+package cn.ibizlab.hr.logic.hr_interviewlogic.set_interview_info;
+        import java.util.Map;
+        import java.util.HashMap;
+        import com.alibaba.fastjson.JSONObject;
+        import org.springframework.util.StringUtils;
+        import org.springframework.util.ObjectUtils;
+        import cn.ibizlab.util.errors.BadRequestAlertException;
+                global cn.ibizlab.core.hr.domain.hr_interview hr_interviewset_interview_infodefault;
+                global java.util.Map hr_interviewset_interview_infosession_entity;
+        global cn.ibizlab.core.hr.service.Ihr_interviewService iBzSysHr_interviewDefaultService;
+        global cn.ibizlab.util.security.AuthenticationUser curuser;
+
+
+    no-loop
+
+            //逻辑处理节点[开始]
+            rule "begin"
+            ruleflow-group "hr_interviewset_interview_infobegin"
+            when
+            then
+            end
+
+            //逻辑处理节点[准备参数]
+            rule "prepareparam1"
+            ruleflow-group "hr_interviewset_interview_infoprepareparam1"
+            when
+            then
+                            hr_interviewset_interview_infodefault.set("candidate_url","https://meeting.tencent.com/dm/o8WT7tIry9tb");
+                            hr_interviewset_interview_infodefault.set("interviewer_url","https://meeting.tencent.com/dm/o8WT7tIry9tb");
+                            hr_interviewset_interview_infodefault.set("meetingid","711-434-123");
+                        update(hr_interviewset_interview_infodefault);//更新fact中变量值
+                        update(hr_interviewset_interview_infosession_entity);//更新fact中变量值
+            end
+
+            //逻辑处理节点[调试逻辑参数]
+            rule "debugparam1"
+            ruleflow-group "hr_interviewset_interview_infodebugparam1"
+            when
+            then
+                        update(hr_interviewset_interview_infodefault);//更新fact中变量值
+                        update(hr_interviewset_interview_infosession_entity);//更新fact中变量值
+            end
+
+            //逻辑处理节点[准备参数]
+            rule "prepareparam2"
+            ruleflow-group "hr_interviewset_interview_infoprepareparam2"
+            when
+            then
+                            hr_interviewset_interview_infosession_entity.set("applicant_ids",hr_interviewset_interview_infodefault.get("applicantids"));
+                        update(hr_interviewset_interview_infodefault);//更新fact中变量值
+                        update(hr_interviewset_interview_infosession_entity);//更新fact中变量值
+            end

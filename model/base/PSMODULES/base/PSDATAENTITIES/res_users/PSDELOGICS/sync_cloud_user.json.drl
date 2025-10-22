@@ -1,0 +1,97 @@
+package cn.ibizlab.base.logic.res_userslogic.sync_cloud_user;
+        import java.util.Map;
+        import java.util.HashMap;
+        import com.alibaba.fastjson.JSONObject;
+        import org.springframework.util.StringUtils;
+        import org.springframework.util.ObjectUtils;
+        import cn.ibizlab.util.errors.BadRequestAlertException;
+                global cn.ibizlab.core.base.domain.res_users res_userssync_cloud_userdefault;
+                global cn.ibizlab.core.cloud_proxy.domain.cloud_proxy_user res_userssync_cloud_usercloud_proxy_user;
+                global java.util.Map res_userssync_cloud_userexist_cloud_user;
+                    global cn.ibizlab.core.cloud_proxy.service.Icloud_proxy_userService cloud_proxy_userservice;
+        global cn.ibizlab.core.base.service.Ires_usersService iBzSysRes_usersDefaultService;
+        global cn.ibizlab.util.security.AuthenticationUser curuser;
+
+
+    no-loop
+
+            //逻辑处理节点[开始]
+            rule "begin"
+            ruleflow-group "res_userssync_cloud_userbegin"
+            when
+            then
+            end
+
+            //逻辑处理节点[补充参数]
+            rule "prepareparam_02"
+            ruleflow-group "res_userssync_cloud_userprepareparam_02"
+            when
+            then
+                                res_userssync_cloud_usercloud_proxy_user.set("organizationid",curuser.getSessionParams().get("srforgid"));
+                        update(res_userssync_cloud_userdefault);//更新fact中变量值
+                        update(res_userssync_cloud_usercloud_proxy_user);//更新fact中变量值
+                        update(res_userssync_cloud_userexist_cloud_user);//更新fact中变量值
+            end
+
+            //逻辑处理节点[设置关联id]
+            rule "prepareparam_01"
+            ruleflow-group "res_userssync_cloud_userprepareparam_01"
+            when
+            then
+                            res_userssync_cloud_usercloud_proxy_user.set("id",res_userssync_cloud_userdefault.get("id"));
+                        update(res_userssync_cloud_userdefault);//更新fact中变量值
+                        update(res_userssync_cloud_usercloud_proxy_user);//更新fact中变量值
+                        update(res_userssync_cloud_userexist_cloud_user);//更新fact中变量值
+            end
+
+            //逻辑处理节点[检查cloud用户数据]
+            rule "deaction_01"
+            ruleflow-group "res_userssync_cloud_userdeaction_01"
+            when
+            then
+                        cloud_proxy_userservice.checkKey(res_userssync_cloud_usercloud_proxy_user);
+                        update(res_userssync_cloud_userdefault);//更新fact中变量值
+                        update(res_userssync_cloud_usercloud_proxy_user);//更新fact中变量值
+                        update(res_userssync_cloud_userexist_cloud_user);//更新fact中变量值
+            end
+
+            //逻辑处理节点[拷贝参数]
+            rule "copyparam_01"
+            ruleflow-group "res_userssync_cloud_usercopyparam_01"
+            when
+            then
+                        update(res_userssync_cloud_userdefault);//更新fact中变量值
+                        update(res_userssync_cloud_usercloud_proxy_user);//更新fact中变量值
+                        update(res_userssync_cloud_userexist_cloud_user);//更新fact中变量值
+            end
+
+            //逻辑处理节点[同步建立cloud用户]
+            rule "deaction_02"
+            ruleflow-group "res_userssync_cloud_userdeaction_02"
+            when
+            then
+                        cloud_proxy_userservice.create(res_userssync_cloud_usercloud_proxy_user);
+                        update(res_userssync_cloud_userdefault);//更新fact中变量值
+                        update(res_userssync_cloud_usercloud_proxy_user);//更新fact中变量值
+                        update(res_userssync_cloud_userexist_cloud_user);//更新fact中变量值
+            end
+
+            //逻辑处理节点[结束]
+            rule "end_02"
+            ruleflow-group "res_userssync_cloud_userend_02"
+            when
+            then
+                        update(res_userssync_cloud_userdefault);//更新fact中变量值
+                        update(res_userssync_cloud_usercloud_proxy_user);//更新fact中变量值
+                        update(res_userssync_cloud_userexist_cloud_user);//更新fact中变量值
+            end
+
+            //逻辑处理节点[结束]
+            rule "end_01"
+            ruleflow-group "res_userssync_cloud_userend_01"
+            when
+            then
+                        update(res_userssync_cloud_userdefault);//更新fact中变量值
+                        update(res_userssync_cloud_usercloud_proxy_user);//更新fact中变量值
+                        update(res_userssync_cloud_userexist_cloud_user);//更新fact中变量值
+            end

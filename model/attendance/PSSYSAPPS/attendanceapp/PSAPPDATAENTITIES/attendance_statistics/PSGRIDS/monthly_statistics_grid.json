@@ -1,0 +1,1146 @@
+{
+  "aggMode" : "NONE",
+  "codeName" : "monthly_statistics_grid",
+  "columnEnableFilter" : 2,
+  "columnEnableLink" : 2,
+  "controlStyle" : "MONTH",
+  "controlType" : "GRID",
+  "dynaModelFilePath" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/attendance_statistics/PSGRIDS/monthly_statistics_grid.json",
+  "getFetchPSControlAction" : {
+    "modelref" : true,
+    "id" : "fetch",
+    "actionType" : "DEDATASET",
+    "name" : "fetch",
+    "getPSAppDEMethod" : {
+      "modelref" : true,
+      "id" : "fetch_month_report"
+    },
+    "getPSAppDataEntity" : {
+      "modelref" : true,
+      "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/attendance_statistics.json"
+    }
+  },
+  "groupMode" : "NONE",
+  "hookEventNames" : [ "ONMOUNTED" ],
+  "logicName" : "月度统计表格视图_表格",
+  "getPSAppDataEntity" : {
+    "modelref" : true,
+    "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/attendance_statistics.json"
+  },
+  "getPSControlLogics" : [ {
+    "eventNames" : "onMounted",
+    "logicTag" : "grid",
+    "logicType" : "SCRIPT",
+    "name" : "default_hidden"
+  } ],
+  "getPSDEDataExport" : {
+    "modelref" : true,
+    "id" : "DataExport"
+  },
+  "getPSDEGridColumns" : [ {
+    "align" : "LEFT",
+    "cLConvertMode" : "NONE",
+    "getCapPSLanguageRes" : {
+      "lanResTag" : "DEF.LNAME.ATTENDANCE_STATISTICS.MEMBER_NAME"
+    },
+    "caption" : "姓名",
+    "codeName" : "member_name",
+    "columnType" : "DEFGRIDCOLUMN",
+    "dataItemName" : "member_name",
+    "excelCaption" : "姓名",
+    "name" : "member_name",
+    "noPrivDisplayMode" : 1,
+    "getPSAppDEField" : {
+      "name" : "MEMBER_NAME",
+      "codeName" : "member_name"
+    },
+    "width" : 150,
+    "widthUnit" : "STAR",
+    "enableSort" : false
+  }, {
+    "caption" : "基本信息",
+    "codeName" : "base_info",
+    "columnType" : "GROUPGRIDCOLUMN",
+    "name" : "base_info",
+    "noPrivDisplayMode" : 1,
+    "getPSDEGridColumns" : [ {
+      "align" : "LEFT",
+      "cLConvertMode" : "NONE",
+      "getCapPSLanguageRes" : {
+        "lanResTag" : "DEF.LNAME.ATTENDANCE_STATISTICS.EMPLOYEE_NUM"
+      },
+      "caption" : "工号",
+      "codeName" : "employee_num",
+      "columnType" : "DEFGRIDCOLUMN",
+      "dataItemName" : "employee_num",
+      "enableCond" : 3,
+      "excelCaption" : "工号",
+      "ignoreInput" : 0,
+      "name" : "employee_num",
+      "noPrivDisplayMode" : 1,
+      "getPSAppDEField" : {
+        "name" : "EMPLOYEE_NUM",
+        "codeName" : "employee_num"
+      },
+      "width" : 150,
+      "widthUnit" : "PX",
+      "allowEmpty" : true,
+      "enableSort" : false
+    }, {
+      "align" : "LEFT",
+      "cLConvertMode" : "NONE",
+      "getCapPSLanguageRes" : {
+        "lanResTag" : "DEF.LNAME.ATTENDANCE_STATISTICS.DEPT_NAME"
+      },
+      "caption" : "部门",
+      "codeName" : "dept_name",
+      "columnType" : "DEFGRIDCOLUMN",
+      "dataItemName" : "dept_name",
+      "enableCond" : 3,
+      "excelCaption" : "部门",
+      "ignoreInput" : 0,
+      "name" : "dept_name",
+      "noPrivDisplayMode" : 1,
+      "getPSAppDEField" : {
+        "name" : "DEPT_NAME",
+        "codeName" : "dept_name"
+      },
+      "width" : 150,
+      "widthUnit" : "PX",
+      "allowEmpty" : true,
+      "enableSort" : false
+    }, {
+      "align" : "LEFT",
+      "cLConvertMode" : "NONE",
+      "getCapPSLanguageRes" : {
+        "lanResTag" : "DEF.LNAME.ATTENDANCE_STATISTICS.TITLE"
+      },
+      "caption" : "职位",
+      "codeName" : "title",
+      "columnType" : "DEFGRIDCOLUMN",
+      "dataItemName" : "title",
+      "enableCond" : 3,
+      "excelCaption" : "职位",
+      "ignoreInput" : 0,
+      "name" : "title",
+      "noPrivDisplayMode" : 1,
+      "getPSAppDEField" : {
+        "name" : "TITLE",
+        "codeName" : "title"
+      },
+      "width" : 100,
+      "widthUnit" : "PX",
+      "allowEmpty" : true,
+      "enableSort" : false
+    } ],
+    "width" : 100,
+    "widthUnit" : "PX",
+    "enableSort" : false
+  }, {
+    "caption" : "出勤统计",
+    "codeName" : "attendance",
+    "columnType" : "GROUPGRIDCOLUMN",
+    "name" : "attendance",
+    "noPrivDisplayMode" : 1,
+    "getPSDEGridColumns" : [ {
+      "align" : "RIGHT",
+      "cLConvertMode" : "NONE",
+      "getCapPSLanguageRes" : {
+        "lanResTag" : "DEF.LNAME.ATTENDANCE_STATISTICS.SHOULD_ATTENDANCE_DAYS"
+      },
+      "caption" : "应出勤天数",
+      "codeName" : "should_attendance_days",
+      "columnType" : "DEFGRIDCOLUMN",
+      "dataItemName" : "should_attendance_days",
+      "enableCond" : 3,
+      "excelCaption" : "应出勤天数",
+      "ignoreInput" : 0,
+      "name" : "should_attendance_days",
+      "noPrivDisplayMode" : 1,
+      "getPSAppDEField" : {
+        "name" : "SHOULD_ATTENDANCE_DAYS",
+        "codeName" : "should_attendance_days"
+      },
+      "width" : 150,
+      "widthUnit" : "PX",
+      "allowEmpty" : true,
+      "enableSort" : false,
+      "getUserParam" : {
+        "tooltip" : "选择时间段内累计需要上班的天数（计算方式：时间段内每天设置的总工时记为出勤天数之和；若没有设置，则累计时间段内每天应出勤时长除以每天班次中规定的工作时长，如果考勤规则中几个班次的工作时长不一样，则选择时长最长的）"
+      }
+    }, {
+      "align" : "RIGHT",
+      "cLConvertMode" : "NONE",
+      "getCapPSLanguageRes" : {
+        "lanResTag" : "DEF.LNAME.ATTENDANCE_STATISTICS.ACTUAL_ATTENDANCE_DAYS"
+      },
+      "caption" : "实际出勤天数",
+      "codeName" : "actual_attendance_days",
+      "columnType" : "DEFGRIDCOLUMN",
+      "dataItemName" : "actual_attendance_days",
+      "enableCond" : 3,
+      "excelCaption" : "实际出勤天数",
+      "ignoreInput" : 0,
+      "name" : "actual_attendance_days",
+      "noPrivDisplayMode" : 1,
+      "getPSAppDEField" : {
+        "name" : "ACTUAL_ATTENDANCE_DAYS",
+        "codeName" : "actual_attendance_days"
+      },
+      "width" : 150,
+      "widthUnit" : "PX",
+      "allowEmpty" : true,
+      "enableSort" : false,
+      "getUserParam" : {
+        "èªç±ç­ï¼æè§åä¸­è®¾ç½®çéæå¡æ¬¡æ°ï¼è®¡ç®å®éåºå¤" : "",
+        "tooltip" : "非自由班：时间段内累计实际上班天数（计算方式：积累每天实际出勤天数（计薪时长-带薪假）/总工时*应出勤天数比例；若没有设置出勤天数，则积累每天计薪时长减带薪假后除以时间段内最长工作时长）"
+      }
+    }, {
+      "align" : "RIGHT",
+      "cLConvertMode" : "NONE",
+      "getCapPSLanguageRes" : {
+        "lanResTag" : "DEF.LNAME.ATTENDANCE_STATISTICS.SHOULD_ATTENDANCE_TIME"
+      },
+      "caption" : "应出勤时长(小时)",
+      "codeName" : "should_attendance_time",
+      "columnType" : "DEFGRIDCOLUMN",
+      "dataItemName" : "should_attendance_time",
+      "enableCond" : 3,
+      "excelCaption" : "应出勤时长(小时)",
+      "ignoreInput" : 0,
+      "name" : "should_attendance_time",
+      "noPrivDisplayMode" : 1,
+      "getPSAppDEField" : {
+        "name" : "SHOULD_ATTENDANCE_TIME",
+        "codeName" : "should_attendance_time"
+      },
+      "width" : 200,
+      "widthUnit" : "PX",
+      "allowEmpty" : true,
+      "enableSort" : false,
+      "getUserParam" : {
+        "tooltip" : "选择时间段内累计每天班次规定的工作时长"
+      }
+    }, {
+      "align" : "RIGHT",
+      "cLConvertMode" : "NONE",
+      "caption" : "实际出勤时长(小时)",
+      "codeName" : "working_hours",
+      "columnType" : "DEFGRIDCOLUMN",
+      "dataItemName" : "working_hours",
+      "enableCond" : 3,
+      "excelCaption" : "实际出勤时长(小时)",
+      "ignoreInput" : 0,
+      "name" : "working_hours",
+      "noPrivDisplayMode" : 1,
+      "getPSAppDEField" : {
+        "name" : "WORKING_HOURS",
+        "codeName" : "working_hours"
+      },
+      "width" : 200,
+      "widthUnit" : "PX",
+      "allowEmpty" : true,
+      "enableSort" : false,
+      "getUserParam" : {
+        "tooltip" : "选择时间段内累计每天实际出勤时长（每天实际出勤时长为早晚打卡时间相减并扣掉休息时间）"
+      }
+    }, {
+      "align" : "RIGHT",
+      "cLConvertMode" : "NONE",
+      "getCapPSLanguageRes" : {
+        "lanResTag" : "DEF.LNAME.ATTENDANCE_STATISTICS.BILLABLE_TIME"
+      },
+      "caption" : "计薪工作时长（小时）",
+      "codeName" : "billable_time",
+      "columnType" : "DEFGRIDCOLUMN",
+      "dataItemName" : "billable_time",
+      "enableCond" : 3,
+      "excelCaption" : "计薪工作时长（小时）",
+      "ignoreInput" : 0,
+      "name" : "billable_time",
+      "noPrivDisplayMode" : 1,
+      "getPSAppDEField" : {
+        "name" : "BILLABLE_TIME",
+        "codeName" : "billable_time"
+      },
+      "width" : 200,
+      "widthUnit" : "PX",
+      "allowEmpty" : true,
+      "enableSort" : false,
+      "getUserParam" : {
+        "tooltip" : "选择时间段内累计每天计薪工作时长（每天计薪工作时长为当天班次规定的工作时长减掉旷工时长和不带薪的假期时长）"
+      }
+    }, {
+      "align" : "RIGHT",
+      "cLConvertMode" : "NONE",
+      "getCapPSLanguageRes" : {
+        "lanResTag" : "DEF.LNAME.ATTENDANCE_STATISTICS.PAY_OVERTIME_TIME"
+      },
+      "caption" : "加班时长(记加班费)(小时)",
+      "codeName" : "pay_overtime_time",
+      "columnType" : "DEFGRIDCOLUMN",
+      "dataItemName" : "pay_overtime_time",
+      "enableCond" : 3,
+      "excelCaption" : "加班时长(记加班费)(小时)",
+      "ignoreInput" : 0,
+      "name" : "pay_overtime_time",
+      "noPrivDisplayMode" : 1,
+      "getPSAppDEField" : {
+        "name" : "PAY_OVERTIME_TIME",
+        "codeName" : "pay_overtime_time"
+      },
+      "width" : 220,
+      "widthUnit" : "PX",
+      "allowEmpty" : true,
+      "enableSort" : false,
+      "getUserParam" : {
+        "tooltip" : "选择时间段内累计每日统计的加班时长和加班申请计加班费的加班时长（每日统计的加班时长最小单位为0.1小时，少于0.1小时不计算）"
+      }
+    }, {
+      "align" : "RIGHT",
+      "cLConvertMode" : "NONE",
+      "getCapPSLanguageRes" : {
+        "lanResTag" : "DEF.LNAME.ATTENDANCE_STATISTICS.REST_OVERTIME_TIME"
+      },
+      "caption" : "加班时长(记调休假)(小时)",
+      "codeName" : "rest_overtime_time",
+      "columnType" : "DEFGRIDCOLUMN",
+      "dataItemName" : "rest_overtime_time",
+      "enableCond" : 3,
+      "excelCaption" : "加班时长(记调休假)(小时)",
+      "ignoreInput" : 0,
+      "name" : "rest_overtime_time",
+      "noPrivDisplayMode" : 1,
+      "getPSAppDEField" : {
+        "name" : "REST_OVERTIME_TIME",
+        "codeName" : "rest_overtime_time"
+      },
+      "width" : 220,
+      "widthUnit" : "PX",
+      "allowEmpty" : true,
+      "enableSort" : false,
+      "getUserParam" : {
+        "tooltip" : "选择时间段内累计加班申请计调休假的加班时长（最小单位为0.1小时）"
+      }
+    } ],
+    "width" : 100,
+    "widthUnit" : "PX",
+    "enableSort" : false
+  }, {
+    "caption" : "异常统计",
+    "codeName" : "abnormal",
+    "columnType" : "GROUPGRIDCOLUMN",
+    "name" : "abnormal",
+    "noPrivDisplayMode" : 1,
+    "getPSDEGridColumns" : [ {
+      "align" : "RIGHT",
+      "cLConvertMode" : "NONE",
+      "getCapPSLanguageRes" : {
+        "lanResTag" : "DEF.LNAME.ATTENDANCE_STATISTICS.LATE_TIMES"
+      },
+      "caption" : "迟到次数",
+      "codeName" : "late_times",
+      "columnType" : "DEFGRIDCOLUMN",
+      "dataItemName" : "late_times",
+      "enableCond" : 3,
+      "excelCaption" : "迟到次数",
+      "ignoreInput" : 0,
+      "name" : "late_times",
+      "noPrivDisplayMode" : 1,
+      "getPSAppDEField" : {
+        "name" : "LATE_TIMES",
+        "codeName" : "late_times"
+      },
+      "width" : 120,
+      "widthUnit" : "PX",
+      "allowEmpty" : true,
+      "enableSort" : false
+    }, {
+      "align" : "RIGHT",
+      "cLConvertMode" : "NONE",
+      "getCapPSLanguageRes" : {
+        "lanResTag" : "DEF.LNAME.ATTENDANCE_STATISTICS.LATE_TIME"
+      },
+      "caption" : "迟到时长",
+      "codeName" : "late_duration",
+      "columnType" : "DEFGRIDCOLUMN",
+      "dataItemName" : "late_time",
+      "enableCond" : 3,
+      "excelCaption" : "迟到时长",
+      "ignoreInput" : 0,
+      "name" : "late_duration",
+      "noPrivDisplayMode" : 1,
+      "getPSAppDEField" : {
+        "name" : "LATE_TIME",
+        "codeName" : "late_time"
+      },
+      "width" : 120,
+      "widthUnit" : "PX",
+      "allowEmpty" : true,
+      "enableSort" : false
+    }, {
+      "align" : "RIGHT",
+      "cLConvertMode" : "NONE",
+      "getCapPSLanguageRes" : {
+        "lanResTag" : "DEF.LNAME.ATTENDANCE_STATISTICS.LEAVE_EARLY_TIMES"
+      },
+      "caption" : "早退次数",
+      "codeName" : "leave_early",
+      "columnType" : "DEFGRIDCOLUMN",
+      "dataItemName" : "leave_early_times",
+      "enableCond" : 3,
+      "excelCaption" : "早退次数",
+      "ignoreInput" : 0,
+      "name" : "leave_early",
+      "noPrivDisplayMode" : 1,
+      "getPSAppDEField" : {
+        "name" : "LEAVE_EARLY_TIMES",
+        "codeName" : "leave_early_times"
+      },
+      "width" : 120,
+      "widthUnit" : "PX",
+      "allowEmpty" : true,
+      "enableSort" : false
+    }, {
+      "align" : "RIGHT",
+      "cLConvertMode" : "NONE",
+      "getCapPSLanguageRes" : {
+        "lanResTag" : "DEF.LNAME.ATTENDANCE_STATISTICS.LEAVE_EARLY_TIME"
+      },
+      "caption" : "早退时长",
+      "codeName" : "leave_early_duration",
+      "columnType" : "DEFGRIDCOLUMN",
+      "dataItemName" : "leave_early_time",
+      "enableCond" : 3,
+      "excelCaption" : "早退时长",
+      "ignoreInput" : 0,
+      "name" : "leave_early_duration",
+      "noPrivDisplayMode" : 1,
+      "getPSAppDEField" : {
+        "name" : "LEAVE_EARLY_TIME",
+        "codeName" : "leave_early_time"
+      },
+      "width" : 120,
+      "widthUnit" : "PX",
+      "allowEmpty" : true,
+      "enableSort" : false
+    }, {
+      "align" : "RIGHT",
+      "cLConvertMode" : "NONE",
+      "caption" : "上班卡缺卡",
+      "codeName" : "on_missing",
+      "columnType" : "DEFGRIDCOLUMN",
+      "dataItemName" : "on_missing",
+      "enableCond" : 3,
+      "excelCaption" : "上班卡缺卡",
+      "ignoreInput" : 0,
+      "name" : "on_missing",
+      "noPrivDisplayMode" : 1,
+      "getPSAppDEField" : {
+        "name" : "ON_MISSING",
+        "codeName" : "on_missing"
+      },
+      "width" : 150,
+      "widthUnit" : "PX",
+      "allowEmpty" : true,
+      "enableSort" : false
+    }, {
+      "align" : "RIGHT",
+      "cLConvertMode" : "NONE",
+      "caption" : "下班卡缺卡",
+      "codeName" : "off_missing",
+      "columnType" : "DEFGRIDCOLUMN",
+      "dataItemName" : "off_missing",
+      "enableCond" : 3,
+      "excelCaption" : "下班卡缺卡",
+      "ignoreInput" : 0,
+      "name" : "off_missing",
+      "noPrivDisplayMode" : 1,
+      "getPSAppDEField" : {
+        "name" : "OFF_MISSING",
+        "codeName" : "off_missing"
+      },
+      "width" : 150,
+      "widthUnit" : "PX",
+      "allowEmpty" : true,
+      "enableSort" : false
+    }, {
+      "align" : "RIGHT",
+      "cLConvertMode" : "NONE",
+      "getCapPSLanguageRes" : {
+        "lanResTag" : "DEF.LNAME.ATTENDANCE_STATISTICS.ABSENT_DAYS"
+      },
+      "caption" : "旷工天数",
+      "codeName" : "absent_days",
+      "columnType" : "DEFGRIDCOLUMN",
+      "dataItemName" : "absent_days",
+      "enableCond" : 3,
+      "excelCaption" : "旷工天数",
+      "ignoreInput" : 0,
+      "name" : "absent_days",
+      "noPrivDisplayMode" : 1,
+      "getPSAppDEField" : {
+        "name" : "ABSENT_DAYS",
+        "codeName" : "absent_days"
+      },
+      "width" : 120,
+      "widthUnit" : "PX",
+      "allowEmpty" : true,
+      "enableSort" : false
+    }, {
+      "align" : "RIGHT",
+      "cLConvertMode" : "NONE",
+      "getCapPSLanguageRes" : {
+        "lanResTag" : "DEF.LNAME.ATTENDANCE_STATISTICS.ON_BUSINESS_DAYS"
+      },
+      "caption" : "出差天数",
+      "codeName" : "on_business_days",
+      "columnType" : "DEFGRIDCOLUMN",
+      "dataItemName" : "on_business_days",
+      "enableCond" : 3,
+      "excelCaption" : "出差天数",
+      "ignoreInput" : 0,
+      "name" : "on_business_days",
+      "noPrivDisplayMode" : 1,
+      "getPSAppDEField" : {
+        "name" : "ON_BUSINESS_DAYS",
+        "codeName" : "on_business_days"
+      },
+      "width" : 120,
+      "widthUnit" : "PX",
+      "allowEmpty" : true,
+      "enableSort" : false
+    }, {
+      "align" : "RIGHT",
+      "cLConvertMode" : "NONE",
+      "getCapPSLanguageRes" : {
+        "lanResTag" : "DEF.LNAME.ATTENDANCE_STATISTICS.OUT_TIME"
+      },
+      "caption" : "外出时长(小时)",
+      "codeName" : "out_time",
+      "columnType" : "DEFGRIDCOLUMN",
+      "dataItemName" : "out_time",
+      "enableCond" : 3,
+      "excelCaption" : "外出时长(小时)",
+      "ignoreInput" : 0,
+      "name" : "out_time",
+      "noPrivDisplayMode" : 1,
+      "getPSAppDEField" : {
+        "name" : "OUT_TIME",
+        "codeName" : "out_time"
+      },
+      "width" : 150,
+      "widthUnit" : "PX",
+      "allowEmpty" : true,
+      "enableSort" : false
+    }, {
+      "align" : "RIGHT",
+      "cLConvertMode" : "NONE",
+      "getCapPSLanguageRes" : {
+        "lanResTag" : "DEF.LNAME.ATTENDANCE_STATISTICS.MAKE_CARD_TIMES"
+      },
+      "caption" : "补卡次数",
+      "codeName" : "make_card_times",
+      "columnType" : "DEFGRIDCOLUMN",
+      "dataItemName" : "make_card_times",
+      "enableCond" : 3,
+      "excelCaption" : "补卡次数",
+      "ignoreInput" : 0,
+      "name" : "make_card_times",
+      "noPrivDisplayMode" : 1,
+      "getPSAppDEField" : {
+        "name" : "MAKE_CARD_TIMES",
+        "codeName" : "make_card_times"
+      },
+      "width" : 120,
+      "widthUnit" : "PX",
+      "allowEmpty" : true,
+      "enableSort" : false
+    }, {
+      "align" : "RIGHT",
+      "cLConvertMode" : "NONE",
+      "getCapPSLanguageRes" : {
+        "lanResTag" : "DEF.LNAME.ATTENDANCE_STATISTICS.OUT_WORK_TIMES"
+      },
+      "caption" : "外勤次数",
+      "codeName" : "out_work_times",
+      "columnType" : "DEFGRIDCOLUMN",
+      "dataItemName" : "out_work_times",
+      "enableCond" : 3,
+      "excelCaption" : "外勤次数",
+      "ignoreInput" : 0,
+      "name" : "out_work_times",
+      "noPrivDisplayMode" : 1,
+      "getPSAppDEField" : {
+        "name" : "OUT_WORK_TIMES",
+        "codeName" : "out_work_times"
+      },
+      "width" : 120,
+      "widthUnit" : "PX",
+      "allowEmpty" : true,
+      "enableSort" : false
+    } ],
+    "width" : 100,
+    "widthUnit" : "PX",
+    "enableSort" : false
+  }, {
+    "caption" : "请假统计",
+    "codeName" : "leave",
+    "columnType" : "GROUPGRIDCOLUMN",
+    "name" : "leave",
+    "noPrivDisplayMode" : 1,
+    "getPSDEGridColumns" : [ {
+      "align" : "RIGHT",
+      "cLConvertMode" : "NONE",
+      "caption" : "请假时长(小时)",
+      "codeName" : "leave_duration",
+      "columnType" : "DEFGRIDCOLUMN",
+      "dataItemName" : "leave_duration",
+      "enableCond" : 3,
+      "excelCaption" : "请假时长(小时)",
+      "ignoreInput" : 0,
+      "name" : "leave_duration",
+      "noPrivDisplayMode" : 1,
+      "getPSAppDEField" : {
+        "name" : "LEAVE_DURATION",
+        "codeName" : "leave_duration"
+      },
+      "width" : 150,
+      "widthUnit" : "PX",
+      "allowEmpty" : true,
+      "enableSort" : false
+    }, {
+      "align" : "RIGHT",
+      "cLConvertMode" : "NONE",
+      "caption" : "年假(小时)",
+      "codeName" : "annual_leave",
+      "columnType" : "DEFGRIDCOLUMN",
+      "dataItemName" : "annual_leave",
+      "enableCond" : 3,
+      "excelCaption" : "年假(小时)",
+      "ignoreInput" : 0,
+      "name" : "annual_leave",
+      "noPrivDisplayMode" : 1,
+      "getPSAppDEField" : {
+        "name" : "ANNUAL_LEAVE",
+        "codeName" : "annual_leave"
+      },
+      "width" : 100,
+      "widthUnit" : "PX",
+      "allowEmpty" : true,
+      "enableSort" : false
+    }, {
+      "align" : "RIGHT",
+      "cLConvertMode" : "NONE",
+      "caption" : "事假(小时)",
+      "codeName" : "compassionate_leave",
+      "columnType" : "DEFGRIDCOLUMN",
+      "dataItemName" : "compassionate_leave",
+      "enableCond" : 3,
+      "excelCaption" : "事假(小时)",
+      "ignoreInput" : 0,
+      "name" : "compassionate_leave",
+      "noPrivDisplayMode" : 1,
+      "getPSAppDEField" : {
+        "name" : "COMPASSIONATE_LEAVE",
+        "codeName" : "compassionate_leave"
+      },
+      "width" : 100,
+      "widthUnit" : "PX",
+      "allowEmpty" : true,
+      "enableSort" : false
+    }, {
+      "align" : "RIGHT",
+      "cLConvertMode" : "NONE",
+      "caption" : "调休假(小时)",
+      "codeName" : "vacation_leave",
+      "columnType" : "DEFGRIDCOLUMN",
+      "dataItemName" : "vacation_leave",
+      "enableCond" : 3,
+      "excelCaption" : "调休假(小时)",
+      "ignoreInput" : 0,
+      "name" : "vacation_leave",
+      "noPrivDisplayMode" : 1,
+      "getPSAppDEField" : {
+        "name" : "VACATION_LEAVE",
+        "codeName" : "vacation_leave"
+      },
+      "width" : 100,
+      "widthUnit" : "PX",
+      "allowEmpty" : true,
+      "enableSort" : false
+    }, {
+      "align" : "RIGHT",
+      "cLConvertMode" : "NONE",
+      "caption" : "病假(小时)",
+      "codeName" : "sick_leave",
+      "columnType" : "DEFGRIDCOLUMN",
+      "dataItemName" : "sick_leave",
+      "enableCond" : 3,
+      "excelCaption" : "病假(小时)",
+      "ignoreInput" : 0,
+      "name" : "sick_leave",
+      "noPrivDisplayMode" : 1,
+      "getPSAppDEField" : {
+        "name" : "SICK_LEAVE",
+        "codeName" : "sick_leave"
+      },
+      "width" : 100,
+      "widthUnit" : "PX",
+      "allowEmpty" : true,
+      "enableSort" : false
+    }, {
+      "align" : "RIGHT",
+      "cLConvertMode" : "NONE",
+      "caption" : "育儿假(小时)",
+      "codeName" : "parental_leave",
+      "columnType" : "DEFGRIDCOLUMN",
+      "dataItemName" : "parental_leave",
+      "enableCond" : 3,
+      "excelCaption" : "育儿假(小时)",
+      "ignoreInput" : 0,
+      "name" : "parental_leave",
+      "noPrivDisplayMode" : 1,
+      "getPSAppDEField" : {
+        "name" : "PARENTAL_LEAVE",
+        "codeName" : "parental_leave"
+      },
+      "width" : 100,
+      "widthUnit" : "PX",
+      "allowEmpty" : true,
+      "enableSort" : false
+    }, {
+      "align" : "RIGHT",
+      "cLConvertMode" : "NONE",
+      "caption" : "陪产假(小时)",
+      "codeName" : "paternity_leave",
+      "columnType" : "DEFGRIDCOLUMN",
+      "dataItemName" : "paternity_leave",
+      "enableCond" : 3,
+      "excelCaption" : "陪产假(小时)",
+      "ignoreInput" : 0,
+      "name" : "paternity_leave",
+      "noPrivDisplayMode" : 1,
+      "getPSAppDEField" : {
+        "name" : "PATERNITY_LEAVE",
+        "codeName" : "paternity_leave"
+      },
+      "width" : 100,
+      "widthUnit" : "PX",
+      "allowEmpty" : true,
+      "enableSort" : false
+    }, {
+      "align" : "RIGHT",
+      "cLConvertMode" : "NONE",
+      "caption" : "婚假(小时)",
+      "codeName" : "marriage_holiday",
+      "columnType" : "DEFGRIDCOLUMN",
+      "dataItemName" : "marriage_holiday",
+      "enableCond" : 3,
+      "excelCaption" : "婚假(小时)",
+      "ignoreInput" : 0,
+      "name" : "marriage_holiday",
+      "noPrivDisplayMode" : 1,
+      "getPSAppDEField" : {
+        "name" : "MARRIAGE_HOLIDAY",
+        "codeName" : "marriage_holiday"
+      },
+      "width" : 100,
+      "widthUnit" : "PX",
+      "allowEmpty" : true,
+      "enableSort" : false
+    }, {
+      "align" : "RIGHT",
+      "cLConvertMode" : "NONE",
+      "caption" : "丧假(小时)",
+      "codeName" : "funeral_leave",
+      "columnType" : "DEFGRIDCOLUMN",
+      "dataItemName" : "funeral_leave",
+      "enableCond" : 3,
+      "excelCaption" : "丧假(小时)",
+      "ignoreInput" : 0,
+      "name" : "funeral_leave",
+      "noPrivDisplayMode" : 1,
+      "getPSAppDEField" : {
+        "name" : "FUNERAL_LEAVE",
+        "codeName" : "funeral_leave"
+      },
+      "width" : 100,
+      "widthUnit" : "PX",
+      "allowEmpty" : true,
+      "enableSort" : false
+    }, {
+      "align" : "RIGHT",
+      "cLConvertMode" : "NONE",
+      "caption" : "产假(小时)",
+      "codeName" : "maternity_leave",
+      "columnType" : "DEFGRIDCOLUMN",
+      "dataItemName" : "maternity_leave",
+      "enableCond" : 3,
+      "excelCaption" : "产假(小时)",
+      "ignoreInput" : 0,
+      "name" : "maternity_leave",
+      "noPrivDisplayMode" : 1,
+      "getPSAppDEField" : {
+        "name" : "MATERNITY_LEAVE",
+        "codeName" : "maternity_leave"
+      },
+      "width" : 100,
+      "widthUnit" : "PX",
+      "allowEmpty" : true,
+      "enableSort" : false
+    } ],
+    "width" : 100,
+    "widthUnit" : "PX",
+    "enableSort" : false
+  }, {
+    "caption" : "每日统计",
+    "codeName" : "daily",
+    "columnType" : "GROUPGRIDCOLUMN",
+    "name" : "daily",
+    "noPrivDisplayMode" : 1,
+    "width" : 100,
+    "widthUnit" : "PX",
+    "enableSort" : false
+  }, {
+    "align" : "CENTER",
+    "cLConvertMode" : "NONE",
+    "getCapPSLanguageRes" : {
+      "lanResTag" : "DEF.LNAME.ATTENDANCE_STATISTICS.ID"
+    },
+    "caption" : "模板列",
+    "codeName" : "template",
+    "columnType" : "DEFGRIDCOLUMN",
+    "dataItemName" : "id",
+    "excelCaption" : "模板列",
+    "hideMode" : 1,
+    "getLinkPSAppView" : {
+      "modelref" : true,
+      "path" : "PSSYSAPPS/attendanceapp/PSAPPDEVIEWS/attendance_statistics_details_edit_view.json",
+      "viewType" : "DEEDITVIEW"
+    },
+    "linkValueItem" : "id",
+    "name" : "template",
+    "noPrivDisplayMode" : 1,
+    "getPSAppDEField" : {
+      "name" : "ID",
+      "codeName" : "id"
+    },
+    "width" : 200,
+    "widthUnit" : "PX",
+    "enableLinkView" : true,
+    "enableSort" : true,
+    "hideDefault" : true,
+    "getUserParam" : {
+      "SRFNAVPARAM.member_id" : "%member_id%",
+      "SRFNAVPARAM.custom_id" : "%id%",
+      "SRFNAVPARAM.checkin_date" : "%checkin_date%"
+    }
+  } ],
+  "getPSDEGridDataItems" : [ {
+    "dataType" : 25,
+    "name" : "member_name",
+    "getPSAppDEField" : {
+      "name" : "MEMBER_NAME",
+      "codeName" : "member_name"
+    }
+  }, {
+    "dataType" : 25,
+    "name" : "id",
+    "getPSAppDEField" : {
+      "name" : "ID",
+      "codeName" : "id"
+    }
+  }, {
+    "dataType" : 25,
+    "name" : "employee_num",
+    "getPSAppDEField" : {
+      "name" : "EMPLOYEE_NUM",
+      "codeName" : "employee_num"
+    }
+  }, {
+    "dataType" : 25,
+    "name" : "dept_name",
+    "getPSAppDEField" : {
+      "name" : "DEPT_NAME",
+      "codeName" : "dept_name"
+    }
+  }, {
+    "dataType" : 25,
+    "name" : "title",
+    "getPSAppDEField" : {
+      "name" : "TITLE",
+      "codeName" : "title"
+    }
+  }, {
+    "dataType" : 7,
+    "name" : "should_attendance_days",
+    "getPSAppDEField" : {
+      "name" : "SHOULD_ATTENDANCE_DAYS",
+      "codeName" : "should_attendance_days"
+    }
+  }, {
+    "dataType" : 7,
+    "name" : "actual_attendance_days",
+    "getPSAppDEField" : {
+      "name" : "ACTUAL_ATTENDANCE_DAYS",
+      "codeName" : "actual_attendance_days"
+    }
+  }, {
+    "dataType" : 7,
+    "name" : "should_attendance_time",
+    "getPSAppDEField" : {
+      "name" : "SHOULD_ATTENDANCE_TIME",
+      "codeName" : "should_attendance_time"
+    }
+  }, {
+    "dataType" : 7,
+    "name" : "working_hours",
+    "getPSAppDEField" : {
+      "name" : "WORKING_HOURS",
+      "codeName" : "working_hours"
+    }
+  }, {
+    "dataType" : 7,
+    "name" : "billable_time",
+    "getPSAppDEField" : {
+      "name" : "BILLABLE_TIME",
+      "codeName" : "billable_time"
+    }
+  }, {
+    "dataType" : 7,
+    "name" : "pay_overtime_time",
+    "getPSAppDEField" : {
+      "name" : "PAY_OVERTIME_TIME",
+      "codeName" : "pay_overtime_time"
+    }
+  }, {
+    "dataType" : 7,
+    "name" : "rest_overtime_time",
+    "getPSAppDEField" : {
+      "name" : "REST_OVERTIME_TIME",
+      "codeName" : "rest_overtime_time"
+    }
+  }, {
+    "dataType" : 9,
+    "name" : "late_times",
+    "getPSAppDEField" : {
+      "name" : "LATE_TIMES",
+      "codeName" : "late_times"
+    }
+  }, {
+    "dataType" : 7,
+    "name" : "late_time",
+    "getPSAppDEField" : {
+      "name" : "LATE_TIME",
+      "codeName" : "late_time"
+    }
+  }, {
+    "dataType" : 9,
+    "name" : "leave_early_times",
+    "getPSAppDEField" : {
+      "name" : "LEAVE_EARLY_TIMES",
+      "codeName" : "leave_early_times"
+    }
+  }, {
+    "dataType" : 7,
+    "name" : "leave_early_time",
+    "getPSAppDEField" : {
+      "name" : "LEAVE_EARLY_TIME",
+      "codeName" : "leave_early_time"
+    }
+  }, {
+    "dataType" : 9,
+    "name" : "on_missing",
+    "getPSAppDEField" : {
+      "name" : "ON_MISSING",
+      "codeName" : "on_missing"
+    }
+  }, {
+    "dataType" : 9,
+    "name" : "off_missing",
+    "getPSAppDEField" : {
+      "name" : "OFF_MISSING",
+      "codeName" : "off_missing"
+    }
+  }, {
+    "dataType" : 7,
+    "name" : "absent_days",
+    "getPSAppDEField" : {
+      "name" : "ABSENT_DAYS",
+      "codeName" : "absent_days"
+    }
+  }, {
+    "dataType" : 7,
+    "name" : "on_business_days",
+    "getPSAppDEField" : {
+      "name" : "ON_BUSINESS_DAYS",
+      "codeName" : "on_business_days"
+    }
+  }, {
+    "dataType" : 7,
+    "name" : "out_time",
+    "getPSAppDEField" : {
+      "name" : "OUT_TIME",
+      "codeName" : "out_time"
+    }
+  }, {
+    "dataType" : 9,
+    "name" : "make_card_times",
+    "getPSAppDEField" : {
+      "name" : "MAKE_CARD_TIMES",
+      "codeName" : "make_card_times"
+    }
+  }, {
+    "dataType" : 9,
+    "name" : "out_work_times",
+    "getPSAppDEField" : {
+      "name" : "OUT_WORK_TIMES",
+      "codeName" : "out_work_times"
+    }
+  }, {
+    "dataType" : 7,
+    "name" : "leave_duration",
+    "getPSAppDEField" : {
+      "name" : "LEAVE_DURATION",
+      "codeName" : "leave_duration"
+    }
+  }, {
+    "dataType" : 7,
+    "name" : "annual_leave",
+    "getPSAppDEField" : {
+      "name" : "ANNUAL_LEAVE",
+      "codeName" : "annual_leave"
+    }
+  }, {
+    "dataType" : 7,
+    "name" : "compassionate_leave",
+    "getPSAppDEField" : {
+      "name" : "COMPASSIONATE_LEAVE",
+      "codeName" : "compassionate_leave"
+    }
+  }, {
+    "dataType" : 7,
+    "name" : "vacation_leave",
+    "getPSAppDEField" : {
+      "name" : "VACATION_LEAVE",
+      "codeName" : "vacation_leave"
+    }
+  }, {
+    "dataType" : 7,
+    "name" : "sick_leave",
+    "getPSAppDEField" : {
+      "name" : "SICK_LEAVE",
+      "codeName" : "sick_leave"
+    }
+  }, {
+    "dataType" : 7,
+    "name" : "parental_leave",
+    "getPSAppDEField" : {
+      "name" : "PARENTAL_LEAVE",
+      "codeName" : "parental_leave"
+    }
+  }, {
+    "dataType" : 7,
+    "name" : "paternity_leave",
+    "getPSAppDEField" : {
+      "name" : "PATERNITY_LEAVE",
+      "codeName" : "paternity_leave"
+    }
+  }, {
+    "dataType" : 7,
+    "name" : "marriage_holiday",
+    "getPSAppDEField" : {
+      "name" : "MARRIAGE_HOLIDAY",
+      "codeName" : "marriage_holiday"
+    }
+  }, {
+    "dataType" : 7,
+    "name" : "funeral_leave",
+    "getPSAppDEField" : {
+      "name" : "FUNERAL_LEAVE",
+      "codeName" : "funeral_leave"
+    }
+  }, {
+    "dataType" : 7,
+    "name" : "maternity_leave",
+    "getPSAppDEField" : {
+      "name" : "MATERNITY_LEAVE",
+      "codeName" : "maternity_leave"
+    }
+  }, {
+    "dataType" : 25,
+    "name" : "srfkey",
+    "getPSAppDEField" : {
+      "name" : "ID",
+      "codeName" : "id"
+    }
+  }, {
+    "dataType" : 25,
+    "name" : "srfdataaccaction",
+    "getPSAppDEField" : {
+      "name" : "ID",
+      "codeName" : "id"
+    },
+    "dataAccessAction" : true
+  }, {
+    "dataType" : 25,
+    "name" : "srfmajortext",
+    "getPSAppDEField" : {
+      "name" : "NAME",
+      "codeName" : "name"
+    }
+  } ],
+  "getPSDEGridEditItems" : [ {
+    "caption" : "标识",
+    "codeName" : "srfkey",
+    "enableCond" : 3,
+    "ignoreInput" : 0,
+    "name" : "srfkey",
+    "getPSAppDEField" : {
+      "name" : "ID",
+      "codeName" : "id"
+    },
+    "getPSEditor" : {
+      "editorType" : "HIDDEN",
+      "name" : "srfkey"
+    },
+    "allowEmpty" : true
+  } ],
+  "getPSSysPFPlugin" : {
+    "pluginType" : "GRID_RENDER",
+    "pluginCode" : "MONTH",
+    "runtimeObject" : true
+  },
+  "pagingMode" : 1,
+  "pagingSize" : 20,
+  "getRemovePSControlAction" : {
+    "actionName" : "Remove",
+    "actionType" : "DEACTION",
+    "dataAccessAction" : "DELETE",
+    "name" : "remove",
+    "getPSAppDEMethod" : {
+      "modelref" : true,
+      "id" : "remove"
+    },
+    "getPSAppDataEntity" : {
+      "modelref" : true,
+      "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/attendance_statistics.json"
+    }
+  },
+  "sortMode" : "REMOTE",
+  "hasWFDataItems" : false,
+  "enableColFilter" : false,
+  "enableCustomized" : true,
+  "enableGroup" : false,
+  "enablePagingBar" : true,
+  "enableRowEdit" : false,
+  "enableRowEditOrder" : false,
+  "enableRowNew" : false,
+  "forceFit" : false,
+  "hideHeader" : false,
+  "noSort" : false,
+  "singleSelect" : true,
+  "modelid" : "08e35f576ca6876ae0d9224c8e8151f7",
+  "modeltype" : "PSDEGRID"
+}

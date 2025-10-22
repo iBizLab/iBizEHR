@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+    <definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:g="http://www.jboss.org/drools/flow/gpd" xmlns:tns="http://www.jboss.org/drools" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" expressionLanguage="http://www.mvel.org/2.0" id="Definition" name="" targetNamespace="http://www.jboss.org/drools" typeLanguage="http://www.java.com/javaTypes">
+        <process id="cn.ibizlab.core.attendance.service.logic.attendance_clock_in_recordsync_clock" isClosed="false" isExecutable="true" name="attendance_attendance_clock_in_record_sync_clock_ruleFlow" processType="Private" tns:packageName="cn.ibizlab.core.attendance.service.logic.attendance_clock_in_recordsync_clock">
+            <extensionElements>
+                <tns:import name="java.util.Map" />
+                <tns:import name="org.springframework.util.StringUtils"/>
+                <tns:import name="cn.ibizlab.util.helper.RuleUtils"/>
+                                <tns:metaData express="" name="attendance_clock_in_recordsync_clockdefault" type="entity"/>
+                                <tns:metaData express="new cn.ibizlab.core.hr.domain.hr_attendance()" name="attendance_clock_in_recordsync_clockattendances" type="refentity"/>
+                                <tns:metaData express="new cn.ibizlab.core.hr.domain.hr_attendance()" name="attendance_clock_in_recordsync_clockhr_attendance" type="refentity"/>
+                    <tns:metaData express="T(cn.ibizlab.util.security.SpringContextHolder).getBean(T(cn.ibizlab.core.attendance.service.Iattendance_clock_in_recordService))" name="iBzSysAttendance_clock_in_recordDefaultService" type="service"/>
+                    <tns:metaData express="T(cn.ibizlab.util.security.AuthenticationUser).getAuthenticationUser()" name="curuser" type="session"/>
+                            <tns:global identifier="attendance_clock_in_recordsync_clockdefault" type="cn.ibizlab.core.attendance.domain.attendance_clock_in_record" />
+                            <tns:global identifier="attendance_clock_in_recordsync_clockattendances" type="cn.ibizlab.core.hr.domain.hr_attendance" />
+                            <tns:global identifier="attendance_clock_in_recordsync_clockhr_attendance" type="cn.ibizlab.core.hr.domain.hr_attendance" />
+            </extensionElements>
+                        <startEvent id="begin" isInterrupting="true"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="attendance_clock_in_recordsync_clockrawsqlcall_01" id="rawsqlcall_01" implementation="http://www.jboss.org/drools/rule" name="查询当天出勤记录"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="attendance_clock_in_recordsync_clockdebugparam_01" id="debugparam_01" implementation="http://www.jboss.org/drools/rule" name="调试逻辑参数"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="attendance_clock_in_recordsync_clockrawsfcode_01" id="rawsfcode_01" implementation="http://www.jboss.org/drools/rule" name="执行脚本代码"/>
+                        <endEvent id="rawsfcode_01_end" name="end"/>
+                        <sequenceFlow id="rawsfcode_01_end_line" sourceRef="rawsfcode_01" targetRef="rawsfcode_01_end"/>
+                    <sequenceFlow id="begin_rawsqlcall_01" sourceRef="begin" targetRef="rawsqlcall_01">
+                    </sequenceFlow>
+                    <sequenceFlow id="rawsqlcall_01_debugparam_01" sourceRef="rawsqlcall_01" targetRef="debugparam_01">
+                    </sequenceFlow>
+                    <sequenceFlow id="debugparam_01_rawsfcode_01" sourceRef="debugparam_01" targetRef="rawsfcode_01">
+                    </sequenceFlow>
+        </process>
+    </definitions>

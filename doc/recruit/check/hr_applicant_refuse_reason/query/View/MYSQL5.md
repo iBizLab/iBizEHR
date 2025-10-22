@@ -1,0 +1,22 @@
+```sql
+SELECT
+t1.`ACTIVE`,
+t1.`CANDIDATE_ID`,
+t1.`COMPANY_ID`,
+t1.`CREATE_DATE`,
+t1.`CREATE_UID`,
+t1.`ID`,
+t1.`JOB_ID`,
+t1.`LAST_STAGE_ID`,
+t1.`MESSAGE_MAIN_ATTACHMENT_ID`,
+t1.`NAME`,
+t1.`REFUSE_REASON_ID`,
+t1.`SEQUENCE`,
+t1.`STAGE_ID`,
+t1.`USER_ID`,
+t1.`WRITE_DATE`,
+t1.`WRITE_UID`
+FROM `hr_applicant_refuse_reason` t1 
+
+
+```

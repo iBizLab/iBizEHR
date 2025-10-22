@@ -1,0 +1,67 @@
+export default {
+  funcViewMode: 'PICKUPVIEW',
+  deviewCodeName: 'PickupView',
+  deviewId: 'dbc4768fb04ba17196fafa386029a5ae',
+  accUserMode: 2,
+  capLanguageRes: {
+    lanResTag: 'DE.LNAME.RES_COMPANY',
+  },
+  caption: '组织',
+  codeName: 'res_company_pickup_view',
+  appDataEntityId: 'web.res_company',
+  appViewEngines: [
+    {
+      engineCat: 'VIEW',
+      engineType: 'PickupView',
+      id: 'engine',
+    },
+  ],
+  controls: [
+    {
+      embeddedAppDEViewId: 'web.res_company_pickup_grid_view',
+      codeName: 'pickup_view_pickupviewpanel',
+      controlType: 'PICKUPVIEWPANEL',
+      appDataEntityId: 'web.res_company',
+      controlParam: {
+        id: 'pickupviewpanel',
+      },
+      name: 'pickupviewpanel',
+      id: 'pickup_view_pickupviewpanel',
+    },
+    {
+      capLanguageRes: {
+        lanResTag: 'DE.LNAME.RES_COMPANY',
+      },
+      caption: '组织',
+      codeName: 'pickup_view_captionbar',
+      controlType: 'CAPTIONBAR',
+      appDataEntityId: 'web.res_company',
+      controlParam: {},
+      name: 'captionbar',
+      id: 'pickup_view_captionbar',
+    },
+  ],
+  viewLayoutPanel: {
+    layoutBodyOnly: true,
+    useDefaultLayout: true,
+    layoutPanel: true,
+    codeName: 'layoutpanel',
+    controlStyle: 'APPDEPICKUPVIEW',
+    controlType: 'VIEWLAYOUTPANEL',
+    appDataEntityId: 'web.res_company',
+    controlParam: {},
+    id: 'layoutpanel',
+  },
+  title: '组织数据选择视图',
+  titleLanguageRes: {
+    lanResTag: 'PAGE.TITLE.RES_COMPANY.PICKUPVIEW',
+  },
+  viewStyle: 'DEFAULT',
+  viewType: 'DEPICKUPVIEW',
+  enableDP: true,
+  showCaptionBar: false,
+  modelId: '57a2d2a12770a713186f2e18e0d61373',
+  modelType: 'PSAPPDEVIEW',
+  name: 'res_companyPickupView',
+  id: 'web.res_company_pickup_view',
+};

@@ -1,0 +1,21 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:pro="http://www.liquibase.org/xml/ns/pro" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/pro http://www.liquibase.org/xml/ns/pro/liquibase-pro-4.6.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.6.xsd">
+    <changeSet author="heying" id="UsrContent202509291645"  failOnError="false">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <sqlCheck expectedResult="1">
+                    SELECT COUNT(*) FROM attendance_shift
+                    WHERE PUBLIC_FLAG = 1
+                </sqlCheck>
+            </not>
+        </preConditions>
+        <sql>
+            INSERT INTO attendance_shift
+            (ATTENDANCE_RATIO, CHECKIN_METHOD, CREATE_DATE, CREATE_UID, DEFAULT_FLAG, END_START, ID, INVALID_OVERTIME, NAME, ORDER_VALUE, OVERTIME_VALID, PUBLIC_FLAG, REST_ENABLE, REST_START, RULE_ID, RULE_NAME, START_OVERTIME, START_TIME, WORKING_NUMBER, WORK_LOAD, WRITE_DATE, WRITE_UID)
+            VALUES(1.0, NULL, NULL, NULL, 1, NULL, '61824f6d-d29d-07df-629a-615a41167ac1', NULL, '默认班次', NULL, NULL, 1, NULL, NULL, '', '', NULL, NULL, 1, NULL, NULL, NULL);
+            INSERT INTO attendance_scope
+            (CREATE_DATE, CREATE_UID, EARLIEST_CHECKIN, EARLY_FOR_ABSENTEEISM, EARLY_FOR_EARLY, END_BASE_TIME, ID, LATEST_CHECKOUT, LATE_FOR_ABSENTEEISM, LATE_FOR_LATE, NAME, NEXT_TAG, ORDER_VALUE, SHIFT_ID, SHIFT_NAME, START_BASE_TIME, WRITE_DATE, WRITE_UID)
+            VALUES(NULL, NULL, 60, 60, 0, '1970-01-01 17:00:00', 'a531887c-d81f-144c-6784-93601b57ab20', 480, 60, 0, NULL, NULL, NULL, '61824f6d-d29d-07df-629a-615a41167ac1', '班次', '1970-01-01 08:00:00', NULL, NULL);
+        </sql>
+    </changeSet>
+</databaseChangeLog>

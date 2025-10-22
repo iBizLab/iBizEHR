@@ -1,0 +1,153 @@
+{
+  "codeName" : "get_date_deadline",
+  "defaultParamName" : "Default",
+  "dynaModelFilePath" : "PSMODULES/mail/PSDATAENTITIES/mail_activity_type/PSDELOGICS/get_date_deadline.json",
+  "logicName" : "获取到期日期",
+  "name" : "获取到期日期",
+  "getPSDELogicNodes" : [ {
+    "codeName" : "Begin",
+    "leftPos" : 170,
+    "logicNodeType" : "BEGIN",
+    "name" : "开始",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "COPYPARAM_01"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "Begin"
+      }
+    } ],
+    "topPos" : 260,
+    "parallelOutput" : true
+  }, {
+    "codeName" : "COPYPARAM_01",
+    "getDstPSDELogicParam" : {
+      "modelref" : true,
+      "id" : "original_default"
+    },
+    "leftPos" : 226,
+    "logicNodeType" : "COPYPARAM",
+    "memo" : "防止activity_previous_deadline值被覆盖",
+    "name" : "拷贝参数",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "DEACTION_01"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "COPYPARAM_01"
+      }
+    } ],
+    "getSrcPSDELogicParam" : {
+      "modelref" : true,
+      "id" : "Default"
+    },
+    "topPos" : 170,
+    "parallelOutput" : true
+  }, {
+    "codeName" : "END_01",
+    "leftPos" : 740,
+    "logicNodeType" : "END",
+    "name" : "结束",
+    "topPos" : 240,
+    "parallelOutput" : true
+  }, {
+    "code" : "def defaultObj = logic.param('default').getReal();\r\ndef originalDefault = logic.param('original_default').getReal();\r\ndef delayFrom=defaultObj.get('delay_from');\r\ndef activityPreviousDeadline=originalDefault.get('activity_previous_deadline');\r\ndef delayUnit=defaultObj.get('delay_unit');\r\ndef delayCount=defaultObj.get('delay_count');\r\ndef chronoUnit;\r\ndef actualDeadline;\r\n\r\nif(delayUnit == 'days' ) {\r\n    chronoUnit = java.time.temporal.ChronoUnit.DAYS\r\n} \r\nelse if(delayUnit == 'weeks' ) {\r\n    chronoUnit = java.time.temporal.ChronoUnit.WEEKS\r\n}\r\nelse if(delayUnit == 'months' ) {\r\n    chronoUnit = java.time.temporal.ChronoUnit.MONTHS\r\n}\r\nelse if(delayUnit == 'years' ) {\r\n    chronoUnit = java.time.temporal.ChronoUnit.YEARS\r\n}\r\n\r\nif(delayFrom == 'previous_activity' && activityPreviousDeadline){\r\n    def deadLineTime = new java.sql.Timestamp(net.ibizsys.runtime.util.DateUtils.getTime(activityPreviousDeadline));\r\n    java.time.LocalDate deadLineDate = deadLineTime.toInstant().atZone(java.time.ZoneId.systemDefault()).toLocalDate();\r\n    actualDeadline = deadLineDate.plus(delayCount, chronoUnit);\r\n}else{\r\n    def curTime = net.ibizsys.runtime.util.DateUtils.getCurTime();\r\n    java.time.LocalDate localDate = curTime.toInstant().atZone(java.time.ZoneId.systemDefault()).toLocalDate();\r\n    actualDeadline = localDate.plus(delayCount, chronoUnit);\r\n}\r\n\r\ndefaultObj.set('actual_deadline',actualDeadline);\r\nprintln(\"actual_deadline值：\"+actualDeadline);\r\n\r\n",
+    "codeName" : "RAWSFCODE_01",
+    "codeType" : "Groovy",
+    "getDstPSDELogicParam" : {
+      "modelref" : true,
+      "id" : "mail_activity_type"
+    },
+    "leftPos" : 510,
+    "logicNodeType" : "RAWSFCODE",
+    "name" : "生成到期日期",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "END_01"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "RAWSFCODE_01"
+      }
+    } ],
+    "topPos" : 280,
+    "parallelOutput" : true
+  }, {
+    "codeName" : "DEACTION_01",
+    "getDstPSDEAction" : {
+      "modelref" : true,
+      "path" : "PSMODULES/mail/PSDATAENTITIES/mail_activity_type/PSDEACTIONS/Get.json"
+    },
+    "getDstPSDELogicParam" : {
+      "modelref" : true,
+      "id" : "Default"
+    },
+    "getDstPSDataEntity" : {
+      "modelref" : true,
+      "path" : "PSMODULES/mail/PSDATAENTITIES/mail_activity_type.json"
+    },
+    "leftPos" : 314,
+    "logicNodeType" : "DEACTION",
+    "name" : "获取活动类型",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "RAWSFCODE_01"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "DEACTION_01"
+      }
+    } ],
+    "getRetPSDELogicParam" : {
+      "modelref" : true,
+      "id" : "mail_activity_type"
+    },
+    "topPos" : 316,
+    "parallelOutput" : true
+  } ],
+  "getPSDELogicParams" : [ {
+    "codeName" : "Default",
+    "logicName" : "传入变量",
+    "name" : "传入变量",
+    "getParamPSDataEntity" : {
+      "modelref" : true,
+      "path" : "PSMODULES/mail/PSDATAENTITIES/mail_activity_type.json"
+    },
+    "default" : true,
+    "entityParam" : true
+  }, {
+    "codeName" : "mail_activity_type",
+    "logicName" : "mail_activity_type",
+    "name" : "mail_activity_type",
+    "getParamPSDataEntity" : {
+      "modelref" : true,
+      "path" : "PSMODULES/mail/PSDATAENTITIES/mail_activity_type.json"
+    },
+    "entityParam" : true
+  }, {
+    "codeName" : "original_default",
+    "logicName" : "original_default",
+    "name" : "original_default",
+    "getParamPSDataEntity" : {
+      "modelref" : true,
+      "path" : "PSMODULES/mail/PSDATAENTITIES/mail_activity_type.json"
+    },
+    "entityParam" : true
+  } ],
+  "getStartPSDELogicNode" : {
+    "modelref" : true,
+    "id" : "Begin"
+  },
+  "enableBackend" : true,
+  "enableFront" : false
+}

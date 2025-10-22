@@ -1,0 +1,79 @@
+{
+  "dBType" : "MYSQL5",
+  "name" : "MySQL5",
+  "getPSDEDataQueryCodeConds" : [ {
+    "condType" : "CUSTOM",
+    "customCond" : "EXISTS(SELECT * FROM `discuss_channel_member` t31 \n WHERE \n t1.`ID` = t31.`CHANNEL_ID`  AND  ( t31.`PARTNER_ID` = #{ctx.sessioncontext.srfpartnerid} ) )",
+    "name" : "查询条件"
+  }, {
+    "condType" : "CUSTOM",
+    "customCond" : "( t1.`CHANNEL_TYPE` = 'channel' )",
+    "name" : "查询条件"
+  } ],
+  "getPSDEDataQueryCodeExps" : [ {
+    "expression" : "t1.`DESCRIPTION`",
+    "name" : "DESCRIPTION"
+  }, {
+    "expression" : "t1.`ACTIVE`",
+    "name" : "ACTIVE"
+  }, {
+    "expression" : "t1.`ALLOW_PUBLIC_UPLOAD`",
+    "name" : "ALLOW_PUBLIC_UPLOAD"
+  }, {
+    "expression" : "t1.`CHANNEL_TYPE`",
+    "name" : "CHANNEL_TYPE"
+  }, {
+    "expression" : "t1.`CREATE_DATE`",
+    "name" : "CREATE_DATE"
+  }, {
+    "expression" : "t1.`CREATE_UID`",
+    "name" : "CREATE_UID"
+  }, {
+    "expression" : "t1.`DEFAULT_DISPLAY_MODE`",
+    "name" : "DEFAULT_DISPLAY_MODE"
+  }, {
+    "expression" : "t1.`FROM_MESSAGE_ID`",
+    "name" : "FROM_MESSAGE_ID"
+  }, {
+    "expression" : "t1.`GROUP_PUBLIC_ID`",
+    "name" : "GROUP_PUBLIC_ID"
+  }, {
+    "expression" : "t21.`NAME`",
+    "name" : "GROUP_PUBLIC_NAME"
+  }, {
+    "expression" : "t1.`ID`",
+    "name" : "ID"
+  }, {
+    "expression" : "t1.`LAST_INTEREST_DT`",
+    "name" : "LAST_INTEREST_DT"
+  }, {
+    "expression" : "t1.`NAME`",
+    "name" : "NAME"
+  }, {
+    "expression" : "t1.`PARENT_CHANNEL_ID`",
+    "name" : "PARENT_CHANNEL_ID"
+  }, {
+    "expression" : "t11.`NAME`",
+    "name" : "PARENT_CHANNEL_NAME"
+  }, {
+    "expression" : "t1.`SFU_CHANNEL_UUID`",
+    "name" : "SFU_CHANNEL_UUID"
+  }, {
+    "expression" : "t1.`SFU_SERVER_URL`",
+    "name" : "SFU_SERVER_URL"
+  }, {
+    "expression" : "t1.`UUID`",
+    "name" : "UUID"
+  }, {
+    "expression" : "t1.`WRITE_DATE`",
+    "name" : "WRITE_DATE"
+  }, {
+    "expression" : "t1.`WRITE_UID`",
+    "name" : "WRITE_UID"
+  }, {
+    "expression" : "t1",
+    "name" : "ALIAS.CHANNEL"
+  } ],
+  "queryCode" : "SELECT\nt1.`ACTIVE`,\nt1.`ALLOW_PUBLIC_UPLOAD`,\nt1.`CHANNEL_TYPE`,\nt1.`CREATE_DATE`,\nt1.`CREATE_UID`,\nt1.`DEFAULT_DISPLAY_MODE`,\nt1.`FROM_MESSAGE_ID`,\nt1.`GROUP_PUBLIC_ID`,\nt21.`NAME` AS `GROUP_PUBLIC_NAME`,\nt1.`ID`,\nt1.`LAST_INTEREST_DT`,\nt1.`NAME`,\nt1.`PARENT_CHANNEL_ID`,\nt11.`NAME` AS `PARENT_CHANNEL_NAME`,\nt1.`SFU_CHANNEL_UUID`,\nt1.`SFU_SERVER_URL`,\nt1.`UUID`,\nt1.`WRITE_DATE`,\nt1.`WRITE_UID`\nFROM `discuss_channel` t1 \nLEFT JOIN `discuss_channel` t11 ON t1.`PARENT_CHANNEL_ID` = t11.`ID` \nLEFT JOIN `res_groups` t21 ON t1.`GROUP_PUBLIC_ID` = t21.`ID` \n\r\n/*ALIAS.channel=t1*/",
+  "id" : "PSMODULES/discuss/PSDATAENTITIES/discuss_channel/PSDEDATAQUERIES/cur_user_public/PSDEDQCODES/MYSQL5.json"
+}

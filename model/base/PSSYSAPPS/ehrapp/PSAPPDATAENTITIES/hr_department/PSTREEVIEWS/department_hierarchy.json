@@ -1,0 +1,1058 @@
+{
+  "codeName" : "department_hierarchy",
+  "controlStyle" : "ODOO_ORG_TREE",
+  "controlType" : "TREEVIEW",
+  "getCreatePSControlAction" : {
+    "modelref" : true,
+    "id" : "create",
+    "actionName" : "Create",
+    "actionType" : "DEACTION",
+    "dataAccessAction" : "CREATE",
+    "name" : "create",
+    "getPSAppDEMethod" : {
+      "modelref" : true,
+      "id" : "create"
+    },
+    "getPSAppDataEntity" : {
+      "modelref" : true,
+      "path" : "PSSYSAPPS/ehrapp/PSAPPDATAENTITIES/hr_department.json"
+    }
+  },
+  "dynaModelFilePath" : "PSSYSAPPS/ehrapp/PSAPPDATAENTITIES/hr_department/PSTREEVIEWS/department_hierarchy.json",
+  "getFetchPSControlAction" : {
+    "modelref" : true,
+    "id" : "fetch",
+    "actionType" : "DEDATASET",
+    "name" : "fetch",
+    "getPSAppDataEntity" : {
+      "modelref" : true,
+      "path" : "PSSYSAPPS/ehrapp/PSAPPDATAENTITIES/hr_department.json"
+    }
+  },
+  "getGetPSControlAction" : {
+    "modelref" : true,
+    "id" : "load",
+    "actionName" : "Get",
+    "actionType" : "DEACTION",
+    "dataAccessAction" : "READ",
+    "name" : "load",
+    "getPSAppDEMethod" : {
+      "modelref" : true,
+      "id" : "get"
+    },
+    "getPSAppDataEntity" : {
+      "modelref" : true,
+      "path" : "PSSYSAPPS/ehrapp/PSAPPDATAENTITIES/hr_department.json"
+    }
+  },
+  "logicName" : "部门层级架构图",
+  "getPSAppDataEntity" : {
+    "modelref" : true,
+    "path" : "PSSYSAPPS/ehrapp/PSAPPDATAENTITIES/hr_department.json"
+  },
+  "getPSDETreeNodeRSs" : [ {
+    "getChildPSDETreeNode" : {
+      "modelref" : true,
+      "id" : "children"
+    },
+    "name" : "当前部门（cur）-下属部门（children）",
+    "getParentPSAppDEField" : {
+      "name" : "PARENT_ID",
+      "codeName" : "parent_id"
+    },
+    "getParentPSDER1N" : {
+      "codeName" : "parent",
+      "dERType" : "DER1N",
+      "dynaModelFilePath" : "PSMODULES/hr/PSDATAENTITIES/hr_department/PSDERS/DER1N_HR_DEPARTMENT_HR_DEPARTMENT_PARENT_ID.json",
+      "fKeyName" : "F4BA2933079EB094F8",
+      "getMajorPSDataEntity" : {
+        "modelref" : true,
+        "path" : "PSMODULES/hr/PSDATAENTITIES/hr_department.json"
+      },
+      "masterOrder" : -1,
+      "masterRS" : 16,
+      "getMinorPSDataEntity" : {
+        "modelref" : true,
+        "path" : "PSMODULES/hr/PSDATAENTITIES/hr_department.json"
+      },
+      "name" : "DER1N_HR_DEPARTMENT_HR_DEPARTMENT_PARENT_ID",
+      "orderValue" : 100,
+      "getPSPickupDEField" : {
+        "name" : "PARENT_ID",
+        "codeName" : "parent_id"
+      },
+      "getPSPickupTextDEField" : {
+        "name" : "PARENT_NAME",
+        "codeName" : "parent_name"
+      },
+      "pickupDEFName" : "PARENT_ID",
+      "removeActionType" : 2,
+      "removeOrder" : 0,
+      "serviceCodeName" : "parent",
+      "enableFKey" : true,
+      "recursiveRS" : true
+    },
+    "getParentPSDETreeNode" : {
+      "modelref" : true,
+      "id" : "cur"
+    },
+    "parentValueLevel" : 1,
+    "searchMode" : 3
+  }, {
+    "getChildPSDETreeNode" : {
+      "modelref" : true,
+      "id" : "cur"
+    },
+    "name" : "默认根节点（ROOT）-当前部门（cur）",
+    "getParentPSAppDEField" : {
+      "name" : "PARENT_ID",
+      "codeName" : "parent_id"
+    },
+    "getParentPSDER1N" : {
+      "codeName" : "parent",
+      "dERType" : "DER1N",
+      "dynaModelFilePath" : "PSMODULES/hr/PSDATAENTITIES/hr_department/PSDERS/DER1N_HR_DEPARTMENT_HR_DEPARTMENT_PARENT_ID.json",
+      "fKeyName" : "F4BA2933079EB094F8",
+      "getMajorPSDataEntity" : {
+        "modelref" : true,
+        "path" : "PSMODULES/hr/PSDATAENTITIES/hr_department.json"
+      },
+      "masterOrder" : -1,
+      "masterRS" : 16,
+      "getMinorPSDataEntity" : {
+        "modelref" : true,
+        "path" : "PSMODULES/hr/PSDATAENTITIES/hr_department.json"
+      },
+      "name" : "DER1N_HR_DEPARTMENT_HR_DEPARTMENT_PARENT_ID",
+      "orderValue" : 100,
+      "getPSPickupDEField" : {
+        "name" : "PARENT_ID",
+        "codeName" : "parent_id"
+      },
+      "getPSPickupTextDEField" : {
+        "name" : "PARENT_NAME",
+        "codeName" : "parent_name"
+      },
+      "pickupDEFName" : "PARENT_ID",
+      "removeActionType" : 2,
+      "removeOrder" : 0,
+      "serviceCodeName" : "parent",
+      "enableFKey" : true,
+      "recursiveRS" : true
+    },
+    "getParentPSDETreeNode" : {
+      "modelref" : true,
+      "id" : "ROOT"
+    },
+    "parentValueLevel" : 1,
+    "searchMode" : 3
+  }, {
+    "getChildPSDETreeNode" : {
+      "modelref" : true,
+      "id" : "children"
+    },
+    "name" : "下属部门（children）-下属部门（children）",
+    "getParentPSAppDEField" : {
+      "name" : "PARENT_ID",
+      "codeName" : "parent_id"
+    },
+    "getParentPSDER1N" : {
+      "codeName" : "parent",
+      "dERType" : "DER1N",
+      "dynaModelFilePath" : "PSMODULES/hr/PSDATAENTITIES/hr_department/PSDERS/DER1N_HR_DEPARTMENT_HR_DEPARTMENT_PARENT_ID.json",
+      "fKeyName" : "F4BA2933079EB094F8",
+      "getMajorPSDataEntity" : {
+        "modelref" : true,
+        "path" : "PSMODULES/hr/PSDATAENTITIES/hr_department.json"
+      },
+      "masterOrder" : -1,
+      "masterRS" : 16,
+      "getMinorPSDataEntity" : {
+        "modelref" : true,
+        "path" : "PSMODULES/hr/PSDATAENTITIES/hr_department.json"
+      },
+      "name" : "DER1N_HR_DEPARTMENT_HR_DEPARTMENT_PARENT_ID",
+      "orderValue" : 100,
+      "getPSPickupDEField" : {
+        "name" : "PARENT_ID",
+        "codeName" : "parent_id"
+      },
+      "getPSPickupTextDEField" : {
+        "name" : "PARENT_NAME",
+        "codeName" : "parent_name"
+      },
+      "pickupDEFName" : "PARENT_ID",
+      "removeActionType" : 2,
+      "removeOrder" : 0,
+      "serviceCodeName" : "parent",
+      "enableFKey" : true,
+      "recursiveRS" : true
+    },
+    "getParentPSDETreeNode" : {
+      "modelref" : true,
+      "id" : "children"
+    },
+    "parentValueLevel" : 1,
+    "searchMode" : 3
+  } ],
+  "getPSDETreeNodes" : [ {
+    "counterMode" : 0,
+    "name" : "默认根节点",
+    "nodeType" : "ROOT",
+    "text" : "默认根节点",
+    "treeNodeType" : "STATIC",
+    "hasPSDETreeNodeRSs" : true,
+    "appendPNodeId" : false,
+    "disableSelect" : false,
+    "enableCheck" : false,
+    "enableEditData" : false,
+    "enableNewData" : false,
+    "enableQuickCreate" : false,
+    "enableQuickSearch" : false,
+    "enableRemoveData" : false,
+    "enableViewData" : false,
+    "expandFirstOnly" : false,
+    "expanded" : false,
+    "rootNode" : true,
+    "selectFirstOnly" : false,
+    "selected" : false,
+    "id" : "ROOT"
+  }, {
+    "counterMode" : 0,
+    "dataSourceType" : "DEDATASET",
+    "getIdPSAppDEField" : {
+      "name" : "ID",
+      "codeName" : "id"
+    },
+    "maxSize" : -1,
+    "name" : "下属部门",
+    "getNavPSAppView" : {
+      "modelref" : true,
+      "path" : "PSSYSAPPS/ehrapp/PSAPPDEVIEWS/hr_departmentmain_view.json",
+      "viewType" : "DEEDITVIEW"
+    },
+    "nodeType" : "children",
+    "getPSAppDEDataSet" : {
+      "modelref" : true,
+      "id" : "fetch_simple"
+    },
+    "getPSAppDataEntity" : {
+      "modelref" : true,
+      "path" : "PSSYSAPPS/ehrapp/PSAPPDATAENTITIES/hr_department.json"
+    },
+    "getPSControlRenders" : [ {
+      "name" : "childen_layout",
+      "getPSLayoutPanel" : {
+        "getAllPSPanelFields" : [ {
+          "id" : "name",
+          "viewFieldName" : "name"
+        }, {
+          "id" : "manager_id",
+          "viewFieldName" : "MANAGER_ID"
+        }, {
+          "id" : "total_employee",
+          "viewFieldName" : "total_employee"
+        }, {
+          "id" : "child_count",
+          "hidden" : true,
+          "viewFieldName" : "CHILD_COUNT"
+        } ],
+        "codeName" : "department_chart_node_panel",
+        "controlType" : "PANEL",
+        "dynaModelFilePath" : "PSSYSAPPS/ehrapp/PSAPPDATAENTITIES/hr_department/PSPANELS/department_chart_node_panel.json",
+        "hookEventNames" : [ "ONCLICK" ],
+        "layoutMode" : "FLEX",
+        "logicName" : "部门架构图节点绘制面板",
+        "getPSAppDataEntity" : {
+          "modelref" : true,
+          "path" : "PSSYSAPPS/ehrapp/PSAPPDATAENTITIES/hr_department.json"
+        },
+        "getPSControlLogics" : [ {
+          "eventNames" : "onClick",
+          "itemName" : "BUTTON_CALLUILOGIC1",
+          "logicTag" : "childen_layout",
+          "logicType" : "APPDEUIACTION",
+          "name" : "logic2",
+          "getPSAppDEUIAction" : {
+            "actionTarget" : "NONE",
+            "caption" : "展开",
+            "codeName" : "tree_node_expanded",
+            "frontProcessType" : "OTHER",
+            "fullCodeName" : "hr_employee_tree_node_expanded",
+            "memo" : "员工组织架构图节点绘制面板使用",
+            "name" : "树节点展开",
+            "getPSAppDataEntity" : {
+              "modelref" : true,
+              "path" : "PSSYSAPPS/ehrapp/PSAPPDATAENTITIES/hr_employee.json"
+            },
+            "scriptCode" : "\r\nevent.stopPropagation();\r\nevent.preventDefault();\r\nctrl.evt.emit('onPanelItemEvent', {\r\n    panelItemName: ctrl.model.id,\r\n    panelItemEventName: 'onExpanded',\r\n    event,\r\n    data: data,\r\n})",
+            "uIActionMode" : "FRONT",
+            "uIActionTag" : "tree_node_expanded",
+            "uIActionType" : "DEUIACTION",
+            "globalUIAction" : true,
+            "id" : "tree_node_expanded@hr_employee"
+          }
+        } ],
+        "getPSControlParam" : { },
+        "getPSLayout" : {
+          "layout" : "FLEX"
+        },
+        "getRootPSPanelItems" : [ {
+          "caption" : "容器",
+          "contentHeight" : 142.0,
+          "contentWidth" : 232.0,
+          "height" : 142.0,
+          "itemStyle" : "DEFAULT",
+          "itemType" : "CONTAINER",
+          "name" : "container5",
+          "getPSLayout" : {
+            "layout" : "FLEX"
+          },
+          "getPSLayoutPos" : {
+            "grow" : -1,
+            "height" : 142,
+            "heightMode" : "PX",
+            "layout" : "FLEX",
+            "width" : 232,
+            "widthMode" : "PX"
+          },
+          "getPSPanelItems" : [ {
+            "caption" : "容器",
+            "contentHeight" : 30.0,
+            "height" : 30.0,
+            "itemStyle" : "DEFAULT",
+            "itemType" : "CONTAINER",
+            "name" : "container",
+            "getPSLayout" : {
+              "layout" : "FLEX"
+            },
+            "getPSLayoutPos" : {
+              "grow" : -1,
+              "height" : 30,
+              "heightMode" : "PX",
+              "layout" : "FLEX"
+            },
+            "getPSPanelItems" : [ {
+              "caption" : "文本(动态)",
+              "cssStyle" : "font-weight: var(--ibiz-font-weight-bold);\nmargin-top: 4px;",
+              "itemStyle" : "DEFAULT",
+              "itemType" : "FIELD",
+              "name" : "name",
+              "getPSEditor" : {
+                "editorType" : "SPAN",
+                "name" : "name",
+                "predefinedType" : "FIELD_TEXT_DYNAMIC",
+                "renderMode" : "TEXT_DYNAMIC",
+                "enableLinkView" : false
+              },
+              "getPSLayoutPos" : {
+                "grow" : -1,
+                "hAlignSelf" : "CENTER",
+                "layout" : "FLEX"
+              },
+              "viewFieldName" : "name"
+            } ]
+          }, {
+            "caption" : "容器",
+            "itemStyle" : "DEFAULT",
+            "itemType" : "CONTAINER",
+            "name" : "container1",
+            "getPSLayout" : {
+              "dir" : "row",
+              "layout" : "FLEX"
+            },
+            "getPSLayoutPos" : {
+              "grow" : -1,
+              "layout" : "FLEX",
+              "spacingTop" : "OUTERSMALL"
+            },
+            "getPSPanelItems" : [ {
+              "caption" : "文本(动态)",
+              "itemStyle" : "DEFAULT",
+              "itemType" : "FIELD",
+              "name" : "manager_id",
+              "getPSEditor" : {
+                "editorStyle" : "PERSONNEL_INFO",
+                "editorType" : "SPAN",
+                "name" : "manager_id",
+                "getPSAppCodeList" : {
+                  "modelref" : true,
+                  "path" : "PSSYSAPPS/ehrapp/PSAPPCODELISTS/hr__hr_employee.json"
+                },
+                "getPSSysPFPlugin" : {
+                  "pluginType" : "EDITOR_CUSTOMSTYLE",
+                  "pluginCode" : "PERSONNEL_INFO",
+                  "runtimeObject" : true
+                },
+                "predefinedType" : "FIELD_TEXT_DYNAMIC",
+                "renderMode" : "TEXT_DYNAMIC",
+                "enableLinkView" : false
+              },
+              "getPSLayoutPos" : {
+                "grow" : -1,
+                "layout" : "FLEX",
+                "spacingLeft" : "OUTERSMALL"
+              },
+              "viewFieldName" : "MANAGER_ID",
+              "convertToCodeItemText" : true
+            } ]
+          }, {
+            "caption" : "容器",
+            "itemStyle" : "DEFAULT",
+            "itemType" : "CONTAINER",
+            "name" : "container3",
+            "getPSLayout" : {
+              "dir" : "row",
+              "layout" : "FLEX"
+            },
+            "getPSLayoutPos" : {
+              "grow" : -1,
+              "layout" : "FLEX",
+              "spacingTop" : "OUTERSMALL"
+            },
+            "getPSPanelItems" : [ {
+              "caption" : "文本(动态)",
+              "itemStyle" : "DEFAULT",
+              "itemType" : "FIELD",
+              "name" : "total_employee",
+              "getPSEditor" : {
+                "editorType" : "SPAN",
+                "name" : "total_employee",
+                "predefinedType" : "FIELD_TEXT_DYNAMIC",
+                "renderMode" : "TEXT_DYNAMIC",
+                "enableLinkView" : false
+              },
+              "getPSLayoutPos" : {
+                "grow" : -1,
+                "layout" : "FLEX",
+                "spacingLeft" : "OUTERSMALL"
+              },
+              "viewFieldName" : "total_employee"
+            }, {
+              "caption" : "员工",
+              "contentType" : "RAW",
+              "itemStyle" : "DEFAULT",
+              "itemType" : "RAWITEM",
+              "name" : "static_label",
+              "getPSLayoutPos" : {
+                "grow" : -1,
+                "layout" : "FLEX",
+                "spacingLeft" : "OUTERSMALL"
+              },
+              "getPSRawItem" : {
+                "caption" : "员工",
+                "contentType" : "RAW",
+                "name" : "static_label",
+                "predefinedType" : "STATIC_LABEL",
+                "renderMode" : "PARAGRAPH"
+              },
+              "rawContent" : "员工",
+              "showCaption" : true
+            } ]
+          }, {
+            "caption" : "容器",
+            "itemStyle" : "DEFAULT",
+            "itemType" : "CONTAINER",
+            "name" : "container2",
+            "getPSLayout" : {
+              "layout" : "FLEX"
+            },
+            "getPSLayoutPos" : {
+              "grow" : -1,
+              "layout" : "FLEX",
+              "widthMode" : "FULL"
+            },
+            "getPSPanelItems" : [ {
+              "actionType" : "NONE",
+              "buttonStyle" : "DEFAULT",
+              "caption" : "收缩",
+              "captionItemName" : "CHILD_COUNT",
+              "itemStyle" : "DEFAULT",
+              "itemType" : "BUTTON",
+              "name" : "button_calluilogic1",
+              "getPSLayoutPos" : {
+                "grow" : -1,
+                "layout" : "FLEX",
+                "widthMode" : "FULL"
+              },
+              "getPSPanelItemGroupLogics" : [ {
+                "groupOP" : "AND",
+                "logicCat" : "PANELVISIBLE",
+                "logicType" : "GROUP",
+                "getPSPanelItemLogics" : [ {
+                  "condOp" : "GT",
+                  "dstModelField" : "CHILD_COUNT",
+                  "logicType" : "SINGLE",
+                  "name" : "CHILD_COUNT 大于(>) 0",
+                  "value" : "0"
+                } ],
+                "relatedItemNames" : [ "child_count" ],
+                "notMode" : false
+              } ],
+              "tooltip" : "收缩",
+              "uIActionTarget" : "NONE",
+              "showCaption" : true
+            } ]
+          }, {
+            "caption" : "文本(动态)",
+            "itemType" : "FIELD",
+            "name" : "child_count",
+            "getPSEditor" : {
+              "editorType" : "HIDDEN",
+              "name" : "child_count",
+              "predefinedType" : "FIELD_TEXT_DYNAMIC"
+            },
+            "getPSLayoutPos" : {
+              "grow" : -1,
+              "layout" : "FLEX"
+            },
+            "viewFieldName" : "CHILD_COUNT",
+            "hidden" : true
+          } ],
+          "getPSSysCss" : {
+            "cssName" : "dept-chart-node"
+          },
+          "width" : 232.0
+        } ],
+        "mobilePanel" : true,
+        "name" : "childen_layout",
+        "modelid" : "01bd69d20ed87509683333a568ff1f5d",
+        "modeltype" : "PSSYSVIEWPANEL"
+      },
+      "renderType" : "LAYOUTPANEL"
+    }, {
+      "name" : "activenoderender_childen",
+      "getPSLayoutPanel" : {
+        "getAllPSPanelFields" : [ {
+          "id" : "name",
+          "viewFieldName" : "name"
+        } ],
+        "codeName" : "dept_active_node_panel",
+        "controlType" : "PANEL",
+        "dynaModelFilePath" : "PSSYSAPPS/ehrapp/PSAPPDATAENTITIES/hr_department/PSPANELS/dept_active_node_panel.json",
+        "layoutMode" : "TABLE_24COL",
+        "logicName" : "部门架构图激活节点绘制面板",
+        "getPSAppDataEntity" : {
+          "modelref" : true,
+          "path" : "PSSYSAPPS/ehrapp/PSAPPDATAENTITIES/hr_department.json"
+        },
+        "getPSControlParam" : { },
+        "getPSLayout" : {
+          "childColMD" : 24,
+          "columnCount" : 24,
+          "layout" : "TABLE_24COL"
+        },
+        "getRootPSPanelItems" : [ {
+          "caption" : "容器",
+          "itemStyle" : "DEFAULT",
+          "itemType" : "CONTAINER",
+          "name" : "container",
+          "getPSLayout" : {
+            "dir" : "row",
+            "layout" : "FLEX"
+          },
+          "getPSLayoutPos" : {
+            "colMD" : 24,
+            "layout" : "TABLE_24COL"
+          },
+          "getPSPanelItems" : [ {
+            "caption" : "文本(动态)",
+            "itemStyle" : "DEFAULT",
+            "itemType" : "FIELD",
+            "name" : "name",
+            "getPSEditor" : {
+              "editorType" : "SPAN",
+              "name" : "name",
+              "predefinedType" : "FIELD_TEXT_DYNAMIC",
+              "renderMode" : "TEXT_DYNAMIC",
+              "enableLinkView" : false
+            },
+            "getPSLayoutPos" : {
+              "grow" : -1,
+              "layout" : "FLEX",
+              "spacingLeft" : "OUTERSMALL",
+              "spacingTop" : "OUTERSMALL"
+            },
+            "viewFieldName" : "name"
+          } ]
+        } ],
+        "layoutPanel" : true,
+        "mobilePanel" : true,
+        "name" : "activenoderender_childen",
+        "modelid" : "0e45014878e79c35483e14834cc61b63",
+        "modeltype" : "PSSYSVIEWPANEL"
+      },
+      "renderType" : "LAYOUTPANEL"
+    } ],
+    "getPSNavigateContexts" : [ {
+      "key" : "HR_DEPARTMENT",
+      "name" : "HR_DEPARTMENT",
+      "value" : "${srfkey}",
+      "rawValue" : false
+    } ],
+    "getTextPSAppDEField" : {
+      "name" : "NAME",
+      "codeName" : "name"
+    },
+    "treeNodeType" : "DE",
+    "hasPSDETreeNodeRSs" : true,
+    "allowDrag" : true,
+    "allowDrop" : true,
+    "allowOrder" : true,
+    "appendPNodeId" : false,
+    "disableSelect" : false,
+    "enableCheck" : false,
+    "enableEditData" : false,
+    "enableNewData" : false,
+    "enableQuickCreate" : false,
+    "enableQuickSearch" : false,
+    "enableRemoveData" : false,
+    "enableViewData" : false,
+    "expandFirstOnly" : false,
+    "expanded" : false,
+    "rootNode" : false,
+    "selectFirstOnly" : false,
+    "selected" : false,
+    "id" : "children"
+  }, {
+    "counterMode" : 0,
+    "dataSourceType" : "DEDATASET",
+    "getIdPSAppDEField" : {
+      "name" : "ID",
+      "codeName" : "id"
+    },
+    "maxSize" : -1,
+    "name" : "当前部门",
+    "getNavPSAppView" : {
+      "modelref" : true,
+      "path" : "PSSYSAPPS/ehrapp/PSAPPDEVIEWS/hr_departmentmain_view.json",
+      "viewType" : "DEEDITVIEW"
+    },
+    "nodeType" : "cur",
+    "getPSAppDEDataSet" : {
+      "modelref" : true,
+      "id" : "fetch_department_hierarchy"
+    },
+    "getPSAppDataEntity" : {
+      "modelref" : true,
+      "path" : "PSSYSAPPS/ehrapp/PSAPPDATAENTITIES/hr_department.json"
+    },
+    "getPSControlRenders" : [ {
+      "name" : "cur_layout",
+      "getPSLayoutPanel" : {
+        "getAllPSPanelFields" : [ {
+          "id" : "name",
+          "viewFieldName" : "name"
+        }, {
+          "id" : "manager_id",
+          "viewFieldName" : "MANAGER_ID"
+        }, {
+          "id" : "total_employee",
+          "viewFieldName" : "total_employee"
+        }, {
+          "id" : "child_count",
+          "hidden" : true,
+          "viewFieldName" : "CHILD_COUNT"
+        } ],
+        "codeName" : "department_chart_node_panel",
+        "controlType" : "PANEL",
+        "dynaModelFilePath" : "PSSYSAPPS/ehrapp/PSAPPDATAENTITIES/hr_department/PSPANELS/department_chart_node_panel.json",
+        "hookEventNames" : [ "ONCLICK" ],
+        "layoutMode" : "FLEX",
+        "logicName" : "部门架构图节点绘制面板",
+        "getPSAppDataEntity" : {
+          "modelref" : true,
+          "path" : "PSSYSAPPS/ehrapp/PSAPPDATAENTITIES/hr_department.json"
+        },
+        "getPSControlLogics" : [ {
+          "eventNames" : "onClick",
+          "itemName" : "BUTTON_CALLUILOGIC1",
+          "logicTag" : "cur_layout",
+          "logicType" : "APPDEUIACTION",
+          "name" : "logic2",
+          "getPSAppDEUIAction" : {
+            "actionTarget" : "NONE",
+            "caption" : "展开",
+            "codeName" : "tree_node_expanded",
+            "frontProcessType" : "OTHER",
+            "fullCodeName" : "hr_employee_tree_node_expanded",
+            "memo" : "员工组织架构图节点绘制面板使用",
+            "name" : "树节点展开",
+            "getPSAppDataEntity" : {
+              "modelref" : true,
+              "path" : "PSSYSAPPS/ehrapp/PSAPPDATAENTITIES/hr_employee.json"
+            },
+            "scriptCode" : "\r\nevent.stopPropagation();\r\nevent.preventDefault();\r\nctrl.evt.emit('onPanelItemEvent', {\r\n    panelItemName: ctrl.model.id,\r\n    panelItemEventName: 'onExpanded',\r\n    event,\r\n    data: data,\r\n})",
+            "uIActionMode" : "FRONT",
+            "uIActionTag" : "tree_node_expanded",
+            "uIActionType" : "DEUIACTION",
+            "globalUIAction" : true,
+            "id" : "tree_node_expanded@hr_employee"
+          }
+        } ],
+        "getPSControlParam" : { },
+        "getPSLayout" : {
+          "layout" : "FLEX"
+        },
+        "getRootPSPanelItems" : [ {
+          "caption" : "容器",
+          "contentHeight" : 142.0,
+          "contentWidth" : 232.0,
+          "height" : 142.0,
+          "itemStyle" : "DEFAULT",
+          "itemType" : "CONTAINER",
+          "name" : "container5",
+          "getPSLayout" : {
+            "layout" : "FLEX"
+          },
+          "getPSLayoutPos" : {
+            "grow" : -1,
+            "height" : 142,
+            "heightMode" : "PX",
+            "layout" : "FLEX",
+            "width" : 232,
+            "widthMode" : "PX"
+          },
+          "getPSPanelItems" : [ {
+            "caption" : "容器",
+            "contentHeight" : 30.0,
+            "height" : 30.0,
+            "itemStyle" : "DEFAULT",
+            "itemType" : "CONTAINER",
+            "name" : "container",
+            "getPSLayout" : {
+              "layout" : "FLEX"
+            },
+            "getPSLayoutPos" : {
+              "grow" : -1,
+              "height" : 30,
+              "heightMode" : "PX",
+              "layout" : "FLEX"
+            },
+            "getPSPanelItems" : [ {
+              "caption" : "文本(动态)",
+              "cssStyle" : "font-weight: var(--ibiz-font-weight-bold);\nmargin-top: 4px;",
+              "itemStyle" : "DEFAULT",
+              "itemType" : "FIELD",
+              "name" : "name",
+              "getPSEditor" : {
+                "editorType" : "SPAN",
+                "name" : "name",
+                "predefinedType" : "FIELD_TEXT_DYNAMIC",
+                "renderMode" : "TEXT_DYNAMIC",
+                "enableLinkView" : false
+              },
+              "getPSLayoutPos" : {
+                "grow" : -1,
+                "hAlignSelf" : "CENTER",
+                "layout" : "FLEX"
+              },
+              "viewFieldName" : "name"
+            } ]
+          }, {
+            "caption" : "容器",
+            "itemStyle" : "DEFAULT",
+            "itemType" : "CONTAINER",
+            "name" : "container1",
+            "getPSLayout" : {
+              "dir" : "row",
+              "layout" : "FLEX"
+            },
+            "getPSLayoutPos" : {
+              "grow" : -1,
+              "layout" : "FLEX",
+              "spacingTop" : "OUTERSMALL"
+            },
+            "getPSPanelItems" : [ {
+              "caption" : "文本(动态)",
+              "itemStyle" : "DEFAULT",
+              "itemType" : "FIELD",
+              "name" : "manager_id",
+              "getPSEditor" : {
+                "editorStyle" : "PERSONNEL_INFO",
+                "editorType" : "SPAN",
+                "name" : "manager_id",
+                "getPSAppCodeList" : {
+                  "modelref" : true,
+                  "path" : "PSSYSAPPS/ehrapp/PSAPPCODELISTS/hr__hr_employee.json"
+                },
+                "getPSSysPFPlugin" : {
+                  "pluginType" : "EDITOR_CUSTOMSTYLE",
+                  "pluginCode" : "PERSONNEL_INFO",
+                  "runtimeObject" : true
+                },
+                "predefinedType" : "FIELD_TEXT_DYNAMIC",
+                "renderMode" : "TEXT_DYNAMIC",
+                "enableLinkView" : false
+              },
+              "getPSLayoutPos" : {
+                "grow" : -1,
+                "layout" : "FLEX",
+                "spacingLeft" : "OUTERSMALL"
+              },
+              "viewFieldName" : "MANAGER_ID",
+              "convertToCodeItemText" : true
+            } ]
+          }, {
+            "caption" : "容器",
+            "itemStyle" : "DEFAULT",
+            "itemType" : "CONTAINER",
+            "name" : "container3",
+            "getPSLayout" : {
+              "dir" : "row",
+              "layout" : "FLEX"
+            },
+            "getPSLayoutPos" : {
+              "grow" : -1,
+              "layout" : "FLEX",
+              "spacingTop" : "OUTERSMALL"
+            },
+            "getPSPanelItems" : [ {
+              "caption" : "文本(动态)",
+              "itemStyle" : "DEFAULT",
+              "itemType" : "FIELD",
+              "name" : "total_employee",
+              "getPSEditor" : {
+                "editorType" : "SPAN",
+                "name" : "total_employee",
+                "predefinedType" : "FIELD_TEXT_DYNAMIC",
+                "renderMode" : "TEXT_DYNAMIC",
+                "enableLinkView" : false
+              },
+              "getPSLayoutPos" : {
+                "grow" : -1,
+                "layout" : "FLEX",
+                "spacingLeft" : "OUTERSMALL"
+              },
+              "viewFieldName" : "total_employee"
+            }, {
+              "caption" : "员工",
+              "contentType" : "RAW",
+              "itemStyle" : "DEFAULT",
+              "itemType" : "RAWITEM",
+              "name" : "static_label",
+              "getPSLayoutPos" : {
+                "grow" : -1,
+                "layout" : "FLEX",
+                "spacingLeft" : "OUTERSMALL"
+              },
+              "getPSRawItem" : {
+                "caption" : "员工",
+                "contentType" : "RAW",
+                "name" : "static_label",
+                "predefinedType" : "STATIC_LABEL",
+                "renderMode" : "PARAGRAPH"
+              },
+              "rawContent" : "员工",
+              "showCaption" : true
+            } ]
+          }, {
+            "caption" : "容器",
+            "itemStyle" : "DEFAULT",
+            "itemType" : "CONTAINER",
+            "name" : "container2",
+            "getPSLayout" : {
+              "layout" : "FLEX"
+            },
+            "getPSLayoutPos" : {
+              "grow" : -1,
+              "layout" : "FLEX",
+              "widthMode" : "FULL"
+            },
+            "getPSPanelItems" : [ {
+              "actionType" : "NONE",
+              "buttonStyle" : "DEFAULT",
+              "caption" : "收缩",
+              "captionItemName" : "CHILD_COUNT",
+              "itemStyle" : "DEFAULT",
+              "itemType" : "BUTTON",
+              "name" : "button_calluilogic1",
+              "getPSLayoutPos" : {
+                "grow" : -1,
+                "layout" : "FLEX",
+                "widthMode" : "FULL"
+              },
+              "getPSPanelItemGroupLogics" : [ {
+                "groupOP" : "AND",
+                "logicCat" : "PANELVISIBLE",
+                "logicType" : "GROUP",
+                "getPSPanelItemLogics" : [ {
+                  "condOp" : "GT",
+                  "dstModelField" : "CHILD_COUNT",
+                  "logicType" : "SINGLE",
+                  "name" : "CHILD_COUNT 大于(>) 0",
+                  "value" : "0"
+                } ],
+                "relatedItemNames" : [ "child_count" ],
+                "notMode" : false
+              } ],
+              "tooltip" : "收缩",
+              "uIActionTarget" : "NONE",
+              "showCaption" : true
+            } ]
+          }, {
+            "caption" : "文本(动态)",
+            "itemType" : "FIELD",
+            "name" : "child_count",
+            "getPSEditor" : {
+              "editorType" : "HIDDEN",
+              "name" : "child_count",
+              "predefinedType" : "FIELD_TEXT_DYNAMIC"
+            },
+            "getPSLayoutPos" : {
+              "grow" : -1,
+              "layout" : "FLEX"
+            },
+            "viewFieldName" : "CHILD_COUNT",
+            "hidden" : true
+          } ],
+          "getPSSysCss" : {
+            "cssName" : "dept-chart-node"
+          },
+          "width" : 232.0
+        } ],
+        "mobilePanel" : true,
+        "name" : "cur_layout",
+        "modelid" : "01bd69d20ed87509683333a568ff1f5d",
+        "modeltype" : "PSSYSVIEWPANEL"
+      },
+      "renderType" : "LAYOUTPANEL"
+    }, {
+      "name" : "activenoderender_cur",
+      "getPSLayoutPanel" : {
+        "getAllPSPanelFields" : [ {
+          "id" : "name",
+          "viewFieldName" : "name"
+        } ],
+        "codeName" : "dept_active_node_panel",
+        "controlType" : "PANEL",
+        "dynaModelFilePath" : "PSSYSAPPS/ehrapp/PSAPPDATAENTITIES/hr_department/PSPANELS/dept_active_node_panel.json",
+        "layoutMode" : "TABLE_24COL",
+        "logicName" : "部门架构图激活节点绘制面板",
+        "getPSAppDataEntity" : {
+          "modelref" : true,
+          "path" : "PSSYSAPPS/ehrapp/PSAPPDATAENTITIES/hr_department.json"
+        },
+        "getPSControlParam" : { },
+        "getPSLayout" : {
+          "childColMD" : 24,
+          "columnCount" : 24,
+          "layout" : "TABLE_24COL"
+        },
+        "getRootPSPanelItems" : [ {
+          "caption" : "容器",
+          "itemStyle" : "DEFAULT",
+          "itemType" : "CONTAINER",
+          "name" : "container",
+          "getPSLayout" : {
+            "dir" : "row",
+            "layout" : "FLEX"
+          },
+          "getPSLayoutPos" : {
+            "colMD" : 24,
+            "layout" : "TABLE_24COL"
+          },
+          "getPSPanelItems" : [ {
+            "caption" : "文本(动态)",
+            "itemStyle" : "DEFAULT",
+            "itemType" : "FIELD",
+            "name" : "name",
+            "getPSEditor" : {
+              "editorType" : "SPAN",
+              "name" : "name",
+              "predefinedType" : "FIELD_TEXT_DYNAMIC",
+              "renderMode" : "TEXT_DYNAMIC",
+              "enableLinkView" : false
+            },
+            "getPSLayoutPos" : {
+              "grow" : -1,
+              "layout" : "FLEX",
+              "spacingLeft" : "OUTERSMALL",
+              "spacingTop" : "OUTERSMALL"
+            },
+            "viewFieldName" : "name"
+          } ]
+        } ],
+        "layoutPanel" : true,
+        "mobilePanel" : true,
+        "name" : "activenoderender_cur",
+        "modelid" : "0e45014878e79c35483e14834cc61b63",
+        "modeltype" : "PSSYSVIEWPANEL"
+      },
+      "renderType" : "LAYOUTPANEL"
+    } ],
+    "getPSNavigateContexts" : [ {
+      "key" : "HR_DEPARTMENT",
+      "name" : "HR_DEPARTMENT",
+      "value" : "${srfkey}",
+      "rawValue" : false
+    } ],
+    "getTextPSAppDEField" : {
+      "name" : "NAME",
+      "codeName" : "name"
+    },
+    "treeNodeType" : "DE",
+    "hasPSDETreeNodeRSs" : true,
+    "allowDrag" : true,
+    "allowDrop" : true,
+    "allowOrder" : true,
+    "appendPNodeId" : false,
+    "disableSelect" : false,
+    "enableCheck" : false,
+    "enableEditData" : false,
+    "enableNewData" : false,
+    "enableQuickCreate" : false,
+    "enableQuickSearch" : false,
+    "enableRemoveData" : false,
+    "enableViewData" : false,
+    "expandFirstOnly" : false,
+    "expanded" : false,
+    "rootNode" : false,
+    "selectFirstOnly" : false,
+    "selected" : false,
+    "id" : "cur"
+  } ],
+  "getPSSysPFPlugin" : {
+    "pluginType" : "TREE_RENDER",
+    "pluginCode" : "ODOO_ORG_TREE",
+    "runtimeObject" : true
+  },
+  "getRemovePSControlAction" : {
+    "modelref" : true,
+    "id" : "remove",
+    "actionName" : "Remove",
+    "actionType" : "DEACTION",
+    "dataAccessAction" : "DELETE",
+    "name" : "remove",
+    "getPSAppDEMethod" : {
+      "modelref" : true,
+      "id" : "remove"
+    },
+    "getPSAppDataEntity" : {
+      "modelref" : true,
+      "path" : "PSSYSAPPS/ehrapp/PSAPPDATAENTITIES/hr_department.json"
+    }
+  },
+  "treeGridMode" : 0,
+  "getUpdatePSControlAction" : {
+    "modelref" : true,
+    "id" : "update",
+    "actionName" : "Update",
+    "actionType" : "DEACTION",
+    "dataAccessAction" : "UPDATE",
+    "name" : "update",
+    "getPSAppDEMethod" : {
+      "modelref" : true,
+      "id" : "update"
+    },
+    "getPSAppDataEntity" : {
+      "modelref" : true,
+      "path" : "PSSYSAPPS/ehrapp/PSAPPDATAENTITIES/hr_department.json"
+    }
+  },
+  "enableRootSelect" : false,
+  "outputIconDefault" : true,
+  "rootVisible" : false,
+  "modelid" : "88f79a5e6701213faf79e4a4323245ab",
+  "modeltype" : "PSDETREEVIEW"
+}

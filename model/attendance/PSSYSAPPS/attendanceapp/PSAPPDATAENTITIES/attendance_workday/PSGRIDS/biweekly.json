@@ -1,0 +1,246 @@
+{
+  "aggMode" : "NONE",
+  "codeName" : "biweekly",
+  "columnEnableFilter" : 2,
+  "columnEnableLink" : 2,
+  "controlType" : "GRID",
+  "dynaModelFilePath" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/attendance_workday/PSGRIDS/biweekly.json",
+  "getFetchPSControlAction" : {
+    "modelref" : true,
+    "id" : "fetch",
+    "actionType" : "DEDATASET",
+    "name" : "fetch",
+    "getPSAppDEMethod" : {
+      "modelref" : true,
+      "id" : "FetchBigWeek"
+    },
+    "getPSAppDataEntity" : {
+      "modelref" : true,
+      "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/attendance_workday.json"
+    }
+  },
+  "groupMode" : "NONE",
+  "logicName" : "大小周表格",
+  "getPSAppDataEntity" : {
+    "modelref" : true,
+    "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/attendance_workday.json"
+  },
+  "getPSDEGridColumns" : [ {
+    "align" : "LEFT",
+    "cLConvertMode" : "FRONT",
+    "getCapPSLanguageRes" : {
+      "lanResTag" : "DEF.LNAME.ATTENDANCE_WORKDAY.NAME"
+    },
+    "caption" : "工作日",
+    "codeName" : "name",
+    "columnType" : "DEFGRIDCOLUMN",
+    "dataItemName" : "name",
+    "excelCaption" : "工作日",
+    "name" : "name",
+    "noPrivDisplayMode" : 1,
+    "getPSAppCodeList" : {
+      "modelref" : true,
+      "path" : "PSSYSAPPS/attendanceapp/PSAPPCODELISTS/attendance__workday.json"
+    },
+    "getPSAppDEField" : {
+      "name" : "NAME",
+      "codeName" : "name"
+    },
+    "width" : 150,
+    "widthUnit" : "STAR",
+    "enableSort" : true
+  }, {
+    "align" : "LEFT",
+    "cLConvertMode" : "NONE",
+    "caption" : "班次时间段",
+    "codeName" : "work_time",
+    "columnType" : "DEFGRIDCOLUMN",
+    "dataItemName" : "work_time",
+    "excelCaption" : "班次时间段",
+    "name" : "work_time",
+    "noPrivDisplayMode" : 1,
+    "getPSAppDEField" : {
+      "name" : "WORK_TIME",
+      "codeName" : "work_time"
+    },
+    "width" : 150,
+    "widthUnit" : "STAR",
+    "enableSort" : true
+  }, {
+    "align" : "CENTER",
+    "caption" : "操作",
+    "codeName" : "uagridcolumn1",
+    "columnType" : "UAGRIDCOLUMN",
+    "name" : "uagridcolumn1",
+    "noPrivDisplayMode" : 1,
+    "getPSDEUIActionGroup" : {
+      "codeName" : "A58e512f11c9cdc6d78",
+      "name" : "修改班次时间",
+      "getPSAppDataEntity" : {
+        "modelref" : true,
+        "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/attendance_workday.json"
+      },
+      "getPSUIActionGroupDetails" : [ {
+        "caption" : "修改班次时间",
+        "detailType" : "DEUIACTION",
+        "enableScriptCode" : "data.work_time!= null && data.work_time != \"休息日\"",
+        "name" : "ud2d8b52",
+        "getPSUIAction" : {
+          "actionTarget" : "NONE",
+          "caption" : "修改班次时间",
+          "codeName" : "editScope",
+          "getFrontPSAppView" : {
+            "modelref" : true,
+            "path" : "PSSYSAPPS/attendanceapp/PSAPPDEVIEWS/attendance_shift_default_shift_view.json",
+            "viewType" : "DEOPTVIEW"
+          },
+          "frontProcessType" : "WIZARD",
+          "fullCodeName" : "attendance_workday_editScope",
+          "name" : "修改班次时间",
+          "getPSAppDataEntity" : {
+            "modelref" : true,
+            "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/attendance_workday.json"
+          },
+          "getPSNavigateContexts" : [ {
+            "key" : "WORKDAY",
+            "name" : "WORKDAY",
+            "value" : "id",
+            "rawValue" : false
+          }, {
+            "key" : "SCHEDULE_TYPE",
+            "name" : "SCHEDULE_TYPE",
+            "value" : "schedule_type",
+            "rawValue" : false
+          }, {
+            "key" : "ATTENDANCE_SHIFT",
+            "name" : "ATTENDANCE_SHIFT",
+            "value" : "shift_id",
+            "rawValue" : false
+          } ],
+          "getPSNavigateParams" : [ {
+            "key" : "shift",
+            "name" : "shift",
+            "value" : "shift_id",
+            "rawValue" : false
+          }, {
+            "key" : "workday",
+            "name" : "workday",
+            "value" : "id",
+            "rawValue" : false
+          } ],
+          "refreshMode" : 1,
+          "uIActionMode" : "FRONT",
+          "uIActionTag" : "editScope",
+          "uIActionType" : "DEUIACTION",
+          "reloadData" : true,
+          "id" : "editScope@attendance_workday"
+        },
+        "visibleScriptCode" : "data.work_time != null && data.work_time != \"休息日\"",
+        "addSeparator" : false,
+        "showCaption" : true,
+        "showIcon" : true
+      } ],
+      "uniqueTag" : "attendance_workday__A58e512f11c9cdc6d78"
+    },
+    "width" : 150,
+    "widthUnit" : "STAR",
+    "enableSort" : false
+  } ],
+  "getPSDEGridDataItems" : [ {
+    "dataType" : 25,
+    "name" : "name",
+    "getPSAppDEField" : {
+      "name" : "NAME",
+      "codeName" : "name"
+    }
+  }, {
+    "dataType" : 25,
+    "name" : "work_time",
+    "getPSAppDEField" : {
+      "name" : "WORK_TIME",
+      "codeName" : "work_time"
+    }
+  }, {
+    "dataType" : 25,
+    "name" : "shift_id",
+    "getPSAppDEField" : {
+      "name" : "SHIFT_ID",
+      "codeName" : "shift_id"
+    }
+  }, {
+    "dataType" : 25,
+    "name" : "srfkey",
+    "getPSAppDEField" : {
+      "name" : "ID",
+      "codeName" : "id"
+    }
+  }, {
+    "dataType" : 25,
+    "name" : "srfdataaccaction",
+    "getPSAppDEField" : {
+      "name" : "ID",
+      "codeName" : "id"
+    },
+    "dataAccessAction" : true
+  }, {
+    "dataType" : 25,
+    "name" : "rule_id",
+    "getPSAppDEField" : {
+      "name" : "RULE_ID",
+      "codeName" : "rule_id"
+    }
+  }, {
+    "dataType" : 25,
+    "name" : "srfmajortext",
+    "getPSAppDEField" : {
+      "name" : "NAME",
+      "codeName" : "name"
+    }
+  } ],
+  "getPSDEGridEditItems" : [ {
+    "caption" : "标识",
+    "codeName" : "srfkey",
+    "enableCond" : 3,
+    "ignoreInput" : 0,
+    "name" : "srfkey",
+    "getPSAppDEField" : {
+      "name" : "ID",
+      "codeName" : "id"
+    },
+    "getPSEditor" : {
+      "editorType" : "HIDDEN",
+      "name" : "srfkey"
+    },
+    "allowEmpty" : true
+  } ],
+  "pagingSize" : 20,
+  "getRemovePSControlAction" : {
+    "actionName" : "Remove",
+    "actionType" : "DEACTION",
+    "dataAccessAction" : "DELETE",
+    "name" : "remove",
+    "getPSAppDEMethod" : {
+      "modelref" : true,
+      "id" : "remove"
+    },
+    "getPSAppDataEntity" : {
+      "modelref" : true,
+      "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/attendance_workday.json"
+    }
+  },
+  "sortMode" : "REMOTE",
+  "hasWFDataItems" : false,
+  "enableColFilter" : false,
+  "enableCustomized" : true,
+  "enableGroup" : false,
+  "enablePagingBar" : false,
+  "enableRowEdit" : false,
+  "enableRowEditOrder" : false,
+  "enableRowNew" : false,
+  "forceFit" : false,
+  "hideHeader" : false,
+  "noSort" : false,
+  "singleSelect" : true,
+  "modelid" : "978387d7b55714c9c917959c51d37416",
+  "modeltype" : "PSDEGRID"
+}

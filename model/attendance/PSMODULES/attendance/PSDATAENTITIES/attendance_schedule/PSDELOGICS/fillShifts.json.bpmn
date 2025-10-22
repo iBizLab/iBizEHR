@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+    <definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:g="http://www.jboss.org/drools/flow/gpd" xmlns:tns="http://www.jboss.org/drools" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" expressionLanguage="http://www.mvel.org/2.0" id="Definition" name="" targetNamespace="http://www.jboss.org/drools" typeLanguage="http://www.java.com/javaTypes">
+        <process id="cn.ibizlab.core.attendance.service.logic.attendance_schedulefillshifts" isClosed="false" isExecutable="true" name="attendance_attendance_schedule_fillshifts_ruleFlow" processType="Private" tns:packageName="cn.ibizlab.core.attendance.service.logic.attendance_schedulefillshifts">
+            <extensionElements>
+                <tns:import name="java.util.Map" />
+                <tns:import name="org.springframework.util.StringUtils"/>
+                <tns:import name="cn.ibizlab.util.helper.RuleUtils"/>
+                                <tns:metaData express="" name="attendance_schedulefillshiftsdefault" type="entity"/>
+                                <tns:metaData express="new cn.ibizlab.core.attendance.domain.attendance_shift()" name="attendance_schedulefillshiftsfilter" type="refentity"/>
+                                <tns:metaData express="new cn.ibizlab.core.attendance.domain.attendance_activate_shift()" name="attendance_schedulefillshiftsattendance_shift" type="refentity"/>
+                                <tns:metaData express="new cn.ibizlab.core.attendance.domain.attendance_scope()" name="attendance_schedulefillshiftsscopefilter" type="refentity"/>
+                                <tns:metaData express="new cn.ibizlab.core.attendance.domain.attendance_scope()" name="attendance_schedulefillshiftsscopes" type="refentity"/>
+                                <tns:metaData express="new cn.ibizlab.core.attendance.domain.attendance_activate_shift()" name="attendance_schedulefillshiftsshifts" type="refentity"/>
+                                    <tns:metaData express="T(cn.ibizlab.util.security.SpringContextHolder).getBean(T(cn.ibizlab.core.attendance.service.Iattendance_activate_shiftService))" name="attendance_activate_shiftservice" type="service"/>
+                                    <tns:metaData express="T(cn.ibizlab.util.security.SpringContextHolder).getBean(T(cn.ibizlab.core.attendance.service.Iattendance_scopeService))" name="attendance_scopeservice" type="service"/>
+                    <tns:metaData express="T(cn.ibizlab.util.security.SpringContextHolder).getBean(T(cn.ibizlab.core.attendance.service.Iattendance_scheduleService))" name="iBzSysAttendance_scheduleDefaultService" type="service"/>
+                    <tns:metaData express="T(cn.ibizlab.util.security.AuthenticationUser).getAuthenticationUser()" name="curuser" type="session"/>
+                            <tns:global identifier="attendance_schedulefillshiftsdefault" type="cn.ibizlab.core.attendance.domain.attendance_schedule" />
+                            <tns:global identifier="attendance_schedulefillshiftsfilter" type="cn.ibizlab.core.attendance.domain.attendance_shift" />
+                            <tns:global identifier="attendance_schedulefillshiftsattendance_shift" type="cn.ibizlab.core.attendance.domain.attendance_activate_shift" />
+                            <tns:global identifier="attendance_schedulefillshiftsscopefilter" type="cn.ibizlab.core.attendance.domain.attendance_scope" />
+                            <tns:global identifier="attendance_schedulefillshiftsscopes" type="cn.ibizlab.core.attendance.domain.attendance_scope" />
+                            <tns:global identifier="attendance_schedulefillshiftsshifts" type="cn.ibizlab.core.attendance.domain.attendance_activate_shift" />
+            </extensionElements>
+                        <startEvent id="begin" isInterrupting="true"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="attendance_schedulefillshiftsdedataset_01" id="dedataset_01" implementation="http://www.jboss.org/drools/rule" name="实体数据集"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="attendance_schedulefillshiftsloopsubcall_01" id="loopsubcall_01" implementation="http://www.jboss.org/drools/rule" name="循环子调用"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="attendance_schedulefillshiftsrawsfcode_01" id="rawsfcode_01" implementation="http://www.jboss.org/drools/rule" name="执行脚本代码"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="attendance_schedulefillshiftsprepareparam_01" id="prepareparam_01" implementation="http://www.jboss.org/drools/rule" name="准备参数"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="attendance_schedulefillshiftsend_01" id="end_01" implementation="http://www.jboss.org/drools/rule" name="结束"/>
+                        <endEvent id="end_01_end" name="end"/>
+                        <sequenceFlow id="end_01_end_line" sourceRef="end_01" targetRef="end_01_end"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="attendance_schedulefillshiftsprepareparam_03" id="prepareparam_03" implementation="http://www.jboss.org/drools/rule" name="准备参数"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="attendance_schedulefillshiftsprepareparam_04" id="prepareparam_04" implementation="http://www.jboss.org/drools/rule" name="准备参数"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="attendance_schedulefillshiftsdebugparam_02" id="debugparam_02" implementation="http://www.jboss.org/drools/rule" name="调试逻辑参数"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="attendance_schedulefillshiftsdedataquery_01" id="dedataquery_01" implementation="http://www.jboss.org/drools/rule" name="实体数据查询"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="attendance_schedulefillshiftsend_02" id="end_02" implementation="http://www.jboss.org/drools/rule" name="结束"/>
+                        <endEvent id="end_02_end" name="end"/>
+                        <sequenceFlow id="end_02_end_line" sourceRef="end_02" targetRef="end_02_end"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="attendance_schedulefillshiftsprepareparam_02" id="prepareparam_02" implementation="http://www.jboss.org/drools/rule" name="准备参数"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="attendance_schedulefillshiftsdebugparam_01" id="debugparam_01" implementation="http://www.jboss.org/drools/rule" name="调试逻辑参数"/>
+                        <endEvent id="debugparam_01_end" name="end"/>
+                        <sequenceFlow id="debugparam_01_end_line" sourceRef="debugparam_01" targetRef="debugparam_01_end"/>
+                    <sequenceFlow id="begin_prepareparam_04" sourceRef="begin" targetRef="prepareparam_04">
+                    </sequenceFlow>
+                    <sequenceFlow id="dedataset_01_loopsubcall_01" sourceRef="dedataset_01" targetRef="loopsubcall_01">
+                    </sequenceFlow>
+                    <sequenceFlow id="loopsubcall_01_prepareparam_03" sourceRef="loopsubcall_01" targetRef="prepareparam_03">
+                    </sequenceFlow>
+                    <sequenceFlow id="loopsubcall_01_rawsfcode_01" sourceRef="loopsubcall_01" targetRef="rawsfcode_01">
+                    </sequenceFlow>
+                    <sequenceFlow id="rawsfcode_01_debugparam_02" sourceRef="rawsfcode_01" targetRef="debugparam_02">
+                    </sequenceFlow>
+                    <sequenceFlow id="prepareparam_01_dedataset_01" sourceRef="prepareparam_01" targetRef="dedataset_01">
+                    </sequenceFlow>
+                    <sequenceFlow id="prepareparam_03_dedataquery_01" sourceRef="prepareparam_03" targetRef="dedataquery_01">
+                    </sequenceFlow>
+                    <sequenceFlow id="gateway-prepareparam_04_prepareparam_01" sourceRef="gateway-prepareparam_04" targetRef="prepareparam_01">
+                            <conditionExpression  language="http://www.jboss.org/drools/rule" ><![CDATA[
+                                            $attendance_schedulefillshiftsdefault:attendance_schedule();
+                                            $attendance_schedulefillshiftsfilter:attendance_shift();
+                                            $attendance_schedulefillshiftsattendance_shift:attendance_activate_shift();
+                                            $attendance_schedulefillshiftsscopefilter:attendance_scope();
+                                            $attendance_schedulefillshiftsscopes:attendance_scope();
+                                            $attendance_schedulefillshiftsshifts:attendance_activate_shift();
+                                    eval($attendance_schedulefillshiftsdefault==attendance_schedulefillshiftsdefault && $attendance_schedulefillshiftsfilter==attendance_schedulefillshiftsfilter && $attendance_schedulefillshiftsattendance_shift==attendance_schedulefillshiftsattendance_shift && $attendance_schedulefillshiftsscopefilter==attendance_schedulefillshiftsscopefilter && $attendance_schedulefillshiftsscopes==attendance_schedulefillshiftsscopes && $attendance_schedulefillshiftsshifts==attendance_schedulefillshiftsshifts);
+                                eval((RuleUtils.test($attendance_schedulefillshiftsdefault.get("ruleId"),"ISNOTNULL","")))
+                                ]]>
+                            </conditionExpression>
+                    </sequenceFlow>
+                    <sequenceFlow id="gateway-prepareparam_04_end_02" sourceRef="gateway-prepareparam_04" targetRef="end_02">
+                            <conditionExpression  language="http://www.jboss.org/drools/rule" ><![CDATA[
+                                            $attendance_schedulefillshiftsdefault:attendance_schedule();
+                                            $attendance_schedulefillshiftsfilter:attendance_shift();
+                                            $attendance_schedulefillshiftsattendance_shift:attendance_activate_shift();
+                                            $attendance_schedulefillshiftsscopefilter:attendance_scope();
+                                            $attendance_schedulefillshiftsscopes:attendance_scope();
+                                            $attendance_schedulefillshiftsshifts:attendance_activate_shift();
+                                    eval($attendance_schedulefillshiftsdefault==attendance_schedulefillshiftsdefault && $attendance_schedulefillshiftsfilter==attendance_schedulefillshiftsfilter && $attendance_schedulefillshiftsattendance_shift==attendance_schedulefillshiftsattendance_shift && $attendance_schedulefillshiftsscopefilter==attendance_schedulefillshiftsscopefilter && $attendance_schedulefillshiftsscopes==attendance_schedulefillshiftsscopes && $attendance_schedulefillshiftsshifts==attendance_schedulefillshiftsshifts);
+                                eval((RuleUtils.test($attendance_schedulefillshiftsdefault.get("ruleId"),"ISNULL","")))
+                                ]]>
+                            </conditionExpression>
+                    </sequenceFlow>
+                    <sequenceFlow id="debugparam_02_end_01" sourceRef="debugparam_02" targetRef="end_01">
+                    </sequenceFlow>
+                    <sequenceFlow id="dedataquery_01_prepareparam_02" sourceRef="dedataquery_01" targetRef="prepareparam_02">
+                    </sequenceFlow>
+                    <sequenceFlow id="prepareparam_02_debugparam_01" sourceRef="prepareparam_02" targetRef="debugparam_01">
+                    </sequenceFlow>
+                            <exclusiveGateway id="gateway-prepareparam_04" name="Gateway" gatewayDirection="Diverging" default="gateway-prepareparam_04_end_line"></exclusiveGateway>
+                            <sequenceFlow id="prepareparam_04_gateway-prepareparam_04_gatewayline" sourceRef="prepareparam_04" targetRef="gateway-prepareparam_04"></sequenceFlow>
+                            <sequenceFlow id="gateway-prepareparam_04_end_line" sourceRef="gateway-prepareparam_04" targetRef="gateway-prepareparam_04_end"/>
+                            <endEvent id="gateway-prepareparam_04_end" name="end"/>
+        </process>
+    </definitions>

@@ -1,0 +1,84 @@
+package cn.ibizlab.attendance.logic.attendance_rulelogic.updategroups;
+        import java.util.Map;
+        import java.util.HashMap;
+        import com.alibaba.fastjson.JSONObject;
+        import org.springframework.util.StringUtils;
+        import org.springframework.util.ObjectUtils;
+        import cn.ibizlab.util.errors.BadRequestAlertException;
+                global cn.ibizlab.core.attendance.domain.attendance_rule attendance_ruleupdategroupsdefault;
+                global cn.ibizlab.core.attendance.domain.attendance_group_shift attendance_ruleupdategroupsgroupshift;
+                global java.util.Map attendance_ruleupdategroupsgroupshifts;
+        global cn.ibizlab.core.attendance.service.Iattendance_ruleService iBzSysAttendance_ruleDefaultService;
+        global cn.ibizlab.util.security.AuthenticationUser curuser;
+
+
+    no-loop
+
+            //逻辑处理节点[开始]
+            rule "begin"
+            ruleflow-group "attendance_ruleupdategroupsbegin"
+            when
+            then
+            end
+
+            //逻辑处理节点[n班倒-休息日相同]
+            rule "rawsfcode_02"
+            ruleflow-group "attendance_ruleupdategroupsrawsfcode_02"
+            when
+            then
+                        update(attendance_ruleupdategroupsdefault);//更新fact中变量值
+                        update(attendance_ruleupdategroupsgroupshift);//更新fact中变量值
+                        update(attendance_ruleupdategroupsgroupshifts);//更新fact中变量值
+            end
+
+            //逻辑处理节点[准备参数]
+            rule "prepareparam_01"
+            ruleflow-group "attendance_ruleupdategroupsprepareparam_01"
+            when
+            then
+                            attendance_ruleupdategroupsgroupshifts.set("",attendance_ruleupdategroupsdefault.get("attendance_group_shifts"));
+                        update(attendance_ruleupdategroupsdefault);//更新fact中变量值
+                        update(attendance_ruleupdategroupsgroupshift);//更新fact中变量值
+                        update(attendance_ruleupdategroupsgroupshifts);//更新fact中变量值
+            end
+
+            //逻辑处理节点[循环子调用]
+            rule "loopsubcall_01"
+            ruleflow-group "attendance_ruleupdategroupsloopsubcall_01"
+            when
+            then
+                        update(attendance_ruleupdategroupsdefault);//更新fact中变量值
+                        update(attendance_ruleupdategroupsgroupshift);//更新fact中变量值
+                        update(attendance_ruleupdategroupsgroupshifts);//更新fact中变量值
+            end
+
+            //逻辑处理节点[调试逻辑参数]
+            rule "debugparam_01"
+            ruleflow-group "attendance_ruleupdategroupsdebugparam_01"
+            when
+            then
+                        update(attendance_ruleupdategroupsdefault);//更新fact中变量值
+                        update(attendance_ruleupdategroupsgroupshift);//更新fact中变量值
+                        update(attendance_ruleupdategroupsgroupshifts);//更新fact中变量值
+            end
+
+            //逻辑处理节点[准备参数]
+            rule "prepareparam_02"
+            ruleflow-group "attendance_ruleupdategroupsprepareparam_02"
+            when
+            then
+                            attendance_ruleupdategroupsgroupshift.set("workdays",attendance_ruleupdategroupsdefault.get("workdays"));
+                        update(attendance_ruleupdategroupsdefault);//更新fact中变量值
+                        update(attendance_ruleupdategroupsgroupshift);//更新fact中变量值
+                        update(attendance_ruleupdategroupsgroupshifts);//更新fact中变量值
+            end
+
+            //逻辑处理节点[结束]
+            rule "end_01"
+            ruleflow-group "attendance_ruleupdategroupsend_01"
+            when
+            then
+                        update(attendance_ruleupdategroupsdefault);//更新fact中变量值
+                        update(attendance_ruleupdategroupsgroupshift);//更新fact中变量值
+                        update(attendance_ruleupdategroupsgroupshifts);//更新fact中变量值
+            end

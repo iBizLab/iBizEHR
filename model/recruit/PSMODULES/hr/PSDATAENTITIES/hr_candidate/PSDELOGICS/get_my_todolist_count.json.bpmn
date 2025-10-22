@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+    <definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:g="http://www.jboss.org/drools/flow/gpd" xmlns:tns="http://www.jboss.org/drools" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" expressionLanguage="http://www.mvel.org/2.0" id="Definition" name="" targetNamespace="http://www.jboss.org/drools" typeLanguage="http://www.java.com/javaTypes">
+        <process id="cn.ibizlab.core.hr.service.logic.hr_candidateget_my_todolist_count" isClosed="false" isExecutable="true" name="hr_hr_candidate_get_my_todolist_count_ruleFlow" processType="Private" tns:packageName="cn.ibizlab.core.hr.service.logic.hr_candidateget_my_todolist_count">
+            <extensionElements>
+                <tns:import name="java.util.Map" />
+                <tns:import name="org.springframework.util.StringUtils"/>
+                <tns:import name="cn.ibizlab.util.helper.RuleUtils"/>
+                                <tns:metaData express="" name="hr_candidateget_my_todolist_countdefault" type="entity"/>
+                                <tns:metaData express="new HashMap()" name="hr_candidateget_my_todolist_countresult" type="refentity"/>
+                    <tns:metaData express="T(cn.ibizlab.util.security.SpringContextHolder).getBean(T(cn.ibizlab.core.hr.service.Ihr_candidateService))" name="iBzSysHr_candidateDefaultService" type="service"/>
+                    <tns:metaData express="T(cn.ibizlab.util.security.AuthenticationUser).getAuthenticationUser()" name="curuser" type="session"/>
+                            <tns:global identifier="hr_candidateget_my_todolist_countdefault" type="cn.ibizlab.core.hr.domain.hr_candidate" />
+            </extensionElements>
+                        <startEvent id="begin" isInterrupting="true"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="hr_candidateget_my_todolist_countprepareparam1" id="prepareparam1" implementation="http://www.jboss.org/drools/rule" name="今日待筛选人数"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="hr_candidateget_my_todolist_countrawsqlcall2" id="rawsqlcall2" implementation="http://www.jboss.org/drools/rule" name="今日面试人数"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="hr_candidateget_my_todolist_countrawsqlcall3" id="rawsqlcall3" implementation="http://www.jboss.org/drools/rule" name="待筛选简历"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="hr_candidateget_my_todolist_countrawsqlcall4" id="rawsqlcall4" implementation="http://www.jboss.org/drools/rule" name="待发送offer"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="hr_candidateget_my_todolist_countrawsqlcall5" id="rawsqlcall5" implementation="http://www.jboss.org/drools/rule" name="待入职"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="hr_candidateget_my_todolist_countrawsqlcall6" id="rawsqlcall6" implementation="http://www.jboss.org/drools/rule" name="初试-待面试"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="hr_candidateget_my_todolist_countrawsqlcall7" id="rawsqlcall7" implementation="http://www.jboss.org/drools/rule" name="初试-待反馈"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="hr_candidateget_my_todolist_countrawsqlcall8" id="rawsqlcall8" implementation="http://www.jboss.org/drools/rule" name="初试-待处理"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="hr_candidateget_my_todolist_countend1" id="end1" implementation="http://www.jboss.org/drools/rule" name="结束"/>
+                        <endEvent id="end1_end" name="end"/>
+                        <sequenceFlow id="end1_end_line" sourceRef="end1" targetRef="end1_end"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="hr_candidateget_my_todolist_countrawsqlcall11" id="rawsqlcall11" implementation="http://www.jboss.org/drools/rule" name="复试-待处理"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="hr_candidateget_my_todolist_countrawsqlcall10" id="rawsqlcall10" implementation="http://www.jboss.org/drools/rule" name="复试-待反馈"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="hr_candidateget_my_todolist_countrawsqlcall9" id="rawsqlcall9" implementation="http://www.jboss.org/drools/rule" name="复试-待面试"/>
+                    <sequenceFlow id="begin_prepareparam1" sourceRef="begin" targetRef="prepareparam1">
+                    </sequenceFlow>
+                    <sequenceFlow id="prepareparam1_rawsqlcall2" sourceRef="prepareparam1" targetRef="rawsqlcall2">
+                    </sequenceFlow>
+                    <sequenceFlow id="rawsqlcall2_rawsqlcall3" sourceRef="rawsqlcall2" targetRef="rawsqlcall3">
+                    </sequenceFlow>
+                    <sequenceFlow id="rawsqlcall3_rawsqlcall4" sourceRef="rawsqlcall3" targetRef="rawsqlcall4">
+                    </sequenceFlow>
+                    <sequenceFlow id="rawsqlcall4_rawsqlcall5" sourceRef="rawsqlcall4" targetRef="rawsqlcall5">
+                    </sequenceFlow>
+                    <sequenceFlow id="rawsqlcall5_rawsqlcall6" sourceRef="rawsqlcall5" targetRef="rawsqlcall6">
+                    </sequenceFlow>
+                    <sequenceFlow id="rawsqlcall6_rawsqlcall7" sourceRef="rawsqlcall6" targetRef="rawsqlcall7">
+                    </sequenceFlow>
+                    <sequenceFlow id="rawsqlcall7_rawsqlcall8" sourceRef="rawsqlcall7" targetRef="rawsqlcall8">
+                    </sequenceFlow>
+                    <sequenceFlow id="rawsqlcall8_rawsqlcall9" sourceRef="rawsqlcall8" targetRef="rawsqlcall9">
+                    </sequenceFlow>
+                    <sequenceFlow id="rawsqlcall11_end1" sourceRef="rawsqlcall11" targetRef="end1">
+                    </sequenceFlow>
+                    <sequenceFlow id="rawsqlcall10_rawsqlcall11" sourceRef="rawsqlcall10" targetRef="rawsqlcall11">
+                    </sequenceFlow>
+                    <sequenceFlow id="rawsqlcall9_rawsqlcall10" sourceRef="rawsqlcall9" targetRef="rawsqlcall10">
+                    </sequenceFlow>
+        </process>
+    </definitions>

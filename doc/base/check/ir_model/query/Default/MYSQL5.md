@@ -1,0 +1,19 @@
+```sql
+SELECT
+t1.`CREATE_DATE`,
+t1.`CREATE_UID`,
+t1.`ID`,
+t1.`IS_MAIL_ACTIVITY`,
+t1.`IS_MAIL_BLACKLIST`,
+t1.`IS_MAIL_THREAD`,
+t1.`MODEL`,
+t1.`NAME`,
+t1.`ORDER`,
+t1.`STATE`,
+t1.`TRANSIENT`,
+t1.`WRITE_DATE`,
+t1.`WRITE_UID`
+FROM `ir_model` t1 
+
+
+```

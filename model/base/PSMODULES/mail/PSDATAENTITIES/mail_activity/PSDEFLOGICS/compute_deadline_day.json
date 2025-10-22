@@ -1,0 +1,17 @@
+{
+  "codeName" : "compute_deadline_day",
+  "dEFLogicMode" : "COMPUTE",
+  "defaultParamName" : "DEFAULT",
+  "dynaModelFilePath" : "PSMODULES/mail/PSDATAENTITIES/mail_activity/PSDEFLOGICS/compute_deadline_day.json",
+  "logicName" : "compute_deadline_day",
+  "logicSubType" : "DEFIELD",
+  "name" : "compute_deadline_day",
+  "getPSDEField" : {
+    "name" : "DEADLINE_DAY",
+    "codeName" : "deadline_day"
+  },
+  "scriptCode" : "//Groovy\ndef curTime = net.ibizsys.runtime.util.DateUtils.getCurTime();\nif(entity.get(\"date_deadline\"))\n{\n    def deadlineTime = new java.sql.Timestamp(net.ibizsys.runtime.util.DateUtils.getTime(entity.get(\"date_deadline\")));\n    java.time.LocalDate curdate = curTime.toInstant().atZone(java.time.ZoneId.systemDefault()).toLocalDate();\n    java.time.LocalDate deadlinedate = deadlineTime.toInstant().atZone(java.time.ZoneId.systemDefault()).toLocalDate();\n    long daysBetween =  java.time.temporal.ChronoUnit.DAYS.between(curdate, deadlinedate);\n    return daysBetween;\n}",
+  "customCode" : true,
+  "enableBackend" : true,
+  "enableFront" : false
+}

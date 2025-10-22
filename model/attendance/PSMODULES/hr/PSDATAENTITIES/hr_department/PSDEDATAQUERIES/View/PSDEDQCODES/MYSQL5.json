@@ -1,0 +1,55 @@
+{
+  "dBType" : "MYSQL5",
+  "name" : "MySQL5",
+  "getPSDEDataQueryCodeExps" : [ {
+    "expression" : "t1.`ACTIVE`",
+    "name" : "ACTIVE"
+  }, {
+    "expression" : "t1.`COLOR`",
+    "name" : "COLOR"
+  }, {
+    "expression" : "t1.`COMPLETE_NAME`",
+    "name" : "COMPLETE_NAME"
+  }, {
+    "expression" : "t1.`CREATE_DATE`",
+    "name" : "CREATE_DATE"
+  }, {
+    "expression" : "t1.`CREATE_UID`",
+    "name" : "CREATE_UID"
+  }, {
+    "expression" : "t1.`ID`",
+    "name" : "ID"
+  }, {
+    "expression" : "t1.`MANAGER_ID`",
+    "name" : "MANAGER_ID"
+  }, {
+    "expression" : "t11.`NAME`",
+    "name" : "MANAGER_NAME"
+  }, {
+    "expression" : "t1.`MASTER_DEPARTMENT_ID`",
+    "name" : "MASTER_DEPARTMENT_ID"
+  }, {
+    "expression" : "t1.`NAME`",
+    "name" : "NAME"
+  }, {
+    "expression" : "t1.`NOTE`",
+    "name" : "NOTE"
+  }, {
+    "expression" : "t1.`PARENT_ID`",
+    "name" : "PARENT_ID"
+  }, {
+    "expression" : "t21.`NAME`",
+    "name" : "PARENT_NAME"
+  }, {
+    "expression" : "t1.`PARENT_PATH`",
+    "name" : "PARENT_PATH"
+  }, {
+    "expression" : "t1.`WRITE_DATE`",
+    "name" : "WRITE_DATE"
+  }, {
+    "expression" : "t1.`WRITE_UID`",
+    "name" : "WRITE_UID"
+  } ],
+  "queryCode" : "SELECT\nt1.`ACTIVE`,\nt1.`COLOR`,\nt1.`COMPLETE_NAME`,\nt1.`CREATE_DATE`,\nt1.`CREATE_UID`,\nt1.`ID`,\nt1.`MANAGER_ID`,\nt11.`NAME` AS `MANAGER_NAME`,\nt1.`MASTER_DEPARTMENT_ID`,\nt1.`NAME`,\nt1.`NOTE`,\nt1.`PARENT_ID`,\nt21.`NAME` AS `PARENT_NAME`,\nt1.`PARENT_PATH`,\nt1.`WRITE_DATE`,\nt1.`WRITE_UID`\nFROM `hr_department` t1 \nLEFT JOIN `hr_employee` t11 ON t1.`MANAGER_ID` = t11.`ID` \nLEFT JOIN `hr_department` t21 ON t1.`PARENT_ID` = t21.`ID` \n",
+  "id" : "PSMODULES/hr/PSDATAENTITIES/hr_department/PSDEDATAQUERIES/View/PSDEDQCODES/MYSQL5.json"
+}

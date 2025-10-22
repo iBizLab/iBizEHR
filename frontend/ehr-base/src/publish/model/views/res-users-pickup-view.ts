@@ -1,0 +1,67 @@
+export default {
+  funcViewMode: 'PICKUPVIEW',
+  deviewCodeName: 'PickupView',
+  deviewId: '1d2d6e100b10b319b29f360a7469fac3',
+  accUserMode: 2,
+  capLanguageRes: {
+    lanResTag: 'DE.LNAME.RES_USERS',
+  },
+  caption: '用户',
+  codeName: 'res_usersPickupView',
+  appDataEntityId: 'ehrapp.res_users',
+  appViewEngines: [
+    {
+      engineCat: 'VIEW',
+      engineType: 'PickupView',
+      id: 'engine',
+    },
+  ],
+  controls: [
+    {
+      embeddedAppDEViewId: 'ehrapp.res_userspickupgridview',
+      codeName: 'PickupViewpickupviewpanel',
+      controlType: 'PICKUPVIEWPANEL',
+      appDataEntityId: 'ehrapp.res_users',
+      controlParam: {
+        id: 'pickupviewpanel',
+      },
+      name: 'pickupviewpanel',
+      id: 'pickupviewpickupviewpanel',
+    },
+    {
+      capLanguageRes: {
+        lanResTag: 'DE.LNAME.RES_USERS',
+      },
+      caption: '用户',
+      codeName: 'PickupViewcaptionbar',
+      controlType: 'CAPTIONBAR',
+      appDataEntityId: 'ehrapp.res_users',
+      controlParam: {},
+      name: 'captionbar',
+      id: 'pickupviewcaptionbar',
+    },
+  ],
+  viewLayoutPanel: {
+    layoutBodyOnly: true,
+    useDefaultLayout: true,
+    layoutPanel: true,
+    codeName: 'layoutpanel',
+    controlStyle: 'APPDEPICKUPVIEW',
+    controlType: 'VIEWLAYOUTPANEL',
+    appDataEntityId: 'ehrapp.res_users',
+    controlParam: {},
+    id: 'layoutpanel',
+  },
+  title: '用户数据选择视图',
+  titleLanguageRes: {
+    lanResTag: 'PAGE.TITLE.RES_USERS.PICKUPVIEW',
+  },
+  viewStyle: 'DEFAULT',
+  viewType: 'DEPICKUPVIEW',
+  enableDP: true,
+  showCaptionBar: false,
+  modelId: 'ebf7cfed9d84aef5c63205a93931be9b',
+  modelType: 'PSAPPDEVIEW',
+  name: 'res_usersPickupView',
+  id: 'ehrapp.res_userspickupview',
+};

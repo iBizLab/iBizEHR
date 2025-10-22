@@ -1,0 +1,189 @@
+{
+  "codeName" : "grid_searchbar",
+  "controlStyle" : "FILTER_SEARCHBAR",
+  "controlType" : "SEARCHBAR",
+  "dynaModelFilePath" : "PSSYSAPPS/web/PSAPPDATAENTITIES/hr_applicant/PSSEARCHBARS/grid_searchbar.json",
+  "logicName" : "候选人信息筛选",
+  "getPSAppDataEntity" : {
+    "modelref" : true,
+    "path" : "PSSYSAPPS/web/PSAPPDATAENTITIES/hr_applicant.json"
+  },
+  "getPSSearchBarFilters" : [ {
+    "caption" : "职位",
+    "dataType" : 25,
+    "itemType" : "FILTER",
+    "labelPos" : "NONE",
+    "labelWidth" : 0,
+    "name" : "JOB_NAME",
+    "getPSAppDEField" : {
+      "name" : "JOB_NAME",
+      "codeName" : "job_name"
+    },
+    "getPSDEFSearchMode" : {
+      "codeName" : "N_JOB_NAME_EQ",
+      "name" : "N_JOB_NAME_EQ",
+      "stdDataType" : 25,
+      "valueOP" : "EQ"
+    },
+    "getPSEditor" : {
+      "editorParams" : {
+        "AC" : "TRUE",
+        "PICKUPVIEW" : "TRUE"
+      },
+      "editorType" : "PICKER",
+      "name" : "JOB_NAME",
+      "getPSAppDEACMode" : {
+        "modelref" : true,
+        "id" : "Default"
+      },
+      "getPSAppDEDataSet" : {
+        "modelref" : true,
+        "id" : "fetch_default"
+      },
+      "getPSAppDataEntity" : {
+        "modelref" : true,
+        "path" : "PSSYSAPPS/web/PSAPPDATAENTITIES/hr_job.json"
+      },
+      "getPickupPSAppView" : {
+        "modelref" : true,
+        "path" : "PSSYSAPPS/web/PSAPPDEVIEWS/hr_job_pickup_view.json",
+        "viewType" : "DEPICKUPVIEW"
+      },
+      "enableAC" : true,
+      "enablePickupView" : true,
+      "forceSelection" : true,
+      "showTrigger" : true,
+      "singleSelect" : true
+    },
+    "allowEmpty" : true,
+    "emptyCaption" : false,
+    "hidden" : false,
+    "showCaption" : false,
+    "getUserParam" : {
+      "defaultShow" : "true"
+    }
+  }, {
+    "caption" : "专业",
+    "dataType" : 25,
+    "itemType" : "FILTER",
+    "labelPos" : "NONE",
+    "labelWidth" : 0,
+    "name" : "LAST_EDU_SPECIALITY",
+    "getPSAppDEField" : {
+      "name" : "LAST_EDU_SPECIALITY",
+      "codeName" : "last_edu_speciality"
+    },
+    "getPSEditor" : {
+      "editorType" : "TEXTBOX",
+      "name" : "LAST_EDU_SPECIALITY"
+    },
+    "allowEmpty" : true,
+    "emptyCaption" : false,
+    "hidden" : false,
+    "showCaption" : false,
+    "getUserParam" : {
+      "defaultShow" : "true"
+    }
+  }, {
+    "caption" : "学位",
+    "dataType" : 25,
+    "itemType" : "FILTER",
+    "labelPos" : "NONE",
+    "labelWidth" : 0,
+    "name" : "ACADEMIC_DEGREE",
+    "getPSAppDEField" : {
+      "name" : "LAST_EDU_ACADEMIC_DEGREE",
+      "codeName" : "last_edu_academic_degree"
+    },
+    "getPSEditor" : {
+      "editorType" : "DROPDOWNLIST",
+      "name" : "ACADEMIC_DEGREE",
+      "getPSAppCodeList" : {
+        "modelref" : true,
+        "path" : "PSSYSAPPS/web/PSAPPCODELISTS/base__job_education.json"
+      },
+      "singleSelect" : true
+    },
+    "allowEmpty" : true,
+    "emptyCaption" : false,
+    "hidden" : false,
+    "needCodeListConfig" : true,
+    "showCaption" : false,
+    "getUserParam" : {
+      "defaultShow" : "true"
+    }
+  }, {
+    "caption" : "建议薪资",
+    "dataType" : 7,
+    "itemType" : "FILTER",
+    "labelPos" : "NONE",
+    "labelWidth" : 0,
+    "name" : "SALARY_PROPOSED",
+    "getPSAppDEField" : {
+      "name" : "SALARY_PROPOSED",
+      "codeName" : "salary_proposed"
+    },
+    "getPSEditor" : {
+      "editorType" : "NUMBER",
+      "name" : "SALARY_PROPOSED"
+    },
+    "allowEmpty" : true,
+    "emptyCaption" : false,
+    "hidden" : false,
+    "showCaption" : false,
+    "getUserParam" : {
+      "defaultShow" : "true"
+    }
+  }, {
+    "caption" : "期望薪资",
+    "dataType" : 7,
+    "itemType" : "FILTER",
+    "labelPos" : "NONE",
+    "labelWidth" : 0,
+    "name" : "SALARY_EXPECTED",
+    "getPSAppDEField" : {
+      "name" : "SALARY_EXPECTED",
+      "codeName" : "salary_expected"
+    },
+    "getPSEditor" : {
+      "editorType" : "NUMBER",
+      "name" : "SALARY_EXPECTED"
+    },
+    "allowEmpty" : true,
+    "emptyCaption" : false,
+    "hidden" : false,
+    "showCaption" : false,
+    "getUserParam" : {
+      "defaultShow" : "true"
+    }
+  } ],
+  "getPSSearchBarGroups" : [ {
+    "caption" : "教育情况",
+    "data" : "{\"theme_model\":{\"searchconds\":[{\"condtype\":\"GROUP\",\"condop\":\"AND\",\"bnotmode\":false,\"searchconds\":[{\"condtype\":\"DEFIELD\",\"fieldname\":\"last_edu_speciality\",\"condop\":null,\"value\":null},{\"condtype\":\"DEFIELD\",\"fieldname\":\"last_edu_academic_degree\",\"condop\":null,\"value\":null},{\"condtype\":\"DEFIELD\",\"fieldname\":\"education\",\"condop\":null,\"value\":\"\"}]}]}}",
+    "itemType" : "GROUP",
+    "name" : "item",
+    "width" : 0.0,
+    "addSeparator" : false
+  }, {
+    "caption" : "薪资",
+    "data" : "{\"theme_model\":{\"searchconds\":[{\"condtype\":\"GROUP\",\"condop\":\"AND\",\"bnotmode\":false,\"searchconds\":[{\"condtype\":\"DEFIELD\",\"fieldname\":\"salary_expected\",\"condop\":null,\"value\":\"\"},{\"condtype\":\"DEFIELD\",\"fieldname\":\"salary_proposed\",\"condop\":null,\"value\":\"\"}]}]}}",
+    "itemType" : "GROUP",
+    "name" : "item2",
+    "width" : 0.0,
+    "addSeparator" : false
+  } ],
+  "getPSSysPFPlugin" : {
+    "pluginType" : "CUSTOM",
+    "pluginCode" : "FILTER_SEARCHBAR",
+    "runtimeObject" : true
+  },
+  "quickGroupCount" : -1,
+  "quickSearchMode" : 1,
+  "quickSearchWidth" : 0,
+  "enableFilter" : true,
+  "enableGroup" : true,
+  "enableQuickSearch" : true,
+  "mobileSearchBar" : false,
+  "modelid" : "b10ebee6ae3050f0c8e9c28d5fc71fb4",
+  "modeltype" : "PSSYSSEARCHBAR"
+}

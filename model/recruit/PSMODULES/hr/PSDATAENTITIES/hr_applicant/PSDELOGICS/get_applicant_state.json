@@ -1,0 +1,269 @@
+{
+  "codeName" : "get_applicant_state",
+  "defaultParamName" : "Default",
+  "dynaModelFilePath" : "PSMODULES/hr/PSDATAENTITIES/hr_applicant/PSDELOGICS/get_applicant_state.json",
+  "logicName" : "候选人状态筛选",
+  "name" : "候选人状态筛选",
+  "getPSDELogicNodes" : [ {
+    "codeName" : "Begin",
+    "leftPos" : 200,
+    "logicNodeType" : "BEGIN",
+    "name" : "开始",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "RAWSQLCALL1"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "Begin"
+      }
+    } ],
+    "topPos" : 210,
+    "parallelOutput" : true
+  }, {
+    "codeName" : "RAWSQLCALL1",
+    "getDstPSDELogicParam" : {
+      "modelref" : true,
+      "id" : "result"
+    },
+    "leftPos" : 341,
+    "logicNodeType" : "RAWSQLCALL",
+    "name" : "初筛",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "RAWSQLCALL2"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "RAWSQLCALL1"
+      }
+    } ],
+    "sql" : "select count(1)  as status_20 \nfrom hr_applicant ha \nleft join hr_recruitment_stage hrs on ha.STAGE_ID  = hrs.id\nwhere hrs.`SEQUENCE`  = 20 and ha.status = 1",
+    "topPos" : 208,
+    "fillDstLogicParam" : true
+  }, {
+    "codeName" : "RAWSQLCALL2",
+    "getDstPSDELogicParam" : {
+      "modelref" : true,
+      "id" : "result"
+    },
+    "leftPos" : 341,
+    "logicNodeType" : "RAWSQLCALL",
+    "name" : "人才推荐",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "RAWSQLCALL3"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "RAWSQLCALL2"
+      }
+    } ],
+    "sql" : "select count(1)  as status_10 \nfrom hr_applicant ha \nleft join hr_recruitment_stage hrs on ha.STAGE_ID  = hrs.id\nwhere hrs.`SEQUENCE`  = 10 and ha.status = 1",
+    "topPos" : 310,
+    "fillDstLogicParam" : true
+  }, {
+    "codeName" : "RAWSQLCALL3",
+    "getDstPSDELogicParam" : {
+      "modelref" : true,
+      "id" : "result"
+    },
+    "leftPos" : 341,
+    "logicNodeType" : "RAWSQLCALL",
+    "name" : "用人部门筛选",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "RAWSQLCALL4"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "RAWSQLCALL3"
+      }
+    } ],
+    "sql" : "select count(1)  as status_30 \nfrom hr_applicant ha \nleft join hr_recruitment_stage hrs on ha.STAGE_ID  = hrs.id\nwhere hrs.`SEQUENCE`  = 30 and ha.status = 1",
+    "topPos" : 407,
+    "fillDstLogicParam" : true
+  }, {
+    "codeName" : "RAWSQLCALL4",
+    "getDstPSDELogicParam" : {
+      "modelref" : true,
+      "id" : "result"
+    },
+    "leftPos" : 341,
+    "logicNodeType" : "RAWSQLCALL",
+    "name" : "初试",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "RAWSQLCALL5"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "RAWSQLCALL4"
+      }
+    } ],
+    "sql" : "select count(1)  as status_40 \nfrom hr_applicant ha \nleft join hr_recruitment_stage hrs on ha.STAGE_ID  = hrs.id\nwhere hrs.`SEQUENCE`  = 40 and ha.status = 1",
+    "topPos" : 500,
+    "fillDstLogicParam" : true
+  }, {
+    "codeName" : "RAWSQLCALL6",
+    "getDstPSDELogicParam" : {
+      "modelref" : true,
+      "id" : "result"
+    },
+    "leftPos" : 519,
+    "logicNodeType" : "RAWSQLCALL",
+    "name" : "沟通offer",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "RAWSQLCALL_02"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "RAWSQLCALL6"
+      }
+    } ],
+    "sql" : "select count(1)  as status_70 \nfrom hr_applicant ha \nleft join hr_recruitment_stage hrs on ha.STAGE_ID  = hrs.id\nwhere hrs.`SEQUENCE`  = 70 and ha.status = 1",
+    "topPos" : 599,
+    "fillDstLogicParam" : true
+  }, {
+    "codeName" : "RAWSQLCALL_02",
+    "getDstPSDELogicParam" : {
+      "modelref" : true,
+      "id" : "result"
+    },
+    "leftPos" : 691,
+    "logicNodeType" : "RAWSQLCALL",
+    "name" : "大五性格测评",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "RAWSQLCALL7"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "RAWSQLCALL_02"
+      }
+    } ],
+    "sql" : "select count(1)  as status_50 \nfrom hr_applicant ha \nleft join hr_recruitment_stage hrs on ha.STAGE_ID  = hrs.id\nwhere hrs.`SEQUENCE`  = 50 and ha.status = 1",
+    "topPos" : 599,
+    "fillDstLogicParam" : true,
+    "parallelOutput" : true
+  }, {
+    "codeName" : "RAWSQLCALL_01",
+    "getDstPSDELogicParam" : {
+      "modelref" : true,
+      "id" : "result"
+    },
+    "leftPos" : 1056,
+    "logicNodeType" : "RAWSQLCALL",
+    "name" : "完成",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "END1"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "RAWSQLCALL_01"
+      }
+    } ],
+    "sql" : "select count(1)  as status_90 \nfrom hr_applicant ha \nleft join hr_recruitment_stage hrs on ha.STAGE_ID  = hrs.id\nwhere hrs.`SEQUENCE`  = 90 and ha.status = 1",
+    "topPos" : 599,
+    "fillDstLogicParam" : true,
+    "parallelOutput" : true
+  }, {
+    "codeName" : "RAWSQLCALL5",
+    "getDstPSDELogicParam" : {
+      "modelref" : true,
+      "id" : "result"
+    },
+    "leftPos" : 341,
+    "logicNodeType" : "RAWSQLCALL",
+    "name" : "复试",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "RAWSQLCALL6"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "RAWSQLCALL5"
+      }
+    } ],
+    "sql" : "select count(1)  as status_60 \nfrom hr_applicant ha \nleft join hr_recruitment_stage hrs on ha.STAGE_ID  = hrs.id\nwhere hrs.`SEQUENCE`  = 60 and ha.status = 1",
+    "topPos" : 601,
+    "fillDstLogicParam" : true
+  }, {
+    "codeName" : "RAWSQLCALL7",
+    "getDstPSDELogicParam" : {
+      "modelref" : true,
+      "id" : "result"
+    },
+    "leftPos" : 864,
+    "logicNodeType" : "RAWSQLCALL",
+    "name" : "待入职",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "RAWSQLCALL_01"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "RAWSQLCALL7"
+      }
+    } ],
+    "sql" : "select count(1)  as status_80 \nfrom hr_applicant ha \nleft join hr_recruitment_stage hrs on ha.STAGE_ID  = hrs.id\nwhere hrs.`SEQUENCE`  = 80 and ha.status = 1",
+    "topPos" : 601,
+    "fillDstLogicParam" : true
+  }, {
+    "codeName" : "END1",
+    "leftPos" : 1261,
+    "logicNodeType" : "END",
+    "name" : "结束",
+    "getReturnParam" : {
+      "modelref" : true,
+      "id" : "result"
+    },
+    "returnType" : "LOGICPARAM",
+    "topPos" : 601,
+    "parallelOutput" : true
+  } ],
+  "getPSDELogicParams" : [ {
+    "codeName" : "Default",
+    "logicName" : "传入变量",
+    "name" : "传入变量",
+    "getParamPSDataEntity" : {
+      "modelref" : true,
+      "path" : "PSMODULES/hr/PSDATAENTITIES/hr_applicant.json"
+    },
+    "default" : true,
+    "entityParam" : true
+  }, {
+    "codeName" : "result",
+    "logicName" : "结果",
+    "name" : "结果",
+    "entityParam" : true
+  } ],
+  "getStartPSDELogicNode" : {
+    "modelref" : true,
+    "id" : "Begin"
+  },
+  "enableBackend" : true,
+  "enableFront" : false
+}

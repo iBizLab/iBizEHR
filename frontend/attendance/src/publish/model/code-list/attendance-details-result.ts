@@ -1,0 +1,65 @@
+export default {
+  codeListTag: 'attendance__details_result',
+  codeListType: 'STATIC',
+  codeName: 'attendance__details_result',
+  emptyText: '未定义',
+  codeItems: [
+    {
+      codeName: 'normal',
+      text: '正常',
+      value: 'NORMAL',
+      id: 'normal',
+    },
+    {
+      codeName: 'abnormal',
+      text: '异常',
+      value: 'ABNORMAL',
+      id: 'abnormal',
+    },
+    {
+      codeName: 'late',
+      text: '迟到',
+      value: 'LATE',
+      id: 'late',
+    },
+    {
+      codeName: 'leave_early',
+      text: '早退',
+      value: 'LEAVE_EARLY',
+      id: 'leave_early',
+    },
+    {
+      codeName: 'absent',
+      text: '缺勤',
+      value: 'ABSENT',
+      id: 'absent',
+    },
+    {
+      codeName: 'missing',
+      text: '缺卡',
+      value: 'MISSING',
+      id: 'missing',
+    },
+    {
+      codeName: 'on_missing',
+      text: '缺卡',
+      value: 'ON_MISSING',
+      id: 'on_missing',
+    },
+    {
+      codeName: 'off_missing',
+      text: '缺卡',
+      value: 'OFF_MISSING',
+      id: 'off_missing',
+    },
+    {
+      codeName: 'leave',
+      text: '请假',
+      value: 'LEAVE',
+      id: 'leave',
+    },
+  ],
+  enableCache: true,
+  name: '考勤结果(打卡详情)',
+  id: 'attendanceapp.attendance__details_result',
+};

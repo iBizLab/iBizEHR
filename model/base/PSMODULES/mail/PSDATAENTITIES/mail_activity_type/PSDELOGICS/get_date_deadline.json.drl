@@ -1,0 +1,64 @@
+package cn.ibizlab.mail.logic.mail_activity_typelogic.get_date_deadline;
+        import java.util.Map;
+        import java.util.HashMap;
+        import com.alibaba.fastjson.JSONObject;
+        import org.springframework.util.StringUtils;
+        import org.springframework.util.ObjectUtils;
+        import cn.ibizlab.util.errors.BadRequestAlertException;
+                global cn.ibizlab.core.mail.domain.mail_activity_type mail_activity_typeget_date_deadlinedefault;
+                global cn.ibizlab.core.mail.domain.mail_activity_type mail_activity_typeget_date_deadlinemail_activity_type;
+                global cn.ibizlab.core.mail.domain.mail_activity_type mail_activity_typeget_date_deadlineoriginal_default;
+                    global cn.ibizlab.core.mail.service.Imail_activity_typeService mail_activity_typeservice;
+        global cn.ibizlab.core.mail.service.Imail_activity_typeService iBzSysMail_activity_typeDefaultService;
+        global cn.ibizlab.util.security.AuthenticationUser curuser;
+
+
+    no-loop
+
+            //逻辑处理节点[开始]
+            rule "begin"
+            ruleflow-group "mail_activity_typeget_date_deadlinebegin"
+            when
+            then
+            end
+
+            //逻辑处理节点[拷贝参数]
+            rule "copyparam_01"
+            ruleflow-group "mail_activity_typeget_date_deadlinecopyparam_01"
+            when
+            then
+                        update(mail_activity_typeget_date_deadlinedefault);//更新fact中变量值
+                        update(mail_activity_typeget_date_deadlinemail_activity_type);//更新fact中变量值
+                        update(mail_activity_typeget_date_deadlineoriginal_default);//更新fact中变量值
+            end
+
+            //逻辑处理节点[结束]
+            rule "end_01"
+            ruleflow-group "mail_activity_typeget_date_deadlineend_01"
+            when
+            then
+                        update(mail_activity_typeget_date_deadlinedefault);//更新fact中变量值
+                        update(mail_activity_typeget_date_deadlinemail_activity_type);//更新fact中变量值
+                        update(mail_activity_typeget_date_deadlineoriginal_default);//更新fact中变量值
+            end
+
+            //逻辑处理节点[生成到期日期]
+            rule "rawsfcode_01"
+            ruleflow-group "mail_activity_typeget_date_deadlinerawsfcode_01"
+            when
+            then
+                        update(mail_activity_typeget_date_deadlinedefault);//更新fact中变量值
+                        update(mail_activity_typeget_date_deadlinemail_activity_type);//更新fact中变量值
+                        update(mail_activity_typeget_date_deadlineoriginal_default);//更新fact中变量值
+            end
+
+            //逻辑处理节点[获取活动类型]
+            rule "deaction_01"
+            ruleflow-group "mail_activity_typeget_date_deadlinedeaction_01"
+            when
+            then
+                            cn.ibizlab.util.helper.CachedBeanCopier.copy(mail_activity_typeservice.get(mail_activity_typeget_date_deadlinedefault.getId()),mail_activity_typeget_date_deadlinedefault);
+                        update(mail_activity_typeget_date_deadlinedefault);//更新fact中变量值
+                        update(mail_activity_typeget_date_deadlinemail_activity_type);//更新fact中变量值
+                        update(mail_activity_typeget_date_deadlineoriginal_default);//更新fact中变量值
+            end

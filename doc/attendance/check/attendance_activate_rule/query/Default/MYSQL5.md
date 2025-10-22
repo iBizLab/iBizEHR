@@ -1,0 +1,10 @@
+```sql
+SELECT
+t1.`ID`,
+t1.`NAME`,
+t1.`RULE_DATA`,
+t1.`SCHEDULE_TYPE`
+FROM `ATTENDANCE_ACTIVATE_RULE` t1 
+
+
+```

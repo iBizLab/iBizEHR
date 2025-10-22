@@ -1,0 +1,96 @@
+{
+  "actionMode" : "UPDATE",
+  "actionType" : "BUILTIN",
+  "getAfterPSDEActionLogics" : [ {
+    "actionLogicType" : 11,
+    "attachMode" : "AFTER",
+    "getDstPSDE" : {
+      "modelref" : true,
+      "path" : "PSMODULES/hr/PSDATAENTITIES/hr_attendance.json"
+    },
+    "getDstPSDELogic" : {
+      "modelref" : true,
+      "path" : "PSMODULES/hr/PSDATAENTITIES/hr_attendance/PSDELOGICS/changeOverTime.json"
+    },
+    "name" : "附加逻辑",
+    "internalLogic" : false
+  }, {
+    "actionLogicType" : 11,
+    "attachMode" : "AFTER",
+    "getDstPSDE" : {
+      "modelref" : true,
+      "path" : "PSMODULES/hr/PSDATAENTITIES/hr_attendance.json"
+    },
+    "getDstPSDELogic" : {
+      "modelref" : true,
+      "path" : "PSMODULES/hr/PSDATAENTITIES/hr_attendance/PSDELOGICS/AttendanceCalculate.json"
+    },
+    "name" : "附加逻辑",
+    "internalLogic" : false
+  } ],
+  "getBeforePSDEActionLogics" : [ {
+    "actionLogicType" : 11,
+    "attachMode" : "BEFORE",
+    "getDstPSDE" : {
+      "modelref" : true,
+      "path" : "PSMODULES/hr/PSDATAENTITIES/hr_attendance.json"
+    },
+    "getDstPSDELogic" : {
+      "modelref" : true,
+      "path" : "PSMODULES/hr/PSDATAENTITIES/hr_attendance/PSDELOGICS/ComputeWorkHour.json"
+    },
+    "name" : "附加逻辑",
+    "internalLogic" : false
+  }, {
+    "actionLogicType" : 11,
+    "attachMode" : "BEFORE",
+    "getDstPSDE" : {
+      "modelref" : true,
+      "path" : "PSMODULES/hr/PSDATAENTITIES/hr_attendance.json"
+    },
+    "getDstPSDELogic" : {
+      "modelref" : true,
+      "path" : "PSMODULES/hr/PSDATAENTITIES/hr_attendance/PSDELOGICS/calcOther.json"
+    },
+    "name" : "附加逻辑",
+    "internalLogic" : false
+  } ],
+  "getCheckPSDEActionLogics" : [ {
+    "actionLogicType" : 11,
+    "attachMode" : "CHECK",
+    "getDstPSDE" : {
+      "modelref" : true,
+      "path" : "PSMODULES/hr/PSDATAENTITIES/hr_attendance.json"
+    },
+    "getDstPSDELogic" : {
+      "modelref" : true,
+      "path" : "PSMODULES/hr/PSDATAENTITIES/hr_attendance/PSDELOGICS/check_validity.json"
+    },
+    "name" : "附加逻辑",
+    "getPSDELogic" : {
+      "modelref" : true,
+      "path" : "PSMODULES/hr/PSDATAENTITIES/hr_attendance/PSDELOGICS/check_validity.json"
+    },
+    "internalLogic" : false
+  } ],
+  "codeName" : "Update",
+  "dataAccessAction" : "UPDATE",
+  "dynaModelFilePath" : "PSMODULES/hr/PSDATAENTITIES/hr_attendance/PSDEACTIONS/Update.json",
+  "logicName" : "Update",
+  "name" : "Update",
+  "orderValue" : 11,
+  "getPSDEActionInput" : {
+    "name" : "UpdateInput",
+    "getPSDEMethodDTO" : {
+      "modelref" : true,
+      "id" : "hr_attendance_dto"
+    },
+    "type" : "DTO",
+    "output" : true
+  },
+  "getPSDEActionReturn" : {
+    "name" : "UpdateResult",
+    "type" : "VOID"
+  },
+  "builtinAction" : true
+}

@@ -1,0 +1,12 @@
+export default {
+  id: 'web.hr_job_platform_pickup_view',
+  codeName: 'hr_job_platform_pickup_view',
+  openMode: 'INDEXVIEWTAB',
+  viewType: 'DEPICKUPVIEW',
+  width: 0,
+  height: 0,
+  appDataEntityId: 'web.hr_job_platform',
+  redirectView: false,
+  modalOption: {},
+  appId: '',
+};

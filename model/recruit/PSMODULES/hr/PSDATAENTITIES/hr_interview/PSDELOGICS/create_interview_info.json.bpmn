@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+    <definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:g="http://www.jboss.org/drools/flow/gpd" xmlns:tns="http://www.jboss.org/drools" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" expressionLanguage="http://www.mvel.org/2.0" id="Definition" name="" targetNamespace="http://www.jboss.org/drools" typeLanguage="http://www.java.com/javaTypes">
+        <process id="cn.ibizlab.core.hr.service.logic.hr_interviewcreate_interview_info" isClosed="false" isExecutable="true" name="hr_hr_interview_create_interview_info_ruleFlow" processType="Private" tns:packageName="cn.ibizlab.core.hr.service.logic.hr_interviewcreate_interview_info">
+            <extensionElements>
+                <tns:import name="java.util.Map" />
+                <tns:import name="org.springframework.util.StringUtils"/>
+                <tns:import name="cn.ibizlab.util.helper.RuleUtils"/>
+                                <tns:metaData express="" name="hr_interviewcreate_interview_infodefault" type="entity"/>
+                                <tns:metaData express="new cn.ibizlab.core.hr.domain.hr_applicant_interview()" name="hr_interviewcreate_interview_infoapplicant_interview" type="refentity"/>
+                                <tns:metaData express="new cn.ibizlab.core.hr.domain.hr_applicant()" name="hr_interviewcreate_interview_infohr_applicant" type="refentity"/>
+                                <tns:metaData express="new cn.ibizlab.core.hr.domain.hr_interview_feedback()" name="hr_interviewcreate_interview_infointerview_feedback" type="refentity"/>
+                                <tns:metaData express="new cn.ibizlab.core.hr.domain.hr_interview_user()" name="hr_interviewcreate_interview_infointerview_user" type="refentity"/>
+                                <tns:metaData express="new cn.ibizlab.core.hr.domain.hr_interview_user()" name="hr_interviewcreate_interview_infointerview_user2" type="refentity"/>
+                                <tns:metaData express="new cn.ibizlab.core.hr.domain.hr_interview_user()" name="hr_interviewcreate_interview_infointerview_user3" type="refentity"/>
+                                <tns:metaData express="new cn.ibizlab.core.hr.domain.hr_interview_user()" name="hr_interviewcreate_interview_infointerview_user_list" type="refentity"/>
+                                <tns:metaData express="new HashMap()" name="hr_interviewcreate_interview_infosession_entity" type="refentity"/>
+                                    <tns:metaData express="T(cn.ibizlab.util.security.SpringContextHolder).getBean(T(cn.ibizlab.core.hr.service.Ihr_applicantService))" name="hr_applicantservice" type="service"/>
+                                    <tns:metaData express="T(cn.ibizlab.util.security.SpringContextHolder).getBean(T(cn.ibizlab.core.hr.service.Ihr_applicant_interviewService))" name="hr_applicant_interviewservice" type="service"/>
+                                    <tns:metaData express="T(cn.ibizlab.util.security.SpringContextHolder).getBean(T(cn.ibizlab.core.hr.service.Ihr_interview_userService))" name="hr_interview_userservice" type="service"/>
+                                    <tns:metaData express="T(cn.ibizlab.util.security.SpringContextHolder).getBean(T(cn.ibizlab.core.hr.service.Ihr_interview_feedbackService))" name="hr_interview_feedbackservice" type="service"/>
+                    <tns:metaData express="T(cn.ibizlab.util.security.SpringContextHolder).getBean(T(cn.ibizlab.core.hr.service.Ihr_interviewService))" name="iBzSysHr_interviewDefaultService" type="service"/>
+                    <tns:metaData express="T(cn.ibizlab.util.security.AuthenticationUser).getAuthenticationUser()" name="curuser" type="session"/>
+                            <tns:global identifier="hr_interviewcreate_interview_infodefault" type="cn.ibizlab.core.hr.domain.hr_interview" />
+                            <tns:global identifier="hr_interviewcreate_interview_infoapplicant_interview" type="cn.ibizlab.core.hr.domain.hr_applicant_interview" />
+                            <tns:global identifier="hr_interviewcreate_interview_infohr_applicant" type="cn.ibizlab.core.hr.domain.hr_applicant" />
+                            <tns:global identifier="hr_interviewcreate_interview_infointerview_feedback" type="cn.ibizlab.core.hr.domain.hr_interview_feedback" />
+                            <tns:global identifier="hr_interviewcreate_interview_infointerview_user" type="cn.ibizlab.core.hr.domain.hr_interview_user" />
+                            <tns:global identifier="hr_interviewcreate_interview_infointerview_user2" type="cn.ibizlab.core.hr.domain.hr_interview_user" />
+                            <tns:global identifier="hr_interviewcreate_interview_infointerview_user3" type="cn.ibizlab.core.hr.domain.hr_interview_user" />
+                            <tns:global identifier="hr_interviewcreate_interview_infointerview_user_list" type="cn.ibizlab.core.hr.domain.hr_interview_user" />
+            </extensionElements>
+                        <startEvent id="begin" isInterrupting="true"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="hr_interviewcreate_interview_infodebugparam1" id="debugparam1" implementation="http://www.jboss.org/drools/rule" name="调试逻辑参数"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="hr_interviewcreate_interview_infodebugparam2" id="debugparam2" implementation="http://www.jboss.org/drools/rule" name="调试逻辑参数"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="hr_interviewcreate_interview_infoprepareparam3" id="prepareparam3" implementation="http://www.jboss.org/drools/rule" name="准备参数"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="hr_interviewcreate_interview_infodeaction4" id="deaction4" implementation="http://www.jboss.org/drools/rule" name="获取候选人申请"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="hr_interviewcreate_interview_infoprepareparam1" id="prepareparam1" implementation="http://www.jboss.org/drools/rule" name="准备申请面试关系"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="hr_interviewcreate_interview_infodeaction1" id="deaction1" implementation="http://www.jboss.org/drools/rule" name="保存申请面试关系"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="hr_interviewcreate_interview_infoprepareparam2" id="prepareparam2" implementation="http://www.jboss.org/drools/rule" name="设置候选人"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="hr_interviewcreate_interview_infodeaction3" id="deaction3" implementation="http://www.jboss.org/drools/rule" name="保存候选人"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="hr_interviewcreate_interview_infobindparam1" id="bindparam1" implementation="http://www.jboss.org/drools/rule" name="绑定参数"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="hr_interviewcreate_interview_infoloopsubcall1" id="loopsubcall1" implementation="http://www.jboss.org/drools/rule" name="循环子调用"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="hr_interviewcreate_interview_infoprepareparam4" id="prepareparam4" implementation="http://www.jboss.org/drools/rule" name="准备面试官"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="hr_interviewcreate_interview_infodeaction2" id="deaction2" implementation="http://www.jboss.org/drools/rule" name="保存面试官"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="hr_interviewcreate_interview_infoprepareparam5" id="prepareparam5" implementation="http://www.jboss.org/drools/rule" name="准备面试反馈"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="hr_interviewcreate_interview_infodeaction5" id="deaction5" implementation="http://www.jboss.org/drools/rule" name="创建面试反馈"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="hr_interviewcreate_interview_inforenewparam1" id="renewparam1" implementation="http://www.jboss.org/drools/rule" name="重新建立参数"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="hr_interviewcreate_interview_inforenewparam2" id="renewparam2" implementation="http://www.jboss.org/drools/rule" name="重新建立参数"/>
+                        <endEvent id="renewparam2_end" name="end"/>
+                        <sequenceFlow id="renewparam2_end_line" sourceRef="renewparam2" targetRef="renewparam2_end"/>
+                    <sequenceFlow id="begin_debugparam1" sourceRef="begin" targetRef="debugparam1">
+                    </sequenceFlow>
+                    <sequenceFlow id="debugparam1_prepareparam3" sourceRef="debugparam1" targetRef="prepareparam3">
+                    </sequenceFlow>
+                    <sequenceFlow id="debugparam2_deaction4" sourceRef="debugparam2" targetRef="deaction4">
+                    </sequenceFlow>
+                    <sequenceFlow id="prepareparam3_debugparam2" sourceRef="prepareparam3" targetRef="debugparam2">
+                    </sequenceFlow>
+                    <sequenceFlow id="deaction4_prepareparam1" sourceRef="deaction4" targetRef="prepareparam1">
+                    </sequenceFlow>
+                    <sequenceFlow id="prepareparam1_deaction1" sourceRef="prepareparam1" targetRef="deaction1">
+                    </sequenceFlow>
+                    <sequenceFlow id="deaction1_prepareparam2" sourceRef="deaction1" targetRef="prepareparam2">
+                    </sequenceFlow>
+                    <sequenceFlow id="prepareparam2_deaction3" sourceRef="prepareparam2" targetRef="deaction3">
+                    </sequenceFlow>
+                    <sequenceFlow id="deaction3_bindparam1" sourceRef="deaction3" targetRef="bindparam1">
+                    </sequenceFlow>
+                    <sequenceFlow id="bindparam1_loopsubcall1" sourceRef="bindparam1" targetRef="loopsubcall1">
+                    </sequenceFlow>
+                    <sequenceFlow id="loopsubcall1_prepareparam4" sourceRef="loopsubcall1" targetRef="prepareparam4">
+                    </sequenceFlow>
+                    <sequenceFlow id="prepareparam4_deaction2" sourceRef="prepareparam4" targetRef="deaction2">
+                    </sequenceFlow>
+                    <sequenceFlow id="deaction2_prepareparam5" sourceRef="deaction2" targetRef="prepareparam5">
+                    </sequenceFlow>
+                    <sequenceFlow id="prepareparam5_deaction5" sourceRef="prepareparam5" targetRef="deaction5">
+                    </sequenceFlow>
+                    <sequenceFlow id="deaction5_renewparam1" sourceRef="deaction5" targetRef="renewparam1">
+                    </sequenceFlow>
+                    <sequenceFlow id="renewparam1_renewparam2" sourceRef="renewparam1" targetRef="renewparam2">
+                    </sequenceFlow>
+        </process>
+    </definitions>

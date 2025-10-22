@@ -1,0 +1,351 @@
+package cn.ibizlab.attendance.logic.attendance_schedulelogic.clearmanualschedule;
+        import java.util.Map;
+        import java.util.HashMap;
+        import com.alibaba.fastjson.JSONObject;
+        import org.springframework.util.StringUtils;
+        import org.springframework.util.ObjectUtils;
+        import cn.ibizlab.util.errors.BadRequestAlertException;
+                global cn.ibizlab.core.attendance.domain.attendance_schedule attendance_scheduleclearmanualscheduledefault;
+                global cn.ibizlab.core.attendance.domain.attendance_activate_shift attendance_scheduleclearmanualscheduleactiveshifts;
+                global cn.ibizlab.core.attendance.domain.attendance_group_shift attendance_scheduleclearmanualscheduleattendance_group_shifts;
+                global cn.ibizlab.core.attendance.domain.attendance_schedule attendance_scheduleclearmanualschedulemanualschedules;
+                global cn.ibizlab.core.attendance.domain.attendance_rule attendance_scheduleclearmanualschedulerule;
+                global cn.ibizlab.core.attendance.domain.attendance_scope attendance_scheduleclearmanualschedulescopes;
+                global cn.ibizlab.core.attendance.domain.attendance_activate_shift attendance_scheduleclearmanualscheduleshiftfilter;
+                global cn.ibizlab.core.attendance.domain.attendance_shift attendance_scheduleclearmanualscheduleshifts;
+                global cn.ibizlab.core.attendance.domain.attendance_schedule attendance_scheduleclearmanualscheduletemp;
+                global cn.ibizlab.core.attendance.domain.attendance_rule attendance_scheduleclearmanualscheduletemprule;
+                global cn.ibizlab.core.attendance.domain.attendance_workday attendance_scheduleclearmanualscheduleworkdays;
+                    global cn.ibizlab.core.attendance.service.Iattendance_activate_shiftService attendance_activate_shiftservice;
+                    global cn.ibizlab.core.attendance.service.Iattendance_ruleService attendance_ruleservice;
+                    global cn.ibizlab.core.attendance.service.Iattendance_scheduleService attendance_scheduleservice;
+        global cn.ibizlab.core.attendance.service.Iattendance_scheduleService iBzSysAttendance_scheduleDefaultService;
+        global cn.ibizlab.util.security.AuthenticationUser curuser;
+
+
+    no-loop
+
+            //逻辑处理节点[开始]
+            rule "begin"
+            ruleflow-group "attendance_scheduleclearmanualschedulebegin"
+            when
+            then
+            end
+
+            //逻辑处理节点[查询手动排班]
+            rule "rawsqlcall_01"
+            ruleflow-group "attendance_scheduleclearmanualschedulerawsqlcall_01"
+            when
+            then
+                        Map param = null;
+                        String strSql="select 	t1.`CHECKIN_DATE`, 	t1.`ID`, 	t1.`MANUAL`, 	t1.`MANUAL_TYPE`, 	t1.`MEMBER_ID`, 	t1.`MEMBER_NAME`, 	t1.`NAME`, 	t1.`RULE_DATA`, 	t1.`RULE_ID`, 	t11.`NAME` as `RULE_NAME`, 	t11.`SCHEDULE_TYPE`, 	t1.`SHIFT_DATA`, 	t1.`WORKDAY`, 	t1.`WORK_TIME` from 	`ATTENDANCE_SCHEDULE` t1 left join `ATTENDANCE_ACTIVATE_RULE` t11 on 	t1.`RULE_ID` = t11.`ID` where  	t1.MANUAL = 1 	and t1.CHECKIN_DATE >= CURDATE()";
+                        java.util.List<JSONObject> entities=iBzSysAttendance_scheduleDefaultService.select(strSql,param);//SQL调用
+                            if(entities.size()>0){
+                            JSONObject entity=entities.get(0);
+                                    cn.ibizlab.core.attendance.domain.attendance_schedule targetEntity =new cn.ibizlab.core.attendance.domain.attendance_schedule();
+                                    for (Map.Entry entry : entity.entrySet()) {
+                                    targetEntity.set(String.valueOf(entry.getKey()),entry.getValue());
+                                    }
+                                    org.springframework.cglib.beans.BeanCopier copier= org.springframework.cglib.beans.BeanCopier.create(targetEntity.getClass(),attendance_scheduleclearmanualschedulemanualschedules.getClass(), false);
+                                    copier.copy(targetEntity,attendance_scheduleclearmanualschedulemanualschedules,null);
+                            }
+                        update(attendance_scheduleclearmanualscheduledefault);//更新fact中变量值
+                        update(attendance_scheduleclearmanualscheduleactiveshifts);//更新fact中变量值
+                        update(attendance_scheduleclearmanualscheduleattendance_group_shifts);//更新fact中变量值
+                        update(attendance_scheduleclearmanualschedulemanualschedules);//更新fact中变量值
+                        update(attendance_scheduleclearmanualschedulerule);//更新fact中变量值
+                        update(attendance_scheduleclearmanualschedulescopes);//更新fact中变量值
+                        update(attendance_scheduleclearmanualscheduleshiftfilter);//更新fact中变量值
+                        update(attendance_scheduleclearmanualscheduleshifts);//更新fact中变量值
+                        update(attendance_scheduleclearmanualscheduletemp);//更新fact中变量值
+                        update(attendance_scheduleclearmanualscheduletemprule);//更新fact中变量值
+                        update(attendance_scheduleclearmanualscheduleworkdays);//更新fact中变量值
+            end
+
+            //逻辑处理节点[调试逻辑参数]
+            rule "debugparam_01"
+            ruleflow-group "attendance_scheduleclearmanualscheduledebugparam_01"
+            when
+            then
+                        update(attendance_scheduleclearmanualscheduledefault);//更新fact中变量值
+                        update(attendance_scheduleclearmanualscheduleactiveshifts);//更新fact中变量值
+                        update(attendance_scheduleclearmanualscheduleattendance_group_shifts);//更新fact中变量值
+                        update(attendance_scheduleclearmanualschedulemanualschedules);//更新fact中变量值
+                        update(attendance_scheduleclearmanualschedulerule);//更新fact中变量值
+                        update(attendance_scheduleclearmanualschedulescopes);//更新fact中变量值
+                        update(attendance_scheduleclearmanualscheduleshiftfilter);//更新fact中变量值
+                        update(attendance_scheduleclearmanualscheduleshifts);//更新fact中变量值
+                        update(attendance_scheduleclearmanualscheduletemp);//更新fact中变量值
+                        update(attendance_scheduleclearmanualscheduletemprule);//更新fact中变量值
+                        update(attendance_scheduleclearmanualscheduleworkdays);//更新fact中变量值
+            end
+
+            //逻辑处理节点[查询手动排班]
+            rule "rawsqlcall_02"
+            ruleflow-group "attendance_scheduleclearmanualschedulerawsqlcall_02"
+            when
+            then
+                        Map param = null;
+                        String strSql="select  	t1.`RULE_DATA`, 	t1.`RULE_ID`  from 	`ATTENDANCE_SCHEDULE` t1 left join `ATTENDANCE_ACTIVATE_RULE` t11 on 	t1.`RULE_ID` = t11.`ID` where  	t1.MANUAL = 1 	and t1.CHECKIN_DATE >= CURDATE() 	GROUP BY t1.RULE_ID";
+                        java.util.List<JSONObject> entities=iBzSysAttendance_scheduleDefaultService.select(strSql,param);//SQL调用
+                            if(entities.size()>0){
+                            JSONObject entity=entities.get(0);
+                                    cn.ibizlab.core.attendance.domain.attendance_schedule targetEntity =new cn.ibizlab.core.attendance.domain.attendance_schedule();
+                                    for (Map.Entry entry : entity.entrySet()) {
+                                    targetEntity.set(String.valueOf(entry.getKey()),entry.getValue());
+                                    }
+                                    org.springframework.cglib.beans.BeanCopier copier= org.springframework.cglib.beans.BeanCopier.create(targetEntity.getClass(),attendance_scheduleclearmanualschedulemanualschedules.getClass(), false);
+                                    copier.copy(targetEntity,attendance_scheduleclearmanualschedulemanualschedules,null);
+                            }
+                        update(attendance_scheduleclearmanualscheduledefault);//更新fact中变量值
+                        update(attendance_scheduleclearmanualscheduleactiveshifts);//更新fact中变量值
+                        update(attendance_scheduleclearmanualscheduleattendance_group_shifts);//更新fact中变量值
+                        update(attendance_scheduleclearmanualschedulemanualschedules);//更新fact中变量值
+                        update(attendance_scheduleclearmanualschedulerule);//更新fact中变量值
+                        update(attendance_scheduleclearmanualschedulescopes);//更新fact中变量值
+                        update(attendance_scheduleclearmanualscheduleshiftfilter);//更新fact中变量值
+                        update(attendance_scheduleclearmanualscheduleshifts);//更新fact中变量值
+                        update(attendance_scheduleclearmanualscheduletemp);//更新fact中变量值
+                        update(attendance_scheduleclearmanualscheduletemprule);//更新fact中变量值
+                        update(attendance_scheduleclearmanualscheduleworkdays);//更新fact中变量值
+            end
+
+            //逻辑处理节点[循环子调用]
+            rule "loopsubcall_01"
+            ruleflow-group "attendance_scheduleclearmanualscheduleloopsubcall_01"
+            when
+            then
+                        update(attendance_scheduleclearmanualscheduledefault);//更新fact中变量值
+                        update(attendance_scheduleclearmanualscheduleactiveshifts);//更新fact中变量值
+                        update(attendance_scheduleclearmanualscheduleattendance_group_shifts);//更新fact中变量值
+                        update(attendance_scheduleclearmanualschedulemanualschedules);//更新fact中变量值
+                        update(attendance_scheduleclearmanualschedulerule);//更新fact中变量值
+                        update(attendance_scheduleclearmanualschedulescopes);//更新fact中变量值
+                        update(attendance_scheduleclearmanualscheduleshiftfilter);//更新fact中变量值
+                        update(attendance_scheduleclearmanualscheduleshifts);//更新fact中变量值
+                        update(attendance_scheduleclearmanualscheduletemp);//更新fact中变量值
+                        update(attendance_scheduleclearmanualscheduletemprule);//更新fact中变量值
+                        update(attendance_scheduleclearmanualscheduleworkdays);//更新fact中变量值
+            end
+
+            //逻辑处理节点[结束]
+            rule "end_01"
+            ruleflow-group "attendance_scheduleclearmanualscheduleend_01"
+            when
+            then
+                        update(attendance_scheduleclearmanualscheduledefault);//更新fact中变量值
+                        update(attendance_scheduleclearmanualscheduleactiveshifts);//更新fact中变量值
+                        update(attendance_scheduleclearmanualscheduleattendance_group_shifts);//更新fact中变量值
+                        update(attendance_scheduleclearmanualschedulemanualschedules);//更新fact中变量值
+                        update(attendance_scheduleclearmanualschedulerule);//更新fact中变量值
+                        update(attendance_scheduleclearmanualschedulescopes);//更新fact中变量值
+                        update(attendance_scheduleclearmanualscheduleshiftfilter);//更新fact中变量值
+                        update(attendance_scheduleclearmanualscheduleshifts);//更新fact中变量值
+                        update(attendance_scheduleclearmanualscheduletemp);//更新fact中变量值
+                        update(attendance_scheduleclearmanualscheduletemprule);//更新fact中变量值
+                        update(attendance_scheduleclearmanualscheduleworkdays);//更新fact中变量值
+            end
+
+            //逻辑处理节点[循环子调用]
+            rule "loopsubcall_02"
+            ruleflow-group "attendance_scheduleclearmanualscheduleloopsubcall_02"
+            when
+            then
+                        update(attendance_scheduleclearmanualscheduledefault);//更新fact中变量值
+                        update(attendance_scheduleclearmanualscheduleactiveshifts);//更新fact中变量值
+                        update(attendance_scheduleclearmanualscheduleattendance_group_shifts);//更新fact中变量值
+                        update(attendance_scheduleclearmanualschedulemanualschedules);//更新fact中变量值
+                        update(attendance_scheduleclearmanualschedulerule);//更新fact中变量值
+                        update(attendance_scheduleclearmanualschedulescopes);//更新fact中变量值
+                        update(attendance_scheduleclearmanualscheduleshiftfilter);//更新fact中变量值
+                        update(attendance_scheduleclearmanualscheduleshifts);//更新fact中变量值
+                        update(attendance_scheduleclearmanualscheduletemp);//更新fact中变量值
+                        update(attendance_scheduleclearmanualscheduletemprule);//更新fact中变量值
+                        update(attendance_scheduleclearmanualscheduleworkdays);//更新fact中变量值
+            end
+
+            //逻辑处理节点[准备参数]
+            rule "prepareparam_01"
+            ruleflow-group "attendance_scheduleclearmanualscheduleprepareparam_01"
+            when
+            then
+                            attendance_scheduleclearmanualscheduletemp.set("manual","0");
+                                attendance_scheduleclearmanualscheduletemp.set("shiftdata",null);
+                                attendance_scheduleclearmanualscheduletemp.set("worktime",null);
+                            attendance_scheduleclearmanualscheduleshiftfilter.set("n_rule_id_eq",attendance_scheduleclearmanualscheduletemp.get("ruleid"));
+                        update(attendance_scheduleclearmanualscheduledefault);//更新fact中变量值
+                        update(attendance_scheduleclearmanualscheduleactiveshifts);//更新fact中变量值
+                        update(attendance_scheduleclearmanualscheduleattendance_group_shifts);//更新fact中变量值
+                        update(attendance_scheduleclearmanualschedulemanualschedules);//更新fact中变量值
+                        update(attendance_scheduleclearmanualschedulerule);//更新fact中变量值
+                        update(attendance_scheduleclearmanualschedulescopes);//更新fact中变量值
+                        update(attendance_scheduleclearmanualscheduleshiftfilter);//更新fact中变量值
+                        update(attendance_scheduleclearmanualscheduleshifts);//更新fact中变量值
+                        update(attendance_scheduleclearmanualscheduletemp);//更新fact中变量值
+                        update(attendance_scheduleclearmanualscheduletemprule);//更新fact中变量值
+                        update(attendance_scheduleclearmanualscheduleworkdays);//更新fact中变量值
+            end
+
+            //逻辑处理节点[执行脚本代码]
+            rule "rawsfcode_03"
+            ruleflow-group "attendance_scheduleclearmanualschedulerawsfcode_03"
+            when
+            then
+                        update(attendance_scheduleclearmanualscheduledefault);//更新fact中变量值
+                        update(attendance_scheduleclearmanualscheduleactiveshifts);//更新fact中变量值
+                        update(attendance_scheduleclearmanualscheduleattendance_group_shifts);//更新fact中变量值
+                        update(attendance_scheduleclearmanualschedulemanualschedules);//更新fact中变量值
+                        update(attendance_scheduleclearmanualschedulerule);//更新fact中变量值
+                        update(attendance_scheduleclearmanualschedulescopes);//更新fact中变量值
+                        update(attendance_scheduleclearmanualscheduleshiftfilter);//更新fact中变量值
+                        update(attendance_scheduleclearmanualscheduleshifts);//更新fact中变量值
+                        update(attendance_scheduleclearmanualscheduletemp);//更新fact中变量值
+                        update(attendance_scheduleclearmanualscheduletemprule);//更新fact中变量值
+                        update(attendance_scheduleclearmanualscheduleworkdays);//更新fact中变量值
+            end
+
+            //逻辑处理节点[获取当前规则激活班次]
+            rule "dedataset_01"
+            ruleflow-group "attendance_scheduleclearmanualschedulededataset_01"
+            when
+            then
+                        update(attendance_scheduleclearmanualscheduledefault);//更新fact中变量值
+                        update(attendance_scheduleclearmanualscheduleactiveshifts);//更新fact中变量值
+                        update(attendance_scheduleclearmanualscheduleattendance_group_shifts);//更新fact中变量值
+                        update(attendance_scheduleclearmanualschedulemanualschedules);//更新fact中变量值
+                        update(attendance_scheduleclearmanualschedulerule);//更新fact中变量值
+                        update(attendance_scheduleclearmanualschedulescopes);//更新fact中变量值
+                        update(attendance_scheduleclearmanualscheduleshiftfilter);//更新fact中变量值
+                        update(attendance_scheduleclearmanualscheduleshifts);//更新fact中变量值
+                        update(attendance_scheduleclearmanualscheduletemp);//更新fact中变量值
+                        update(attendance_scheduleclearmanualscheduletemprule);//更新fact中变量值
+                        update(attendance_scheduleclearmanualscheduleworkdays);//更新fact中变量值
+            end
+
+            //逻辑处理节点[计算构造新排班]
+            rule "rawsfcode_01"
+            ruleflow-group "attendance_scheduleclearmanualschedulerawsfcode_01"
+            when
+            then
+                        update(attendance_scheduleclearmanualscheduledefault);//更新fact中变量值
+                        update(attendance_scheduleclearmanualscheduleactiveshifts);//更新fact中变量值
+                        update(attendance_scheduleclearmanualscheduleattendance_group_shifts);//更新fact中变量值
+                        update(attendance_scheduleclearmanualschedulemanualschedules);//更新fact中变量值
+                        update(attendance_scheduleclearmanualschedulerule);//更新fact中变量值
+                        update(attendance_scheduleclearmanualschedulescopes);//更新fact中变量值
+                        update(attendance_scheduleclearmanualscheduleshiftfilter);//更新fact中变量值
+                        update(attendance_scheduleclearmanualscheduleshifts);//更新fact中变量值
+                        update(attendance_scheduleclearmanualscheduletemp);//更新fact中变量值
+                        update(attendance_scheduleclearmanualscheduletemprule);//更新fact中变量值
+                        update(attendance_scheduleclearmanualscheduleworkdays);//更新fact中变量值
+            end
+
+            //逻辑处理节点[输出拷贝后的rule]
+            rule "debugparam_04"
+            ruleflow-group "attendance_scheduleclearmanualscheduledebugparam_04"
+            when
+            then
+                        update(attendance_scheduleclearmanualscheduledefault);//更新fact中变量值
+                        update(attendance_scheduleclearmanualscheduleactiveshifts);//更新fact中变量值
+                        update(attendance_scheduleclearmanualscheduleattendance_group_shifts);//更新fact中变量值
+                        update(attendance_scheduleclearmanualschedulemanualschedules);//更新fact中变量值
+                        update(attendance_scheduleclearmanualschedulerule);//更新fact中变量值
+                        update(attendance_scheduleclearmanualschedulescopes);//更新fact中变量值
+                        update(attendance_scheduleclearmanualscheduleshiftfilter);//更新fact中变量值
+                        update(attendance_scheduleclearmanualscheduleshifts);//更新fact中变量值
+                        update(attendance_scheduleclearmanualscheduletemp);//更新fact中变量值
+                        update(attendance_scheduleclearmanualscheduletemprule);//更新fact中变量值
+                        update(attendance_scheduleclearmanualscheduleworkdays);//更新fact中变量值
+            end
+
+            //逻辑处理节点[上a休b构造新排班]
+            rule "rawsfcode_02"
+            ruleflow-group "attendance_scheduleclearmanualschedulerawsfcode_02"
+            when
+            then
+                        update(attendance_scheduleclearmanualscheduledefault);//更新fact中变量值
+                        update(attendance_scheduleclearmanualscheduleactiveshifts);//更新fact中变量值
+                        update(attendance_scheduleclearmanualscheduleattendance_group_shifts);//更新fact中变量值
+                        update(attendance_scheduleclearmanualschedulemanualschedules);//更新fact中变量值
+                        update(attendance_scheduleclearmanualschedulerule);//更新fact中变量值
+                        update(attendance_scheduleclearmanualschedulescopes);//更新fact中变量值
+                        update(attendance_scheduleclearmanualscheduleshiftfilter);//更新fact中变量值
+                        update(attendance_scheduleclearmanualscheduleshifts);//更新fact中变量值
+                        update(attendance_scheduleclearmanualscheduletemp);//更新fact中变量值
+                        update(attendance_scheduleclearmanualscheduletemprule);//更新fact中变量值
+                        update(attendance_scheduleclearmanualscheduleworkdays);//更新fact中变量值
+            end
+
+            //逻辑处理节点[手动排班置空]
+            rule "prepareparam_02"
+            ruleflow-group "attendance_scheduleclearmanualscheduleprepareparam_02"
+            when
+            then
+                                attendance_scheduleclearmanualscheduletemp.set("workday",null);
+                        update(attendance_scheduleclearmanualscheduledefault);//更新fact中变量值
+                        update(attendance_scheduleclearmanualscheduleactiveshifts);//更新fact中变量值
+                        update(attendance_scheduleclearmanualscheduleattendance_group_shifts);//更新fact中变量值
+                        update(attendance_scheduleclearmanualschedulemanualschedules);//更新fact中变量值
+                        update(attendance_scheduleclearmanualschedulerule);//更新fact中变量值
+                        update(attendance_scheduleclearmanualschedulescopes);//更新fact中变量值
+                        update(attendance_scheduleclearmanualscheduleshiftfilter);//更新fact中变量值
+                        update(attendance_scheduleclearmanualscheduleshifts);//更新fact中变量值
+                        update(attendance_scheduleclearmanualscheduletemp);//更新fact中变量值
+                        update(attendance_scheduleclearmanualscheduletemprule);//更新fact中变量值
+                        update(attendance_scheduleclearmanualscheduleworkdays);//更新fact中变量值
+            end
+
+            //逻辑处理节点[实体处理逻辑]
+            rule "delogic_01"
+            ruleflow-group "attendance_scheduleclearmanualscheduledelogic_01"
+            when
+            then
+                        update(attendance_scheduleclearmanualscheduledefault);//更新fact中变量值
+                        update(attendance_scheduleclearmanualscheduleactiveshifts);//更新fact中变量值
+                        update(attendance_scheduleclearmanualscheduleattendance_group_shifts);//更新fact中变量值
+                        update(attendance_scheduleclearmanualschedulemanualschedules);//更新fact中变量值
+                        update(attendance_scheduleclearmanualschedulerule);//更新fact中变量值
+                        update(attendance_scheduleclearmanualschedulescopes);//更新fact中变量值
+                        update(attendance_scheduleclearmanualscheduleshiftfilter);//更新fact中变量值
+                        update(attendance_scheduleclearmanualscheduleshifts);//更新fact中变量值
+                        update(attendance_scheduleclearmanualscheduletemp);//更新fact中变量值
+                        update(attendance_scheduleclearmanualscheduletemprule);//更新fact中变量值
+                        update(attendance_scheduleclearmanualscheduleworkdays);//更新fact中变量值
+            end
+
+            //逻辑处理节点[准备参数]
+            rule "prepareparam3"
+            ruleflow-group "attendance_scheduleclearmanualscheduleprepareparam3"
+            when
+            then
+                        update(attendance_scheduleclearmanualscheduledefault);//更新fact中变量值
+                        update(attendance_scheduleclearmanualscheduleactiveshifts);//更新fact中变量值
+                        update(attendance_scheduleclearmanualscheduleattendance_group_shifts);//更新fact中变量值
+                        update(attendance_scheduleclearmanualschedulemanualschedules);//更新fact中变量值
+                        update(attendance_scheduleclearmanualschedulerule);//更新fact中变量值
+                        update(attendance_scheduleclearmanualschedulescopes);//更新fact中变量值
+                        update(attendance_scheduleclearmanualscheduleshiftfilter);//更新fact中变量值
+                        update(attendance_scheduleclearmanualscheduleshifts);//更新fact中变量值
+                        update(attendance_scheduleclearmanualscheduletemp);//更新fact中变量值
+                        update(attendance_scheduleclearmanualscheduletemprule);//更新fact中变量值
+                        update(attendance_scheduleclearmanualscheduleworkdays);//更新fact中变量值
+            end
+
+            //逻辑处理节点[更新排班]
+            rule "deaction_01"
+            ruleflow-group "attendance_scheduleclearmanualscheduledeaction_01"
+            when
+            then
+                        attendance_scheduleservice.update(attendance_scheduleclearmanualscheduletemp);
+                        update(attendance_scheduleclearmanualscheduledefault);//更新fact中变量值
+                        update(attendance_scheduleclearmanualscheduleactiveshifts);//更新fact中变量值
+                        update(attendance_scheduleclearmanualscheduleattendance_group_shifts);//更新fact中变量值
+                        update(attendance_scheduleclearmanualschedulemanualschedules);//更新fact中变量值
+                        update(attendance_scheduleclearmanualschedulerule);//更新fact中变量值
+                        update(attendance_scheduleclearmanualschedulescopes);//更新fact中变量值
+                        update(attendance_scheduleclearmanualscheduleshiftfilter);//更新fact中变量值
+                        update(attendance_scheduleclearmanualscheduleshifts);//更新fact中变量值
+                        update(attendance_scheduleclearmanualscheduletemp);//更新fact中变量值
+                        update(attendance_scheduleclearmanualscheduletemprule);//更新fact中变量值
+                        update(attendance_scheduleclearmanualscheduleworkdays);//更新fact中变量值
+            end

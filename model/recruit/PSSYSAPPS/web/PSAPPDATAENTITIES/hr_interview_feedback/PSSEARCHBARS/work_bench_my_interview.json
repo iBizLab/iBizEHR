@@ -1,0 +1,65 @@
+{
+  "codeName" : "work_bench_my_interview",
+  "controlType" : "SEARCHBAR",
+  "dynaModelFilePath" : "PSSYSAPPS/web/PSAPPDATAENTITIES/hr_interview_feedback/PSSEARCHBARS/work_bench_my_interview.json",
+  "height" : 40.0,
+  "logicName" : "用人经理工作台-我的面试",
+  "getPSAppCounterRef" : {
+    "modelref" : true,
+    "id" : "94645f5a7e0b966288d431f9d50562bb"
+  },
+  "getPSAppCounterRefs" : [ {
+    "getPSAppCounter" : {
+      "codeName" : "workspace_my_interview_count",
+      "counterType" : "DEDR",
+      "dynaModelFilePath" : "PSSYSAPPS/web/PSAPPCOUNTERS/workspace_my_interview_count.json",
+      "getGetPSAppDEAction" : {
+        "modelref" : true,
+        "id" : "get_my_interview_count"
+      },
+      "name" : "用人经理-工作台-我的面试计数器",
+      "getPSAppDataEntity" : {
+        "modelref" : true,
+        "path" : "PSSYSAPPS/web/PSAPPDATAENTITIES/hr_candidate.json"
+      },
+      "timer" : 60000,
+      "uniqueTag" : "workspace_my_interview_count"
+    },
+    "tag" : "94645f5a7e0b966288d431f9d50562bb",
+    "uniqueTag" : "workspace_my_interview_count",
+    "id" : "94645f5a7e0b966288d431f9d50562bb"
+  } ],
+  "getPSAppDataEntity" : {
+    "modelref" : true,
+    "path" : "PSSYSAPPS/web/PSAPPDATAENTITIES/hr_interview_feedback.json"
+  },
+  "getPSSearchBarGroups" : [ {
+    "caption" : "今天",
+    "counterId" : "current",
+    "data" : "{\"theme_model\":{\"searchconds\":[{\"condtype\":\"GROUP\",\"condop\":\"AND\",\"bnotmode\":false,\"searchconds\":[{\"condtype\":\"DEFIELD\",\"fieldname\":\"daycalc\",\"condop\":\"EQ\",\"value\":\"0\"}]}]}}",
+    "itemType" : "GROUP",
+    "name" : "current",
+    "width" : 0.0,
+    "addSeparator" : false
+  }, {
+    "caption" : "明天及以后",
+    "counterId" : "after",
+    "data" : "{\"theme_model\":{\"searchconds\":[{\"condtype\":\"GROUP\",\"condop\":\"AND\",\"bnotmode\":false,\"searchconds\":[{\"condtype\":\"DEFIELD\",\"fieldname\":\"daycalc\",\"condop\":\"GT\",\"value\":\"0\"}]}]}}",
+    "itemType" : "GROUP",
+    "name" : "after",
+    "width" : 0.0,
+    "addSeparator" : false
+  } ],
+  "getPSSysCss" : {
+    "cssName" : "applicant_baseinfo_count"
+  },
+  "quickGroupCount" : -1,
+  "quickSearchMode" : 0,
+  "quickSearchWidth" : 0,
+  "enableFilter" : false,
+  "enableGroup" : true,
+  "enableQuickSearch" : false,
+  "mobileSearchBar" : false,
+  "modelid" : "3c1b618a5fe1ecf01b3051565a3cb60d",
+  "modeltype" : "PSSYSSEARCHBAR"
+}

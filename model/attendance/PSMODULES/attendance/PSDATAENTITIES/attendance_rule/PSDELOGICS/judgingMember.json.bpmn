@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+    <definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:g="http://www.jboss.org/drools/flow/gpd" xmlns:tns="http://www.jboss.org/drools" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" expressionLanguage="http://www.mvel.org/2.0" id="Definition" name="" targetNamespace="http://www.jboss.org/drools" typeLanguage="http://www.java.com/javaTypes">
+        <process id="cn.ibizlab.core.attendance.service.logic.attendance_rulejudgingmember" isClosed="false" isExecutable="true" name="attendance_attendance_rule_judgingmember_ruleFlow" processType="Private" tns:packageName="cn.ibizlab.core.attendance.service.logic.attendance_rulejudgingmember">
+            <extensionElements>
+                <tns:import name="java.util.Map" />
+                <tns:import name="org.springframework.util.StringUtils"/>
+                <tns:import name="cn.ibizlab.util.helper.RuleUtils"/>
+                                <tns:metaData express="" name="attendance_rulejudgingmemberdefault" type="entity"/>
+                                <tns:metaData express="new cn.ibizlab.core.attendance.domain.attendance_rule()" name="attendance_rulejudgingmemberfilter" type="refentity"/>
+                                <tns:metaData express="new cn.ibizlab.core.attendance.domain.attendance_group_shift_member()" name="attendance_rulejudgingmembergroupresult" type="refentity"/>
+                                <tns:metaData express="new cn.ibizlab.core.attendance.domain.attendance_group_shift_member()" name="attendance_rulejudgingmembermemberresult" type="refentity"/>
+                                <tns:metaData express="new cn.ibizlab.core.attendance.domain.attendance_group_shift_member()" name="attendance_rulejudgingmembermembertemp" type="refentity"/>
+                                <tns:metaData express="new cn.ibizlab.core.attendance.domain.attendance_group_shift_member()" name="attendance_rulejudgingmembermembers" type="refentity"/>
+                                <tns:metaData express="new HashMap()" name="attendance_rulejudgingmembermsg" type="refentity"/>
+                                <tns:metaData express="new cn.ibizlab.core.attendance.domain.attendance_group_shift_member()" name="attendance_rulejudgingmemberresults" type="refentity"/>
+                                <tns:metaData express="new cn.ibizlab.core.attendance.domain.attendance_rule()" name="attendance_rulejudgingmemberrule" type="refentity"/>
+                                <tns:metaData express="new cn.ibizlab.core.attendance.domain.attendance_rule()" name="attendance_rulejudgingmemberrules" type="refentity"/>
+                                <tns:metaData express="new cn.ibizlab.core.attendance.domain.attendance_group_shift_member()" name="attendance_rulejudgingmembertemp" type="refentity"/>
+                                    <tns:metaData express="T(cn.ibizlab.util.security.SpringContextHolder).getBean(T(cn.ibizlab.core.attendance.service.Iattendance_ruleService))" name="attendance_ruleservice" type="service"/>
+                    <tns:metaData express="T(cn.ibizlab.util.security.SpringContextHolder).getBean(T(cn.ibizlab.core.attendance.service.Iattendance_ruleService))" name="iBzSysAttendance_ruleDefaultService" type="service"/>
+                    <tns:metaData express="T(cn.ibizlab.util.security.AuthenticationUser).getAuthenticationUser()" name="curuser" type="session"/>
+                            <tns:global identifier="attendance_rulejudgingmemberdefault" type="cn.ibizlab.core.attendance.domain.attendance_rule" />
+                            <tns:global identifier="attendance_rulejudgingmemberfilter" type="cn.ibizlab.core.attendance.domain.attendance_rule" />
+                            <tns:global identifier="attendance_rulejudgingmembergroupresult" type="cn.ibizlab.core.attendance.domain.attendance_group_shift_member" />
+                            <tns:global identifier="attendance_rulejudgingmembermemberresult" type="cn.ibizlab.core.attendance.domain.attendance_group_shift_member" />
+                            <tns:global identifier="attendance_rulejudgingmembermembertemp" type="cn.ibizlab.core.attendance.domain.attendance_group_shift_member" />
+                            <tns:global identifier="attendance_rulejudgingmembermembers" type="cn.ibizlab.core.attendance.domain.attendance_group_shift_member" />
+                            <tns:global identifier="attendance_rulejudgingmemberresults" type="cn.ibizlab.core.attendance.domain.attendance_group_shift_member" />
+                            <tns:global identifier="attendance_rulejudgingmemberrule" type="cn.ibizlab.core.attendance.domain.attendance_rule" />
+                            <tns:global identifier="attendance_rulejudgingmemberrules" type="cn.ibizlab.core.attendance.domain.attendance_rule" />
+                            <tns:global identifier="attendance_rulejudgingmembertemp" type="cn.ibizlab.core.attendance.domain.attendance_group_shift_member" />
+            </extensionElements>
+                        <startEvent id="begin" isInterrupting="true"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="attendance_rulejudgingmemberdebugparam_01" id="debugparam_01" implementation="http://www.jboss.org/drools/rule" name="调试逻辑参数"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="attendance_rulejudgingmemberprepareparam_01" id="prepareparam_01" implementation="http://www.jboss.org/drools/rule" name="准备参数"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="attendance_rulejudgingmemberloopsubcall_01" id="loopsubcall_01" implementation="http://www.jboss.org/drools/rule" name="循环子调用"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="attendance_rulejudgingmemberprepareparam_02" id="prepareparam_02" implementation="http://www.jboss.org/drools/rule" name="准备参数"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="attendance_rulejudgingmemberrawsqlcall_01" id="rawsqlcall_01" implementation="http://www.jboss.org/drools/rule" name="判断是否在其他生效规则内"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="attendance_rulejudgingmemberrawsfcode_01" id="rawsfcode_01" implementation="http://www.jboss.org/drools/rule" name="附加到判断结果"/>
+                        <endEvent id="rawsfcode_01_end" name="end"/>
+                        <sequenceFlow id="rawsfcode_01_end_line" sourceRef="rawsfcode_01" targetRef="rawsfcode_01_end"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="attendance_rulejudgingmemberrawsfcode_02" id="rawsfcode_02" implementation="http://www.jboss.org/drools/rule" name="执行脚本代码"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="attendance_rulejudgingmemberloopsubcall_02" id="loopsubcall_02" implementation="http://www.jboss.org/drools/rule" name="循环子调用"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="attendance_rulejudgingmemberprepareparam_04" id="prepareparam_04" implementation="http://www.jboss.org/drools/rule" name="准备参数"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="attendance_rulejudgingmemberdedataset_01" id="dedataset_01" implementation="http://www.jboss.org/drools/rule" name="实体数据集"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="attendance_rulejudgingmemberprepareparam_05" id="prepareparam_05" implementation="http://www.jboss.org/drools/rule" name="准备参数"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="attendance_rulejudgingmemberdebugparam_02" id="debugparam_02" implementation="http://www.jboss.org/drools/rule" name="调试逻辑参数"/>
+                        <endEvent id="debugparam_02_end" name="end"/>
+                        <sequenceFlow id="debugparam_02_end_line" sourceRef="debugparam_02" targetRef="debugparam_02_end"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="attendance_rulejudgingmemberprepareparam_03" id="prepareparam_03" implementation="http://www.jboss.org/drools/rule" name="准备参数"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="attendance_rulejudgingmemberrawsfcode_03" id="rawsfcode_03" implementation="http://www.jboss.org/drools/rule" name="执行脚本代码"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="attendance_rulejudgingmemberend_01" id="end_01" implementation="http://www.jboss.org/drools/rule" name="结束"/>
+                        <endEvent id="end_01_end" name="end"/>
+                        <sequenceFlow id="end_01_end_line" sourceRef="end_01" targetRef="end_01_end"/>
+                    <sequenceFlow id="begin_debugparam_01" sourceRef="begin" targetRef="debugparam_01">
+                    </sequenceFlow>
+                    <sequenceFlow id="gateway-debugparam_01_prepareparam_03" sourceRef="gateway-debugparam_01" targetRef="prepareparam_03">
+                            <conditionExpression  language="http://www.jboss.org/drools/rule" ><![CDATA[
+                                            $attendance_rulejudgingmemberdefault:attendance_rule();
+                                            $attendance_rulejudgingmemberfilter:attendance_rule();
+                                            $attendance_rulejudgingmembergroupresult:attendance_group_shift_member();
+                                            $attendance_rulejudgingmembermemberresult:attendance_group_shift_member();
+                                            $attendance_rulejudgingmembermembertemp:attendance_group_shift_member();
+                                            $attendance_rulejudgingmembermembers:attendance_group_shift_member();
+                                            $attendance_rulejudgingmembermsg:Map();
+                                            $attendance_rulejudgingmemberresults:attendance_group_shift_member();
+                                            $attendance_rulejudgingmemberrule:attendance_rule();
+                                            $attendance_rulejudgingmemberrules:attendance_rule();
+                                            $attendance_rulejudgingmembertemp:attendance_group_shift_member();
+                                    eval($attendance_rulejudgingmemberdefault==attendance_rulejudgingmemberdefault && $attendance_rulejudgingmemberfilter==attendance_rulejudgingmemberfilter && $attendance_rulejudgingmembergroupresult==attendance_rulejudgingmembergroupresult && $attendance_rulejudgingmembermemberresult==attendance_rulejudgingmembermemberresult && $attendance_rulejudgingmembermembertemp==attendance_rulejudgingmembermembertemp && $attendance_rulejudgingmembermembers==attendance_rulejudgingmembermembers && $attendance_rulejudgingmemberresults==attendance_rulejudgingmemberresults && $attendance_rulejudgingmemberrule==attendance_rulejudgingmemberrule && $attendance_rulejudgingmemberrules==attendance_rulejudgingmemberrules && $attendance_rulejudgingmembertemp==attendance_rulejudgingmembertemp);
+                                eval((RuleUtils.test($attendance_rulejudgingmemberdefault.get("id"),"ISNULL","")))
+                                ]]>
+                            </conditionExpression>
+                    </sequenceFlow>
+                    <sequenceFlow id="debugparam_01_prepareparam_01" sourceRef="debugparam_01" targetRef="prepareparam_01">
+                    </sequenceFlow>
+                    <sequenceFlow id="prepareparam_01_loopsubcall_01" sourceRef="prepareparam_01" targetRef="loopsubcall_01">
+                    </sequenceFlow>
+                    <sequenceFlow id="loopsubcall_01_prepareparam_02" sourceRef="loopsubcall_01" targetRef="prepareparam_02">
+                    </sequenceFlow>
+                    <sequenceFlow id="loopsubcall_01_rawsfcode_02" sourceRef="loopsubcall_01" targetRef="rawsfcode_02">
+                    </sequenceFlow>
+                    <sequenceFlow id="prepareparam_02_rawsqlcall_01" sourceRef="prepareparam_02" targetRef="rawsqlcall_01">
+                    </sequenceFlow>
+                    <sequenceFlow id="gateway-rawsqlcall_01_rawsfcode_01" sourceRef="gateway-rawsqlcall_01" targetRef="rawsfcode_01">
+                            <conditionExpression  language="http://www.jboss.org/drools/rule" ><![CDATA[
+                                            $attendance_rulejudgingmemberdefault:attendance_rule();
+                                            $attendance_rulejudgingmemberfilter:attendance_rule();
+                                            $attendance_rulejudgingmembergroupresult:attendance_group_shift_member();
+                                            $attendance_rulejudgingmembermemberresult:attendance_group_shift_member();
+                                            $attendance_rulejudgingmembermembertemp:attendance_group_shift_member();
+                                            $attendance_rulejudgingmembermembers:attendance_group_shift_member();
+                                            $attendance_rulejudgingmembermsg:Map();
+                                            $attendance_rulejudgingmemberresults:attendance_group_shift_member();
+                                            $attendance_rulejudgingmemberrule:attendance_rule();
+                                            $attendance_rulejudgingmemberrules:attendance_rule();
+                                            $attendance_rulejudgingmembertemp:attendance_group_shift_member();
+                                    eval($attendance_rulejudgingmemberdefault==attendance_rulejudgingmemberdefault && $attendance_rulejudgingmemberfilter==attendance_rulejudgingmemberfilter && $attendance_rulejudgingmembergroupresult==attendance_rulejudgingmembergroupresult && $attendance_rulejudgingmembermemberresult==attendance_rulejudgingmembermemberresult && $attendance_rulejudgingmembermembertemp==attendance_rulejudgingmembermembertemp && $attendance_rulejudgingmembermembers==attendance_rulejudgingmembermembers && $attendance_rulejudgingmemberresults==attendance_rulejudgingmemberresults && $attendance_rulejudgingmemberrule==attendance_rulejudgingmemberrule && $attendance_rulejudgingmemberrules==attendance_rulejudgingmemberrules && $attendance_rulejudgingmembertemp==attendance_rulejudgingmembertemp);
+                                eval((RuleUtils.test($attendance_rulejudgingmembermemberresult.get("size"),"NOTEQ","0")))
+                                ]]>
+                            </conditionExpression>
+                    </sequenceFlow>
+                    <sequenceFlow id="gateway-rawsfcode_02_loopsubcall_02" sourceRef="gateway-rawsfcode_02" targetRef="loopsubcall_02">
+                            <conditionExpression  language="http://www.jboss.org/drools/rule" ><![CDATA[
+                                            $attendance_rulejudgingmemberdefault:attendance_rule();
+                                            $attendance_rulejudgingmemberfilter:attendance_rule();
+                                            $attendance_rulejudgingmembergroupresult:attendance_group_shift_member();
+                                            $attendance_rulejudgingmembermemberresult:attendance_group_shift_member();
+                                            $attendance_rulejudgingmembermembertemp:attendance_group_shift_member();
+                                            $attendance_rulejudgingmembermembers:attendance_group_shift_member();
+                                            $attendance_rulejudgingmembermsg:Map();
+                                            $attendance_rulejudgingmemberresults:attendance_group_shift_member();
+                                            $attendance_rulejudgingmemberrule:attendance_rule();
+                                            $attendance_rulejudgingmemberrules:attendance_rule();
+                                            $attendance_rulejudgingmembertemp:attendance_group_shift_member();
+                                    eval($attendance_rulejudgingmemberdefault==attendance_rulejudgingmemberdefault && $attendance_rulejudgingmemberfilter==attendance_rulejudgingmemberfilter && $attendance_rulejudgingmembergroupresult==attendance_rulejudgingmembergroupresult && $attendance_rulejudgingmembermemberresult==attendance_rulejudgingmembermemberresult && $attendance_rulejudgingmembermembertemp==attendance_rulejudgingmembermembertemp && $attendance_rulejudgingmembermembers==attendance_rulejudgingmembermembers && $attendance_rulejudgingmemberresults==attendance_rulejudgingmemberresults && $attendance_rulejudgingmemberrule==attendance_rulejudgingmemberrule && $attendance_rulejudgingmemberrules==attendance_rulejudgingmemberrules && $attendance_rulejudgingmembertemp==attendance_rulejudgingmembertemp);
+                                eval((RuleUtils.test($attendance_rulejudgingmembergroupresult.get("size"),"NOTEQ","0")))
+                                ]]>
+                            </conditionExpression>
+                    </sequenceFlow>
+                    <sequenceFlow id="loopsubcall_02_prepareparam_04" sourceRef="loopsubcall_02" targetRef="prepareparam_04">
+                    </sequenceFlow>
+                    <sequenceFlow id="loopsubcall_02_rawsfcode_03" sourceRef="loopsubcall_02" targetRef="rawsfcode_03">
+                    </sequenceFlow>
+                    <sequenceFlow id="prepareparam_04_dedataset_01" sourceRef="prepareparam_04" targetRef="dedataset_01">
+                    </sequenceFlow>
+                    <sequenceFlow id="gateway-dedataset_01_prepareparam_05" sourceRef="gateway-dedataset_01" targetRef="prepareparam_05">
+                            <conditionExpression  language="http://www.jboss.org/drools/rule" ><![CDATA[
+                                            $attendance_rulejudgingmemberdefault:attendance_rule();
+                                            $attendance_rulejudgingmemberfilter:attendance_rule();
+                                            $attendance_rulejudgingmembergroupresult:attendance_group_shift_member();
+                                            $attendance_rulejudgingmembermemberresult:attendance_group_shift_member();
+                                            $attendance_rulejudgingmembermembertemp:attendance_group_shift_member();
+                                            $attendance_rulejudgingmembermembers:attendance_group_shift_member();
+                                            $attendance_rulejudgingmembermsg:Map();
+                                            $attendance_rulejudgingmemberresults:attendance_group_shift_member();
+                                            $attendance_rulejudgingmemberrule:attendance_rule();
+                                            $attendance_rulejudgingmemberrules:attendance_rule();
+                                            $attendance_rulejudgingmembertemp:attendance_group_shift_member();
+                                    eval($attendance_rulejudgingmemberdefault==attendance_rulejudgingmemberdefault && $attendance_rulejudgingmemberfilter==attendance_rulejudgingmemberfilter && $attendance_rulejudgingmembergroupresult==attendance_rulejudgingmembergroupresult && $attendance_rulejudgingmembermemberresult==attendance_rulejudgingmembermemberresult && $attendance_rulejudgingmembermembertemp==attendance_rulejudgingmembermembertemp && $attendance_rulejudgingmembermembers==attendance_rulejudgingmembermembers && $attendance_rulejudgingmemberresults==attendance_rulejudgingmemberresults && $attendance_rulejudgingmemberrule==attendance_rulejudgingmemberrule && $attendance_rulejudgingmemberrules==attendance_rulejudgingmemberrules && $attendance_rulejudgingmembertemp==attendance_rulejudgingmembertemp);
+                                eval((RuleUtils.test($attendance_rulejudgingmemberrules.get("size"),"NOTEQ","0")))
+                                ]]>
+                            </conditionExpression>
+                    </sequenceFlow>
+                    <sequenceFlow id="prepareparam_05_debugparam_02" sourceRef="prepareparam_05" targetRef="debugparam_02">
+                    </sequenceFlow>
+                    <sequenceFlow id="prepareparam_03_prepareparam_01" sourceRef="prepareparam_03" targetRef="prepareparam_01">
+                    </sequenceFlow>
+                    <sequenceFlow id="rawsfcode_03_end_01" sourceRef="rawsfcode_03" targetRef="end_01">
+                    </sequenceFlow>
+                            <exclusiveGateway id="gateway-debugparam_01" name="Gateway" gatewayDirection="Diverging" default="gateway-debugparam_01_end_line"></exclusiveGateway>
+                            <sequenceFlow id="debugparam_01_gateway-debugparam_01_gatewayline" sourceRef="debugparam_01" targetRef="gateway-debugparam_01"></sequenceFlow>
+                            <sequenceFlow id="gateway-debugparam_01_end_line" sourceRef="gateway-debugparam_01" targetRef="gateway-debugparam_01_end"/>
+                            <endEvent id="gateway-debugparam_01_end" name="end"/>
+                            <exclusiveGateway id="gateway-rawsqlcall_01" name="Gateway" gatewayDirection="Diverging" default="gateway-rawsqlcall_01_end_line"></exclusiveGateway>
+                            <sequenceFlow id="rawsqlcall_01_gateway-rawsqlcall_01_gatewayline" sourceRef="rawsqlcall_01" targetRef="gateway-rawsqlcall_01"></sequenceFlow>
+                            <sequenceFlow id="gateway-rawsqlcall_01_end_line" sourceRef="gateway-rawsqlcall_01" targetRef="gateway-rawsqlcall_01_end"/>
+                            <endEvent id="gateway-rawsqlcall_01_end" name="end"/>
+                            <exclusiveGateway id="gateway-rawsfcode_02" name="Gateway" gatewayDirection="Diverging" default="gateway-rawsfcode_02_end_line"></exclusiveGateway>
+                            <sequenceFlow id="rawsfcode_02_gateway-rawsfcode_02_gatewayline" sourceRef="rawsfcode_02" targetRef="gateway-rawsfcode_02"></sequenceFlow>
+                            <sequenceFlow id="gateway-rawsfcode_02_end_line" sourceRef="gateway-rawsfcode_02" targetRef="gateway-rawsfcode_02_end"/>
+                            <endEvent id="gateway-rawsfcode_02_end" name="end"/>
+                            <exclusiveGateway id="gateway-dedataset_01" name="Gateway" gatewayDirection="Diverging" default="gateway-dedataset_01_end_line"></exclusiveGateway>
+                            <sequenceFlow id="dedataset_01_gateway-dedataset_01_gatewayline" sourceRef="dedataset_01" targetRef="gateway-dedataset_01"></sequenceFlow>
+                            <sequenceFlow id="gateway-dedataset_01_end_line" sourceRef="gateway-dedataset_01" targetRef="gateway-dedataset_01_end"/>
+                            <endEvent id="gateway-dedataset_01_end" name="end"/>
+        </process>
+    </definitions>

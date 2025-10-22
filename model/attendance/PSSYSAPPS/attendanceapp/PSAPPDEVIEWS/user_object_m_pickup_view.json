@@ -1,0 +1,1440 @@
+{
+  "accUserMode" : 2,
+  "getCapPSLanguageRes" : {
+    "lanResTag" : "DE.LNAME.USER_OBJECT"
+  },
+  "caption" : "选择部门与人员",
+  "codeName" : "user_object_m_pickup_view",
+  "dynaModelFilePath" : "PSSYSAPPS/attendanceapp/PSAPPDEVIEWS/user_object_m_pickup_view.json",
+  "funcViewMode" : "MPICKUPVIEW",
+  "height" : 540,
+  "name" : "user_objectMPickupView",
+  "openMode" : "POPUPMODAL",
+  "getPSAppDataEntity" : {
+    "modelref" : true,
+    "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/user_object.json"
+  },
+  "getPSAppModule" : {
+    "modelref" : true,
+    "path" : "PSSYSAPPS/attendanceapp/PSAPPMODULES/attendance.json"
+  },
+  "getPSAppViewNavParams" : [ {
+    "key" : "reserver14",
+    "name" : "reserver14",
+    "value" : "reserver14",
+    "rawValue" : false
+  }, {
+    "key" : "keymapping",
+    "name" : "keymapping",
+    "value" : "type:type;id:user_id;name:name;parent_id:parent_id",
+    "rawValue" : true
+  }, {
+    "key" : "srfpdept",
+    "name" : "srfpdept",
+    "value" : "srforgsectorid",
+    "rawValue" : false
+  }, {
+    "key" : "srforgid",
+    "name" : "srforgid",
+    "value" : "srforgid",
+    "rawValue" : false
+  } ],
+  "getPSDEViewCodeName" : "MPickupView",
+  "getPSDEViewId" : "5acc29f552c14bf35945c58aa176561e",
+  "getPSViewLayoutPanel" : {
+    "codeName" : "ad53b0c56ee8e1c9b32",
+    "controlType" : "VIEWLAYOUTPANEL",
+    "hookEventNames" : [ "ONCLICK" ],
+    "layoutMode" : "FLEX",
+    "logicName" : "MPickupView多项选择视图布局面板",
+    "name" : "layoutpanel",
+    "getPSAppDataEntity" : {
+      "modelref" : true,
+      "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/user_object.json"
+    },
+    "getPSControlLogics" : [ {
+      "eventNames" : "onClick",
+      "logicTag" : "layoutpanel",
+      "logicType" : "SCRIPT",
+      "name" : "beforeconfirm",
+      "scriptCode" : "const _simpleList = view.getController('simplelist')\r\n\r\nconst formData = _simpleList.getAllData();\r\nconsole.log(\"执行选中校验\"+view)\r\n\r\nif (formData && formData.length > 0) {\r\n    // 本地分组校验,不通过时直接提示\r\n    const serviceUtil = ibiz.hub.getApp(context.srfappid).deService;\r\n    const groupService = await serviceUtil.getService(context, 'attendanceapp.attendance_group_shift');\r\n    const memberService = await serviceUtil.getService(context, 'attendanceapp.attendance_group_shift_member');\r\n    // 分组数据\r\n    const groups = groupService.local.getList(context);\r\n    // 人员数据\r\n    const items = memberService.local.getList(context);\r\n    const types = ['class_inversion', 'work_rest']\r\n    const selects = formData.map(_data => _data.id);\r\n    // const tags = new Map();\r\n    const groupIndex = [];\r\n    selects.forEach(select => {\r\n        const target = items.find(item => item.group_id !== context.attendance_group_shift && item.user_id === select);\r\n        if (target) {\r\n            // 当前人是被重复选择的,计算当前人之前的分组\r\n            const index = groups.findIndex(group => group.id === target.group_id)\r\n            const tempIndex = index + 1;\r\n            if (!groupIndex.includes(tempIndex)) {\r\n                groupIndex.push(tempIndex)\r\n            }\r\n        }\r\n    })\r\n    if (groupIndex.length > 0) {\r\n        await ibiz.modal.info({\r\n            title: '提示',\r\n            desc: `与第${groupIndex.join('、')}组考勤人员有重合，请修改考勤人员`,\r\n            okText: '我知道了'\r\n        });\r\n        return;\r\n    }\r\n    const cur_members = formData.map(item => {\r\n        return {\r\n            id: item._deData.id,\r\n            name: item._deData.name,\r\n            type: item._deData.type,\r\n            parent_id: item._deData.parent_id\r\n        }\r\n    })\r\n    const app = ibiz.hub.getApp(context.srfappid);\r\n    const res = await app.net.post('/attendance_rules/judging_member', {\r\n        cur_members: JSON.stringify(cur_members),\r\n        //过滤出其他组考勤人员\r\n        other_members: JSON.stringify(items.filter(item => item.group_id !== context.attendance_group_shift)),\r\n        //过滤出item.group_id !== context.attendance_group_shift的再传递\r\n        groups: JSON.stringify(groups.filter(group => group.id !== context.attendance_group_shift)),\r\n        attendance_rule:formData[0]?.attendance_rule\r\n    })\r\n    console.log('校验结果：', res);\r\n    if (res && res.data&& res.data.msg) {\r\n        if(\r\n            await ibiz.modal.confirm({\r\n                title: '提示',\r\n                desc: res.data.msg,\r\n            })\r\n        ){\r\n            if(res.data.isadd){\r\n                view.closeView({ ok: true, data: formData });\r\n            }else {\r\n                return;\r\n            }\r\n        }\r\n\r\n    }\r\n}",
+      "triggerType" : "CUSTOM"
+    } ],
+    "getPSControlParam" : { },
+    "getPSLayout" : {
+      "layout" : "FLEX"
+    },
+    "getRootPSPanelItems" : [ {
+      "caption" : "容器",
+      "itemStyle" : "DEFAULT",
+      "itemType" : "CONTAINER",
+      "name" : "view_header",
+      "getPSLayout" : {
+        "align" : "space-between",
+        "dir" : "row",
+        "layout" : "FLEX",
+        "vAlign" : "center"
+      },
+      "getPSLayoutPos" : {
+        "grow" : -1,
+        "layout" : "FLEX",
+        "shrink" : 0
+      },
+      "getPSPanelItems" : [ {
+        "caption" : "容器",
+        "itemStyle" : "DEFAULT",
+        "itemType" : "CONTAINER",
+        "name" : "view_header_left",
+        "getPSLayout" : {
+          "layout" : "FLEX"
+        },
+        "getPSLayoutPos" : {
+          "grow" : -1,
+          "heightMode" : "FULL",
+          "layout" : "FLEX"
+        },
+        "getPSPanelItems" : [ {
+          "caption" : "容器",
+          "itemStyle" : "DEFAULT",
+          "itemType" : "CONTAINER",
+          "name" : "view_captionbar",
+          "getPSLayout" : {
+            "align" : "center",
+            "layout" : "FLEX"
+          },
+          "getPSLayoutPos" : {
+            "grow" : -1,
+            "heightMode" : "FULL",
+            "layout" : "FLEX"
+          },
+          "getPSPanelItems" : [ {
+            "caption" : "页面标题",
+            "itemStyle" : "DEFAULT",
+            "itemType" : "CTRLPOS",
+            "name" : "captionbar",
+            "getPSLayoutPos" : {
+              "grow" : -1,
+              "layout" : "FLEX"
+            },
+            "showCaption" : true
+          } ]
+        } ]
+      }, {
+        "caption" : "容器",
+        "itemStyle" : "DEFAULT",
+        "itemType" : "CONTAINER",
+        "name" : "view_header_right",
+        "getPSLayout" : {
+          "layout" : "FLEX"
+        },
+        "getPSLayoutPos" : {
+          "grow" : -1,
+          "heightMode" : "FULL",
+          "layout" : "FLEX"
+        },
+        "getPSPanelItems" : [ {
+          "caption" : "容器",
+          "itemStyle" : "DEFAULT",
+          "itemType" : "CONTAINER",
+          "name" : "view_toolbar",
+          "getPSLayout" : {
+            "align" : "center",
+            "layout" : "FLEX"
+          },
+          "getPSLayoutPos" : {
+            "grow" : -1,
+            "heightMode" : "FULL",
+            "layout" : "FLEX"
+          },
+          "getPSPanelItems" : [ {
+            "caption" : "工具栏",
+            "itemStyle" : "DEFAULT",
+            "itemType" : "CTRLPOS",
+            "name" : "toolbar",
+            "getPSLayoutPos" : {
+              "grow" : -1,
+              "layout" : "FLEX"
+            },
+            "showCaption" : true
+          } ]
+        } ]
+      } ],
+      "predefinedType" : "VIEWHEADER"
+    }, {
+      "caption" : "容器",
+      "itemStyle" : "DEFAULT",
+      "itemType" : "CONTAINER",
+      "name" : "view_content",
+      "getPSLayout" : {
+        "dir" : "row",
+        "layout" : "FLEX"
+      },
+      "getPSLayoutPos" : {
+        "grow" : 1,
+        "layout" : "FLEX"
+      },
+      "getPSPanelItems" : [ {
+        "caption" : "容器",
+        "contentWidth" : 300.0,
+        "itemStyle" : "DEFAULT",
+        "itemType" : "CONTAINER",
+        "name" : "container3",
+        "getPSLayout" : {
+          "layout" : "FLEX"
+        },
+        "getPSLayoutPos" : {
+          "grow" : 1,
+          "layout" : "FLEX",
+          "width" : 300,
+          "widthMode" : "PX"
+        },
+        "getPSPanelItems" : [ {
+          "caption" : "控件占位",
+          "itemStyle" : "DEFAULT",
+          "itemType" : "CTRLPOS",
+          "name" : "pickupviewpanel",
+          "getPSLayoutPos" : {
+            "grow" : 1,
+            "layout" : "FLEX"
+          },
+          "showCaption" : true
+        } ],
+        "width" : 300.0
+      }, {
+        "caption" : "容器",
+        "itemStyle" : "DEFAULT",
+        "itemType" : "CONTAINER",
+        "name" : "container4",
+        "getPSLayout" : {
+          "align" : "center",
+          "dir" : "column",
+          "layout" : "FLEX"
+        },
+        "getPSLayoutPos" : {
+          "grow" : -1,
+          "layout" : "FLEX",
+          "shrink" : 0,
+          "spacingLeft" : "OUTERMEDIUM",
+          "spacingRight" : "OUTERMEDIUM"
+        },
+        "getPSPanelItems" : [ {
+          "actionType" : "UIACTION",
+          "buttonStyle" : "DEFAULT",
+          "caption" : "添加选中数据",
+          "itemStyle" : "DEFAULT",
+          "itemType" : "BUTTON",
+          "name" : "button_addselection",
+          "getPSAppViewUIAction" : {
+            "modelref" : true,
+            "id" : "layoutpanel_button_addselection"
+          },
+          "getPSLayoutPos" : {
+            "grow" : -1,
+            "layout" : "FLEX",
+            "spacingBottom" : "OUTERMEDIUM"
+          },
+          "getPSUIAction" : {
+            "caption" : "添加选中",
+            "codeName" : "AddSelection",
+            "fullCodeName" : "AddSelection",
+            "name" : "添加选中数据（数据选择）",
+            "predefinedType" : "UTIL_ADDSELECTION",
+            "timeout" : 60000,
+            "uIActionMode" : "SYS",
+            "uIActionTag" : "AddSelection",
+            "uIActionType" : "DEUIACTION"
+          },
+          "tooltip" : "添加选中数据",
+          "showCaption" : true
+        }, {
+          "actionType" : "UIACTION",
+          "buttonStyle" : "DEFAULT",
+          "caption" : "添加全部数据",
+          "itemStyle" : "DEFAULT",
+          "itemType" : "BUTTON",
+          "name" : "button_addall",
+          "getPSAppViewUIAction" : {
+            "modelref" : true,
+            "id" : "layoutpanel_button_addall"
+          },
+          "getPSLayoutPos" : {
+            "grow" : -1,
+            "layout" : "FLEX",
+            "spacingBottom" : "OUTERMEDIUM"
+          },
+          "getPSUIAction" : {
+            "caption" : "添加全部",
+            "codeName" : "AddAll",
+            "fullCodeName" : "AddAll",
+            "name" : "添加全部数据（数据选择）",
+            "predefinedType" : "UTIL_ADDALL",
+            "timeout" : 60000,
+            "uIActionMode" : "SYS",
+            "uIActionTag" : "AddAll",
+            "uIActionType" : "DEUIACTION"
+          },
+          "tooltip" : "添加全部数据",
+          "showCaption" : true
+        }, {
+          "actionType" : "UIACTION",
+          "buttonStyle" : "DEFAULT",
+          "caption" : "移除全部数据",
+          "itemStyle" : "DEFAULT",
+          "itemType" : "BUTTON",
+          "name" : "button_removeall",
+          "getPSAppViewUIAction" : {
+            "modelref" : true,
+            "id" : "layoutpanel_button_removeall"
+          },
+          "getPSLayoutPos" : {
+            "grow" : -1,
+            "layout" : "FLEX",
+            "spacingBottom" : "OUTERMEDIUM"
+          },
+          "getPSUIAction" : {
+            "caption" : "移除全部",
+            "codeName" : "RemoveAll",
+            "fullCodeName" : "RemoveAll",
+            "name" : "移除全部数据（数据选择）",
+            "predefinedType" : "UTIL_REMOVEALL",
+            "timeout" : 60000,
+            "uIActionMode" : "SYS",
+            "uIActionTag" : "RemoveAll",
+            "uIActionType" : "DEUIACTION"
+          },
+          "tooltip" : "移除全部数据",
+          "showCaption" : true
+        }, {
+          "actionType" : "UIACTION",
+          "buttonStyle" : "DEFAULT",
+          "caption" : "移除选中数据",
+          "itemStyle" : "DEFAULT",
+          "itemType" : "BUTTON",
+          "name" : "button_removeselection",
+          "getPSAppViewUIAction" : {
+            "modelref" : true,
+            "id" : "layoutpanel_button_removeselection"
+          },
+          "getPSLayoutPos" : {
+            "grow" : -1,
+            "layout" : "FLEX"
+          },
+          "getPSUIAction" : {
+            "caption" : "移除选中",
+            "codeName" : "RemoveSelection",
+            "fullCodeName" : "RemoveSelection",
+            "name" : "移除选中数据（数据选择）",
+            "predefinedType" : "UTIL_REMOVESELECTION",
+            "timeout" : 60000,
+            "uIActionMode" : "SYS",
+            "uIActionTag" : "RemoveSelection",
+            "uIActionType" : "DEUIACTION"
+          },
+          "tooltip" : "移除选中数据",
+          "showCaption" : true
+        } ]
+      }, {
+        "caption" : "容器",
+        "contentWidth" : 300.0,
+        "itemStyle" : "DEFAULT",
+        "itemType" : "CONTAINER",
+        "name" : "container5",
+        "getPSLayout" : {
+          "layout" : "FLEX"
+        },
+        "getPSLayoutPos" : {
+          "grow" : 1,
+          "layout" : "FLEX",
+          "width" : 300,
+          "widthMode" : "PX"
+        },
+        "getPSPanelItems" : [ {
+          "caption" : "列表",
+          "itemStyle" : "DEFAULT",
+          "itemType" : "CTRLPOS",
+          "name" : "simplelist",
+          "getPSLayoutPos" : {
+            "grow" : -1,
+            "layout" : "FLEX"
+          },
+          "showCaption" : true
+        } ],
+        "width" : 300.0
+      } ],
+      "predefinedType" : "VIEWCONTENT"
+    }, {
+      "caption" : "容器",
+      "itemStyle" : "DEFAULT",
+      "itemType" : "CONTAINER",
+      "name" : "view_footer",
+      "getPSLayout" : {
+        "dir" : "row-reverse",
+        "layout" : "FLEX",
+        "vAlign" : "center"
+      },
+      "getPSLayoutPos" : {
+        "grow" : -1,
+        "layout" : "FLEX",
+        "shrink" : 0
+      },
+      "getPSPanelItems" : [ {
+        "actionType" : "UIACTION",
+        "buttonStyle" : "PRIMARY",
+        "caption" : "确定",
+        "itemStyle" : "PRIMARY",
+        "itemType" : "BUTTON",
+        "name" : "button_okaction",
+        "getPSAppViewUIAction" : {
+          "modelref" : true,
+          "id" : "layoutpanel_button_okaction"
+        },
+        "getPSLayoutPos" : {
+          "grow" : -1,
+          "layout" : "FLEX"
+        },
+        "getPSUIAction" : {
+          "actionTarget" : "NONE",
+          "caption" : "确定",
+          "codeName" : "panel_ad53b0c56ee8e1c9b32_button_okaction_click",
+          "fullCodeName" : "user_object_panel_ad53b0c56ee8e1c9b32_button_okaction_click",
+          "name" : "确定",
+          "getPSAppDataEntity" : {
+            "modelref" : true,
+            "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/user_object.json"
+          },
+          "scriptCode" : "const _simpleList = view.getController('simplelist')\r\n\r\nconst formData = _simpleList.getAllData();\r\nconsole.log(\"执行选中校验\"+view)\r\n\r\nif (formData && formData.length > 0) {\r\n    // 本地分组校验,不通过时直接提示\r\n    const serviceUtil = ibiz.hub.getApp(context.srfappid).deService;\r\n    const groupService = await serviceUtil.getService(context, 'attendanceapp.attendance_group_shift');\r\n    const memberService = await serviceUtil.getService(context, 'attendanceapp.attendance_group_shift_member');\r\n    // 分组数据\r\n    const groups = groupService.local.getList(context);\r\n    // 人员数据\r\n    const items = memberService.local.getList(context);\r\n    const types = ['class_inversion', 'work_rest']\r\n    const selects = formData.map(_data => _data.id);\r\n    // const tags = new Map();\r\n    const groupIndex = [];\r\n    selects.forEach(select => {\r\n        const target = items.find(item => item.group_id !== context.attendance_group_shift && item.user_id === select);\r\n        if (target) {\r\n            // 当前人是被重复选择的,计算当前人之前的分组\r\n            const index = groups.findIndex(group => group.id === target.group_id)\r\n            const tempIndex = index + 1;\r\n            if (!groupIndex.includes(tempIndex)) {\r\n                groupIndex.push(tempIndex)\r\n            }\r\n        }\r\n    })\r\n    if (groupIndex.length > 0) {\r\n        await ibiz.modal.info({\r\n            title: '提示',\r\n            desc: `与第${groupIndex.join('、')}组考勤人员有重合，请修改考勤人员`,\r\n            okText: '我知道了'\r\n        });\r\n        return;\r\n    }\r\n    const cur_members = formData.map(item => {\r\n        return {\r\n            id: item._deData.id,\r\n            name: item._deData.name,\r\n            type: item._deData.type,\r\n            parent_id: item._deData.parent_id\r\n        }\r\n    })\r\n    const app = ibiz.hub.getApp(context.srfappid);\r\n    const res = await app.net.post('/attendance_rules/judging_member', {\r\n        cur_members: JSON.stringify(cur_members),\r\n        //过滤出其他组考勤人员\r\n        other_members: JSON.stringify(items.filter(item => item.group_id !== context.attendance_group_shift)),\r\n        //过滤出item.group_id !== context.attendance_group_shift的再传递\r\n        groups: JSON.stringify(groups.filter(group => group.id !== context.attendance_group_shift)),\r\n        attendance_rule:formData[0]?.attendance_rule\r\n    })\r\n    console.log('校验结果：', res);\r\n    if (res && res.data&& res.data.msg) {\r\n        if(\r\n            await ibiz.modal.confirm({\r\n                title: '提示',\r\n                desc: res.data.msg,\r\n            })\r\n        ){\r\n            if(res.data.isadd){\r\n                view.closeView({ ok: true, data: formData });\r\n            }else {\r\n                return;\r\n            }\r\n        }\r\n\r\n    }\r\n}",
+          "timeout" : 60000,
+          "uIActionMode" : "CUSTOM",
+          "uIActionTag" : "panel_ad53b0c56ee8e1c9b32_button_okaction_click",
+          "uIActionType" : "DEUIACTION",
+          "id" : "panel_ad53b0c56ee8e1c9b32_button_okaction_click@user_object"
+        },
+        "tooltip" : "确定",
+        "uIActionTarget" : "NONE",
+        "showCaption" : true
+      }, {
+        "actionType" : "UIACTION",
+        "buttonStyle" : "INFO",
+        "caption" : "取消",
+        "itemStyle" : "INFO",
+        "itemType" : "BUTTON",
+        "name" : "button_cancelaction",
+        "getPSAppViewUIAction" : {
+          "modelref" : true,
+          "id" : "layoutpanel_button_cancelaction"
+        },
+        "getPSLayoutPos" : {
+          "grow" : -1,
+          "layout" : "FLEX"
+        },
+        "getPSUIAction" : {
+          "caption" : "取消",
+          "codeName" : "Cancel",
+          "fullCodeName" : "Cancel",
+          "name" : "视图_取消",
+          "predefinedType" : "VIEW_CANCELACTION",
+          "timeout" : 60000,
+          "uIActionMode" : "SYS",
+          "uIActionTag" : "Cancel",
+          "uIActionType" : "DEUIACTION"
+        },
+        "tooltip" : "取消",
+        "showCaption" : true
+      } ]
+    } ],
+    "layoutBodyOnly" : true,
+    "layoutPanel" : true,
+    "useDefaultLayout" : false,
+    "viewProxyMode" : true,
+    "modelid" : "17d29ddcb9aa630b687a369fd8324a0a",
+    "modeltype" : "PSSYSVIEWLAYOUTPANEL",
+    "getPSAppViewEngines" : [ {
+      "engineCat" : "VIEW",
+      "engineType" : "MPickupView",
+      "name" : "engine"
+    } ],
+    "getPSControls" : [ {
+      "codeName" : "m_pickup_view_pickupviewpanel",
+      "controlType" : "PICKUPVIEWPANEL",
+      "getEmbeddedPSAppDEView" : {
+        "accUserMode" : 2,
+        "getCapPSLanguageRes" : {
+          "lanResTag" : "DE.LNAME.USER_OBJECT"
+        },
+        "caption" : "人员选择树",
+        "codeName" : "user_object_pickup_tree_view",
+        "dynaModelFilePath" : "PSSYSAPPS/attendanceapp/PSAPPDEVIEWS/user_object_pickup_tree_view.json",
+        "mDCtrlActiveMode" : 2,
+        "name" : "user_objectPickupTreeView",
+        "getPSAppDataEntity" : {
+          "modelref" : true,
+          "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/user_object.json"
+        },
+        "getPSAppModule" : {
+          "modelref" : true,
+          "path" : "PSSYSAPPS/attendanceapp/PSAPPMODULES/attendance.json"
+        },
+        "getPSAppViewEngines" : [ {
+          "engineCat" : "VIEW",
+          "engineType" : "PickupTreeView",
+          "name" : "engine"
+        } ],
+        "getPSAppViewLogics" : [ {
+          "eventNames" : "onSelectionChange",
+          "logicTrigger" : "CTRLEVENT",
+          "logicType" : "SCRIPT",
+          "name" : "LOGIC",
+          "getPSViewCtrlName" : "tree",
+          "scriptCode" : "view.evt.emit('onSelectionChange', { data });"
+        } ],
+        "getPSControls" : [ {
+          "codeName" : "pickup_tree_view_tree_view",
+          "controlStyle" : "PEOPLE",
+          "controlType" : "TREEVIEW",
+          "getCreatePSControlAction" : {
+            "modelref" : true,
+            "id" : "create",
+            "actionName" : "Create",
+            "actionType" : "DEACTION",
+            "dataAccessAction" : "CREATE",
+            "name" : "create",
+            "getPSAppDEMethod" : {
+              "modelref" : true,
+              "id" : "Create"
+            },
+            "getPSAppDataEntity" : {
+              "modelref" : true,
+              "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/user_object.json"
+            }
+          },
+          "dynaModelFilePath" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/user_object/PSTREEVIEWS/pickup_tree_view_tree_view.json",
+          "getFetchPSControlAction" : {
+            "modelref" : true,
+            "id" : "fetch",
+            "actionType" : "DEDATASET",
+            "name" : "fetch",
+            "getPSAppDataEntity" : {
+              "modelref" : true,
+              "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/user_object.json"
+            }
+          },
+          "getGetPSControlAction" : {
+            "modelref" : true,
+            "id" : "load",
+            "actionName" : "Get",
+            "actionType" : "DEACTION",
+            "dataAccessAction" : "READ",
+            "name" : "load",
+            "getPSAppDEMethod" : {
+              "modelref" : true,
+              "id" : "Get"
+            },
+            "getPSAppDataEntity" : {
+              "modelref" : true,
+              "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/user_object.json"
+            }
+          },
+          "logicName" : "人员选择树视图_树视图",
+          "getPSAppDataEntity" : {
+            "modelref" : true,
+            "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/user_object.json"
+          },
+          "getPSControlHandler" : {
+            "getPSHandlerActions" : [ {
+              "actionName" : "Get",
+              "actionType" : "DEACTION",
+              "dataAccessAction" : "READ",
+              "name" : "load",
+              "getPSAppDEMethod" : {
+                "modelref" : true,
+                "id" : "Get"
+              },
+              "getPSAppDataEntity" : {
+                "modelref" : true,
+                "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/user_object.json"
+              }
+            }, {
+              "actionName" : "Create",
+              "actionType" : "DEACTION",
+              "dataAccessAction" : "CREATE",
+              "name" : "create",
+              "getPSAppDEMethod" : {
+                "modelref" : true,
+                "id" : "Create"
+              },
+              "getPSAppDataEntity" : {
+                "modelref" : true,
+                "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/user_object.json"
+              }
+            }, {
+              "actionName" : "Update",
+              "actionType" : "DEACTION",
+              "dataAccessAction" : "UPDATE",
+              "name" : "update",
+              "getPSAppDEMethod" : {
+                "modelref" : true,
+                "id" : "Update"
+              },
+              "getPSAppDataEntity" : {
+                "modelref" : true,
+                "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/user_object.json"
+              }
+            }, {
+              "actionName" : "Remove",
+              "actionType" : "DEACTION",
+              "dataAccessAction" : "DELETE",
+              "name" : "remove",
+              "getPSAppDEMethod" : {
+                "modelref" : true,
+                "id" : "Remove"
+              },
+              "getPSAppDataEntity" : {
+                "modelref" : true,
+                "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/user_object.json"
+              }
+            }, {
+              "actionType" : "DEDATASET",
+              "name" : "fetch",
+              "getPSAppDataEntity" : {
+                "modelref" : true,
+                "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/user_object.json"
+              }
+            } ],
+            "userDRAction" : "READ",
+            "enableDEFieldPrivilege" : false,
+            "id" : "树视图处理器"
+          },
+          "getPSControlParam" : {
+            "autoLoad" : true,
+            "showBusyIndicator" : true,
+            "ctrlParams" : {
+              "CASCADESELECT" : "true"
+            },
+            "id" : "TREE"
+          },
+          "getPSDETreeNodeRSs" : [ {
+            "getChildPSDETreeNode" : {
+              "modelref" : true,
+              "id" : "node"
+            },
+            "name" : "根部门 - 子部门",
+            "getParentPSAppDEField" : {
+              "name" : "PARENT_ID",
+              "codeName" : "parent_id"
+            },
+            "getParentPSDER1N" : {
+              "codeName" : "parent",
+              "dERType" : "DER1N",
+              "dynaModelFilePath" : "PSMODULES/employee_management/PSDATAENTITIES/user_object/PSDERS/DER1N_USER_OBJECT_USER_OBJECT_PARENT_ID.json",
+              "fKeyName" : "F5136058DE2DB4A383",
+              "getMajorPSDataEntity" : {
+                "modelref" : true,
+                "path" : "PSMODULES/employee_management/PSDATAENTITIES/user_object.json"
+              },
+              "masterOrder" : -1,
+              "masterRS" : 0,
+              "getMinorPSDataEntity" : {
+                "modelref" : true,
+                "path" : "PSMODULES/employee_management/PSDATAENTITIES/user_object.json"
+              },
+              "name" : "DER1N_USER_OBJECT_USER_OBJECT_PARENT_ID",
+              "orderValue" : 100,
+              "getPSPickupDEField" : {
+                "name" : "PARENT_ID",
+                "codeName" : "parent_id"
+              },
+              "getPSPickupTextDEField" : {
+                "name" : "PARENT_NAME",
+                "codeName" : "parent_name"
+              },
+              "pickupDEFName" : "PARENT_ID",
+              "removeActionType" : -1,
+              "removeOrder" : 0,
+              "serviceCodeName" : "parent"
+            },
+            "getParentPSDETreeNode" : {
+              "modelref" : true,
+              "id" : "dept"
+            },
+            "parentValueLevel" : 1,
+            "searchMode" : 2
+          }, {
+            "getChildPSDETreeNode" : {
+              "modelref" : true,
+              "id" : "node_1"
+            },
+            "name" : "有搜索时启用(部门) - 部门人员",
+            "getParentPSAppDEField" : {
+              "name" : "PARENT_ID",
+              "codeName" : "parent_id"
+            },
+            "getParentPSDER1N" : {
+              "codeName" : "parent",
+              "dERType" : "DER1N",
+              "dynaModelFilePath" : "PSMODULES/employee_management/PSDATAENTITIES/user_object/PSDERS/DER1N_USER_OBJECT_USER_OBJECT_PARENT_ID.json",
+              "fKeyName" : "F5136058DE2DB4A383",
+              "getMajorPSDataEntity" : {
+                "modelref" : true,
+                "path" : "PSMODULES/employee_management/PSDATAENTITIES/user_object.json"
+              },
+              "masterOrder" : -1,
+              "masterRS" : 0,
+              "getMinorPSDataEntity" : {
+                "modelref" : true,
+                "path" : "PSMODULES/employee_management/PSDATAENTITIES/user_object.json"
+              },
+              "name" : "DER1N_USER_OBJECT_USER_OBJECT_PARENT_ID",
+              "orderValue" : 100,
+              "getPSPickupDEField" : {
+                "name" : "PARENT_ID",
+                "codeName" : "parent_id"
+              },
+              "getPSPickupTextDEField" : {
+                "name" : "PARENT_NAME",
+                "codeName" : "parent_name"
+              },
+              "pickupDEFName" : "PARENT_ID",
+              "removeActionType" : -1,
+              "removeOrder" : 0,
+              "serviceCodeName" : "parent"
+            },
+            "getParentPSDETreeNode" : {
+              "modelref" : true,
+              "id" : "node_3"
+            },
+            "parentValueLevel" : 1,
+            "searchMode" : 3
+          }, {
+            "getChildPSDETreeNode" : {
+              "modelref" : true,
+              "id" : "dept"
+            },
+            "name" : "默认根节点 - 根部门",
+            "getParentPSDETreeNode" : {
+              "modelref" : true,
+              "id" : "ROOT"
+            },
+            "parentValueLevel" : 1,
+            "searchMode" : 2
+          }, {
+            "getChildPSDETreeNode" : {
+              "modelref" : true,
+              "id" : "node"
+            },
+            "name" : "子部门 - 子部门",
+            "getParentPSAppDEField" : {
+              "name" : "PARENT_ID",
+              "codeName" : "parent_id"
+            },
+            "getParentPSDER1N" : {
+              "codeName" : "parent",
+              "dERType" : "DER1N",
+              "dynaModelFilePath" : "PSMODULES/employee_management/PSDATAENTITIES/user_object/PSDERS/DER1N_USER_OBJECT_USER_OBJECT_PARENT_ID.json",
+              "fKeyName" : "F5136058DE2DB4A383",
+              "getMajorPSDataEntity" : {
+                "modelref" : true,
+                "path" : "PSMODULES/employee_management/PSDATAENTITIES/user_object.json"
+              },
+              "masterOrder" : -1,
+              "masterRS" : 0,
+              "getMinorPSDataEntity" : {
+                "modelref" : true,
+                "path" : "PSMODULES/employee_management/PSDATAENTITIES/user_object.json"
+              },
+              "name" : "DER1N_USER_OBJECT_USER_OBJECT_PARENT_ID",
+              "orderValue" : 100,
+              "getPSPickupDEField" : {
+                "name" : "PARENT_ID",
+                "codeName" : "parent_id"
+              },
+              "getPSPickupTextDEField" : {
+                "name" : "PARENT_NAME",
+                "codeName" : "parent_name"
+              },
+              "pickupDEFName" : "PARENT_ID",
+              "removeActionType" : -1,
+              "removeOrder" : 0,
+              "serviceCodeName" : "parent"
+            },
+            "getParentPSDETreeNode" : {
+              "modelref" : true,
+              "id" : "node"
+            },
+            "parentValueLevel" : 1,
+            "searchMode" : 2
+          }, {
+            "getChildPSDETreeNode" : {
+              "modelref" : true,
+              "id" : "node_1"
+            },
+            "name" : "子部门 - 部门人员",
+            "getParentPSAppDEField" : {
+              "name" : "PARENT_ID",
+              "codeName" : "parent_id"
+            },
+            "getParentPSDER1N" : {
+              "codeName" : "parent",
+              "dERType" : "DER1N",
+              "dynaModelFilePath" : "PSMODULES/employee_management/PSDATAENTITIES/user_object/PSDERS/DER1N_USER_OBJECT_USER_OBJECT_PARENT_ID.json",
+              "fKeyName" : "F5136058DE2DB4A383",
+              "getMajorPSDataEntity" : {
+                "modelref" : true,
+                "path" : "PSMODULES/employee_management/PSDATAENTITIES/user_object.json"
+              },
+              "masterOrder" : -1,
+              "masterRS" : 0,
+              "getMinorPSDataEntity" : {
+                "modelref" : true,
+                "path" : "PSMODULES/employee_management/PSDATAENTITIES/user_object.json"
+              },
+              "name" : "DER1N_USER_OBJECT_USER_OBJECT_PARENT_ID",
+              "orderValue" : 100,
+              "getPSPickupDEField" : {
+                "name" : "PARENT_ID",
+                "codeName" : "parent_id"
+              },
+              "getPSPickupTextDEField" : {
+                "name" : "PARENT_NAME",
+                "codeName" : "parent_name"
+              },
+              "pickupDEFName" : "PARENT_ID",
+              "removeActionType" : -1,
+              "removeOrder" : 0,
+              "serviceCodeName" : "parent"
+            },
+            "getParentPSDETreeNode" : {
+              "modelref" : true,
+              "id" : "node"
+            },
+            "parentValueLevel" : 1,
+            "searchMode" : 2
+          }, {
+            "getChildPSDETreeNode" : {
+              "modelref" : true,
+              "id" : "node_1"
+            },
+            "name" : "根部门 - 部门人员",
+            "getParentPSAppDEField" : {
+              "name" : "PARENT_ID",
+              "codeName" : "parent_id"
+            },
+            "getParentPSDER1N" : {
+              "codeName" : "parent",
+              "dERType" : "DER1N",
+              "dynaModelFilePath" : "PSMODULES/employee_management/PSDATAENTITIES/user_object/PSDERS/DER1N_USER_OBJECT_USER_OBJECT_PARENT_ID.json",
+              "fKeyName" : "F5136058DE2DB4A383",
+              "getMajorPSDataEntity" : {
+                "modelref" : true,
+                "path" : "PSMODULES/employee_management/PSDATAENTITIES/user_object.json"
+              },
+              "masterOrder" : -1,
+              "masterRS" : 0,
+              "getMinorPSDataEntity" : {
+                "modelref" : true,
+                "path" : "PSMODULES/employee_management/PSDATAENTITIES/user_object.json"
+              },
+              "name" : "DER1N_USER_OBJECT_USER_OBJECT_PARENT_ID",
+              "orderValue" : 100,
+              "getPSPickupDEField" : {
+                "name" : "PARENT_ID",
+                "codeName" : "parent_id"
+              },
+              "getPSPickupTextDEField" : {
+                "name" : "PARENT_NAME",
+                "codeName" : "parent_name"
+              },
+              "pickupDEFName" : "PARENT_ID",
+              "removeActionType" : -1,
+              "removeOrder" : 0,
+              "serviceCodeName" : "parent"
+            },
+            "getParentPSDETreeNode" : {
+              "modelref" : true,
+              "id" : "dept"
+            },
+            "parentValueLevel" : 1,
+            "searchMode" : 2
+          }, {
+            "getChildPSDETreeNode" : {
+              "modelref" : true,
+              "id" : "node_2"
+            },
+            "name" : "默认根节点 - 有搜索时启用(员工)",
+            "getParentPSDETreeNode" : {
+              "modelref" : true,
+              "id" : "ROOT"
+            },
+            "parentValueLevel" : 1,
+            "searchMode" : 1
+          }, {
+            "getChildPSDETreeNode" : {
+              "modelref" : true,
+              "id" : "node_3"
+            },
+            "name" : "默认根节点 - 有搜索时启用(部门)",
+            "getParentPSDETreeNode" : {
+              "modelref" : true,
+              "id" : "ROOT"
+            },
+            "parentValueLevel" : 1,
+            "searchMode" : 1
+          } ],
+          "getPSDETreeNodes" : [ {
+            "counterMode" : 0,
+            "name" : "默认根节点",
+            "nodeType" : "ROOT",
+            "text" : "默认根节点",
+            "treeNodeType" : "STATIC",
+            "hasPSDETreeNodeRSs" : true,
+            "appendPNodeId" : false,
+            "disableSelect" : false,
+            "enableCheck" : false,
+            "enableEditData" : false,
+            "enableNewData" : false,
+            "enableQuickCreate" : false,
+            "enableQuickSearch" : true,
+            "enableRemoveData" : false,
+            "enableViewData" : false,
+            "expandFirstOnly" : false,
+            "expanded" : false,
+            "rootNode" : true,
+            "selectFirstOnly" : false,
+            "selected" : false,
+            "id" : "ROOT"
+          }, {
+            "counterMode" : 0,
+            "dataSourceType" : "DEDATASET",
+            "getIdPSAppDEField" : {
+              "name" : "ID",
+              "codeName" : "id"
+            },
+            "maxSize" : -1,
+            "name" : "根部门",
+            "nodeType" : "dept",
+            "getPSAppDEDataSet" : {
+              "modelref" : true,
+              "id" : "FetchRoot"
+            },
+            "getPSAppDataEntity" : {
+              "modelref" : true,
+              "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/user_object.json"
+            },
+            "getTextPSAppDEField" : {
+              "name" : "NAME",
+              "codeName" : "name"
+            },
+            "treeNodeType" : "DE",
+            "hasPSDETreeNodeRSs" : true,
+            "appendPNodeId" : false,
+            "disableSelect" : false,
+            "enableCheck" : false,
+            "enableEditData" : false,
+            "enableNewData" : false,
+            "enableQuickCreate" : false,
+            "enableQuickSearch" : true,
+            "enableRemoveData" : false,
+            "enableViewData" : false,
+            "expandFirstOnly" : false,
+            "expanded" : false,
+            "rootNode" : false,
+            "selectFirstOnly" : false,
+            "selected" : false,
+            "id" : "dept"
+          }, {
+            "counterMode" : 0,
+            "dataSourceType" : "DEDATASET",
+            "getIdPSAppDEField" : {
+              "name" : "ID",
+              "codeName" : "id"
+            },
+            "maxSize" : -1,
+            "name" : "子部门",
+            "nodeType" : "node",
+            "getPSAppDEDataSet" : {
+              "modelref" : true,
+              "id" : "FetchDept"
+            },
+            "getPSAppDataEntity" : {
+              "modelref" : true,
+              "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/user_object.json"
+            },
+            "getTextPSAppDEField" : {
+              "name" : "NAME",
+              "codeName" : "name"
+            },
+            "treeNodeType" : "DE",
+            "hasPSDETreeNodeRSs" : true,
+            "appendPNodeId" : false,
+            "disableSelect" : false,
+            "enableCheck" : false,
+            "enableEditData" : false,
+            "enableNewData" : false,
+            "enableQuickCreate" : false,
+            "enableQuickSearch" : true,
+            "enableRemoveData" : false,
+            "enableViewData" : false,
+            "expandFirstOnly" : false,
+            "expanded" : false,
+            "rootNode" : false,
+            "selectFirstOnly" : false,
+            "selected" : false,
+            "id" : "node"
+          }, {
+            "counterMode" : 0,
+            "dataSourceType" : "DEDATASET",
+            "getIdPSAppDEField" : {
+              "name" : "ID",
+              "codeName" : "id"
+            },
+            "maxSize" : -1,
+            "name" : "部门人员",
+            "nodeType" : "node_1",
+            "getPSAppDEDataSet" : {
+              "modelref" : true,
+              "id" : "FetchUser"
+            },
+            "getPSAppDataEntity" : {
+              "modelref" : true,
+              "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/user_object.json"
+            },
+            "getTextPSAppDEField" : {
+              "name" : "NAME",
+              "codeName" : "name"
+            },
+            "treeNodeType" : "DE",
+            "hasPSDETreeNodeRSs" : false,
+            "allowDrag" : true,
+            "appendPNodeId" : false,
+            "disableSelect" : false,
+            "enableCheck" : false,
+            "enableEditData" : false,
+            "enableNewData" : false,
+            "enableQuickCreate" : false,
+            "enableQuickSearch" : false,
+            "enableRemoveData" : false,
+            "enableViewData" : false,
+            "expandFirstOnly" : false,
+            "expanded" : false,
+            "rootNode" : false,
+            "selectFirstOnly" : false,
+            "selected" : false,
+            "id" : "node_1"
+          }, {
+            "counterMode" : 0,
+            "dataSourceType" : "DEDATASET",
+            "getIdPSAppDEField" : {
+              "name" : "ID",
+              "codeName" : "id"
+            },
+            "maxSize" : -1,
+            "name" : "有搜索时启用(员工)",
+            "nodeType" : "node_2",
+            "getPSAppDEDataSet" : {
+              "modelref" : true,
+              "id" : "FetchUser"
+            },
+            "getPSAppDataEntity" : {
+              "modelref" : true,
+              "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/user_object.json"
+            },
+            "getTextPSAppDEField" : {
+              "name" : "NAME",
+              "codeName" : "name"
+            },
+            "treeNodeType" : "DE",
+            "hasPSDETreeNodeRSs" : false,
+            "allowEditText" : true,
+            "appendPNodeId" : false,
+            "disableSelect" : false,
+            "enableCheck" : false,
+            "enableEditData" : false,
+            "enableNewData" : false,
+            "enableQuickCreate" : false,
+            "enableQuickSearch" : true,
+            "enableRemoveData" : false,
+            "enableRowEdit" : true,
+            "enableViewData" : false,
+            "expandFirstOnly" : false,
+            "expanded" : false,
+            "rootNode" : false,
+            "selectFirstOnly" : false,
+            "selected" : false,
+            "id" : "node_2"
+          }, {
+            "counterMode" : 0,
+            "dataSourceType" : "DEDATASET",
+            "getIdPSAppDEField" : {
+              "name" : "ID",
+              "codeName" : "id"
+            },
+            "maxSize" : -1,
+            "name" : "有搜索时启用(部门)",
+            "nodeType" : "node_3",
+            "getPSAppDEDataSet" : {
+              "modelref" : true,
+              "id" : "FetchDept"
+            },
+            "getPSAppDataEntity" : {
+              "modelref" : true,
+              "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/user_object.json"
+            },
+            "getTextPSAppDEField" : {
+              "name" : "NAME",
+              "codeName" : "name"
+            },
+            "treeNodeType" : "DE",
+            "hasPSDETreeNodeRSs" : true,
+            "allowEditText" : true,
+            "appendPNodeId" : false,
+            "disableSelect" : false,
+            "enableCheck" : false,
+            "enableEditData" : false,
+            "enableNewData" : false,
+            "enableQuickCreate" : false,
+            "enableQuickSearch" : true,
+            "enableRemoveData" : false,
+            "enableRowEdit" : true,
+            "enableViewData" : false,
+            "expandFirstOnly" : false,
+            "expanded" : false,
+            "rootNode" : false,
+            "selectFirstOnly" : false,
+            "selected" : false,
+            "id" : "node_3"
+          } ],
+          "getPSSysPFPlugin" : {
+            "pluginType" : "TREE_RENDER",
+            "pluginCode" : "PEOPLE",
+            "runtimeObject" : true
+          },
+          "getRemovePSControlAction" : {
+            "modelref" : true,
+            "id" : "remove",
+            "actionName" : "Remove",
+            "actionType" : "DEACTION",
+            "dataAccessAction" : "DELETE",
+            "name" : "remove",
+            "getPSAppDEMethod" : {
+              "modelref" : true,
+              "id" : "Remove"
+            },
+            "getPSAppDataEntity" : {
+              "modelref" : true,
+              "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/user_object.json"
+            }
+          },
+          "treeGridMode" : 0,
+          "getUpdatePSControlAction" : {
+            "modelref" : true,
+            "id" : "update",
+            "actionName" : "Update",
+            "actionType" : "DEACTION",
+            "dataAccessAction" : "UPDATE",
+            "name" : "update",
+            "getPSAppDEMethod" : {
+              "modelref" : true,
+              "id" : "Update"
+            },
+            "getPSAppDataEntity" : {
+              "modelref" : true,
+              "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/user_object.json"
+            }
+          },
+          "enableRootSelect" : false,
+          "outputIconDefault" : true,
+          "rootVisible" : false,
+          "name" : "tree",
+          "modelid" : "73fd7458bbd628fb13effbc621b954da",
+          "modeltype" : "PSDETREEVIEW"
+        }, {
+          "controlType" : "SEARCHBAR",
+          "name" : "searchbar",
+          "getPSAppDataEntity" : {
+            "modelref" : true,
+            "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/user_object.json"
+          },
+          "getPSControlParam" : {
+            "id" : "searchbar"
+          },
+          "quickGroupCount" : -1,
+          "quickSearchMode" : 1,
+          "quickSearchWidth" : 0,
+          "enableFilter" : false,
+          "enableGroup" : false,
+          "enableQuickSearch" : true,
+          "mobileSearchBar" : false
+        }, {
+          "getCapPSLanguageRes" : {
+            "lanResTag" : "DE.LNAME.USER_OBJECT"
+          },
+          "caption" : "人员选择树",
+          "codeName" : "pickup_tree_view_captionbar",
+          "controlType" : "CAPTIONBAR",
+          "name" : "captionbar",
+          "getPSAppDataEntity" : {
+            "modelref" : true,
+            "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/user_object.json"
+          },
+          "getPSControlParam" : { }
+        } ],
+        "getPSDEViewCodeName" : "PickupTreeView",
+        "getPSDEViewId" : "d4919df2268a0894895fdd76c3bf5ebf",
+        "getPSSysCss" : {
+          "cssName" : "pickup-tree-style"
+        },
+        "getPSViewLayoutPanel" : {
+          "codeName" : "layoutpanel",
+          "controlStyle" : "APPDEPICKUPTREEVIEW",
+          "controlType" : "VIEWLAYOUTPANEL",
+          "name" : "layoutpanel",
+          "getPSAppDataEntity" : {
+            "modelref" : true,
+            "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/user_object.json"
+          },
+          "getPSControlParam" : { },
+          "layoutBodyOnly" : true,
+          "layoutPanel" : true,
+          "useDefaultLayout" : true
+        },
+        "title" : "人员选择树",
+        "viewStyle" : "DEFAULT",
+        "viewType" : "DEPICKUPTREEVIEW",
+        "xDataControlName" : "tree",
+        "enableDP" : true,
+        "enableFilter" : true,
+        "enableQuickSearch" : true,
+        "enableSearch" : true,
+        "expandSearchForm" : true,
+        "pickupMode" : true,
+        "modelid" : "b0f7a53dc13de1ed60115cb60c82cee1",
+        "modeltype" : "PSAPPDEVIEW"
+      },
+      "name" : "pickupviewpanel",
+      "getPSAppDataEntity" : {
+        "modelref" : true,
+        "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/user_object.json"
+      },
+      "getPSControlParam" : {
+        "id" : "PICKUPVIEWPANEL"
+      }
+    }, {
+      "codeName" : "simplelist",
+      "controlType" : "LIST",
+      "getCreatePSControlAction" : {
+        "modelref" : true,
+        "id" : "create",
+        "actionName" : "Create",
+        "actionType" : "DEACTION",
+        "dataAccessAction" : "CREATE",
+        "name" : "create",
+        "getPSAppDEMethod" : {
+          "modelref" : true,
+          "id" : "Create"
+        },
+        "getPSAppDataEntity" : {
+          "modelref" : true,
+          "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/user_object.json"
+        }
+      },
+      "dynaModelFilePath" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/user_object/PSLISTS/simplelist.json",
+      "getFetchPSControlAction" : {
+        "modelref" : true,
+        "id" : "fetch",
+        "actionType" : "DEDATASET",
+        "name" : "fetch",
+        "getPSAppDEMethod" : {
+          "modelref" : true,
+          "id" : "FetchDefault"
+        },
+        "getPSAppDataEntity" : {
+          "modelref" : true,
+          "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/user_object.json"
+        }
+      },
+      "getGetPSControlAction" : {
+        "modelref" : true,
+        "id" : "load",
+        "actionName" : "Get",
+        "actionType" : "DEACTION",
+        "dataAccessAction" : "READ",
+        "name" : "load",
+        "getPSAppDEMethod" : {
+          "modelref" : true,
+          "id" : "Get"
+        },
+        "getPSAppDataEntity" : {
+          "modelref" : true,
+          "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/user_object.json"
+        }
+      },
+      "groupMode" : "NONE",
+      "logicName" : "simplelist",
+      "getPSAppDataEntity" : {
+        "modelref" : true,
+        "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/user_object.json"
+      },
+      "getPSControlHandler" : {
+        "getPSHandlerActions" : [ {
+          "actionName" : "Get",
+          "actionType" : "DEACTION",
+          "dataAccessAction" : "READ",
+          "name" : "load",
+          "getPSAppDEMethod" : {
+            "modelref" : true,
+            "id" : "Get"
+          },
+          "getPSAppDataEntity" : {
+            "modelref" : true,
+            "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/user_object.json"
+          }
+        }, {
+          "actionName" : "Create",
+          "actionType" : "DEACTION",
+          "dataAccessAction" : "CREATE",
+          "name" : "create",
+          "getPSAppDEMethod" : {
+            "modelref" : true,
+            "id" : "Create"
+          },
+          "getPSAppDataEntity" : {
+            "modelref" : true,
+            "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/user_object.json"
+          }
+        }, {
+          "actionName" : "Update",
+          "actionType" : "DEACTION",
+          "dataAccessAction" : "UPDATE",
+          "name" : "update",
+          "getPSAppDEMethod" : {
+            "modelref" : true,
+            "id" : "Update"
+          },
+          "getPSAppDataEntity" : {
+            "modelref" : true,
+            "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/user_object.json"
+          }
+        }, {
+          "actionName" : "Remove",
+          "actionType" : "DEACTION",
+          "dataAccessAction" : "DELETE",
+          "name" : "remove",
+          "getPSAppDEMethod" : {
+            "modelref" : true,
+            "id" : "Remove"
+          },
+          "getPSAppDataEntity" : {
+            "modelref" : true,
+            "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/user_object.json"
+          }
+        }, {
+          "actionType" : "DEDATASET",
+          "name" : "fetch",
+          "getPSAppDEMethod" : {
+            "modelref" : true,
+            "id" : "FetchDefault"
+          },
+          "getPSAppDataEntity" : {
+            "modelref" : true,
+            "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/user_object.json"
+          }
+        } ],
+        "userDRAction" : "READ",
+        "enableDEFieldPrivilege" : false,
+        "id" : "列表控件处理器"
+      },
+      "getPSControlParam" : {
+        "autoLoad" : true,
+        "showBusyIndicator" : true,
+        "id" : "SIMPLELIST"
+      },
+      "getPSDEListDataItems" : [ {
+        "dataType" : 25,
+        "name" : "srfkey",
+        "getPSAppDEField" : {
+          "name" : "ID",
+          "codeName" : "id"
+        }
+      }, {
+        "dataType" : 25,
+        "name" : "srfmajortext",
+        "getPSAppDEField" : {
+          "name" : "NAME",
+          "codeName" : "name"
+        }
+      }, {
+        "dataType" : 25,
+        "name" : "parent_id",
+        "getPSAppDEField" : {
+          "name" : "PARENT_ID",
+          "codeName" : "parent_id"
+        }
+      } ],
+      "pagingSize" : 1000,
+      "getRemovePSControlAction" : {
+        "modelref" : true,
+        "id" : "remove",
+        "actionName" : "Remove",
+        "actionType" : "DEACTION",
+        "dataAccessAction" : "DELETE",
+        "name" : "remove",
+        "getPSAppDEMethod" : {
+          "modelref" : true,
+          "id" : "Remove"
+        },
+        "getPSAppDataEntity" : {
+          "modelref" : true,
+          "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/user_object.json"
+        }
+      },
+      "getUpdatePSControlAction" : {
+        "modelref" : true,
+        "id" : "update",
+        "actionName" : "Update",
+        "actionType" : "DEACTION",
+        "dataAccessAction" : "UPDATE",
+        "name" : "update",
+        "getPSAppDEMethod" : {
+          "modelref" : true,
+          "id" : "Update"
+        },
+        "getPSAppDataEntity" : {
+          "modelref" : true,
+          "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/user_object.json"
+        }
+      },
+      "hasWFDataItems" : false,
+      "enableGroup" : false,
+      "enableRowEdit" : false,
+      "enableRowEditGroup" : false,
+      "enableRowEditOrder" : false,
+      "enableRowNew" : false,
+      "noSort" : false,
+      "showHeader" : true,
+      "singleSelect" : false,
+      "name" : "simplelist",
+      "modelid" : "35c4a61b778bc4a2f2ecc35112dabffd",
+      "modeltype" : "PSDELIST"
+    }, {
+      "getCapPSLanguageRes" : {
+        "lanResTag" : "DE.LNAME.USER_OBJECT"
+      },
+      "caption" : "选择部门与人员",
+      "codeName" : "m_pickup_view_captionbar",
+      "controlType" : "CAPTIONBAR",
+      "name" : "captionbar",
+      "getPSAppDataEntity" : {
+        "modelref" : true,
+        "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/user_object.json"
+      },
+      "getPSControlParam" : { }
+    } ]
+  },
+  "refFlag" : false,
+  "title" : "用户对象映射数据多项选择视图",
+  "viewStyle" : "DEFAULT",
+  "viewType" : "DEMPICKUPVIEW",
+  "width" : 680,
+  "enableDP" : true,
+  "modelid" : "dc80f1613a129f3a41f811d344f83ddd",
+  "modeltype" : "PSAPPDEVIEW"
+}

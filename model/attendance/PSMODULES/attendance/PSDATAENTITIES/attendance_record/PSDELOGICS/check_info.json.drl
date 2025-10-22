@@ -1,0 +1,117 @@
+package cn.ibizlab.attendance.logic.attendance_recordlogic.check_info;
+        import java.util.Map;
+        import java.util.HashMap;
+        import com.alibaba.fastjson.JSONObject;
+        import org.springframework.util.StringUtils;
+        import org.springframework.util.ObjectUtils;
+        import cn.ibizlab.util.errors.BadRequestAlertException;
+                global cn.ibizlab.core.attendance.domain.attendance_record attendance_recordcheck_infodefault;
+                global cn.ibizlab.core.attendance.domain.attendance_record_detail attendance_recordcheck_infodetails;
+                global java.util.Map attendance_recordcheck_inforesult;
+                global cn.ibizlab.core.attendance.domain.attendance_record_detail attendance_recordcheck_infotemp;
+                    global cn.ibizlab.core.attendance.service.Iattendance_recordService attendance_recordservice;
+        global cn.ibizlab.core.attendance.service.Iattendance_recordService iBzSysAttendance_recordDefaultService;
+        global cn.ibizlab.util.security.AuthenticationUser curuser;
+
+
+    no-loop
+
+            //逻辑处理节点[开始]
+            rule "begin"
+            ruleflow-group "attendance_recordcheck_infobegin"
+            when
+            then
+            end
+
+            //逻辑处理节点[绑定考勤记录详情]
+            rule "bindparam1"
+            ruleflow-group "attendance_recordcheck_infobindparam1"
+            when
+            then
+                        update(attendance_recordcheck_infodefault);//更新fact中变量值
+                        update(attendance_recordcheck_infodetails);//更新fact中变量值
+                        update(attendance_recordcheck_inforesult);//更新fact中变量值
+                        update(attendance_recordcheck_infotemp);//更新fact中变量值
+            end
+
+            //逻辑处理节点[循环子调用]
+            rule "loopsubcall1"
+            ruleflow-group "attendance_recordcheck_infoloopsubcall1"
+            when
+            then
+                        update(attendance_recordcheck_infodefault);//更新fact中变量值
+                        update(attendance_recordcheck_infodetails);//更新fact中变量值
+                        update(attendance_recordcheck_inforesult);//更新fact中变量值
+                        update(attendance_recordcheck_infotemp);//更新fact中变量值
+            end
+
+            //逻辑处理节点[准备考勤记录标识]
+            rule "prepareparam1"
+            ruleflow-group "attendance_recordcheck_infoprepareparam1"
+            when
+            then
+                            attendance_recordcheck_infodefault.set("id",attendance_recordcheck_infotemp.get("recordid"));
+                        update(attendance_recordcheck_infodefault);//更新fact中变量值
+                        update(attendance_recordcheck_infodetails);//更新fact中变量值
+                        update(attendance_recordcheck_inforesult);//更新fact中变量值
+                        update(attendance_recordcheck_infotemp);//更新fact中变量值
+            end
+
+            //逻辑处理节点[获取考勤记录]
+            rule "deaction1"
+            ruleflow-group "attendance_recordcheck_infodeaction1"
+            when
+            then
+                            cn.ibizlab.util.helper.CachedBeanCopier.copy(attendance_recordservice.get(attendance_recordcheck_infodefault.getId()),attendance_recordcheck_infodefault);
+                        update(attendance_recordcheck_infodefault);//更新fact中变量值
+                        update(attendance_recordcheck_infodetails);//更新fact中变量值
+                        update(attendance_recordcheck_inforesult);//更新fact中变量值
+                        update(attendance_recordcheck_infotemp);//更新fact中变量值
+            end
+
+            //逻辑处理节点[姓名、考勤日期赋值]
+            rule "prepareparam2"
+            ruleflow-group "attendance_recordcheck_infoprepareparam2"
+            when
+            then
+                            attendance_recordcheck_inforesult.set("name",attendance_recordcheck_infodefault.get("membername"));
+                            attendance_recordcheck_inforesult.set("checkin_date",attendance_recordcheck_infodefault.get("checkindate"));
+                        update(attendance_recordcheck_infodefault);//更新fact中变量值
+                        update(attendance_recordcheck_infodetails);//更新fact中变量值
+                        update(attendance_recordcheck_inforesult);//更新fact中变量值
+                        update(attendance_recordcheck_infotemp);//更新fact中变量值
+            end
+
+            //逻辑处理节点[排序]
+            rule "rawsfcode1"
+            ruleflow-group "attendance_recordcheck_inforawsfcode1"
+            when
+            then
+                        update(attendance_recordcheck_infodefault);//更新fact中变量值
+                        update(attendance_recordcheck_infodetails);//更新fact中变量值
+                        update(attendance_recordcheck_inforesult);//更新fact中变量值
+                        update(attendance_recordcheck_infotemp);//更新fact中变量值
+            end
+
+            //逻辑处理节点[设置返回结果]
+            rule "prepareparam3"
+            ruleflow-group "attendance_recordcheck_infoprepareparam3"
+            when
+            then
+                            attendance_recordcheck_inforesult.set("details",attendance_recordcheck_infodetails.get(""));
+                        update(attendance_recordcheck_infodefault);//更新fact中变量值
+                        update(attendance_recordcheck_infodetails);//更新fact中变量值
+                        update(attendance_recordcheck_inforesult);//更新fact中变量值
+                        update(attendance_recordcheck_infotemp);//更新fact中变量值
+            end
+
+            //逻辑处理节点[结束]
+            rule "end1"
+            ruleflow-group "attendance_recordcheck_infoend1"
+            when
+            then
+                        update(attendance_recordcheck_infodefault);//更新fact中变量值
+                        update(attendance_recordcheck_infodetails);//更新fact中变量值
+                        update(attendance_recordcheck_inforesult);//更新fact中变量值
+                        update(attendance_recordcheck_infotemp);//更新fact中变量值
+            end

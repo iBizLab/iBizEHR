@@ -1,0 +1,75 @@
+{
+  "codeName" : "fillDraft",
+  "defaultParamName" : "Default",
+  "dynaModelFilePath" : "PSMODULES/resource/PSDATAENTITIES/resource_calendar/PSDELOGICS/fillDraft.json",
+  "logicName" : "补充草稿",
+  "name" : "补充草稿",
+  "getPSDELogicNodes" : [ {
+    "codeName" : "Begin",
+    "leftPos" : 200,
+    "logicNodeType" : "BEGIN",
+    "name" : "开始",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "RAWSFCODE_01"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "Begin"
+      }
+    } ],
+    "topPos" : 200,
+    "parallelOutput" : true
+  }, {
+    "code" : "def _default = logic.param('Default').getReal()\r\n\r\n// 基础字段默认值\r\n_default.set(\"name\", \"Default Working Hours\")\r\n_default.set(\"active\", 1)\r\n// _default.set(\"company_id\", logic.param('Current Company').getReal().id)\r\n_default.set(\"tz\", java.util.TimeZone.getDefault().ID)\r\n_default.set(\"flexible_hours\", 1)\r\n_default.set(\"full_time_required_hours\", 8.0)\r\n\r\n// 处理工作时间段\r\ndef company = _default.get(\"company\")\r\nif (company && company.resource_calendar_id &&\r\n    !company.resource_calendar_id.two_weeks_calendar) {\r\n\r\n    _default.set(\"attendance_ids\", company.resource_calendar_id.attendance_ids.collect { att ->\r\n        Map entry = new LinkedHashMap<String, Object>();\r\n        entry.put(\"name\", att.name)\r\n        entry.put(\"dayofweek\", att.dayofweek)\r\n        entry.put(\"hour_from\", att.hour_from)\r\n        entry.put(\"hour_to\", att.hour_to)\r\n        entry.put(\"day_period\", att.day_period)\r\n        entry.put(\"date_from\", att.date_from)\r\n        entry.put(\"date_to\", att.date_to)\r\n        return entry\r\n    })\r\n} else {\r\n    // 生成默认工作时间（周一到周五 8-17点）\r\n    _default.set(\"attendance_ids\", (0..4).collect { day ->\r\n        [\r\n            [\"Mon\",\"Tue\",\"Wed\",\"Thu\",\"Fri\"][day] + \" Morning\",\r\n            [\"Mon\",\"Tue\",\"Wed\",\"Thu\",\"Fri\"][day] + \" Lunch\",\r\n            [\"Mon\",\"Tue\",\"Wed\",\"Thu\",\"Fri\"][day] + \" Afternoon\"\r\n        ].collect { name ->\r\n            Map entry = new LinkedHashMap<String, Object>();\r\n            entry.put(\"name\", name)\r\n            entry.put(\"dayofweek\", day.toString())\r\n            entry.put(\"hour_from\", name.contains(\"Morning\") ? 8 : name.contains(\"Lunch\") ? 12 : 13)\r\n            entry.put(\"hour_to\", name.contains(\"Morning\") ? 12 : name.contains(\"Lunch\") ? 13 : 17)\r\n            entry.put(\"day_period\", name.contains(\"Morning\") ? \"morning\" : name.contains(\"Lunch\") ? \"lunch\" : \"afternoon\")\r\n            return entry\r\n    }\r\n    }.flatten())\r\n}\r\n// 处理假期字段\r\n_default.set(\"leave_ids\", [])\r\n_default.set(\"global_leave_ids\", [])\r\n\r\n// 时区偏移计算\r\ndef tz = java.time.ZoneId.of(_default.get(\"tz\"))\r\n_default.set(\"tz_offset\", tz.rules.getOffset(java.time.Instant.now()).toString())",
+    "codeName" : "RAWSFCODE_01",
+    "codeType" : "Groovy",
+    "leftPos" : 340,
+    "logicNodeType" : "RAWSFCODE",
+    "name" : "执行脚本代码",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "END_01"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "RAWSFCODE_01"
+      }
+    } ],
+    "topPos" : 198,
+    "parallelOutput" : true
+  }, {
+    "codeName" : "END_01",
+    "leftPos" : 666,
+    "logicNodeType" : "END",
+    "name" : "结束",
+    "getReturnParam" : {
+      "modelref" : true,
+      "id" : "Default"
+    },
+    "returnType" : "LOGICPARAM",
+    "topPos" : 200,
+    "parallelOutput" : true
+  } ],
+  "getPSDELogicParams" : [ {
+    "codeName" : "Default",
+    "logicName" : "传入变量",
+    "name" : "传入变量",
+    "getParamPSDataEntity" : {
+      "modelref" : true,
+      "path" : "PSMODULES/resource/PSDATAENTITIES/resource_calendar.json"
+    },
+    "default" : true,
+    "entityParam" : true
+  } ],
+  "getStartPSDELogicNode" : {
+    "modelref" : true,
+    "id" : "Begin"
+  },
+  "enableBackend" : true,
+  "enableFront" : false
+}

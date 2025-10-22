@@ -1,0 +1,71 @@
+export default {
+  redirectAppViewRefs: [
+    {
+      realTitle: '招聘需求编辑视图',
+      realTitleLanguageRes: {
+        lanResTag: 'PAGE.TITLE.HR_IDEA.EDITVIEW',
+      },
+      refAppViewId: 'web.hr_idea_edit_view',
+      name: 'HR_IDEA:EDITVIEW',
+      id: 'hr_idea:editview',
+    },
+    {
+      realTitle: '招聘需求编辑视图',
+      realTitleLanguageRes: {
+        lanResTag: 'PAGE.TITLE.HR_IDEA.EDITVIEW',
+      },
+      refAppViewId: 'web.hr_idea_edit_view',
+      name: 'EDITVIEW',
+      id: 'editview',
+    },
+  ],
+  enableWorkflow: true,
+  funcViewMode: 'REDIRECTVIEW',
+  deviewCodeName: 'RedirectView',
+  deviewId: '8ac65ab0d5895ea58b1d40c1819b3206',
+  accUserMode: 2,
+  capLanguageRes: {
+    lanResTag: 'DE.LNAME.HR_IDEA',
+  },
+  caption: '招聘需求',
+  codeName: 'hr_idea_redirect_view',
+  appDataEntityId: 'web.hr_idea',
+  controls: [
+    {
+      capLanguageRes: {
+        lanResTag: 'DE.LNAME.HR_IDEA',
+      },
+      caption: '招聘需求',
+      codeName: 'redirect_view_captionbar',
+      controlType: 'CAPTIONBAR',
+      appDataEntityId: 'web.hr_idea',
+      controlParam: {},
+      name: 'captionbar',
+      id: 'redirect_view_captionbar',
+    },
+  ],
+  viewLayoutPanel: {
+    layoutBodyOnly: true,
+    useDefaultLayout: true,
+    layoutPanel: true,
+    codeName: 'layoutpanel',
+    controlStyle: 'APPDEREDIRECTVIEW',
+    controlType: 'VIEWLAYOUTPANEL',
+    appDataEntityId: 'web.hr_idea',
+    controlParam: {},
+    id: 'layoutpanel',
+  },
+  title: '招聘需求数据重定向视图',
+  titleLanguageRes: {
+    lanResTag: 'PAGE.TITLE.HR_IDEA.REDIRECTVIEW',
+  },
+  viewStyle: 'DEFAULT',
+  viewType: 'DEREDIRECTVIEW',
+  enableDP: true,
+  redirectView: true,
+  showCaptionBar: true,
+  modelId: '8d938ef994b40f8bfabbc1d000d33bb4',
+  modelType: 'PSAPPDEVIEW',
+  name: 'hr_ideaRedirectView',
+  id: 'web.hr_idea_redirect_view',
+};

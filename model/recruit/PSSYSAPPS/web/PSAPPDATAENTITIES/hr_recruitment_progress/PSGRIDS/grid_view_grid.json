@@ -1,0 +1,291 @@
+{
+  "aggMode" : "NONE",
+  "codeName" : "grid_view_grid",
+  "columnEnableFilter" : 2,
+  "columnEnableLink" : 2,
+  "controlType" : "GRID",
+  "dynaModelFilePath" : "PSSYSAPPS/web/PSAPPDATAENTITIES/hr_recruitment_progress/PSGRIDS/grid_view_grid.json",
+  "getFetchPSControlAction" : {
+    "modelref" : true,
+    "id" : "fetch",
+    "actionType" : "DEDATASET",
+    "name" : "fetch",
+    "getPSAppDEMethod" : {
+      "modelref" : true,
+      "id" : "fetch_default"
+    },
+    "getPSAppDataEntity" : {
+      "modelref" : true,
+      "path" : "PSSYSAPPS/web/PSAPPDATAENTITIES/hr_recruitment_progress.json"
+    }
+  },
+  "groupMode" : "NONE",
+  "logicName" : "招聘流程设置_表格",
+  "getPSAppDataEntity" : {
+    "modelref" : true,
+    "path" : "PSSYSAPPS/web/PSAPPDATAENTITIES/hr_recruitment_progress.json"
+  },
+  "getPSDEGridColumns" : [ {
+    "align" : "LEFT",
+    "cLConvertMode" : "NONE",
+    "caption" : "招聘流程名称",
+    "codeName" : "name",
+    "columnType" : "DEFGRIDCOLUMN",
+    "dataItemName" : "name",
+    "excelCaption" : "招聘流程名称",
+    "name" : "name",
+    "noPrivDisplayMode" : 1,
+    "getPSAppDEField" : {
+      "name" : "NAME",
+      "codeName" : "name"
+    },
+    "width" : 200,
+    "widthUnit" : "PX",
+    "enableSort" : true
+  }, {
+    "align" : "LEFT",
+    "cLConvertMode" : "FRONT",
+    "caption" : "状态",
+    "codeName" : "status",
+    "columnType" : "DEFGRIDCOLUMN",
+    "dataItemName" : "status",
+    "excelCaption" : "状态",
+    "name" : "status",
+    "noPrivDisplayMode" : 1,
+    "getPSAppCodeList" : {
+      "modelref" : true,
+      "path" : "PSSYSAPPS/web/PSAPPCODELISTS/hr__progress_status.json"
+    },
+    "getPSAppDEField" : {
+      "name" : "STATUS",
+      "codeName" : "status"
+    },
+    "width" : 100,
+    "widthUnit" : "PX",
+    "enableSort" : true
+  }, {
+    "align" : "RIGHT",
+    "caption" : "操作",
+    "codeName" : "uagridcolumn1",
+    "columnType" : "UAGRIDCOLUMN",
+    "name" : "uagridcolumn1",
+    "noPrivDisplayMode" : 1,
+    "getPSDEUIActionGroup" : {
+      "codeName" : "Usr0826845748",
+      "name" : "招聘流程配置操作列",
+      "getPSAppDataEntity" : {
+        "modelref" : true,
+        "path" : "PSSYSAPPS/web/PSAPPDATAENTITIES/hr_recruitment_progress.json"
+      },
+      "getPSUIActionGroupDetails" : [ {
+        "caption" : "配置",
+        "detailType" : "DEUIACTION",
+        "name" : "u8ef8073",
+        "getPSSysImage" : {
+          "glyph" : "xf013@FontAwesome",
+          "cssClass" : "fa fa-cog"
+        },
+        "getPSUIAction" : {
+          "actionTarget" : "SINGLEKEY",
+          "caption" : "配置",
+          "codeName" : "setting",
+          "getFrontPSAppView" : {
+            "modelref" : true,
+            "path" : "PSSYSAPPS/web/PSAPPDEVIEWS/psdemslogicmslogicdesign_modal.json",
+            "viewType" : "DESUBAPPREFVIEW"
+          },
+          "frontProcessType" : "WIZARD",
+          "fullCodeName" : "hr_recruitment_progress_setting",
+          "name" : "配置",
+          "getPSAppDataEntity" : {
+            "modelref" : true,
+            "path" : "PSSYSAPPS/web/PSAPPDATAENTITIES/hr_recruitment_progress.json"
+          },
+          "getPSNavigateContexts" : [ {
+            "key" : "PSDEMSLOGIC",
+            "name" : "PSDEMSLOGIC",
+            "value" : "hr.hr_applicant.base",
+            "rawValue" : true
+          } ],
+          "getPSSysImage" : {
+            "glyph" : "xf013@FontAwesome",
+            "cssClass" : "fa fa-cog"
+          },
+          "uIActionMode" : "FRONT",
+          "uIActionTag" : "setting",
+          "uIActionType" : "DEUIACTION",
+          "id" : "setting@hr_recruitment_progress"
+        },
+        "addSeparator" : false,
+        "showCaption" : true,
+        "showIcon" : true
+      }, {
+        "caption" : "启用",
+        "detailType" : "DEUIACTION",
+        "name" : "ua9982c7",
+        "getPSSysImage" : {
+          "glyph" : "xf111@FontAwesome",
+          "cssClass" : "fa fa-circle"
+        },
+        "getPSUIAction" : {
+          "actionTarget" : "SINGLEKEY",
+          "caption" : "启用",
+          "codeName" : "enable",
+          "fullCodeName" : "hr_recruitment_progress_enable",
+          "name" : "启用",
+          "getPSAppDEMethod" : {
+            "modelref" : true,
+            "id" : "enable"
+          },
+          "getPSAppDataEntity" : {
+            "modelref" : true,
+            "path" : "PSSYSAPPS/web/PSAPPDATAENTITIES/hr_recruitment_progress.json"
+          },
+          "getPSSysImage" : {
+            "glyph" : "xf111@FontAwesome",
+            "cssClass" : "fa fa-circle"
+          },
+          "refreshMode" : 1,
+          "timeout" : 60000,
+          "uIActionMode" : "BACKEND",
+          "uIActionTag" : "enable",
+          "uIActionType" : "DEUIACTION",
+          "enableConfirm" : true,
+          "reloadData" : true,
+          "id" : "enable@hr_recruitment_progress"
+        },
+        "visibleScriptCode" : "data.status == 0",
+        "addSeparator" : false,
+        "showCaption" : true,
+        "showIcon" : true
+      }, {
+        "caption" : "停用",
+        "detailType" : "DEUIACTION",
+        "name" : "u4ab5ebb",
+        "getPSSysImage" : {
+          "glyph" : "xf10c@FontAwesome",
+          "cssClass" : "fa fa-circle-o"
+        },
+        "getPSUIAction" : {
+          "actionTarget" : "SINGLEKEY",
+          "caption" : "停用",
+          "codeName" : "disable",
+          "fullCodeName" : "hr_recruitment_progress_disable",
+          "name" : "停用",
+          "getPSAppDEMethod" : {
+            "modelref" : true,
+            "id" : "disable"
+          },
+          "getPSAppDataEntity" : {
+            "modelref" : true,
+            "path" : "PSSYSAPPS/web/PSAPPDATAENTITIES/hr_recruitment_progress.json"
+          },
+          "getPSSysImage" : {
+            "glyph" : "xf10c@FontAwesome",
+            "cssClass" : "fa fa-circle-o"
+          },
+          "refreshMode" : 1,
+          "timeout" : 60000,
+          "uIActionMode" : "BACKEND",
+          "uIActionTag" : "disable",
+          "uIActionType" : "DEUIACTION",
+          "enableConfirm" : true,
+          "reloadData" : true,
+          "id" : "disable@hr_recruitment_progress"
+        },
+        "visibleScriptCode" : "data.status == 1",
+        "addSeparator" : false,
+        "showCaption" : true,
+        "showIcon" : true
+      } ],
+      "uniqueTag" : "hr_recruitment_progress__Usr0826845748"
+    },
+    "width" : 200,
+    "widthUnit" : "PX",
+    "enableSort" : false
+  } ],
+  "getPSDEGridDataItems" : [ {
+    "dataType" : 25,
+    "name" : "name",
+    "getPSAppDEField" : {
+      "name" : "NAME",
+      "codeName" : "name"
+    }
+  }, {
+    "dataType" : 25,
+    "name" : "status",
+    "getPSAppDEField" : {
+      "name" : "STATUS",
+      "codeName" : "status"
+    }
+  }, {
+    "dataType" : 25,
+    "name" : "srfkey",
+    "getPSAppDEField" : {
+      "name" : "ID",
+      "codeName" : "id"
+    }
+  }, {
+    "dataType" : 25,
+    "name" : "srfdataaccaction",
+    "getPSAppDEField" : {
+      "name" : "ID",
+      "codeName" : "id"
+    },
+    "dataAccessAction" : true
+  }, {
+    "dataType" : 25,
+    "name" : "srfmajortext",
+    "getPSAppDEField" : {
+      "name" : "NAME",
+      "codeName" : "name"
+    }
+  } ],
+  "getPSDEGridEditItems" : [ {
+    "caption" : "标识",
+    "codeName" : "srfkey",
+    "enableCond" : 3,
+    "ignoreInput" : 0,
+    "name" : "srfkey",
+    "getPSAppDEField" : {
+      "name" : "ID",
+      "codeName" : "id"
+    },
+    "getPSEditor" : {
+      "editorType" : "HIDDEN",
+      "name" : "srfkey"
+    },
+    "allowEmpty" : true
+  } ],
+  "pagingMode" : 1,
+  "pagingSize" : 20,
+  "getRemovePSControlAction" : {
+    "actionName" : "Remove",
+    "actionType" : "DEACTION",
+    "dataAccessAction" : "DELETE",
+    "name" : "remove",
+    "getPSAppDEMethod" : {
+      "modelref" : true,
+      "id" : "remove"
+    },
+    "getPSAppDataEntity" : {
+      "modelref" : true,
+      "path" : "PSSYSAPPS/web/PSAPPDATAENTITIES/hr_recruitment_progress.json"
+    }
+  },
+  "sortMode" : "REMOTE",
+  "hasWFDataItems" : false,
+  "enableColFilter" : false,
+  "enableCustomized" : true,
+  "enableGroup" : false,
+  "enablePagingBar" : true,
+  "enableRowEdit" : false,
+  "enableRowEditOrder" : false,
+  "enableRowNew" : false,
+  "forceFit" : false,
+  "hideHeader" : false,
+  "noSort" : false,
+  "singleSelect" : false,
+  "modelid" : "456b85d78be54c6e7139d637b16c20bc",
+  "modeltype" : "PSDEGRID"
+}

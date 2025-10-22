@@ -1,0 +1,62 @@
+package cn.ibizlab.hr.logic.hr_employeelogic.onchange_user;
+        import java.util.Map;
+        import java.util.HashMap;
+        import com.alibaba.fastjson.JSONObject;
+        import org.springframework.util.StringUtils;
+        import org.springframework.util.ObjectUtils;
+        import cn.ibizlab.util.errors.BadRequestAlertException;
+                global cn.ibizlab.core.hr.domain.hr_employee hr_employeeonchange_userdefault;
+                global cn.ibizlab.core.base.domain.res_users hr_employeeonchange_useruser;
+                    global cn.ibizlab.core.base.service.Ires_usersService res_usersservice;
+        global cn.ibizlab.core.hr.service.Ihr_employeeService iBzSysHr_employeeDefaultService;
+        global cn.ibizlab.util.security.AuthenticationUser curuser;
+
+
+    no-loop
+
+            //逻辑处理节点[开始]
+            rule "begin"
+            ruleflow-group "hr_employeeonchange_userbegin"
+            when
+            then
+            end
+
+            //逻辑处理节点[准备参数]
+            rule "prepareparam_01"
+            ruleflow-group "hr_employeeonchange_userprepareparam_01"
+            when
+            then
+                            hr_employeeonchange_useruser.set("id",hr_employeeonchange_userdefault.get("userid"));
+                        update(hr_employeeonchange_userdefault);//更新fact中变量值
+                        update(hr_employeeonchange_useruser);//更新fact中变量值
+            end
+
+            //逻辑处理节点[回写work_contact_id]
+            rule "prepareparam_02"
+            ruleflow-group "hr_employeeonchange_userprepareparam_02"
+            when
+            then
+                            hr_employeeonchange_userdefault.set("workcontactid",hr_employeeonchange_useruser.get("partnerid"));
+                            hr_employeeonchange_userdefault.set("name",hr_employeeonchange_useruser.get("name"));
+                        update(hr_employeeonchange_userdefault);//更新fact中变量值
+                        update(hr_employeeonchange_useruser);//更新fact中变量值
+            end
+
+            //逻辑处理节点[实体行为]
+            rule "deaction_01"
+            ruleflow-group "hr_employeeonchange_userdeaction_01"
+            when
+            then
+                            cn.ibizlab.util.helper.CachedBeanCopier.copy(res_usersservice.get(hr_employeeonchange_useruser.getId()),hr_employeeonchange_useruser);
+                        update(hr_employeeonchange_userdefault);//更新fact中变量值
+                        update(hr_employeeonchange_useruser);//更新fact中变量值
+            end
+
+            //逻辑处理节点[结束]
+            rule "end_01"
+            ruleflow-group "hr_employeeonchange_userend_01"
+            when
+            then
+                        update(hr_employeeonchange_userdefault);//更新fact中变量值
+                        update(hr_employeeonchange_useruser);//更新fact中变量值
+            end

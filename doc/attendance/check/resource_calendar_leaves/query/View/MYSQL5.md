@@ -1,0 +1,25 @@
+```sql
+SELECT
+t1.`CALENDAR_ID`,
+t11.`NAME` AS `CALENDAR_NAME`,
+t1.`CREATE_DATE`,
+t1.`CREATE_UID`,
+t1.`DATE_FROM`,
+t1.`DATE_TO`,
+t1.`HOLIDAY_ID`,
+t1.`HOLIDAY_TYPE`,
+t21.`NAME` AS `HOLNAMEAY_NAME`,
+t1.`ID`,
+t1.`NAME`,
+t1.`TIME_TYPE`,
+t1.`TYPE_ID`,
+t31.`NAME` AS `TYPE_NAME`,
+t1.`WRITE_DATE`,
+t1.`WRITE_UID`
+FROM `resource_calendar_leaves` t1 
+LEFT JOIN `resource_calendar` t11 ON t1.`CALENDAR_ID` = t11.`ID` 
+LEFT JOIN `hr_leave` t21 ON t1.`HOLIDAY_ID` = t21.`ID` 
+LEFT JOIN `PUBLIC_LEAVE_TYPE` t31 ON t1.`TYPE_ID` = t31.`ID` 
+
+
+```

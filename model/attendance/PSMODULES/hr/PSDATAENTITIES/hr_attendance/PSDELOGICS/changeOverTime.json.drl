@@ -1,0 +1,146 @@
+package cn.ibizlab.hr.logic.hr_attendancelogic.changeovertime;
+        import java.util.Map;
+        import java.util.HashMap;
+        import com.alibaba.fastjson.JSONObject;
+        import org.springframework.util.StringUtils;
+        import org.springframework.util.ObjectUtils;
+        import cn.ibizlab.util.errors.BadRequestAlertException;
+                global cn.ibizlab.core.hr.domain.hr_attendance hr_attendancechangeovertimedefault;
+                global cn.ibizlab.core.hr.domain.hr_attendance_overtime hr_attendancechangeovertimeover_time;
+                global java.util.Map hr_attendancechangeovertimesum_over;
+                    global cn.ibizlab.core.hr.service.Ihr_attendance_overtimeService hr_attendance_overtimeservice;
+        global cn.ibizlab.core.hr.service.Ihr_attendanceService iBzSysHr_attendanceDefaultService;
+        global cn.ibizlab.util.security.AuthenticationUser curuser;
+
+
+    no-loop
+
+            //逻辑处理节点[开始]
+            rule "begin"
+            ruleflow-group "hr_attendancechangeovertimebegin"
+            when
+            then
+            end
+
+            //逻辑处理节点[执行脚本代码]
+            rule "rawsfcode_01"
+            ruleflow-group "hr_attendancechangeovertimerawsfcode_01"
+            when
+            then
+                        update(hr_attendancechangeovertimedefault);//更新fact中变量值
+                        update(hr_attendancechangeovertimeover_time);//更新fact中变量值
+                        update(hr_attendancechangeovertimesum_over);//更新fact中变量值
+            end
+
+            //逻辑处理节点[获取加班记录]
+            rule "rawsqlcall_01"
+            ruleflow-group "hr_attendancechangeovertimerawsqlcall_01"
+            when
+            then
+    Map param =new HashMap();
+        param.put("param0",hr_attendancechangeovertimedefault.get("checkin"));
+        param.put("param1",hr_attendancechangeovertimedefault.get("employeeid"));
+    String strSql="select 	* from 	hr_attendance_overtime where 	`DATE` = DATE(#{et.param0})  	and EMPLOYEE_ID = #{et.param1} LIMIT 1;";
+                        java.util.List<JSONObject> entities=iBzSysHr_attendanceDefaultService.select(strSql,param);//SQL调用
+                            if(entities.size()>0){
+                            JSONObject entity=entities.get(0);
+                                    cn.ibizlab.core.hr.domain.hr_attendance_overtime targetEntity =new cn.ibizlab.core.hr.domain.hr_attendance_overtime();
+                                    for (Map.Entry entry : entity.entrySet()) {
+                                    targetEntity.set(String.valueOf(entry.getKey()),entry.getValue());
+                                    }
+                                    org.springframework.cglib.beans.BeanCopier copier= org.springframework.cglib.beans.BeanCopier.create(targetEntity.getClass(),hr_attendancechangeovertimeover_time.getClass(), false);
+                                    copier.copy(targetEntity,hr_attendancechangeovertimeover_time,null);
+                            }
+                        update(hr_attendancechangeovertimedefault);//更新fact中变量值
+                        update(hr_attendancechangeovertimeover_time);//更新fact中变量值
+                        update(hr_attendancechangeovertimesum_over);//更新fact中变量值
+            end
+
+            //逻辑处理节点[准备参数]
+            rule "prepareparam_01"
+            ruleflow-group "hr_attendancechangeovertimeprepareparam_01"
+            when
+            then
+                            hr_attendancechangeovertimeover_time.set("duration",hr_attendancechangeovertimedefault.get("overtimehours"));
+                            hr_attendancechangeovertimeover_time.set("durationreal",hr_attendancechangeovertimedefault.get("overtimehours"));
+                            hr_attendancechangeovertimeover_time.set("employeeid",hr_attendancechangeovertimedefault.get("employeeid"));
+                            hr_attendancechangeovertimeover_time.set("date",hr_attendancechangeovertimedefault.get("dateonly"));
+                        update(hr_attendancechangeovertimedefault);//更新fact中变量值
+                        update(hr_attendancechangeovertimeover_time);//更新fact中变量值
+                        update(hr_attendancechangeovertimesum_over);//更新fact中变量值
+            end
+
+            //逻辑处理节点[累加当天其他加班时长]
+            rule "rawsqlcall_02"
+            ruleflow-group "hr_attendancechangeovertimerawsqlcall_02"
+            when
+            then
+    Map param =new HashMap();
+        param.put("param0",hr_attendancechangeovertimedefault.get("overtimehours"));
+        param.put("param1",hr_attendancechangeovertimedefault.get("employeeid"));
+        param.put("param2",hr_attendancechangeovertimedefault.get("checkin"));
+        param.put("param3",hr_attendancechangeovertimedefault.get("id"));
+    String strSql="SELECT COALESCE(SUM(OVERTIME_HOURS), 0)+#{et.param0} AS total_overtime_hours FROM hr_attendance WHERE employee_id = #{et.param1}   AND DATE(check_in) = DATE(#{et.param2})    AND check_out IS NOT NULL    AND id != #{et.param3}   AND OVERTIME_STATUS = 'approved'";
+                        java.util.List<JSONObject> entities=iBzSysHr_attendanceDefaultService.select(strSql,param);//SQL调用
+                            if(entities.size()>0){
+                            JSONObject entity=entities.get(0);
+                                hr_attendancechangeovertimesum_over.putAll(entity);
+                            }
+                        update(hr_attendancechangeovertimedefault);//更新fact中变量值
+                        update(hr_attendancechangeovertimeover_time);//更新fact中变量值
+                        update(hr_attendancechangeovertimesum_over);//更新fact中变量值
+            end
+
+            //逻辑处理节点[准备参数]
+            rule "prepareparam_02"
+            ruleflow-group "hr_attendancechangeovertimeprepareparam_02"
+            when
+            then
+                            hr_attendancechangeovertimeover_time.set("durationreal",hr_attendancechangeovertimesum_over.get("total_overtime_hours"));
+                            hr_attendancechangeovertimeover_time.set("duration",hr_attendancechangeovertimesum_over.get("total_overtime_hours"));
+                        update(hr_attendancechangeovertimedefault);//更新fact中变量值
+                        update(hr_attendancechangeovertimeover_time);//更新fact中变量值
+                        update(hr_attendancechangeovertimesum_over);//更新fact中变量值
+            end
+
+            //逻辑处理节点[实体行为]
+            rule "deaction_01"
+            ruleflow-group "hr_attendancechangeovertimedeaction_01"
+            when
+            then
+                        hr_attendance_overtimeservice.create(hr_attendancechangeovertimeover_time);
+                        update(hr_attendancechangeovertimedefault);//更新fact中变量值
+                        update(hr_attendancechangeovertimeover_time);//更新fact中变量值
+                        update(hr_attendancechangeovertimesum_over);//更新fact中变量值
+            end
+
+            //逻辑处理节点[调试逻辑参数]
+            rule "debugparam_01"
+            ruleflow-group "hr_attendancechangeovertimedebugparam_01"
+            when
+            then
+                        update(hr_attendancechangeovertimedefault);//更新fact中变量值
+                        update(hr_attendancechangeovertimeover_time);//更新fact中变量值
+                        update(hr_attendancechangeovertimesum_over);//更新fact中变量值
+            end
+
+            //逻辑处理节点[实体行为]
+            rule "deaction_02"
+            ruleflow-group "hr_attendancechangeovertimedeaction_02"
+            when
+            then
+                        hr_attendance_overtimeservice.update(hr_attendancechangeovertimeover_time);
+                        update(hr_attendancechangeovertimedefault);//更新fact中变量值
+                        update(hr_attendancechangeovertimeover_time);//更新fact中变量值
+                        update(hr_attendancechangeovertimesum_over);//更新fact中变量值
+            end
+
+            //逻辑处理节点[结束]
+            rule "end_01"
+            ruleflow-group "hr_attendancechangeovertimeend_01"
+            when
+            then
+                        update(hr_attendancechangeovertimedefault);//更新fact中变量值
+                        update(hr_attendancechangeovertimeover_time);//更新fact中变量值
+                        update(hr_attendancechangeovertimesum_over);//更新fact中变量值
+            end

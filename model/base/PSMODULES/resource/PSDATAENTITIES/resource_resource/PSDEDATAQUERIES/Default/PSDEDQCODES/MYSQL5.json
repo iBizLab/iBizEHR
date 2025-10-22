@@ -1,0 +1,61 @@
+{
+  "dBType" : "MYSQL5",
+  "name" : "MySQL5",
+  "getPSDEDataQueryCodeExps" : [ {
+    "expression" : "t1.`ACTIVE`",
+    "name" : "ACTIVE"
+  }, {
+    "expression" : "t1.`CALENDAR_ID`",
+    "name" : "CALENDAR_ID"
+  }, {
+    "expression" : "t41.`NAME`",
+    "name" : "CALENDAR_NAME"
+  }, {
+    "expression" : "t1.`COMPANY_ID`",
+    "name" : "COMPANY_ID"
+  }, {
+    "expression" : "t31.`NAME`",
+    "name" : "COMPANY_NAME"
+  }, {
+    "expression" : "t1.`CREATE_DATE`",
+    "name" : "CREATE_DATE"
+  }, {
+    "expression" : "t1.`CREATE_UID`",
+    "name" : "CREATE_UID"
+  }, {
+    "expression" : "t21.`EMAIL`",
+    "name" : "EMAIL"
+  }, {
+    "expression" : "t1.`ID`",
+    "name" : "ID"
+  }, {
+    "expression" : "t1.`NAME`",
+    "name" : "NAME"
+  }, {
+    "expression" : "t21.`PHONE`",
+    "name" : "PHONE"
+  }, {
+    "expression" : "t1.`RESOURCE_TYPE`",
+    "name" : "RESOURCE_TYPE"
+  }, {
+    "expression" : "t11.`SHARE`",
+    "name" : "SHARE"
+  }, {
+    "expression" : "t1.`TIME_EFFICIENCY`",
+    "name" : "TIME_EFFICIENCY"
+  }, {
+    "expression" : "t1.`USER_ID`",
+    "name" : "USER_ID"
+  }, {
+    "expression" : "t21.`NAME`",
+    "name" : "USER_NAME"
+  }, {
+    "expression" : "t1.`WRITE_DATE`",
+    "name" : "WRITE_DATE"
+  }, {
+    "expression" : "t1.`WRITE_UID`",
+    "name" : "WRITE_UID"
+  } ],
+  "queryCode" : "SELECT\nt1.`ACTIVE`,\nt1.`CALENDAR_ID`,\nt41.`NAME` AS `CALENDAR_NAME`,\nt1.`COMPANY_ID`,\nt31.`NAME` AS `COMPANY_NAME`,\nt1.`CREATE_DATE`,\nt1.`CREATE_UID`,\nt21.`EMAIL`,\nt1.`ID`,\nt1.`NAME`,\nt21.`PHONE`,\nt1.`RESOURCE_TYPE`,\nt11.`SHARE`,\nt1.`TIME_EFFICIENCY`,\nt1.`USER_ID`,\nt21.`NAME` AS `USER_NAME`,\nt1.`WRITE_DATE`,\nt1.`WRITE_UID`\nFROM `resource_resource` t1 \nLEFT JOIN `res_users` t11 ON t1.`USER_ID` = t11.`ID` \nLEFT JOIN `res_partner` t21 ON t11.`PARTNER_ID` = t21.`ID` \nLEFT JOIN `res_company` t31 ON t1.`COMPANY_ID` = t31.`ID` \nLEFT JOIN `resource_calendar` t41 ON t1.`CALENDAR_ID` = t41.`ID` \n",
+  "id" : "PSMODULES/resource/PSDATAENTITIES/resource_resource/PSDEDATAQUERIES/Default/PSDEDQCODES/MYSQL5.json"
+}

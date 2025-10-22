@@ -1,0 +1,180 @@
+package cn.ibizlab.hr.logic.hr_applicantlogic.out;
+        import java.util.Map;
+        import java.util.HashMap;
+        import com.alibaba.fastjson.JSONObject;
+        import org.springframework.util.StringUtils;
+        import org.springframework.util.ObjectUtils;
+        import cn.ibizlab.util.errors.BadRequestAlertException;
+                global cn.ibizlab.core.hr.domain.hr_applicant hr_applicantoutdefault;
+                global cn.ibizlab.core.hr.domain.hr_applicant hr_applicantoutapplicant;
+                global cn.ibizlab.core.hr.domain.hr_candidate hr_applicantoutcandidate;
+                global cn.ibizlab.core.hr.domain.hr_candidate_talent_pool hr_applicantoutcandidate_talentpool;
+                global cn.ibizlab.core.hr.domain.hr_talent_pool hr_applicantouttalentpool;
+                    global cn.ibizlab.core.hr.service.Ihr_applicantService hr_applicantservice;
+                    global cn.ibizlab.core.hr.service.Ihr_candidateService hr_candidateservice;
+                    global cn.ibizlab.core.hr.service.Ihr_candidate_talent_poolService hr_candidate_talent_poolservice;
+        global cn.ibizlab.core.hr.service.Ihr_applicantService iBzSysHr_applicantDefaultService;
+        global cn.ibizlab.util.security.AuthenticationUser curuser;
+
+
+    no-loop
+
+            //逻辑处理节点[开始]
+            rule "begin"
+            ruleflow-group "hr_applicantoutbegin"
+            when
+            then
+            end
+
+            //逻辑处理节点[准备参数]
+            rule "prepareparam3"
+            ruleflow-group "hr_applicantoutprepareparam3"
+            when
+            then
+                            hr_applicantoutapplicant.set("id",hr_applicantoutdefault.get("id"));
+                        update(hr_applicantoutdefault);//更新fact中变量值
+                        update(hr_applicantoutapplicant);//更新fact中变量值
+                        update(hr_applicantoutcandidate);//更新fact中变量值
+                        update(hr_applicantoutcandidate_talentpool);//更新fact中变量值
+                        update(hr_applicantouttalentpool);//更新fact中变量值
+            end
+
+            //逻辑处理节点[获取候选人申请数据]
+            rule "deaction3"
+            ruleflow-group "hr_applicantoutdeaction3"
+            when
+            then
+                            cn.ibizlab.util.helper.CachedBeanCopier.copy(hr_applicantservice.get(hr_applicantoutapplicant.getId()),hr_applicantoutapplicant);
+                        update(hr_applicantoutdefault);//更新fact中变量值
+                        update(hr_applicantoutapplicant);//更新fact中变量值
+                        update(hr_applicantoutcandidate);//更新fact中变量值
+                        update(hr_applicantoutcandidate_talentpool);//更新fact中变量值
+                        update(hr_applicantouttalentpool);//更新fact中变量值
+            end
+
+            //逻辑处理节点[更新候选人申请状态]
+            rule "prepareparam4"
+            ruleflow-group "hr_applicantoutprepareparam4"
+            when
+            then
+                            hr_applicantoutapplicant.set("status","0");
+                        update(hr_applicantoutdefault);//更新fact中变量值
+                        update(hr_applicantoutapplicant);//更新fact中变量值
+                        update(hr_applicantoutcandidate);//更新fact中变量值
+                        update(hr_applicantoutcandidate_talentpool);//更新fact中变量值
+                        update(hr_applicantouttalentpool);//更新fact中变量值
+            end
+
+            //逻辑处理节点[更新候选人申请状态]
+            rule "deaction4"
+            ruleflow-group "hr_applicantoutdeaction4"
+            when
+            then
+                        hr_applicantservice.update(hr_applicantoutapplicant);
+                        update(hr_applicantoutdefault);//更新fact中变量值
+                        update(hr_applicantoutapplicant);//更新fact中变量值
+                        update(hr_applicantoutcandidate);//更新fact中变量值
+                        update(hr_applicantoutcandidate_talentpool);//更新fact中变量值
+                        update(hr_applicantouttalentpool);//更新fact中变量值
+            end
+
+            //逻辑处理节点[获取公共人才库实体数据]
+            rule "rawsqlcall1"
+            ruleflow-group "hr_applicantoutrawsqlcall1"
+            when
+            then
+                        Map param = null;
+                        String strSql="select * from hr_talent_pool ht where name = '公共人才库'";
+                        java.util.List<JSONObject> entities=iBzSysHr_applicantDefaultService.select(strSql,param);//SQL调用
+                            if(entities.size()>0){
+                            JSONObject entity=entities.get(0);
+                                    for (Map.Entry entry : entity.entrySet()) {
+                                    hr_applicantouttalentpool.set(String.valueOf(entry.getKey()),entry.getValue());
+                                    }
+                            }
+                        update(hr_applicantoutdefault);//更新fact中变量值
+                        update(hr_applicantoutapplicant);//更新fact中变量值
+                        update(hr_applicantoutcandidate);//更新fact中变量值
+                        update(hr_applicantoutcandidate_talentpool);//更新fact中变量值
+                        update(hr_applicantouttalentpool);//更新fact中变量值
+            end
+
+            //逻辑处理节点[更新候选人数据]
+            rule "prepareparam1"
+            ruleflow-group "hr_applicantoutprepareparam1"
+            when
+            then
+                            hr_applicantoutcandidate.set("id",hr_applicantoutdefault.get("candidateid"));
+                            hr_applicantoutcandidate.set("lasttpstagename",hr_applicantoutdefault.get("stagename"));
+                            hr_applicantoutcandidate.set("lasteduschool",hr_applicantoutapplicant.get("lasteduschool"));
+                            hr_applicantoutcandidate.set("lastedudate",hr_applicantoutapplicant.get("lastedudate"));
+                            hr_applicantoutcandidate.set("lasteduspeciality",hr_applicantoutapplicant.get("lasteduspeciality"));
+                            hr_applicantoutcandidate.set("lasteduacademicdegree",hr_applicantoutapplicant.get("lasteduacademicdegree"));
+                            hr_applicantoutcandidate.set("lastexpcompany",hr_applicantoutapplicant.get("lastexpcompany"));
+                            hr_applicantoutcandidate.set("lastexpjob",hr_applicantoutapplicant.get("lastexpjob"));
+                            hr_applicantoutcandidate.set("lastexpdate",hr_applicantoutapplicant.get("lastexpdate"));
+                            hr_applicantoutcandidate.set("lasttags",hr_applicantoutapplicant.get("tags"));
+                            hr_applicantoutcandidate.set("lasttpjobname",hr_applicantoutdefault.get("jobname"));
+                            hr_applicantoutcandidate.set("lasttpappliedat",hr_applicantoutapplicant.get("createdate"));
+                            hr_applicantoutcandidate.set("lasttparchivereason","淘汰");
+                            hr_applicantoutcandidate.set("lasttptalentpool",hr_applicantouttalentpool.get("id"));
+                            hr_applicantoutcandidate.set("lasttpstagename",hr_applicantoutapplicant.get("stagename"));
+                        update(hr_applicantoutdefault);//更新fact中变量值
+                        update(hr_applicantoutapplicant);//更新fact中变量值
+                        update(hr_applicantoutcandidate);//更新fact中变量值
+                        update(hr_applicantoutcandidate_talentpool);//更新fact中变量值
+                        update(hr_applicantouttalentpool);//更新fact中变量值
+            end
+
+            //逻辑处理节点[更新候选人数据]
+            rule "deaction1"
+            ruleflow-group "hr_applicantoutdeaction1"
+            when
+            then
+                        hr_candidateservice.update(hr_applicantoutcandidate);
+                        update(hr_applicantoutdefault);//更新fact中变量值
+                        update(hr_applicantoutapplicant);//更新fact中变量值
+                        update(hr_applicantoutcandidate);//更新fact中变量值
+                        update(hr_applicantoutcandidate_talentpool);//更新fact中变量值
+                        update(hr_applicantouttalentpool);//更新fact中变量值
+            end
+
+            //逻辑处理节点[准备维护候选人和人才库数据]
+            rule "prepareparam2"
+            ruleflow-group "hr_applicantoutprepareparam2"
+            when
+            then
+                            hr_applicantoutcandidate_talentpool.set("candidateid",hr_applicantoutcandidate.get("id"));
+                            hr_applicantoutcandidate_talentpool.set("name","公共人才库");
+                            hr_applicantoutcandidate_talentpool.set("talentpool_id",hr_applicantouttalentpool.get("id"));
+                        update(hr_applicantoutdefault);//更新fact中变量值
+                        update(hr_applicantoutapplicant);//更新fact中变量值
+                        update(hr_applicantoutcandidate);//更新fact中变量值
+                        update(hr_applicantoutcandidate_talentpool);//更新fact中变量值
+                        update(hr_applicantouttalentpool);//更新fact中变量值
+            end
+
+            //逻辑处理节点[维护候选人和人才库数据]
+            rule "deaction2"
+            ruleflow-group "hr_applicantoutdeaction2"
+            when
+            then
+                        hr_candidate_talent_poolservice.create(hr_applicantoutcandidate_talentpool);
+                        update(hr_applicantoutdefault);//更新fact中变量值
+                        update(hr_applicantoutapplicant);//更新fact中变量值
+                        update(hr_applicantoutcandidate);//更新fact中变量值
+                        update(hr_applicantoutcandidate_talentpool);//更新fact中变量值
+                        update(hr_applicantouttalentpool);//更新fact中变量值
+            end
+
+            //逻辑处理节点[结束]
+            rule "end1"
+            ruleflow-group "hr_applicantoutend1"
+            when
+            then
+                        update(hr_applicantoutdefault);//更新fact中变量值
+                        update(hr_applicantoutapplicant);//更新fact中变量值
+                        update(hr_applicantoutcandidate);//更新fact中变量值
+                        update(hr_applicantoutcandidate_talentpool);//更新fact中变量值
+                        update(hr_applicantouttalentpool);//更新fact中变量值
+            end

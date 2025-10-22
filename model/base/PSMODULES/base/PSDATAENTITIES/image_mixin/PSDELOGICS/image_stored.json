@@ -1,0 +1,303 @@
+{
+  "codeName" : "image_stored",
+  "defaultParamName" : "Default",
+  "dynaModelFilePath" : "PSMODULES/base/PSDATAENTITIES/image_mixin/PSDELOGICS/image_stored.json",
+  "logicName" : "图片属性存储至附件",
+  "memo" : "暂不使用",
+  "name" : "图片属性存储至附件",
+  "getPSDELogicNodes" : [ {
+    "codeName" : "Begin",
+    "leftPos" : 200,
+    "logicNodeType" : "BEGIN",
+    "name" : "开始",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "PREPAREFILTER"
+      },
+      "name" : "开始到准备参数",
+      "getPSDELogicLinkGroupCond" : {
+        "groupOP" : "AND",
+        "logicType" : "GROUP",
+        "name" : "连接条件组",
+        "getPSDELogicLinkConds" : [ {
+          "condOP" : "ISNOTNULL",
+          "dstFieldName" : "IMAGE",
+          "getDstLogicParam" : {
+            "modelref" : true,
+            "id" : "Default"
+          },
+          "logicType" : "SINGLE",
+          "name" : "Default[IMAGE] 值不为空(NotNil)"
+        } ]
+      },
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "Begin"
+      }
+    } ],
+    "topPos" : 200,
+    "parallelOutput" : true
+  }, {
+    "codeName" : "PREPAREFILTER",
+    "leftPos" : 160,
+    "logicNodeType" : "PREPAREPARAM",
+    "name" : "准备过滤参数",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "DEDATASET_01"
+      },
+      "name" : "准备参数到查询",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "PREPAREFILTER"
+      }
+    } ],
+    "getPSDELogicNodeParams" : [ {
+      "dstFieldName" : "n_field_id_eq",
+      "getDstPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "filterparam"
+      },
+      "paramAction" : "SETPARAMVALUE",
+      "srcFieldName" : "image",
+      "getSrcPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "Default"
+      },
+      "srcValueType" : "SRCDLPARAM"
+    } ],
+    "topPos" : 420,
+    "parallelOutput" : true
+  }, {
+    "codeName" : "DEDATASET_01",
+    "getDstPSDEDataSet" : {
+      "modelref" : true,
+      "id" : "Default"
+    },
+    "getDstPSDELogicParam" : {
+      "modelref" : true,
+      "id" : "filterparam"
+    },
+    "getDstPSDataEntity" : {
+      "modelref" : true,
+      "path" : "PSMODULES/base/PSDATAENTITIES/ir_attachment.json"
+    },
+    "leftPos" : 530,
+    "logicNodeType" : "DEDATASET",
+    "name" : "查询附件数据集",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "BINDPARAM_01"
+      },
+      "name" : "存在数据连接",
+      "getPSDELogicLinkGroupCond" : {
+        "groupOP" : "AND",
+        "logicType" : "GROUP",
+        "name" : "连接条件组",
+        "getPSDELogicLinkConds" : [ {
+          "condOP" : "GTANDEQ",
+          "dstFieldName" : "size",
+          "getDstLogicParam" : {
+            "modelref" : true,
+            "id" : "attachmentList"
+          },
+          "logicType" : "SINGLE",
+          "name" : "attachmentList[size] 大于等于(>=) 1",
+          "paramValue" : "1"
+        } ]
+      },
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "DEDATASET_01"
+      }
+    } ],
+    "getRetPSDELogicParam" : {
+      "modelref" : true,
+      "id" : "attachmentList"
+    },
+    "topPos" : 420,
+    "parallelOutput" : true
+  }, {
+    "codeName" : "BINDPARAM_01",
+    "getDstPSDELogicParam" : {
+      "modelref" : true,
+      "id" : "ir_attachment"
+    },
+    "leftPos" : 710,
+    "logicNodeType" : "BINDPARAM",
+    "name" : "绑定参数",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "END_01"
+      },
+      "name" : "连接名称",
+      "getPSDELogicLinkGroupCond" : {
+        "groupOP" : "AND",
+        "logicType" : "GROUP",
+        "name" : "连接条件组",
+        "getPSDELogicLinkConds" : [ {
+          "condOP" : "ISNOTNULL",
+          "dstFieldName" : "RES_FIELD",
+          "getDstLogicParam" : {
+            "modelref" : true,
+            "id" : "ir_attachment"
+          },
+          "logicType" : "SINGLE",
+          "name" : "ir_attachment[RES_FIELD] 值不为空(NotNil)"
+        } ]
+      },
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "BINDPARAM_01"
+      }
+    }, {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "PREPAREPARAM_01"
+      },
+      "name" : "连接名称",
+      "getPSDELogicLinkGroupCond" : {
+        "groupOP" : "AND",
+        "logicType" : "GROUP",
+        "name" : "连接条件组",
+        "getPSDELogicLinkConds" : [ {
+          "condOP" : "ISNULL",
+          "dstFieldName" : "RES_FIELD",
+          "getDstLogicParam" : {
+            "modelref" : true,
+            "id" : "ir_attachment"
+          },
+          "logicType" : "SINGLE",
+          "name" : "ir_attachment[RES_FIELD] 值为空(Nil)"
+        } ]
+      },
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "BINDPARAM_01"
+      }
+    } ],
+    "srcFieldName" : "0",
+    "getSrcPSDELogicParam" : {
+      "modelref" : true,
+      "id" : "attachmentList"
+    },
+    "topPos" : 570
+  }, {
+    "codeName" : "PREPAREPARAM_01",
+    "leftPos" : 710,
+    "logicNodeType" : "PREPAREPARAM",
+    "name" : "设置res_field",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "CREATEATTACHMENT"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "PREPAREPARAM_01"
+      }
+    } ],
+    "getPSDELogicNodeParams" : [ {
+      "dstFieldName" : "RES_FIELD",
+      "getDstPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "ir_attachment"
+      },
+      "paramAction" : "SETPARAMVALUE",
+      "srcValue" : "image",
+      "srcValueType" : "SRCVALUE"
+    } ],
+    "topPos" : 714,
+    "parallelOutput" : true
+  }, {
+    "codeName" : "END_01",
+    "leftPos" : 286,
+    "logicNodeType" : "END",
+    "name" : "结束",
+    "topPos" : 840,
+    "parallelOutput" : true
+  }, {
+    "codeName" : "CREATEATTACHMENT",
+    "getDstPSDEAction" : {
+      "modelref" : true,
+      "path" : "PSMODULES/base/PSDATAENTITIES/ir_attachment/PSDEACTIONS/Update.json"
+    },
+    "getDstPSDELogicParam" : {
+      "modelref" : true,
+      "id" : "Default"
+    },
+    "getDstPSDataEntity" : {
+      "modelref" : true,
+      "path" : "PSMODULES/base/PSDATAENTITIES/ir_attachment.json"
+    },
+    "leftPos" : 710,
+    "logicNodeType" : "DEACTION",
+    "name" : "更新附件",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "END_01"
+      },
+      "name" : "新建到结束",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "CREATEATTACHMENT"
+      }
+    } ],
+    "getRetPSDELogicParam" : {
+      "modelref" : true,
+      "id" : "ir_attachment"
+    },
+    "topPos" : 840,
+    "parallelOutput" : true
+  } ],
+  "getPSDELogicParams" : [ {
+    "codeName" : "Default",
+    "logicName" : "传入变量",
+    "name" : "传入变量",
+    "getParamPSDataEntity" : {
+      "modelref" : true,
+      "path" : "PSMODULES/base/PSDATAENTITIES/image_mixin.json"
+    },
+    "default" : true,
+    "entityParam" : true
+  }, {
+    "codeName" : "attachmentList",
+    "logicName" : "attachmentList",
+    "name" : "attachmentList",
+    "getParamPSDataEntity" : {
+      "modelref" : true,
+      "path" : "PSMODULES/base/PSDATAENTITIES/ir_attachment.json"
+    },
+    "entityListParam" : true
+  }, {
+    "codeName" : "filterparam",
+    "logicName" : "附件过滤器参数",
+    "name" : "附件过滤器参数",
+    "getParamPSDataEntity" : {
+      "modelref" : true,
+      "path" : "PSMODULES/base/PSDATAENTITIES/ir_attachment.json"
+    },
+    "filterParam" : true
+  }, {
+    "codeName" : "ir_attachment",
+    "logicName" : "附件",
+    "name" : "附件",
+    "getParamPSDataEntity" : {
+      "modelref" : true,
+      "path" : "PSMODULES/base/PSDATAENTITIES/ir_attachment.json"
+    },
+    "entityParam" : true
+  } ],
+  "getStartPSDELogicNode" : {
+    "modelref" : true,
+    "id" : "Begin"
+  },
+  "enableBackend" : true,
+  "enableFront" : false
+}

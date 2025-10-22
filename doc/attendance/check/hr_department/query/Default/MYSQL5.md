@@ -1,0 +1,23 @@
+```sql
+SELECT
+t1.`ACTIVE`,
+t1.`COLOR`,
+t1.`COMPLETE_NAME`,
+t1.`CREATE_DATE`,
+t1.`CREATE_UID`,
+t1.`ID`,
+t1.`MANAGER_ID`,
+t11.`NAME` AS `MANAGER_NAME`,
+t1.`MASTER_DEPARTMENT_ID`,
+t1.`NAME`,
+t1.`PARENT_ID`,
+t21.`NAME` AS `PARENT_NAME`,
+t1.`PARENT_PATH`,
+t1.`WRITE_DATE`,
+t1.`WRITE_UID`
+FROM `hr_department` t1 
+LEFT JOIN `hr_employee` t11 ON t1.`MANAGER_ID` = t11.`ID` 
+LEFT JOIN `hr_department` t21 ON t1.`PARENT_ID` = t21.`ID` 
+
+
+```

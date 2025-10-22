@@ -1,0 +1,50 @@
+* ServiceAPI
+  * [概述](api/ServiceAPI/ServiceAPI#概述)
+  * [鉴权](api/ServiceAPI/ServiceAPI#鉴权)
+  * [使用方式](api/ServiceAPI/ServiceAPI#使用方式)
+
+* 基础模块
+  * [附件](api/ServiceAPI/deapi/ir_attachment#ir_attachment)
+  * [模型](api/ServiceAPI/deapi/ir_model#ir_model)
+  * [模型访问](api/ServiceAPI/deapi/ir_model_access#ir_model_access)
+  * [应用](api/ServiceAPI/deapi/ir_module_category#ir_module_category)
+  * [规则](api/ServiceAPI/deapi/ir_rule#ir_rule)
+  * [公司](api/ServiceAPI/deapi/res_company#res_company)
+  * [国家/地区](api/ServiceAPI/deapi/res_country#res_country)
+  * [币别](api/ServiceAPI/deapi/res_currency#res_currency)
+  * [权限组](api/ServiceAPI/deapi/res_groups#res_groups)
+  * [权限组继承](api/ServiceAPI/deapi/res_groups_implied_rel#res_groups_implied_rel)
+  * [权限组成员](api/ServiceAPI/deapi/res_groups_users_rel#res_groups_users_rel)
+  * [联系人](api/ServiceAPI/deapi/res_partner#res_partner)
+  * [用户](api/ServiceAPI/deapi/res_users#res_users)
+  * [权限组关联规则](api/ServiceAPI/deapi/rule_group_rel#rule_group_rel)
+* 基础(扩展)
+  * [权限组关联统一资源](api/ServiceAPI/deapi/unires_group_rel#unires_group_rel)
+* 资源
+  * [资源工作时间](api/ServiceAPI/deapi/resource_calendar#resource_calendar)
+  * [工作细节](api/ServiceAPI/deapi/resource_calendar_attendance#resource_calendar_attendance)
+  * [资源](api/ServiceAPI/deapi/resource_resource#resource_resource)
+* 人力资源
+  * [部门](api/ServiceAPI/deapi/hr_department#hr_department)
+  * [员工](api/ServiceAPI/deapi/hr_employee#hr_employee)
+  * [工作岗位](api/ServiceAPI/deapi/hr_job#hr_job)
+  * [工作地点](api/ServiceAPI/deapi/hr_work_location#hr_work_location)
+* 邮件
+  * [活动](api/ServiceAPI/deapi/mail_activity#mail_activity)
+  * [活动Mixin](api/ServiceAPI/deapi/mail_activity_mixin#mail_activity_mixin)
+  * [活动计划](api/ServiceAPI/deapi/mail_activity_plan#mail_activity_plan)
+  * [活动计划模板](api/ServiceAPI/deapi/mail_activity_plan_template#mail_activity_plan_template)
+  * [活动日程计划向导](api/ServiceAPI/deapi/mail_activity_schedule#mail_activity_schedule)
+  * [活动类型](api/ServiceAPI/deapi/mail_activity_type#mail_activity_type)
+  * [单据关注者](api/ServiceAPI/deapi/mail_followers#mail_followers)
+  * [消息](api/ServiceAPI/deapi/mail_message#mail_message)
+  * [EMail模板](api/ServiceAPI/deapi/mail_template#mail_template)
+  * [邮件会话](api/ServiceAPI/deapi/mail_thread#mail_thread)
+* 讨论
+* CRM
+* 收藏
+* cloud服务代理
+* ebsx系统管理
+* 模型扩展
+  * [核心产品](api/ServiceAPI/deapi/PSCorePrd#PSCorePrd)
+  * [核心产品功能](api/ServiceAPI/deapi/PSCorePrdFunc#PSCorePrdFunc)

@@ -1,0 +1,64 @@
+{
+  "getAllPSPanelFields" : [ {
+    "id" : "checkin_time",
+    "viewFieldName" : "CHECKIN_TIME"
+  } ],
+  "codeName" : "attendance_calendar_date",
+  "controlType" : "PANEL",
+  "dynaModelFilePath" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/attendance_clock_in_record/PSPANELS/attendance_calendar_date.json",
+  "layoutMode" : "FLEX",
+  "logicName" : "考勤日历日期",
+  "getPSAppDataEntity" : {
+    "modelref" : true,
+    "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/attendance_clock_in_record.json"
+  },
+  "getPSLayout" : {
+    "layout" : "FLEX"
+  },
+  "getRootPSPanelItems" : [ {
+    "caption" : "容器",
+    "itemStyle" : "DEFAULT",
+    "itemType" : "CONTAINER",
+    "name" : "container",
+    "getPSLayout" : {
+      "align" : "center",
+      "dir" : "column",
+      "layout" : "FLEX",
+      "vAlign" : "center"
+    },
+    "getPSLayoutPos" : {
+      "grow" : -1,
+      "layout" : "FLEX"
+    },
+    "getPSPanelItems" : [ {
+      "caption" : "文本(动态)",
+      "fieldStates" : 1,
+      "itemStyle" : "DEFAULT",
+      "itemType" : "FIELD",
+      "name" : "checkin_time",
+      "getPSEditor" : {
+        "dateTimeFormat" : "HH:mm",
+        "editorParams" : {
+          "TIMEFMT" : "HH:mm",
+          "READONLY" : "TRUE"
+        },
+        "editorType" : "DATEPICKEREX_NODAY_NOSECOND",
+        "name" : "checkin_time",
+        "predefinedType" : "FIELD_TEXT_DYNAMIC",
+        "readOnly" : true
+      },
+      "getPSLayoutPos" : {
+        "grow" : -1,
+        "hAlignSelf" : "CENTER",
+        "layout" : "FLEX",
+        "vAlignSelf" : "MIDDLE"
+      },
+      "getPSSysCss" : {
+        "cssName" : "checkin-time"
+      },
+      "viewFieldName" : "CHECKIN_TIME"
+    } ]
+  } ],
+  "modelid" : "a81fb321ebe21f5c345b10b9c796fab3",
+  "modeltype" : "PSSYSVIEWPANEL"
+}

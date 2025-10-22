@@ -1,0 +1,23 @@
+{
+  "actionMode" : "CREATE",
+  "actionType" : "SCRIPT",
+  "codeName" : "mail_message_post",
+  "dataAccessAction" : "NONE",
+  "dynaModelFilePath" : "PSMODULES/mail/PSDATAENTITIES/mail_thread/PSDEACTIONS/mail_message_post.json",
+  "logicName" : "消息发送代理",
+  "name" : "mail_message_post",
+  "getPSDEActionInput" : {
+    "name" : "Mail_message_postInput",
+    "getPSDEMethodDTO" : {
+      "modelref" : true,
+      "id" : "mail_thread_dto"
+    },
+    "type" : "DTO",
+    "output" : true
+  },
+  "getPSDEActionReturn" : {
+    "name" : "Mail_message_postResult",
+    "type" : "VOID"
+  },
+  "scriptCode" : "//Groovy\n// 从参数对象获取model属性值\ndef modelName = entity.get(\"model\")\n// 从参数对象获取资源属性值\ndef resId = entity.get(\"res_id\")\n// 通过系统运行时获取实体运行时对象\ndef deRuntime = sys.dataentity(modelName)\nif(deRuntime == null){\n    throw new Exception(String.format(\"消息实体异常\"));\n}\n//构造实体对象\ndef de = deRuntime.createEntity()\nde.set(deRuntime.getKeyPSDEField().getCodeName(),resId)\n// 判断消息实体发送权限,暂定read,实际上由各实体中自行定义消息发送权限标识\ndef _mail_post_access = \"read\"\ndef messagePostMethod = \"message_post\"\nif(deRuntime.testDataAccessAction(de,_mail_post_access)){\n    Object[] args = [entity];\n    return deRuntime.executeAction(messagePostMethod,null,args)\n}else{\n    throw new net.ibizsys.runtime.dataentity.DataEntityRuntimeException(deRuntime, String.format(\"不具备操作能力\"));\n}"
+}

@@ -1,0 +1,17 @@
+{
+  "codeName" : "calcShiftNum",
+  "dEFLogicMode" : "COMPUTE",
+  "defaultParamName" : "DEFAULT",
+  "dynaModelFilePath" : "PSMODULES/attendance/PSDATAENTITIES/attendance_rule/PSDEFLOGICS/calcShiftNum.json",
+  "logicName" : "计算班次数量",
+  "logicSubType" : "DEFIELD",
+  "name" : "计算班次数量",
+  "getPSDEField" : {
+    "name" : "SHIFT_NUM",
+    "codeName" : "shift_num"
+  },
+  "scriptCode" : "if (data.shift_num == null && data.schedule_type == \"manual\" && data.shifts != null ) {\r\n    var shifts = data.shifts;\r\n    data.shift_num = shifts.length;\r\n}",
+  "customCode" : true,
+  "enableBackend" : false,
+  "enableFront" : true
+}

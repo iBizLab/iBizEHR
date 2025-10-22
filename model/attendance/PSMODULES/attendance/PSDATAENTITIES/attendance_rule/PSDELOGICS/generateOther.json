@@ -1,0 +1,118 @@
+{
+  "codeName" : "generateOther",
+  "defaultParamName" : "Default",
+  "dynaModelFilePath" : "PSMODULES/attendance/PSDATAENTITIES/attendance_rule/PSDELOGICS/generateOther.json",
+  "logicName" : "生成Odoo工作时间",
+  "name" : "生成Odoo工作时间",
+  "getPSDELogicNodes" : [ {
+    "codeName" : "Begin",
+    "leftPos" : 240,
+    "logicNodeType" : "BEGIN",
+    "name" : "开始",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "RAWSFCODE_01"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "Begin"
+      }
+    } ],
+    "topPos" : 200,
+    "parallelOutput" : true
+  }, {
+    "code" : "def _default = logic.param('Default').getReal()\r\ndef workdays = _default.get(\"workdays\")\r\ndef shifts = _default.get(\"shifts\")\r\ndef schedule_type = _default.get(\"schedule_type\")\r\n\r\ndef attendances = logic.param('attendances').getReal()\r\n\r\ndef resource_calendar = logic.param('resource_calendar').getReal()\r\n// 基础字段默认值\r\nresource_calendar.set(\"id\", _default.get(\"id\"))\r\nresource_calendar.set(\"name\", _default.get(\"name\")+\"的工作时间\")\r\n// resource_calendar.set(\"name\", _default.get(\"company\")+\"的工作时间\")\r\nresource_calendar.set(\"active\", 1)\r\nresource_calendar.set(\"company_id\", _default.get(\"company_id\"))\r\nresource_calendar.set(\"tz\", java.util.TimeZone.getDefault().ID)\r\nresource_calendar.set(\"flexible_hours\", 0)\r\nresource_calendar.set(\"full_time_required_hours\", 0.0)\r\nresource_calendar.set(\"two_weeks_calendar\", schedule_type == \"alternate_week\" ? 1 : 0)\r\n\r\ndef timeFormatter = java.time.format.DateTimeFormatter.ofPattern(\"HH:mm\")\r\ndef noon = java.time.LocalTime.of(12, 0)\r\nfinal WEEK_DAYS = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']\r\n\r\n// 时间转换函数（含四舍五入逻辑）\r\ndef convertTimeToHours = { time ->\r\ndef hours, minutes\r\ndef calendar = Calendar.getInstance()\r\ncalendar.setTimeInMillis(time.getTime())\r\nhours = calendar.get(Calendar.HOUR_OF_DAY)\r\nminutes = calendar.get(Calendar.MINUTE)\r\ndef totalMinutes = hours * 60 + minutes\r\ndef decimalHours = totalMinutes / 60.0\r\n// 四舍五入到一位小数\r\nreturn (decimalHours * 10).round() / 10.0\r\n}\r\n\r\n//固定排班、灵活打卡、大小周\r\nif(workdays && (schedule_type == \"fixed\" || schedule_type == \"flexible\" || schedule_type == \"alternate_week\")){\r\n    workdays.forEach { workday ->\r\n        def offset = (workday.day_number - 1) % 7\r\n        def shift = shifts.find { it.get(\"id\") == workday.get((\"shift_id\")) }\r\n        if (shift) {\r\n            def scopes = shift.get(\"scopes\");\r\n            if (scopes){\r\n                scopes.forEach { scope ->\r\n                    def attendance = sys.entity('resource_calendar_attendance')\r\n\r\n                    def dayName = WEEK_DAYS[offset]\r\n                    def startTimeStr = new java.text.SimpleDateFormat(\"HH:mm\").format(scope.start_base_time)\r\n                    def startTime = java.time.LocalTime.parse(startTimeStr, timeFormatter)\r\n\r\n                    // 设置考勤名称\r\n                    def period = (startTime >= noon) ? \"Afternoon\" : \"Morning\"\r\n                    attendance.set(\"name\", \"${dayName} ${period}\")\r\n                    attendance.set(\"dayofweek\", offset)\r\n                    attendance.set(\"sequence\", offset)\r\n\r\n                    // 大小周\r\n                    if (schedule_type == \"alternate_week\") {\r\n                        def biweekly_cycle = _default.get(\"biweekly_cycle\")\r\n                        if(biweekly_cycle == \"big_small\"){\r\n                            attendance.set(\"sequence\", workday.day_number)\r\n                            attendance.set(\"week_type\", workday.day_number > 7 ? 1 : 0)\r\n                        }\r\n                        else if(biweekly_cycle == \"small_big\"){\r\n                            attendance.set(\"sequence\", workday.day_number > 7 ? workday.day_number - 7 : workday.day_number + 7)\r\n                            attendance.set(\"week_type\", workday.day_number > 7 ? 0 : 1)\r\n                        }\r\n                    }\r\n                    \r\n                    // 转换时间字段\r\n                    def hourFrom = convertTimeToHours(scope.start_base_time)\r\n                    def hourTo = convertTimeToHours(scope.end_base_time)\r\n\r\n                    attendance.set(\"hour_from\", hourFrom)\r\n                    attendance.set(\"hour_to\", hourTo)\r\n                    attendance.set(\"day_period\", hourFrom >= 12 ? \"afternoon\" : \"morning\")\r\n                    attendances.add(attendance);\r\n                }\r\n            }\r\n\r\n        }\r\n    }\r\n}\r\n\r\n\r\n\r\n\r\nresource_calendar.set(\"attendances\", attendances)\r\n",
+    "codeName" : "RAWSFCODE_01",
+    "codeType" : "Groovy",
+    "leftPos" : 350,
+    "logicNodeType" : "RAWSFCODE",
+    "name" : "构造工作时间",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "DEACTION_01"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "RAWSFCODE_01"
+      }
+    } ],
+    "topPos" : 198,
+    "parallelOutput" : true
+  }, {
+    "codeName" : "DEACTION_01",
+    "getDstPSDEAction" : {
+      "modelref" : true,
+      "path" : "PSMODULES/resource/PSDATAENTITIES/resource_calendar/PSDEACTIONS/Save.json"
+    },
+    "getDstPSDELogicParam" : {
+      "modelref" : true,
+      "id" : "resource_calendar"
+    },
+    "getDstPSDataEntity" : {
+      "modelref" : true,
+      "path" : "PSMODULES/resource/PSDATAENTITIES/resource_calendar.json"
+    },
+    "leftPos" : 536,
+    "logicNodeType" : "DEACTION",
+    "name" : "实体行为",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "END_01"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "DEACTION_01"
+      }
+    } ],
+    "topPos" : 198,
+    "parallelOutput" : true
+  }, {
+    "codeName" : "END_01",
+    "leftPos" : 714,
+    "logicNodeType" : "END",
+    "name" : "结束",
+    "topPos" : 200,
+    "parallelOutput" : true
+  } ],
+  "getPSDELogicParams" : [ {
+    "codeName" : "Default",
+    "logicName" : "传入变量",
+    "name" : "传入变量",
+    "getParamPSDataEntity" : {
+      "modelref" : true,
+      "path" : "PSMODULES/attendance/PSDATAENTITIES/attendance_rule.json"
+    },
+    "default" : true,
+    "entityParam" : true
+  }, {
+    "codeName" : "attendances",
+    "logicName" : "attendances",
+    "name" : "attendances",
+    "getParamPSDataEntity" : {
+      "modelref" : true,
+      "path" : "PSMODULES/resource/PSDATAENTITIES/resource_calendar_attendance.json"
+    },
+    "entityListParam" : true
+  }, {
+    "codeName" : "resource_calendar",
+    "logicName" : "resource_calendar",
+    "name" : "resource_calendar",
+    "getParamPSDataEntity" : {
+      "modelref" : true,
+      "path" : "PSMODULES/resource/PSDATAENTITIES/resource_calendar.json"
+    },
+    "entityParam" : true
+  } ],
+  "getStartPSDELogicNode" : {
+    "modelref" : true,
+    "id" : "Begin"
+  },
+  "enableBackend" : true,
+  "enableFront" : false
+}

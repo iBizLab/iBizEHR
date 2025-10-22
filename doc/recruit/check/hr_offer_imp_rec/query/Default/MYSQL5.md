@@ -1,0 +1,19 @@
+```sql
+SELECT
+t1.`CREATE_DATE`,
+t1.`CREATE_UID`,
+t1.`HR_OFFER_ID`,
+t1.`HR_OFFER_IMP_RECID`,
+t1.`HR_OFFER_IMP_RECNAME`,
+t1.`IMP_DATE`,
+t1.`IMP_STAGE`,
+t1.`IMP_STATUS`,
+t1.`NAME`,
+t1.`OPERATOR`,
+t1.`SYSTEM`,
+t1.`WRITE_DATE`,
+t1.`WRITE_UID`
+FROM `hr_offer_imp_rec` t1 
+
+
+```

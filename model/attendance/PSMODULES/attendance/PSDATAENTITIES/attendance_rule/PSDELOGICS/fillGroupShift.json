@@ -1,0 +1,343 @@
+{
+  "codeName" : "fillGroupShift",
+  "defaultParamName" : "Default",
+  "dynaModelFilePath" : "PSMODULES/attendance/PSDATAENTITIES/attendance_rule/PSDELOGICS/fillGroupShift.json",
+  "logicName" : "填充组排班",
+  "name" : "填充组排班",
+  "getPSDELogicNodes" : [ {
+    "codeName" : "Begin",
+    "leftPos" : -48,
+    "logicNodeType" : "BEGIN",
+    "name" : "开始",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "PREPAREPARAM_02"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "Begin"
+      }
+    } ],
+    "topPos" : 114,
+    "parallelOutput" : true
+  }, {
+    "codeName" : "PREPAREPARAM_02",
+    "leftPos" : -88,
+    "logicNodeType" : "PREPAREPARAM",
+    "name" : "准备参数",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "PREPAREPARAM_01"
+      },
+      "name" : "连接名称",
+      "getPSDELogicLinkGroupCond" : {
+        "groupOP" : "AND",
+        "logicType" : "GROUP",
+        "name" : "连接条件组",
+        "getPSDELogicLinkConds" : [ {
+          "condOP" : "NOTEQ",
+          "dstFieldName" : "SCHEDULE_TYPE",
+          "getDstLogicParam" : {
+            "modelref" : true,
+            "id" : "Default"
+          },
+          "logicType" : "SINGLE",
+          "name" : "Default[SCHEDULE_TYPE] 不等于(<>) class_inversion",
+          "paramValue" : "class_inversion"
+        }, {
+          "condOP" : "NOTEQ",
+          "dstFieldName" : "SCHEDULE_TYPE",
+          "getDstLogicParam" : {
+            "modelref" : true,
+            "id" : "Default"
+          },
+          "logicType" : "SINGLE",
+          "name" : "Default[SCHEDULE_TYPE] 不等于(<>) work_rest",
+          "paramValue" : "work_rest"
+        } ]
+      },
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "PREPAREPARAM_02"
+      }
+    }, {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "RAWSFCODE_04"
+      },
+      "name" : "连接名称",
+      "getPSDELogicLinkGroupCond" : {
+        "groupOP" : "AND",
+        "logicType" : "GROUP",
+        "name" : "连接条件组",
+        "getPSDELogicLinkConds" : [ {
+          "condOP" : "EQ",
+          "dstFieldName" : "SCHEDULE_TYPE",
+          "getDstLogicParam" : {
+            "modelref" : true,
+            "id" : "Default"
+          },
+          "logicType" : "SINGLE",
+          "name" : "Default[SCHEDULE_TYPE] 等于(=) class_inversion",
+          "paramValue" : "class_inversion"
+        }, {
+          "condOP" : "EQ",
+          "dstFieldName" : "SAME_RESTDAY",
+          "getDstLogicParam" : {
+            "modelref" : true,
+            "id" : "Default"
+          },
+          "logicType" : "SINGLE",
+          "name" : "Default[SAME_RESTDAY] 等于(=) 1",
+          "paramValue" : "1"
+        } ]
+      },
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "PREPAREPARAM_02"
+      }
+    }, {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "RAWSFCODE_03"
+      },
+      "name" : "连接名称",
+      "getPSDELogicLinkGroupCond" : {
+        "groupOP" : "AND",
+        "logicType" : "GROUP",
+        "name" : "连接条件组",
+        "getPSDELogicLinkConds" : [ {
+          "groupOP" : "OR",
+          "logicType" : "GROUP",
+          "name" : "OR",
+          "getPSDELogicLinkConds" : [ {
+            "condOP" : "EQ",
+            "dstFieldName" : "SCHEDULE_TYPE",
+            "getDstLogicParam" : {
+              "modelref" : true,
+              "id" : "Default"
+            },
+            "logicType" : "SINGLE",
+            "name" : "Default[SCHEDULE_TYPE] 等于(=) work_rest",
+            "paramValue" : "work_rest"
+          }, {
+            "groupOP" : "AND",
+            "logicType" : "GROUP",
+            "name" : "AND",
+            "getPSDELogicLinkConds" : [ {
+              "condOP" : "EQ",
+              "dstFieldName" : "SCHEDULE_TYPE",
+              "getDstLogicParam" : {
+                "modelref" : true,
+                "id" : "Default"
+              },
+              "logicType" : "SINGLE",
+              "name" : "Default[SCHEDULE_TYPE] 等于(=) class_inversion",
+              "paramValue" : "class_inversion"
+            }, {
+              "condOP" : "EQ",
+              "dstFieldName" : "SAME_RESTDAY",
+              "getDstLogicParam" : {
+                "modelref" : true,
+                "id" : "Default"
+              },
+              "logicType" : "SINGLE",
+              "name" : "Default[SAME_RESTDAY] 等于(=) 0",
+              "paramValue" : "0"
+            } ]
+          } ]
+        } ]
+      },
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "PREPAREPARAM_02"
+      }
+    } ],
+    "getPSDELogicNodeParams" : [ {
+      "dstFieldName" : "group_shifts",
+      "getDstPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "Default"
+      },
+      "paramAction" : "SETPARAMVALUE",
+      "getSrcPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "groupShifts"
+      },
+      "srcValueType" : "SRCDLPARAM"
+    } ],
+    "topPos" : 224,
+    "parallelOutput" : true
+  }, {
+    "code" : "def _default = logic.param('Default').getReal()\r\n\r\ndef groupShifts = _default.get(\"group_shifts\")\r\n\r\ndef group_num = _default.group_num ?: 2\r\n\r\ndef inversion_cycle = _default.get(\"inversion_cycle\")\r\ndef workdays = _default.get(\"workdays\")\r\n\r\ndef week1 = _default.get(\"week1\")?:\"\"\r\ndef week2 = _default.get(\"week2\")?:\"\"\r\ndef week3 = _default.get(\"week3\")?:\"\"\r\ndef week4 = _default.get(\"week4\")?:\"\"\r\n\r\n// 将week字符串转换为数字集合\r\ndef getWeekSet = { weekStr ->\r\n    weekStr?.tokenize(',')*.toInteger() as Set\r\n}\r\n\r\ndef weekSet1 = getWeekSet(week1)\r\ndef weekSet2 = getWeekSet(week2)\r\ndef weekSet3 = getWeekSet(week3)\r\ndef weekSet4 = getWeekSet(week4)\r\n\r\n// 根据 inversion_cycle 计算阈值并筛选工作日\r\ndef filteredWorkdays = []\r\nSet<Integer> selectionSet = []\r\nswitch (inversion_cycle) {\r\n    case 1:\r\n        selectionSet.addAll(weekSet1)\r\n        filteredWorkdays = workdays.findAll { it.day_number < 8 }\r\n        break\r\n    case 2:\r\n        selectionSet.addAll(weekSet1 + weekSet2)\r\n        filteredWorkdays = workdays.findAll { it.day_number < 15 }\r\n        break\r\n    case 3:\r\n        selectionSet.addAll(weekSet1 + weekSet2 + weekSet3)\r\n        filteredWorkdays = workdays.findAll { it.day_number < 22 }\r\n\r\n        break\r\n    case 4:\r\n        selectionSet.addAll(weekSet1 + weekSet2 + weekSet3 + weekSet4)\r\n        filteredWorkdays = workdays \r\n        break\r\n}\r\nfilteredWorkdays = filteredWorkdays.sort { a, b -> a.day_number <=> b.day_number }\r\n\r\nfinal WEEK_DAYS = ['周一', '周二', '周三', '周四', '周五', '周六', '周日']\r\n\r\nfilteredWorkdays.each { day ->\r\n    def offset = (day.day_number - 8 + 7) % 7\r\n    day.set(\"name\", WEEK_DAYS[offset])\r\n    day.set(\"is_work\", selectionSet.contains(day.day_number) ? 1 : 0)\r\n}\r\n\r\n(1..group_num).each { i ->\r\n    def new_group = sys.entity('attendance_group_shift')\r\n    if (new_group) {\r\n        new_group.schedule_type = _default.get(\"schedule_type\")\r\n        new_group.rule_id = _default.get(\"id\")\r\n        new_group.workdays = filteredWorkdays\r\n        new_group.all_company = false\r\n        new_group.order_num = i\r\n        groupShifts.add(new_group)\r\n    }\r\n}",
+    "codeName" : "RAWSFCODE_04",
+    "codeType" : "Groovy",
+    "leftPos" : -88,
+    "logicNodeType" : "RAWSFCODE",
+    "name" : "N班倒-休息日相同",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "RAWSFCODE_01"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "RAWSFCODE_04"
+      }
+    } ],
+    "topPos" : 410,
+    "parallelOutput" : true
+  }, {
+    "codeName" : "PREPAREPARAM_01",
+    "leftPos" : 148,
+    "logicNodeType" : "PREPAREPARAM",
+    "name" : "准备组排班数据",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "RAWSFCODE_01"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "PREPAREPARAM_01"
+      }
+    } ],
+    "getPSDELogicNodeParams" : [ {
+      "dstFieldName" : "ALL_COMPANY",
+      "getDstPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "groupShift"
+      },
+      "paramAction" : "SETPARAMVALUE",
+      "srcValue" : "false",
+      "srcValueType" : "SRCVALUE"
+    }, {
+      "dstFieldName" : "ORDER_NUM",
+      "getDstPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "groupShift"
+      },
+      "paramAction" : "SETPARAMVALUE",
+      "srcValue" : "1",
+      "srcValueType" : "SRCVALUE"
+    }, {
+      "dstIndex" : 0,
+      "getDstPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "groupShifts"
+      },
+      "paramAction" : "APPENDPARAM",
+      "getSrcPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "groupShift"
+      },
+      "srcValueType" : "SRCDLPARAM"
+    }, {
+      "dstFieldName" : "group_shifts",
+      "getDstPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "Default"
+      },
+      "paramAction" : "SETPARAMVALUE",
+      "getSrcPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "groupShifts"
+      },
+      "srcValueType" : "SRCDLPARAM"
+    } ],
+    "topPos" : 420,
+    "parallelOutput" : true
+  }, {
+    "code" : "def _default = logic.param('Default').getReal()\n\ndef groupShifts = _default.get(\"group_shifts\")\n\ndef group_num = _default.group_num ?: 2\ndef workdays = _default.get(\"workdays\")\n\n(1..group_num).each { i ->\n    def new_group = sys.entity('attendance_group_shift')\n    if (new_group) {\n        new_group.schedule_type = _default.get(\"schedule_type\")\n        new_group.rule_id = _default.get(\"id\")\n        new_group.workdays = workdays\n        new_group.all_company = false\n        new_group.order_num = i\n        groupShifts.add(new_group)\n    }\n}\n",
+    "codeName" : "RAWSFCODE_03",
+    "codeType" : "Groovy",
+    "leftPos" : -340,
+    "logicNodeType" : "RAWSFCODE",
+    "name" : "上A休B/N班倒-休息日不同",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "RAWSFCODE_01"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "RAWSFCODE_03"
+      }
+    } ],
+    "topPos" : 420,
+    "parallelOutput" : true
+  }, {
+    "code" : "def groupShifts = logic.param('groupShifts').getReal()\n\ngroupShifts.each { group ->\n    if (group == null) return\n    logic.param('groupShifts').getDataEntityRuntime().fillEntityKeyValue(group)\n}\n",
+    "codeName" : "RAWSFCODE_01",
+    "codeType" : "Groovy",
+    "leftPos" : -88,
+    "logicNodeType" : "RAWSFCODE",
+    "name" : "生成标识",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "END_01"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "RAWSFCODE_01"
+      }
+    } ],
+    "topPos" : 598,
+    "parallelOutput" : true
+  }, {
+    "codeName" : "END_01",
+    "leftPos" : -48,
+    "logicNodeType" : "END",
+    "name" : "结束",
+    "getReturnParam" : {
+      "modelref" : true,
+      "id" : "Default"
+    },
+    "returnType" : "LOGICPARAM",
+    "topPos" : 702,
+    "parallelOutput" : true
+  } ],
+  "getPSDELogicParams" : [ {
+    "codeName" : "Default",
+    "logicName" : "传入变量",
+    "name" : "传入变量",
+    "getParamPSDataEntity" : {
+      "modelref" : true,
+      "path" : "PSMODULES/attendance/PSDATAENTITIES/attendance_rule.json"
+    },
+    "default" : true,
+    "entityParam" : true
+  }, {
+    "codeName" : "groupShift",
+    "logicName" : "groupShift",
+    "name" : "groupShift",
+    "getParamPSDataEntity" : {
+      "modelref" : true,
+      "path" : "PSMODULES/attendance/PSDATAENTITIES/attendance_group_shift.json"
+    },
+    "entityParam" : true
+  }, {
+    "codeName" : "groupShifts",
+    "logicName" : "groupShifts",
+    "name" : "groupShifts",
+    "getParamPSDataEntity" : {
+      "modelref" : true,
+      "path" : "PSMODULES/attendance/PSDATAENTITIES/attendance_group_shift.json"
+    },
+    "entityListParam" : true
+  } ],
+  "getStartPSDELogicNode" : {
+    "modelref" : true,
+    "id" : "Begin"
+  },
+  "enableBackend" : true,
+  "enableFront" : false
+}

@@ -1,0 +1,748 @@
+{
+  "getAllPSPanelFields" : [ {
+    "id" : "user_id",
+    "viewFieldName" : "user_id"
+  }, {
+    "id" : "activity_type_name",
+    "viewFieldName" : "ACTIVITY_TYPE_NAME"
+  }, {
+    "id" : "user_name",
+    "viewFieldName" : "USER_NAME"
+  }, {
+    "id" : "activity_type_name2",
+    "viewFieldName" : "ACTIVITY_TYPE_NAME"
+  }, {
+    "id" : "create_date",
+    "viewFieldName" : "CREATE_DATE"
+  }, {
+    "id" : "create_uid",
+    "viewFieldName" : "CREATE_UID"
+  }, {
+    "id" : "user_name2",
+    "viewFieldName" : "USER_NAME"
+  }, {
+    "id" : "date_deadline",
+    "viewFieldName" : "date_deadline"
+  }, {
+    "id" : "state",
+    "hidden" : true,
+    "viewFieldName" : "state"
+  }, {
+    "id" : "deadline_day",
+    "hidden" : true,
+    "viewFieldName" : "deadline_day"
+  } ],
+  "codeName" : "Auto35900834",
+  "controlType" : "PANEL",
+  "dynaModelFilePath" : "PSSYSAPPS/ehrapp/PSAPPDATAENTITIES/mail_activity/PSPANELS/Auto35900834.json",
+  "hookEventNames" : [ "ONMOUNTED", "ONCLICK" ],
+  "layoutMode" : "FLEX",
+  "logicName" : "activity_list列表",
+  "getPSAppDataEntity" : {
+    "modelref" : true,
+    "path" : "PSSYSAPPS/ehrapp/PSAPPDATAENTITIES/mail_activity.json"
+  },
+  "getPSControlLogics" : [ {
+    "eventNames" : "onMounted",
+    "logicTag" : "activity_list_itempanel",
+    "logicType" : "SCRIPT",
+    "name" : "hidden_detail",
+    "scriptCode" : "// 获取目标面板项\nconst panelItem = ctrl.findPanelItemByName(\"info_detail\");\nif (panelItem) {\n  // 切换可见状态\n  panelItem.state.visible = false;\n}"
+  }, {
+    "eventNames" : "onClick",
+    "itemName" : "info",
+    "logicTag" : "activity_list_itempanel",
+    "logicType" : "SCRIPT",
+    "name" : "logic",
+    "scriptCode" : "// 获取目标面板项\nconst panelItem = ctrl.findPanelItemByName(\"info_detail\");\nif (panelItem) {\n  // 切换可见状态\n  panelItem.state.visible = !panelItem.state.visible;\n}"
+  } ],
+  "getPSLayout" : {
+    "layout" : "FLEX"
+  },
+  "getRootPSPanelItems" : [ {
+    "caption" : "容器",
+    "itemStyle" : "DEFAULT",
+    "itemType" : "CONTAINER",
+    "name" : "container",
+    "getPSLayout" : {
+      "dir" : "column",
+      "layout" : "FLEX"
+    },
+    "getPSLayoutPos" : {
+      "grow" : -1,
+      "layout" : "FLEX"
+    },
+    "getPSPanelItems" : [ {
+      "caption" : "容器",
+      "itemStyle" : "DEFAULT",
+      "itemType" : "CONTAINER",
+      "name" : "container8",
+      "getPSLayout" : {
+        "dir" : "row",
+        "layout" : "FLEX"
+      },
+      "getPSLayoutPos" : {
+        "grow" : -1,
+        "layout" : "FLEX"
+      },
+      "getPSPanelItems" : [ {
+        "caption" : "容器",
+        "itemStyle" : "DEFAULT",
+        "itemType" : "CONTAINER",
+        "name" : "container9",
+        "getPSLayout" : {
+          "align" : "flex-start",
+          "dir" : "row",
+          "layout" : "FLEX",
+          "vAlign" : "flex-start"
+        },
+        "getPSLayoutPos" : {
+          "grow" : -1,
+          "layout" : "FLEX"
+        },
+        "getPSPanelItems" : [ {
+          "caption" : "文本(动态)",
+          "itemStyle" : "DEFAULT",
+          "itemType" : "FIELD",
+          "name" : "user_id",
+          "getPSEditor" : {
+            "editorParams" : {
+              "SHOWNAMETEXT" : "false"
+            },
+            "editorStyle" : "PERSONNEL_INFO",
+            "editorType" : "SPAN",
+            "name" : "user_id",
+            "getPSAppCodeList" : {
+              "modelref" : true,
+              "path" : "PSSYSAPPS/ehrapp/PSAPPCODELISTS/base__res_users.json"
+            },
+            "getPSSysPFPlugin" : {
+              "pluginType" : "EDITOR_CUSTOMSTYLE",
+              "pluginCode" : "PERSONNEL_INFO",
+              "runtimeObject" : true
+            },
+            "predefinedType" : "FIELD_TEXT_DYNAMIC",
+            "renderMode" : "TEXT_DYNAMIC",
+            "enableLinkView" : false
+          },
+          "getPSLayoutPos" : {
+            "grow" : -1,
+            "layout" : "FLEX"
+          },
+          "viewFieldName" : "user_id",
+          "convertToCodeItemText" : true
+        } ]
+      }, {
+        "caption" : "容器",
+        "itemStyle" : "DEFAULT",
+        "itemType" : "CONTAINER",
+        "name" : "container10",
+        "getPSLayout" : {
+          "dir" : "column",
+          "layout" : "FLEX"
+        },
+        "getPSLayoutPos" : {
+          "grow" : -1,
+          "layout" : "FLEX",
+          "spacingLeft" : "OUTERSMALL"
+        },
+        "getPSPanelItems" : [ {
+          "caption" : "容器",
+          "itemStyle" : "DEFAULT",
+          "itemType" : "CONTAINER",
+          "name" : "container1",
+          "getPSLayout" : {
+            "align" : "flex-start",
+            "dir" : "row",
+            "layout" : "FLEX",
+            "vAlign" : "center"
+          },
+          "getPSLayoutPos" : {
+            "grow" : -1,
+            "layout" : "FLEX",
+            "shrink" : 0
+          },
+          "getPSPanelItems" : [ {
+            "caption" : "容器",
+            "itemStyle" : "DEFAULT",
+            "itemType" : "CONTAINER",
+            "name" : "container2",
+            "getPSLayout" : {
+              "dir" : "row",
+              "layout" : "FLEX"
+            },
+            "getPSLayoutPos" : {
+              "grow" : -1,
+              "layout" : "FLEX"
+            },
+            "getPSPanelItems" : [ {
+              "caption" : "文本",
+              "contentType" : "RAW",
+              "itemStyle" : "DEFAULT",
+              "itemType" : "RAWITEM",
+              "name" : "deadline_info",
+              "getPSLayoutPos" : {
+                "grow" : -1,
+                "layout" : "FLEX"
+              },
+              "getPSRawItem" : {
+                "caption" : "{{#if (eq deadline_day 0)}}\n  今天\n{{else if (eq deadline_day -1)}}\n  昨天\n{{else if (lt deadline_day -1)}}\n  逾期: {{abs deadline_day}}天\n{{else if (eq deadline_day 1)}}\n  明天\n{{else}}\n  到期时间: {{deadline_day}}天\n{{/if}}",
+                "contentType" : "RAW",
+                "dynaClass" : "{\"danger-rawitem\": data.state===\"overdue\", \"warning-rawitem\": data.state===\"today\",\"success-rawitem\": data.state===\"planned\"}",
+                "name" : "deadline_info",
+                "predefinedType" : "STATIC_TEXT",
+                "renderMode" : "TEXT",
+                "templateMode" : true
+              },
+              "rawContent" : "{{#if (eq deadline_day 0)}}\n  今天\n{{else if (eq deadline_day -1)}}\n  昨天\n{{else if (lt deadline_day -1)}}\n  逾期: {{abs deadline_day}}天\n{{else if (eq deadline_day 1)}}\n  明天\n{{else}}\n  到期时间: {{deadline_day}}天\n{{/if}}",
+              "showCaption" : true
+            } ]
+          }, {
+            "caption" : "文本(动态)",
+            "itemStyle" : "DEFAULT",
+            "itemType" : "FIELD",
+            "name" : "activity_type_name",
+            "getPSEditor" : {
+              "editorType" : "SPAN",
+              "name" : "activity_type_name",
+              "predefinedType" : "FIELD_TEXT_DYNAMIC",
+              "renderMode" : "TEXT_DYNAMIC",
+              "enableLinkView" : false
+            },
+            "getPSLayoutPos" : {
+              "grow" : -1,
+              "layout" : "FLEX",
+              "spacingLeft" : "OUTERSMALL"
+            },
+            "viewFieldName" : "ACTIVITY_TYPE_NAME"
+          }, {
+            "caption" : "文本",
+            "contentType" : "RAW",
+            "itemStyle" : "DEFAULT",
+            "itemType" : "RAWITEM",
+            "name" : "static_text",
+            "getPSLayoutPos" : {
+              "grow" : -1,
+              "layout" : "FLEX",
+              "spacingLeft" : "OUTERSMALL"
+            },
+            "getPSRawItem" : {
+              "caption" : "分派给：",
+              "contentType" : "RAW",
+              "name" : "static_text",
+              "predefinedType" : "STATIC_TEXT",
+              "renderMode" : "TEXT"
+            },
+            "rawContent" : "分派给：",
+            "showCaption" : true
+          }, {
+            "caption" : "文本(动态)",
+            "itemStyle" : "DEFAULT",
+            "itemType" : "FIELD",
+            "name" : "user_name",
+            "getPSEditor" : {
+              "editorType" : "SPAN",
+              "name" : "user_name",
+              "predefinedType" : "FIELD_TEXT_DYNAMIC",
+              "renderMode" : "TEXT_DYNAMIC",
+              "enableLinkView" : false
+            },
+            "getPSLayoutPos" : {
+              "grow" : -1,
+              "layout" : "FLEX"
+            },
+            "viewFieldName" : "USER_NAME"
+          }, {
+            "caption" : "展开信息",
+            "contentType" : "IMAGE",
+            "itemStyle" : "DEFAULT",
+            "itemType" : "RAWITEM",
+            "name" : "info",
+            "getPSLayoutPos" : {
+              "grow" : -1,
+              "layout" : "FLEX",
+              "shrink" : 0,
+              "spacingLeft" : "OUTERSMALL"
+            },
+            "getPSRawItem" : {
+              "contentType" : "IMAGE",
+              "name" : "info",
+              "getPSSysImage" : {
+                "glyph" : "xf05a@FontAwesome",
+                "cssClass" : "fa fa-info-circle"
+              },
+              "predefinedType" : "STATIC_IMAGE"
+            },
+            "getPSSysImage" : {
+              "glyph" : "xf05a@FontAwesome",
+              "cssClass" : "fa fa-info-circle"
+            },
+            "showCaption" : true
+          } ]
+        }, {
+          "caption" : "容器",
+          "itemStyle" : "DEFAULT",
+          "itemType" : "CONTAINER",
+          "name" : "info_detail",
+          "getPSLayout" : {
+            "dir" : "column",
+            "layout" : "FLEX",
+            "vAlign" : "flex-start"
+          },
+          "getPSLayoutPos" : {
+            "grow" : -1,
+            "layout" : "FLEX",
+            "spacingTop" : "OUTERSMALL"
+          },
+          "getPSPanelItems" : [ {
+            "caption" : "容器",
+            "itemStyle" : "DEFAULT",
+            "itemType" : "CONTAINER",
+            "name" : "container4",
+            "getPSLayout" : {
+              "dir" : "row",
+              "layout" : "FLEX"
+            },
+            "getPSLayoutPos" : {
+              "grow" : -1,
+              "layout" : "FLEX"
+            },
+            "getPSPanelItems" : [ {
+              "caption" : "标签",
+              "contentType" : "RAW",
+              "itemStyle" : "DEFAULT",
+              "itemType" : "RAWITEM",
+              "name" : "static_label",
+              "getPSLayoutPos" : {
+                "grow" : -1,
+                "layout" : "FLEX"
+              },
+              "getPSRawItem" : {
+                "caption" : "活动类型",
+                "contentType" : "RAW",
+                "name" : "static_label",
+                "predefinedType" : "STATIC_LABEL",
+                "renderMode" : "PARAGRAPH"
+              },
+              "rawContent" : "活动类型",
+              "showCaption" : true
+            }, {
+              "caption" : "文本(动态)",
+              "itemStyle" : "DEFAULT",
+              "itemType" : "FIELD",
+              "name" : "activity_type_name2",
+              "getPSEditor" : {
+                "editorType" : "SPAN",
+                "name" : "activity_type_name2",
+                "predefinedType" : "FIELD_TEXT_DYNAMIC",
+                "renderMode" : "TEXT_DYNAMIC",
+                "enableLinkView" : false
+              },
+              "getPSLayoutPos" : {
+                "grow" : -1,
+                "layout" : "FLEX",
+                "spacingLeft" : "OUTERSMALL"
+              },
+              "viewFieldName" : "ACTIVITY_TYPE_NAME"
+            } ]
+          }, {
+            "caption" : "容器",
+            "itemStyle" : "DEFAULT",
+            "itemType" : "CONTAINER",
+            "name" : "container5",
+            "getPSLayout" : {
+              "dir" : "row",
+              "layout" : "FLEX"
+            },
+            "getPSLayoutPos" : {
+              "grow" : -1,
+              "layout" : "FLEX"
+            },
+            "getPSPanelItems" : [ {
+              "caption" : "文本",
+              "contentType" : "RAW",
+              "itemStyle" : "DEFAULT",
+              "itemType" : "RAWITEM",
+              "name" : "static_text3",
+              "getPSLayoutPos" : {
+                "grow" : -1,
+                "layout" : "FLEX"
+              },
+              "getPSRawItem" : {
+                "caption" : "创建于",
+                "contentType" : "RAW",
+                "name" : "static_text3",
+                "predefinedType" : "STATIC_TEXT",
+                "renderMode" : "TEXT"
+              },
+              "rawContent" : "创建于",
+              "showCaption" : true
+            }, {
+              "caption" : "文本(动态)",
+              "itemStyle" : "DEFAULT",
+              "itemType" : "FIELD",
+              "name" : "create_date",
+              "getPSEditor" : {
+                "editorType" : "SPAN",
+                "name" : "create_date",
+                "predefinedType" : "FIELD_TEXT_DYNAMIC",
+                "renderMode" : "TEXT_DYNAMIC",
+                "enableLinkView" : false
+              },
+              "getPSLayoutPos" : {
+                "grow" : -1,
+                "layout" : "FLEX",
+                "spacingLeft" : "OUTERSMALL"
+              },
+              "viewFieldName" : "CREATE_DATE"
+            }, {
+              "caption" : "文本",
+              "contentType" : "RAW",
+              "itemStyle" : "DEFAULT",
+              "itemType" : "RAWITEM",
+              "name" : "static_text4",
+              "getPSLayoutPos" : {
+                "grow" : -1,
+                "layout" : "FLEX"
+              },
+              "getPSRawItem" : {
+                "caption" : "由",
+                "contentType" : "RAW",
+                "name" : "static_text4",
+                "predefinedType" : "STATIC_TEXT",
+                "renderMode" : "TEXT",
+                "templateMode" : true
+              },
+              "rawContent" : "由",
+              "showCaption" : true
+            }, {
+              "caption" : "文本(动态)",
+              "itemStyle" : "DEFAULT",
+              "itemType" : "FIELD",
+              "name" : "create_uid",
+              "getPSEditor" : {
+                "editorType" : "SPAN",
+                "name" : "create_uid",
+                "getPSAppCodeList" : {
+                  "modelref" : true,
+                  "path" : "PSSYSAPPS/ehrapp/PSAPPCODELISTS/SysOperator.json"
+                },
+                "predefinedType" : "FIELD_TEXT_DYNAMIC",
+                "renderMode" : "TEXT_DYNAMIC",
+                "enableLinkView" : false
+              },
+              "getPSLayoutPos" : {
+                "grow" : -1,
+                "layout" : "FLEX"
+              },
+              "viewFieldName" : "CREATE_UID",
+              "convertToCodeItemText" : true
+            } ]
+          }, {
+            "caption" : "容器",
+            "itemStyle" : "DEFAULT",
+            "itemType" : "CONTAINER",
+            "name" : "container6",
+            "getPSLayout" : {
+              "dir" : "row",
+              "layout" : "FLEX"
+            },
+            "getPSLayoutPos" : {
+              "grow" : -1,
+              "layout" : "FLEX"
+            },
+            "getPSPanelItems" : [ {
+              "caption" : "文本",
+              "contentType" : "RAW",
+              "itemStyle" : "DEFAULT",
+              "itemType" : "RAWITEM",
+              "name" : "static_text5",
+              "getPSLayoutPos" : {
+                "grow" : -1,
+                "layout" : "FLEX"
+              },
+              "getPSRawItem" : {
+                "caption" : "分派给",
+                "contentType" : "RAW",
+                "name" : "static_text5",
+                "predefinedType" : "STATIC_TEXT",
+                "renderMode" : "TEXT"
+              },
+              "rawContent" : "分派给",
+              "showCaption" : true
+            }, {
+              "caption" : "文本(动态)",
+              "itemStyle" : "DEFAULT",
+              "itemType" : "FIELD",
+              "name" : "user_name2",
+              "getPSEditor" : {
+                "editorType" : "SPAN",
+                "name" : "user_name2",
+                "predefinedType" : "FIELD_TEXT_DYNAMIC",
+                "renderMode" : "TEXT_DYNAMIC",
+                "enableLinkView" : false
+              },
+              "getPSLayoutPos" : {
+                "grow" : -1,
+                "layout" : "FLEX",
+                "spacingLeft" : "OUTERSMALL"
+              },
+              "viewFieldName" : "USER_NAME"
+            } ]
+          }, {
+            "caption" : "容器",
+            "itemStyle" : "DEFAULT",
+            "itemType" : "CONTAINER",
+            "name" : "container7",
+            "getPSLayout" : {
+              "dir" : "row",
+              "layout" : "FLEX"
+            },
+            "getPSLayoutPos" : {
+              "grow" : -1,
+              "layout" : "FLEX"
+            },
+            "getPSPanelItems" : [ {
+              "caption" : "文本",
+              "contentType" : "RAW",
+              "itemStyle" : "DEFAULT",
+              "itemType" : "RAWITEM",
+              "name" : "static_text6",
+              "getPSLayoutPos" : {
+                "grow" : -1,
+                "layout" : "FLEX"
+              },
+              "getPSRawItem" : {
+                "caption" : "截至到",
+                "contentType" : "RAW",
+                "name" : "static_text6",
+                "predefinedType" : "STATIC_TEXT",
+                "renderMode" : "TEXT"
+              },
+              "rawContent" : "截至到",
+              "showCaption" : true
+            }, {
+              "caption" : "文本(动态)",
+              "itemStyle" : "DEFAULT",
+              "itemType" : "FIELD",
+              "name" : "date_deadline",
+              "getPSEditor" : {
+                "editorType" : "SPAN",
+                "name" : "date_deadline",
+                "predefinedType" : "FIELD_TEXT_DYNAMIC",
+                "renderMode" : "TEXT_DYNAMIC",
+                "enableLinkView" : false
+              },
+              "getPSLayoutPos" : {
+                "grow" : -1,
+                "layout" : "FLEX",
+                "spacingLeft" : "OUTERSMALL"
+              },
+              "viewFieldName" : "date_deadline"
+            } ]
+          } ]
+        }, {
+          "caption" : "按钮组",
+          "itemStyle" : "STYLE2",
+          "itemType" : "BUTTONLIST",
+          "name" : "buttonlist",
+          "getPSLayoutPos" : {
+            "grow" : -1,
+            "layout" : "FLEX"
+          },
+          "getPSUIActionGroup" : {
+            "codeName" : "activity_list",
+            "name" : "列表界面行为组",
+            "getPSAppDataEntity" : {
+              "modelref" : true,
+              "path" : "PSSYSAPPS/ehrapp/PSAPPDATAENTITIES/mail_activity.json"
+            },
+            "getPSUIActionGroupDetails" : [ {
+              "caption" : "完成活动",
+              "detailType" : "DEUIACTION",
+              "name" : "u9d70c46",
+              "getPSSysImage" : {
+                "glyph" : "xf00c@FontAwesome",
+                "cssClass" : "fa fa-check"
+              },
+              "getPSUIAction" : {
+                "actionTarget" : "SINGLEKEY",
+                "caption" : "完成活动",
+                "codeName" : "open_action_done_view",
+                "getFrontPSAppView" : {
+                  "modelref" : true,
+                  "path" : "PSSYSAPPS/ehrapp/PSAPPDEVIEWS/mail_activityfeedback_view.json",
+                  "viewType" : "DEEDITVIEW"
+                },
+                "frontProcessType" : "WIZARD",
+                "fullCodeName" : "mail_activity_open_action_done_view",
+                "name" : "打开完成活动视图",
+                "getPSAppDEMethod" : {
+                  "modelref" : true,
+                  "id" : "action_done"
+                },
+                "getPSAppDataEntity" : {
+                  "modelref" : true,
+                  "path" : "PSSYSAPPS/ehrapp/PSAPPDATAENTITIES/mail_activity.json"
+                },
+                "getPSNavigateParams" : [ {
+                  "key" : "mail_activity_mixin",
+                  "name" : "mail_activity_mixin",
+                  "value" : "mail_activity_mixin",
+                  "rawValue" : false
+                }, {
+                  "key" : "srfmodelname",
+                  "name" : "srfmodelname",
+                  "value" : "srfmodelname",
+                  "rawValue" : false
+                } ],
+                "getPSSysImage" : {
+                  "glyph" : "xf00c@FontAwesome",
+                  "cssClass" : "fa fa-check"
+                },
+                "tooltip" : "标记为完成",
+                "uIActionMode" : "FRONT",
+                "uIActionTag" : "open_action_done_view",
+                "uIActionType" : "DEUIACTION",
+                "globalUIAction" : true,
+                "id" : "open_action_done_view@mail_activity"
+              },
+              "tooltip" : "标记为完成",
+              "addSeparator" : false,
+              "showCaption" : true,
+              "showIcon" : true
+            }, {
+              "caption" : "编辑",
+              "detailType" : "DEUIACTION",
+              "name" : "uad663a4",
+              "getPSSysImage" : {
+                "glyph" : "xf040@FontAwesome",
+                "cssClass" : "fa fa-pencil"
+              },
+              "getPSUIAction" : {
+                "actionTarget" : "SINGLEKEY",
+                "caption" : "编辑",
+                "codeName" : "edit_activity",
+                "getFrontPSAppView" : {
+                  "modelref" : true,
+                  "path" : "PSSYSAPPS/ehrapp/PSAPPDEVIEWS/mail_activityquick_cfg_view.json",
+                  "viewType" : "DEEDITVIEW"
+                },
+                "frontProcessType" : "WIZARD",
+                "fullCodeName" : "mail_activity_edit_activity",
+                "name" : "编辑活动",
+                "getPSAppDataEntity" : {
+                  "modelref" : true,
+                  "path" : "PSSYSAPPS/ehrapp/PSAPPDATAENTITIES/mail_activity.json"
+                },
+                "getPSNavigateParams" : [ {
+                  "key" : "mail_activity_mixin",
+                  "name" : "mail_activity_mixin",
+                  "value" : "mail_activity_mixin",
+                  "rawValue" : false
+                }, {
+                  "key" : "srfmodelname",
+                  "name" : "srfmodelname",
+                  "value" : "srfmodelname",
+                  "rawValue" : false
+                } ],
+                "getPSSysImage" : {
+                  "glyph" : "xf040@FontAwesome",
+                  "cssClass" : "fa fa-pencil"
+                },
+                "tooltip" : "编辑",
+                "uIActionMode" : "FRONT",
+                "uIActionTag" : "edit_activity",
+                "uIActionType" : "DEUIACTION",
+                "id" : "edit_activity@mail_activity"
+              },
+              "tooltip" : "编辑",
+              "addSeparator" : false,
+              "showCaption" : true,
+              "showIcon" : true
+            }, {
+              "caption" : "取消",
+              "detailType" : "DEUIACTION",
+              "name" : "u77072fb",
+              "getPSSysImage" : {
+                "glyph" : "xf00d@FontAwesome",
+                "cssClass" : "fa fa-remove"
+              },
+              "getPSUIAction" : {
+                "actionTarget" : "SINGLEKEY",
+                "caption" : "取消",
+                "codeName" : "del_activity",
+                "confirmMsg" : "确认取消活动？",
+                "fullCodeName" : "mail_activity_del_activity",
+                "name" : "取消活动",
+                "getPSAppDEMethod" : {
+                  "modelref" : true,
+                  "id" : "remove"
+                },
+                "getPSAppDEUILogic" : {
+                  "modelref" : true,
+                  "id" : "refresh_activity"
+                },
+                "getPSAppDataEntity" : {
+                  "modelref" : true,
+                  "path" : "PSSYSAPPS/ehrapp/PSAPPDATAENTITIES/mail_activity.json"
+                },
+                "getPSSysImage" : {
+                  "glyph" : "xf00d@FontAwesome",
+                  "cssClass" : "fa fa-remove"
+                },
+                "successMsg" : "取消成功",
+                "timeout" : 60000,
+                "tooltip" : "取消",
+                "uIActionMode" : "BACKEND",
+                "uIActionTag" : "del_activity",
+                "uIActionType" : "DEUIACTION",
+                "uILogicAttachMode" : "AFTER",
+                "enableConfirm" : true,
+                "id" : "del_activity@mail_activity"
+              },
+              "tooltip" : "取消",
+              "addSeparator" : false,
+              "showCaption" : true,
+              "showIcon" : true
+            } ],
+            "uniqueTag" : "mail_activity__activity_list"
+          }
+        } ]
+      } ]
+    }, {
+      "caption" : "文本(动态)",
+      "itemType" : "FIELD",
+      "name" : "state",
+      "getPSEditor" : {
+        "editorType" : "HIDDEN",
+        "name" : "state",
+        "predefinedType" : "FIELD_TEXT_DYNAMIC"
+      },
+      "getPSLayoutPos" : {
+        "grow" : -1,
+        "layout" : "FLEX"
+      },
+      "viewFieldName" : "state",
+      "hidden" : true
+    }, {
+      "caption" : "文本(动态)",
+      "itemType" : "FIELD",
+      "name" : "deadline_day",
+      "getPSEditor" : {
+        "editorType" : "HIDDEN",
+        "name" : "deadline_day",
+        "predefinedType" : "FIELD_TEXT_DYNAMIC"
+      },
+      "getPSLayoutPos" : {
+        "grow" : -1,
+        "layout" : "FLEX"
+      },
+      "viewFieldName" : "deadline_day",
+      "hidden" : true
+    } ]
+  } ],
+  "layoutPanel" : true,
+  "modelid" : "772d567b569bc19d1d2cf27e1cd12787",
+  "modeltype" : "PSSYSVIEWPANEL"
+}

@@ -1,0 +1,219 @@
+{
+  "codeName" : "fill_interview",
+  "defaultParamName" : "Default",
+  "dynaModelFilePath" : "PSMODULES/hr/PSDATAENTITIES/hr_interview_schedule/PSDELOGICS/fill_interview.json",
+  "logicName" : "初始化面试默认值",
+  "name" : "初始化面试默认值",
+  "getPSDELogicNodes" : [ {
+    "codeName" : "Begin",
+    "leftPos" : 498,
+    "logicNodeType" : "BEGIN",
+    "name" : "开始",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "DEBUGPARAM1"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "Begin"
+      }
+    } ],
+    "topPos" : -20,
+    "parallelOutput" : true
+  }, {
+    "codeName" : "DEBUGPARAM1",
+    "getDstPSDELogicParam" : {
+      "modelref" : true,
+      "id" : "Default"
+    },
+    "leftPos" : 458,
+    "logicNodeType" : "DEBUGPARAM",
+    "name" : "调试逻辑参数",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "PREPAREPARAM1"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "DEBUGPARAM1"
+      }
+    } ],
+    "topPos" : 86
+  }, {
+    "codeName" : "PREPAREPARAM1",
+    "leftPos" : 458,
+    "logicNodeType" : "PREPAREPARAM",
+    "name" : "准备参数",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "PREPAREPARAM2"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "PREPAREPARAM1"
+      }
+    } ],
+    "getPSDELogicNodeParams" : [ {
+      "dstFieldName" : "STAGE_ID",
+      "getDstPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "item"
+      },
+      "name" : "直接值[1] ==> item[STAGE_ID]",
+      "paramAction" : "SETPARAMVALUE",
+      "srcValue" : "1",
+      "srcValueType" : "SRCVALUE"
+    }, {
+      "dstFieldName" : "owner_id",
+      "getDstPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "item"
+      },
+      "name" : "Default[owner_id] ==> item[owner_id]",
+      "paramAction" : "SETPARAMVALUE",
+      "srcFieldName" : "owner_id",
+      "getSrcPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "Default"
+      },
+      "srcValueType" : "SRCDLPARAM"
+    }, {
+      "dstFieldName" : "applicant_ids",
+      "getDstPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "item"
+      },
+      "name" : "Default[hr_applicant] ==> item[applicant_ids]",
+      "paramAction" : "SETPARAMVALUE",
+      "srcFieldName" : "hr_applicant",
+      "getSrcPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "Default"
+      },
+      "srcValueType" : "SRCDLPARAM"
+    }, {
+      "dstFieldName" : "EMAIL_CONTENT",
+      "getDstPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "Default"
+      },
+      "name" : "直接值[<p><strong>尊敬的</stro...] ==> Default[EMAIL_CONTENT]",
+      "paramAction" : "SETPARAMVALUE",
+      "srcValue" : "<p><strong>尊敬的</strong> 张三 <strong>先生/女士:</strong></p><p> &nbsp; &nbsp; &nbsp;您好! &nbsp;我司诚邀您参加 HRBP 的面试。烦请您在面试前，完成线上应聘信息表及大五性格测评，我司将做好信息保密工作。具体面试安排如下：</p><p> &nbsp; &nbsp; &nbsp;面试时间：2025年8月15日星期五 16:00</p><p> &nbsp; &nbsp; &nbsp;面试地点: 面试安排成功后会显示具体信息</p><p> &nbsp; &nbsp; &nbsp;联系人: &nbsp;梁进</p><p> &nbsp; &nbsp; &nbsp;联系电话： 0521-3769521</p>",
+      "srcValueType" : "SRCVALUE"
+    }, {
+      "dstFieldName" : "SMS_CONTENT",
+      "getDstPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "Default"
+      },
+      "name" : "直接值[尊敬的 张三 先生/女士:\n      ...] ==> Default[SMS_CONTENT]",
+      "paramAction" : "SETPARAMVALUE",
+      "srcValue" : "尊敬的 张三 先生/女士:\n      您好!  我司诚邀您参加 HRBP 的面试。烦请您在面试前，完成线上应聘信息表及大五性格测评，我司将做好信息保密工作。具体面试安排如下：\n      面试时间：2025年8月15日星期五 16:00\n      面试地点: 面试安排成功后会显示具体信息\n      联系人:  梁进\n      联系电话： 0521-3769521",
+      "srcValueType" : "SRCVALUE"
+    }, {
+      "dstFieldName" : "START_TIME",
+      "getDstPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "item"
+      },
+      "name" : "直接值[2] ==> item[START_TIME]",
+      "paramAction" : "SETPARAMVALUE",
+      "srcValue" : "2",
+      "srcValueType" : "SRCVALUE"
+    }, {
+      "dstFieldName" : "DURATION",
+      "getDstPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "item"
+      },
+      "name" : "直接值[2] ==> item[DURATION]",
+      "paramAction" : "SETPARAMVALUE",
+      "srcValue" : "2",
+      "srcValueType" : "SRCVALUE"
+    }, {
+      "dstIndex" : 0,
+      "getDstPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "list"
+      },
+      "name" : "item ==> list",
+      "paramAction" : "APPENDPARAM",
+      "getSrcPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "item"
+      },
+      "srcValueType" : "SRCDLPARAM"
+    } ],
+    "topPos" : 210
+  }, {
+    "code" : "def _default = logic.param(\"default\").getReal();\r\ndef _list = new ArrayList();\r\ndef _map = new HashMap();\r\n\r\n_map.put(\"stage_id\",\"1\");\r\n_map.put(\"start_time\",\"2\");\r\n_map.put(\"duration\",\"2\");\r\n\r\n_list.add(_map);\r\n_default.set(\"interviews\",_list);\r\n_default.set(\"email_content\",\"<p><strong>尊敬的</strong> 张三 <strong>先生/女士:</strong></p><p> &nbsp; &nbsp; &nbsp;您好! &nbsp;我司诚邀您参加 HRBP 的面试。烦请您在面试前，完成线上应聘信息表及大五性格测评，我司将做好信息保密工作。具体面试安排如下：</p><p> &nbsp; &nbsp; &nbsp;面试时间：2025年8月15日星期五 16:00</p><p> &nbsp; &nbsp; &nbsp;面试地点: 面试安排成功后会显示具体信息</p><p> &nbsp; &nbsp; &nbsp;联系人: &nbsp;梁进</p><p> &nbsp; &nbsp; &nbsp;联系电话： 0521-3769521</p>\");\r\n_default.set(\"sms_content\",\"尊敬的 张三 先生/女士:\\n      您好!  我司诚邀您参加 HRBP 的面试。烦请您在面试前，完成线上应聘信息表及大五性格测评，我司将做好信息保密工作。具体面试安排如下：\\n      面试时间：2025年8月15日星期五 16:00\\n      面试地点: 面试安排成功后会显示具体信息\\n      联系人:  梁进\\n      联系电话： 0521-3769521\");\r\n",
+    "codeName" : "RAWSFCODE1",
+    "codeType" : "Groovy",
+    "leftPos" : 210,
+    "logicNodeType" : "RAWSFCODE",
+    "name" : "执行脚本代码",
+    "topPos" : 240
+  }, {
+    "codeName" : "PREPAREPARAM2",
+    "leftPos" : 458,
+    "logicNodeType" : "PREPAREPARAM",
+    "name" : "准备参数",
+    "getPSDELogicNodeParams" : [ {
+      "dstFieldName" : "interviews",
+      "getDstPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "Default"
+      },
+      "name" : "list ==> Default[interviews]",
+      "paramAction" : "SETPARAMVALUE",
+      "getSrcPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "list"
+      },
+      "srcValueType" : "SRCDLPARAM"
+    } ],
+    "topPos" : 340
+  } ],
+  "getPSDELogicParams" : [ {
+    "codeName" : "Default",
+    "logicName" : "传入变量",
+    "name" : "传入变量",
+    "getParamPSDataEntity" : {
+      "modelref" : true,
+      "path" : "PSMODULES/hr/PSDATAENTITIES/hr_interview_schedule.json"
+    },
+    "default" : true,
+    "entityParam" : true
+  }, {
+    "codeName" : "item",
+    "logicName" : "面试",
+    "name" : "面试",
+    "getParamPSDataEntity" : {
+      "modelref" : true,
+      "path" : "PSMODULES/hr/PSDATAENTITIES/hr_interview.json"
+    },
+    "entityParam" : true
+  }, {
+    "codeName" : "list",
+    "logicName" : "面试列表",
+    "name" : "面试列表",
+    "getParamPSDataEntity" : {
+      "modelref" : true,
+      "path" : "PSMODULES/hr/PSDATAENTITIES/hr_interview.json"
+    },
+    "entityListParam" : true
+  } ],
+  "getStartPSDELogicNode" : {
+    "modelref" : true,
+    "id" : "Begin"
+  },
+  "enableBackend" : true,
+  "enableFront" : false
+}

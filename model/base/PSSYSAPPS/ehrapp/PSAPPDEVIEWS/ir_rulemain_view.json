@@ -1,0 +1,2073 @@
+{
+  "accUserMode" : 2,
+  "getCapPSLanguageRes" : {
+    "lanResTag" : "DE.LNAME.IR_RULE"
+  },
+  "caption" : "规则",
+  "codeName" : "ir_rulemain_view",
+  "dynaModelFilePath" : "PSSYSAPPS/ehrapp/PSAPPDEVIEWS/ir_rulemain_view.json",
+  "memo" : "系统自动添加",
+  "name" : "ir_rulemain_view",
+  "getPSAppDataEntity" : {
+    "modelref" : true,
+    "path" : "PSSYSAPPS/ehrapp/PSAPPDATAENTITIES/ir_rule.json"
+  },
+  "getPSAppModule" : {
+    "modelref" : true,
+    "path" : "PSSYSAPPS/ehrapp/PSAPPMODULES/base.json"
+  },
+  "getPSDEViewCodeName" : "main_view",
+  "getPSDEViewId" : "aa32ba2c783967ce0362a8e5897bc923",
+  "getPSViewLayoutPanel" : {
+    "codeName" : "main_view_layout1",
+    "controlType" : "VIEWLAYOUTPANEL",
+    "hookEventNames" : [ "ONFORMDATACHANGE", "ONMOUNTED", "ONCREATED" ],
+    "layoutMode" : "FLEX",
+    "logicName" : "主视图布局面板_new_没有评论区",
+    "name" : "layoutpanel",
+    "getPSAppDataEntity" : {
+      "modelref" : true,
+      "path" : "PSSYSAPPS/ehrapp/PSAPPDATAENTITIES/ir_rule.json"
+    },
+    "getPSControlLogics" : [ {
+      "eventNames" : "onFormDataChange",
+      "itemName" : "FORM",
+      "logicTag" : "layoutpanel",
+      "logicType" : "SCRIPT",
+      "name" : "logic",
+      "scriptCode" : "view.getController(\"toolbar\")?.calcButtonState(data,view.model.appDataEntityId);"
+    }, {
+      "eventNames" : "onMounted",
+      "logicTag" : "layoutpanel",
+      "logicType" : "SCRIPT",
+      "name" : "logic1",
+      "scriptCode" : "ibiz.uiDomainManager.get(view.context.srfsessionid).evt.on(\"stateChange\", async  (state, isTrusted )=> {\r\n    console.log(\"\");\r\n    const data = view.getController(\"form\").getData()[0];\r\n    view.getController(\"toolbar\")?.calcButtonState(data,view.model.appDataEntityId);\r\n});\r\n\r\nconst topContext = view.context;\r\nconst appEntityId = view.model.appDataEntityId;\r\nconst entityName = appEntityId.split('.').pop();\r\nconst bExist = topContext[entityName];\r\nconst drbar = view.getCtrl(\"DRBAR\", \"drbar\");\r\nif(!bExist){\r\n    drbar.disabled({ mode: 'BLANK' })\r\n    //  drbar.disabled({ mode: 'MASK' })\r\n\r\n}\r\n\r\n"
+    }, {
+      "eventNames" : "onCreated",
+      "logicTag" : "layoutpanel",
+      "logicType" : "SCRIPT",
+      "name" : "logic2",
+      "scriptCode" : "view.ctx.evt.on('onRegister', (name, ctrl) => {\r\n   if (name === 'drbar') {\r\n      const topContext = view.context;\r\n      const appEntityId = view.model.appDataEntityId;\r\n      const entityName = appEntityId.split('.').pop();\r\n      const bExist = topContext[entityName];\r\n      if(!bExist){\r\n         ctrl?.disableCounter()\r\n      }\r\n   }\r\n})"
+    } ],
+    "getPSControlParam" : { },
+    "getPSLayout" : {
+      "layout" : "FLEX"
+    },
+    "getRootPSPanelItems" : [ {
+      "caption" : "容器",
+      "itemStyle" : "DEFAULT",
+      "itemType" : "CONTAINER",
+      "name" : "view_header",
+      "getPSLayout" : {
+        "align" : "space-between",
+        "dir" : "row",
+        "layout" : "FLEX",
+        "vAlign" : "center"
+      },
+      "getPSLayoutPos" : {
+        "grow" : -1,
+        "layout" : "FLEX",
+        "shrink" : 0
+      },
+      "getPSPanelItems" : [ {
+        "caption" : "容器",
+        "itemStyle" : "DEFAULT",
+        "itemType" : "CONTAINER",
+        "name" : "view_header_left",
+        "getPSLayout" : {
+          "dir" : "row",
+          "layout" : "FLEX"
+        },
+        "getPSLayoutPos" : {
+          "grow" : -1,
+          "heightMode" : "FULL",
+          "layout" : "FLEX"
+        },
+        "getPSPanelItems" : [ {
+          "caption" : "容器",
+          "itemStyle" : "DEFAULT",
+          "itemType" : "CONTAINER",
+          "name" : "view_toolbar",
+          "getPSLayout" : {
+            "align" : "center",
+            "dir" : "row",
+            "layout" : "FLEX",
+            "vAlign" : "center"
+          },
+          "getPSLayoutPos" : {
+            "grow" : -1,
+            "heightMode" : "FULL",
+            "layout" : "FLEX"
+          },
+          "getPSPanelItems" : [ {
+            "caption" : "工具栏",
+            "itemStyle" : "DEFAULT",
+            "itemType" : "CTRLPOS",
+            "name" : "toolbar1",
+            "getPSLayoutPos" : {
+              "grow" : -1,
+              "layout" : "FLEX"
+            },
+            "showCaption" : true
+          } ]
+        }, {
+          "caption" : "容器",
+          "itemStyle" : "DEFAULT",
+          "itemType" : "CONTAINER",
+          "name" : "view_captionbar",
+          "getPSLayout" : {
+            "align" : "center",
+            "layout" : "FLEX"
+          },
+          "getPSLayoutPos" : {
+            "grow" : -1,
+            "heightMode" : "FULL",
+            "layout" : "FLEX"
+          },
+          "getPSPanelItems" : [ {
+            "caption" : "页面标题",
+            "itemStyle" : "DEFAULT",
+            "itemType" : "CTRLPOS",
+            "name" : "captionbar",
+            "getPSLayoutPos" : {
+              "grow" : -1,
+              "layout" : "FLEX"
+            },
+            "getPSSysPFPlugin" : {
+              "pluginType" : "CUSTOM",
+              "pluginCode" : "IDENTIFIER_TITLE",
+              "runtimeObject" : true
+            },
+            "userTag" : "name",
+            "showCaption" : true
+          } ]
+        }, {
+          "caption" : "容器",
+          "itemStyle" : "DEFAULT",
+          "itemType" : "CONTAINER",
+          "name" : "view_toolbar2",
+          "getPSLayout" : {
+            "align" : "center",
+            "dir" : "row",
+            "layout" : "FLEX",
+            "vAlign" : "center"
+          },
+          "getPSLayoutPos" : {
+            "grow" : -1,
+            "heightMode" : "FULL",
+            "layout" : "FLEX"
+          },
+          "getPSPanelItems" : [ {
+            "caption" : "工具栏",
+            "itemStyle" : "DEFAULT",
+            "itemType" : "CTRLPOS",
+            "name" : "toolbar",
+            "getPSLayoutPos" : {
+              "grow" : -1,
+              "layout" : "FLEX"
+            },
+            "showCaption" : true
+          } ]
+        } ]
+      }, {
+        "caption" : "关系数据栏",
+        "itemStyle" : "DEFAULT",
+        "itemType" : "CTRLPOS",
+        "name" : "drbar",
+        "getPSLayoutPos" : {
+          "grow" : 1,
+          "layout" : "FLEX"
+        },
+        "showCaption" : true
+      } ],
+      "predefinedType" : "VIEWHEADER"
+    }, {
+      "caption" : "视图消息占位",
+      "itemStyle" : "DEFAULT",
+      "itemType" : "RAWITEM",
+      "name" : "viewmsg_pos",
+      "getPSLayoutPos" : {
+        "grow" : -1,
+        "layout" : "FLEX",
+        "shrink" : 0
+      },
+      "getPSRawItem" : {
+        "name" : "viewmsg_pos",
+        "getPSRawItemParams" : [ {
+          "key" : "POSITION",
+          "value" : "TOP"
+        } ],
+        "predefinedType" : "VIEWMSG_POS"
+      },
+      "showCaption" : true
+    }, {
+      "caption" : "容器",
+      "itemStyle" : "DEFAULT",
+      "itemType" : "CONTAINER",
+      "name" : "view_content",
+      "getPSLayout" : {
+        "layout" : "FLEX"
+      },
+      "getPSLayoutPos" : {
+        "grow" : 1,
+        "layout" : "FLEX"
+      },
+      "getPSPanelItems" : [ {
+        "caption" : "栅格容器",
+        "itemStyle" : "DEFAULT",
+        "itemType" : "CONTAINER",
+        "name" : "container_grid",
+        "getPSLayout" : {
+          "layout" : "SIMPLEFLEX"
+        },
+        "getPSLayoutPos" : {
+          "grow" : -1,
+          "layout" : "FLEX"
+        },
+        "getPSPanelItems" : [ {
+          "caption" : "面板容器",
+          "itemStyle" : "DEFAULT",
+          "itemType" : "CONTAINER",
+          "name" : "container3",
+          "getPSLayout" : {
+            "childColMD" : 24,
+            "columnCount" : 24,
+            "layout" : "TABLE_24COL"
+          },
+          "getPSLayoutPos" : {
+            "grow" : 8,
+            "layout" : "SIMPLEFLEX"
+          },
+          "getPSPanelItems" : [ {
+            "caption" : "表单",
+            "itemStyle" : "DEFAULT",
+            "itemType" : "CTRLPOS",
+            "name" : "form",
+            "getPSLayoutPos" : {
+              "colMD" : 24,
+              "layout" : "TABLE_24COL"
+            },
+            "showCaption" : true
+          } ]
+        }, {
+          "caption" : "面板容器",
+          "itemStyle" : "DEFAULT",
+          "itemType" : "CONTAINER",
+          "name" : "container4",
+          "getPSLayout" : {
+            "childColMD" : 24,
+            "columnCount" : 24,
+            "layout" : "TABLE_24COL"
+          },
+          "getPSLayoutPos" : {
+            "grow" : 4,
+            "layout" : "SIMPLEFLEX"
+          }
+        } ],
+        "predefinedType" : "CONTAINER_GRID"
+      } ],
+      "predefinedType" : "VIEWCONTENT"
+    } ],
+    "layoutBodyOnly" : false,
+    "layoutPanel" : true,
+    "useDefaultLayout" : false,
+    "viewProxyMode" : true,
+    "modelid" : "3ea3e353274bcb7a2bf0fee66c7d91cf",
+    "modeltype" : "PSSYSVIEWLAYOUTPANEL",
+    "getPSAppViewEngines" : [ {
+      "engineCat" : "VIEW",
+      "engineType" : "EditView",
+      "name" : "engine"
+    } ],
+    "getPSAppViewLogics" : [ {
+      "eventNames" : "onMounted",
+      "logicTrigger" : "VIEWEVENT",
+      "logicType" : "SCRIPT",
+      "name" : "GLOBAL_LOGIC",
+      "scriptCode" : "ibiz.uiDomainManager.get(view.context.srfsessionid).evt.on(\"stateChange\", async  (state, isTrusted )=> {\r\n    console.log(\"\");\r\n    const data = view.getController(\"form\").getData()[0];\r\n// 获取应用实例\r\nconst app = ibiz.hub.getApp(context.srfappid);\r\n// 获取指定实体服务\r\nconst deService = await app.deService.getService(\r\n    context,\r\n    \"ehrapp.rule_group_rel\", // 实体标识\r\n);\r\nconst ruleGroupRelList = deService.local.getList();\r\nif(ruleGroupRelList.length > 0) {\r\n    data.global=0;\r\n}else{\r\n    data.global=1;\r\n}\r\n});\r\n\r\n"
+    } ],
+    "getPSControls" : [ {
+      "codeName" : "main_viewtoolbar",
+      "controlType" : "TOOLBAR",
+      "logicName" : "工具栏模板（默认主视图）",
+      "name" : "toolbar",
+      "getPSAppDataEntity" : {
+        "modelref" : true,
+        "path" : "PSSYSAPPS/ehrapp/PSAPPDATAENTITIES/ir_rule.json"
+      },
+      "getPSControlParam" : {
+        "id" : "TOOLBAR"
+      },
+      "getPSDEToolbarItems" : [ {
+        "caption" : "更多",
+        "itemType" : "ITEMS",
+        "name" : "items1",
+        "getPSDEToolbarItems" : [ {
+          "groupExtractMode" : "ITEM",
+          "itemType" : "ITEMS",
+          "name" : "deuiaction2",
+          "getPSUIActionGroup" : {
+            "codeName" : "Auto94538916",
+            "name" : "通用编辑页面删除界面行为组",
+            "getPSUIActionGroupDetails" : [ {
+              "getCapPSLanguageRes" : {
+                "lanResTag" : "TBB.TEXT.EDITVIEW.REMOVEANDCLOSE"
+              },
+              "caption" : "删除并关闭",
+              "detailType" : "DEUIACTION",
+              "name" : "ub3c0a37",
+              "getPSSysImage" : {
+                "glyph" : "xf00d@FontAwesome",
+                "cssClass" : "fa fa-remove"
+              },
+              "getPSUIAction" : {
+                "actionTarget" : "SINGLEKEY",
+                "getCapPSLanguageRes" : {
+                  "lanResTag" : "TBB.TEXT.EDITVIEW.REMOVEANDCLOSE"
+                },
+                "caption" : "删除并关闭",
+                "codeName" : "RemoveAndExit",
+                "fullCodeName" : "RemoveAndExit",
+                "name" : "编辑界面_删除并退出操作",
+                "getPSSysImage" : {
+                  "glyph" : "xf00d@FontAwesome",
+                  "cssClass" : "fa fa-remove"
+                },
+                "predefinedType" : "EDITVIEW_REMOVEANDEXITACTION",
+                "timeout" : 60000,
+                "getTooltipPSLanguageRes" : {
+                  "lanResTag" : "TBB.TOOLTIP.EDITVIEW.REMOVEANDCLOSE"
+                },
+                "uIActionMode" : "SYS",
+                "uIActionTag" : "RemoveAndExit",
+                "uIActionType" : "DEUIACTION"
+              },
+              "getTooltipPSLanguageRes" : {
+                "lanResTag" : "TBB.TOOLTIP.EDITVIEW.REMOVEANDCLOSE"
+              },
+              "addSeparator" : false,
+              "showCaption" : true,
+              "showIcon" : true
+            } ]
+          },
+          "showCaption" : true,
+          "showIcon" : true
+        } ],
+        "getPSSysImage" : {
+          "glyph" : "xf013@FontAwesome",
+          "cssClass" : "fa fa-cog"
+        },
+        "tooltip" : "更多",
+        "showCaption" : false,
+        "showIcon" : true
+      }, {
+        "getCapPSLanguageRes" : {
+          "lanResTag" : "TBB.TEXT.*.SAVE"
+        },
+        "caption" : "保存",
+        "groupExtractMode" : "ITEM",
+        "itemType" : "DEUIACTION",
+        "name" : "toolbar_save",
+        "noPrivDisplayMode" : 2,
+        "getPSAppViewUIAction" : {
+          "modelref" : true,
+          "id" : "toolbar_toolbar_save"
+        },
+        "getPSControlLogics" : [ {
+          "itemName" : "toolbar_save",
+          "logicTag" : "toolbar",
+          "logicType" : "SCRIPT",
+          "name" : "logic",
+          "scriptCode" : "data.id == null || view.getController(\"form\").state.modified || ibiz.uiDomainManager.get(view.context.srfsessionid).dataModification",
+          "triggerType" : "ITEMVISIBLE"
+        } ],
+        "getPSSysImage" : {
+          "glyph" : "xf0ee@FontAwesome",
+          "cssClass" : "fa fa-cloud-upload"
+        },
+        "getPSUIAction" : {
+          "getCapPSLanguageRes" : {
+            "lanResTag" : "TBB.TEXT.*.SAVE"
+          },
+          "caption" : "保存",
+          "codeName" : "Save",
+          "fullCodeName" : "Save",
+          "name" : "编辑界面_保存操作",
+          "getPSSysImage" : {
+            "glyph" : "xf0c7@FontAwesome",
+            "cssClass" : "fa fa-save"
+          },
+          "predefinedType" : "EDITVIEW_SAVEACTION",
+          "timeout" : 60000,
+          "getTooltipPSLanguageRes" : {
+            "lanResTag" : "TBB.TOOLTIP.*.SAVE"
+          },
+          "uIActionMode" : "SYS",
+          "uIActionTag" : "Save",
+          "uIActionType" : "DEUIACTION"
+        },
+        "tooltip" : "保存",
+        "getTooltipPSLanguageRes" : {
+          "lanResTag" : "TBB.TOOLTIP.*.SAVE"
+        },
+        "showCaption" : false,
+        "showIcon" : true
+      }, {
+        "caption" : "取消变更",
+        "groupExtractMode" : "ITEM",
+        "itemType" : "DEUIACTION",
+        "name" : "toolbar_cancel",
+        "noPrivDisplayMode" : 2,
+        "getPSAppViewUIAction" : {
+          "modelref" : true,
+          "id" : "toolbar_toolbar_cancel"
+        },
+        "getPSControlLogics" : [ {
+          "itemName" : "toolbar_cancel",
+          "logicTag" : "toolbar",
+          "logicType" : "SCRIPT",
+          "name" : "logic2",
+          "scriptCode" : "data.id == null || view.getController(\"form\").state.modified || ibiz.uiDomainManager.get(view.context.srfsessionid).dataModification",
+          "triggerType" : "ITEMVISIBLE"
+        } ],
+        "getPSSysImage" : {
+          "glyph" : "xf00d@FontAwesome",
+          "cssClass" : "fa fa-times"
+        },
+        "getPSUIAction" : {
+          "caption" : "取消变更",
+          "codeName" : "CancelChanges",
+          "fullCodeName" : "CancelChanges",
+          "name" : "取消变更",
+          "predefinedType" : "DATA_CANCELCHANGES",
+          "timeout" : 60000,
+          "uIActionMode" : "SYS",
+          "uIActionTag" : "CancelChanges",
+          "uIActionType" : "DEUIACTION"
+        },
+        "tooltip" : "取消变更",
+        "showCaption" : false,
+        "showIcon" : true
+      } ],
+      "xDataControlName" : "form",
+      "modelid" : "8f5624914fcfc7bbc63de650a6b2aa59",
+      "modeltype" : "PSDETOOLBAR"
+    }, {
+      "codeName" : "Main3",
+      "controlType" : "FORM",
+      "getCreatePSControlAction" : {
+        "modelref" : true,
+        "id" : "create",
+        "actionName" : "Create",
+        "actionType" : "DEACTION",
+        "dataAccessAction" : "CREATE",
+        "name" : "create",
+        "getPSAppDEMethod" : {
+          "modelref" : true,
+          "id" : "create"
+        },
+        "getPSAppDataEntity" : {
+          "modelref" : true,
+          "path" : "PSSYSAPPS/ehrapp/PSAPPDATAENTITIES/ir_rule.json"
+        }
+      },
+      "defaultLabelWidth" : 130,
+      "dynaModelFilePath" : "PSSYSAPPS/ehrapp/PSAPPDATAENTITIES/ir_rule/PSFORMS/Main3.json",
+      "getGetDraftFromPSControlAction" : {
+        "modelref" : true,
+        "id" : "loaddraftfrom",
+        "actionName" : "GETDRAFTFROM",
+        "actionType" : "DEACTION",
+        "dataAccessAction" : "CREATE",
+        "name" : "loaddraftfrom",
+        "getPSAppDataEntity" : {
+          "modelref" : true,
+          "path" : "PSSYSAPPS/ehrapp/PSAPPDATAENTITIES/ir_rule.json"
+        }
+      },
+      "getGetDraftPSControlAction" : {
+        "modelref" : true,
+        "id" : "loaddraft",
+        "actionName" : "GetDraft",
+        "actionType" : "DEACTION",
+        "dataAccessAction" : "CREATE",
+        "name" : "loaddraft",
+        "getPSAppDEMethod" : {
+          "modelref" : true,
+          "id" : "get_draft"
+        },
+        "getPSAppDataEntity" : {
+          "modelref" : true,
+          "path" : "PSSYSAPPS/ehrapp/PSAPPDATAENTITIES/ir_rule.json"
+        }
+      },
+      "getGetPSControlAction" : {
+        "modelref" : true,
+        "id" : "load",
+        "actionName" : "Get",
+        "actionType" : "DEACTION",
+        "dataAccessAction" : "READ",
+        "name" : "load",
+        "getPSAppDEMethod" : {
+          "modelref" : true,
+          "id" : "get"
+        },
+        "getPSAppDataEntity" : {
+          "modelref" : true,
+          "path" : "PSSYSAPPS/ehrapp/PSAPPDATAENTITIES/ir_rule.json"
+        }
+      },
+      "logicName" : "规则实体主视图_表单",
+      "getPSAppDataEntity" : {
+        "modelref" : true,
+        "path" : "PSSYSAPPS/ehrapp/PSAPPDATAENTITIES/ir_rule.json"
+      },
+      "getPSControlHandler" : {
+        "getPSHandlerActions" : [ {
+          "actionName" : "GetDraft",
+          "actionType" : "DEACTION",
+          "dataAccessAction" : "CREATE",
+          "name" : "loaddraft",
+          "getPSAppDEMethod" : {
+            "modelref" : true,
+            "id" : "get_draft"
+          },
+          "getPSAppDataEntity" : {
+            "modelref" : true,
+            "path" : "PSSYSAPPS/ehrapp/PSAPPDATAENTITIES/ir_rule.json"
+          }
+        }, {
+          "actionName" : "GETDRAFTFROM",
+          "actionType" : "DEACTION",
+          "dataAccessAction" : "CREATE",
+          "name" : "loaddraftfrom",
+          "getPSAppDataEntity" : {
+            "modelref" : true,
+            "path" : "PSSYSAPPS/ehrapp/PSAPPDATAENTITIES/ir_rule.json"
+          }
+        }, {
+          "actionName" : "Get",
+          "actionType" : "DEACTION",
+          "dataAccessAction" : "READ",
+          "name" : "load",
+          "getPSAppDEMethod" : {
+            "modelref" : true,
+            "id" : "get"
+          },
+          "getPSAppDataEntity" : {
+            "modelref" : true,
+            "path" : "PSSYSAPPS/ehrapp/PSAPPDATAENTITIES/ir_rule.json"
+          }
+        }, {
+          "actionName" : "Create",
+          "actionType" : "DEACTION",
+          "dataAccessAction" : "CREATE",
+          "name" : "create",
+          "getPSAppDEMethod" : {
+            "modelref" : true,
+            "id" : "create"
+          },
+          "getPSAppDataEntity" : {
+            "modelref" : true,
+            "path" : "PSSYSAPPS/ehrapp/PSAPPDATAENTITIES/ir_rule.json"
+          }
+        }, {
+          "actionName" : "Update",
+          "actionType" : "DEACTION",
+          "dataAccessAction" : "UPDATE",
+          "name" : "update",
+          "getPSAppDEMethod" : {
+            "modelref" : true,
+            "id" : "update"
+          },
+          "getPSAppDataEntity" : {
+            "modelref" : true,
+            "path" : "PSSYSAPPS/ehrapp/PSAPPDATAENTITIES/ir_rule.json"
+          }
+        }, {
+          "actionName" : "Remove",
+          "actionType" : "DEACTION",
+          "dataAccessAction" : "DELETE",
+          "name" : "remove",
+          "getPSAppDEMethod" : {
+            "modelref" : true,
+            "id" : "remove"
+          },
+          "getPSAppDataEntity" : {
+            "modelref" : true,
+            "path" : "PSSYSAPPS/ehrapp/PSAPPDATAENTITIES/ir_rule.json"
+          }
+        } ],
+        "enableDEFieldPrivilege" : false,
+        "id" : "编辑表单处理器"
+      },
+      "getPSControlParam" : {
+        "autoLoad" : true,
+        "showBusyIndicator" : true,
+        "ctrlParams" : {
+          "EDITMODE" : "hover"
+        },
+        "id" : "FORM"
+      },
+      "getPSDEFormItems" : [ {
+        "id" : "srfupdatedate",
+        "hidden" : true,
+        "dataType" : 5,
+        "getPSAppDEField" : {
+          "name" : "WRITE_DATE",
+          "codeName" : "write_date"
+        }
+      }, {
+        "id" : "srforikey",
+        "hidden" : true,
+        "dataType" : 25
+      }, {
+        "id" : "srfkey",
+        "hidden" : true,
+        "dataType" : 25,
+        "getPSAppDEField" : {
+          "name" : "ID",
+          "codeName" : "id"
+        }
+      }, {
+        "id" : "srfmajortext",
+        "hidden" : true,
+        "dataType" : 25,
+        "getPSAppDEField" : {
+          "name" : "NAME",
+          "codeName" : "name"
+        }
+      }, {
+        "id" : "srftempmode",
+        "hidden" : true,
+        "dataType" : 25
+      }, {
+        "id" : "srfuf",
+        "hidden" : true,
+        "dataType" : 25
+      }, {
+        "id" : "srfdeid",
+        "hidden" : true,
+        "dataType" : 25
+      }, {
+        "id" : "srfsourcekey",
+        "hidden" : true,
+        "dataType" : 25
+      }, {
+        "id" : "name",
+        "dataType" : 25,
+        "getPSAppDEField" : {
+          "name" : "NAME",
+          "codeName" : "name"
+        }
+      }, {
+        "id" : "model_id",
+        "dataType" : 25,
+        "getPSAppDEField" : {
+          "name" : "MODEL_ID",
+          "codeName" : "model_id"
+        }
+      }, {
+        "id" : "active",
+        "dataType" : 9,
+        "createDV" : "1",
+        "getPSAppDEField" : {
+          "name" : "ACTIVE",
+          "codeName" : "active"
+        }
+      }, {
+        "id" : "perm_read",
+        "dataType" : 9,
+        "createDV" : "1",
+        "getPSAppDEField" : {
+          "name" : "PERM_READ",
+          "codeName" : "perm_read"
+        }
+      }, {
+        "id" : "perm_write",
+        "dataType" : 9,
+        "createDV" : "1",
+        "getPSAppDEField" : {
+          "name" : "PERM_WRITE",
+          "codeName" : "perm_write"
+        }
+      }, {
+        "id" : "perm_create",
+        "dataType" : 9,
+        "createDV" : "1",
+        "getPSAppDEField" : {
+          "name" : "PERM_CREATE",
+          "codeName" : "perm_create"
+        }
+      }, {
+        "id" : "perm_unlink",
+        "dataType" : 9,
+        "createDV" : "1",
+        "getPSAppDEField" : {
+          "name" : "PERM_UNLINK",
+          "codeName" : "perm_unlink"
+        }
+      }, {
+        "id" : "domain_force",
+        "dataType" : 21,
+        "getPSAppDEField" : {
+          "name" : "DOMAIN_FORCE",
+          "codeName" : "domain_force"
+        }
+      }, {
+        "id" : "global",
+        "dataType" : 9,
+        "getPSAppDEField" : {
+          "name" : "GLOBAL",
+          "codeName" : "global"
+        }
+      }, {
+        "id" : "id",
+        "hidden" : true,
+        "dataType" : 25,
+        "getPSAppDEField" : {
+          "name" : "ID",
+          "codeName" : "id"
+        }
+      } ],
+      "getPSDEFormPages" : [ {
+        "caption" : "基本信息",
+        "codeName" : "formpage1",
+        "detailStyle" : "DEFAULT",
+        "detailType" : "FORMPAGE",
+        "name" : "formpage1",
+        "getPSDEFormDetails" : [ {
+          "caption" : "规则基本信息",
+          "codeName" : "group1",
+          "detailStyle" : "DEFAULT",
+          "detailType" : "GROUPPANEL",
+          "name" : "group1",
+          "getPSDEFormDetails" : [ {
+            "caption" : "常规",
+            "codeName" : "grouppanel1",
+            "detailStyle" : "DEFAULT",
+            "detailType" : "GROUPPANEL",
+            "name" : "grouppanel1",
+            "getPSDEFormDetails" : [ {
+              "getCapPSLanguageRes" : {
+                "lanResTag" : "DEF.LNAME.IR_RULE.NAME"
+              },
+              "caption" : "名称",
+              "codeName" : "name",
+              "dataType" : 25,
+              "detailStyle" : "DEFAULT",
+              "detailType" : "FORMITEM",
+              "enableCond" : 3,
+              "ignoreInput" : 0,
+              "labelPos" : "LEFT",
+              "labelWidth" : 130,
+              "name" : "name",
+              "noPrivDisplayMode" : 1,
+              "getPSAppDEField" : {
+                "name" : "NAME",
+                "codeName" : "name"
+              },
+              "getPSEditor" : {
+                "editorType" : "TEXTBOX",
+                "maxLength" : 200,
+                "name" : "name"
+              },
+              "getPSLayoutPos" : {
+                "colMD" : 24,
+                "layout" : "TABLE_24COL"
+              },
+              "allowEmpty" : true,
+              "showCaption" : true
+            }, {
+              "caption" : "模型",
+              "codeName" : "model_id",
+              "dataType" : 25,
+              "detailStyle" : "DEFAULT",
+              "detailType" : "FORMITEM",
+              "enableCond" : 3,
+              "ignoreInput" : 0,
+              "labelPos" : "LEFT",
+              "labelWidth" : 130,
+              "name" : "model_id",
+              "noPrivDisplayMode" : 1,
+              "getPSAppDEField" : {
+                "name" : "MODEL_ID",
+                "codeName" : "model_id"
+              },
+              "getPSEditor" : {
+                "editorType" : "DROPDOWNLIST",
+                "name" : "model_id",
+                "getPSAppCodeList" : {
+                  "modelref" : true,
+                  "path" : "PSSYSAPPS/ehrapp/PSAPPCODELISTS/base__ir_model.json"
+                },
+                "singleSelect" : true
+              },
+              "getPSLayoutPos" : {
+                "colMD" : 24,
+                "layout" : "TABLE_24COL"
+              },
+              "allowEmpty" : true,
+              "needCodeListConfig" : true,
+              "showCaption" : true
+            }, {
+              "getCapPSLanguageRes" : {
+                "lanResTag" : "DEF.LNAME.IR_RULE.ACTIVE"
+              },
+              "caption" : "有效",
+              "codeName" : "active",
+              "createDV" : "1",
+              "dataType" : 9,
+              "detailStyle" : "DEFAULT",
+              "detailType" : "FORMITEM",
+              "enableCond" : 3,
+              "ignoreInput" : 0,
+              "labelPos" : "LEFT",
+              "labelWidth" : 130,
+              "name" : "active",
+              "noPrivDisplayMode" : 1,
+              "getPSAppDEField" : {
+                "name" : "ACTIVE",
+                "codeName" : "active"
+              },
+              "getPSEditor" : {
+                "editorType" : "SWITCH",
+                "name" : "active"
+              },
+              "getPSLayoutPos" : {
+                "colMD" : 24,
+                "layout" : "TABLE_24COL"
+              },
+              "allowEmpty" : true,
+              "showCaption" : true
+            } ],
+            "getPSLayout" : {
+              "childColMD" : 24,
+              "columnCount" : 24,
+              "layout" : "TABLE_24COL"
+            },
+            "getPSLayoutPos" : {
+              "colLG" : 12,
+              "colMD" : 24,
+              "layout" : "TABLE_24COL"
+            },
+            "infoGroupMode" : false,
+            "showCaption" : true
+          }, {
+            "caption" : "访问权限",
+            "codeName" : "grouppanel2",
+            "detailStyle" : "DEFAULT",
+            "detailType" : "GROUPPANEL",
+            "name" : "grouppanel2",
+            "getPSDEFormDetails" : [ {
+              "getCapPSLanguageRes" : {
+                "lanResTag" : "DEF.LNAME.IR_RULE.PERM_READ"
+              },
+              "caption" : "读取",
+              "codeName" : "perm_read",
+              "createDV" : "1",
+              "dataType" : 9,
+              "detailStyle" : "DEFAULT",
+              "detailType" : "FORMITEM",
+              "enableCond" : 3,
+              "ignoreInput" : 0,
+              "labelPos" : "LEFT",
+              "labelWidth" : 130,
+              "name" : "perm_read",
+              "noPrivDisplayMode" : 1,
+              "getPSAppDEField" : {
+                "name" : "PERM_READ",
+                "codeName" : "perm_read"
+              },
+              "getPSEditor" : {
+                "editorType" : "CHECKBOX",
+                "name" : "perm_read"
+              },
+              "getPSLayoutPos" : {
+                "colLG" : 12,
+                "colMD" : 24,
+                "layout" : "TABLE_24COL"
+              },
+              "allowEmpty" : true,
+              "showCaption" : true
+            }, {
+              "getCapPSLanguageRes" : {
+                "lanResTag" : "DEF.LNAME.IR_RULE.PERM_WRITE"
+              },
+              "caption" : "写入",
+              "codeName" : "perm_write",
+              "createDV" : "1",
+              "dataType" : 9,
+              "detailStyle" : "DEFAULT",
+              "detailType" : "FORMITEM",
+              "enableCond" : 3,
+              "ignoreInput" : 0,
+              "labelPos" : "LEFT",
+              "labelWidth" : 130,
+              "name" : "perm_write",
+              "noPrivDisplayMode" : 1,
+              "getPSAppDEField" : {
+                "name" : "PERM_WRITE",
+                "codeName" : "perm_write"
+              },
+              "getPSEditor" : {
+                "editorType" : "CHECKBOX",
+                "name" : "perm_write"
+              },
+              "getPSLayoutPos" : {
+                "colLG" : 12,
+                "colMD" : 24,
+                "layout" : "TABLE_24COL"
+              },
+              "allowEmpty" : true,
+              "showCaption" : true
+            }, {
+              "getCapPSLanguageRes" : {
+                "lanResTag" : "DEF.LNAME.IR_RULE.PERM_CREATE"
+              },
+              "caption" : "创建",
+              "codeName" : "perm_create",
+              "createDV" : "1",
+              "dataType" : 9,
+              "detailStyle" : "DEFAULT",
+              "detailType" : "FORMITEM",
+              "enableCond" : 3,
+              "ignoreInput" : 0,
+              "labelPos" : "LEFT",
+              "labelWidth" : 130,
+              "name" : "perm_create",
+              "noPrivDisplayMode" : 1,
+              "getPSAppDEField" : {
+                "name" : "PERM_CREATE",
+                "codeName" : "perm_create"
+              },
+              "getPSEditor" : {
+                "editorType" : "CHECKBOX",
+                "name" : "perm_create"
+              },
+              "getPSLayoutPos" : {
+                "colLG" : 12,
+                "colMD" : 24,
+                "layout" : "TABLE_24COL"
+              },
+              "allowEmpty" : true,
+              "showCaption" : true
+            }, {
+              "getCapPSLanguageRes" : {
+                "lanResTag" : "DEF.LNAME.IR_RULE.PERM_UNLINK"
+              },
+              "caption" : "删除",
+              "codeName" : "perm_unlink",
+              "createDV" : "1",
+              "dataType" : 9,
+              "detailStyle" : "DEFAULT",
+              "detailType" : "FORMITEM",
+              "enableCond" : 3,
+              "ignoreInput" : 0,
+              "labelPos" : "LEFT",
+              "labelWidth" : 130,
+              "name" : "perm_unlink",
+              "noPrivDisplayMode" : 1,
+              "getPSAppDEField" : {
+                "name" : "PERM_UNLINK",
+                "codeName" : "perm_unlink"
+              },
+              "getPSEditor" : {
+                "editorType" : "CHECKBOX",
+                "name" : "perm_unlink"
+              },
+              "getPSLayoutPos" : {
+                "colLG" : 12,
+                "colMD" : 24,
+                "layout" : "TABLE_24COL"
+              },
+              "allowEmpty" : true,
+              "showCaption" : true
+            } ],
+            "getPSLayout" : {
+              "childColMD" : 24,
+              "columnCount" : 24,
+              "layout" : "TABLE_24COL"
+            },
+            "getPSLayoutPos" : {
+              "colLG" : 12,
+              "colMD" : 24,
+              "layout" : "TABLE_24COL"
+            },
+            "infoGroupMode" : false,
+            "showCaption" : true
+          }, {
+            "caption" : "规则定义(域名筛选）",
+            "codeName" : "grouppanel3",
+            "detailStyle" : "DEFAULT",
+            "detailType" : "GROUPPANEL",
+            "name" : "grouppanel3",
+            "getPSDEFormDetails" : [ {
+              "getCapPSLanguageRes" : {
+                "lanResTag" : "DEF.LNAME.IR_RULE.DOMAIN_FORCE"
+              },
+              "caption" : "域名",
+              "codeName" : "domain_force",
+              "dataType" : 21,
+              "detailStyle" : "DEFAULT",
+              "detailType" : "FORMITEM",
+              "enableCond" : 3,
+              "ignoreInput" : 0,
+              "labelPos" : "LEFT",
+              "labelWidth" : 130,
+              "name" : "domain_force",
+              "noPrivDisplayMode" : 1,
+              "getPSAppDEField" : {
+                "name" : "DOMAIN_FORCE",
+                "codeName" : "domain_force"
+              },
+              "getPSEditor" : {
+                "editorParams" : {
+                  "isauto" : "true"
+                },
+                "editorType" : "TEXTAREA",
+                "maxLength" : 1048576,
+                "name" : "domain_force",
+                "showMaxLength" : true
+              },
+              "getPSLayoutPos" : {
+                "colMD" : 24,
+                "layout" : "TABLE_24COL"
+              },
+              "allowEmpty" : true,
+              "showCaption" : true
+            } ],
+            "getPSLayout" : {
+              "childColMD" : 24,
+              "columnCount" : 24,
+              "layout" : "TABLE_24COL"
+            },
+            "getPSLayoutPos" : {
+              "colMD" : 24,
+              "layout" : "TABLE_24COL"
+            },
+            "infoGroupMode" : false,
+            "showCaption" : true
+          }, {
+            "caption" : "权限组（无权限组表示作用于全局）",
+            "codeName" : "grouppanel4",
+            "detailStyle" : "DEFAULT",
+            "detailType" : "GROUPPANEL",
+            "name" : "grouppanel4",
+            "getPSDEFormDetails" : [ {
+              "getCapPSLanguageRes" : {
+                "lanResTag" : "DEF.LNAME.IR_RULE.GLOBAL"
+              },
+              "caption" : "全局",
+              "codeName" : "global",
+              "dataType" : 9,
+              "detailStyle" : "DEFAULT",
+              "detailType" : "FORMITEM",
+              "enableCond" : 0,
+              "ignoreInput" : 0,
+              "inputTip" : "如果不指定群组，规则将应用于所有用户",
+              "labelPos" : "LEFT",
+              "labelWidth" : 130,
+              "name" : "global",
+              "noPrivDisplayMode" : 1,
+              "getPSAppDEField" : {
+                "name" : "GLOBAL",
+                "codeName" : "global"
+              },
+              "getPSEditor" : {
+                "editorType" : "CHECKBOX",
+                "name" : "global"
+              },
+              "getPSLayoutPos" : {
+                "colMD" : 24,
+                "layout" : "TABLE_24COL"
+              },
+              "allowEmpty" : true,
+              "enableInputTip" : true,
+              "showCaption" : true
+            }, {
+              "codeName" : "druipart2",
+              "dRItemTag" : "DRItem2",
+              "detailStyle" : "DEFAULT",
+              "detailType" : "DRUIPART",
+              "maskMode" : 0,
+              "name" : "druipart2",
+              "getPSAppView" : {
+                "accUserMode" : 2,
+                "getCapPSLanguageRes" : {
+                  "lanResTag" : "DE.LNAME.RULE_GROUP_REL"
+                },
+                "caption" : "权限组关联规则",
+                "codeName" : "rule_group_relnested_rule_grid_view",
+                "dynaModelFilePath" : "PSSYSAPPS/ehrapp/PSAPPDEVIEWS/rule_group_relnested_rule_grid_view.json",
+                "gridRowActiveMode" : 0,
+                "memo" : "系统自动添加",
+                "name" : "rule_group_relnested_rule_grid_view",
+                "getPSAppDataEntity" : {
+                  "modelref" : true,
+                  "path" : "PSSYSAPPS/ehrapp/PSAPPDATAENTITIES/rule_group_rel.json"
+                },
+                "getPSAppModule" : {
+                  "modelref" : true,
+                  "path" : "PSSYSAPPS/ehrapp/PSAPPMODULES/base.json"
+                },
+                "getPSAppViewParams" : [ {
+                  "key" : "PROPERTYMAP",
+                  "name" : "PROPERTYMAP",
+                  "value" : "id:g_id,name:gname"
+                } ],
+                "getPSDEViewCodeName" : "nested_rule_grid_view",
+                "getPSDEViewId" : "df9582537af214ac4fe34b00c76b00a2",
+                "getPSViewLayoutPanel" : {
+                  "codeName" : "Auto94410878",
+                  "controlType" : "VIEWLAYOUTPANEL",
+                  "layoutMode" : "FLEX",
+                  "logicName" : "表格视图布局_工具栏置底部",
+                  "name" : "layoutpanel",
+                  "getPSAppDataEntity" : {
+                    "modelref" : true,
+                    "path" : "PSSYSAPPS/ehrapp/PSAPPDATAENTITIES/rule_group_rel.json"
+                  },
+                  "getPSControlParam" : { },
+                  "getPSLayout" : {
+                    "layout" : "FLEX"
+                  },
+                  "getRootPSPanelItems" : [ {
+                    "itemStyle" : "DEFAULT",
+                    "itemType" : "CONTAINER",
+                    "name" : "view_searchform",
+                    "getPSLayout" : {
+                      "dir" : "column",
+                      "layout" : "FLEX"
+                    },
+                    "getPSLayoutPos" : {
+                      "grow" : -1,
+                      "layout" : "FLEX",
+                      "shrink" : 0
+                    },
+                    "getPSPanelItems" : [ {
+                      "caption" : "搜索表单",
+                      "itemStyle" : "DEFAULT",
+                      "itemType" : "CTRLPOS",
+                      "name" : "searchform",
+                      "getPSLayoutPos" : {
+                        "grow" : -1,
+                        "layout" : "FLEX"
+                      },
+                      "showCaption" : true
+                    } ]
+                  }, {
+                    "caption" : "容器",
+                    "itemStyle" : "DEFAULT",
+                    "itemType" : "CONTAINER",
+                    "name" : "view_content",
+                    "getPSLayout" : {
+                      "layout" : "FLEX"
+                    },
+                    "getPSLayoutPos" : {
+                      "grow" : 1,
+                      "layout" : "FLEX"
+                    },
+                    "getPSPanelItems" : [ {
+                      "caption" : "表格",
+                      "itemStyle" : "DEFAULT",
+                      "itemType" : "CTRLPOS",
+                      "name" : "grid",
+                      "getPSLayoutPos" : {
+                        "grow" : 1,
+                        "layout" : "FLEX"
+                      },
+                      "showCaption" : true
+                    } ],
+                    "predefinedType" : "VIEWCONTENT"
+                  }, {
+                    "caption" : "容器",
+                    "itemStyle" : "DEFAULT",
+                    "itemType" : "CONTAINER",
+                    "name" : "view_header",
+                    "getPSLayout" : {
+                      "align" : "space-between",
+                      "dir" : "row",
+                      "layout" : "FLEX",
+                      "vAlign" : "center"
+                    },
+                    "getPSLayoutPos" : {
+                      "grow" : -1,
+                      "layout" : "FLEX",
+                      "shrink" : 0
+                    },
+                    "getPSPanelItems" : [ {
+                      "caption" : "容器",
+                      "itemStyle" : "DEFAULT",
+                      "itemType" : "CONTAINER",
+                      "name" : "view_header_left",
+                      "getPSLayout" : {
+                        "dir" : "row",
+                        "layout" : "FLEX"
+                      },
+                      "getPSLayoutPos" : {
+                        "grow" : -1,
+                        "heightMode" : "FULL",
+                        "layout" : "FLEX"
+                      },
+                      "getPSPanelItems" : [ {
+                        "caption" : "容器",
+                        "itemStyle" : "DEFAULT",
+                        "itemType" : "CONTAINER",
+                        "name" : "view_toolbar",
+                        "getPSLayout" : {
+                          "align" : "center",
+                          "layout" : "FLEX"
+                        },
+                        "getPSLayoutPos" : {
+                          "grow" : -1,
+                          "heightMode" : "FULL",
+                          "layout" : "FLEX",
+                          "spacingLeft" : "OUTERLARGE"
+                        },
+                        "getPSPanelItems" : [ {
+                          "caption" : "工具栏",
+                          "itemStyle" : "DEFAULT",
+                          "itemType" : "CTRLPOS",
+                          "name" : "toolbar",
+                          "getPSLayoutPos" : {
+                            "grow" : -1,
+                            "layout" : "FLEX"
+                          },
+                          "showCaption" : true
+                        } ]
+                      } ]
+                    } ],
+                    "predefinedType" : "VIEWHEADER"
+                  } ],
+                  "layoutBodyOnly" : true,
+                  "layoutPanel" : true,
+                  "useDefaultLayout" : false,
+                  "viewProxyMode" : true,
+                  "modelid" : "a13eeb1a845a3db03d246911b7ccb2bf",
+                  "modeltype" : "PSSYSVIEWLAYOUTPANEL",
+                  "getPSAppViewEngines" : [ {
+                    "engineCat" : "VIEW",
+                    "engineType" : "GridView",
+                    "name" : "engine"
+                  } ],
+                  "getPSAppViewLogics" : [ {
+                    "logicTrigger" : "CUSTOM",
+                    "logicType" : "APPUILOGIC",
+                    "name" : "newdata",
+                    "getPSAppUILogic" : {
+                      "actionAfterWizard" : "DEFAULT",
+                      "logicType" : "PREDEFINED",
+                      "name" : "新建数据",
+                      "getNewDataPSAppView" : {
+                        "getRefPSAppView" : {
+                          "modelref" : true,
+                          "path" : "PSSYSAPPS/ehrapp/PSAPPDEVIEWS/rule_group_relEditView.json",
+                          "viewType" : "DEEDITVIEW"
+                        }
+                      },
+                      "getPSAppDataEntity" : {
+                        "modelref" : true,
+                        "path" : "PSSYSAPPS/ehrapp/PSAPPDATAENTITIES/rule_group_rel.json"
+                      },
+                      "getPSAppUILogicRefViews" : [ {
+                        "getRefPSAppView" : {
+                          "modelref" : true,
+                          "path" : "PSSYSAPPS/ehrapp/PSAPPDEVIEWS/rule_group_relEditView.json",
+                          "viewType" : "DEEDITVIEW"
+                        }
+                      } ],
+                      "viewLogicType" : "APP_NEWDATA",
+                      "batchAddOnly" : false,
+                      "enableBatchAdd" : true,
+                      "enableWizardAdd" : false
+                    }
+                  }, {
+                    "logicTrigger" : "CUSTOM",
+                    "logicType" : "APPUILOGIC",
+                    "name" : "opendata",
+                    "getPSAppUILogic" : {
+                      "logicType" : "PREDEFINED",
+                      "name" : "打开数据",
+                      "getOpenDataPSAppView" : {
+                        "getRefPSAppView" : {
+                          "modelref" : true,
+                          "path" : "PSSYSAPPS/ehrapp/PSAPPDEVIEWS/rule_group_relEditView.json",
+                          "viewType" : "DEEDITVIEW"
+                        }
+                      },
+                      "getPSAppUILogicRefViews" : [ {
+                        "getRefPSAppView" : {
+                          "modelref" : true,
+                          "path" : "PSSYSAPPS/ehrapp/PSAPPDEVIEWS/rule_group_relEditView.json",
+                          "viewType" : "DEEDITVIEW"
+                        }
+                      } ],
+                      "viewLogicType" : "APP_OPENDATA",
+                      "editMode" : true
+                    }
+                  } ],
+                  "getPSAppViewRefs" : [ {
+                    "name" : "NEWDATA",
+                    "realTitle" : "权限组关联规则编辑视图",
+                    "getRefPSAppView" : {
+                      "modelref" : true,
+                      "path" : "PSSYSAPPS/ehrapp/PSAPPDEVIEWS/rule_group_relEditView.json",
+                      "viewType" : "DEEDITVIEW"
+                    }
+                  }, {
+                    "name" : "EDITDATA",
+                    "realTitle" : "权限组关联规则编辑视图",
+                    "getRefPSAppView" : {
+                      "modelref" : true,
+                      "path" : "PSSYSAPPS/ehrapp/PSAPPDEVIEWS/rule_group_relEditView.json",
+                      "viewType" : "DEEDITVIEW"
+                    }
+                  }, {
+                    "name" : "MPICKUPVIEW:IR_RULE"
+                  }, {
+                    "name" : "MPICKUPVIEW:RES_GROUPS"
+                  } ],
+                  "getPSControls" : [ {
+                    "aggMode" : "NONE",
+                    "codeName" : "rule",
+                    "columnEnableFilter" : 2,
+                    "columnEnableLink" : 2,
+                    "controlType" : "GRID",
+                    "dynaModelFilePath" : "PSSYSAPPS/ehrapp/PSAPPDATAENTITIES/rule_group_rel/PSGRIDS/rule.json",
+                    "getFetchPSControlAction" : {
+                      "modelref" : true,
+                      "id" : "fetch",
+                      "actionType" : "DEDATASET",
+                      "name" : "fetch",
+                      "getPSAppDEMethod" : {
+                        "modelref" : true,
+                        "id" : "fetch_default"
+                      },
+                      "getPSAppDataEntity" : {
+                        "modelref" : true,
+                        "path" : "PSSYSAPPS/ehrapp/PSAPPDATAENTITIES/rule_group_rel.json"
+                      }
+                    },
+                    "groupMode" : "NONE",
+                    "hookEventNames" : [ "ONMOUNTED" ],
+                    "logicName" : "嵌入规则表格",
+                    "getPSAppDataEntity" : {
+                      "modelref" : true,
+                      "path" : "PSSYSAPPS/ehrapp/PSAPPDATAENTITIES/rule_group_rel.json"
+                    },
+                    "getPSControlHandler" : {
+                      "getPSHandlerActions" : [ {
+                        "actionName" : "Get",
+                        "actionType" : "DEACTION",
+                        "dataAccessAction" : "READ",
+                        "name" : "load",
+                        "getPSAppDEMethod" : {
+                          "modelref" : true,
+                          "id" : "get"
+                        },
+                        "getPSAppDataEntity" : {
+                          "modelref" : true,
+                          "path" : "PSSYSAPPS/ehrapp/PSAPPDATAENTITIES/rule_group_rel.json"
+                        }
+                      }, {
+                        "actionName" : "Create",
+                        "actionType" : "DEACTION",
+                        "dataAccessAction" : "CREATE",
+                        "name" : "create",
+                        "getPSAppDEMethod" : {
+                          "modelref" : true,
+                          "id" : "create"
+                        },
+                        "getPSAppDataEntity" : {
+                          "modelref" : true,
+                          "path" : "PSSYSAPPS/ehrapp/PSAPPDATAENTITIES/rule_group_rel.json"
+                        }
+                      }, {
+                        "actionName" : "Update",
+                        "actionType" : "DEACTION",
+                        "dataAccessAction" : "UPDATE",
+                        "name" : "update",
+                        "getPSAppDEMethod" : {
+                          "modelref" : true,
+                          "id" : "update"
+                        },
+                        "getPSAppDataEntity" : {
+                          "modelref" : true,
+                          "path" : "PSSYSAPPS/ehrapp/PSAPPDATAENTITIES/rule_group_rel.json"
+                        }
+                      }, {
+                        "actionName" : "Remove",
+                        "actionType" : "DEACTION",
+                        "dataAccessAction" : "DELETE",
+                        "name" : "remove",
+                        "getPSAppDEMethod" : {
+                          "modelref" : true,
+                          "id" : "remove"
+                        },
+                        "getPSAppDataEntity" : {
+                          "modelref" : true,
+                          "path" : "PSSYSAPPS/ehrapp/PSAPPDATAENTITIES/rule_group_rel.json"
+                        }
+                      }, {
+                        "actionName" : "GetDraft",
+                        "actionType" : "DEACTION",
+                        "dataAccessAction" : "CREATE",
+                        "name" : "loaddraft",
+                        "getPSAppDEMethod" : {
+                          "modelref" : true,
+                          "id" : "get_draft"
+                        },
+                        "getPSAppDataEntity" : {
+                          "modelref" : true,
+                          "path" : "PSSYSAPPS/ehrapp/PSAPPDATAENTITIES/rule_group_rel.json"
+                        }
+                      }, {
+                        "actionType" : "DEDATASET",
+                        "name" : "fetch",
+                        "getPSAppDEMethod" : {
+                          "modelref" : true,
+                          "id" : "fetch_default"
+                        },
+                        "getPSAppDataEntity" : {
+                          "modelref" : true,
+                          "path" : "PSSYSAPPS/ehrapp/PSAPPDATAENTITIES/rule_group_rel.json"
+                        }
+                      } ],
+                      "userDRAction" : "READ",
+                      "enableDEFieldPrivilege" : false,
+                      "id" : "数据表格处理器"
+                    },
+                    "getPSControlLogics" : [ {
+                      "eventNames" : "onMounted",
+                      "logicTag" : "grid",
+                      "logicType" : "SCRIPT",
+                      "name" : "logic_row_edit_open",
+                      "scriptCode" : "var gridCtrl = view.getCtrl(\"GRID\", \"grid\");\nif (gridCtrl) {\n  gridCtrl.state.rowEditOpen=true;\n}"
+                    } ],
+                    "getPSControlParam" : {
+                      "autoLoad" : true,
+                      "showBusyIndicator" : true,
+                      "id" : "GRID"
+                    },
+                    "getPSDEGridColumns" : [ {
+                      "align" : "LEFT",
+                      "cLConvertMode" : "NONE",
+                      "caption" : "组名称",
+                      "codeName" : "gname",
+                      "columnType" : "DEFGRIDCOLUMN",
+                      "dataItemName" : "gname",
+                      "excelCaption" : "组名称",
+                      "name" : "gname",
+                      "noPrivDisplayMode" : 1,
+                      "getPSAppDEField" : {
+                        "name" : "GNAME",
+                        "codeName" : "gname"
+                      },
+                      "width" : 1,
+                      "widthUnit" : "STAR",
+                      "enableSort" : true,
+                      "getUserParam" : {
+                        "SRFNAVCTX.srfsessionid" : ""
+                      }
+                    }, {
+                      "align" : "RIGHT",
+                      "codeName" : "uagridcolumn1",
+                      "columnType" : "UAGRIDCOLUMN",
+                      "name" : "uagridcolumn1",
+                      "noPrivDisplayMode" : 1,
+                      "getPSDEUIActionGroup" : {
+                        "codeName" : "Auto83146635",
+                        "name" : "通用表格界面删除界面行为组",
+                        "getPSUIActionGroupDetails" : [ {
+                          "actionLevel" : 200,
+                          "detailType" : "DEUIACTION",
+                          "name" : "u75c8830",
+                          "getPSSysImage" : {
+                            "glyph" : "xf014@FontAwesome",
+                            "cssClass" : "fa fa-trash-o"
+                          },
+                          "getPSUIAction" : {
+                            "actionTarget" : "MULTIKEY",
+                            "getCapPSLanguageRes" : {
+                              "lanResTag" : "TBB.TEXT.*.REMOVE"
+                            },
+                            "caption" : "删除",
+                            "codeName" : "Remove",
+                            "fullCodeName" : "Remove",
+                            "name" : "表格界面_删除操作",
+                            "getPSSysImage" : {
+                              "glyph" : "xf00d@FontAwesome",
+                              "cssClass" : "fa fa-remove"
+                            },
+                            "predefinedType" : "GRIDVIEW_REMOVEACTION",
+                            "timeout" : 60000,
+                            "getTooltipPSLanguageRes" : {
+                              "lanResTag" : "TBB.TOOLTIP.*.REMOVE"
+                            },
+                            "uIActionMode" : "SYS",
+                            "uIActionTag" : "Remove",
+                            "uIActionType" : "DEUIACTION"
+                          },
+                          "getTooltipPSLanguageRes" : {
+                            "lanResTag" : "TBB.TOOLTIP.*.REMOVE"
+                          },
+                          "addSeparator" : false,
+                          "showCaption" : false,
+                          "showIcon" : true
+                        } ]
+                      },
+                      "width" : 100,
+                      "widthUnit" : "PX",
+                      "enableSort" : false
+                    } ],
+                    "getPSDEGridDataItems" : [ {
+                      "dataType" : 25,
+                      "name" : "gname",
+                      "getPSAppDEField" : {
+                        "name" : "GNAME",
+                        "codeName" : "gname"
+                      }
+                    }, {
+                      "dataType" : 25,
+                      "name" : "srfkey",
+                      "getPSAppDEField" : {
+                        "name" : "ID",
+                        "codeName" : "id"
+                      }
+                    }, {
+                      "dataType" : 25,
+                      "name" : "srfdataaccaction",
+                      "getPSAppDEField" : {
+                        "name" : "ID",
+                        "codeName" : "id"
+                      },
+                      "dataAccessAction" : true
+                    }, {
+                      "dataType" : 25,
+                      "name" : "gid",
+                      "getPSAppDEField" : {
+                        "name" : "GID",
+                        "codeName" : "gid"
+                      }
+                    }, {
+                      "dataType" : 25,
+                      "name" : "rule_id",
+                      "getPSAppDEField" : {
+                        "name" : "RULE_ID",
+                        "codeName" : "rule_id"
+                      }
+                    }, {
+                      "dataType" : 25,
+                      "name" : "srfmajortext",
+                      "getPSAppDEField" : {
+                        "name" : "NAME",
+                        "codeName" : "name"
+                      }
+                    } ],
+                    "getPSDEGridEditItems" : [ {
+                      "caption" : "标识",
+                      "codeName" : "srfkey",
+                      "enableCond" : 3,
+                      "ignoreInput" : 0,
+                      "name" : "srfkey",
+                      "getPSAppDEField" : {
+                        "name" : "ID",
+                        "codeName" : "id"
+                      },
+                      "getPSEditor" : {
+                        "editorType" : "HIDDEN",
+                        "name" : "srfkey"
+                      },
+                      "allowEmpty" : true
+                    } ],
+                    "pagingSize" : 100,
+                    "getRemovePSControlAction" : {
+                      "actionName" : "Remove",
+                      "actionType" : "DEACTION",
+                      "dataAccessAction" : "DELETE",
+                      "name" : "remove",
+                      "getPSAppDEMethod" : {
+                        "modelref" : true,
+                        "id" : "remove"
+                      },
+                      "getPSAppDataEntity" : {
+                        "modelref" : true,
+                        "path" : "PSSYSAPPS/ehrapp/PSAPPDATAENTITIES/rule_group_rel.json"
+                      }
+                    },
+                    "sortMode" : "REMOTE",
+                    "hasWFDataItems" : false,
+                    "enableColFilter" : false,
+                    "enableCustomized" : false,
+                    "enableGroup" : false,
+                    "enablePagingBar" : false,
+                    "enableRowEdit" : false,
+                    "enableRowEditOrder" : false,
+                    "enableRowNew" : false,
+                    "forceFit" : false,
+                    "hideHeader" : false,
+                    "noSort" : false,
+                    "singleSelect" : true,
+                    "name" : "grid",
+                    "modelid" : "d811e624005ee8c6438ddda388074567",
+                    "modeltype" : "PSDEGRID"
+                  }, {
+                    "codeName" : "nested_rule_grid_viewtoolbar",
+                    "controlType" : "TOOLBAR",
+                    "logicName" : "权限组关联规则实体工具栏",
+                    "name" : "toolbar",
+                    "getPSAppDataEntity" : {
+                      "modelref" : true,
+                      "path" : "PSSYSAPPS/ehrapp/PSAPPDATAENTITIES/rule_group_rel.json"
+                    },
+                    "getPSControlParam" : {
+                      "id" : "TOOLBAR"
+                    },
+                    "getPSDEToolbarItems" : [ {
+                      "getCapPSLanguageRes" : {
+                        "lanResTag" : "TBB.TEXT.*.NEW"
+                      },
+                      "caption" : "添加行",
+                      "groupExtractMode" : "ITEM",
+                      "itemType" : "DEUIACTION",
+                      "name" : "deuiaction1",
+                      "noPrivDisplayMode" : 2,
+                      "getPSAppViewUIAction" : {
+                        "modelref" : true,
+                        "id" : "toolbar_deuiaction1"
+                      },
+                      "getPSSysImage" : {
+                        "glyph" : "xf0f6@FontAwesome",
+                        "cssClass" : "fa fa-file-text-o"
+                      },
+                      "getPSUIAction" : {
+                        "getCapPSLanguageRes" : {
+                          "lanResTag" : "TBB.TEXT.*.NEW"
+                        },
+                        "caption" : "新建",
+                        "codeName" : "New",
+                        "fullCodeName" : "New",
+                        "name" : "表格界面_新建操作",
+                        "getPSSysImage" : {
+                          "glyph" : "xf0f6@FontAwesome",
+                          "cssClass" : "fa fa-file-text-o"
+                        },
+                        "predefinedType" : "GRIDVIEW_NEWACTION",
+                        "timeout" : 60000,
+                        "getTooltipPSLanguageRes" : {
+                          "lanResTag" : "TBB.TOOLTIP.*.NEW"
+                        },
+                        "uIActionMode" : "SYS",
+                        "uIActionTag" : "New",
+                        "uIActionType" : "DEUIACTION"
+                      },
+                      "tooltip" : "添加行",
+                      "getTooltipPSLanguageRes" : {
+                        "lanResTag" : "TBB.TOOLTIP.*.NEW"
+                      },
+                      "showCaption" : true,
+                      "showIcon" : false
+                    } ],
+                    "xDataControlName" : "grid",
+                    "modelid" : "b3dd77320fc259de27243009494f6bb3",
+                    "modeltype" : "PSDETOOLBAR"
+                  }, {
+                    "codeName" : "Default",
+                    "controlType" : "SEARCHFORM",
+                    "defaultLabelWidth" : 130,
+                    "dynaModelFilePath" : "PSSYSAPPS/ehrapp/PSAPPDATAENTITIES/rule_group_rel/PSSEARCHFORMS/Default.json",
+                    "logicName" : "默认搜索表单",
+                    "getPSAppDataEntity" : {
+                      "modelref" : true,
+                      "path" : "PSSYSAPPS/ehrapp/PSAPPDATAENTITIES/rule_group_rel.json"
+                    },
+                    "getPSControlHandler" : {
+                      "getPSHandlerActions" : [ {
+                        "actionType" : "FILTERACTION",
+                        "name" : "load",
+                        "getPSAppDEMethod" : {
+                          "modelref" : true,
+                          "id" : "FilterGet"
+                        },
+                        "getPSAppDataEntity" : {
+                          "modelref" : true,
+                          "path" : "PSSYSAPPS/ehrapp/PSAPPDATAENTITIES/rule_group_rel.json"
+                        }
+                      }, {
+                        "actionType" : "FILTERACTION",
+                        "name" : "loaddraft",
+                        "getPSAppDEMethod" : {
+                          "modelref" : true,
+                          "id" : "FilterGetDraft"
+                        },
+                        "getPSAppDataEntity" : {
+                          "modelref" : true,
+                          "path" : "PSSYSAPPS/ehrapp/PSAPPDATAENTITIES/rule_group_rel.json"
+                        }
+                      }, {
+                        "actionType" : "FILTERACTION",
+                        "name" : "search",
+                        "getPSAppDEMethod" : {
+                          "modelref" : true,
+                          "id" : "FilterSearch"
+                        },
+                        "getPSAppDataEntity" : {
+                          "modelref" : true,
+                          "path" : "PSSYSAPPS/ehrapp/PSAPPDATAENTITIES/rule_group_rel.json"
+                        }
+                      } ],
+                      "enableDEFieldPrivilege" : false,
+                      "id" : "搜索表单处理器"
+                    },
+                    "getPSControlParam" : {
+                      "autoLoad" : true,
+                      "showBusyIndicator" : true,
+                      "id" : "SEARCHFORM"
+                    },
+                    "getPSDEFormPages" : [ {
+                      "getCapPSLanguageRes" : {
+                        "lanResTag" : "CONTROL.DEFORM.RULE_GROUP_REL.DEFAULT.FORMPAGE.FORMPAGE1"
+                      },
+                      "caption" : "常规条件",
+                      "codeName" : "formpage1",
+                      "detailStyle" : "DEFAULT",
+                      "detailType" : "FORMPAGE",
+                      "name" : "formpage1",
+                      "getPSLayout" : {
+                        "childColMD" : 24,
+                        "columnCount" : 24,
+                        "layout" : "TABLE_24COL"
+                      },
+                      "infoGroupMode" : false
+                    } ],
+                    "getPSLayout" : {
+                      "childColMD" : 24,
+                      "columnCount" : 24,
+                      "layout" : "TABLE_24COL"
+                    },
+                    "searchButtonStyle" : "DEFAULT",
+                    "tabHeaderPos" : "TOP",
+                    "enableAdvanceSearch" : false,
+                    "enableAutoSearch" : false,
+                    "enableFilterSave" : false,
+                    "noTabHeader" : true,
+                    "name" : "searchform",
+                    "modelid" : "03d6d3f29456e06897ec7f1f1c398596",
+                    "modeltype" : "PSDEFORM_SEARCHFORM"
+                  }, {
+                    "controlType" : "SEARCHBAR",
+                    "name" : "searchbar",
+                    "getPSAppDataEntity" : {
+                      "modelref" : true,
+                      "path" : "PSSYSAPPS/ehrapp/PSAPPDATAENTITIES/rule_group_rel.json"
+                    },
+                    "getPSControlParam" : {
+                      "id" : "searchbar"
+                    },
+                    "quickGroupCount" : -1,
+                    "quickSearchMode" : 1,
+                    "quickSearchWidth" : 0,
+                    "enableFilter" : false,
+                    "enableGroup" : false,
+                    "enableQuickSearch" : true,
+                    "mobileSearchBar" : false
+                  }, {
+                    "getCapPSLanguageRes" : {
+                      "lanResTag" : "DE.LNAME.RULE_GROUP_REL"
+                    },
+                    "caption" : "权限组关联规则",
+                    "codeName" : "nested_rule_grid_viewcaptionbar",
+                    "controlType" : "CAPTIONBAR",
+                    "name" : "captionbar",
+                    "getPSAppDataEntity" : {
+                      "modelref" : true,
+                      "path" : "PSSYSAPPS/ehrapp/PSAPPDATAENTITIES/rule_group_rel.json"
+                    },
+                    "getPSControlParam" : { }
+                  } ]
+                },
+                "title" : "权限组关联规则表格视图",
+                "viewStyle" : "DEFAULT",
+                "viewType" : "DEGRIDVIEW",
+                "xDataControlName" : "grid",
+                "enableDP" : true,
+                "enableExport" : true,
+                "enableFilter" : true,
+                "enableImport" : true,
+                "enableQuickSearch" : true,
+                "enableRowEdit" : false,
+                "enableSearch" : true,
+                "rowEditDefault" : false,
+                "modelid" : "0997f2623e5828a6ef0aceb82b664470",
+                "modeltype" : "PSAPPDEVIEW"
+              },
+              "getPSLayoutPos" : {
+                "colMD" : 24,
+                "layout" : "TABLE_24COL"
+              },
+              "parentDataJO" : {
+                "SRFPARENTTYPE" : "DER1N",
+                "srfparentdename" : "IR_RULE",
+                "srfparentmode" : "DER1N_RULE_GROUP_REL_IR_RULE_RULE_ID",
+                "srfparentdefname" : "RULE_ID",
+                "SRFDER1NID" : "DER1N_RULE_GROUP_REL_IR_RULE_RULE_ID"
+              },
+              "needSave" : false,
+              "refreshItemsSetParamOnly" : false,
+              "showCaption" : true
+            } ],
+            "getPSLayout" : {
+              "childColMD" : 24,
+              "columnCount" : 24,
+              "layout" : "TABLE_24COL"
+            },
+            "getPSLayoutPos" : {
+              "colMD" : 24,
+              "layout" : "TABLE_24COL"
+            },
+            "infoGroupMode" : false,
+            "showCaption" : true
+          }, {
+            "codeName" : "grouppanel5",
+            "detailStyle" : "DEFAULT",
+            "detailType" : "GROUPPANEL",
+            "name" : "grouppanel5",
+            "getPSDEFormDetails" : [ {
+              "codeName" : "rawitem1",
+              "contentType" : "HTML",
+              "detailStyle" : "DEFAULT",
+              "detailType" : "RAWITEM",
+              "htmlContent" : "<h3 style=\"text-align: start;\">规则之间的交互</h3>",
+              "name" : "rawitem1",
+              "getPSLayoutPos" : {
+                "colMD" : 24,
+                "layout" : "TABLE_24COL"
+              },
+              "getPSRawItem" : {
+                "content" : "<h3 style=\"text-align: start;\">规则之间的交互</h3>",
+                "contentType" : "HTML",
+                "name" : "rawitem1",
+                "rawItemHeight" : -1.0,
+                "rawItemWidth" : -1.0
+              },
+              "rawItemHeight" : -1.0,
+              "rawItemWidth" : -1.0,
+              "showCaption" : true
+            }, {
+              "codeName" : "rawitem2",
+              "contentType" : "HTML",
+              "detailStyle" : "DEFAULT",
+              "detailType" : "RAWITEM",
+              "htmlContent" : "<p>全局规则（非特定组）是一种限制，无法绕过。 组专用规则授予额外权限，但受全局规则的限制。 第一组规则进一步限制了全局规则，但可以通过附加的组规则加以放宽。</p><p>详细算法：</p><p>全局规则通过逻辑与操作符（AND）组合在一起，并与以下步骤的结果组合在一起</p><p>群组规则通过逻辑或运算符（OR）组合在一起</p><p>如果用户属于多个组，则使用逻辑或运算符（OR）合并步骤 2 的结果</p><p>示例：GLOBAL_RULE_1 AND GLOBAL_RULE_2 AND ( (GROUP_A_RULE_1 OR GROUP_A_RULE_2) OR (GROUP_B_RULE_1 OR GROUP_B_RULE_2) )</p>",
+              "name" : "rawitem2",
+              "getPSLayoutPos" : {
+                "colMD" : 24,
+                "layout" : "TABLE_24COL"
+              },
+              "getPSRawItem" : {
+                "content" : "<p>全局规则（非特定组）是一种限制，无法绕过。 组专用规则授予额外权限，但受全局规则的限制。 第一组规则进一步限制了全局规则，但可以通过附加的组规则加以放宽。</p><p>详细算法：</p><p>全局规则通过逻辑与操作符（AND）组合在一起，并与以下步骤的结果组合在一起</p><p>群组规则通过逻辑或运算符（OR）组合在一起</p><p>如果用户属于多个组，则使用逻辑或运算符（OR）合并步骤 2 的结果</p><p>示例：GLOBAL_RULE_1 AND GLOBAL_RULE_2 AND ( (GROUP_A_RULE_1 OR GROUP_A_RULE_2) OR (GROUP_B_RULE_1 OR GROUP_B_RULE_2) )</p>",
+                "contentType" : "HTML",
+                "name" : "rawitem2",
+                "rawItemHeight" : -1.0,
+                "rawItemWidth" : -1.0
+              },
+              "rawItemHeight" : -1.0,
+              "rawItemWidth" : -1.0,
+              "showCaption" : true
+            } ],
+            "getPSLayout" : {
+              "childColMD" : 24,
+              "columnCount" : 24,
+              "layout" : "TABLE_24COL"
+            },
+            "getPSLayoutPos" : {
+              "colMD" : 24,
+              "layout" : "TABLE_24COL"
+            },
+            "infoGroupMode" : false,
+            "showCaption" : false
+          } ],
+          "getPSLayout" : {
+            "childColMD" : 24,
+            "columnCount" : 24,
+            "layout" : "TABLE_24COL"
+          },
+          "getPSLayoutPos" : {
+            "colMD" : 24,
+            "layout" : "TABLE_24COL"
+          },
+          "infoGroupMode" : false,
+          "showCaption" : false
+        }, {
+          "getCapPSLanguageRes" : {
+            "lanResTag" : "DEF.LNAME.IR_RULE.ID"
+          },
+          "caption" : "标识",
+          "codeName" : "id",
+          "dataType" : 25,
+          "detailStyle" : "DEFAULT",
+          "detailType" : "FORMITEM",
+          "enableCond" : 3,
+          "ignoreInput" : 0,
+          "labelPos" : "LEFT",
+          "labelWidth" : 130,
+          "name" : "id",
+          "noPrivDisplayMode" : 1,
+          "getPSAppDEField" : {
+            "name" : "ID",
+            "codeName" : "id"
+          },
+          "getPSEditor" : {
+            "editorType" : "HIDDEN",
+            "name" : "id"
+          },
+          "getPSLayoutPos" : {
+            "colMD" : 24,
+            "layout" : "TABLE_24COL"
+          },
+          "allowEmpty" : true,
+          "hidden" : true
+        } ],
+        "getPSLayout" : {
+          "childColMD" : 24,
+          "columnCount" : 24,
+          "layout" : "TABLE_24COL"
+        },
+        "infoGroupMode" : false
+      } ],
+      "getPSLayout" : {
+        "childColMD" : 24,
+        "columnCount" : 24,
+        "layout" : "TABLE_24COL"
+      },
+      "getRemovePSControlAction" : {
+        "modelref" : true,
+        "id" : "remove",
+        "actionName" : "Remove",
+        "actionType" : "DEACTION",
+        "dataAccessAction" : "DELETE",
+        "name" : "remove",
+        "getPSAppDEMethod" : {
+          "modelref" : true,
+          "id" : "remove"
+        },
+        "getPSAppDataEntity" : {
+          "modelref" : true,
+          "path" : "PSSYSAPPS/ehrapp/PSAPPDATAENTITIES/ir_rule.json"
+        }
+      },
+      "tabHeaderPos" : "TOP",
+      "getUpdatePSControlAction" : {
+        "modelref" : true,
+        "id" : "update",
+        "actionName" : "Update",
+        "actionType" : "DEACTION",
+        "dataAccessAction" : "UPDATE",
+        "name" : "update",
+        "getPSAppDEMethod" : {
+          "modelref" : true,
+          "id" : "update"
+        },
+        "getPSAppDataEntity" : {
+          "modelref" : true,
+          "path" : "PSSYSAPPS/ehrapp/PSAPPDATAENTITIES/ir_rule.json"
+        }
+      },
+      "noTabHeader" : true,
+      "name" : "form",
+      "modelid" : "255e64a19f4b1d1f40a8a019eebb4376",
+      "modeltype" : "PSDEFORM_EDITFORM"
+    }, {
+      "codeName" : "main_viewtoolbar1",
+      "controlType" : "TOOLBAR",
+      "logicName" : "工具栏模板（嵌入编辑表单，只有一个新建按钮）",
+      "name" : "toolbar1",
+      "getPSAppDataEntity" : {
+        "modelref" : true,
+        "path" : "PSSYSAPPS/ehrapp/PSAPPDATAENTITIES/ir_rule.json"
+      },
+      "getPSControlParam" : {
+        "id" : "TOOLBAR1"
+      },
+      "getPSDEToolbarItems" : [ {
+        "getCapPSLanguageRes" : {
+          "lanResTag" : "TBB.TEXT.EDITVIEW.SAVEANDNEW"
+        },
+        "caption" : "新建",
+        "groupExtractMode" : "ITEM",
+        "itemType" : "DEUIACTION",
+        "name" : "deuiaction2",
+        "noPrivDisplayMode" : 2,
+        "getPSAppViewUIAction" : {
+          "modelref" : true,
+          "id" : "toolbar1_deuiaction2"
+        },
+        "getPSSysImage" : {
+          "cssClass" : "sx-tb-saveandnew"
+        },
+        "getPSUIAction" : {
+          "getCapPSLanguageRes" : {
+            "lanResTag" : "TBB.TEXT.EDITVIEW.SAVEANDNEW"
+          },
+          "caption" : "保存并新建",
+          "codeName" : "SaveAndNew",
+          "fullCodeName" : "SaveAndNew",
+          "name" : "编辑界面_保存并新建操作",
+          "getPSSysImage" : {
+            "cssClass" : "sx-tb-saveandnew"
+          },
+          "predefinedType" : "EDITVIEW_SAVEANDNEWACTION",
+          "timeout" : 60000,
+          "getTooltipPSLanguageRes" : {
+            "lanResTag" : "TBB.TOOLTIP.EDITVIEW.SAVEANDNEW"
+          },
+          "uIActionMode" : "SYS",
+          "uIActionTag" : "SaveAndNew",
+          "uIActionType" : "DEUIACTION"
+        },
+        "tooltip" : "新建",
+        "getTooltipPSLanguageRes" : {
+          "lanResTag" : "TBB.TOOLTIP.EDITVIEW.SAVEANDNEW"
+        },
+        "showCaption" : true,
+        "showIcon" : false
+      } ],
+      "xDataControlName" : "form",
+      "modelid" : "6a271f6ceebaa5b850a3e67f7ec201b2",
+      "modeltype" : "PSDETOOLBAR"
+    }, {
+      "codeName" : "main_viewdatainfobar",
+      "controlType" : "DATAINFOBAR",
+      "name" : "datainfobar",
+      "getPSAppDataEntity" : {
+        "modelref" : true,
+        "path" : "PSSYSAPPS/ehrapp/PSAPPDATAENTITIES/ir_rule.json"
+      },
+      "getPSControlParam" : {
+        "id" : "datainfobar"
+      }
+    }, {
+      "getCapPSLanguageRes" : {
+        "lanResTag" : "DE.LNAME.IR_RULE"
+      },
+      "caption" : "规则",
+      "codeName" : "main_viewcaptionbar",
+      "controlType" : "CAPTIONBAR",
+      "name" : "captionbar",
+      "getPSAppDataEntity" : {
+        "modelref" : true,
+        "path" : "PSSYSAPPS/ehrapp/PSAPPDATAENTITIES/ir_rule.json"
+      },
+      "getPSControlParam" : { }
+    } ]
+  },
+  "title" : "规则",
+  "viewStyle" : "DEFAULT",
+  "viewType" : "DEEDITVIEW",
+  "xDataControlName" : "form",
+  "enableDP" : true,
+  "showDataInfoBar" : true,
+  "modelid" : "674c43191dea93501b14af352db5df30",
+  "modeltype" : "PSAPPDEVIEW"
+}

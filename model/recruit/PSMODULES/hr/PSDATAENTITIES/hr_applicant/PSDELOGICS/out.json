@@ -1,0 +1,583 @@
+{
+  "codeName" : "out",
+  "defaultParamName" : "Default",
+  "dynaModelFilePath" : "PSMODULES/hr/PSDATAENTITIES/hr_applicant/PSDELOGICS/out.json",
+  "logicName" : "淘汰",
+  "name" : "淘汰",
+  "getPSDELogicNodes" : [ {
+    "codeName" : "Begin",
+    "leftPos" : 130,
+    "logicNodeType" : "BEGIN",
+    "name" : "开始",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "PREPAREPARAM3"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "Begin"
+      }
+    } ],
+    "topPos" : 208,
+    "parallelOutput" : true
+  }, {
+    "codeName" : "PREPAREPARAM3",
+    "leftPos" : 240,
+    "logicNodeType" : "PREPAREPARAM",
+    "name" : "准备参数",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "DEACTION3"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "PREPAREPARAM3"
+      }
+    } ],
+    "getPSDELogicNodeParams" : [ {
+      "dstFieldName" : "ID",
+      "getDstPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "applicant"
+      },
+      "name" : "Default[ID] ==> applicant[ID]",
+      "paramAction" : "SETPARAMVALUE",
+      "srcFieldName" : "ID",
+      "getSrcPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "Default"
+      },
+      "srcValueType" : "SRCDLPARAM"
+    } ],
+    "topPos" : 216,
+    "parallelOutput" : true
+  }, {
+    "codeName" : "DEACTION3",
+    "getDstPSDEAction" : {
+      "modelref" : true,
+      "path" : "PSMODULES/hr/PSDATAENTITIES/hr_applicant/PSDEACTIONS/Get.json"
+    },
+    "getDstPSDELogicParam" : {
+      "modelref" : true,
+      "id" : "applicant"
+    },
+    "getDstPSDataEntity" : {
+      "modelref" : true,
+      "path" : "PSMODULES/hr/PSDATAENTITIES/hr_applicant.json"
+    },
+    "leftPos" : 406,
+    "logicNodeType" : "DEACTION",
+    "name" : "获取候选人申请数据",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "PREPAREPARAM4"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "DEACTION3"
+      }
+    } ],
+    "getRetPSDELogicParam" : {
+      "modelref" : true,
+      "id" : "applicant"
+    },
+    "topPos" : 216
+  }, {
+    "codeName" : "PREPAREPARAM4",
+    "leftPos" : 581,
+    "logicNodeType" : "PREPAREPARAM",
+    "name" : "更新候选人申请状态",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "DEACTION4"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "PREPAREPARAM4"
+      }
+    } ],
+    "getPSDELogicNodeParams" : [ {
+      "dstFieldName" : "STATUS",
+      "getDstPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "applicant"
+      },
+      "name" : "直接值[0] ==> applicant[STATUS]",
+      "paramAction" : "SETPARAMVALUE",
+      "srcValue" : "0",
+      "srcValueType" : "SRCVALUE"
+    } ],
+    "topPos" : 216,
+    "parallelOutput" : true
+  }, {
+    "codeName" : "DEACTION4",
+    "getDstPSDEAction" : {
+      "modelref" : true,
+      "path" : "PSMODULES/hr/PSDATAENTITIES/hr_applicant/PSDEACTIONS/Update.json"
+    },
+    "getDstPSDELogicParam" : {
+      "modelref" : true,
+      "id" : "applicant"
+    },
+    "getDstPSDataEntity" : {
+      "modelref" : true,
+      "path" : "PSMODULES/hr/PSDATAENTITIES/hr_applicant.json"
+    },
+    "leftPos" : 800,
+    "logicNodeType" : "DEACTION",
+    "name" : "更新候选人申请状态",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "RAWSQLCALL1"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "DEACTION4"
+      }
+    } ],
+    "topPos" : 216
+  }, {
+    "codeName" : "RAWSQLCALL1",
+    "getDstPSDELogicParam" : {
+      "modelref" : true,
+      "id" : "talentpool"
+    },
+    "leftPos" : 1060,
+    "logicNodeType" : "RAWSQLCALL",
+    "name" : "获取公共人才库实体数据",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "PREPAREPARAM1"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "RAWSQLCALL1"
+      }
+    } ],
+    "sql" : "select * from hr_talent_pool ht where name = '公共人才库'",
+    "topPos" : 216,
+    "fillDstLogicParam" : true
+  }, {
+    "codeName" : "PREPAREPARAM1",
+    "leftPos" : 1060,
+    "logicNodeType" : "PREPAREPARAM",
+    "name" : "更新候选人数据",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "DEACTION1"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "PREPAREPARAM1"
+      }
+    } ],
+    "getPSDELogicNodeParams" : [ {
+      "dstFieldName" : "ID",
+      "getDstPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "candidate"
+      },
+      "name" : "Default[CANDIDATE_ID] ==> candidate[ID]",
+      "paramAction" : "SETPARAMVALUE",
+      "srcFieldName" : "CANDIDATE_ID",
+      "getSrcPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "Default"
+      },
+      "srcValueType" : "SRCDLPARAM"
+    }, {
+      "dstFieldName" : "LAST_TP_STAGE_NAME",
+      "getDstPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "candidate"
+      },
+      "name" : "Default[STAGE_NAME] ==> candidate[LAST_TP_STAGE_NAME]",
+      "paramAction" : "SETPARAMVALUE",
+      "srcFieldName" : "STAGE_NAME",
+      "getSrcPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "Default"
+      },
+      "srcValueType" : "SRCDLPARAM"
+    }, {
+      "dstFieldName" : "LAST_EDU_SCHOOL",
+      "getDstPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "candidate"
+      },
+      "name" : "applicant[LAST_EDU_SCHOOL] ==> candidate[LAST_EDU_SCHOOL]",
+      "paramAction" : "SETPARAMVALUE",
+      "srcFieldName" : "LAST_EDU_SCHOOL",
+      "getSrcPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "applicant"
+      },
+      "srcValueType" : "SRCDLPARAM"
+    }, {
+      "dstFieldName" : "LAST_EDU_DATE",
+      "getDstPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "candidate"
+      },
+      "name" : "applicant[LAST_EDU_DATE] ==> candidate[LAST_EDU_DATE]",
+      "paramAction" : "SETPARAMVALUE",
+      "srcFieldName" : "LAST_EDU_DATE",
+      "getSrcPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "applicant"
+      },
+      "srcValueType" : "SRCDLPARAM"
+    }, {
+      "dstFieldName" : "LAST_EDU_SPECIALITY",
+      "getDstPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "candidate"
+      },
+      "name" : "applicant[LAST_EDU_SPECIALITY] ==> candidate[LAST_EDU_SPECIALITY]",
+      "paramAction" : "SETPARAMVALUE",
+      "srcFieldName" : "LAST_EDU_SPECIALITY",
+      "getSrcPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "applicant"
+      },
+      "srcValueType" : "SRCDLPARAM"
+    }, {
+      "dstFieldName" : "LAST_EDU_ACADEMIC_DEGREE",
+      "getDstPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "candidate"
+      },
+      "name" : "applicant[LAST_EDU_ACADEMIC_DEGREE] ==> candidate[LAST_EDU_ACADEMIC_DEGREE]",
+      "paramAction" : "SETPARAMVALUE",
+      "srcFieldName" : "LAST_EDU_ACADEMIC_DEGREE",
+      "getSrcPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "applicant"
+      },
+      "srcValueType" : "SRCDLPARAM"
+    }, {
+      "dstFieldName" : "LAST_EXP_COMPANY",
+      "getDstPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "candidate"
+      },
+      "name" : "applicant[LAST_EXP_COMPANY] ==> candidate[LAST_EXP_COMPANY]",
+      "paramAction" : "SETPARAMVALUE",
+      "srcFieldName" : "LAST_EXP_COMPANY",
+      "getSrcPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "applicant"
+      },
+      "srcValueType" : "SRCDLPARAM"
+    }, {
+      "dstFieldName" : "LAST_EXP_JOB",
+      "getDstPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "candidate"
+      },
+      "name" : "applicant[LAST_EXP_JOB] ==> candidate[LAST_EXP_JOB]",
+      "paramAction" : "SETPARAMVALUE",
+      "srcFieldName" : "LAST_EXP_JOB",
+      "getSrcPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "applicant"
+      },
+      "srcValueType" : "SRCDLPARAM"
+    }, {
+      "dstFieldName" : "LAST_EXP_DATE",
+      "getDstPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "candidate"
+      },
+      "name" : "applicant[LAST_EXP_DATE] ==> candidate[LAST_EXP_DATE]",
+      "paramAction" : "SETPARAMVALUE",
+      "srcFieldName" : "LAST_EXP_DATE",
+      "getSrcPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "applicant"
+      },
+      "srcValueType" : "SRCDLPARAM"
+    }, {
+      "dstFieldName" : "LAST_TAGS",
+      "getDstPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "candidate"
+      },
+      "name" : "applicant[TAGS] ==> candidate[LAST_TAGS]",
+      "paramAction" : "SETPARAMVALUE",
+      "srcFieldName" : "TAGS",
+      "getSrcPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "applicant"
+      },
+      "srcValueType" : "SRCDLPARAM"
+    }, {
+      "dstFieldName" : "LAST_TP_JOB_NAME",
+      "getDstPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "candidate"
+      },
+      "name" : "Default[JOB_NAME] ==> candidate[LAST_TP_JOB_NAME]",
+      "paramAction" : "SETPARAMVALUE",
+      "srcFieldName" : "JOB_NAME",
+      "getSrcPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "Default"
+      },
+      "srcValueType" : "SRCDLPARAM"
+    }, {
+      "dstFieldName" : "LAST_TP_APPLIED_AT",
+      "getDstPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "candidate"
+      },
+      "name" : "applicant[CREATE_DATE] ==> candidate[LAST_TP_APPLIED_AT]",
+      "paramAction" : "SETPARAMVALUE",
+      "srcFieldName" : "CREATE_DATE",
+      "getSrcPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "applicant"
+      },
+      "srcValueType" : "SRCDLPARAM"
+    }, {
+      "dstFieldName" : "LAST_TP_ARCHIVE_REASON",
+      "getDstPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "candidate"
+      },
+      "name" : "直接值[淘汰] ==> candidate[LAST_TP_ARCHIVE_REASON]",
+      "paramAction" : "SETPARAMVALUE",
+      "srcValue" : "淘汰",
+      "srcValueType" : "SRCVALUE"
+    }, {
+      "dstFieldName" : "LAST_TP_TALENT_POOL",
+      "getDstPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "candidate"
+      },
+      "name" : "talentpool[id] ==> candidate[LAST_TP_TALENT_POOL]",
+      "paramAction" : "SETPARAMVALUE",
+      "srcFieldName" : "id",
+      "getSrcPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "talentpool"
+      },
+      "srcValue" : "公共人才库",
+      "srcValueType" : "SRCDLPARAM"
+    }, {
+      "dstFieldName" : "LAST_TP_ARCHIVED_AT",
+      "getDstPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "candidate"
+      },
+      "expression" : "new Date()\r\n",
+      "name" : "[new Date()\r\n] ==> candidate[LAST_TP_ARCHIVED_AT]",
+      "paramAction" : "SETPARAMVALUE",
+      "srcValueType" : "EXPRESSION"
+    }, {
+      "dstFieldName" : "LAST_TP_STAGE_NAME",
+      "getDstPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "candidate"
+      },
+      "name" : "applicant[STAGE_NAME] ==> candidate[LAST_TP_STAGE_NAME]",
+      "paramAction" : "SETPARAMVALUE",
+      "srcFieldName" : "STAGE_NAME",
+      "getSrcPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "applicant"
+      },
+      "srcValueType" : "SRCDLPARAM"
+    } ],
+    "topPos" : 340
+  }, {
+    "codeName" : "DEACTION1",
+    "getDstPSDEAction" : {
+      "modelref" : true,
+      "path" : "PSMODULES/hr/PSDATAENTITIES/hr_candidate/PSDEACTIONS/Update.json"
+    },
+    "getDstPSDELogicParam" : {
+      "modelref" : true,
+      "id" : "candidate"
+    },
+    "getDstPSDataEntity" : {
+      "modelref" : true,
+      "path" : "PSMODULES/hr/PSDATAENTITIES/hr_candidate.json"
+    },
+    "leftPos" : 1060,
+    "logicNodeType" : "DEACTION",
+    "name" : "更新候选人数据",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "PREPAREPARAM2"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "DEACTION1"
+      }
+    } ],
+    "topPos" : 510
+  }, {
+    "codeName" : "PREPAREPARAM2",
+    "leftPos" : 1060,
+    "logicNodeType" : "PREPAREPARAM",
+    "name" : "准备维护候选人和人才库数据",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "DEACTION2"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "PREPAREPARAM2"
+      }
+    } ],
+    "getPSDELogicNodeParams" : [ {
+      "dstFieldName" : "CANDIDATE_ID",
+      "getDstPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "candidate_talentpool"
+      },
+      "name" : "candidate[ID] ==> candidate_talentpool[CANDIDATE_ID]",
+      "paramAction" : "SETPARAMVALUE",
+      "srcFieldName" : "ID",
+      "getSrcPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "candidate"
+      },
+      "srcValueType" : "SRCDLPARAM"
+    }, {
+      "dstFieldName" : "NAME",
+      "getDstPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "candidate_talentpool"
+      },
+      "name" : "直接值[公共人才库] ==> candidate_talentpool[NAME]",
+      "paramAction" : "SETPARAMVALUE",
+      "srcValue" : "公共人才库",
+      "srcValueType" : "SRCVALUE"
+    }, {
+      "dstFieldName" : "TALENTPOOL_ID",
+      "getDstPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "candidate_talentpool"
+      },
+      "name" : "talentpool[ID] ==> candidate_talentpool[TALENTPOOL_ID]",
+      "paramAction" : "SETPARAMVALUE",
+      "srcFieldName" : "ID",
+      "getSrcPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "talentpool"
+      },
+      "srcValueType" : "SRCDLPARAM"
+    } ],
+    "topPos" : 630,
+    "parallelOutput" : true
+  }, {
+    "codeName" : "DEACTION2",
+    "getDstPSDEAction" : {
+      "modelref" : true,
+      "path" : "PSMODULES/hr/PSDATAENTITIES/hr_candidate_talent_pool/PSDEACTIONS/Create.json"
+    },
+    "getDstPSDELogicParam" : {
+      "modelref" : true,
+      "id" : "candidate_talentpool"
+    },
+    "getDstPSDataEntity" : {
+      "modelref" : true,
+      "path" : "PSMODULES/hr/PSDATAENTITIES/hr_candidate_talent_pool.json"
+    },
+    "leftPos" : 1060,
+    "logicNodeType" : "DEACTION",
+    "name" : "维护候选人和人才库数据",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "END1"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "DEACTION2"
+      }
+    } ],
+    "topPos" : 780
+  }, {
+    "codeName" : "END1",
+    "leftPos" : 1100,
+    "logicNodeType" : "END",
+    "name" : "结束",
+    "topPos" : 930,
+    "parallelOutput" : true
+  } ],
+  "getPSDELogicParams" : [ {
+    "codeName" : "Default",
+    "logicName" : "传入变量",
+    "name" : "传入变量",
+    "getParamPSDataEntity" : {
+      "modelref" : true,
+      "path" : "PSMODULES/hr/PSDATAENTITIES/hr_applicant.json"
+    },
+    "default" : true,
+    "entityParam" : true
+  }, {
+    "codeName" : "applicant",
+    "logicName" : "候选人申请",
+    "name" : "候选人申请",
+    "getParamPSDataEntity" : {
+      "modelref" : true,
+      "path" : "PSMODULES/hr/PSDATAENTITIES/hr_applicant.json"
+    },
+    "entityParam" : true
+  }, {
+    "codeName" : "candidate",
+    "logicName" : "候选人",
+    "name" : "候选人",
+    "getParamPSDataEntity" : {
+      "modelref" : true,
+      "path" : "PSMODULES/hr/PSDATAENTITIES/hr_candidate.json"
+    },
+    "entityParam" : true
+  }, {
+    "codeName" : "candidate_talentpool",
+    "logicName" : "候选人_人才库",
+    "name" : "候选人_人才库",
+    "getParamPSDataEntity" : {
+      "modelref" : true,
+      "path" : "PSMODULES/hr/PSDATAENTITIES/hr_candidate_talent_pool.json"
+    },
+    "entityParam" : true
+  }, {
+    "codeName" : "talentpool",
+    "logicName" : "人才库",
+    "name" : "人才库",
+    "getParamPSDataEntity" : {
+      "modelref" : true,
+      "path" : "PSMODULES/hr/PSDATAENTITIES/hr_talent_pool.json"
+    },
+    "entityParam" : true
+  } ],
+  "getStartPSDELogicNode" : {
+    "modelref" : true,
+    "id" : "Begin"
+  },
+  "enableBackend" : true,
+  "enableFront" : false
+}

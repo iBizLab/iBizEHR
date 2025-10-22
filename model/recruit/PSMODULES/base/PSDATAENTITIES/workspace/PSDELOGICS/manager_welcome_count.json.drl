@@ -1,0 +1,38 @@
+package cn.ibizlab.base.logic.workspacelogic.manager_welcome_count;
+        import java.util.Map;
+        import java.util.HashMap;
+        import com.alibaba.fastjson.JSONObject;
+        import org.springframework.util.StringUtils;
+        import org.springframework.util.ObjectUtils;
+        import cn.ibizlab.util.errors.BadRequestAlertException;
+                global cn.ibizlab.core.base.domain.workspace workspacemanager_welcome_countdefault;
+        global cn.ibizlab.core.base.service.IworkspaceService iBzSysWorkspaceDefaultService;
+        global cn.ibizlab.util.security.AuthenticationUser curuser;
+
+
+    no-loop
+
+            //逻辑处理节点[开始]
+            rule "begin"
+            ruleflow-group "workspacemanager_welcome_countbegin"
+            when
+            then
+            end
+
+            //逻辑处理节点[准备参数]
+            rule "prepareparam1"
+            ruleflow-group "workspacemanager_welcome_countprepareparam1"
+            when
+            then
+                                workspacemanager_welcome_countdefault.set("username",curuser.getSessionParams().get("srfpersonname"));
+                            workspacemanager_welcome_countdefault.set("candidate_filter_count","1");
+                        update(workspacemanager_welcome_countdefault);//更新fact中变量值
+            end
+
+            //逻辑处理节点[结束]
+            rule "end1"
+            ruleflow-group "workspacemanager_welcome_countend1"
+            when
+            then
+                        update(workspacemanager_welcome_countdefault);//更新fact中变量值
+            end

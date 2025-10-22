@@ -1,0 +1,15 @@
+```sql
+SELECT
+t1.`CREATE_DATE`,
+t1.`CREATE_UID`,
+t1.`DEFAULT_LEVEL`,
+t1.`ID`,
+t1.`LEVEL_PROGRESS`,
+t1.`NAME`,
+t1.`SKILL_TYPE_ID`,
+t1.`WRITE_DATE`,
+t1.`WRITE_UID`
+FROM `hr_skill_level` t1 
+
+
+```

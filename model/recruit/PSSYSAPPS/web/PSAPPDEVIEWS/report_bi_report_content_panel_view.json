@@ -1,0 +1,336 @@
+{
+  "accUserMode" : 2,
+  "caption" : "BI报表呈现态面板视图",
+  "codeName" : "report_bi_report_content_panel_view",
+  "dynaModelFilePath" : "PSSYSAPPS/web/PSAPPDEVIEWS/report_bi_report_content_panel_view.json",
+  "memo" : "系统自动添加",
+  "name" : "reportBIReportContentPanelView",
+  "getPSAppDataEntity" : {
+    "modelref" : true,
+    "path" : "PSSYSAPPS/web/PSAPPDATAENTITIES/report.json"
+  },
+  "getPSAppModule" : {
+    "modelref" : true,
+    "path" : "PSSYSAPPS/web/PSAPPMODULES/base.json"
+  },
+  "getPSControls" : [ {
+    "codeName" : "bi_report_content_panel_view_toolbar",
+    "controlType" : "TOOLBAR",
+    "logicName" : "BI报表呈现态工具栏",
+    "name" : "toolbar",
+    "getPSAppDataEntity" : {
+      "modelref" : true,
+      "path" : "PSSYSAPPS/web/PSAPPDATAENTITIES/report.json"
+    },
+    "getPSControlParam" : {
+      "id" : "TOOLBAR"
+    },
+    "getPSDEToolbarItems" : [ {
+      "caption" : "编辑",
+      "groupExtractMode" : "ITEM",
+      "itemType" : "DEUIACTION",
+      "name" : "deuiaction1",
+      "noPrivDisplayMode" : 2,
+      "getPSAppViewUIAction" : {
+        "modelref" : true,
+        "id" : "toolbar_deuiaction1"
+      },
+      "getPSControlLogics" : [ {
+        "itemName" : "deuiaction1",
+        "logicTag" : "toolbar",
+        "logicType" : "SCRIPT",
+        "name" : "deuiaction1",
+        "scriptCode" : "context.srfreadonly != true",
+        "triggerType" : "ITEMVISIBLE"
+      } ],
+      "getPSUIAction" : {
+        "actionTarget" : "NONE",
+        "caption" : "编辑",
+        "codeName" : "open_bi_report_panel_view",
+        "getFrontPSAppView" : {
+          "modelref" : true,
+          "path" : "PSSYSAPPS/web/PSAPPDEVIEWS/report_bi_report_panel_view.json",
+          "viewType" : "DEPANELVIEW"
+        },
+        "frontProcessType" : "WIZARD",
+        "fullCodeName" : "report_open_bi_report_panel_view",
+        "name" : "打开BI报表设计图面板视图",
+        "getPSAppDataEntity" : {
+          "modelref" : true,
+          "path" : "PSSYSAPPS/web/PSAPPDATAENTITIES/report.json"
+        },
+        "getPSNavigateContexts" : [ {
+          "key" : "SRFDEFAULTTOROUTEDEPTH",
+          "name" : "SRFDEFAULTTOROUTEDEPTH",
+          "value" : "3",
+          "rawValue" : true
+        }, {
+          "key" : "REPORT",
+          "name" : "REPORT",
+          "value" : "report",
+          "rawValue" : false
+        } ],
+        "uIActionMode" : "FRONT",
+        "uIActionTag" : "open_bi_report_panel_view",
+        "uIActionType" : "DEUIACTION",
+        "id" : "open_bi_report_panel_view@report"
+      },
+      "tooltip" : "编辑",
+      "uIActionTarget" : "NONE",
+      "showCaption" : true,
+      "showIcon" : true
+    }, {
+      "groupExtractMode" : "ITEM",
+      "itemType" : "ITEMS",
+      "name" : "items1",
+      "getPSSysImage" : {
+        "glyph" : "xf0ca@FontAwesome",
+        "cssClass" : "fa fa-list-ul"
+      },
+      "getPSUIActionGroup" : {
+        "codeName" : "Usr1121549416",
+        "name" : "导出界面行为组",
+        "getPSAppDataEntity" : {
+          "modelref" : true,
+          "path" : "PSSYSAPPS/web/PSAPPDATAENTITIES/report.json"
+        },
+        "getPSUIActionGroupDetails" : [ {
+          "caption" : "导出表格",
+          "detailType" : "DEUIACTION",
+          "name" : "u39076a6",
+          "getPSUIAction" : {
+            "actionTarget" : "SINGLEDATA",
+            "caption" : "导出表格",
+            "codeName" : "export_table",
+            "fullCodeName" : "report_export_table",
+            "name" : "导出表格",
+            "getPSAppDEUILogic" : {
+              "modelref" : true,
+              "id" : "export_excel"
+            },
+            "getPSAppDataEntity" : {
+              "modelref" : true,
+              "path" : "PSSYSAPPS/web/PSAPPDATAENTITIES/report.json"
+            },
+            "uIActionMode" : "FRONT",
+            "uIActionTag" : "export_table",
+            "uIActionType" : "DEUIACTION",
+            "uILogicAttachMode" : "REPLACE",
+            "id" : "export_table@report"
+          },
+          "addSeparator" : false,
+          "showCaption" : true,
+          "showIcon" : true
+        }, {
+          "caption" : "导出PNG",
+          "detailType" : "DEUIACTION",
+          "name" : "ucaf3feb",
+          "getPSUIAction" : {
+            "actionTarget" : "SINGLEDATA",
+            "caption" : "导出PNG",
+            "codeName" : "export_pdf",
+            "frontProcessType" : "OTHER",
+            "fullCodeName" : "report_export_pdf",
+            "name" : "导出PNG",
+            "getPSAppDEUILogic" : {
+              "modelref" : true,
+              "id" : "export_pdf"
+            },
+            "getPSAppDataEntity" : {
+              "modelref" : true,
+              "path" : "PSSYSAPPS/web/PSAPPDATAENTITIES/report.json"
+            },
+            "uIActionMode" : "FRONT",
+            "uIActionTag" : "export_pdf",
+            "uIActionType" : "DEUIACTION",
+            "uILogicAttachMode" : "REPLACE",
+            "id" : "export_pdf@report"
+          },
+          "addSeparator" : false,
+          "showCaption" : true,
+          "showIcon" : true
+        } ],
+        "uniqueTag" : "report__Usr1121549416"
+      },
+      "showCaption" : true,
+      "showIcon" : true
+    } ],
+    "modelid" : "e392164b26aefc3d254540ae711c097f",
+    "modeltype" : "PSDETOOLBAR"
+  }, {
+    "caption" : "BI报表呈现态面板视图",
+    "codeName" : "bi_report_content_panel_view_captionbar",
+    "controlType" : "CAPTIONBAR",
+    "name" : "captionbar",
+    "getPSAppDataEntity" : {
+      "modelref" : true,
+      "path" : "PSSYSAPPS/web/PSAPPDATAENTITIES/report.json"
+    },
+    "getPSControlParam" : { }
+  } ],
+  "getPSDEViewCodeName" : "BIReportContentPanelView",
+  "getPSDEViewId" : "d2fdeee5503ec0a47c410d5a9953c7ac",
+  "getPSSysCss" : {
+    "cssName" : "export-canvas-style"
+  },
+  "getPSViewLayoutPanel" : {
+    "getAllPSPanelFields" : [ {
+      "id" : "field_text_dynamic"
+    } ],
+    "codeName" : "usr0705249058",
+    "controlType" : "VIEWLAYOUTPANEL",
+    "layoutMode" : "Flex",
+    "logicName" : "BI报表呈现态",
+    "name" : "layoutpanel",
+    "getPSAppDataEntity" : {
+      "modelref" : true,
+      "path" : "PSSYSAPPS/web/PSAPPDATAENTITIES/report.json"
+    },
+    "getPSControlParam" : { },
+    "getPSLayout" : {
+      "layout" : "FLEX"
+    },
+    "getRootPSPanelItems" : [ {
+      "caption" : "容器",
+      "itemStyle" : "DEFAULT",
+      "itemType" : "CONTAINER",
+      "name" : "container",
+      "getPSLayout" : {
+        "layout" : "FLEX"
+      },
+      "getPSLayoutPos" : {
+        "grow" : 1,
+        "heightMode" : "FULL",
+        "layout" : "FLEX"
+      },
+      "getPSPanelItems" : [ {
+        "caption" : "容器",
+        "itemStyle" : "DEFAULT",
+        "itemType" : "CONTAINER",
+        "name" : "view_header",
+        "getPSLayout" : {
+          "align" : "space-between",
+          "dir" : "row",
+          "layout" : "FLEX",
+          "vAlign" : "center"
+        },
+        "getPSLayoutPos" : {
+          "grow" : -1,
+          "layout" : "FLEX",
+          "shrink" : 0
+        },
+        "getPSPanelItems" : [ {
+          "caption" : "容器",
+          "itemStyle" : "DEFAULT",
+          "itemType" : "CONTAINER",
+          "name" : "view_header_left",
+          "getPSLayout" : {
+            "layout" : "FLEX"
+          },
+          "getPSLayoutPos" : {
+            "grow" : -1,
+            "heightMode" : "FULL",
+            "layout" : "FLEX",
+            "spacingLeft" : "INNERSMALL"
+          },
+          "getPSPanelItems" : [ {
+            "caption" : "容器",
+            "itemStyle" : "DEFAULT",
+            "itemType" : "CONTAINER",
+            "name" : "view_captionbar",
+            "getPSLayout" : {
+              "align" : "center",
+              "layout" : "FLEX"
+            },
+            "getPSLayoutPos" : {
+              "grow" : -1,
+              "heightMode" : "FULL",
+              "layout" : "FLEX"
+            },
+            "getPSPanelItems" : [ {
+              "itemStyle" : "DEFAULT",
+              "itemType" : "CTRLPOS",
+              "name" : "captionbar",
+              "getPSLayoutPos" : {
+                "grow" : -1,
+                "layout" : "FLEX"
+              }
+            } ]
+          } ]
+        }, {
+          "caption" : "容器",
+          "itemStyle" : "DEFAULT",
+          "itemType" : "CONTAINER",
+          "name" : "view_toolbar",
+          "getPSLayout" : {
+            "align" : "center",
+            "layout" : "FLEX"
+          },
+          "getPSLayoutPos" : {
+            "grow" : -1,
+            "heightMode" : "FULL",
+            "layout" : "FLEX",
+            "spacingRight" : "INNERSMALL"
+          },
+          "getPSPanelItems" : [ {
+            "caption" : "工具栏",
+            "itemStyle" : "DEFAULT",
+            "itemType" : "CTRLPOS",
+            "name" : "toolbar",
+            "getPSLayoutPos" : {
+              "grow" : -1,
+              "layout" : "FLEX"
+            },
+            "showCaption" : true
+          } ]
+        } ],
+        "predefinedType" : "VIEWHEADER"
+      }, {
+        "caption" : "容器",
+        "itemStyle" : "DEFAULT",
+        "itemType" : "CONTAINER",
+        "name" : "view_content",
+        "getPSLayout" : {
+          "layout" : "FLEX"
+        },
+        "getPSLayoutPos" : {
+          "grow" : -1,
+          "layout" : "FLEX"
+        },
+        "getPSPanelItems" : [ {
+          "caption" : "文本(动态)",
+          "itemStyle" : "DEFAULT",
+          "itemType" : "FIELD",
+          "name" : "field_text_dynamic",
+          "getPSEditor" : {
+            "editorType" : "SPAN",
+            "name" : "field_text_dynamic",
+            "predefinedType" : "FIELD_TEXT_DYNAMIC",
+            "renderMode" : "TEXT_DYNAMIC",
+            "enableLinkView" : false
+          },
+          "getPSLayoutPos" : {
+            "grow" : 1,
+            "layout" : "FLEX"
+          },
+          "getPSSysPFPlugin" : {
+            "pluginType" : "CUSTOM",
+            "pluginCode" : "BI_REPORT_PANEL_CONTENT"
+          }
+        } ],
+        "predefinedType" : "VIEWCONTENT"
+      } ]
+    } ],
+    "layoutBodyOnly" : false,
+    "layoutPanel" : true,
+    "useDefaultLayout" : false,
+    "modelid" : "9e2ebd4b4266556abf5fa78a98c4ed73",
+    "modeltype" : "PSSYSVIEWLAYOUTPANEL"
+  },
+  "title" : "BI报表呈现态面板视图",
+  "viewStyle" : "DEFAULT",
+  "viewType" : "DEPANELVIEW",
+  "enableDP" : true,
+  "modelid" : "5babc29c37abf262e54f63d10441b5b9",
+  "modeltype" : "PSAPPDEVIEW"
+}

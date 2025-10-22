@@ -1,0 +1,73 @@
+package cn.ibizlab.base.logic.reportlogic.create_bi_report;
+        import java.util.Map;
+        import java.util.HashMap;
+        import com.alibaba.fastjson.JSONObject;
+        import org.springframework.util.StringUtils;
+        import org.springframework.util.ObjectUtils;
+        import cn.ibizlab.util.errors.BadRequestAlertException;
+                global cn.ibizlab.core.base.domain.report reportcreate_bi_reportdefault;
+                global cn.ibizlab.core.extension.domain.PSSysBIReport reportcreate_bi_reportbireport;
+                    global cn.ibizlab.core.extension.service.IPSSysBIReportService pssysbireportservice;
+        global cn.ibizlab.core.base.service.IreportService iBzSysReportDefaultService;
+        global cn.ibizlab.util.security.AuthenticationUser curuser;
+
+
+    no-loop
+
+            //逻辑处理节点[开始]
+            rule "begin"
+            ruleflow-group "reportcreate_bi_reportbegin"
+            when
+            then
+            end
+
+            //逻辑处理节点[从模板初始化模型]
+            rule "rawsfcode1"
+            ruleflow-group "reportcreate_bi_reportrawsfcode1"
+            when
+            then
+                        update(reportcreate_bi_reportdefault);//更新fact中变量值
+                        update(reportcreate_bi_reportbireport);//更新fact中变量值
+            end
+
+            //逻辑处理节点[构造智能报表默认参数]
+            rule "prepareparam1"
+            ruleflow-group "reportcreate_bi_reportprepareparam1"
+            when
+            then
+                            reportcreate_bi_reportbireport.set("validflag","1");
+                            reportcreate_bi_reportbireport.set("pssysbischemeid","BIScheme");
+                            reportcreate_bi_reportbireport.set("pssysbicubeid","BIScheme.applicant");
+                            reportcreate_bi_reportbireport.set("pssysbireportname",reportcreate_bi_reportdefault.get("name"));
+                        update(reportcreate_bi_reportdefault);//更新fact中变量值
+                        update(reportcreate_bi_reportbireport);//更新fact中变量值
+            end
+
+            //逻辑处理节点[建立bi报表扩展模型]
+            rule "deaction1"
+            ruleflow-group "reportcreate_bi_reportdeaction1"
+            when
+            then
+                        pssysbireportservice.create(reportcreate_bi_reportbireport);
+                        update(reportcreate_bi_reportdefault);//更新fact中变量值
+                        update(reportcreate_bi_reportbireport);//更新fact中变量值
+            end
+
+            //逻辑处理节点[结束]
+            rule "end1"
+            ruleflow-group "reportcreate_bi_reportend1"
+            when
+            then
+                        update(reportcreate_bi_reportdefault);//更新fact中变量值
+                        update(reportcreate_bi_reportbireport);//更新fact中变量值
+            end
+
+            //逻辑处理节点[回写id]
+            rule "prepareparam2"
+            ruleflow-group "reportcreate_bi_reportprepareparam2"
+            when
+            then
+                            reportcreate_bi_reportdefault.set("id",reportcreate_bi_reportbireport.get("pssysbireportid"));
+                        update(reportcreate_bi_reportdefault);//更新fact中变量值
+                        update(reportcreate_bi_reportbireport);//更新fact中变量值
+            end

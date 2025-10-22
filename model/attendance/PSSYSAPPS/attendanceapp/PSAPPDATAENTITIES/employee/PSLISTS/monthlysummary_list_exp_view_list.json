@@ -1,0 +1,261 @@
+{
+  "codeName" : "monthlysummary_list_exp_view_list",
+  "controlType" : "LIST",
+  "getCreatePSControlAction" : {
+    "modelref" : true,
+    "id" : "create",
+    "actionName" : "Create",
+    "actionType" : "DEACTION",
+    "dataAccessAction" : "CREATE",
+    "name" : "create",
+    "getPSAppDEMethod" : {
+      "modelref" : true,
+      "id" : "Create"
+    },
+    "getPSAppDataEntity" : {
+      "modelref" : true,
+      "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/employee.json"
+    }
+  },
+  "dynaModelFilePath" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/employee/PSLISTS/monthlysummary_list_exp_view_list.json",
+  "getFetchPSControlAction" : {
+    "modelref" : true,
+    "id" : "fetch",
+    "actionType" : "DEDATASET",
+    "name" : "fetch",
+    "getPSAppDEMethod" : {
+      "modelref" : true,
+      "id" : "FetchEmployee"
+    },
+    "getPSAppDataEntity" : {
+      "modelref" : true,
+      "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/employee.json"
+    }
+  },
+  "getGetPSControlAction" : {
+    "modelref" : true,
+    "id" : "load",
+    "actionName" : "Get",
+    "actionType" : "DEACTION",
+    "dataAccessAction" : "READ",
+    "name" : "load",
+    "getPSAppDEMethod" : {
+      "modelref" : true,
+      "id" : "Get"
+    },
+    "getPSAppDataEntity" : {
+      "modelref" : true,
+      "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/employee.json"
+    }
+  },
+  "groupMode" : "NONE",
+  "hookEventNames" : [ "SELECTIONCHANGE", "LOAD" ],
+  "getItemPSLayoutPanel" : {
+    "getAllPSPanelFields" : [ {
+      "id" : "name"
+    } ],
+    "codeName" : "usr0617527402",
+    "controlType" : "PANEL",
+    "dynaModelFilePath" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/employee/PSPANELS/usr0617527402.json",
+    "layoutMode" : "TABLE_24COL",
+    "logicName" : "List_列表项面板",
+    "getPSAppDataEntity" : {
+      "modelref" : true,
+      "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/employee.json"
+    },
+    "getPSControlParam" : { },
+    "getPSLayout" : {
+      "childColMD" : 24,
+      "columnCount" : 24,
+      "layout" : "TABLE_24COL"
+    },
+    "getRootPSPanelItems" : [ {
+      "itemStyle" : "DEFAULT",
+      "itemType" : "CONTAINER",
+      "name" : "page_container",
+      "getPSLayout" : {
+        "dir" : "column",
+        "layout" : "FLEX"
+      },
+      "getPSLayoutPos" : {
+        "colMD" : 24,
+        "layout" : "TABLE_24COL"
+      },
+      "getPSPanelItems" : [ {
+        "caption" : "文本(动态)",
+        "itemStyle" : "DEFAULT",
+        "itemType" : "FIELD",
+        "name" : "name",
+        "getPSEditor" : {
+          "editorType" : "SPAN",
+          "name" : "name",
+          "predefinedType" : "FIELD_TEXT_DYNAMIC",
+          "renderMode" : "TEXT_DYNAMIC",
+          "enableLinkView" : false
+        },
+        "getPSLayoutPos" : {
+          "grow" : -1,
+          "layout" : "FLEX"
+        }
+      } ]
+    } ],
+    "name" : "listexpbar_list_itempanel",
+    "modelid" : "b764c492eed7614db4d28e52a77a3b1b",
+    "modeltype" : "PSSYSVIEWPANEL"
+  },
+  "logicName" : "List",
+  "getNavPSAppView" : {
+    "modelref" : true,
+    "path" : "PSSYSAPPS/attendanceapp/PSAPPDEVIEWS/attendance_statistics_edit_view.json",
+    "viewType" : "DEEDITVIEW"
+  },
+  "getPSAppDataEntity" : {
+    "modelref" : true,
+    "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/employee.json"
+  },
+  "getPSControlLogics" : [ {
+    "eventNames" : "SELECTIONCHANGE",
+    "logicTag" : "listexpbar_list",
+    "logicType" : "CUSTOM",
+    "name" : "listexpbar_selectionchange"
+  }, {
+    "eventNames" : "LOAD",
+    "logicTag" : "listexpbar_list",
+    "logicType" : "CUSTOM",
+    "name" : "listexpbar_load"
+  } ],
+  "getPSControls" : [ {
+    "codeName" : "monthlysummary_list_exp_view_listexpbar_list_quicktoolbar",
+    "controlType" : "TOOLBAR",
+    "logicName" : "月度汇总列表导航工具栏",
+    "name" : "listexpbar_list_quicktoolbar",
+    "getPSAppDataEntity" : {
+      "modelref" : true,
+      "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/employee.json"
+    },
+    "getPSControlParam" : {
+      "id" : "listexpbar_list_quicktoolbar"
+    },
+    "getPSDEToolbarItems" : [ {
+      "caption" : "导出报表",
+      "groupExtractMode" : "ITEM",
+      "itemType" : "DEUIACTION",
+      "name" : "deuiaction1",
+      "noPrivDisplayMode" : 2,
+      "getPSAppViewUIAction" : {
+        "modelref" : true,
+        "id" : "listexpbar_list_quicktoolbar_deuiaction1"
+      },
+      "getPSSysCss" : {
+        "cssName" : "export-toolbar-item"
+      },
+      "getPSUIAction" : {
+        "actionTarget" : "NONE",
+        "caption" : "导出报表",
+        "codeName" : "personal",
+        "frontProcessType" : "OTHER",
+        "fullCodeName" : "attendance_statistics_personal",
+        "name" : "导出个人统计报表",
+        "getPSAppDataEntity" : {
+          "modelref" : true,
+          "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/attendance_statistics.json"
+        },
+        "scriptCode" : "const viewC = view;\r\nconst tempPatams = {...viewC.params};\r\nif (viewC) {\r\n    const navView = viewC.getController(\"attendance_statisticsEditView\");\r\n    if (navView) {\r\n        const formC = navView.getController(\"form\");\r\n        if (!formC) {\r\n            const data = formC.data;\r\n            Object.assign(tempPatams, {\r\n                base_info: data.base_info,\r\n                attendance: data.attendance,\r\n                abnormal: data.abnormal,\r\n                leave: data.leave,\r\n                daily: data.daily,\r\n            });\r\n        }\r\n    }\r\n}\r\ndelete tempPatams.n_checkin_date_gtandeq;\r\ndelete tempPatams.n_checkin_date_ltandeq;\r\ndelete tempPatams.n_member_id_in;\r\nconst urlParam = new URLSearchParams(tempPatams);\r\nconst exportUrl = `/attendance_statistics/exportdata/fetch_month_report/?srfexporttag=DataExport2&${decodeURIComponent(urlParam)}`;\r\nconst app = ibiz.hub.getApp(context.srfappid);\r\nconst {data: file} = await app.net.request(exportUrl, {\r\n    method: 'post',\r\n    data: tempPatams,\r\n    responseType: 'blob',\r\n});\r\n\r\nif (file) {\r\n    const title = viewC.model.title;\r\n    const fileName = `个人月度汇总表.xlsx`;\r\n    const filetype = 'application/vnd.ms-excel';\r\n    const blob = new Blob([file], {type: filetype});\r\n    const href = URL.createObjectURL(blob);\r\n    const a = document.createElement('a');\r\n    a.href = href;\r\n    a.download = fileName;\r\n    document.body.appendChild(a);\r\n    a.click();\r\n    document.body.removeChild(a);\r\n    URL.revokeObjectURL(href);\r\n}",
+        "uIActionMode" : "FRONT",
+        "uIActionTag" : "personal",
+        "uIActionType" : "DEUIACTION",
+        "globalUIAction" : true,
+        "id" : "personal@attendance_statistics"
+      },
+      "tooltip" : "导出报表",
+      "uIActionTarget" : "NONE",
+      "userTag" : "teleport",
+      "showCaption" : true,
+      "showIcon" : true
+    } ],
+    "modelid" : "361272d5f37b57e2d9432baa4784077b",
+    "modeltype" : "PSDETOOLBAR"
+  } ],
+  "getPSDEListDataItems" : [ {
+    "dataType" : 25,
+    "name" : "srfkey",
+    "getPSAppDEField" : {
+      "name" : "ID",
+      "codeName" : "id"
+    }
+  }, {
+    "dataType" : 25,
+    "name" : "srfmajortext",
+    "getPSAppDEField" : {
+      "name" : "NAME",
+      "codeName" : "name"
+    }
+  }, {
+    "dataType" : 25,
+    "name" : "dept_id",
+    "getPSAppDEField" : {
+      "name" : "DEPT_ID",
+      "codeName" : "dept_id"
+    }
+  } ],
+  "getPSNavigateContexts" : [ {
+    "key" : "ATTENDANCE_STATISTICS",
+    "name" : "ATTENDANCE_STATISTICS",
+    "value" : "id",
+    "rawValue" : false
+  }, {
+    "key" : "N_CHECKIN_DATE_GTANDEQ",
+    "name" : "N_CHECKIN_DATE_GTANDEQ",
+    "value" : "n_checkin_date_gtandeq",
+    "rawValue" : false
+  }, {
+    "key" : "N_CHECKIN_DATE_LTANDEQ",
+    "name" : "N_CHECKIN_DATE_LTANDEQ",
+    "value" : "n_checkin_date_ltandeq",
+    "rawValue" : false
+  } ],
+  "pagingSize" : 1000,
+  "getRemovePSControlAction" : {
+    "modelref" : true,
+    "id" : "remove",
+    "actionName" : "Remove",
+    "actionType" : "DEACTION",
+    "dataAccessAction" : "DELETE",
+    "name" : "remove",
+    "getPSAppDEMethod" : {
+      "modelref" : true,
+      "id" : "Remove"
+    },
+    "getPSAppDataEntity" : {
+      "modelref" : true,
+      "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/employee.json"
+    }
+  },
+  "getUpdatePSControlAction" : {
+    "modelref" : true,
+    "id" : "update",
+    "actionName" : "Update",
+    "actionType" : "DEACTION",
+    "dataAccessAction" : "UPDATE",
+    "name" : "update",
+    "getPSAppDEMethod" : {
+      "modelref" : true,
+      "id" : "Update"
+    },
+    "getPSAppDataEntity" : {
+      "modelref" : true,
+      "path" : "PSSYSAPPS/attendanceapp/PSAPPDATAENTITIES/employee.json"
+    }
+  },
+  "hasWFDataItems" : false,
+  "enableGroup" : false,
+  "enableRowEdit" : false,
+  "enableRowEditGroup" : false,
+  "enableRowEditOrder" : false,
+  "enableRowNew" : false,
+  "noSort" : false,
+  "showHeader" : true,
+  "singleSelect" : false,
+  "modelid" : "fa20c22b1654395bff3999c8b00c5c27",
+  "modeltype" : "PSDELIST"
+}

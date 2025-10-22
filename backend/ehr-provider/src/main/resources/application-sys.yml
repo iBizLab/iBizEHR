@@ -1,0 +1,59 @@
+#Generate code from /{{projectName}}-provider/src/main/resources/application-sys.yml.hbs
+spring:
+  jackson:
+    time-zone: GMT+8
+  servlet:
+    multipart:
+      max-file-size: 100MB
+      max-request-size: 100MB
+  datasource:
+    username: root
+    password: 'root'
+    url: jdbc:h2:mem:master
+    driver-class-name: org.h2.Driver
+    isSyncDBSchema: false
+    defaultSchema: root
+    dynamic:
+      datasource:
+        master:
+          username: ${spring.datasource.username}
+          password: ${spring.datasource.password}
+          url: ${spring.datasource.url}
+          driver-class-name: ${spring.datasource.driver-class-name}
+        db2:
+          username: ${spring.datasource.username}
+          password: ${spring.datasource.password}
+          url: ${spring.datasource.url}
+          driver-class-name: ${spring.datasource.driver-class-name}
+  #启动是否加载liquibase构建表结构
+  liquibase:
+    enabled: false
+
+# Mybatis-plus配置
+mybatis-plus:
+  global-config:
+    refresh-mapper: true
+    db-config:
+      # 全局逻辑已删除默认值
+      logic-delete-value: 0
+      # 全局逻辑未删除默认值
+      logic-not-delete-value: 1
+#   mapper-locations: classpath*:/mapper/*/*/*.xml
+  configuration:
+    jdbc-type-for-null: 'null'
+    map-underscore-to-camel-case: false
+    call-setters-on-nulls: true
+  type-handlers-package: net.ibizsys.central.plugin.mybatisplus.spring.typehandler
+ 
+#Log配置
+logging:
+  level:
+    net.ibizsys.central.database.mybatis: INFO
+    org.springframework.boot.autoconfigure: ERROR
+
+### 启用Gzip压缩
+server:
+ compression:
+   enabled: true
+   mime-types: application/javascript,text/css,application/json,application/xml,text/html,text/xml,text/plain
+   min-response-size: 10240

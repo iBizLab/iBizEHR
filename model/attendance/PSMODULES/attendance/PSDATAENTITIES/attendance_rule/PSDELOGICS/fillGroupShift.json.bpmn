@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+    <definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:g="http://www.jboss.org/drools/flow/gpd" xmlns:tns="http://www.jboss.org/drools" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" expressionLanguage="http://www.mvel.org/2.0" id="Definition" name="" targetNamespace="http://www.jboss.org/drools" typeLanguage="http://www.java.com/javaTypes">
+        <process id="cn.ibizlab.core.attendance.service.logic.attendance_rulefillgroupshift" isClosed="false" isExecutable="true" name="attendance_attendance_rule_fillgroupshift_ruleFlow" processType="Private" tns:packageName="cn.ibizlab.core.attendance.service.logic.attendance_rulefillgroupshift">
+            <extensionElements>
+                <tns:import name="java.util.Map" />
+                <tns:import name="org.springframework.util.StringUtils"/>
+                <tns:import name="cn.ibizlab.util.helper.RuleUtils"/>
+                                <tns:metaData express="" name="attendance_rulefillgroupshiftdefault" type="entity"/>
+                                <tns:metaData express="new cn.ibizlab.core.attendance.domain.attendance_group_shift()" name="attendance_rulefillgroupshiftgroupshift" type="refentity"/>
+                                <tns:metaData express="new cn.ibizlab.core.attendance.domain.attendance_group_shift()" name="attendance_rulefillgroupshiftgroupshifts" type="refentity"/>
+                    <tns:metaData express="T(cn.ibizlab.util.security.SpringContextHolder).getBean(T(cn.ibizlab.core.attendance.service.Iattendance_ruleService))" name="iBzSysAttendance_ruleDefaultService" type="service"/>
+                    <tns:metaData express="T(cn.ibizlab.util.security.AuthenticationUser).getAuthenticationUser()" name="curuser" type="session"/>
+                            <tns:global identifier="attendance_rulefillgroupshiftdefault" type="cn.ibizlab.core.attendance.domain.attendance_rule" />
+                            <tns:global identifier="attendance_rulefillgroupshiftgroupshift" type="cn.ibizlab.core.attendance.domain.attendance_group_shift" />
+                            <tns:global identifier="attendance_rulefillgroupshiftgroupshifts" type="cn.ibizlab.core.attendance.domain.attendance_group_shift" />
+            </extensionElements>
+                        <startEvent id="begin" isInterrupting="true"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="attendance_rulefillgroupshiftprepareparam_02" id="prepareparam_02" implementation="http://www.jboss.org/drools/rule" name="准备参数"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="attendance_rulefillgroupshiftrawsfcode_04" id="rawsfcode_04" implementation="http://www.jboss.org/drools/rule" name="N班倒-休息日相同"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="attendance_rulefillgroupshiftprepareparam_01" id="prepareparam_01" implementation="http://www.jboss.org/drools/rule" name="准备组排班数据"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="attendance_rulefillgroupshiftrawsfcode_03" id="rawsfcode_03" implementation="http://www.jboss.org/drools/rule" name="上A休B/N班倒-休息日不同"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="attendance_rulefillgroupshiftrawsfcode_01" id="rawsfcode_01" implementation="http://www.jboss.org/drools/rule" name="生成标识"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="attendance_rulefillgroupshiftend_01" id="end_01" implementation="http://www.jboss.org/drools/rule" name="结束"/>
+                        <endEvent id="end_01_end" name="end"/>
+                        <sequenceFlow id="end_01_end_line" sourceRef="end_01" targetRef="end_01_end"/>
+                    <sequenceFlow id="begin_prepareparam_02" sourceRef="begin" targetRef="prepareparam_02">
+                    </sequenceFlow>
+                    <sequenceFlow id="gateway-prepareparam_02_prepareparam_01" sourceRef="gateway-prepareparam_02" targetRef="prepareparam_01">
+                            <conditionExpression  language="http://www.jboss.org/drools/rule" ><![CDATA[
+                                            $attendance_rulefillgroupshiftdefault:attendance_rule();
+                                            $attendance_rulefillgroupshiftgroupshift:attendance_group_shift();
+                                            $attendance_rulefillgroupshiftgroupshifts:attendance_group_shift();
+                                    eval($attendance_rulefillgroupshiftdefault==attendance_rulefillgroupshiftdefault && $attendance_rulefillgroupshiftgroupshift==attendance_rulefillgroupshiftgroupshift && $attendance_rulefillgroupshiftgroupshifts==attendance_rulefillgroupshiftgroupshifts);
+                                eval((RuleUtils.test($attendance_rulefillgroupshiftdefault.get("scheduleType"),"NOTEQ","class_inversion"))&&(RuleUtils.test($attendance_rulefillgroupshiftdefault.get("scheduleType"),"NOTEQ","work_rest")))
+                                ]]>
+                            </conditionExpression>
+                    </sequenceFlow>
+                    <sequenceFlow id="gateway-prepareparam_02_rawsfcode_04" sourceRef="gateway-prepareparam_02" targetRef="rawsfcode_04">
+                            <conditionExpression  language="http://www.jboss.org/drools/rule" ><![CDATA[
+                                            $attendance_rulefillgroupshiftdefault:attendance_rule();
+                                            $attendance_rulefillgroupshiftgroupshift:attendance_group_shift();
+                                            $attendance_rulefillgroupshiftgroupshifts:attendance_group_shift();
+                                    eval($attendance_rulefillgroupshiftdefault==attendance_rulefillgroupshiftdefault && $attendance_rulefillgroupshiftgroupshift==attendance_rulefillgroupshiftgroupshift && $attendance_rulefillgroupshiftgroupshifts==attendance_rulefillgroupshiftgroupshifts);
+                                eval((RuleUtils.test($attendance_rulefillgroupshiftdefault.get("scheduleType"),"EQ","class_inversion"))&&(RuleUtils.test($attendance_rulefillgroupshiftdefault.get("sameRestday"),"EQ","1")))
+                                ]]>
+                            </conditionExpression>
+                    </sequenceFlow>
+                    <sequenceFlow id="gateway-prepareparam_02_rawsfcode_03" sourceRef="gateway-prepareparam_02" targetRef="rawsfcode_03">
+                            <conditionExpression  language="http://www.jboss.org/drools/rule" ><![CDATA[
+                                            $attendance_rulefillgroupshiftdefault:attendance_rule();
+                                            $attendance_rulefillgroupshiftgroupshift:attendance_group_shift();
+                                            $attendance_rulefillgroupshiftgroupshifts:attendance_group_shift();
+                                    eval($attendance_rulefillgroupshiftdefault==attendance_rulefillgroupshiftdefault && $attendance_rulefillgroupshiftgroupshift==attendance_rulefillgroupshiftgroupshift && $attendance_rulefillgroupshiftgroupshifts==attendance_rulefillgroupshiftgroupshifts);
+                                eval(((RuleUtils.test($attendance_rulefillgroupshiftdefault.get("scheduleType"),"EQ","work_rest"))||((RuleUtils.test($attendance_rulefillgroupshiftdefault.get("scheduleType"),"EQ","class_inversion"))&&(RuleUtils.test($attendance_rulefillgroupshiftdefault.get("sameRestday"),"EQ","0")))))
+                                ]]>
+                            </conditionExpression>
+                    </sequenceFlow>
+                    <sequenceFlow id="rawsfcode_04_rawsfcode_01" sourceRef="rawsfcode_04" targetRef="rawsfcode_01">
+                    </sequenceFlow>
+                    <sequenceFlow id="prepareparam_01_rawsfcode_01" sourceRef="prepareparam_01" targetRef="rawsfcode_01">
+                    </sequenceFlow>
+                    <sequenceFlow id="rawsfcode_03_rawsfcode_01" sourceRef="rawsfcode_03" targetRef="rawsfcode_01">
+                    </sequenceFlow>
+                    <sequenceFlow id="rawsfcode_01_end_01" sourceRef="rawsfcode_01" targetRef="end_01">
+                    </sequenceFlow>
+                            <exclusiveGateway id="gateway-prepareparam_02" name="Gateway" gatewayDirection="Diverging" default="gateway-prepareparam_02_end_line"></exclusiveGateway>
+                            <sequenceFlow id="prepareparam_02_gateway-prepareparam_02_gatewayline" sourceRef="prepareparam_02" targetRef="gateway-prepareparam_02"></sequenceFlow>
+                            <sequenceFlow id="gateway-prepareparam_02_end_line" sourceRef="gateway-prepareparam_02" targetRef="gateway-prepareparam_02_end"/>
+                            <endEvent id="gateway-prepareparam_02_end" name="end"/>
+        </process>
+    </definitions>

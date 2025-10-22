@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+    <definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:g="http://www.jboss.org/drools/flow/gpd" xmlns:tns="http://www.jboss.org/drools" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" expressionLanguage="http://www.mvel.org/2.0" id="Definition" name="" targetNamespace="http://www.jboss.org/drools" typeLanguage="http://www.java.com/javaTypes">
+        <process id="cn.ibizlab.core.employee_management.service.logic.user_objectquerydeptuser" isClosed="false" isExecutable="true" name="employee_management_user_object_querydeptuser_ruleFlow" processType="Private" tns:packageName="cn.ibizlab.core.employee_management.service.logic.user_objectquerydeptuser">
+            <extensionElements>
+                <tns:import name="java.util.Map" />
+                <tns:import name="org.springframework.util.StringUtils"/>
+                <tns:import name="cn.ibizlab.util.helper.RuleUtils"/>
+                                <tns:metaData express="" name="user_objectquerydeptuserdefault" type="entity"/>
+                                <tns:metaData express="new cn.ibizlab.core.employee_management.domain.department()" name="user_objectquerydeptuserdept" type="refentity"/>
+                                <tns:metaData express="new cn.ibizlab.core.employee_management.domain.employee()" name="user_objectquerydeptuseremployee" type="refentity"/>
+                                    <tns:metaData express="T(cn.ibizlab.util.security.SpringContextHolder).getBean(T(cn.ibizlab.core.employee_management.service.IemployeeService))" name="employeeservice" type="service"/>
+                                    <tns:metaData express="T(cn.ibizlab.util.security.SpringContextHolder).getBean(T(cn.ibizlab.core.employee_management.service.IdepartmentService))" name="departmentservice" type="service"/>
+                    <tns:metaData express="T(cn.ibizlab.util.security.SpringContextHolder).getBean(T(cn.ibizlab.core.employee_management.service.Iuser_objectService))" name="iBzSysUser_objectDefaultService" type="service"/>
+                    <tns:metaData express="T(cn.ibizlab.util.security.AuthenticationUser).getAuthenticationUser()" name="curuser" type="session"/>
+                            <tns:global identifier="user_objectquerydeptuserdefault" type="cn.ibizlab.core.employee_management.domain.user_object" />
+                            <tns:global identifier="user_objectquerydeptuserdept" type="cn.ibizlab.core.employee_management.domain.department" />
+                            <tns:global identifier="user_objectquerydeptuseremployee" type="cn.ibizlab.core.employee_management.domain.employee" />
+            </extensionElements>
+                        <startEvent id="begin" isInterrupting="true"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="user_objectquerydeptuserend_01" id="end_01" implementation="http://www.jboss.org/drools/rule" name="结束"/>
+                        <endEvent id="end_01_end" name="end"/>
+                        <sequenceFlow id="end_01_end_line" sourceRef="end_01" targetRef="end_01_end"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="user_objectquerydeptuserdeaction_01" id="deaction_01" implementation="http://www.jboss.org/drools/rule" name="获取人员"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="user_objectquerydeptuserdeaction_02" id="deaction_02" implementation="http://www.jboss.org/drools/rule" name="获取部门"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="user_objectquerydeptuserend_02" id="end_02" implementation="http://www.jboss.org/drools/rule" name="结束"/>
+                        <endEvent id="end_02_end" name="end"/>
+                        <sequenceFlow id="end_02_end_line" sourceRef="end_02" targetRef="end_02_end"/>
+                    <sequenceFlow id="begin_deaction_01" sourceRef="begin" targetRef="deaction_01">
+                    </sequenceFlow>
+                    <sequenceFlow id="gateway-deaction_01_deaction_02" sourceRef="gateway-deaction_01" targetRef="deaction_02">
+                            <conditionExpression  language="http://www.jboss.org/drools/rule" ><![CDATA[
+                                            $user_objectquerydeptuserdefault:user_object();
+                                            $user_objectquerydeptuserdept:department();
+                                            $user_objectquerydeptuseremployee:employee();
+                                    eval($user_objectquerydeptuserdefault==user_objectquerydeptuserdefault && $user_objectquerydeptuserdept==user_objectquerydeptuserdept && $user_objectquerydeptuseremployee==user_objectquerydeptuseremployee);
+                                eval((RuleUtils.test($user_objectquerydeptuseremployee.get(""),"ISNULL","")))
+                                ]]>
+                            </conditionExpression>
+                    </sequenceFlow>
+                    <sequenceFlow id="gateway-deaction_01_end_02" sourceRef="gateway-deaction_01" targetRef="end_02">
+                            <conditionExpression  language="http://www.jboss.org/drools/rule" ><![CDATA[
+                                            $user_objectquerydeptuserdefault:user_object();
+                                            $user_objectquerydeptuserdept:department();
+                                            $user_objectquerydeptuseremployee:employee();
+                                    eval($user_objectquerydeptuserdefault==user_objectquerydeptuserdefault && $user_objectquerydeptuserdept==user_objectquerydeptuserdept && $user_objectquerydeptuseremployee==user_objectquerydeptuseremployee);
+                                eval((RuleUtils.test($user_objectquerydeptuseremployee.get(""),"ISNOTNULL","")))
+                                ]]>
+                            </conditionExpression>
+                    </sequenceFlow>
+                    <sequenceFlow id="deaction_02_end_01" sourceRef="deaction_02" targetRef="end_01">
+                    </sequenceFlow>
+                            <exclusiveGateway id="gateway-deaction_01" name="Gateway" gatewayDirection="Diverging" default="gateway-deaction_01_end_line"></exclusiveGateway>
+                            <sequenceFlow id="deaction_01_gateway-deaction_01_gatewayline" sourceRef="deaction_01" targetRef="gateway-deaction_01"></sequenceFlow>
+                            <sequenceFlow id="gateway-deaction_01_end_line" sourceRef="gateway-deaction_01" targetRef="gateway-deaction_01_end"/>
+                            <endEvent id="gateway-deaction_01_end" name="end"/>
+        </process>
+    </definitions>

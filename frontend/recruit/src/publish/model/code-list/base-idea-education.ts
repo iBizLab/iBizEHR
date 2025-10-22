@@ -1,0 +1,60 @@
+export default {
+  codeListTag: 'base__idea_education',
+  codeListType: 'STATIC',
+  codeName: 'base__idea_education',
+  emptyText: '未定义',
+  appDataEntityId: 'web.hr_idea',
+  codeItems: [
+    {
+      codeName: 'item_1',
+      text: '不限',
+      value: '1',
+      id: 'item_1',
+    },
+    {
+      codeName: 'item_2',
+      text: '高中以下',
+      value: '2',
+      id: 'item_2',
+    },
+    {
+      codeName: 'item_3',
+      text: '中专',
+      value: '3',
+      id: 'item_3',
+    },
+    {
+      codeName: 'item_4',
+      text: '中技',
+      value: '4',
+      id: 'item_4',
+    },
+    {
+      codeName: 'item_5',
+      text: '大专',
+      value: '5',
+      id: 'item_5',
+    },
+    {
+      codeName: 'item_6',
+      text: '本科',
+      value: '6',
+      id: 'item_6',
+    },
+    {
+      codeName: 'item_7',
+      text: '硕士',
+      value: '7',
+      id: 'item_7',
+    },
+    {
+      codeName: 'item_8',
+      text: '博士',
+      value: '8',
+      id: 'item_8',
+    },
+  ],
+  enableCache: true,
+  name: '学历要求',
+  id: 'web.base__idea_education',
+};
