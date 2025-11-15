@@ -15,8 +15,8 @@
 
 
 ### 关联界面行为
-  * [消息通知(INTERNAL_MESSAGE)](module/extension/internal_message) : [表格界面_删除操作](module/extension/internal_message#界面行为)
   * [消息通知(INTERNAL_MESSAGE)](module/extension/internal_message) : [表格界面_编辑操作](module/extension/internal_message#界面行为)
+  * [消息通知(INTERNAL_MESSAGE)](module/extension/internal_message) : [表格界面_删除操作](module/extension/internal_message#界面行为)
   * [消息通知(INTERNAL_MESSAGE)](module/extension/internal_message) : [表格界面_新建操作](module/extension/internal_message#界面行为)
 
 ### 关联视图

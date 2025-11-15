@@ -1379,6 +1379,7 @@ export default {
           sourceType: 'DEFIELD',
           stdDataType: 25,
           type: 'SIMPLE',
+          allowEmpty: true,
           id: 'account_price_include',
         },
         {
@@ -1888,6 +1889,7 @@ export default {
           sourceType: 'DEFIELD',
           stdDataType: 9,
           type: 'SIMPLE',
+          allowEmpty: true,
           id: 'fiscalyear_last_day',
         },
         {
@@ -1897,6 +1899,7 @@ export default {
           sourceType: 'DEFIELD',
           stdDataType: 25,
           type: 'SIMPLE',
+          allowEmpty: true,
           id: 'fiscalyear_last_month',
         },
         {
@@ -2087,6 +2090,7 @@ export default {
           sourceType: 'DEFIELD',
           stdDataType: 25,
           type: 'SIMPLE',
+          allowEmpty: true,
           id: 'layout_background',
         },
         {
@@ -2096,6 +2100,7 @@ export default {
           sourceType: 'DEFIELD',
           stdDataType: 7,
           type: 'SIMPLE',
+          allowEmpty: true,
           id: 'manufacturing_lead',
         },
         {
@@ -2296,6 +2301,7 @@ export default {
           sourceType: 'DEFIELD',
           stdDataType: 7,
           type: 'SIMPLE',
+          allowEmpty: true,
           id: 'po_lead',
         },
         {
@@ -2457,6 +2463,7 @@ export default {
           sourceType: 'DEFIELD',
           stdDataType: 7,
           type: 'SIMPLE',
+          allowEmpty: true,
           id: 'security_lead',
         },
         {

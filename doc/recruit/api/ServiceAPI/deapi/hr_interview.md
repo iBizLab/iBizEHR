@@ -474,6 +474,85 @@ Integer
 
 ```
 
+## 行为
+
+<el-row>
+<div style="width: 80px">
+<el-alert center title="POST" style="background-color: rgba(52, 143, 228, 0.1);color: #348fe4;" :closable="false" ></el-alert>
+</div>
+<div style="margin-left:5px;width: calc(100% - 85px)">
+<el-alert title="/hr_interviews/{key}/nothing" type="info" :closable="false" ></el-alert>
+</div>
+</el-row>
+权限标识：`READ`
+
+##### 路径参数 {docsify-ignore}
+|字段col300|类型col150|备注col400|
+|---|---|----|
+|key|String|标识|
+
+
+
+##### 请求参数 {docsify-ignore}
+|字段col300|类型col150|备注col400|
+|---|---|----|
+|<el-row justify="space-between"><el-col :span="20">duration</el-col><el-col :span="4" style="text-align:right"><el-text size="small" type="success">可选</el-text></el-col> </el-row>|String|面试时长|
+|<el-row justify="space-between"><el-col :span="20">start_time</el-col><el-col :span="4" style="text-align:right"><el-text size="small" type="success">可选</el-text></el-col> </el-row>|String|面试时间|
+|<el-row justify="space-between"><el-col :span="20">status</el-col><el-col :span="4" style="text-align:right"><el-text size="small" type="success">可选</el-text></el-col> </el-row>|String|面试状态|
+|<el-row justify="space-between"><el-col :span="20">stage_id</el-col><el-col :span="4" style="text-align:right"><el-text size="small" type="success">可选</el-text></el-col> </el-row>|String|面试阶段|
+|<el-row justify="space-between"><el-col :span="20">meeting_id</el-col><el-col :span="4" style="text-align:right"><el-text size="small" type="success">可选</el-text></el-col> </el-row>|String|会议号|
+|<el-row justify="space-between"><el-col :span="20">start_date</el-col><el-col :span="4" style="text-align:right"><el-text size="small" type="success">可选</el-text></el-col> </el-row>|Timestamp|面试日期|
+|<el-row justify="space-between"><el-col :span="20">address_id</el-col><el-col :span="4" style="text-align:right"><el-text size="small" type="success">可选</el-text></el-col> </el-row>|String|面试地点|
+|<el-row justify="space-between"><el-col :span="20">candidate_display_name</el-col><el-col :span="4" style="text-align:right"><el-text size="small" type="success">可选</el-text></el-col> </el-row>|String|候选人|
+|<el-row justify="space-between"><el-col :span="20">mobile_phone</el-col><el-col :span="4" style="text-align:right"><el-text size="small" type="success">可选</el-text></el-col> </el-row>|String|联系方式|
+|<el-row justify="space-between"><el-col :span="20">job_name</el-col><el-col :span="4" style="text-align:right"><el-text size="small" type="success">可选</el-text></el-col> </el-row>|String|应聘职位|
+|<el-row justify="space-between"><el-col :span="20">interview_result</el-col><el-col :span="4" style="text-align:right"><el-text size="small" type="success">可选</el-text></el-col> </el-row>|String|面试结果|
+|<el-row justify="space-between"><el-col :span="20">interview_type</el-col><el-col :span="4" style="text-align:right"><el-text size="small" type="success">可选</el-text></el-col> </el-row>|String|面试类型|
+|<el-row justify="space-between"><el-col :span="20">interviewers</el-col><el-col :span="4" style="text-align:right"><el-text size="small" type="success">可选</el-text></el-col> </el-row>|String|面试官|
+|<el-row justify="space-between"><el-col :span="20">applicant_ids</el-col><el-col :span="4" style="text-align:right"><el-text size="small" type="success">可选</el-text></el-col> </el-row>|String|候选人申请|
+|<el-row justify="space-between"><el-col :span="20">id</el-col><el-col :span="4" style="text-align:right"></el-col> </el-row>|String|标识|
+|<el-row justify="space-between"><el-col :span="20">name</el-col><el-col :span="4" style="text-align:right"><el-text size="small" type="success">可选</el-text></el-col> </el-row>|String|名称|
+|<el-row justify="space-between"><el-col :span="20">owner_id</el-col><el-col :span="4" style="text-align:right"><el-text size="small" type="success">可选</el-text></el-col> </el-row>|String|面试负责人|
+|<el-row justify="space-between"><el-col :span="20">owner_name</el-col><el-col :span="4" style="text-align:right"><el-text size="small" type="success">可选</el-text></el-col> </el-row>|String|面试负责人|
+|<el-row justify="space-between"><el-col :span="20">schedule_id</el-col><el-col :span="4" style="text-align:right"><el-text size="small" type="success">可选</el-text></el-col> </el-row>|String|面试安排|
+|<el-row justify="space-between"><el-col :span="20">candidates</el-col><el-col :span="4" style="text-align:right"><el-text size="small" type="success">可选</el-text></el-col> </el-row>|Object|null|
+|<el-row justify="space-between"><el-col :span="20">hr_interview_feedbacks</el-col><el-col :span="4" style="text-align:right"><el-text size="small" type="success">可选</el-text></el-col> </el-row>|Object|null|
+
+
+
+##### 请求示例： {docsify-ignore}
+```json
+{
+  "duration" : null,
+  "start_time" : null,
+  "status" : null,
+  "stage_id" : null,
+  "meeting_id" : null,
+  "start_date" : null,
+  "address_id" : null,
+  "candidate_display_name" : null,
+  "mobile_phone" : null,
+  "job_name" : null,
+  "interview_result" : null,
+  "interview_type" : null,
+  "interviewers" : null,
+  "applicant_ids" : null,
+  "create_date" : null,
+  "create_uid" : null,
+  "id" : null,
+  "name" : null,
+  "owner_id" : null,
+  "owner_name" : null,
+  "schedule_id" : null,
+  "write_date" : null,
+  "write_uid" : null,
+  "candidates" : null,
+  "hr_interview_feedbacks" : null,
+}
+```
+
+
+
 ## 保存面试
 
 <el-row>

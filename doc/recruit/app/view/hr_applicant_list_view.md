@@ -43,16 +43,16 @@ view.layoutPanel.panelItems.container_tree.state.visible = false;
 
 
 ### 关联界面行为
-  * [候选人申请(HR_APPLICANT)](module/hr/hr_applicant) : [打开候选人申请基本信息](module/hr/hr_applicant#界面行为)
+  * [候选人申请(HR_APPLICANT)](module/hr/hr_applicant) : [进入用人部门筛选](module/hr/hr_applicant#界面行为)
+  * [候选人申请(HR_APPLICANT)](module/hr/hr_applicant) : [进入沟通offer](module/hr/hr_applicant#界面行为)
+  * [候选人申请(HR_APPLICANT)](module/hr/hr_applicant) : [进入大五性格测评](module/hr/hr_applicant#界面行为)
+  * [候选人申请(HR_APPLICANT)](module/hr/hr_applicant) : [推荐给用人部门](module/hr/hr_applicant#界面行为)
   * [候选人申请(HR_APPLICANT)](module/hr/hr_applicant) : [备注](module/hr/hr_applicant#界面行为)
   * [候选人申请(HR_APPLICANT)](module/hr/hr_applicant) : [淘汰](module/hr/hr_applicant#界面行为)
-  * [候选人申请(HR_APPLICANT)](module/hr/hr_applicant) : [进入初试](module/hr/hr_applicant#界面行为)
-  * [候选人申请(HR_APPLICANT)](module/hr/hr_applicant) : [进入沟通offer](module/hr/hr_applicant#界面行为)
-  * [候选人申请(HR_APPLICANT)](module/hr/hr_applicant) : [进入用人部门筛选](module/hr/hr_applicant#界面行为)
-  * [候选人申请(HR_APPLICANT)](module/hr/hr_applicant) : [推荐给用人部门](module/hr/hr_applicant#界面行为)
-  * [候选人申请(HR_APPLICANT)](module/hr/hr_applicant) : [进入复试](module/hr/hr_applicant#界面行为)
   * [候选人申请(HR_APPLICANT)](module/hr/hr_applicant) : [进入待入职](module/hr/hr_applicant#界面行为)
-  * [候选人申请(HR_APPLICANT)](module/hr/hr_applicant) : [进入大五性格测评](module/hr/hr_applicant#界面行为)
+  * [候选人申请(HR_APPLICANT)](module/hr/hr_applicant) : [进入初试](module/hr/hr_applicant#界面行为)
+  * [候选人申请(HR_APPLICANT)](module/hr/hr_applicant) : [进入复试](module/hr/hr_applicant#界面行为)
+  * [候选人申请(HR_APPLICANT)](module/hr/hr_applicant) : [打开候选人申请基本信息](module/hr/hr_applicant#界面行为)
 
 ### 关联界面逻辑
   * [工作台(WORKSPACE)](module/base/workspace) : [提示](module/base/workspace/uilogic/message)

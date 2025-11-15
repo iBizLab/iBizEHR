@@ -53,6 +53,10 @@ class GetBaseinfoPageCount extends DELogicRuntime {
                 //执行逻辑节点[offer]
                 executeRAWSQLCALL5(iDELogicSession, iPSDELogicNode)
                 break
+            case "PREPAREPARAM1":
+                //执行逻辑节点[准备参数]
+                executePREPAREPARAM1(iDELogicSession, iPSDELogicNode)
+                break
             default:
                 super.onExecutePSDELogicNode(iDELogicSession, iPSDELogicNode)
         }
@@ -125,6 +129,16 @@ class GetBaseinfoPageCount extends DELogicRuntime {
      * @throws Throwable
      */
     private void executeRAWSQLCALL5(IDELogicSession iDELogicSession, IPSDELogicNode iPSDELogicNode) throws Throwable {
+        super.onExecutePSDELogicNode(iDELogicSession, iPSDELogicNode, true)
+    }
+
+    /**
+     * 执行逻辑节点[准备参数]，逻辑类型[PREPAREPARAM]
+     * @param iDELogicSession
+     * @param iPSDELogicNode
+     * @throws Throwable
+     */
+    private void executePREPAREPARAM1(IDELogicSession iDELogicSession, IPSDELogicNode iPSDELogicNode) throws Throwable {
         super.onExecutePSDELogicNode(iDELogicSession, iPSDELogicNode, true)
     }
 }

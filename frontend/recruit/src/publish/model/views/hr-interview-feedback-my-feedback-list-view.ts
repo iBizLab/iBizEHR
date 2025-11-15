@@ -226,7 +226,7 @@ export default {
                         uiactionId: 'open_edit@hr_interview_feedback',
                         renderMode: 'LINK',
                         tooltip: '填写反馈',
-                        uiactionTarget: 'SINGLEKEY',
+                        uiactionTarget: 'SINGLEDATA',
                         caption: '填写反馈',
                         itemStyle: 'DEFAULT',
                         itemType: 'BUTTON',

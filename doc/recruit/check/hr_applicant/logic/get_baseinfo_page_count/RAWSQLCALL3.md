@@ -1,7 +1,7 @@
 <p class="panel-title"><b>执行sql语句</b></p>
 
 ```sql
-select count(1) sift_view from hr_candidate_filter_detail  where APPLICANT_ID  = ?
+null
 ```
 
 <p class="panel-title"><b>执行sql参数</b></p>

@@ -14,8 +14,8 @@
 
 
 ### 关联界面行为
-  * [考勤规则成员(ATTENDANCE_GROUP_SHIFT_MEMBER)](module/attendance/attendance_group_shift_member) : [表格界面_删除操作](module/attendance/attendance_group_shift_member#界面行为)
   * [考勤规则成员(ATTENDANCE_GROUP_SHIFT_MEMBER)](module/attendance/attendance_group_shift_member) : [表格界面_新建操作](module/attendance/attendance_group_shift_member#界面行为)
+  * [考勤规则成员(ATTENDANCE_GROUP_SHIFT_MEMBER)](module/attendance/attendance_group_shift_member) : [表格界面_删除操作](module/attendance/attendance_group_shift_member#界面行为)
 
 ### 关联视图
   * [考勤规则成员(attendance_group_shift_member_edit_view)](app/view/attendance_group_shift_member_edit_view)

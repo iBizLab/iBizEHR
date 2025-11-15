@@ -13,8 +13,8 @@
 
 
 ### 关联界面行为
-  * [活动(MAIL_ACTIVITY)](module/mail/mail_activity) : [标记为完成](module/mail/mail_activity#界面行为)
   * [活动(MAIL_ACTIVITY)](module/mail/mail_activity) : [编辑界面_保存并退出操作](module/mail/mail_activity#界面行为)
+  * [活动(MAIL_ACTIVITY)](module/mail/mail_activity) : [标记为完成](module/mail/mail_activity#界面行为)
   * [活动(MAIL_ACTIVITY)](module/mail/mail_activity) : [完成并安排下一个](module/mail/mail_activity#界面行为)
 
 ### 关联视图

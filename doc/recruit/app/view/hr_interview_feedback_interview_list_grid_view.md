@@ -17,8 +17,8 @@
 
 
 ### 关联界面行为
-  * [面试反馈(HR_INTERVIEW_FEEDBACK)](module/hr/hr_interview_feedback) : [导出面试安排](module/hr/hr_interview_feedback#界面行为)
   * [面试反馈(HR_INTERVIEW_FEEDBACK)](module/hr/hr_interview_feedback) : [查看预约面试](module/hr/hr_interview_feedback#界面行为)
+  * [面试反馈(HR_INTERVIEW_FEEDBACK)](module/hr/hr_interview_feedback) : [导出面试安排](module/hr/hr_interview_feedback#界面行为)
 
 ### 关联视图
   * [面试反馈(hr_interview_feedback_edit_view)](app/view/hr_interview_feedback_edit_view)

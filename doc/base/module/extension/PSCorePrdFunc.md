@@ -27,8 +27,16 @@
 ## 行为
 | 中文名col200    | 代码名col150    | 类型col150    | 事务col100   | 批处理col100   | 附加操作col100  | 插件col150    |  备注col300  |
 | -------- |---------- |----------- |:----:|:----:|---------| ----- | ----- |
+|CheckKey|CheckKey|内置方法|默认|不支持||||
+|Create|Create|内置方法|默认|不支持||||
+|Get|Get|内置方法|默认|不支持||||
+|GetDraft|GetDraft|内置方法|默认|不支持||||
 |安装|install|用户自定义|默认|不支持||||
+|重新加载|reload|用户自定义|默认|不支持||||
+|Remove|Remove|内置方法|默认|支持||||
+|Save|Save|内置方法|默认|不支持||||
 |卸载|uninstall|用户自定义|默认|不支持||||
+|Update|Update|内置方法|默认|不支持||||
 
 ## 主状态控制
 
@@ -47,10 +55,14 @@
     <th>未安装col150</th>
     <th>已安装col150</th>
     <th>已禁用col150</th>
+    <th>已安装（需重新加载）col150</th>
+    <th>已禁用（需重新加载）col150</th>
     <th>备注col600</th>
   </tr>
   <tr>
     <td>更新(UPDATE)</td>
+    <td align="center"><i class="fa fa-check"></i></td>
+    <td align="center"><i class="fa fa-check"></i></td>
     <td align="center"><i class="fa fa-check"></i></td>
     <td align="center"><i class="fa fa-check"></i></td>
     <td align="center"><i class="fa fa-check"></i></td>
@@ -85,6 +97,7 @@
 | 打开卡片详情页面 | open_info_view | 打开卡片详情页面 |单项数据|<details><summary>打开视图或向导（模态）</summary>[核心产品功能](app/view/PSCorePrdFuncInfoView)</details>||
 | 跳转插件设置页面 | skip_setting | 设置 |无数据|用户自定义||
 | 打开扩展设置视图 | open_module_setting_option | 扩展设置 |单项数据|<details><summary>打开视图或向导（模态）</summary>[扩展设置](app/view/PSCorePrdFuncsetting_edit_view)</details>||
+| 重新加载 | Reload | 重新加载 |单项数据（主键）|<details><summary>后台调用</summary>[reload](#行为)||
 | 禁用 | Uninstall | 卸载 |单项数据（主键）|<details><summary>后台调用</summary>[uninstall](#行为)||
 | clone此应用 | clone_git | clone此应用 |无数据|用户自定义||
 | 启用 | Install | 启用 |单项数据（主键）|<details><summary>后台调用</summary>[install](#行为)||

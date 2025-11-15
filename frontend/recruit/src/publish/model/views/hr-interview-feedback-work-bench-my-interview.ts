@@ -547,7 +547,7 @@ export default {
                           uiactionId: 'open_edit@hr_interview_feedback',
                           renderMode: 'LINK',
                           tooltip: '查看面试',
-                          uiactionTarget: 'SINGLEKEY',
+                          uiactionTarget: 'SINGLEDATA',
                           caption: '查看面试',
                           itemStyle: 'DEFAULT',
                           itemType: 'BUTTON',

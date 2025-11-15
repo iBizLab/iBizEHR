@@ -15,8 +15,8 @@
 
 
 ### 关联界面行为
-  * [招聘流程(HR_RECRUITMENT_PROGRESS)](module/hr/hr_recruitment_progress) : [配置](module/hr/hr_recruitment_progress#界面行为)
   * [招聘流程(HR_RECRUITMENT_PROGRESS)](module/hr/hr_recruitment_progress) : [停用](module/hr/hr_recruitment_progress#界面行为)
+  * [招聘流程(HR_RECRUITMENT_PROGRESS)](module/hr/hr_recruitment_progress) : [配置](module/hr/hr_recruitment_progress#界面行为)
   * [招聘流程(HR_RECRUITMENT_PROGRESS)](module/hr/hr_recruitment_progress) : [启用](module/hr/hr_recruitment_progress#界面行为)
   * [招聘流程(HR_RECRUITMENT_PROGRESS)](module/hr/hr_recruitment_progress) : [表格界面_新建操作](module/hr/hr_recruitment_progress#界面行为)
 

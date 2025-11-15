@@ -15,11 +15,11 @@
 
 
 ### 关联界面行为
-  * [设备信息(ATTENDANCE_DEVICE)](module/attendance/attendance_device) : [表格界面_拷贝操作](module/attendance/attendance_device#界面行为)
   * [设备信息(ATTENDANCE_DEVICE)](module/attendance/attendance_device) : [表格界面_编辑操作](module/attendance/attendance_device#界面行为)
-  * [设备信息(ATTENDANCE_DEVICE)](module/attendance/attendance_device) : [表格界面_删除操作](module/attendance/attendance_device#界面行为)
-  * [设备信息(ATTENDANCE_DEVICE)](module/attendance/attendance_device) : [表格界面_新建操作](module/attendance/attendance_device#界面行为)
+  * [设备信息(ATTENDANCE_DEVICE)](module/attendance/attendance_device) : [表格界面_拷贝操作](module/attendance/attendance_device#界面行为)
   * [设备信息(ATTENDANCE_DEVICE)](module/attendance/attendance_device) : [表格界面_导出操作（Excel）](module/attendance/attendance_device#界面行为)
+  * [设备信息(ATTENDANCE_DEVICE)](module/attendance/attendance_device) : [表格界面_新建操作](module/attendance/attendance_device#界面行为)
+  * [设备信息(ATTENDANCE_DEVICE)](module/attendance/attendance_device) : [表格界面_删除操作](module/attendance/attendance_device#界面行为)
 
 ### 关联视图
   * [设备信息(attendance_device_edit_view)](app/view/attendance_device_edit_view)

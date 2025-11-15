@@ -52,7 +52,6 @@
       },
       "srcValueType" : "SRCDLPARAM"
     } ],
-    "sql" : "select COUNT(1) applicant_interview from comment where comment.PRINCIPAL_ID = ? and comment.PRINCIPAL_TYPE  = 'HR_APPLICANT'",
     "topPos" : 208,
     "fillDstLogicParam" : true
   }, {
@@ -85,7 +84,6 @@
       },
       "srcValueType" : "SRCDLPARAM"
     } ],
-    "sql" : "select count(1) applicant_exam from hr_exam where APPLICANT_ID  = ?",
     "topPos" : 310,
     "fillDstLogicParam" : true
   }, {
@@ -118,7 +116,6 @@
       },
       "srcValueType" : "SRCDLPARAM"
     } ],
-    "sql" : "select count(1) sift_view from hr_candidate_filter_detail  where APPLICANT_ID  = ?",
     "topPos" : 418,
     "fillDstLogicParam" : true
   }, {
@@ -151,19 +148,17 @@
       },
       "srcValueType" : "SRCDLPARAM"
     } ],
-    "sql" : "select count(1) interview_view from hr_applicant_interview   where APPLICANT_ID  = ?",
     "topPos" : 547,
     "fillDstLogicParam" : true
   }, {
     "codeName" : "END1",
-    "leftPos" : 650,
+    "leftPos" : 740,
     "logicNodeType" : "END",
     "name" : "结束",
     "getReturnParam" : {
       "modelref" : true,
       "id" : "Default"
     },
-    "returnType" : "LOGICPARAM",
     "topPos" : 653,
     "parallelOutput" : true
   }, {
@@ -178,7 +173,7 @@
     "getPSDELogicLinks" : [ {
       "getDstPSDELogicNode" : {
         "modelref" : true,
-        "id" : "END1"
+        "id" : "PREPAREPARAM1"
       },
       "name" : "连接名称",
       "getSrcPSDELogicNode" : {
@@ -196,9 +191,37 @@
       },
       "srcValueType" : "SRCDLPARAM"
     } ],
-    "sql" : "select count(1) offer_view from hr_offer where APPLICANT_ID  = ?",
     "topPos" : 661,
     "fillDstLogicParam" : true
+  }, {
+    "codeName" : "PREPAREPARAM1",
+    "leftPos" : 544,
+    "logicNodeType" : "PREPAREPARAM",
+    "name" : "准备参数",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "END1"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "PREPAREPARAM1"
+      }
+    } ],
+    "getPSDELogicNodeParams" : [ {
+      "dstFieldName" : "tagss",
+      "getDstPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "Default"
+      },
+      "name" : "直接值[[{\"id\":\"0f057f77-ff6...] ==> Default[tagss]",
+      "paramAction" : "SETPARAMVALUE",
+      "srcValue" : "[{\"id\":\"0f057f77-ff6e-4ba5-76fa-0b87f1730452\",\"name\":\"销售经理\"},{\"id\":\"6d4a0923-8662-7859-d0d1-c47331904d84\",\"name\":\"UI工程师\"}]",
+      "srcValueType" : "SRCVALUE"
+    } ],
+    "topPos" : 661,
+    "parallelOutput" : true
   } ],
   "getPSDELogicParams" : [ {
     "codeName" : "Default",

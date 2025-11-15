@@ -21,6 +21,7 @@
                         <endEvent id="end1_end" name="end"/>
                         <sequenceFlow id="end1_end_line" sourceRef="end1" targetRef="end1_end"/>
                         <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="hr_applicantget_baseinfo_page_countrawsqlcall5" id="rawsqlcall5" implementation="http://www.jboss.org/drools/rule" name="offer"/>
+                        <businessRuleTask activiti:exclusive="true" g:ruleFlowGroup="hr_applicantget_baseinfo_page_countprepareparam1" id="prepareparam1" implementation="http://www.jboss.org/drools/rule" name="准备参数"/>
                     <sequenceFlow id="begin_rawsqlcall1" sourceRef="begin" targetRef="rawsqlcall1">
                     </sequenceFlow>
                     <sequenceFlow id="rawsqlcall1_rawsqlcall2" sourceRef="rawsqlcall1" targetRef="rawsqlcall2">
@@ -31,7 +32,9 @@
                     </sequenceFlow>
                     <sequenceFlow id="rawsqlcall4_rawsqlcall5" sourceRef="rawsqlcall4" targetRef="rawsqlcall5">
                     </sequenceFlow>
-                    <sequenceFlow id="rawsqlcall5_end1" sourceRef="rawsqlcall5" targetRef="end1">
+                    <sequenceFlow id="rawsqlcall5_prepareparam1" sourceRef="rawsqlcall5" targetRef="prepareparam1">
+                    </sequenceFlow>
+                    <sequenceFlow id="prepareparam1_end1" sourceRef="prepareparam1" targetRef="end1">
                     </sequenceFlow>
         </process>
     </definitions>

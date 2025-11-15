@@ -718,6 +718,7 @@ export default {
       },
       {
         caption: '出勤',
+        subCaption: '出勤',
         codeName: 'captionbar',
         controlType: 'CAPTIONBAR',
         controlParam: {},
@@ -733,6 +734,7 @@ export default {
     name: 'layoutpanel',
     id: 'usr0816975858',
   },
+  subCaption: '出勤',
   title: '应用首页视图',
   viewStyle: 'DEFAULT',
   viewType: 'APPINDEXVIEW',

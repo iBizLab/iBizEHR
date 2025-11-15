@@ -352,7 +352,7 @@ export default {
                                     logicTag: 'itemlayoutpanel',
                                     logicType: 'SCRIPT',
                                     scriptCode:
-                                      'data.funcstate == 0 || data.funcstate == 2',
+                                      'data.funcstate == 0 || data.funcstate == 2 || data.funcstate == 4',
                                     triggerType: 'ITEMVISIBLE',
                                     id: 'logic2',
                                   },
@@ -423,7 +423,8 @@ export default {
                                     itemName: 'disabled',
                                     logicTag: 'itemlayoutpanel',
                                     logicType: 'SCRIPT',
-                                    scriptCode: 'data.funcstate == 1',
+                                    scriptCode:
+                                      'data.funcstate == 1 || data.funcstate == 3',
                                     triggerType: 'ITEMVISIBLE',
                                     id: 'logic3',
                                   },
@@ -477,6 +478,35 @@ export default {
                                 ],
                                 showCaption: true,
                                 id: 'update_func',
+                              },
+                              {
+                                actionType: 'UIACTION',
+                                buttonStyle: 'DEFAULT',
+                                buttonType: 'PANELBUTTON',
+                                uiactionId: 'reload@pscoreprdfunc',
+                                renderMode: 'BUTTON',
+                                tooltip: '重新加载',
+                                uiactionTarget: 'SINGLEKEY',
+                                caption: '重新加载',
+                                itemStyle: 'DEFAULT',
+                                itemType: 'BUTTON',
+                                controlLogics: [
+                                  {
+                                    itemName: 'reload',
+                                    logicTag: 'itemlayoutpanel',
+                                    logicType: 'SCRIPT',
+                                    scriptCode:
+                                      'data.funcstate == 4 || data.funcstate == 4',
+                                    triggerType: 'ITEMVISIBLE',
+                                    id: 'logic1',
+                                  },
+                                ],
+                                layoutPos: {
+                                  shrink: 1,
+                                  layout: 'FLEX',
+                                },
+                                showCaption: true,
+                                id: 'reload',
                               },
                             ],
                             layout: {

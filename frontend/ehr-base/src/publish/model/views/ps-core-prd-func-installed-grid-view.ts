@@ -16,7 +16,7 @@ export default {
     },
     {
       key: 'n_pscoreprdid_eq',
-      value: 'srfsystemid',
+      value: 'srfv2systemid',
       id: 'n_pscoreprdid_eq',
     },
   ],
@@ -450,6 +450,7 @@ export default {
           id: 'fetch',
         },
         removeControlAction: {
+          appDEMethodId: 'remove',
           appDataEntityId: 'ehrapp.pscoreprdfunc',
           id: 'remove',
         },
@@ -541,6 +542,7 @@ export default {
     name: 'layoutpanel',
     id: 'usr1213474323',
   },
+  priority: 30,
   title: '已安装应用',
   viewStyle: 'DEFAULT',
   viewType: 'DEGRIDVIEW',

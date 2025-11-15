@@ -15,9 +15,9 @@
 
 
 ### 关联界面行为
-  * [出勤(HR_ATTENDANCE)](module/hr/hr_attendance) : [出勤审批-批量批准](module/hr/hr_attendance#界面行为)
   * [出勤(HR_ATTENDANCE)](module/hr/hr_attendance) : [出勤审批-批量拒绝](module/hr/hr_attendance#界面行为)
   * [出勤(HR_ATTENDANCE)](module/hr/hr_attendance) : [表格界面_删除操作](module/hr/hr_attendance#界面行为)
+  * [出勤(HR_ATTENDANCE)](module/hr/hr_attendance) : [出勤审批-批量批准](module/hr/hr_attendance#界面行为)
 
 ### 关联视图
   * [出勤(hr_attendance_main_view)](app/view/hr_attendance_main_view)

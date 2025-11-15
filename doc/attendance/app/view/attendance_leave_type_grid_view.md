@@ -15,11 +15,11 @@
 
 
 ### 关联界面行为
-  * [假期类型(ATTENDANCE_LEAVE_TYPE)](module/attendance/attendance_leave_type) : [表格界面_拷贝操作](module/attendance/attendance_leave_type#界面行为)
-  * [假期类型(ATTENDANCE_LEAVE_TYPE)](module/attendance/attendance_leave_type) : [表格界面_删除操作](module/attendance/attendance_leave_type#界面行为)
   * [假期类型(ATTENDANCE_LEAVE_TYPE)](module/attendance/attendance_leave_type) : [表格界面_新建操作](module/attendance/attendance_leave_type#界面行为)
-  * [假期类型(ATTENDANCE_LEAVE_TYPE)](module/attendance/attendance_leave_type) : [表格界面_编辑操作](module/attendance/attendance_leave_type#界面行为)
+  * [假期类型(ATTENDANCE_LEAVE_TYPE)](module/attendance/attendance_leave_type) : [表格界面_删除操作](module/attendance/attendance_leave_type#界面行为)
   * [假期类型(ATTENDANCE_LEAVE_TYPE)](module/attendance/attendance_leave_type) : [表格界面_导出操作（Excel）](module/attendance/attendance_leave_type#界面行为)
+  * [假期类型(ATTENDANCE_LEAVE_TYPE)](module/attendance/attendance_leave_type) : [表格界面_拷贝操作](module/attendance/attendance_leave_type#界面行为)
+  * [假期类型(ATTENDANCE_LEAVE_TYPE)](module/attendance/attendance_leave_type) : [表格界面_编辑操作](module/attendance/attendance_leave_type#界面行为)
 
 ### 关联视图
   * [假期类型(attendance_leave_type_quick_create_view)](app/view/attendance_leave_type_quick_create_view)

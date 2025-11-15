@@ -1348,6 +1348,133 @@ Integer
 
 ```
 
+## nothing
+
+<el-row>
+<div style="width: 80px">
+<el-alert center title="POST" style="background-color: rgba(52, 143, 228, 0.1);color: #348fe4;" :closable="false" ></el-alert>
+</div>
+<div style="margin-left:5px;width: calc(100% - 85px)">
+<el-alert title="/hr_applicants/{key}/nothing" type="info" :closable="false" ></el-alert>
+</div>
+</el-row>
+权限标识：`READ`
+
+##### 路径参数 {docsify-ignore}
+|字段col300|类型col150|备注col400|
+|---|---|----|
+|key|String|标识|
+
+
+
+##### 请求参数 {docsify-ignore}
+|字段col300|类型col150|备注col400|
+|---|---|----|
+|<el-row justify="space-between"><el-col :span="20">is_favorite</el-col><el-col :span="4" style="text-align:right"><el-text size="small" type="success">可选</el-text></el-col> </el-row>|String|是否星标|
+|<el-row justify="space-between"><el-col :span="20">experience</el-col><el-col :span="4" style="text-align:right"><el-text size="small" type="success">可选</el-text></el-col> </el-row>|String|工作经验|
+|<el-row justify="space-between"><el-col :span="20">description</el-col><el-col :span="4" style="text-align:right"><el-text size="small" type="success">可选</el-text></el-col> </el-row>|String|描述|
+|<el-row justify="space-between"><el-col :span="20">email_from</el-col><el-col :span="4" style="text-align:right"><el-text size="small" type="success">可选</el-text></el-col> </el-row>|String|候选人邮箱|
+|<el-row justify="space-between"><el-col :span="20">mobile_phone</el-col><el-col :span="4" style="text-align:right"><el-text size="small" type="success">可选</el-text></el-col> </el-row>|String|候选人手机号|
+|<el-row justify="space-between"><el-col :span="20">education</el-col><el-col :span="4" style="text-align:right"><el-text size="small" type="success">可选</el-text></el-col> </el-row>|String|教育程度|
+|<el-row justify="space-between"><el-col :span="20">candidate_display_name</el-col><el-col :span="4" style="text-align:right"><el-text size="small" type="success">可选</el-text></el-col> </el-row>|String|候选人姓名|
+|<el-row justify="space-between"><el-col :span="20">address</el-col><el-col :span="4" style="text-align:right"><el-text size="small" type="success">可选</el-text></el-col> </el-row>|String|候选人所在地|
+|<el-row justify="space-between"><el-col :span="20">resume_source</el-col><el-col :span="4" style="text-align:right"><el-text size="small" type="success">可选</el-text></el-col> </el-row>|String|简历来源|
+|<el-row justify="space-between"><el-col :span="20">birthday</el-col><el-col :span="4" style="text-align:right"><el-text size="small" type="success">可选</el-text></el-col> </el-row>|String|出生日期|
+|<el-row justify="space-between"><el-col :span="20">gender</el-col><el-col :span="4" style="text-align:right"><el-text size="small" type="success">可选</el-text></el-col> </el-row>|String|性别|
+|<el-row justify="space-between"><el-col :span="20">last_exp_company</el-col><el-col :span="4" style="text-align:right"><el-text size="small" type="success">可选</el-text></el-col> </el-row>|String|最近工作公司|
+|<el-row justify="space-between"><el-col :span="20">last_exp_job</el-col><el-col :span="4" style="text-align:right"><el-text size="small" type="success">可选</el-text></el-col> </el-row>|String|最近工作岗位|
+|<el-row justify="space-between"><el-col :span="20">last_exp_date</el-col><el-col :span="4" style="text-align:right"><el-text size="small" type="success">可选</el-text></el-col> </el-row>|String|最近工作时间|
+|<el-row justify="space-between"><el-col :span="20">last_edu_school</el-col><el-col :span="4" style="text-align:right"><el-text size="small" type="success">可选</el-text></el-col> </el-row>|String|毕业院校|
+|<el-row justify="space-between"><el-col :span="20">last_edu_speciality</el-col><el-col :span="4" style="text-align:right"><el-text size="small" type="success">可选</el-text></el-col> </el-row>|String|所学专业|
+|<el-row justify="space-between"><el-col :span="20">last_edu_academic_degree</el-col><el-col :span="4" style="text-align:right"><el-text size="small" type="success">可选</el-text></el-col> </el-row>|String|最高学位|
+|<el-row justify="space-between"><el-col :span="20">last_edu_date</el-col><el-col :span="4" style="text-align:right"><el-text size="small" type="success">可选</el-text></el-col> </el-row>|String|毕业时间|
+|<el-row justify="space-between"><el-col :span="20">priority_id</el-col><el-col :span="4" style="text-align:right"><el-text size="small" type="success">可选</el-text></el-col> </el-row>|String|职位优先级|
+|<el-row justify="space-between"><el-col :span="20">tags</el-col><el-col :span="4" style="text-align:right"><el-text size="small" type="success">可选</el-text></el-col> </el-row>|String|候选人标签|
+|<el-row justify="space-between"><el-col :span="20">progress_id</el-col><el-col :span="4" style="text-align:right"><el-text size="small" type="success">可选</el-text></el-col> </el-row>|String|招聘流程|
+|<el-row justify="space-between"><el-col :span="20">image</el-col><el-col :span="4" style="text-align:right"><el-text size="small" type="success">可选</el-text></el-col> </el-row>|String|候选人照片|
+|<el-row justify="space-between"><el-col :span="20">candidate_name</el-col><el-col :span="4" style="text-align:right"><el-text size="small" type="success">可选</el-text></el-col> </el-row>|String|候选人名称|
+|<el-row justify="space-between"><el-col :span="20">save_to_telent_pool</el-col><el-col :span="4" style="text-align:right"><el-text size="small" type="success">可选</el-text></el-col> </el-row>|String|上传至人才库|
+|<el-row justify="space-between"><el-col :span="20">stage_sequence</el-col><el-col :span="4" style="text-align:right"><el-text size="small" type="success">可选</el-text></el-col> </el-row>|Integer|招聘阶段序号|
+|<el-row justify="space-between"><el-col :span="20">status</el-col><el-col :span="4" style="text-align:right"><el-text size="small" type="success">可选</el-text></el-col> </el-row>|String|申请状态|
+|<el-row justify="space-between"><el-col :span="20">stage_name</el-col><el-col :span="4" style="text-align:right"><el-text size="small" type="success">可选</el-text></el-col> </el-row>|String|阶段名|
+|<el-row justify="space-between"><el-col :span="20">flow_type</el-col><el-col :span="4" style="text-align:right"><el-text size="small" type="success">可选</el-text></el-col> </el-row>|String|招聘流程类型|
+|<el-row justify="space-between"><el-col :span="20">is_recommended</el-col><el-col :span="4" style="text-align:right"><el-text size="small" type="success">可选</el-text></el-col> </el-row>|String|已推荐|
+|<el-row justify="space-between"><el-col :span="20">is_offer</el-col><el-col :span="4" style="text-align:right"><el-text size="small" type="success">可选</el-text></el-col> </el-row>|String|已发送offer|
+|<el-row justify="space-between"><el-col :span="20">manager_uid</el-col><el-col :span="4" style="text-align:right"><el-text size="small" type="success">可选</el-text></el-col> </el-row>|String|用人经理|
+|<el-row justify="space-between"><el-col :span="20">applicant_notes</el-col><el-col :span="4" style="text-align:right"><el-text size="small" type="success">可选</el-text></el-col> </el-row>|String|申请人备注|
+|<el-row justify="space-between"><el-col :span="20">candidate_id</el-col><el-col :span="4" style="text-align:right"><el-text size="small" type="success">可选</el-text></el-col> </el-row>|String|候选人|
+|<el-row justify="space-between"><el-col :span="20">id</el-col><el-col :span="4" style="text-align:right"></el-col> </el-row>|String|标识|
+|<el-row justify="space-between"><el-col :span="20">job_id</el-col><el-col :span="4" style="text-align:right"><el-text size="small" type="success">可选</el-text></el-col> </el-row>|String|求职岗位|
+|<el-row justify="space-between"><el-col :span="20">job_name</el-col><el-col :span="4" style="text-align:right"><el-text size="small" type="success">可选</el-text></el-col> </el-row>|String|求职岗位名称|
+|<el-row justify="space-between"><el-col :span="20">job_platform_id</el-col><el-col :span="4" style="text-align:right"><el-text size="small" type="success">可选</el-text></el-col> </el-row>|String|招聘平台|
+|<el-row justify="space-between"><el-col :span="20">job_platform_name</el-col><el-col :span="4" style="text-align:right"><el-text size="small" type="success">可选</el-text></el-col> </el-row>|String|招聘平台名称|
+|<el-row justify="space-between"><el-col :span="20">owner_id</el-col><el-col :span="4" style="text-align:right"><el-text size="small" type="success">可选</el-text></el-col> </el-row>|String|招聘负责人|
+|<el-row justify="space-between"><el-col :span="20">owner_name</el-col><el-col :span="4" style="text-align:right"><el-text size="small" type="success">可选</el-text></el-col> </el-row>|String|招聘负责人名称|
+|<el-row justify="space-between"><el-col :span="20">salary_expected</el-col><el-col :span="4" style="text-align:right"><el-text size="small" type="success">可选</el-text></el-col> </el-row>|Double|期望薪资|
+|<el-row justify="space-between"><el-col :span="20">salary_proposed</el-col><el-col :span="4" style="text-align:right"><el-text size="small" type="success">可选</el-text></el-col> </el-row>|Double|建议薪资|
+|<el-row justify="space-between"><el-col :span="20">stage_id</el-col><el-col :span="4" style="text-align:right"><el-text size="small" type="success">可选</el-text></el-col> </el-row>|String|招聘阶段|
+|<el-row justify="space-between"><el-col :span="20">hr_candidate_educations</el-col><el-col :span="4" style="text-align:right"><el-text size="small" type="success">可选</el-text></el-col> </el-row>|Object|null|
+|<el-row justify="space-between"><el-col :span="20">hr_candidate_experiences</el-col><el-col :span="4" style="text-align:right"><el-text size="small" type="success">可选</el-text></el-col> </el-row>|Object|null|
+
+
+
+##### 请求示例： {docsify-ignore}
+```json
+{
+  "is_favorite" : null,
+  "experience" : null,
+  "description" : null,
+  "email_from" : null,
+  "mobile_phone" : null,
+  "education" : null,
+  "candidate_display_name" : null,
+  "address" : null,
+  "resume_source" : null,
+  "birthday" : null,
+  "gender" : null,
+  "last_exp_company" : null,
+  "last_exp_job" : null,
+  "last_exp_date" : null,
+  "last_edu_school" : null,
+  "last_edu_speciality" : null,
+  "last_edu_academic_degree" : null,
+  "last_edu_date" : null,
+  "priority_id" : null,
+  "tags" : null,
+  "progress_id" : null,
+  "image" : null,
+  "candidate_name" : null,
+  "save_to_telent_pool" : null,
+  "stage_sequence" : null,
+  "status" : null,
+  "stage_name" : null,
+  "flow_type" : null,
+  "is_recommended" : null,
+  "is_offer" : null,
+  "manager_uid" : null,
+  "applicant_notes" : null,
+  "candidate_id" : null,
+  "create_date" : null,
+  "create_uid" : null,
+  "id" : null,
+  "job_id" : null,
+  "job_name" : null,
+  "job_platform_id" : null,
+  "job_platform_name" : null,
+  "owner_id" : null,
+  "owner_name" : null,
+  "salary_expected" : null,
+  "salary_proposed" : null,
+  "stage_id" : null,
+  "write_date" : null,
+  "write_uid" : null,
+  "hr_candidate_educations" : null,
+  "hr_candidate_experiences" : null,
+}
+```
+
+
+
 ## 淘汰
 
 <el-row>

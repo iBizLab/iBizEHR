@@ -15,8 +15,8 @@
 
 
 ### 关联界面行为
-  * [筛选候选人明细(HR_CANDIDATE_FILTER_DETAIL)](module/hr/hr_candidate_filter_detail) : [表格界面_新建操作](module/hr/hr_candidate_filter_detail#界面行为)
   * [筛选候选人明细(HR_CANDIDATE_FILTER_DETAIL)](module/hr/hr_candidate_filter_detail) : [表格界面_编辑操作](module/hr/hr_candidate_filter_detail#界面行为)
+  * [筛选候选人明细(HR_CANDIDATE_FILTER_DETAIL)](module/hr/hr_candidate_filter_detail) : [表格界面_新建操作](module/hr/hr_candidate_filter_detail#界面行为)
   * [筛选候选人明细(HR_CANDIDATE_FILTER_DETAIL)](module/hr/hr_candidate_filter_detail) : [表格界面_删除操作](module/hr/hr_candidate_filter_detail#界面行为)
 
 ### 关联视图

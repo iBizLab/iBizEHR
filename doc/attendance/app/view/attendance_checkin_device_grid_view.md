@@ -13,8 +13,8 @@
 
 
 ### 关联界面行为
-  * [考勤设备关联(ATTENDANCE_CHECKIN_DEVICE)](module/attendance/attendance_checkin_device) : [表格界面_删除操作](module/attendance/attendance_checkin_device#界面行为)
   * [考勤设备关联(ATTENDANCE_CHECKIN_DEVICE)](module/attendance/attendance_checkin_device) : [表格界面_新建操作](module/attendance/attendance_checkin_device#界面行为)
+  * [考勤设备关联(ATTENDANCE_CHECKIN_DEVICE)](module/attendance/attendance_checkin_device) : [表格界面_删除操作](module/attendance/attendance_checkin_device#界面行为)
 
 ### 关联视图
   * [考勤设备关联(attendance_checkin_device_edit_view)](app/view/attendance_checkin_device_edit_view)

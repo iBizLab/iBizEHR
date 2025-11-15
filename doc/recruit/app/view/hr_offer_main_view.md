@@ -14,9 +14,9 @@
 
 ### 关联界面行为
   * [OFFER录用(HR_OFFER)](module/hr/hr_offer) : [导入组织人事](module/hr/hr_offer#界面行为)
-  * [OFFER录用(HR_OFFER)](module/hr/hr_offer) : [编辑界面_保存操作](module/hr/hr_offer#界面行为)
   * [OFFER录用(HR_OFFER)](module/hr/hr_offer) : [重新发送](module/hr/hr_offer#界面行为)
   * [OFFER录用(HR_OFFER)](module/hr/hr_offer) : [提交](module/hr/hr_offer#界面行为)
+  * [OFFER录用(HR_OFFER)](module/hr/hr_offer) : [编辑界面_保存操作](module/hr/hr_offer#界面行为)
 
 ### 关联视图
   * [招聘需求(hr_idea_pickup_view)](app/view/hr_idea_pickup_view)

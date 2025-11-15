@@ -306,6 +306,45 @@ Integer
 
 ```
 
+## 获取关联职位
+
+<el-row>
+<div style="width: 80px">
+<el-alert center title="GET" type="success" :closable="false" ></el-alert>
+</div>
+<div style="margin-left:5px;width: calc(100% - 85px)">
+<el-alert title="/hr_idea_jobs/{key}/get_join_idea_job" type="info" :closable="false" ></el-alert>
+</div>
+</el-row>
+权限标识：`READ`
+
+##### 路径参数 {docsify-ignore}
+|字段col300|类型col150|备注col400|
+|---|---|----|
+|key|String|标识|
+
+
+
+
+##### 响应示例： {docsify-ignore}
+```json
+
+{
+  "id" : null,
+  "name" : null,
+  "job_name" : null,
+  "address_id" : null,
+  "category" : null,
+  "create_date" : null,
+  "create_uid" : null,
+  "idea_id" : null,
+  "job_id" : null,
+  "write_date" : null,
+  "write_uid" : null,
+}
+
+```
+
 ## 保存需求与职位关系
 
 <el-row>

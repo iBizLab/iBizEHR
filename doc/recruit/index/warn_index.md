@@ -73,6 +73,11 @@
 |[招聘平台账号(HR_JOB_PLATFORM_ACCOUNT)](module/hr/hr_job_platform_account)|[账号发布状态(publish_status)](module/hr/hr_job_platform_account/query/publish_status)|
 
 
+### 未配置权限请求接口<sup class="footnote-symbol"> <font color=orange>[1]</font></sup>
+| 实体col200| 请求路径col500| 请求方式col100   |    行为/集合col300    |
+| -------- |-------- | --------|-------- |
+|[核心产品功能(PSCOREPRDFUNC)](module/extension/PSCorePrdFunc.md)|/pscoreprdfuncs/{key}/reload|POST|[重新加载(RELOAD)](module/extension/PSCorePrdFunc#行为)|
+
 ### NONE权限请求接口<sup class="footnote-symbol"> <font color=orange>[1]</font></sup>
 | 实体col200| 请求路径col500| 请求方式col100   |    行为/集合col300    |
 | -------- |-------- | --------|-------- |
@@ -117,12 +122,13 @@
 |[组织(RES_COMPANY)](module/base/res_company)|默认搜索表单(default)|[组织(res_company_grid_view)](app/view/res_company_grid_view)|
 |[用户(RES_USERS)](module/base/res_users)|默认搜索表单(default)|[用户(res_users_pickup_grid_view)](app/view/res_users_pickup_grid_view)|
 
-### 除主键、主信息、预置属性外，不包含其他配置的表单<sup class="footnote-symbol"> <font color=orange>[18]</font></sup>
+### 除主键、主信息、预置属性外，不包含其他配置的表单<sup class="footnote-symbol"> <font color=orange>[19]</font></sup>
 | 实体col200   |   视图col400 |表单col400  |
 | --------   |------------|------------|
 |[候选人申请(HR_APPLICANT)](module/hr/hr_applicant)|候选人申请_操作记录_表单(applicant_log_form)|[候选人申请(hr_applicant_add_info_view)](app/view/hr_applicant_add_info_view)|
 |[候选人申请与面试关系(HR_APPLICANT_INTERVIEW)](module/hr/hr_applicant_interview)|主编辑表单(main)|[候选人申请与面试关系(hr_applicant_interview_edit_view)](app/view/hr_applicant_interview_edit_view)|
 |[候选人(HR_CANDIDATE)](module/hr/hr_candidate)|主编辑表单(main)|[候选人(hr_candidate_edit_view)](app/view/hr_candidate_edit_view)|
+|[候选人标签(HR_CANDIDATE_LABEL)](module/hr/hr_candidate_label)|快速_新建_标签_表单(quick_create_tag_form)|[候选人标签(hr_candidate_label_quick_create_tag)](app/view/hr_candidate_label_quick_create_tag)|
 |[考试/测评(HR_EXAM)](module/hr/hr_exam)|主编辑表单(main)|[考试/测评(hr_exam_edit_view)](app/view/hr_exam_edit_view)|
 |[面试(HR_INTERVIEW)](module/hr/hr_interview)|我的面试(myinterview_form)|[面试(hr_interview_edit_view)](app/view/hr_interview_edit_view)|
 |[面试反馈(HR_INTERVIEW_FEEDBACK)](module/hr/hr_interview_feedback)|主编辑表单(main)|[面试反馈(hr_interview_feedback_edit_view)](app/view/hr_interview_feedback_edit_view)|

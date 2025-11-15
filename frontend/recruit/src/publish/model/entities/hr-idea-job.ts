@@ -364,6 +364,29 @@ export default {
       id: 'get_draft',
     },
     {
+      codeName: 'get_join_idea_job',
+      methodType: 'DEACTION',
+      appDEMethodInput: {
+        keyAppDEFieldId: 'id',
+        type: 'KEYFIELD',
+        id: '输入对象',
+      },
+      appDEMethodReturn: {
+        appDEMethodDTOId: 'hr_idea_job_dto',
+        type: 'DTO',
+        id: '返回对象',
+      },
+      requestField: 'ID',
+      requestMethod: 'GET',
+      requestParamType: 'FIELD',
+      requestPath: '/get_join_idea_job',
+      needResourceKey: true,
+      actionMode: 'READ',
+      actionType: 'REMOTE',
+      dataSetType: 'REMOTE',
+      id: 'get_join_idea_job',
+    },
+    {
       codeName: 'remove',
       methodType: 'DEACTION',
       appDEMethodInput: {
@@ -535,6 +558,11 @@ export default {
       frontProcessType: 'WIZARD',
       fullCodeName: 'hr_idea_job_join_idea_job',
       navigateParams: [
+        {
+          key: 'tagss',
+          value: 'tagss',
+          id: 'tagss',
+        },
         {
           key: 'hr_idea',
           value: 'hr_idea',

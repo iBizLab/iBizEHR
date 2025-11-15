@@ -18,8 +18,8 @@
 
 
 ### 关联界面行为
-  * [权限组继承(RES_GROUPS_IMPLIED_REL)](module/base/res_groups_implied_rel) : [表格界面_删除操作](module/base/res_groups_implied_rel#界面行为)
   * [权限组继承(RES_GROUPS_IMPLIED_REL)](module/base/res_groups_implied_rel) : [表格界面_新建操作](module/base/res_groups_implied_rel#界面行为)
+  * [权限组继承(RES_GROUPS_IMPLIED_REL)](module/base/res_groups_implied_rel) : [表格界面_删除操作](module/base/res_groups_implied_rel#界面行为)
 
 ### 关联视图
   * [权限组继承(res_groups_implied_relEditView)](app/view/res_groups_implied_relEditView)

@@ -65,6 +65,7 @@
 |Remove|Remove|内置方法|默认|支持||||
 |Save|Save|内置方法|默认|不支持||||
 |Update|Update|内置方法|默认|不支持||||
+|行为|nothing|用户自定义|默认|不支持||||
 
 ## 处理逻辑
 | 中文名col200    | 代码名col150    | 子类型col150    | 插件col200    |  备注col550  |
@@ -134,7 +135,7 @@
 | 填写反馈 | add_feedback | 填写反馈 |无数据|<details><summary>打开视图或向导（模态）</summary>[面试结果](app/view/hr_interview_feedback_interview_result_option_view)</details>||
 | 预约面试 | appointment_interview | 预约面试 |无数据|用户自定义||
 | 查看面试 | open_interview | 查看面试 |单项数据|<details><summary>打开视图或向导（模态）</summary></details>||
-| 进入面试 | start_interview | 进入面试 |无数据|用户自定义||
+| 进入面试 | start_interview | 进入面试 |单项数据|<details><summary>后台调用</summary>[nothing](#行为)||
 | 添加面试 | add_interview | 添加面试 |无数据|<details><summary>打开视图或向导（模态）</summary>[新建面试安排](app/view/hr_interview_schedule_create_option_view)</details>||
 
 ## 界面逻辑

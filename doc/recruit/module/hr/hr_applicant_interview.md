@@ -120,7 +120,7 @@
 |  中文名col200 |  代码名col150 |  标题col100   |     处理目标col100   |    处理类型col200        |  备注col500       |
 | --------| --------| -------- |------------|------------|------------|
 | 填写反馈 | add_feedback | 填写反馈 |单项数据|<details><summary>打开视图或向导（模态）</summary></details>||
-| 预约面试 | appointment_interview | 预约面试 |无数据|用户自定义||
+| 预约面试 | appointment_interview | 预约面试 |单项数据|<details><summary>后台调用</summary>[Get](#行为)||
 | 进入面试 | start_interview | 进入面试 |单项数据|<details><summary>后台调用</summary>[Get](#行为)||
 | 查看面试详情 | open_interview_detail | 查看面试详情 |单项数据（主键）|<details><summary>打开视图或向导（模态）</summary>[我的面试](app/view/hr_applicant_interview_my_interview_edit_view)</details>||
 | 添加面试 | add_interview | 添加面试 |无数据|<details><summary>打开视图或向导（模态）</summary>[新建面试安排](app/view/hr_interview_schedule_create_option_view)</details>||

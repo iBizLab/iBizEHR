@@ -13,7 +13,7 @@ import cn.ibizlab.central.plugin.groovy.dataentity.*
  * 实体[USER_OBJECT]运行时对象
  * 此代码用户功能扩展代码
  *
- * 该实体存在实体映射，开启RTCode模式会导致映射功能失效
+ * 该实体存在实体映射或者自定义动态扩展对象，开启RTCode模式会导致映射功能失效
  */
 class UserObject extends cn.ibizlab.checkin.runtime.plugin.UserObjectDERuntime {
 

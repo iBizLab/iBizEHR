@@ -27,7 +27,7 @@ package cn.ibizlab.hr.logic.hr_applicantlogic.get_baseinfo_page_count;
             then
     Map param =new HashMap();
         param.put("param0",hr_applicantget_baseinfo_page_countdefault.get("id"));
-    String strSql="select COUNT(1) applicant_interview from comment where comment.PRINCIPAL_ID = #{et.param0} and comment.PRINCIPAL_TYPE  = 'HR_APPLICANT'";
+    String strSql="";
                         java.util.List<JSONObject> entities=iBzSysHr_applicantDefaultService.select(strSql,param);//SQL调用
                             if(entities.size()>0){
                             JSONObject entity=entities.get(0);
@@ -46,7 +46,7 @@ package cn.ibizlab.hr.logic.hr_applicantlogic.get_baseinfo_page_count;
             then
     Map param =new HashMap();
         param.put("param0",hr_applicantget_baseinfo_page_countdefault.get("id"));
-    String strSql="select count(1) applicant_exam from hr_exam where APPLICANT_ID  = #{et.param0}";
+    String strSql="";
                         java.util.List<JSONObject> entities=iBzSysHr_applicantDefaultService.select(strSql,param);//SQL调用
                             if(entities.size()>0){
                             JSONObject entity=entities.get(0);
@@ -65,7 +65,7 @@ package cn.ibizlab.hr.logic.hr_applicantlogic.get_baseinfo_page_count;
             then
     Map param =new HashMap();
         param.put("param0",hr_applicantget_baseinfo_page_countdefault.get("id"));
-    String strSql="select count(1) sift_view from hr_candidate_filter_detail  where APPLICANT_ID  = #{et.param0}";
+    String strSql="";
                         java.util.List<JSONObject> entities=iBzSysHr_applicantDefaultService.select(strSql,param);//SQL调用
                             if(entities.size()>0){
                             JSONObject entity=entities.get(0);
@@ -84,7 +84,7 @@ package cn.ibizlab.hr.logic.hr_applicantlogic.get_baseinfo_page_count;
             then
     Map param =new HashMap();
         param.put("param0",hr_applicantget_baseinfo_page_countdefault.get("id"));
-    String strSql="select count(1) interview_view from hr_applicant_interview   where APPLICANT_ID  = #{et.param0}";
+    String strSql="";
                         java.util.List<JSONObject> entities=iBzSysHr_applicantDefaultService.select(strSql,param);//SQL调用
                             if(entities.size()>0){
                             JSONObject entity=entities.get(0);
@@ -112,7 +112,7 @@ package cn.ibizlab.hr.logic.hr_applicantlogic.get_baseinfo_page_count;
             then
     Map param =new HashMap();
         param.put("param0",hr_applicantget_baseinfo_page_countdefault.get("id"));
-    String strSql="select count(1) offer_view from hr_offer where APPLICANT_ID  = #{et.param0}";
+    String strSql="";
                         java.util.List<JSONObject> entities=iBzSysHr_applicantDefaultService.select(strSql,param);//SQL调用
                             if(entities.size()>0){
                             JSONObject entity=entities.get(0);
@@ -120,6 +120,16 @@ package cn.ibizlab.hr.logic.hr_applicantlogic.get_baseinfo_page_count;
                                     hr_applicantget_baseinfo_page_countdefault.set(String.valueOf(entry.getKey()),entry.getValue());
                                     }
                             }
+                        update(hr_applicantget_baseinfo_page_countdefault);//更新fact中变量值
+                        update(hr_applicantget_baseinfo_page_countcomment);//更新fact中变量值
+            end
+
+            //逻辑处理节点[准备参数]
+            rule "prepareparam1"
+            ruleflow-group "hr_applicantget_baseinfo_page_countprepareparam1"
+            when
+            then
+                            hr_applicantget_baseinfo_page_countdefault.set("tagss","[{"id":"0f057f77-ff6e-4ba5-76fa-0b87f1730452","name":"销售经理"},{"id":"6d4a0923-8662-7859-d0d1-c47331904d84","name":"UI工程师"}]");
                         update(hr_applicantget_baseinfo_page_countdefault);//更新fact中变量值
                         update(hr_applicantget_baseinfo_page_countcomment);//更新fact中变量值
             end

@@ -70,6 +70,11 @@
 |N_ID_EQ|标识|EQ||
 |N_NAME_LIKE|名称|LIKE||
 
+## 界面行为
+|  中文名col200 |  代码名col150 |  标题col100   |     处理目标col100   |    处理类型col200        |  备注col500       |
+| --------| --------| -------- |------------|------------|------------|
+| 快速_新建_标签 | quick_create_tag | 新建标签 |无数据|<details><summary>打开视图或向导（模态）</summary>[候选人标签](app/view/hr_candidate_label_quick_create_tag)</details>||
+
 <div style="display: block; overflow: hidden; position: fixed; top: 140px; right: 100px;">
 
 ##### 导航
@@ -91,6 +96,9 @@
 </el-anchor-link>
 <el-anchor-link :href="`#/module/hr/hr_candidate_label?id=搜索模式`">
   搜索模式
+</el-anchor-link>
+<el-anchor-link :href="`#/module/hr/hr_candidate_label?id=界面行为`">
+  界面行为
 </el-anchor-link>
 </el-anchor>
 </div>

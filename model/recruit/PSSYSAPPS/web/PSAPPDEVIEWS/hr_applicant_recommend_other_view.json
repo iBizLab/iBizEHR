@@ -3,7 +3,7 @@
   "getCapPSLanguageRes" : {
     "lanResTag" : "DE.LNAME.HR_APPLICANT"
   },
-  "caption" : "候选人申请",
+  "caption" : "推荐到其他职位",
   "codeName" : "hr_applicant_recommend_other_view",
   "dynaModelFilePath" : "PSSYSAPPS/web/PSAPPDEVIEWS/hr_applicant_recommend_other_view.json",
   "height" : 70,
@@ -454,6 +454,12 @@
         "id" : "formitem",
         "dataType" : 25
       }, {
+        "id" : "formitem2",
+        "dataType" : 25
+      }, {
+        "id" : "formitem3",
+        "dataType" : 25
+      }, {
         "id" : "formitem1",
         "dataType" : 25
       }, {
@@ -504,15 +510,15 @@
             "detailType" : "GROUPPANEL",
             "name" : "grouppanel1",
             "getPSDEFormDetails" : [ {
-              "caption" : "求职岗位名称",
+              "caption" : "选择职位",
               "codeName" : "job_name",
               "dataType" : 25,
               "detailStyle" : "DEFAULT",
               "detailType" : "FORMITEM",
               "enableCond" : 3,
               "ignoreInput" : 0,
-              "labelPos" : "NONE",
-              "labelWidth" : 0,
+              "labelPos" : "LEFT",
+              "labelWidth" : 150,
               "name" : "job_name",
               "noPrivDisplayMode" : 1,
               "getPSAppDEField" : {
@@ -556,14 +562,12 @@
                 "singleSelect" : true
               },
               "getPSLayoutPos" : {
-                "colLG" : 20,
-                "colLGOffset" : 4,
-                "colMD" : 20,
-                "colMDOffset" : 4,
+                "colMD" : 24,
                 "layout" : "TABLE_24COL"
               },
               "valueItemName" : "job_id",
-              "allowEmpty" : true
+              "allowEmpty" : true,
+              "showCaption" : true
             }, {
               "caption" : "求职岗位",
               "codeName" : "job_id",
@@ -573,7 +577,7 @@
               "enableCond" : 3,
               "ignoreInput" : 0,
               "labelPos" : "LEFT",
-              "labelWidth" : 130,
+              "labelWidth" : 150,
               "name" : "job_id",
               "noPrivDisplayMode" : 1,
               "getPSAppDEField" : {
@@ -591,14 +595,38 @@
               "allowEmpty" : true,
               "hidden" : true
             }, {
-              "caption" : "转发内容",
+              "codeName" : "rawitem2",
+              "contentType" : "RAW",
+              "detailStyle" : "DEFAULT",
+              "detailType" : "RAWITEM",
+              "name" : "rawitem2",
+              "getPSLayoutPos" : {
+                "colLG" : 4,
+                "colLGOffset" : 3,
+                "colMD" : 4,
+                "colMDOffset" : 3,
+                "layout" : "TABLE_24COL"
+              },
+              "getPSRawItem" : {
+                "caption" : "转发内容",
+                "contentType" : "RAW",
+                "name" : "rawitem2",
+                "rawItemHeight" : -1.0,
+                "rawItemWidth" : -1.0
+              },
+              "rawContent" : "转发内容",
+              "rawItemHeight" : -1.0,
+              "rawItemWidth" : -1.0,
+              "showCaption" : true
+            }, {
+              "caption" : "面试评价",
               "codeName" : "formitem",
               "dataType" : 25,
               "detailStyle" : "DEFAULT",
               "detailType" : "FORMITEM",
               "enableCond" : 3,
               "ignoreInput" : 0,
-              "labelPos" : "LEFT",
+              "labelPos" : "RIGHT",
               "labelWidth" : 130,
               "name" : "formitem",
               "noPrivDisplayMode" : 1,
@@ -607,7 +635,54 @@
                 "name" : "formitem"
               },
               "getPSLayoutPos" : {
+                "colLG" : 5,
+                "colMD" : 5,
+                "layout" : "TABLE_24COL"
+              },
+              "allowEmpty" : true,
+              "showCaption" : true
+            }, {
+              "caption" : "测评报告",
+              "codeName" : "formitem2",
+              "dataType" : 25,
+              "detailStyle" : "DEFAULT",
+              "detailType" : "FORMITEM",
+              "enableCond" : 3,
+              "ignoreInput" : 0,
+              "labelPos" : "RIGHT",
+              "labelWidth" : 130,
+              "name" : "formitem2",
+              "noPrivDisplayMode" : 1,
+              "getPSEditor" : {
+                "editorType" : "CHECKBOX",
+                "name" : "formitem2"
+              },
+              "getPSLayoutPos" : {
+                "colLG" : 5,
                 "colMD" : 24,
+                "layout" : "TABLE_24COL"
+              },
+              "allowEmpty" : true,
+              "showCaption" : true
+            }, {
+              "caption" : "考试报告",
+              "codeName" : "formitem3",
+              "dataType" : 25,
+              "detailStyle" : "DEFAULT",
+              "detailType" : "FORMITEM",
+              "enableCond" : 3,
+              "ignoreInput" : 0,
+              "labelPos" : "RIGHT",
+              "labelWidth" : 130,
+              "name" : "formitem3",
+              "noPrivDisplayMode" : 1,
+              "getPSEditor" : {
+                "editorType" : "CHECKBOX",
+                "name" : "formitem3"
+              },
+              "getPSLayoutPos" : {
+                "colLG" : 5,
+                "colMD" : 5,
                 "layout" : "TABLE_24COL"
               },
               "allowEmpty" : true,
@@ -622,7 +697,7 @@
               "ignoreInput" : 0,
               "itemHeight" : 200.0,
               "labelPos" : "LEFT",
-              "labelWidth" : 130,
+              "labelWidth" : 150,
               "name" : "formitem1",
               "noPrivDisplayMode" : 1,
               "getPSEditor" : {
@@ -758,7 +833,7 @@
       "getCapPSLanguageRes" : {
         "lanResTag" : "DE.LNAME.HR_APPLICANT"
       },
-      "caption" : "候选人申请",
+      "caption" : "推荐到其他职位",
       "codeName" : "recommend_other_view_captionbar",
       "controlType" : "CAPTIONBAR",
       "name" : "captionbar",

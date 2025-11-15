@@ -37,9 +37,9 @@ class BatchApproval extends DELogicRuntime {
                 //执行逻辑节点[循环子调用]
                 executeLoopsubcall01(iDELogicSession, iPSDELogicNode)
                 break
-            case "PREPAREPARAM_01":
-                //执行逻辑节点[准备参数]
-                executePrepareparam01(iDELogicSession, iPSDELogicNode)
+            case "RENEWPARAM_01":
+                //执行逻辑节点[重新建立参数]
+                executeRenewparam01(iDELogicSession, iPSDELogicNode)
                 break
             case "DEACTION_01":
                 //执行逻辑节点[实体行为]
@@ -50,8 +50,12 @@ class BatchApproval extends DELogicRuntime {
                 executePrepareparam02(iDELogicSession, iPSDELogicNode)
                 break
             case "DEACTION_02":
-                //执行逻辑节点[实体行为]
+                //执行逻辑节点[更新出勤]
                 executeDeaction02(iDELogicSession, iPSDELogicNode)
+                break
+            case "PREPAREPARAM_01":
+                //执行逻辑节点[准备参数]
+                executePrepareparam01(iDELogicSession, iPSDELogicNode)
                 break
             case "END_01":
                 //执行逻辑节点[结束]
@@ -79,30 +83,7 @@ class BatchApproval extends DELogicRuntime {
      * @throws Throwable
      */
     private void executeRawsfcode01(IDELogicSession iDELogicSession, IPSDELogicNode iPSDELogicNode) throws Throwable {
-        // 执行Groovy脚本代码
-        def objRet = { sys,logic ->
-            def _default = logic.param('Default').getReal()
-			def attendances = logic.param('attendances').getReal()
-			
-			if (_default){
-			    _default.each { item ->
-			        if (item != null) {
-			            def attendances_data = item.any()
-			            def attendance_runtime = sys.dataentity('hr_attendance')
-			            def _attendance =attendance_runtime.createEntity(attendances_data)
-			            attendances.add(_attendance)
-			        }
-			    }
-			
-			}
-        }.call(iDELogicSession.getDELogicRuntime().getSystemRuntime(), iDELogicSession.getDELogicRuntime())
-        //设置返回值
-        iDELogicSession.setLastReturn(objRet);
-        if(iPSDELogicNode.getRetPSDELogicParam() != null) {
-            def retDELogicParamRuntime = this.getDELogicParamRuntime(iPSDELogicNode.getRetPSDELogicParam().getCodeName(), false);
-            retDELogicParamRuntime.bind(iDELogicSession, objRet);
-        }
-        //super.onExecutePSDELogicNode(iDELogicSession, iPSDELogicNode, true)
+        super.onExecutePSDELogicNode(iDELogicSession, iPSDELogicNode, true)
     }
 
     /**
@@ -116,12 +97,12 @@ class BatchApproval extends DELogicRuntime {
     }
 
     /**
-     * 执行逻辑节点[准备参数]，逻辑类型[PREPAREPARAM]
+     * 执行逻辑节点[重新建立参数]，逻辑类型[RENEWPARAM]
      * @param iDELogicSession
      * @param iPSDELogicNode
      * @throws Throwable
      */
-    private void executePrepareparam01(IDELogicSession iDELogicSession, IPSDELogicNode iPSDELogicNode) throws Throwable {
+    private void executeRenewparam01(IDELogicSession iDELogicSession, IPSDELogicNode iPSDELogicNode) throws Throwable {
         super.onExecutePSDELogicNode(iDELogicSession, iPSDELogicNode, true)
     }
 
@@ -146,12 +127,22 @@ class BatchApproval extends DELogicRuntime {
     }
 
     /**
-     * 执行逻辑节点[实体行为]，逻辑类型[DEACTION]
+     * 执行逻辑节点[更新出勤]，逻辑类型[DEACTION]
      * @param iDELogicSession
      * @param iPSDELogicNode
      * @throws Throwable
      */
     private void executeDeaction02(IDELogicSession iDELogicSession, IPSDELogicNode iPSDELogicNode) throws Throwable {
+        super.onExecutePSDELogicNode(iDELogicSession, iPSDELogicNode, true)
+    }
+
+    /**
+     * 执行逻辑节点[准备参数]，逻辑类型[PREPAREPARAM]
+     * @param iDELogicSession
+     * @param iPSDELogicNode
+     * @throws Throwable
+     */
+    private void executePrepareparam01(IDELogicSession iDELogicSession, IPSDELogicNode iPSDELogicNode) throws Throwable {
         super.onExecutePSDELogicNode(iDELogicSession, iPSDELogicNode, true)
     }
 

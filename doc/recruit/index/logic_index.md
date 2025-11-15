@@ -90,6 +90,7 @@
 | 中文名col200    | 代码名col200    | 子类型col150    | 插件col200    |  备注col500  |
 | -------- |---------- |----------- |------------|----------|
 |[关联职位](module/hr/hr_idea_job/logic/join_idea_job)|join_idea_job|无|||
+|[获取关联职位](module/hr/hr_idea_job/logic/get_join_idea_job)|get_join_idea_job|无|||
 
 
 ## [面试(HR_INTERVIEW)](module/hr/hr_interview.md) :id=hr_interview

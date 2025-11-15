@@ -1406,6 +1406,8 @@
 |0|未安装|not_install||
 |1|已安装|Installed||
 |2|已禁用|disabled||
+|3|已安装（需重新加载）|installedneedreload||
+|4|已禁用（需重新加载）|disabledneedreload||
 
 ##### 模板类别 :id=mail_template_template_category
 

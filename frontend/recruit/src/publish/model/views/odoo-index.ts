@@ -648,6 +648,7 @@ export default {
       },
       {
         caption: '招聘',
+        subCaption: '招聘',
         codeName: 'captionbar',
         controlType: 'CAPTIONBAR',
         controlParam: {},
@@ -663,6 +664,7 @@ export default {
     name: 'layoutpanel',
     id: 'usr1010589568',
   },
+  subCaption: '招聘',
   title: '招聘',
   viewStyle: 'DEFAULT',
   viewType: 'APPINDEXVIEW',

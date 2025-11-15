@@ -25,8 +25,8 @@ Object.assign(viewParam, { choose_month });
 
 
 ### 关联界面行为
-  * [排班(ATTENDANCE_SCHEDULE)](module/attendance/attendance_schedule) : [清除手动排班](module/attendance/attendance_schedule#界面行为)
   * [排班(ATTENDANCE_SCHEDULE)](module/attendance/attendance_schedule) : [导出排班视图](module/attendance/attendance_schedule#界面行为)
+  * [排班(ATTENDANCE_SCHEDULE)](module/attendance/attendance_schedule) : [清除手动排班](module/attendance/attendance_schedule#界面行为)
 
 ### 关联视图
   * [排班(attendance_schedule_edit_view)](app/view/attendance_schedule_edit_view)

@@ -1673,7 +1673,7 @@ export default {
                                   {
                                     actionType: 'UIACTION',
                                     buttonStyle: 'DEFAULT',
-                                    uiactionId: 'follow_alert',
+                                    uiactionId: 'follow_alert@hr_applicant',
                                     tooltip: '跟进提醒',
                                     uiactionTarget: 'SINGLEKEY',
                                     caption: '跟进提醒',
@@ -1714,7 +1714,7 @@ export default {
                                   {
                                     actionType: 'UIACTION',
                                     buttonStyle: 'DEFAULT',
-                                    uiactionId: 'recommend_other@hr_applicant',
+                                    uiactionId: 'nothing@hr_applicant',
                                     tooltip: '推荐其他职位',
                                     uiactionTarget: 'SINGLEDATA',
                                     caption: '推荐其他职位',
@@ -1910,14 +1910,88 @@ export default {
                                 id: 'grouppanel10',
                               },
                               {
-                                actionType: 'UIACTION',
-                                buttonStyle: 'DEFAULT',
-                                uiactionId: 'data_savechanges',
-                                tooltip: '更多',
+                                actionGroupExtractMode: 'ITEMS',
+                                buttonListType: 'UIACTIONGROUP',
+                                uiactionGroup: {
+                                  uiactionGroupDetails: [
+                                    {
+                                      actionLevel: 100,
+                                      afterItemType: 'NONE',
+                                      beforeItemType: 'NONE',
+                                      buttonStyle: 'DEFAULT',
+                                      caption: '转发候选人信息',
+                                      detailType: 'DEUIACTION',
+                                      uiactionId:
+                                        'forward_candidate_info@hr_applicant',
+                                      tooltip: '该功能暂未实现！',
+                                      showCaption: true,
+                                      showIcon: true,
+                                      sysCss: {
+                                        cssName: 'gd_but',
+                                      },
+                                      id: 'uc6b879f',
+                                    },
+                                    {
+                                      actionLevel: 100,
+                                      afterItemType: 'NONE',
+                                      beforeItemType: 'NONE',
+                                      buttonStyle: 'DEFAULT',
+                                      caption: '通知候选人',
+                                      detailType: 'DEUIACTION',
+                                      uiactionId:
+                                        'notify_candidate@hr_applicant',
+                                      tooltip: '该功能暂未实现！',
+                                      showCaption: true,
+                                      showIcon: true,
+                                      sysCss: {
+                                        cssName: 'applicant_button',
+                                      },
+                                      id: 'u53e4bf0',
+                                    },
+                                    {
+                                      actionLevel: 100,
+                                      afterItemType: 'NONE',
+                                      beforeItemType: 'NONE',
+                                      buttonStyle: 'DEFAULT',
+                                      caption: '邀请候选人更新信息',
+                                      detailType: 'DEUIACTION',
+                                      uiactionId:
+                                        'invite_update_info@hr_applicant',
+                                      tooltip: '该功能暂未实现！',
+                                      showCaption: true,
+                                      showIcon: true,
+                                      sysCss: {
+                                        cssName: 'applicant_button',
+                                      },
+                                      id: 'u5c0a1ad',
+                                    },
+                                    {
+                                      actionLevel: 100,
+                                      afterItemType: 'NONE',
+                                      beforeItemType: 'NONE',
+                                      buttonStyle: 'DEFAULT',
+                                      caption: '加入黑名单',
+                                      detailType: 'DEUIACTION',
+                                      uiactionId:
+                                        'add_to_blacklist@hr_applicant',
+                                      tooltip: '该功能暂未实现！',
+                                      showCaption: true,
+                                      showIcon: true,
+                                      sysCss: {
+                                        cssName: 'applicant_button',
+                                      },
+                                      id: 'ucd03b5e',
+                                    },
+                                  ],
+                                  appDataEntityId: 'web.hr_applicant',
+                                  uniqueTag: 'hr_applicant__Usr1020328292',
+                                  name: '更多',
+                                  id: 'usr1020328292',
+                                },
                                 caption: '更多',
-                                codeName: 'button9',
+                                codeName: 'buttonlist1',
                                 detailStyle: 'DEFAULT',
-                                detailType: 'BUTTON',
+                                detailType: 'BUTTONLIST',
                                 layoutPos: {
                                   colMD: 24,
                                   layout: 'TABLE_24COL',
@@ -1925,12 +1999,8 @@ export default {
                                 sysCss: {
                                   cssName: 'applicant_button',
                                 },
-                                sysImage: {
-                                  cssClass: 'fa fa-angle-right',
-                                  glyph: 'xf105@FontAwesome',
-                                },
                                 showCaption: true,
-                                id: 'button9',
+                                id: 'buttonlist1',
                               },
                             ],
                             codeName: 'grouppanel6',
@@ -2116,15 +2186,49 @@ export default {
                                 appDEFieldId: 'tags',
                                 editor: {
                                   enablePickupView: true,
-                                  appDEACModeId: 'default',
+                                  appDEACModeId: 'tags',
                                   appDEDataSetId: 'fetch_default',
                                   appDataEntityId: 'web.hr_candidate_label',
+                                  uiactionGroup: {
+                                    uiactionGroupDetails: [
+                                      {
+                                        actionLevel: 100,
+                                        afterItemType: 'NONE',
+                                        beforeItemType: 'NONE',
+                                        buttonStyle: 'DEFAULT',
+                                        caption: '新建标签',
+                                        detailType: 'DEUIACTION',
+                                        uiactionId:
+                                          'quick_create_tag@hr_candidate_label',
+                                        showCaption: true,
+                                        showIcon: true,
+                                        sysImage: {
+                                          cssClass: 'add',
+                                        },
+                                        id: 'u0dafba0',
+                                      },
+                                    ],
+                                    appDataEntityId: 'web.hr_candidate_label',
+                                    uniqueTag:
+                                      'HR_CANDIDATE_LABEL__Usr1017833343',
+                                    name: '界面行为组',
+                                    id: 'usr1017833343',
+                                  },
+                                  enableAC: true,
                                   forceSelection: true,
                                   showTrigger: true,
+                                  valueItemName: 'formitem1',
                                   editorParams: {
+                                    actionpostion: 'top',
+                                    ac: 'TRUE',
                                     PICKUPVIEW: 'TRUE',
                                   },
                                   editorType: 'ADDRESSPICKUP',
+                                  editorItems: [
+                                    {
+                                      id: 'formitem1',
+                                    },
+                                  ],
                                   valueType: 'SIMPLE',
                                   editable: true,
                                   id: 'formitem1',

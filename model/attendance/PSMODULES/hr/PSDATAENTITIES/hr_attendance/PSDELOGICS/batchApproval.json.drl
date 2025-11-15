@@ -45,12 +45,11 @@ package cn.ibizlab.hr.logic.hr_attendancelogic.batchapproval;
                         update(hr_attendancebatchapprovaltemp);//更新fact中变量值
             end
 
-            //逻辑处理节点[准备参数]
-            rule "prepareparam_01"
-            ruleflow-group "hr_attendancebatchapprovalprepareparam_01"
+            //逻辑处理节点[重新建立参数]
+            rule "renewparam_01"
+            ruleflow-group "hr_attendancebatchapprovalrenewparam_01"
             when
             then
-                            hr_attendancebatchapprovalattendance.set("id",hr_attendancebatchapprovaltemp.get("id"));
                         update(hr_attendancebatchapprovaldefault);//更新fact中变量值
                         update(hr_attendancebatchapprovalattendance);//更新fact中变量值
                         update(hr_attendancebatchapprovalattendances);//更新fact中变量值
@@ -81,12 +80,24 @@ package cn.ibizlab.hr.logic.hr_attendancelogic.batchapproval;
                         update(hr_attendancebatchapprovaltemp);//更新fact中变量值
             end
 
-            //逻辑处理节点[实体行为]
+            //逻辑处理节点[更新出勤]
             rule "deaction_02"
             ruleflow-group "hr_attendancebatchapprovaldeaction_02"
             when
             then
                         hr_attendanceservice.update(hr_attendancebatchapprovalattendance);
+                        update(hr_attendancebatchapprovaldefault);//更新fact中变量值
+                        update(hr_attendancebatchapprovalattendance);//更新fact中变量值
+                        update(hr_attendancebatchapprovalattendances);//更新fact中变量值
+                        update(hr_attendancebatchapprovaltemp);//更新fact中变量值
+            end
+
+            //逻辑处理节点[准备参数]
+            rule "prepareparam_01"
+            ruleflow-group "hr_attendancebatchapprovalprepareparam_01"
+            when
+            then
+                            hr_attendancebatchapprovalattendance.set("id",hr_attendancebatchapprovaltemp.get("id"));
                         update(hr_attendancebatchapprovaldefault);//更新fact中变量值
                         update(hr_attendancebatchapprovalattendance);//更新fact中变量值
                         update(hr_attendancebatchapprovalattendances);//更新fact中变量值

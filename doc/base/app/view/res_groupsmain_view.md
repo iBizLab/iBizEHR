@@ -14,9 +14,9 @@
 
 
 ### 关联界面行为
-  * [权限组(RES_GROUPS)](module/base/res_groups) : [取消变更](module/base/res_groups#界面行为)
   * [权限组(RES_GROUPS)](module/base/res_groups) : [编辑界面_保存并新建操作](module/base/res_groups#界面行为)
   * [权限组(RES_GROUPS)](module/base/res_groups) : [编辑界面_保存操作](module/base/res_groups#界面行为)
+  * [权限组(RES_GROUPS)](module/base/res_groups) : [取消变更](module/base/res_groups#界面行为)
 
 ### 关联视图
   * [模型访问(ir_model_accessGridView)](app/view/ir_model_accessGridView)

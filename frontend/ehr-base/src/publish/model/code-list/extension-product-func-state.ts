@@ -23,6 +23,18 @@ export default {
       value: '2',
       id: 'disabled',
     },
+    {
+      codeName: 'installedneedreload',
+      text: '已安装（需重新加载）',
+      value: '3',
+      id: 'installedneedreload',
+    },
+    {
+      codeName: 'disabledneedreload',
+      text: '已禁用（需重新加载）',
+      value: '4',
+      id: 'disabledneedreload',
+    },
   ],
   codeItemValueNumber: true,
   enableCache: true,

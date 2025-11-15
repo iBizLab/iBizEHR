@@ -16,6 +16,7 @@
   * [招聘需求(hr_idea_requirement_gridview)](app/view/hr_idea_requirement_gridview)
   * [职位管理(hr_idea_tab_job_requirments)](app/view/hr_idea_tab_job_requirments)
   * [我的面试(hr_interview_feedback_my_interview_list)](app/view/hr_interview_feedback_my_interview_list)
+  * [我的面试(hr_interview_feedback_work_bench_my_interview)](app/view/hr_interview_feedback_work_bench_my_interview)
   * [面试安排(hr_interview_interview_list_calendar_view)](app/view/hr_interview_interview_list_calendar_view)
   * [面试安排(hr_interview_interview_list_grid_view)](app/view/hr_interview_interview_list_grid_view)
   * [面试安排(hr_interview_interview_list_tab_exp_view)](app/view/hr_interview_interview_list_tab_exp_view)
@@ -28,7 +29,10 @@
   * [设置(system_setting_tree_exp_view)](app/view/system_setting_tree_exp_view)
   * [重要事项(workspace_hr_work_bench)](app/view/workspace_hr_work_bench)
   * [工作台(workspace_manager_index_view)](app/view/workspace_manager_index_view)
+  * [我关注的(workspace_my_attention_tab_exp_view)](app/view/workspace_my_attention_tab_exp_view)
+  * [我的事项(workspace_my_summary_tab_exp_view)](app/view/workspace_my_summary_tab_exp_view)
   * [总览(workspace_over_view)](app/view/workspace_over_view)
+  * [欢迎(workspace_welcome_custom_view)](app/view/workspace_welcome_custom_view)
 
 <script>
  const { createApp } = Vue

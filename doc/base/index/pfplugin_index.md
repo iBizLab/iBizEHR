@@ -162,15 +162,6 @@
 
 远程仓库：`@ibiz-template-plugin/pivottable@1.1.0`
 
-### 锚点富文本 :id=ANCHO_HTML
-
-
-插件标识：`ANCHO_HTML`
-
-运行对象：`AnchoHtml`
-
-远程仓库：`@ibiz-template-plm/ancho-html@0.0.3-alpha.216`
-
 ### 面包屑导航区占位 :id=BREADCRUMB_NAV_POS
 
 

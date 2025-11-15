@@ -93,10 +93,10 @@
 ### 操作标识未配置映射<sup class="footnote-symbol"> <font color=orange>[4]</font></sup>
 | 实体col200   | 操作标识col300  |
 | --------   |------------|
-|[权限组继承(RES_GROUPS_IMPLIED_REL)](module/base/res_groups_implied_rel.md)|CREATE<br>READ<br>DELETE<br>UPDATE|
-|[权限组成员(RES_GROUPS_USERS_REL)](module/base/res_groups_users_rel.md)|CREATE<br>READ<br>DELETE<br>UPDATE|
 |[权限组关联规则(RULE_GROUP_REL)](module/base/rule_group_rel.md)|CREATE<br>READ<br>DELETE<br>UPDATE|
 |[权限组关联统一资源(UNIRES_GROUP_REL)](module/base_extend/unires_group_rel.md)|CREATE<br>READ<br>DELETE<br>UPDATE|
+|[权限组继承(RES_GROUPS_IMPLIED_REL)](module/base/res_groups_implied_rel.md)|CREATE<br>READ<br>DELETE<br>UPDATE|
+|[权限组成员(RES_GROUPS_USERS_REL)](module/base/res_groups_users_rel.md)|CREATE<br>READ<br>DELETE<br>UPDATE|
 
 ### 除主键、主信息、预置属性外，不包含其他配置的表格<sup class="footnote-symbol"> <font color=orange>[1]</font></sup>
 | 实体col200   |   视图col400 | 表格col400  |

@@ -13,7 +13,7 @@ import cn.ibizlab.central.plugin.groovy.dataentity.*
  * 实体[CLOUD_PROXY_USER_ROLE]运行时对象
  * 此代码用户功能扩展代码
  *
- * 该实体存在实体映射，开启RTCode模式会导致映射功能失效
+ * 该实体存在实体映射或者自定义动态扩展对象，开启RTCode模式会导致映射功能失效
  */
 class CloudProxyUserRole extends GroovyDataEntityRuntime<CloudProxyUserRole,CloudProxyUserRoleDTO,CloudProxyUserRoleFilterDTO> {
 

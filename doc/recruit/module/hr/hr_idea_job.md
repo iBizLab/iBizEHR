@@ -46,11 +46,13 @@
 |Remove|Remove|内置方法|默认|支持||||
 |Save|Save|内置方法|默认|不支持||||
 |Update|Update|内置方法|默认|不支持||||
+|获取关联职位|get_join_idea_job|[实体处理逻辑](module/hr/hr_idea_job/logic/get_join_idea_job "获取关联职位")|默认|不支持||||
 
 ## 处理逻辑
 | 中文名col200    | 代码名col150    | 子类型col150    | 插件col200    |  备注col550  |
 | -------- |---------- |----------- |------------|----------|
 |[关联职位](module/hr/hr_idea_job/logic/join_idea_job)|join_idea_job|无|||
+|[获取关联职位](module/hr/hr_idea_job/logic/get_join_idea_job)|get_join_idea_job|无|||
 
 ## 数据查询
 | 中文名col200    | 代码名col150    | 默认查询col100 | 权限使用col100 | 自定义SQLcol100 |  备注col600|

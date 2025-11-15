@@ -14,9 +14,9 @@
 
 
 ### 关联界面行为
-  * [工作岗位(HR_JOB)](module/hr/hr_job) : [编辑界面_保存并新建操作](module/hr/hr_job#界面行为)
   * [工作岗位(HR_JOB)](module/hr/hr_job) : [编辑界面_保存操作](module/hr/hr_job#界面行为)
   * [工作岗位(HR_JOB)](module/hr/hr_job) : [取消变更](module/hr/hr_job#界面行为)
+  * [工作岗位(HR_JOB)](module/hr/hr_job) : [编辑界面_保存并新建操作](module/hr/hr_job#界面行为)
 
 <script>
  const { createApp } = Vue

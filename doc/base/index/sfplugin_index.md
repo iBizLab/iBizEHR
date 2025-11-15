@@ -2,6 +2,7 @@
 
 |  对象      |  实体  |  类型  | 插件  |备注|
 |  --------  | ----- | -----    |-----    |----    |
+|Odoo系统扩展组件||PSSysUtilImpl|[OdooSysExtensionUtilRuntime](#OdooSysExtensionUtilRuntime)||
 |SysPSDEModelUtilRuntime||PSSysUtilImpl|[OdooSysPSDEModelUtilRuntime](#OdooSysPSDEModelUtilRuntime)||
 
 ### 系统运行时组件 :id=GLOBAL_SYSTEMRUNTIME
@@ -23,10 +24,15 @@ null
 ### OdooSysExtensionUtilRuntime :id=OdooSysExtensionUtilRuntime
 
 
-```cn.ibizlab.central.plugin.odoo.sysutil.OdooSysExtensionUtilRuntime```
+```cn.ibizlab.central.plugin.ehr.sysutil.OdooSysExtensionUtilRuntime```
 
 ```groovy
-null
+package cn.ibizlab.central.plugin.ehr.sysutil;
+
+public class OdooSysExtensionUtilRuntime extends net.ibizsys.central.plugin.extension.sysutil.SysExtensionUtilRuntimeBase {
+
+}
+
 ```
 ### OdooSysPSDEModelUtilRuntime :id=OdooSysPSDEModelUtilRuntime
 

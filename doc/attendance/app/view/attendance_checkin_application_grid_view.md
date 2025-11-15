@@ -15,9 +15,9 @@
 
 
 ### 关联界面行为
-  * [考勤申请记录(ATTENDANCE_CHECKIN_APPLICATION)](module/attendance/attendance_checkin_application) : [表格界面_数据导入栏](module/attendance/attendance_checkin_application#界面行为)
   * [考勤申请记录(ATTENDANCE_CHECKIN_APPLICATION)](module/attendance/attendance_checkin_application) : [申请作废](module/attendance/attendance_checkin_application#界面行为)
   * [考勤申请记录(ATTENDANCE_CHECKIN_APPLICATION)](module/attendance/attendance_checkin_application) : [表格界面_新建操作](module/attendance/attendance_checkin_application#界面行为)
+  * [考勤申请记录(ATTENDANCE_CHECKIN_APPLICATION)](module/attendance/attendance_checkin_application) : [表格界面_数据导入栏](module/attendance/attendance_checkin_application#界面行为)
 
 ### 关联视图
   * [登记审批单(attendance_checkin_application_quick_create_view)](app/view/attendance_checkin_application_quick_create_view)

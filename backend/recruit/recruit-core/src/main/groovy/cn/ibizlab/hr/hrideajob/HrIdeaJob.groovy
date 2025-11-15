@@ -16,6 +16,7 @@ import cn.ibizlab.central.plugin.groovy.dataentity.*
  */
 class HrIdeaJob extends GroovyDataEntityRuntime<HrIdeaJob,HrIdeaJobDTO,HrIdeaJobFilterDTO> {
 
+    public static final String ACTION_GET_JOIN_IDEA_JOB = "get_join_idea_job"
     public static final String DATASET_DEFAULT = "DEFAULT"
     private static HrIdeaJob _instance
     void setInstance(HrIdeaJob instance) {
@@ -93,6 +94,16 @@ class HrIdeaJob extends GroovyDataEntityRuntime<HrIdeaJob,HrIdeaJobDTO,HrIdeaJob
     @DEAction(ACTION_SAVE)
     HrIdeaJobDTO save(HrIdeaJobDTO dto) throws Throwable {
         return this.execute(ACTION_SAVE, dto, HrIdeaJobDTO.class)
+    }
+
+    /**
+     * 行为：获取关联职位 实际功能
+     * @param key
+     * @throws Throwable
+     */
+    @DEAction(ACTION_GET_JOIN_IDEA_JOB)
+    def getJoinIdeaJob(String key) throws Throwable {
+        return this.execute(ACTION_GET_JOIN_IDEA_JOB, key, HrIdeaJobDTO.class)
     }
 
     /**

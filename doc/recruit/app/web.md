@@ -60,7 +60,7 @@
 |[我关注的](app/view/hr_applicant_my_favorite_list_view)|hr_applicant_my_favorite_list_view|我关注的|实体列表视图||
 |[候选人申请选择表格视图](app/view/hr_applicant_pickup_grid_view)|hr_applicant_pickup_grid_view|候选人申请|实体选择表格视图（部件视图）|系统自动添加|
 |[候选人申请数据选择视图](app/view/hr_applicant_pickup_view)|hr_applicant_pickup_view|候选人申请|实体数据选择视图|系统自动添加|
-|[推荐到其它职位](app/view/hr_applicant_recommend_other_view)|hr_applicant_recommend_other_view|候选人申请|实体选项操作视图||
+|[推荐到其它职位](app/view/hr_applicant_recommend_other_view)|hr_applicant_recommend_other_view|推荐到其他职位|实体选项操作视图||
 |[候选人申请数据重定向视图](app/view/hr_applicant_redirect_view)|hr_applicant_redirect_view|候选人申请|实体数据重定向视图|系统自动添加|
 |[招聘官网职位申请](app/view/hr_applicant_website_apply_view)|hr_applicant_website_apply_view|候选人申请|实体编辑视图||
 |[放入人才库](app/view/hr_candidate_add_talentpool_view)|hr_candidate_add_talentpool_view|放入人才库|实体选项操作视图||
@@ -75,6 +75,7 @@
 |[我的筛选](app/view/hr_candidate_filter_detail_my_filter_list_view)|hr_candidate_filter_detail_my_filter_list_view|我的筛选|实体列表视图||
 |[筛选候选人明细数据重定向视图](app/view/hr_candidate_filter_detail_redirect_view)|hr_candidate_filter_detail_redirect_view|筛选候选人明细|实体数据重定向视图|系统自动添加|
 |[推荐给用人部门](app/view/hr_candidate_filter_recommend_department_option_view)|hr_candidate_filter_recommend_department_option_view|筛选候选人|实体选项操作视图||
+|[快速_新建_标签](app/view/hr_candidate_label_quick_create_tag)|hr_candidate_label_quick_create_tag|候选人标签|实体编辑视图|系统自动添加|
 |[候选人选择表格视图](app/view/hr_candidate_pickup_grid_view)|hr_candidate_pickup_grid_view|候选人|实体选择表格视图（部件视图）|系统自动添加|
 |[候选人数据选择视图](app/view/hr_candidate_pickup_view)|hr_candidate_pickup_view|候选人|实体数据选择视图|系统自动添加|
 |[人才库列表](app/view/hr_candidate_talent_pool_list)|hr_candidate_talent_pool_list|候选人|实体列表视图||

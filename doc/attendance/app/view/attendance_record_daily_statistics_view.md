@@ -176,8 +176,8 @@ grid.state.columnStates.forEach((item) => {
 
 
 ### 关联界面行为
-  * [考勤记录(ATTENDANCE_RECORD)](module/attendance/attendance_record) : [考勤记录反查](module/attendance/attendance_record#界面行为)
   * [考勤记录(ATTENDANCE_RECORD)](module/attendance/attendance_record) : [考勤记录反查校验](module/attendance/attendance_record#界面行为)
+  * [考勤记录(ATTENDANCE_RECORD)](module/attendance/attendance_record) : [考勤记录反查](module/attendance/attendance_record#界面行为)
 
 ### 关联视图
   * [考勤记录(attendance_record_check_info_edit_view)](app/view/attendance_record_check_info_edit_view)

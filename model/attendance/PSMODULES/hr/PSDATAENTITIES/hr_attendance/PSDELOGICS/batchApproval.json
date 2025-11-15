@@ -23,9 +23,7 @@
     "topPos" : 200,
     "parallelOutput" : true
   }, {
-    "code" : "def _default = logic.param('Default').getReal()\r\ndef attendances = logic.param('attendances').getReal()\r\n\r\nif (_default){\r\n    _default.each { item ->\r\n        if (item != null) {\r\n            def attendances_data = item.any()\r\n            def attendance_runtime = sys.dataentity('hr_attendance')\r\n            def _attendance =attendance_runtime.createEntity(attendances_data)\r\n            attendances.add(_attendance)\r\n        }\r\n    }\r\n\r\n}",
     "codeName" : "RAWSFCODE_01",
-    "codeType" : "Groovy",
     "leftPos" : 180,
     "logicNodeType" : "RAWSFCODE",
     "name" : "执行脚本代码",
@@ -54,7 +52,18 @@
     "getPSDELogicLinks" : [ {
       "getDstPSDELogicNode" : {
         "modelref" : true,
-        "id" : "PREPAREPARAM_01"
+        "id" : "RENEWPARAM_01"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "LOOPSUBCALL_01"
+      },
+      "subCallLink" : true
+    }, {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "RENEWPARAM_01"
       },
       "name" : "连接名称",
       "getSrcPSDELogicNode" : {
@@ -80,40 +89,24 @@
     "topPos" : 198,
     "parallelOutput" : true
   }, {
-    "codeName" : "PREPAREPARAM_01",
-    "leftPos" : 640,
-    "logicNodeType" : "PREPAREPARAM",
-    "name" : "准备参数",
+    "codeName" : "RENEWPARAM_01",
+    "getDstPSDELogicParam" : {
+      "modelref" : true,
+      "id" : "attendance"
+    },
+    "leftPos" : 650,
+    "logicNodeType" : "RENEWPARAM",
+    "name" : "重新建立参数",
     "getPSDELogicLinks" : [ {
       "getDstPSDELogicNode" : {
         "modelref" : true,
-        "id" : "DEACTION_01"
+        "id" : "PREPAREPARAM_01"
       },
       "name" : "连接名称",
       "getSrcPSDELogicNode" : {
         "modelref" : true,
-        "id" : "PREPAREPARAM_01"
+        "id" : "RENEWPARAM_01"
       }
-    } ],
-    "getPSDELogicNodeParams" : [ {
-      "getDstPSDELogicParam" : {
-        "modelref" : true,
-        "id" : "attendance"
-      },
-      "paramAction" : "RENEWPARAM"
-    }, {
-      "dstFieldName" : "ID",
-      "getDstPSDELogicParam" : {
-        "modelref" : true,
-        "id" : "attendance"
-      },
-      "paramAction" : "SETPARAMVALUE",
-      "srcFieldName" : "ID",
-      "getSrcPSDELogicParam" : {
-        "modelref" : true,
-        "id" : "temp"
-      },
-      "srcValueType" : "SRCDLPARAM"
     } ],
     "topPos" : 198,
     "parallelOutput" : true
@@ -151,7 +144,7 @@
             "id" : "attendance"
           },
           "logicType" : "SINGLE",
-          "name" : "attendance 值不为空(NotNil)"
+          "name" : "attendance 值不为空(NotNil) "
         }, {
           "condOP" : "ISNOTNULL",
           "dstFieldName" : "CHECK_OUT",
@@ -160,7 +153,7 @@
             "id" : "attendance"
           },
           "logicType" : "SINGLE",
-          "name" : "attendance[CHECK_OUT] 值不为空(NotNil)"
+          "name" : "attendance[CHECK_OUT] 值不为空(NotNil) "
         }, {
           "condOP" : "ISNOTNULL",
           "dstFieldName" : "CHECK_IN",
@@ -169,7 +162,7 @@
             "id" : "attendance"
           },
           "logicType" : "SINGLE",
-          "name" : "attendance[CHECK_IN] 值不为空(NotNil)"
+          "name" : "attendance[CHECK_IN] 值不为空(NotNil) "
         } ]
       },
       "getSrcPSDELogicNode" : {
@@ -231,14 +224,50 @@
     },
     "leftPos" : 1277,
     "logicNodeType" : "DEACTION",
-    "name" : "实体行为",
+    "name" : "更新出勤",
     "topPos" : 198,
+    "parallelOutput" : true
+  }, {
+    "codeName" : "PREPAREPARAM_01",
+    "leftPos" : 755,
+    "logicNodeType" : "PREPAREPARAM",
+    "name" : "准备参数",
+    "getPSDELogicLinks" : [ {
+      "getDstPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "DEACTION_01"
+      },
+      "name" : "连接名称",
+      "getSrcPSDELogicNode" : {
+        "modelref" : true,
+        "id" : "PREPAREPARAM_01"
+      }
+    } ],
+    "getPSDELogicNodeParams" : [ {
+      "dstFieldName" : "ID",
+      "getDstPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "attendance"
+      },
+      "paramAction" : "SETPARAMVALUE",
+      "srcFieldName" : "ID",
+      "getSrcPSDELogicParam" : {
+        "modelref" : true,
+        "id" : "temp"
+      },
+      "srcValueType" : "SRCDLPARAM"
+    } ],
+    "topPos" : 339,
     "parallelOutput" : true
   }, {
     "codeName" : "END_01",
     "leftPos" : 460,
     "logicNodeType" : "END",
     "name" : "结束",
+    "getReturnParam" : {
+      "modelref" : true,
+      "id" : "Default"
+    },
     "topPos" : 341,
     "parallelOutput" : true
   } ],

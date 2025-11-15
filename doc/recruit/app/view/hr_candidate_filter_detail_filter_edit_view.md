@@ -9,8 +9,8 @@
 
 
 ### 关联界面行为
-  * [筛选候选人明细(HR_CANDIDATE_FILTER_DETAIL)](module/hr/hr_candidate_filter_detail) : [视图_确定](module/hr/hr_candidate_filter_detail#界面行为)
   * [筛选候选人明细(HR_CANDIDATE_FILTER_DETAIL)](module/hr/hr_candidate_filter_detail) : [视图_取消](module/hr/hr_candidate_filter_detail#界面行为)
+  * [筛选候选人明细(HR_CANDIDATE_FILTER_DETAIL)](module/hr/hr_candidate_filter_detail) : [视图_确定](module/hr/hr_candidate_filter_detail#界面行为)
 
 <script>
  const { createApp } = Vue

@@ -18,11 +18,11 @@
 
 ### 关联界面行为
   * [工作台(WORKSPACE)](module/base/workspace) : [打开候选人申请_沟通offer](module/base/workspace#界面行为)
-  * [工作台(WORKSPACE)](module/base/workspace) : [打开候选人申请_初筛](module/base/workspace#界面行为)
   * [工作台(WORKSPACE)](module/base/workspace) : [打开候选人申请_复试](module/base/workspace#界面行为)
   * [工作台(WORKSPACE)](module/base/workspace) : [打开候选人申请_初试](module/base/workspace#界面行为)
-  * [工作台(WORKSPACE)](module/base/workspace) : [打开候选人申请_待入职](module/base/workspace#界面行为)
+  * [工作台(WORKSPACE)](module/base/workspace) : [打开候选人申请_初筛](module/base/workspace#界面行为)
   * [工作台(WORKSPACE)](module/base/workspace) : [打开我的面试](module/base/workspace#界面行为)
+  * [工作台(WORKSPACE)](module/base/workspace) : [打开候选人申请_待入职](module/base/workspace#界面行为)
 
 ### 关联界面逻辑
   * [工作台(WORKSPACE)](module/base/workspace) : [提示](module/base/workspace/uilogic/message)

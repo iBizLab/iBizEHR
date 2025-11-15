@@ -44,8 +44,8 @@ if (!viewParam.date_range || !viewParam.n_checkin_time_gtandeq || !viewParam.n_c
 ### 关联界面行为
   * [打卡记录(ATTENDANCE_CLOCK_IN_RECORD)](module/attendance/attendance_clock_in_record) : [批量补卡](module/attendance/attendance_clock_in_record#界面行为)
   * [打卡记录(ATTENDANCE_CLOCK_IN_RECORD)](module/attendance/attendance_clock_in_record) : [表格界面_新建操作](module/attendance/attendance_clock_in_record#界面行为)
-  * [打卡记录(ATTENDANCE_CLOCK_IN_RECORD)](module/attendance/attendance_clock_in_record) : [导出列表视图打卡记录](module/attendance/attendance_clock_in_record#界面行为)
   * [打卡记录(ATTENDANCE_CLOCK_IN_RECORD)](module/attendance/attendance_clock_in_record) : [删除](module/attendance/attendance_clock_in_record#界面行为)
+  * [打卡记录(ATTENDANCE_CLOCK_IN_RECORD)](module/attendance/attendance_clock_in_record) : [导出列表视图打卡记录](module/attendance/attendance_clock_in_record#界面行为)
 
 ### 关联视图
   * [打卡记录(attendance_clock_in_record_edit_view)](app/view/attendance_clock_in_record_edit_view)

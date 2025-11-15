@@ -16,6 +16,7 @@ import cn.ibizlab.central.plugin.groovy.dataentity.*
  */
 class HrInterview extends GroovyDataEntityRuntime<HrInterview,HrInterviewDTO,HrInterviewFilterDTO> {
 
+    public static final String ACTION_NOTHING = "nothing"
     public static final String DATASET_DEFAULT = "DEFAULT"
     public static final String DATASET_AFTER_INTERVIEW = "AFTER_INTERVIEW"
     public static final String DATASET_BEFORE_INTERVIEW = "BEFORE_INTERVIEW"
@@ -98,6 +99,16 @@ class HrInterview extends GroovyDataEntityRuntime<HrInterview,HrInterviewDTO,HrI
     @DEAction(ACTION_SAVE)
     HrInterviewDTO save(HrInterviewDTO dto) throws Throwable {
         return this.execute(ACTION_SAVE, dto, HrInterviewDTO.class)
+    }
+
+    /**
+     * 行为：行为 实际功能
+     * @param dto
+     * @throws Throwable
+     */
+    @DEAction(ACTION_NOTHING)
+    def nothing(HrInterviewDTO dto) throws Throwable {
+        this.execute(ACTION_NOTHING, dto, HrInterviewDTO.class)
     }
 
     /**

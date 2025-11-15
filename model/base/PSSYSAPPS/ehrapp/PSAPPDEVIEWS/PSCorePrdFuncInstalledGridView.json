@@ -22,7 +22,7 @@
   }, {
     "key" : "n_pscoreprdid_eq",
     "name" : "n_pscoreprdid_eq",
-    "value" : "srfsystemid",
+    "value" : "srfv2systemid",
     "rawValue" : false
   } ],
   "getPSDEViewCodeName" : "InstalledGridView",
@@ -299,46 +299,66 @@
       },
       "getPSControlHandler" : {
         "getPSHandlerActions" : [ {
-          "actionName" : "GET",
+          "actionName" : "Get",
           "actionType" : "DEACTION",
           "dataAccessAction" : "READ",
           "name" : "load",
+          "getPSAppDEMethod" : {
+            "modelref" : true,
+            "id" : "Get"
+          },
           "getPSAppDataEntity" : {
             "modelref" : true,
             "path" : "PSSYSAPPS/ehrapp/PSAPPDATAENTITIES/PSCorePrdFunc.json"
           }
         }, {
-          "actionName" : "CREATE",
+          "actionName" : "Create",
           "actionType" : "DEACTION",
           "dataAccessAction" : "CREATE",
           "name" : "create",
+          "getPSAppDEMethod" : {
+            "modelref" : true,
+            "id" : "Create"
+          },
           "getPSAppDataEntity" : {
             "modelref" : true,
             "path" : "PSSYSAPPS/ehrapp/PSAPPDATAENTITIES/PSCorePrdFunc.json"
           }
         }, {
-          "actionName" : "UPDATE",
+          "actionName" : "Update",
           "actionType" : "DEACTION",
           "dataAccessAction" : "UPDATE",
           "name" : "update",
+          "getPSAppDEMethod" : {
+            "modelref" : true,
+            "id" : "Update"
+          },
           "getPSAppDataEntity" : {
             "modelref" : true,
             "path" : "PSSYSAPPS/ehrapp/PSAPPDATAENTITIES/PSCorePrdFunc.json"
           }
         }, {
-          "actionName" : "REMOVE",
+          "actionName" : "Remove",
           "actionType" : "DEACTION",
           "dataAccessAction" : "DELETE",
           "name" : "remove",
+          "getPSAppDEMethod" : {
+            "modelref" : true,
+            "id" : "Remove"
+          },
           "getPSAppDataEntity" : {
             "modelref" : true,
             "path" : "PSSYSAPPS/ehrapp/PSAPPDATAENTITIES/PSCorePrdFunc.json"
           }
         }, {
-          "actionName" : "GETDRAFT",
+          "actionName" : "GetDraft",
           "actionType" : "DEACTION",
           "dataAccessAction" : "CREATE",
           "name" : "loaddraft",
+          "getPSAppDEMethod" : {
+            "modelref" : true,
+            "id" : "GetDraft"
+          },
           "getPSAppDataEntity" : {
             "modelref" : true,
             "path" : "PSSYSAPPS/ehrapp/PSAPPDATAENTITIES/PSCorePrdFunc.json"
@@ -444,6 +464,11 @@
                 "name" : "n_pscoreprdid_eq",
                 "value" : "srfv2systemid",
                 "rawValue" : false
+              }, {
+                "key" : "reload",
+                "name" : "reload",
+                "value" : "false",
+                "rawValue" : true
               } ],
               "refreshMode" : 1,
               "successMsg" : "卸载成功！",
@@ -580,10 +605,14 @@
       "pagingMode" : 1,
       "pagingSize" : 20,
       "getRemovePSControlAction" : {
-        "actionName" : "REMOVE",
+        "actionName" : "Remove",
         "actionType" : "DEACTION",
         "dataAccessAction" : "DELETE",
         "name" : "remove",
+        "getPSAppDEMethod" : {
+          "modelref" : true,
+          "id" : "Remove"
+        },
         "getPSAppDataEntity" : {
           "modelref" : true,
           "path" : "PSSYSAPPS/ehrapp/PSAPPDATAENTITIES/PSCorePrdFunc.json"
@@ -722,6 +751,7 @@
       "getPSControlParam" : { }
     } ]
   },
+  "priority" : 30,
   "title" : "已安装应用",
   "viewStyle" : "DEFAULT",
   "viewType" : "DEGRIDVIEW",

@@ -17,7 +17,7 @@
   "getPSAppViewNavParams" : [ {
     "key" : "n_pscoreprdid_eq",
     "name" : "n_pscoreprdid_eq",
-    "value" : "srfsystemid",
+    "value" : "srfv2systemid",
     "rawValue" : false
   } ],
   "getPSDEViewCodeName" : "MarketApplicationView",
@@ -375,10 +375,14 @@
       "getCreatePSControlAction" : {
         "modelref" : true,
         "id" : "create",
-        "actionName" : "CREATE",
+        "actionName" : "Create",
         "actionType" : "DEACTION",
         "dataAccessAction" : "CREATE",
         "name" : "create",
+        "getPSAppDEMethod" : {
+          "modelref" : true,
+          "id" : "Create"
+        },
         "getPSAppDataEntity" : {
           "modelref" : true,
           "path" : "PSSYSAPPS/ehrapp/PSAPPDATAENTITIES/PSCorePrdFunc.json"
@@ -402,10 +406,14 @@
       "getGetPSControlAction" : {
         "modelref" : true,
         "id" : "load",
-        "actionName" : "GET",
+        "actionName" : "Get",
         "actionType" : "DEACTION",
         "dataAccessAction" : "READ",
         "name" : "load",
+        "getPSAppDEMethod" : {
+          "modelref" : true,
+          "id" : "Get"
+        },
         "getPSAppDataEntity" : {
           "modelref" : true,
           "path" : "PSSYSAPPS/ehrapp/PSAPPDATAENTITIES/PSCorePrdFunc.json"
@@ -740,7 +748,7 @@
                       "logicTag" : "itemlayoutpanel",
                       "logicType" : "SCRIPT",
                       "name" : "logic2",
-                      "scriptCode" : "data.funcstate == 0 || data.funcstate == 2",
+                      "scriptCode" : "data.funcstate == 0 || data.funcstate == 2 || data.funcstate == 4",
                       "triggerType" : "ITEMVISIBLE"
                     } ],
                     "getPSLayoutPos" : {
@@ -785,6 +793,11 @@
                         "name" : "n_pscoreprdid_eq",
                         "value" : "srfv2systemid",
                         "rawValue" : false
+                      }, {
+                        "key" : "reload",
+                        "name" : "reload",
+                        "value" : "false",
+                        "rawValue" : true
                       } ],
                       "refreshMode" : 1,
                       "successMsg" : "安装成功！",
@@ -810,7 +823,7 @@
                       "logicTag" : "itemlayoutpanel",
                       "logicType" : "SCRIPT",
                       "name" : "logic3",
-                      "scriptCode" : "data.funcstate == 1",
+                      "scriptCode" : "data.funcstate == 1 || data.funcstate == 3",
                       "triggerType" : "ITEMVISIBLE"
                     } ],
                     "getPSLayoutPos" : {
@@ -853,6 +866,11 @@
                             "name" : "n_pscoreprdid_eq",
                             "value" : "srfv2systemid",
                             "rawValue" : false
+                          }, {
+                            "key" : "reload",
+                            "name" : "reload",
+                            "value" : "false",
+                            "rawValue" : true
                           } ],
                           "refreshMode" : 1,
                           "successMsg" : "卸载成功！",
@@ -929,6 +947,66 @@
                     } ],
                     "tooltip" : "更新",
                     "uIActionTarget" : "NONE",
+                    "showCaption" : true
+                  }, {
+                    "actionType" : "UIACTION",
+                    "buttonStyle" : "DEFAULT",
+                    "caption" : "重新加载",
+                    "itemStyle" : "DEFAULT",
+                    "itemType" : "BUTTON",
+                    "name" : "reload",
+                    "getPSAppViewUIAction" : {
+                      "modelref" : true,
+                      "id" : "itemlayoutpanel_reload"
+                    },
+                    "getPSControlLogics" : [ {
+                      "itemName" : "reload",
+                      "logicTag" : "itemlayoutpanel",
+                      "logicType" : "SCRIPT",
+                      "name" : "logic1",
+                      "scriptCode" : "data.funcstate == 3 || data.funcstate == 4",
+                      "triggerType" : "ITEMVISIBLE"
+                    } ],
+                    "getPSLayoutPos" : {
+                      "grow" : -1,
+                      "layout" : "FLEX"
+                    },
+                    "getPSUIAction" : {
+                      "actionTarget" : "SINGLEKEY",
+                      "caption" : "重新加载",
+                      "codeName" : "Reload",
+                      "fullCodeName" : "PSCorePrdFunc_Reload",
+                      "name" : "重新加载",
+                      "getPSAppDEMethod" : {
+                        "modelref" : true,
+                        "id" : "reload"
+                      },
+                      "getPSAppDataEntity" : {
+                        "modelref" : true,
+                        "path" : "PSSYSAPPS/ehrapp/PSAPPDATAENTITIES/PSCorePrdFunc.json"
+                      },
+                      "getPSNavigateContexts" : [ {
+                        "key" : "PSCOREPRDFUNC",
+                        "name" : "PSCOREPRDFUNC",
+                        "value" : "pscoreprdfuncid",
+                        "rawValue" : false
+                      } ],
+                      "getPSNavigateParams" : [ {
+                        "key" : "n_pscoreprdid_eq",
+                        "name" : "n_pscoreprdid_eq",
+                        "value" : "srfv2systemid",
+                        "rawValue" : false
+                      } ],
+                      "successMsg" : "开始重新加载，请稍等片刻重新刷新页面！",
+                      "timeout" : 60000,
+                      "uIActionMode" : "BACKEND",
+                      "uIActionTag" : "Reload",
+                      "uIActionType" : "DEUIACTION",
+                      "enableConfirm" : true,
+                      "id" : "Reload@PSCorePrdFunc"
+                    },
+                    "tooltip" : "重新加载",
+                    "uIActionTarget" : "SINGLEKEY",
                     "showCaption" : true
                   } ]
                 }, {
@@ -1221,37 +1299,53 @@
       },
       "getPSControlHandler" : {
         "getPSHandlerActions" : [ {
-          "actionName" : "GET",
+          "actionName" : "Get",
           "actionType" : "DEACTION",
           "dataAccessAction" : "READ",
           "name" : "load",
+          "getPSAppDEMethod" : {
+            "modelref" : true,
+            "id" : "Get"
+          },
           "getPSAppDataEntity" : {
             "modelref" : true,
             "path" : "PSSYSAPPS/ehrapp/PSAPPDATAENTITIES/PSCorePrdFunc.json"
           }
         }, {
-          "actionName" : "CREATE",
+          "actionName" : "Create",
           "actionType" : "DEACTION",
           "dataAccessAction" : "CREATE",
           "name" : "create",
+          "getPSAppDEMethod" : {
+            "modelref" : true,
+            "id" : "Create"
+          },
           "getPSAppDataEntity" : {
             "modelref" : true,
             "path" : "PSSYSAPPS/ehrapp/PSAPPDATAENTITIES/PSCorePrdFunc.json"
           }
         }, {
-          "actionName" : "UPDATE",
+          "actionName" : "Update",
           "actionType" : "DEACTION",
           "dataAccessAction" : "UPDATE",
           "name" : "update",
+          "getPSAppDEMethod" : {
+            "modelref" : true,
+            "id" : "Update"
+          },
           "getPSAppDataEntity" : {
             "modelref" : true,
             "path" : "PSSYSAPPS/ehrapp/PSAPPDATAENTITIES/PSCorePrdFunc.json"
           }
         }, {
-          "actionName" : "REMOVE",
+          "actionName" : "Remove",
           "actionType" : "DEACTION",
           "dataAccessAction" : "DELETE",
           "name" : "remove",
+          "getPSAppDEMethod" : {
+            "modelref" : true,
+            "id" : "Remove"
+          },
           "getPSAppDataEntity" : {
             "modelref" : true,
             "path" : "PSSYSAPPS/ehrapp/PSAPPDATAENTITIES/PSCorePrdFunc.json"
@@ -1369,10 +1463,14 @@
       "getRemovePSControlAction" : {
         "modelref" : true,
         "id" : "remove",
-        "actionName" : "REMOVE",
+        "actionName" : "Remove",
         "actionType" : "DEACTION",
         "dataAccessAction" : "DELETE",
         "name" : "remove",
+        "getPSAppDEMethod" : {
+          "modelref" : true,
+          "id" : "Remove"
+        },
         "getPSAppDataEntity" : {
           "modelref" : true,
           "path" : "PSSYSAPPS/ehrapp/PSAPPDATAENTITIES/PSCorePrdFunc.json"
@@ -1381,10 +1479,14 @@
       "getUpdatePSControlAction" : {
         "modelref" : true,
         "id" : "update",
-        "actionName" : "UPDATE",
+        "actionName" : "Update",
         "actionType" : "DEACTION",
         "dataAccessAction" : "UPDATE",
         "name" : "update",
+        "getPSAppDEMethod" : {
+          "modelref" : true,
+          "id" : "Update"
+        },
         "getPSAppDataEntity" : {
           "modelref" : true,
           "path" : "PSSYSAPPS/ehrapp/PSAPPDATAENTITIES/PSCorePrdFunc.json"
@@ -1440,6 +1542,7 @@
       "getPSControlParam" : { }
     } ]
   },
+  "priority" : 30,
   "title" : "应用市场",
   "viewStyle" : "DEFAULT",
   "viewType" : "DEDATAVIEW",

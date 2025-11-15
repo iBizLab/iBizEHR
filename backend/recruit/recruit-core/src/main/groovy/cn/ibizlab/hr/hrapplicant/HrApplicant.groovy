@@ -21,6 +21,7 @@ class HrApplicant extends GroovyDataEntityRuntime<HrApplicant,HrApplicantDTO,HrA
     public static final String ACTION_GET_APPLICANT_STATE = "get_applicant_state"
     public static final String ACTION_GET_BASEINFO_PAGE_COUNT = "get_baseinfo_page_count"
     public static final String ACTION_GET_WORKSPACE_COUNT = "get_workspace_count"
+    public static final String ACTION_NOTHING = "nothing"
     public static final String ACTION_OUT = "out"
     public static final String ACTION_RECOMMEND_DEPARTMENT = "recommend_department"
     public static final String ACTION_REMOVE_FAVORITE = "remove_favorite"
@@ -156,6 +157,16 @@ class HrApplicant extends GroovyDataEntityRuntime<HrApplicant,HrApplicantDTO,HrA
     @DEAction(ACTION_GET_WORKSPACE_COUNT)
     def getWorkspaceCount(String key) throws Throwable {
         return this.execute(ACTION_GET_WORKSPACE_COUNT, key, HrApplicantDTO.class)
+    }
+
+    /**
+     * 行为：nothing 实际功能
+     * @param dto
+     * @throws Throwable
+     */
+    @DEAction(ACTION_NOTHING)
+    def nothing(HrApplicantDTO dto) throws Throwable {
+        this.execute(ACTION_NOTHING, dto, HrApplicantDTO.class)
     }
 
     /**

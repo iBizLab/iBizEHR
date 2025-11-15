@@ -14,9 +14,9 @@
 
 
 ### 关联界面行为
-  * [活动计划(MAIL_ACTIVITY_PLAN)](module/mail/mail_activity_plan) : [编辑界面_保存并新建操作](module/mail/mail_activity_plan#界面行为)
-  * [活动计划(MAIL_ACTIVITY_PLAN)](module/mail/mail_activity_plan) : [编辑界面_保存操作](module/mail/mail_activity_plan#界面行为)
   * [活动计划(MAIL_ACTIVITY_PLAN)](module/mail/mail_activity_plan) : [取消变更](module/mail/mail_activity_plan#界面行为)
+  * [活动计划(MAIL_ACTIVITY_PLAN)](module/mail/mail_activity_plan) : [编辑界面_保存操作](module/mail/mail_activity_plan#界面行为)
+  * [活动计划(MAIL_ACTIVITY_PLAN)](module/mail/mail_activity_plan) : [编辑界面_保存并新建操作](module/mail/mail_activity_plan#界面行为)
 
 ### 关联视图
   * [部门(hr_departmentPickupView)](app/view/hr_departmentPickupView)

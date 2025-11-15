@@ -4,7 +4,7 @@ services:
   #recruitservice
   recruitservice:
     env_file: .env
-    image: 	${IMAGE_URL}ibiz-service-runner:v8.1.0.572.10-1
+    image: 	${IMAGE_URL}ibiz-service-runner:v8.1.0.573.34
     container_name: recruitservice
     ports:
       - "30454:30454"
@@ -13,7 +13,7 @@ services:
     environment:
       - TZ=Asia/Shanghai
       - SYSTEM_NAME=recruit
-      - SYSTEM_REPO=https://gitee.com/ibizlab/recruitment/releases/download/V1.0-alpha.20251015/V1.0-alpha.20251013.zip
+      - SYSTEM_REPO=https://gitee.com/ibizlab/recruitment/releases/download/V1.0-alpha.20251112/V1.0-alpha.20251112.zip
       - SPRING_CLOUD_NACOS_DISCOVERY_SERVER-ADDR=http://${NACOS_HOST}:${NACOS_PORT}
       - SPRING_CLOUD_NACOS_CONFIG_SERVER-ADDR=http://${NACOS_HOST}:${NACOS_PORT}
       - SPRING_CLOUD_NACOS_DISCOVERY_IP=recruitservice
@@ -23,7 +23,7 @@ services:
       - SPRING_DATASOURCE_PASSWORD=ehr@2024
       - SPRING_DATASOURCE_URL=jdbc:mysql://${MYSQL_HOST}:${MYSQL_PORT}/ehr?autoReconnect=true&useUnicode=true&characterEncoding=UTF-8&useOldAliasMetadataBehavior=true&serverTimezone=GMT%2B8&allowMultiQueries=true&useSSL=false
       - SPRING_DATASOURCE_USERNAME=ehr
-      - SETTINGS_APPDATACTX_MODELDESIGNPATH=https://open.ibizlab.cn/modeldesign/#/psdevslnsys=72609486-e3e0-b83d-58aa-7718ba2ae047/modelingindex/
+      - SETTINGS_APPDATACTX_MODELDESIGNPATH=https://open.ibizlab.cn/modeldesign/#/
       - SETTINGS_APPDATACTX_MODELDESIGNMODE=v9
       - JAVA_OPTS=-Xms512m -Xmx2048m -Xss256K -Dgroovy.grape.report.downloads=true
     entrypoint: /entrypoint-waitfor.sh
@@ -33,7 +33,7 @@ services:
   #recruitweb
   recruitweb:
     env_file: .env
-    image: 	${IMAGE_URL}ibiz-cloud-web-runner:v9.0.7.41-alpha.31
+    image: 	${IMAGE_URL}ibiz-cloud-web-runner:v9.0.7.41-alpha.35
     container_name: recruitweb
     ports:
       - 30453:80

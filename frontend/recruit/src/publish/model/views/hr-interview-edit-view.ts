@@ -620,7 +620,7 @@ export default {
                           buttonStyle: 'DEFAULT',
                           uiactionId: 'start_interview@hr_interview',
                           tooltip: '进入面试',
-                          uiactionTarget: 'NONE',
+                          uiactionTarget: 'SINGLEDATA',
                           caption: '进入面试',
                           codeName: 'button1',
                           detailStyle: 'DEFAULT',

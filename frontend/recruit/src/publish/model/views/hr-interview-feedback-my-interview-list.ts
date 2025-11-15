@@ -696,7 +696,7 @@ export default {
                     dataType: 5,
                     enableCond: 3,
                     labelPos: 'TOP',
-                    labelWidth: 130,
+                    labelWidth: 287,
                     noPrivDisplayMode: 1,
                     appDEFieldId: 'start_date',
                     editor: {

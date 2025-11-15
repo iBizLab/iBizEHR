@@ -18,7 +18,7 @@ select * from hr_recruitment_stage hrs where hrs.NAME  = '初筛'
 <p class="panel-title"><b>执行sql语句</b></p>
 
 ```sql
-select COUNT(1) applicant_interview from comment where comment.PRINCIPAL_ID = ? and comment.PRINCIPAL_TYPE  = 'HR_APPLICANT'
+null
 ```
 
 <p class="panel-title"><b>执行sql参数</b></p>
@@ -32,7 +32,7 @@ select COUNT(1) applicant_interview from comment where comment.PRINCIPAL_ID = ? 
 <p class="panel-title"><b>执行sql语句</b></p>
 
 ```sql
-select count(1) applicant_exam from hr_exam where APPLICANT_ID  = ?
+null
 ```
 
 <p class="panel-title"><b>执行sql参数</b></p>
@@ -46,7 +46,7 @@ select count(1) applicant_exam from hr_exam where APPLICANT_ID  = ?
 <p class="panel-title"><b>执行sql语句</b></p>
 
 ```sql
-select count(1) sift_view from hr_candidate_filter_detail  where APPLICANT_ID  = ?
+null
 ```
 
 <p class="panel-title"><b>执行sql参数</b></p>
@@ -60,7 +60,7 @@ select count(1) sift_view from hr_candidate_filter_detail  where APPLICANT_ID  =
 <p class="panel-title"><b>执行sql语句</b></p>
 
 ```sql
-select count(1) interview_view from hr_applicant_interview   where APPLICANT_ID  = ?
+null
 ```
 
 <p class="panel-title"><b>执行sql参数</b></p>
@@ -74,7 +74,7 @@ select count(1) interview_view from hr_applicant_interview   where APPLICANT_ID 
 <p class="panel-title"><b>执行sql语句</b></p>
 
 ```sql
-select count(1) offer_view from hr_offer where APPLICANT_ID  = ?
+null
 ```
 
 <p class="panel-title"><b>执行sql参数</b></p>

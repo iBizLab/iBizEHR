@@ -37,8 +37,8 @@ Object.assign(data[0], {
 
 
 ### 关联界面行为
-  * [活动日程计划向导(MAIL_ACTIVITY_SCHEDULE)](module/mail/mail_activity_schedule) : [完成并安排下一个](module/mail/mail_activity_schedule#界面行为)
   * [活动日程计划向导(MAIL_ACTIVITY_SCHEDULE)](module/mail/mail_activity_schedule) : [安排并标记完成](module/mail/mail_activity_schedule#界面行为)
+  * [活动日程计划向导(MAIL_ACTIVITY_SCHEDULE)](module/mail/mail_activity_schedule) : [完成并安排下一个](module/mail/mail_activity_schedule#界面行为)
   * [活动日程计划向导(MAIL_ACTIVITY_SCHEDULE)](module/mail/mail_activity_schedule) : [安排](module/mail/mail_activity_schedule#界面行为)
 
 ### 关联视图

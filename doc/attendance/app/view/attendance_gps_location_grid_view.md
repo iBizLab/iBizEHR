@@ -14,8 +14,8 @@
 
 
 ### 关联界面行为
-  * [GPS定位配置(ATTENDANCE_GPS_LOCATION)](module/attendance/attendance_gps_location) : [表格界面_编辑操作](module/attendance/attendance_gps_location#界面行为)
   * [GPS定位配置(ATTENDANCE_GPS_LOCATION)](module/attendance/attendance_gps_location) : [表格界面_删除操作](module/attendance/attendance_gps_location#界面行为)
+  * [GPS定位配置(ATTENDANCE_GPS_LOCATION)](module/attendance/attendance_gps_location) : [表格界面_编辑操作](module/attendance/attendance_gps_location#界面行为)
   * [GPS定位配置(ATTENDANCE_GPS_LOCATION)](module/attendance/attendance_gps_location) : [表格界面_新建操作](module/attendance/attendance_gps_location#界面行为)
 
 ### 关联视图

@@ -25,11 +25,11 @@ Object.assign(viewParam, { choose_month });
 
 
 ### 关联界面行为
-  * [排班(ATTENDANCE_SCHEDULE)](module/attendance/attendance_schedule) : [表格界面_新建操作](module/attendance/attendance_schedule#界面行为)
-  * [排班(ATTENDANCE_SCHEDULE)](module/attendance/attendance_schedule) : [表格界面_导出操作（Excel）](module/attendance/attendance_schedule#界面行为)
-  * [排班(ATTENDANCE_SCHEDULE)](module/attendance/attendance_schedule) : [表格界面_删除操作](module/attendance/attendance_schedule#界面行为)
-  * [排班(ATTENDANCE_SCHEDULE)](module/attendance/attendance_schedule) : [表格界面_拷贝操作](module/attendance/attendance_schedule#界面行为)
   * [排班(ATTENDANCE_SCHEDULE)](module/attendance/attendance_schedule) : [表格界面_编辑操作](module/attendance/attendance_schedule#界面行为)
+  * [排班(ATTENDANCE_SCHEDULE)](module/attendance/attendance_schedule) : [表格界面_拷贝操作](module/attendance/attendance_schedule#界面行为)
+  * [排班(ATTENDANCE_SCHEDULE)](module/attendance/attendance_schedule) : [表格界面_删除操作](module/attendance/attendance_schedule#界面行为)
+  * [排班(ATTENDANCE_SCHEDULE)](module/attendance/attendance_schedule) : [表格界面_导出操作（Excel）](module/attendance/attendance_schedule#界面行为)
+  * [排班(ATTENDANCE_SCHEDULE)](module/attendance/attendance_schedule) : [表格界面_新建操作](module/attendance/attendance_schedule#界面行为)
 
 ### 关联视图
   * [排班(attendance_schedule_edit_view)](app/view/attendance_schedule_edit_view)

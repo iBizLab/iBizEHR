@@ -7,7 +7,7 @@
 |缺勤管理|ABSENCE_MANAGEMENT|是否逻辑||是||
 |会计所在国家/地区|ACCOUNT_FISCAL_COUNTRY_ID|外键值|100|是||
 |期初分录|ACCOUNT_OPENING_DATE|日期型||是||
-|Default Sales Price Include|ACCOUNT_PRICE_INCLUDE|[单项选择(文本值)](index/dictionary_index#res_company_account_price_include "Default Sales Price Include")|60|否||
+|Default Sales Price Include|ACCOUNT_PRICE_INCLUDE|[单项选择(文本值)](index/dictionary_index#res_company_account_price_include "Default Sales Price Include")|60|是||
 |Storno会计应用程序|ACCOUNT_STORNO|是否逻辑||是||
 |销售信用额度|ACCOUNT_USE_CREDIT_LIMIT|是否逻辑||是||
 |有效|ACTIVE|是否逻辑||是||
@@ -60,8 +60,8 @@
 |电子邮件按钮颜色|EMAIL_SECONDARY_COLOR|文本，可指定长度|500|是||
 |员工属性|EMPLOYEE_PROPERTIES_DEFINITION|长文本，没有长度限制|1048576|是||
 |Expects a Chart of Accounts|EXPECTS_CHART_OF_ACCOUNTS|是否逻辑||是||
-|会计年度最后一天|FISCALYEAR_LAST_DAY|整型||否||
-|会计年度最后一个月|FISCALYEAR_LAST_MONTH|[单项选择(文本值)](index/dictionary_index#res_company_fiscalyear_last_month "会计年度最后一个月")|60|否||
+|会计年度最后一天|FISCALYEAR_LAST_DAY|整型||是||
+|会计年度最后一个月|FISCALYEAR_LAST_MONTH|[单项选择(文本值)](index/dictionary_index#res_company_fiscalyear_last_month "会计年度最后一个月")|60|是||
 |全球锁定日期|FISCALYEAR_LOCK_DATE|日期型||是||
 |关注者|FOLLOWERS|继承属性|1048576|是||
 |字体|FONT|[单项选择(文本值)](index/dictionary_index#res_company_font "字体")|60|是||
@@ -81,8 +81,8 @@
 |Default Terms and Conditions as a Web page|INVOICE_TERMS_HTML|HTML文本，没有长度限制|1048576|是||
 |公司详细信息是否为空|IS_COMPANY_DETAILS_EMPTY|是否逻辑||是||
 |职位属性|JOB_PROPERTIES_DEFINITION|长文本，没有长度限制|1048576|是||
-|布局背景|LAYOUT_BACKGROUND|[单项选择(文本值)](index/dictionary_index#res_company_layout_background "布局背景")|60|否||
-|制造提前期|MANUFACTURING_LEAD|浮点||否||
+|布局背景|LAYOUT_BACKGROUND|[单项选择(文本值)](index/dictionary_index#res_company_layout_background "布局背景")|60|是||
+|制造提前期|MANUFACTURING_LEAD|浮点||是||
 |Attachment Count|MESSAGE_ATTACHMENT_COUNT|整型||是||
 |Message Delivery error|MESSAGE_HAS_ERROR|是否逻辑||是||
 |错误数量|MESSAGE_HAS_ERROR_COUNTER|整型||是||
@@ -104,7 +104,7 @@
 |线上签署|PORTAL_CONFIRMATION_SIGN|是否逻辑||是||
 |批准等级|PO_DOUBLE_VALIDATION|[单项选择(文本值)](index/dictionary_index#res_company_po_double_validation "批准等级")|60|是||
 |再次验证金额|PO_DOUBLE_VALIDATION_AMOUNT|数值||是||
-|采购提前期|PO_LEAD|浮点||否||
+|采购提前期|PO_LEAD|浮点||是||
 |销售订单修改|PO_LOCK|[单项选择(文本值)](index/dictionary_index#res_company_po_lock "销售订单修改")|60|是||
 |预付百分比|PREPAYMENT_PERCENT|浮点||是||
 |原色|PRIMARY_COLOR|文本，可指定长度|500|是||
@@ -118,7 +118,7 @@
 |销售锁定日期|SALE_LOCK_DATE|日期型||是||
 |销售入门选择的付款方式|SALE_ONBOARDING_PAYMENT_METHOD|[单项选择(文本值)](index/dictionary_index#res_company_sale_onboarding_payment_method "销售入门选择的付款方式")|60|是||
 |次要颜色|SECONDARY_COLOR|文本，可指定长度|500|是||
-|销售安全天数|SECURITY_LEAD|浮点||否||
+|销售安全天数|SECURITY_LEAD|浮点||是||
 |序列|SEQUENCE|整型||是||
 |实体邮寄颜色|SNAILMAIL_COLOR|是否逻辑||是||
 |添加一个封面页|SNAILMAIL_COVER|是否逻辑||是||

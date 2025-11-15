@@ -15,8 +15,8 @@
 
 
 ### 关联界面行为
-  * [员工(HR_EMPLOYEE)](module/hr/hr_employee) : [表格界面_删除操作](module/hr/hr_employee#界面行为)
   * [员工(HR_EMPLOYEE)](module/hr/hr_employee) : [表格界面_新建操作](module/hr/hr_employee#界面行为)
+  * [员工(HR_EMPLOYEE)](module/hr/hr_employee) : [表格界面_删除操作](module/hr/hr_employee#界面行为)
   * [员工(HR_EMPLOYEE)](module/hr/hr_employee) : [表格界面_编辑操作](module/hr/hr_employee#界面行为)
 
 ### 关联视图

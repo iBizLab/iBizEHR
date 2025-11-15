@@ -429,6 +429,7 @@ export default {
     controlParam: {},
     id: 'layoutpanel',
   },
+  priority: 30,
   title: '应用',
   viewStyle: 'DEFAULT',
   viewType: 'DEEDITVIEW',

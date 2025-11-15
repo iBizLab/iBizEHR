@@ -1,4 +1,4 @@
-# 候选人申请(hr_applicant_recommend_other_view)  <!-- {docsify-ignore-all} -->
+# 推荐到其他职位(hr_applicant_recommend_other_view)  <!-- {docsify-ignore-all} -->
 
 
 

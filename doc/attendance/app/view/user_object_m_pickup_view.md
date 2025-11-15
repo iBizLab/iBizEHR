@@ -9,11 +9,11 @@
 
 
 ### 关联界面行为
-  * [用户对象映射(USER_OBJECT)](module/employee_management/user_object) : [移除全部数据（数据选择）](module/employee_management/user_object#界面行为)
-  * [用户对象映射(USER_OBJECT)](module/employee_management/user_object) : [移除选中数据（数据选择）](module/employee_management/user_object#界面行为)
   * [用户对象映射(USER_OBJECT)](module/employee_management/user_object) : [视图_取消](module/employee_management/user_object#界面行为)
-  * [用户对象映射(USER_OBJECT)](module/employee_management/user_object) : [添加全部数据（数据选择）](module/employee_management/user_object#界面行为)
+  * [用户对象映射(USER_OBJECT)](module/employee_management/user_object) : [移除全部数据（数据选择）](module/employee_management/user_object#界面行为)
   * [用户对象映射(USER_OBJECT)](module/employee_management/user_object) : [添加选中数据（数据选择）](module/employee_management/user_object#界面行为)
+  * [用户对象映射(USER_OBJECT)](module/employee_management/user_object) : [移除选中数据（数据选择）](module/employee_management/user_object#界面行为)
+  * [用户对象映射(USER_OBJECT)](module/employee_management/user_object) : [添加全部数据（数据选择）](module/employee_management/user_object#界面行为)
   * [用户对象映射(USER_OBJECT)](module/employee_management/user_object) : [确定](module/employee_management/user_object#界面行为)
 
 ### 关联视图

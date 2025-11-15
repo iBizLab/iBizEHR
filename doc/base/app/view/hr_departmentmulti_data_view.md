@@ -16,8 +16,8 @@
 
 
 ### 关联界面行为
-  * [部门(HR_DEPARTMENT)](module/hr/hr_department) : [表格界面_新建操作](module/hr/hr_department#界面行为)
   * [部门(HR_DEPARTMENT)](module/hr/hr_department) : [打开员工实体管理页面](module/hr/hr_department#界面行为)
+  * [部门(HR_DEPARTMENT)](module/hr/hr_department) : [表格界面_新建操作](module/hr/hr_department#界面行为)
 
 ### 关联视图
   * [部门(hr_departmentmain_view)](app/view/hr_departmentmain_view)

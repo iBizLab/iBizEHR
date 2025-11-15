@@ -14,9 +14,9 @@
 
 
 ### 关联界面行为
-  * [WiFi定位配置(ATTENDANCE_WIFI_LOCATION)](module/attendance/attendance_wifi_location) : [表格界面_删除操作](module/attendance/attendance_wifi_location#界面行为)
   * [WiFi定位配置(ATTENDANCE_WIFI_LOCATION)](module/attendance/attendance_wifi_location) : [表格界面_编辑操作](module/attendance/attendance_wifi_location#界面行为)
   * [WiFi定位配置(ATTENDANCE_WIFI_LOCATION)](module/attendance/attendance_wifi_location) : [表格界面_新建操作](module/attendance/attendance_wifi_location#界面行为)
+  * [WiFi定位配置(ATTENDANCE_WIFI_LOCATION)](module/attendance/attendance_wifi_location) : [表格界面_删除操作](module/attendance/attendance_wifi_location#界面行为)
 
 ### 关联视图
   * [WiFi定位配置(attendance_wifi_location_quick_create_view)](app/view/attendance_wifi_location_quick_create_view)

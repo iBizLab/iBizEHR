@@ -1514,8 +1514,9 @@
     "name" : "OdooSysExtensionUtilRuntime",
     "pluginCode" : "OdooSysExtensionUtilRuntime",
     "pluginType" : "USER",
-    "rTObjectName" : "cn.ibizlab.central.plugin.odoo.sysutil.OdooSysExtensionUtilRuntime",
+    "rTObjectName" : "cn.ibizlab.central.plugin.ehr.sysutil.OdooSysExtensionUtilRuntime",
     "rTObjectSource" : 1,
+    "templCode" : "package cn.ibizlab.central.plugin.ehr.sysutil;\n\npublic class OdooSysExtensionUtilRuntime extends net.ibizsys.central.plugin.extension.sysutil.SysExtensionUtilRuntimeBase {\n\n}\n",
     "runtimeObject" : true
   }, {
     "codeName" : "OdooSysPSDEModelUtilRuntime",
@@ -1784,6 +1785,17 @@
     "globalRole" : true
   } ],
   "getAllPSSysUtils" : [ {
+    "codeName" : "OdooSysExtensionUtil",
+    "dynaModelFilePath" : "PSSYSUTILDES/OdooSysExtensionUtil.json",
+    "name" : "Odoo系统扩展组件",
+    "getPSSysSFPlugin" : {
+      "modelref" : true,
+      "path" : "PSSYSSFPLUGINS/OdooSysExtensionUtilRuntime.json"
+    },
+    "utilTag" : "EXTENSIONUTIL",
+    "utilType" : "USER",
+    "regToSys" : false
+  }, {
     "codeName" : "SysPSDEModelUtil",
     "dynaModelFilePath" : "PSSYSUTILDES/SysPSDEModelUtil.json",
     "memo" : "自动安装默认用户角色等数据",
@@ -2442,6 +2454,7 @@
     "defaultFlag" : true,
     "dynaModelFilePath" : "PSSYSSFPUBS/ehr.json",
     "groovySourceFolder" : "backend/ehr-core/src/main/groovy",
+    "memo" : "ehr",
     "modelFolder" : "model/base",
     "name" : "ehr",
     "pKGCodeName" : "cn.ibizlab",
@@ -2452,7 +2465,7 @@
     "pubModel" : true
   },
   "deploySysId" : "ibizehr",
-  "engineVer" : 240,
+  "engineVer" : 241,
   "logicName" : "iBizEHR人力资源管理系统",
   "memo" : "招聘子系统配置地址：http://ehr.ibizlab.cn/modeling/recruit.html    \n假勤子系统配置地址：http://ehr.ibizlab.cn/modeling/attendance.html",
   "name" : "iBizEHR",

@@ -1,4 +1,52 @@
 export default {
+  appDEACModes: [
+    {
+      actype: 'AUTOCOMPLETE',
+      codeName: 'tags',
+      logicName: '标签',
+      deacmodeDataItems: [
+        {
+          appDEFieldId: 'id',
+          dataType: 25,
+          id: 'value',
+        },
+        {
+          appDEFieldId: 'name',
+          dataType: 25,
+          id: 'text',
+        },
+      ],
+      deuiactionGroup: {
+        uiactionGroupDetails: [
+          {
+            actionLevel: 100,
+            afterItemType: 'NONE',
+            beforeItemType: 'NONE',
+            buttonStyle: 'DEFAULT',
+            caption: '新建标签',
+            detailType: 'DEUIACTION',
+            uiactionId: 'quick_create_tag@hr_candidate_label',
+            showCaption: true,
+            showIcon: true,
+            sysImage: {
+              cssClass: 'add',
+            },
+            id: 'u0dafba0',
+          },
+        ],
+        appDataEntityId: 'web.hr_candidate_label',
+        uniqueTag: 'HR_CANDIDATE_LABEL__Usr1017833343',
+        name: '界面行为组',
+        id: 'usr1017833343',
+      },
+      pagingSize: 50,
+      appDEDataSetId: 'fetch_default',
+      appDataEntityId: 'web.hr_candidate_label',
+      textAppDEFieldId: 'name',
+      valueAppDEFieldId: 'id',
+      id: 'tags',
+    },
+  ],
   appDEFields: [
     {
       codeName: 'create_date',
@@ -406,6 +454,29 @@ export default {
       dataSetType: 'REMOTE',
       name: 'FILTERUPDATE',
       id: 'filterupdate',
+    },
+  ],
+  appDEUIActions: [
+    {
+      actionLevel: 100,
+      actionTarget: 'NONE',
+      buttonStyle: 'DEFAULT',
+      caption: '新建标签',
+      codeName: 'quick_create_tag',
+      frontAppViewId: 'web.hr_candidate_label_quick_create_tag',
+      frontProcessType: 'WIZARD',
+      fullCodeName: 'HR_CANDIDATE_LABEL_quick_create_tag',
+      sysImage: {
+        cssClass: 'add',
+      },
+      uiactionMode: 'FRONT',
+      uiactionTag: 'quick_create_tag',
+      uiactionType: 'DEUIACTION',
+      showBusyIndicator: true,
+      noPrivDisplayMode: 2,
+      appDataEntityId: 'web.hr_candidate_label',
+      name: '快速_新建_标签',
+      id: 'quick_create_tag@hr_candidate_label',
     },
   ],
   deopprivs: [

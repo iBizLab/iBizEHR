@@ -10,8 +10,8 @@
 
 
 ### 关联界面行为
-  * [排班(ATTENDANCE_SCHEDULE)](module/attendance/attendance_schedule) : [编辑界面_退出操作](module/attendance/attendance_schedule#界面行为)
   * [排班(ATTENDANCE_SCHEDULE)](module/attendance/attendance_schedule) : [编辑界面_保存并退出操作](module/attendance/attendance_schedule#界面行为)
+  * [排班(ATTENDANCE_SCHEDULE)](module/attendance/attendance_schedule) : [编辑界面_退出操作](module/attendance/attendance_schedule#界面行为)
 
 ### 关联视图
   * [激活规则(attendance_activate_rule_pickup_view)](app/view/attendance_activate_rule_pickup_view)

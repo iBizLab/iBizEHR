@@ -4728,23 +4728,10 @@ if(_default.get("check_out")){
 #### [出勤(HR_ATTENDANCE)](module/hr/hr_attendance)的处理逻辑[批量审批(batchApproval)](module/hr/hr_attendance/logic/batchApproval)
 
 节点：执行脚本代码
-<p class="panel-title"><b>执行代码[Groovy]</b></p>
+<p class="panel-title"><b>执行代码[JavaScript]</b></p>
 
-```groovy
-def _default = logic.param('Default').getReal()
-def attendances = logic.param('attendances').getReal()
-
-if (_default){
-    _default.each { item ->
-        if (item != null) {
-            def attendances_data = item.any()
-            def attendance_runtime = sys.dataentity('hr_attendance')
-            def _attendance =attendance_runtime.createEntity(attendances_data)
-            attendances.add(_attendance)
-        }
-    }
-
-}
+```javascript
+null
 ```
 #### [出勤(HR_ATTENDANCE)](module/hr/hr_attendance)的处理逻辑[更新/创建加班记录(changeOverTime)](module/hr/hr_attendance/logic/changeOverTime)
 

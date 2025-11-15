@@ -591,7 +591,7 @@ export default {
                                 uiactionId: 'start_interview@hr_interview',
                                 renderMode: 'LINK',
                                 tooltip: '进入面试',
-                                uiactionTarget: 'NONE',
+                                uiactionTarget: 'SINGLEDATA',
                                 caption: '进入面试',
                                 itemStyle: 'DEFAULT',
                                 itemType: 'BUTTON',

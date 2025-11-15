@@ -11,11 +11,11 @@
 
 
 ### 关联界面行为
-  * [考勤规则(ATTENDANCE_RULE)](module/attendance/attendance_rule) : [新建考勤规则](module/attendance/attendance_rule#界面行为)
   * [考勤规则(ATTENDANCE_RULE)](module/attendance/attendance_rule) : [编辑排班](module/attendance/attendance_rule#界面行为)
-  * [考勤规则(ATTENDANCE_RULE)](module/attendance/attendance_rule) : [删除](module/attendance/attendance_rule#界面行为)
-  * [考勤规则(ATTENDANCE_RULE)](module/attendance/attendance_rule) : [添加人员](module/attendance/attendance_rule#界面行为)
   * [考勤规则(ATTENDANCE_RULE)](module/attendance/attendance_rule) : [手动排班](module/attendance/attendance_rule#界面行为)
+  * [考勤规则(ATTENDANCE_RULE)](module/attendance/attendance_rule) : [添加人员](module/attendance/attendance_rule#界面行为)
+  * [考勤规则(ATTENDANCE_RULE)](module/attendance/attendance_rule) : [删除](module/attendance/attendance_rule#界面行为)
+  * [考勤规则(ATTENDANCE_RULE)](module/attendance/attendance_rule) : [新建考勤规则](module/attendance/attendance_rule#界面行为)
 
 ### 关联视图
   * [考勤规则(attendance_rule_edit_view)](app/view/attendance_rule_edit_view)

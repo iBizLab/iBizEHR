@@ -22,7 +22,7 @@
 |<el-row justify="space-between"><el-col :span="20">absence_management</el-col><el-col :span="4" style="text-align:right"><el-text size="small" type="success">可选</el-text></el-col> </el-row>|Integer|缺勤管理|
 |<el-row justify="space-between"><el-col :span="20">account_fiscal_country_id</el-col><el-col :span="4" style="text-align:right"><el-text size="small" type="success">可选</el-text></el-col> </el-row>|String|会计所在国家/地区|
 |<el-row justify="space-between"><el-col :span="20">account_opening_date</el-col><el-col :span="4" style="text-align:right"><el-text size="small" type="success">可选</el-text></el-col> </el-row>|Timestamp|期初分录|
-|<el-row justify="space-between"><el-col :span="20">account_price_include</el-col><el-col :span="4" style="text-align:right"></el-col> </el-row>|String|Default Sales Price Include|
+|<el-row justify="space-between"><el-col :span="20">account_price_include</el-col><el-col :span="4" style="text-align:right"><el-text size="small" type="success">可选</el-text></el-col> </el-row>|String|Default Sales Price Include|
 |<el-row justify="space-between"><el-col :span="20">account_storno</el-col><el-col :span="4" style="text-align:right"><el-text size="small" type="success">可选</el-text></el-col> </el-row>|Integer|Storno会计应用程序|
 |<el-row justify="space-between"><el-col :span="20">account_use_credit_limit</el-col><el-col :span="4" style="text-align:right"><el-text size="small" type="success">可选</el-text></el-col> </el-row>|Integer|销售信用额度|
 |<el-row justify="space-between"><el-col :span="20">active</el-col><el-col :span="4" style="text-align:right"><el-text size="small" type="success">可选</el-text></el-col> </el-row>|Integer|有效|
@@ -71,8 +71,8 @@
 |<el-row justify="space-between"><el-col :span="20">email_secondary_color</el-col><el-col :span="4" style="text-align:right"><el-text size="small" type="success">可选</el-text></el-col> </el-row>|String|电子邮件按钮颜色|
 |<el-row justify="space-between"><el-col :span="20">employee_properties_definition</el-col><el-col :span="4" style="text-align:right"><el-text size="small" type="success">可选</el-text></el-col> </el-row>|String|员工属性|
 |<el-row justify="space-between"><el-col :span="20">expects_chart_of_accounts</el-col><el-col :span="4" style="text-align:right"><el-text size="small" type="success">可选</el-text></el-col> </el-row>|Integer|Expects a Chart of Accounts|
-|<el-row justify="space-between"><el-col :span="20">fiscalyear_last_day</el-col><el-col :span="4" style="text-align:right"></el-col> </el-row>|Integer|会计年度最后一天|
-|<el-row justify="space-between"><el-col :span="20">fiscalyear_last_month</el-col><el-col :span="4" style="text-align:right"></el-col> </el-row>|String|会计年度最后一个月|
+|<el-row justify="space-between"><el-col :span="20">fiscalyear_last_day</el-col><el-col :span="4" style="text-align:right"><el-text size="small" type="success">可选</el-text></el-col> </el-row>|Integer|会计年度最后一天|
+|<el-row justify="space-between"><el-col :span="20">fiscalyear_last_month</el-col><el-col :span="4" style="text-align:right"><el-text size="small" type="success">可选</el-text></el-col> </el-row>|String|会计年度最后一个月|
 |<el-row justify="space-between"><el-col :span="20">fiscalyear_lock_date</el-col><el-col :span="4" style="text-align:right"><el-text size="small" type="success">可选</el-text></el-col> </el-row>|Timestamp|全球锁定日期|
 |<el-row justify="space-between"><el-col :span="20">font</el-col><el-col :span="4" style="text-align:right"><el-text size="small" type="success">可选</el-text></el-col> </el-row>|String|字体|
 |<el-row justify="space-between"><el-col :span="20">hard_lock_date</el-col><el-col :span="4" style="text-align:right"><el-text size="small" type="success">可选</el-text></el-col> </el-row>|Timestamp|硬锁定日期|
@@ -91,8 +91,8 @@
 |<el-row justify="space-between"><el-col :span="20">invoice_terms_html</el-col><el-col :span="4" style="text-align:right"><el-text size="small" type="success">可选</el-text></el-col> </el-row>|String|Default Terms and Conditions as a Web page|
 |<el-row justify="space-between"><el-col :span="20">is_company_details_empty</el-col><el-col :span="4" style="text-align:right"><el-text size="small" type="success">可选</el-text></el-col> </el-row>|Integer|公司详细信息是否为空|
 |<el-row justify="space-between"><el-col :span="20">job_properties_definition</el-col><el-col :span="4" style="text-align:right"><el-text size="small" type="success">可选</el-text></el-col> </el-row>|String|职位属性|
-|<el-row justify="space-between"><el-col :span="20">layout_background</el-col><el-col :span="4" style="text-align:right"></el-col> </el-row>|String|布局背景|
-|<el-row justify="space-between"><el-col :span="20">manufacturing_lead</el-col><el-col :span="4" style="text-align:right"></el-col> </el-row>|Double|制造提前期|
+|<el-row justify="space-between"><el-col :span="20">layout_background</el-col><el-col :span="4" style="text-align:right"><el-text size="small" type="success">可选</el-text></el-col> </el-row>|String|布局背景|
+|<el-row justify="space-between"><el-col :span="20">manufacturing_lead</el-col><el-col :span="4" style="text-align:right"><el-text size="small" type="success">可选</el-text></el-col> </el-row>|Double|制造提前期|
 |<el-row justify="space-between"><el-col :span="20">message_attachment_count</el-col><el-col :span="4" style="text-align:right"><el-text size="small" type="success">可选</el-text></el-col> </el-row>|Integer|Attachment Count|
 |<el-row justify="space-between"><el-col :span="20">message_has_error</el-col><el-col :span="4" style="text-align:right"><el-text size="small" type="success">可选</el-text></el-col> </el-row>|Integer|Message Delivery error|
 |<el-row justify="space-between"><el-col :span="20">message_has_error_counter</el-col><el-col :span="4" style="text-align:right"><el-text size="small" type="success">可选</el-text></el-col> </el-row>|Integer|错误数量|
@@ -112,7 +112,7 @@
 |<el-row justify="space-between"><el-col :span="20">payment_onboarding_payment_method</el-col><el-col :span="4" style="text-align:right"><el-text size="small" type="success">可选</el-text></el-col> </el-row>|String|选择支付方式|
 |<el-row justify="space-between"><el-col :span="20">po_double_validation</el-col><el-col :span="4" style="text-align:right"><el-text size="small" type="success">可选</el-text></el-col> </el-row>|String|批准等级|
 |<el-row justify="space-between"><el-col :span="20">po_double_validation_amount</el-col><el-col :span="4" style="text-align:right"><el-text size="small" type="success">可选</el-text></el-col> </el-row>|BigDecimal|再次验证金额|
-|<el-row justify="space-between"><el-col :span="20">po_lead</el-col><el-col :span="4" style="text-align:right"></el-col> </el-row>|Double|采购提前期|
+|<el-row justify="space-between"><el-col :span="20">po_lead</el-col><el-col :span="4" style="text-align:right"><el-text size="small" type="success">可选</el-text></el-col> </el-row>|Double|采购提前期|
 |<el-row justify="space-between"><el-col :span="20">po_lock</el-col><el-col :span="4" style="text-align:right"><el-text size="small" type="success">可选</el-text></el-col> </el-row>|String|销售订单修改|
 |<el-row justify="space-between"><el-col :span="20">portal_confirmation_pay</el-col><el-col :span="4" style="text-align:right"><el-text size="small" type="success">可选</el-text></el-col> </el-row>|Integer|线上付款|
 |<el-row justify="space-between"><el-col :span="20">portal_confirmation_sign</el-col><el-col :span="4" style="text-align:right"><el-text size="small" type="success">可选</el-text></el-col> </el-row>|Integer|线上签署|
@@ -128,7 +128,7 @@
 |<el-row justify="space-between"><el-col :span="20">sale_lock_date</el-col><el-col :span="4" style="text-align:right"><el-text size="small" type="success">可选</el-text></el-col> </el-row>|Timestamp|销售锁定日期|
 |<el-row justify="space-between"><el-col :span="20">sale_onboarding_payment_method</el-col><el-col :span="4" style="text-align:right"><el-text size="small" type="success">可选</el-text></el-col> </el-row>|String|销售入门选择的付款方式|
 |<el-row justify="space-between"><el-col :span="20">secondary_color</el-col><el-col :span="4" style="text-align:right"><el-text size="small" type="success">可选</el-text></el-col> </el-row>|String|次要颜色|
-|<el-row justify="space-between"><el-col :span="20">security_lead</el-col><el-col :span="4" style="text-align:right"></el-col> </el-row>|Double|销售安全天数|
+|<el-row justify="space-between"><el-col :span="20">security_lead</el-col><el-col :span="4" style="text-align:right"><el-text size="small" type="success">可选</el-text></el-col> </el-row>|Double|销售安全天数|
 |<el-row justify="space-between"><el-col :span="20">sequence</el-col><el-col :span="4" style="text-align:right"><el-text size="small" type="success">可选</el-text></el-col> </el-row>|Integer|序列|
 |<el-row justify="space-between"><el-col :span="20">snailmail_color</el-col><el-col :span="4" style="text-align:right"><el-text size="small" type="success">可选</el-text></el-col> </el-row>|Integer|实体邮寄颜色|
 |<el-row justify="space-between"><el-col :span="20">snailmail_cover</el-col><el-col :span="4" style="text-align:right"><el-text size="small" type="success">可选</el-text></el-col> </el-row>|Integer|添加一个封面页|
@@ -691,7 +691,7 @@
 |<el-row justify="space-between"><el-col :span="20">absence_management</el-col><el-col :span="4" style="text-align:right"><el-text size="small" type="success">可选</el-text></el-col> </el-row>|Integer|缺勤管理|
 |<el-row justify="space-between"><el-col :span="20">account_fiscal_country_id</el-col><el-col :span="4" style="text-align:right"><el-text size="small" type="success">可选</el-text></el-col> </el-row>|String|会计所在国家/地区|
 |<el-row justify="space-between"><el-col :span="20">account_opening_date</el-col><el-col :span="4" style="text-align:right"><el-text size="small" type="success">可选</el-text></el-col> </el-row>|Timestamp|期初分录|
-|<el-row justify="space-between"><el-col :span="20">account_price_include</el-col><el-col :span="4" style="text-align:right"></el-col> </el-row>|String|Default Sales Price Include|
+|<el-row justify="space-between"><el-col :span="20">account_price_include</el-col><el-col :span="4" style="text-align:right"><el-text size="small" type="success">可选</el-text></el-col> </el-row>|String|Default Sales Price Include|
 |<el-row justify="space-between"><el-col :span="20">account_storno</el-col><el-col :span="4" style="text-align:right"><el-text size="small" type="success">可选</el-text></el-col> </el-row>|Integer|Storno会计应用程序|
 |<el-row justify="space-between"><el-col :span="20">account_use_credit_limit</el-col><el-col :span="4" style="text-align:right"><el-text size="small" type="success">可选</el-text></el-col> </el-row>|Integer|销售信用额度|
 |<el-row justify="space-between"><el-col :span="20">active</el-col><el-col :span="4" style="text-align:right"><el-text size="small" type="success">可选</el-text></el-col> </el-row>|Integer|有效|
@@ -740,8 +740,8 @@
 |<el-row justify="space-between"><el-col :span="20">email_secondary_color</el-col><el-col :span="4" style="text-align:right"><el-text size="small" type="success">可选</el-text></el-col> </el-row>|String|电子邮件按钮颜色|
 |<el-row justify="space-between"><el-col :span="20">employee_properties_definition</el-col><el-col :span="4" style="text-align:right"><el-text size="small" type="success">可选</el-text></el-col> </el-row>|String|员工属性|
 |<el-row justify="space-between"><el-col :span="20">expects_chart_of_accounts</el-col><el-col :span="4" style="text-align:right"><el-text size="small" type="success">可选</el-text></el-col> </el-row>|Integer|Expects a Chart of Accounts|
-|<el-row justify="space-between"><el-col :span="20">fiscalyear_last_day</el-col><el-col :span="4" style="text-align:right"></el-col> </el-row>|Integer|会计年度最后一天|
-|<el-row justify="space-between"><el-col :span="20">fiscalyear_last_month</el-col><el-col :span="4" style="text-align:right"></el-col> </el-row>|String|会计年度最后一个月|
+|<el-row justify="space-between"><el-col :span="20">fiscalyear_last_day</el-col><el-col :span="4" style="text-align:right"><el-text size="small" type="success">可选</el-text></el-col> </el-row>|Integer|会计年度最后一天|
+|<el-row justify="space-between"><el-col :span="20">fiscalyear_last_month</el-col><el-col :span="4" style="text-align:right"><el-text size="small" type="success">可选</el-text></el-col> </el-row>|String|会计年度最后一个月|
 |<el-row justify="space-between"><el-col :span="20">fiscalyear_lock_date</el-col><el-col :span="4" style="text-align:right"><el-text size="small" type="success">可选</el-text></el-col> </el-row>|Timestamp|全球锁定日期|
 |<el-row justify="space-between"><el-col :span="20">font</el-col><el-col :span="4" style="text-align:right"><el-text size="small" type="success">可选</el-text></el-col> </el-row>|String|字体|
 |<el-row justify="space-between"><el-col :span="20">hard_lock_date</el-col><el-col :span="4" style="text-align:right"><el-text size="small" type="success">可选</el-text></el-col> </el-row>|Timestamp|硬锁定日期|
@@ -760,8 +760,8 @@
 |<el-row justify="space-between"><el-col :span="20">invoice_terms_html</el-col><el-col :span="4" style="text-align:right"><el-text size="small" type="success">可选</el-text></el-col> </el-row>|String|Default Terms and Conditions as a Web page|
 |<el-row justify="space-between"><el-col :span="20">is_company_details_empty</el-col><el-col :span="4" style="text-align:right"><el-text size="small" type="success">可选</el-text></el-col> </el-row>|Integer|公司详细信息是否为空|
 |<el-row justify="space-between"><el-col :span="20">job_properties_definition</el-col><el-col :span="4" style="text-align:right"><el-text size="small" type="success">可选</el-text></el-col> </el-row>|String|职位属性|
-|<el-row justify="space-between"><el-col :span="20">layout_background</el-col><el-col :span="4" style="text-align:right"></el-col> </el-row>|String|布局背景|
-|<el-row justify="space-between"><el-col :span="20">manufacturing_lead</el-col><el-col :span="4" style="text-align:right"></el-col> </el-row>|Double|制造提前期|
+|<el-row justify="space-between"><el-col :span="20">layout_background</el-col><el-col :span="4" style="text-align:right"><el-text size="small" type="success">可选</el-text></el-col> </el-row>|String|布局背景|
+|<el-row justify="space-between"><el-col :span="20">manufacturing_lead</el-col><el-col :span="4" style="text-align:right"><el-text size="small" type="success">可选</el-text></el-col> </el-row>|Double|制造提前期|
 |<el-row justify="space-between"><el-col :span="20">message_attachment_count</el-col><el-col :span="4" style="text-align:right"><el-text size="small" type="success">可选</el-text></el-col> </el-row>|Integer|Attachment Count|
 |<el-row justify="space-between"><el-col :span="20">message_has_error</el-col><el-col :span="4" style="text-align:right"><el-text size="small" type="success">可选</el-text></el-col> </el-row>|Integer|Message Delivery error|
 |<el-row justify="space-between"><el-col :span="20">message_has_error_counter</el-col><el-col :span="4" style="text-align:right"><el-text size="small" type="success">可选</el-text></el-col> </el-row>|Integer|错误数量|
@@ -781,7 +781,7 @@
 |<el-row justify="space-between"><el-col :span="20">payment_onboarding_payment_method</el-col><el-col :span="4" style="text-align:right"><el-text size="small" type="success">可选</el-text></el-col> </el-row>|String|选择支付方式|
 |<el-row justify="space-between"><el-col :span="20">po_double_validation</el-col><el-col :span="4" style="text-align:right"><el-text size="small" type="success">可选</el-text></el-col> </el-row>|String|批准等级|
 |<el-row justify="space-between"><el-col :span="20">po_double_validation_amount</el-col><el-col :span="4" style="text-align:right"><el-text size="small" type="success">可选</el-text></el-col> </el-row>|BigDecimal|再次验证金额|
-|<el-row justify="space-between"><el-col :span="20">po_lead</el-col><el-col :span="4" style="text-align:right"></el-col> </el-row>|Double|采购提前期|
+|<el-row justify="space-between"><el-col :span="20">po_lead</el-col><el-col :span="4" style="text-align:right"><el-text size="small" type="success">可选</el-text></el-col> </el-row>|Double|采购提前期|
 |<el-row justify="space-between"><el-col :span="20">po_lock</el-col><el-col :span="4" style="text-align:right"><el-text size="small" type="success">可选</el-text></el-col> </el-row>|String|销售订单修改|
 |<el-row justify="space-between"><el-col :span="20">portal_confirmation_pay</el-col><el-col :span="4" style="text-align:right"><el-text size="small" type="success">可选</el-text></el-col> </el-row>|Integer|线上付款|
 |<el-row justify="space-between"><el-col :span="20">portal_confirmation_sign</el-col><el-col :span="4" style="text-align:right"><el-text size="small" type="success">可选</el-text></el-col> </el-row>|Integer|线上签署|
@@ -797,7 +797,7 @@
 |<el-row justify="space-between"><el-col :span="20">sale_lock_date</el-col><el-col :span="4" style="text-align:right"><el-text size="small" type="success">可选</el-text></el-col> </el-row>|Timestamp|销售锁定日期|
 |<el-row justify="space-between"><el-col :span="20">sale_onboarding_payment_method</el-col><el-col :span="4" style="text-align:right"><el-text size="small" type="success">可选</el-text></el-col> </el-row>|String|销售入门选择的付款方式|
 |<el-row justify="space-between"><el-col :span="20">secondary_color</el-col><el-col :span="4" style="text-align:right"><el-text size="small" type="success">可选</el-text></el-col> </el-row>|String|次要颜色|
-|<el-row justify="space-between"><el-col :span="20">security_lead</el-col><el-col :span="4" style="text-align:right"></el-col> </el-row>|Double|销售安全天数|
+|<el-row justify="space-between"><el-col :span="20">security_lead</el-col><el-col :span="4" style="text-align:right"><el-text size="small" type="success">可选</el-text></el-col> </el-row>|Double|销售安全天数|
 |<el-row justify="space-between"><el-col :span="20">sequence</el-col><el-col :span="4" style="text-align:right"><el-text size="small" type="success">可选</el-text></el-col> </el-row>|Integer|序列|
 |<el-row justify="space-between"><el-col :span="20">snailmail_color</el-col><el-col :span="4" style="text-align:right"><el-text size="small" type="success">可选</el-text></el-col> </el-row>|Integer|实体邮寄颜色|
 |<el-row justify="space-between"><el-col :span="20">snailmail_cover</el-col><el-col :span="4" style="text-align:right"><el-text size="small" type="success">可选</el-text></el-col> </el-row>|Integer|添加一个封面页|
@@ -1160,7 +1160,7 @@
 |<el-row justify="space-between"><el-col :span="20">absence_management</el-col><el-col :span="4" style="text-align:right"><el-text size="small" type="success">可选</el-text></el-col> </el-row>|Integer|缺勤管理|
 |<el-row justify="space-between"><el-col :span="20">account_fiscal_country_id</el-col><el-col :span="4" style="text-align:right"><el-text size="small" type="success">可选</el-text></el-col> </el-row>|String|会计所在国家/地区|
 |<el-row justify="space-between"><el-col :span="20">account_opening_date</el-col><el-col :span="4" style="text-align:right"><el-text size="small" type="success">可选</el-text></el-col> </el-row>|Timestamp|期初分录|
-|<el-row justify="space-between"><el-col :span="20">account_price_include</el-col><el-col :span="4" style="text-align:right"></el-col> </el-row>|String|Default Sales Price Include|
+|<el-row justify="space-between"><el-col :span="20">account_price_include</el-col><el-col :span="4" style="text-align:right"><el-text size="small" type="success">可选</el-text></el-col> </el-row>|String|Default Sales Price Include|
 |<el-row justify="space-between"><el-col :span="20">account_storno</el-col><el-col :span="4" style="text-align:right"><el-text size="small" type="success">可选</el-text></el-col> </el-row>|Integer|Storno会计应用程序|
 |<el-row justify="space-between"><el-col :span="20">account_use_credit_limit</el-col><el-col :span="4" style="text-align:right"><el-text size="small" type="success">可选</el-text></el-col> </el-row>|Integer|销售信用额度|
 |<el-row justify="space-between"><el-col :span="20">active</el-col><el-col :span="4" style="text-align:right"><el-text size="small" type="success">可选</el-text></el-col> </el-row>|Integer|有效|
@@ -1209,8 +1209,8 @@
 |<el-row justify="space-between"><el-col :span="20">email_secondary_color</el-col><el-col :span="4" style="text-align:right"><el-text size="small" type="success">可选</el-text></el-col> </el-row>|String|电子邮件按钮颜色|
 |<el-row justify="space-between"><el-col :span="20">employee_properties_definition</el-col><el-col :span="4" style="text-align:right"><el-text size="small" type="success">可选</el-text></el-col> </el-row>|String|员工属性|
 |<el-row justify="space-between"><el-col :span="20">expects_chart_of_accounts</el-col><el-col :span="4" style="text-align:right"><el-text size="small" type="success">可选</el-text></el-col> </el-row>|Integer|Expects a Chart of Accounts|
-|<el-row justify="space-between"><el-col :span="20">fiscalyear_last_day</el-col><el-col :span="4" style="text-align:right"></el-col> </el-row>|Integer|会计年度最后一天|
-|<el-row justify="space-between"><el-col :span="20">fiscalyear_last_month</el-col><el-col :span="4" style="text-align:right"></el-col> </el-row>|String|会计年度最后一个月|
+|<el-row justify="space-between"><el-col :span="20">fiscalyear_last_day</el-col><el-col :span="4" style="text-align:right"><el-text size="small" type="success">可选</el-text></el-col> </el-row>|Integer|会计年度最后一天|
+|<el-row justify="space-between"><el-col :span="20">fiscalyear_last_month</el-col><el-col :span="4" style="text-align:right"><el-text size="small" type="success">可选</el-text></el-col> </el-row>|String|会计年度最后一个月|
 |<el-row justify="space-between"><el-col :span="20">fiscalyear_lock_date</el-col><el-col :span="4" style="text-align:right"><el-text size="small" type="success">可选</el-text></el-col> </el-row>|Timestamp|全球锁定日期|
 |<el-row justify="space-between"><el-col :span="20">font</el-col><el-col :span="4" style="text-align:right"><el-text size="small" type="success">可选</el-text></el-col> </el-row>|String|字体|
 |<el-row justify="space-between"><el-col :span="20">hard_lock_date</el-col><el-col :span="4" style="text-align:right"><el-text size="small" type="success">可选</el-text></el-col> </el-row>|Timestamp|硬锁定日期|
@@ -1229,8 +1229,8 @@
 |<el-row justify="space-between"><el-col :span="20">invoice_terms_html</el-col><el-col :span="4" style="text-align:right"><el-text size="small" type="success">可选</el-text></el-col> </el-row>|String|Default Terms and Conditions as a Web page|
 |<el-row justify="space-between"><el-col :span="20">is_company_details_empty</el-col><el-col :span="4" style="text-align:right"><el-text size="small" type="success">可选</el-text></el-col> </el-row>|Integer|公司详细信息是否为空|
 |<el-row justify="space-between"><el-col :span="20">job_properties_definition</el-col><el-col :span="4" style="text-align:right"><el-text size="small" type="success">可选</el-text></el-col> </el-row>|String|职位属性|
-|<el-row justify="space-between"><el-col :span="20">layout_background</el-col><el-col :span="4" style="text-align:right"></el-col> </el-row>|String|布局背景|
-|<el-row justify="space-between"><el-col :span="20">manufacturing_lead</el-col><el-col :span="4" style="text-align:right"></el-col> </el-row>|Double|制造提前期|
+|<el-row justify="space-between"><el-col :span="20">layout_background</el-col><el-col :span="4" style="text-align:right"><el-text size="small" type="success">可选</el-text></el-col> </el-row>|String|布局背景|
+|<el-row justify="space-between"><el-col :span="20">manufacturing_lead</el-col><el-col :span="4" style="text-align:right"><el-text size="small" type="success">可选</el-text></el-col> </el-row>|Double|制造提前期|
 |<el-row justify="space-between"><el-col :span="20">message_attachment_count</el-col><el-col :span="4" style="text-align:right"><el-text size="small" type="success">可选</el-text></el-col> </el-row>|Integer|Attachment Count|
 |<el-row justify="space-between"><el-col :span="20">message_has_error</el-col><el-col :span="4" style="text-align:right"><el-text size="small" type="success">可选</el-text></el-col> </el-row>|Integer|Message Delivery error|
 |<el-row justify="space-between"><el-col :span="20">message_has_error_counter</el-col><el-col :span="4" style="text-align:right"><el-text size="small" type="success">可选</el-text></el-col> </el-row>|Integer|错误数量|
@@ -1250,7 +1250,7 @@
 |<el-row justify="space-between"><el-col :span="20">payment_onboarding_payment_method</el-col><el-col :span="4" style="text-align:right"><el-text size="small" type="success">可选</el-text></el-col> </el-row>|String|选择支付方式|
 |<el-row justify="space-between"><el-col :span="20">po_double_validation</el-col><el-col :span="4" style="text-align:right"><el-text size="small" type="success">可选</el-text></el-col> </el-row>|String|批准等级|
 |<el-row justify="space-between"><el-col :span="20">po_double_validation_amount</el-col><el-col :span="4" style="text-align:right"><el-text size="small" type="success">可选</el-text></el-col> </el-row>|BigDecimal|再次验证金额|
-|<el-row justify="space-between"><el-col :span="20">po_lead</el-col><el-col :span="4" style="text-align:right"></el-col> </el-row>|Double|采购提前期|
+|<el-row justify="space-between"><el-col :span="20">po_lead</el-col><el-col :span="4" style="text-align:right"><el-text size="small" type="success">可选</el-text></el-col> </el-row>|Double|采购提前期|
 |<el-row justify="space-between"><el-col :span="20">po_lock</el-col><el-col :span="4" style="text-align:right"><el-text size="small" type="success">可选</el-text></el-col> </el-row>|String|销售订单修改|
 |<el-row justify="space-between"><el-col :span="20">portal_confirmation_pay</el-col><el-col :span="4" style="text-align:right"><el-text size="small" type="success">可选</el-text></el-col> </el-row>|Integer|线上付款|
 |<el-row justify="space-between"><el-col :span="20">portal_confirmation_sign</el-col><el-col :span="4" style="text-align:right"><el-text size="small" type="success">可选</el-text></el-col> </el-row>|Integer|线上签署|
@@ -1266,7 +1266,7 @@
 |<el-row justify="space-between"><el-col :span="20">sale_lock_date</el-col><el-col :span="4" style="text-align:right"><el-text size="small" type="success">可选</el-text></el-col> </el-row>|Timestamp|销售锁定日期|
 |<el-row justify="space-between"><el-col :span="20">sale_onboarding_payment_method</el-col><el-col :span="4" style="text-align:right"><el-text size="small" type="success">可选</el-text></el-col> </el-row>|String|销售入门选择的付款方式|
 |<el-row justify="space-between"><el-col :span="20">secondary_color</el-col><el-col :span="4" style="text-align:right"><el-text size="small" type="success">可选</el-text></el-col> </el-row>|String|次要颜色|
-|<el-row justify="space-between"><el-col :span="20">security_lead</el-col><el-col :span="4" style="text-align:right"></el-col> </el-row>|Double|销售安全天数|
+|<el-row justify="space-between"><el-col :span="20">security_lead</el-col><el-col :span="4" style="text-align:right"><el-text size="small" type="success">可选</el-text></el-col> </el-row>|Double|销售安全天数|
 |<el-row justify="space-between"><el-col :span="20">sequence</el-col><el-col :span="4" style="text-align:right"><el-text size="small" type="success">可选</el-text></el-col> </el-row>|Integer|序列|
 |<el-row justify="space-between"><el-col :span="20">snailmail_color</el-col><el-col :span="4" style="text-align:right"><el-text size="small" type="success">可选</el-text></el-col> </el-row>|Integer|实体邮寄颜色|
 |<el-row justify="space-between"><el-col :span="20">snailmail_cover</el-col><el-col :span="4" style="text-align:right"><el-text size="small" type="success">可选</el-text></el-col> </el-row>|Integer|添加一个封面页|
@@ -1480,7 +1480,7 @@ Integer
 |<el-row justify="space-between"><el-col :span="20">absence_management</el-col><el-col :span="4" style="text-align:right"><el-text size="small" type="success">可选</el-text></el-col> </el-row>|Integer|缺勤管理|
 |<el-row justify="space-between"><el-col :span="20">account_fiscal_country_id</el-col><el-col :span="4" style="text-align:right"><el-text size="small" type="success">可选</el-text></el-col> </el-row>|String|会计所在国家/地区|
 |<el-row justify="space-between"><el-col :span="20">account_opening_date</el-col><el-col :span="4" style="text-align:right"><el-text size="small" type="success">可选</el-text></el-col> </el-row>|Timestamp|期初分录|
-|<el-row justify="space-between"><el-col :span="20">account_price_include</el-col><el-col :span="4" style="text-align:right"></el-col> </el-row>|String|Default Sales Price Include|
+|<el-row justify="space-between"><el-col :span="20">account_price_include</el-col><el-col :span="4" style="text-align:right"><el-text size="small" type="success">可选</el-text></el-col> </el-row>|String|Default Sales Price Include|
 |<el-row justify="space-between"><el-col :span="20">account_storno</el-col><el-col :span="4" style="text-align:right"><el-text size="small" type="success">可选</el-text></el-col> </el-row>|Integer|Storno会计应用程序|
 |<el-row justify="space-between"><el-col :span="20">account_use_credit_limit</el-col><el-col :span="4" style="text-align:right"><el-text size="small" type="success">可选</el-text></el-col> </el-row>|Integer|销售信用额度|
 |<el-row justify="space-between"><el-col :span="20">active</el-col><el-col :span="4" style="text-align:right"><el-text size="small" type="success">可选</el-text></el-col> </el-row>|Integer|有效|
@@ -1529,8 +1529,8 @@ Integer
 |<el-row justify="space-between"><el-col :span="20">email_secondary_color</el-col><el-col :span="4" style="text-align:right"><el-text size="small" type="success">可选</el-text></el-col> </el-row>|String|电子邮件按钮颜色|
 |<el-row justify="space-between"><el-col :span="20">employee_properties_definition</el-col><el-col :span="4" style="text-align:right"><el-text size="small" type="success">可选</el-text></el-col> </el-row>|String|员工属性|
 |<el-row justify="space-between"><el-col :span="20">expects_chart_of_accounts</el-col><el-col :span="4" style="text-align:right"><el-text size="small" type="success">可选</el-text></el-col> </el-row>|Integer|Expects a Chart of Accounts|
-|<el-row justify="space-between"><el-col :span="20">fiscalyear_last_day</el-col><el-col :span="4" style="text-align:right"></el-col> </el-row>|Integer|会计年度最后一天|
-|<el-row justify="space-between"><el-col :span="20">fiscalyear_last_month</el-col><el-col :span="4" style="text-align:right"></el-col> </el-row>|String|会计年度最后一个月|
+|<el-row justify="space-between"><el-col :span="20">fiscalyear_last_day</el-col><el-col :span="4" style="text-align:right"><el-text size="small" type="success">可选</el-text></el-col> </el-row>|Integer|会计年度最后一天|
+|<el-row justify="space-between"><el-col :span="20">fiscalyear_last_month</el-col><el-col :span="4" style="text-align:right"><el-text size="small" type="success">可选</el-text></el-col> </el-row>|String|会计年度最后一个月|
 |<el-row justify="space-between"><el-col :span="20">fiscalyear_lock_date</el-col><el-col :span="4" style="text-align:right"><el-text size="small" type="success">可选</el-text></el-col> </el-row>|Timestamp|全球锁定日期|
 |<el-row justify="space-between"><el-col :span="20">font</el-col><el-col :span="4" style="text-align:right"><el-text size="small" type="success">可选</el-text></el-col> </el-row>|String|字体|
 |<el-row justify="space-between"><el-col :span="20">hard_lock_date</el-col><el-col :span="4" style="text-align:right"><el-text size="small" type="success">可选</el-text></el-col> </el-row>|Timestamp|硬锁定日期|
@@ -1549,8 +1549,8 @@ Integer
 |<el-row justify="space-between"><el-col :span="20">invoice_terms_html</el-col><el-col :span="4" style="text-align:right"><el-text size="small" type="success">可选</el-text></el-col> </el-row>|String|Default Terms and Conditions as a Web page|
 |<el-row justify="space-between"><el-col :span="20">is_company_details_empty</el-col><el-col :span="4" style="text-align:right"><el-text size="small" type="success">可选</el-text></el-col> </el-row>|Integer|公司详细信息是否为空|
 |<el-row justify="space-between"><el-col :span="20">job_properties_definition</el-col><el-col :span="4" style="text-align:right"><el-text size="small" type="success">可选</el-text></el-col> </el-row>|String|职位属性|
-|<el-row justify="space-between"><el-col :span="20">layout_background</el-col><el-col :span="4" style="text-align:right"></el-col> </el-row>|String|布局背景|
-|<el-row justify="space-between"><el-col :span="20">manufacturing_lead</el-col><el-col :span="4" style="text-align:right"></el-col> </el-row>|Double|制造提前期|
+|<el-row justify="space-between"><el-col :span="20">layout_background</el-col><el-col :span="4" style="text-align:right"><el-text size="small" type="success">可选</el-text></el-col> </el-row>|String|布局背景|
+|<el-row justify="space-between"><el-col :span="20">manufacturing_lead</el-col><el-col :span="4" style="text-align:right"><el-text size="small" type="success">可选</el-text></el-col> </el-row>|Double|制造提前期|
 |<el-row justify="space-between"><el-col :span="20">message_attachment_count</el-col><el-col :span="4" style="text-align:right"><el-text size="small" type="success">可选</el-text></el-col> </el-row>|Integer|Attachment Count|
 |<el-row justify="space-between"><el-col :span="20">message_has_error</el-col><el-col :span="4" style="text-align:right"><el-text size="small" type="success">可选</el-text></el-col> </el-row>|Integer|Message Delivery error|
 |<el-row justify="space-between"><el-col :span="20">message_has_error_counter</el-col><el-col :span="4" style="text-align:right"><el-text size="small" type="success">可选</el-text></el-col> </el-row>|Integer|错误数量|
@@ -1570,7 +1570,7 @@ Integer
 |<el-row justify="space-between"><el-col :span="20">payment_onboarding_payment_method</el-col><el-col :span="4" style="text-align:right"><el-text size="small" type="success">可选</el-text></el-col> </el-row>|String|选择支付方式|
 |<el-row justify="space-between"><el-col :span="20">po_double_validation</el-col><el-col :span="4" style="text-align:right"><el-text size="small" type="success">可选</el-text></el-col> </el-row>|String|批准等级|
 |<el-row justify="space-between"><el-col :span="20">po_double_validation_amount</el-col><el-col :span="4" style="text-align:right"><el-text size="small" type="success">可选</el-text></el-col> </el-row>|BigDecimal|再次验证金额|
-|<el-row justify="space-between"><el-col :span="20">po_lead</el-col><el-col :span="4" style="text-align:right"></el-col> </el-row>|Double|采购提前期|
+|<el-row justify="space-between"><el-col :span="20">po_lead</el-col><el-col :span="4" style="text-align:right"><el-text size="small" type="success">可选</el-text></el-col> </el-row>|Double|采购提前期|
 |<el-row justify="space-between"><el-col :span="20">po_lock</el-col><el-col :span="4" style="text-align:right"><el-text size="small" type="success">可选</el-text></el-col> </el-row>|String|销售订单修改|
 |<el-row justify="space-between"><el-col :span="20">portal_confirmation_pay</el-col><el-col :span="4" style="text-align:right"><el-text size="small" type="success">可选</el-text></el-col> </el-row>|Integer|线上付款|
 |<el-row justify="space-between"><el-col :span="20">portal_confirmation_sign</el-col><el-col :span="4" style="text-align:right"><el-text size="small" type="success">可选</el-text></el-col> </el-row>|Integer|线上签署|
@@ -1586,7 +1586,7 @@ Integer
 |<el-row justify="space-between"><el-col :span="20">sale_lock_date</el-col><el-col :span="4" style="text-align:right"><el-text size="small" type="success">可选</el-text></el-col> </el-row>|Timestamp|销售锁定日期|
 |<el-row justify="space-between"><el-col :span="20">sale_onboarding_payment_method</el-col><el-col :span="4" style="text-align:right"><el-text size="small" type="success">可选</el-text></el-col> </el-row>|String|销售入门选择的付款方式|
 |<el-row justify="space-between"><el-col :span="20">secondary_color</el-col><el-col :span="4" style="text-align:right"><el-text size="small" type="success">可选</el-text></el-col> </el-row>|String|次要颜色|
-|<el-row justify="space-between"><el-col :span="20">security_lead</el-col><el-col :span="4" style="text-align:right"></el-col> </el-row>|Double|销售安全天数|
+|<el-row justify="space-between"><el-col :span="20">security_lead</el-col><el-col :span="4" style="text-align:right"><el-text size="small" type="success">可选</el-text></el-col> </el-row>|Double|销售安全天数|
 |<el-row justify="space-between"><el-col :span="20">sequence</el-col><el-col :span="4" style="text-align:right"><el-text size="small" type="success">可选</el-text></el-col> </el-row>|Integer|序列|
 |<el-row justify="space-between"><el-col :span="20">snailmail_color</el-col><el-col :span="4" style="text-align:right"><el-text size="small" type="success">可选</el-text></el-col> </el-row>|Integer|实体邮寄颜色|
 |<el-row justify="space-between"><el-col :span="20">snailmail_cover</el-col><el-col :span="4" style="text-align:right"><el-text size="small" type="success">可选</el-text></el-col> </el-row>|Integer|添加一个封面页|
@@ -1949,7 +1949,7 @@ Integer
 |<el-row justify="space-between"><el-col :span="20">absence_management</el-col><el-col :span="4" style="text-align:right"><el-text size="small" type="success">可选</el-text></el-col> </el-row>|Integer|缺勤管理|
 |<el-row justify="space-between"><el-col :span="20">account_fiscal_country_id</el-col><el-col :span="4" style="text-align:right"><el-text size="small" type="success">可选</el-text></el-col> </el-row>|String|会计所在国家/地区|
 |<el-row justify="space-between"><el-col :span="20">account_opening_date</el-col><el-col :span="4" style="text-align:right"><el-text size="small" type="success">可选</el-text></el-col> </el-row>|Timestamp|期初分录|
-|<el-row justify="space-between"><el-col :span="20">account_price_include</el-col><el-col :span="4" style="text-align:right"></el-col> </el-row>|String|Default Sales Price Include|
+|<el-row justify="space-between"><el-col :span="20">account_price_include</el-col><el-col :span="4" style="text-align:right"><el-text size="small" type="success">可选</el-text></el-col> </el-row>|String|Default Sales Price Include|
 |<el-row justify="space-between"><el-col :span="20">account_storno</el-col><el-col :span="4" style="text-align:right"><el-text size="small" type="success">可选</el-text></el-col> </el-row>|Integer|Storno会计应用程序|
 |<el-row justify="space-between"><el-col :span="20">account_use_credit_limit</el-col><el-col :span="4" style="text-align:right"><el-text size="small" type="success">可选</el-text></el-col> </el-row>|Integer|销售信用额度|
 |<el-row justify="space-between"><el-col :span="20">active</el-col><el-col :span="4" style="text-align:right"><el-text size="small" type="success">可选</el-text></el-col> </el-row>|Integer|有效|
@@ -1998,8 +1998,8 @@ Integer
 |<el-row justify="space-between"><el-col :span="20">email_secondary_color</el-col><el-col :span="4" style="text-align:right"><el-text size="small" type="success">可选</el-text></el-col> </el-row>|String|电子邮件按钮颜色|
 |<el-row justify="space-between"><el-col :span="20">employee_properties_definition</el-col><el-col :span="4" style="text-align:right"><el-text size="small" type="success">可选</el-text></el-col> </el-row>|String|员工属性|
 |<el-row justify="space-between"><el-col :span="20">expects_chart_of_accounts</el-col><el-col :span="4" style="text-align:right"><el-text size="small" type="success">可选</el-text></el-col> </el-row>|Integer|Expects a Chart of Accounts|
-|<el-row justify="space-between"><el-col :span="20">fiscalyear_last_day</el-col><el-col :span="4" style="text-align:right"></el-col> </el-row>|Integer|会计年度最后一天|
-|<el-row justify="space-between"><el-col :span="20">fiscalyear_last_month</el-col><el-col :span="4" style="text-align:right"></el-col> </el-row>|String|会计年度最后一个月|
+|<el-row justify="space-between"><el-col :span="20">fiscalyear_last_day</el-col><el-col :span="4" style="text-align:right"><el-text size="small" type="success">可选</el-text></el-col> </el-row>|Integer|会计年度最后一天|
+|<el-row justify="space-between"><el-col :span="20">fiscalyear_last_month</el-col><el-col :span="4" style="text-align:right"><el-text size="small" type="success">可选</el-text></el-col> </el-row>|String|会计年度最后一个月|
 |<el-row justify="space-between"><el-col :span="20">fiscalyear_lock_date</el-col><el-col :span="4" style="text-align:right"><el-text size="small" type="success">可选</el-text></el-col> </el-row>|Timestamp|全球锁定日期|
 |<el-row justify="space-between"><el-col :span="20">font</el-col><el-col :span="4" style="text-align:right"><el-text size="small" type="success">可选</el-text></el-col> </el-row>|String|字体|
 |<el-row justify="space-between"><el-col :span="20">hard_lock_date</el-col><el-col :span="4" style="text-align:right"><el-text size="small" type="success">可选</el-text></el-col> </el-row>|Timestamp|硬锁定日期|
@@ -2018,8 +2018,8 @@ Integer
 |<el-row justify="space-between"><el-col :span="20">invoice_terms_html</el-col><el-col :span="4" style="text-align:right"><el-text size="small" type="success">可选</el-text></el-col> </el-row>|String|Default Terms and Conditions as a Web page|
 |<el-row justify="space-between"><el-col :span="20">is_company_details_empty</el-col><el-col :span="4" style="text-align:right"><el-text size="small" type="success">可选</el-text></el-col> </el-row>|Integer|公司详细信息是否为空|
 |<el-row justify="space-between"><el-col :span="20">job_properties_definition</el-col><el-col :span="4" style="text-align:right"><el-text size="small" type="success">可选</el-text></el-col> </el-row>|String|职位属性|
-|<el-row justify="space-between"><el-col :span="20">layout_background</el-col><el-col :span="4" style="text-align:right"></el-col> </el-row>|String|布局背景|
-|<el-row justify="space-between"><el-col :span="20">manufacturing_lead</el-col><el-col :span="4" style="text-align:right"></el-col> </el-row>|Double|制造提前期|
+|<el-row justify="space-between"><el-col :span="20">layout_background</el-col><el-col :span="4" style="text-align:right"><el-text size="small" type="success">可选</el-text></el-col> </el-row>|String|布局背景|
+|<el-row justify="space-between"><el-col :span="20">manufacturing_lead</el-col><el-col :span="4" style="text-align:right"><el-text size="small" type="success">可选</el-text></el-col> </el-row>|Double|制造提前期|
 |<el-row justify="space-between"><el-col :span="20">message_attachment_count</el-col><el-col :span="4" style="text-align:right"><el-text size="small" type="success">可选</el-text></el-col> </el-row>|Integer|Attachment Count|
 |<el-row justify="space-between"><el-col :span="20">message_has_error</el-col><el-col :span="4" style="text-align:right"><el-text size="small" type="success">可选</el-text></el-col> </el-row>|Integer|Message Delivery error|
 |<el-row justify="space-between"><el-col :span="20">message_has_error_counter</el-col><el-col :span="4" style="text-align:right"><el-text size="small" type="success">可选</el-text></el-col> </el-row>|Integer|错误数量|
@@ -2039,7 +2039,7 @@ Integer
 |<el-row justify="space-between"><el-col :span="20">payment_onboarding_payment_method</el-col><el-col :span="4" style="text-align:right"><el-text size="small" type="success">可选</el-text></el-col> </el-row>|String|选择支付方式|
 |<el-row justify="space-between"><el-col :span="20">po_double_validation</el-col><el-col :span="4" style="text-align:right"><el-text size="small" type="success">可选</el-text></el-col> </el-row>|String|批准等级|
 |<el-row justify="space-between"><el-col :span="20">po_double_validation_amount</el-col><el-col :span="4" style="text-align:right"><el-text size="small" type="success">可选</el-text></el-col> </el-row>|BigDecimal|再次验证金额|
-|<el-row justify="space-between"><el-col :span="20">po_lead</el-col><el-col :span="4" style="text-align:right"></el-col> </el-row>|Double|采购提前期|
+|<el-row justify="space-between"><el-col :span="20">po_lead</el-col><el-col :span="4" style="text-align:right"><el-text size="small" type="success">可选</el-text></el-col> </el-row>|Double|采购提前期|
 |<el-row justify="space-between"><el-col :span="20">po_lock</el-col><el-col :span="4" style="text-align:right"><el-text size="small" type="success">可选</el-text></el-col> </el-row>|String|销售订单修改|
 |<el-row justify="space-between"><el-col :span="20">portal_confirmation_pay</el-col><el-col :span="4" style="text-align:right"><el-text size="small" type="success">可选</el-text></el-col> </el-row>|Integer|线上付款|
 |<el-row justify="space-between"><el-col :span="20">portal_confirmation_sign</el-col><el-col :span="4" style="text-align:right"><el-text size="small" type="success">可选</el-text></el-col> </el-row>|Integer|线上签署|
@@ -2055,7 +2055,7 @@ Integer
 |<el-row justify="space-between"><el-col :span="20">sale_lock_date</el-col><el-col :span="4" style="text-align:right"><el-text size="small" type="success">可选</el-text></el-col> </el-row>|Timestamp|销售锁定日期|
 |<el-row justify="space-between"><el-col :span="20">sale_onboarding_payment_method</el-col><el-col :span="4" style="text-align:right"><el-text size="small" type="success">可选</el-text></el-col> </el-row>|String|销售入门选择的付款方式|
 |<el-row justify="space-between"><el-col :span="20">secondary_color</el-col><el-col :span="4" style="text-align:right"><el-text size="small" type="success">可选</el-text></el-col> </el-row>|String|次要颜色|
-|<el-row justify="space-between"><el-col :span="20">security_lead</el-col><el-col :span="4" style="text-align:right"></el-col> </el-row>|Double|销售安全天数|
+|<el-row justify="space-between"><el-col :span="20">security_lead</el-col><el-col :span="4" style="text-align:right"><el-text size="small" type="success">可选</el-text></el-col> </el-row>|Double|销售安全天数|
 |<el-row justify="space-between"><el-col :span="20">sequence</el-col><el-col :span="4" style="text-align:right"><el-text size="small" type="success">可选</el-text></el-col> </el-row>|Integer|序列|
 |<el-row justify="space-between"><el-col :span="20">snailmail_color</el-col><el-col :span="4" style="text-align:right"><el-text size="small" type="success">可选</el-text></el-col> </el-row>|Integer|实体邮寄颜色|
 |<el-row justify="space-between"><el-col :span="20">snailmail_cover</el-col><el-col :span="4" style="text-align:right"><el-text size="small" type="success">可选</el-text></el-col> </el-row>|Integer|添加一个封面页|

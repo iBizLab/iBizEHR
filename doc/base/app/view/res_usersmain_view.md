@@ -16,8 +16,8 @@
 
 ### 关联界面行为
   * [用户(RES_USERS)](module/base/res_users) : [编辑界面_保存并新建操作](module/base/res_users#界面行为)
-  * [用户(RES_USERS)](module/base/res_users) : [取消变更](module/base/res_users#界面行为)
   * [用户(RES_USERS)](module/base/res_users) : [编辑界面_保存操作](module/base/res_users#界面行为)
+  * [用户(RES_USERS)](module/base/res_users) : [取消变更](module/base/res_users#界面行为)
 
 ### 关联视图
   * [员工(hr_employeemain_view)](app/view/hr_employeemain_view)

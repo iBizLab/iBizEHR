@@ -17,6 +17,7 @@ import cn.ibizlab.central.plugin.groovy.dataentity.*
 class PSCorePrdFunc extends GroovyPSModelDERuntime<PSCorePrdFunc,PSCorePrdFuncDTO,PSCorePrdFuncFilterDTO> {
 
     public static final String ACTION_INSTALL = "INSTALL"
+    public static final String ACTION_RELOAD = "RELOAD"
     public static final String ACTION_UNINSTALL = "UNINSTALL"
     public static final String DATASET_DEFAULT = "DEFAULT"
     private static PSCorePrdFunc _instance
@@ -105,6 +106,16 @@ class PSCorePrdFunc extends GroovyPSModelDERuntime<PSCorePrdFunc,PSCorePrdFuncDT
     @DEAction(ACTION_INSTALL)
     def install(PSCorePrdFuncDTO dto) throws Throwable {
         this.execute(ACTION_INSTALL, dto, PSCorePrdFuncDTO.class)
+    }
+
+    /**
+     * 行为：重新加载 实际功能
+     * @param dto
+     * @throws Throwable
+     */
+    @DEAction(ACTION_RELOAD)
+    def reload(PSCorePrdFuncDTO dto) throws Throwable {
+        this.execute(ACTION_RELOAD, dto, PSCorePrdFuncDTO.class)
     }
 
     /**

@@ -391,6 +391,7 @@ export default {
     controlParam: {},
     id: 'layoutpanel',
   },
+  priority: 30,
   title: '应用市场',
   viewStyle: 'DEFAULT',
   viewType: 'DEDATAVIEW',

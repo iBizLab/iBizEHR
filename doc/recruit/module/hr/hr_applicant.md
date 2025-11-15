@@ -104,6 +104,7 @@
 |候选人状态筛选|get_applicant_state|[实体处理逻辑](module/hr/hr_applicant/logic/get_applicant_state "候选人状态筛选")|默认|不支持||||
 |候选人基本信息导航栏计数|get_baseinfo_page_count|[实体处理逻辑](module/hr/hr_applicant/logic/get_baseinfo_page_count "候选人基本信息导航栏计数")|默认|不支持||||
 |获取工作台数据|get_workspace_count|[实体处理逻辑](module/hr/hr_applicant/logic/get_workspace_count "获取工作台数据")|默认|不支持||||
+|nothing|nothing|用户自定义|默认|不支持||||
 |淘汰|out|[实体处理逻辑](module/hr/hr_applicant/logic/out "淘汰")|默认|不支持||||
 |推荐给用人部门|recommend_department|[实体处理逻辑](module/hr/hr_applicant/logic/recommend_department "推荐给用人部门")|默认|不支持||||
 |取消星标|remove_favorite|[实体处理逻辑](module/hr/hr_applicant/logic/remove_favorite "取消星标")|默认|支持||||
@@ -204,15 +205,19 @@
 ## 界面行为
 |  中文名col200 |  代码名col150 |  标题col100   |     处理目标col100   |    处理类型col200        |  备注col500       |
 | --------| --------| -------- |------------|------------|------------|
-| 打开其它职位 | recommend_other | 打开其它职位 |单项数据|<details><summary>打开视图或向导（模态）</summary>[候选人申请](app/view/hr_applicant_recommend_other_view)</details>||
 | 取消关注 | remove_favorite | remove_favorite |单项数据（主键）|<details><summary>后台调用</summary>[remove_favorite](#行为)||
+| nothing | nothing | nothing |单项数据|<details><summary>后台调用</summary>[nothing](#行为)||
 | 已推荐并继续推荐 | recommended_and_continue | 已推荐并继续推荐 |单项数据|<details><summary>打开视图或向导（模态）</summary>[筛选候选人](app/view/hr_candidate_filter_recommend_department_option_view)</details>||
+| 转发候选人信息 | forward_candidate_info | 转发候选人信息 |单项数据|<details><summary>后台调用</summary>[Get](#行为)||
 | 打开放入人才库 | open_add_to_hr_talentpool | 打开放入人才库 |单项数据|<details><summary>打开视图或向导（模态）</summary>[放入人才库](app/view/hr_candidate_add_talentpool_view)</details>||
 | 进入复试 | update_to_second_interview | 进入复试 |单项数据（主键）|<details><summary>后台调用</summary>[update_stage](#行为)||
+| 加入黑名单 | add_to_blacklist | 加入黑名单 |单项数据|<details><summary>后台调用</summary>[Get](#行为)||
+| 通知候选人 | notify_candidate | 通知候选人 |单项数据|<details><summary>后台调用</summary>[Get](#行为)||
 | 淘汰 | out | 淘汰 |单项数据|<details><summary>后台调用</summary>[out](#行为)||
 | 推荐给用人部门 | recommend_department | 推荐给用人部门 |单项数据（主键）|<details><summary>打开视图或向导（模态）</summary>[筛选候选人](app/view/hr_candidate_filter_recommend_department_option_view)</details>||
 | 已入职 | update_to_onboarded | 已入职 |单项数据（主键）|<details><summary>后台调用</summary>[update_stage](#行为)||
-| 跟进提醒 | follow_alert | 跟进提醒 |单项数据（主键）|系统预定义||
+| 邀请候选人更新信息 | invite_update_info | 邀请候选人更新信息 |单项数据|<details><summary>后台调用</summary>[Get](#行为)||
+| 跟进提醒 | follow_alert | 跟进提醒 |单项数据（主键）|<details><summary>后台调用</summary>[Get](#行为)||
 | 进入大五性格测评 | update_to_exam | 进入大五性格测评 |单项数据（主键）|<details><summary>后台调用</summary>[update_stage](#行为)||
 | 进入待入职 | update_to_pending_onboarding | 进入待入职 |单项数据（主键）|<details><summary>后台调用</summary>[update_stage](#行为)||
 | 进入初试 | update_to_first_interview | 进入初试 |单项数据（主键）|<details><summary>后台调用</summary>[update_stage](#行为)||

@@ -15,8 +15,8 @@
 
 
 ### 关联界面行为
-  * [休假详细信息(RESOURCE_CALENDAR_LEAVES)](module/resource/resource_calendar_leaves) : [表格界面_删除操作](module/resource/resource_calendar_leaves#界面行为)
   * [休假详细信息(RESOURCE_CALENDAR_LEAVES)](module/resource/resource_calendar_leaves) : [表格界面_新建行](module/resource/resource_calendar_leaves#界面行为)
+  * [休假详细信息(RESOURCE_CALENDAR_LEAVES)](module/resource/resource_calendar_leaves) : [表格界面_删除操作](module/resource/resource_calendar_leaves#界面行为)
 
 ### 关联视图
   * [休假详细信息(resource_calendar_leaves_edit_view)](app/view/resource_calendar_leaves_edit_view)

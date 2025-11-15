@@ -15,10 +15,10 @@
 
 
 ### 关联界面行为
-  * [ 招聘阶段(HR_RECRUITMENT_STAGE)](module/hr/hr_recruitment_stage) : [启用](module/hr/hr_recruitment_stage#界面行为)
-  * [ 招聘阶段(HR_RECRUITMENT_STAGE)](module/hr/hr_recruitment_stage) : [表格界面_新建操作](module/hr/hr_recruitment_stage#界面行为)
   * [ 招聘阶段(HR_RECRUITMENT_STAGE)](module/hr/hr_recruitment_stage) : [表格界面_编辑操作](module/hr/hr_recruitment_stage#界面行为)
+  * [ 招聘阶段(HR_RECRUITMENT_STAGE)](module/hr/hr_recruitment_stage) : [表格界面_新建操作](module/hr/hr_recruitment_stage#界面行为)
   * [ 招聘阶段(HR_RECRUITMENT_STAGE)](module/hr/hr_recruitment_stage) : [停用](module/hr/hr_recruitment_stage#界面行为)
+  * [ 招聘阶段(HR_RECRUITMENT_STAGE)](module/hr/hr_recruitment_stage) : [启用](module/hr/hr_recruitment_stage#界面行为)
 
 ### 关联视图
   * [建立招聘阶段(hr_recruitment_stage_quick_create_view)](app/view/hr_recruitment_stage_quick_create_view)

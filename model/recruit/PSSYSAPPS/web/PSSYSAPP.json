@@ -1994,6 +1994,26 @@
     "uIActionTag" : "Edit",
     "uIActionType" : "DEUIACTION"
   }, {
+    "getCapPSLanguageRes" : {
+      "lanResTag" : "TBB.TEXT.EDITVIEW.CLOSE"
+    },
+    "caption" : "关闭",
+    "codeName" : "Exit",
+    "fullCodeName" : "Exit",
+    "name" : "编辑界面_退出操作",
+    "getPSSysImage" : {
+      "glyph" : "xf08b@FontAwesome",
+      "cssClass" : "fa fa-sign-out"
+    },
+    "predefinedType" : "EDITVIEW_EXITACTION",
+    "timeout" : 60000,
+    "getTooltipPSLanguageRes" : {
+      "lanResTag" : "TBB.TOOLTIP.EDITVIEW.CLOSE"
+    },
+    "uIActionMode" : "SYS",
+    "uIActionTag" : "Exit",
+    "uIActionType" : "DEUIACTION"
+  }, {
     "caption" : "完成",
     "codeName" : "Finish",
     "fullCodeName" : "Finish",
@@ -4496,6 +4516,13 @@
     "name" : "hr_jobPickupView"
   }, {
     "modelref" : true,
+    "path" : "PSSYSAPPS/web/PSAPPDEVIEWS/hr_candidate_label_quick_create_tag.json",
+    "viewType" : "DEEDITVIEW",
+    "resource" : "HR_CANDIDATE_LABEL",
+    "view" : "quick_create_tag",
+    "name" : "hr_candidate_labelquick_create_tag"
+  }, {
+    "modelref" : true,
     "path" : "PSSYSAPPS/web/PSAPPDEVIEWS/hr_applicant_grid_view.json",
     "viewType" : "DEGRIDVIEW",
     "resource" : "hr_applicant",
@@ -4685,7 +4712,7 @@
   },
   "dynaModelFilePath" : "PSSYSAPPS/web/PSSYSAPP.json",
   "dynaSysMode" : 1,
-  "engineVer" : 240,
+  "engineVer" : 241,
   "name" : "recruitapp",
   "pFStyle" : "VUE_R7_EMPTY",
   "pFType" : "VUE_R7",
@@ -14302,6 +14329,40 @@
         "needResourceKey" : true
       }, {
         "actionMode" : "CUSTOM",
+        "codeName" : "nothing",
+        "methodType" : "DEACTION",
+        "name" : "nothing",
+        "getPSAppDEMethodInput" : {
+          "name" : "输入对象",
+          "getPSAppDEMethodDTO" : {
+            "modelref" : true,
+            "id" : "hr_applicant_dto"
+          },
+          "type" : "DTO"
+        },
+        "getPSAppDEMethodReturn" : {
+          "name" : "返回对象",
+          "type" : "VOID"
+        },
+        "getPSDEAction" : {
+          "modelref" : true,
+          "path" : "PSMODULES/hr/PSDATAENTITIES/hr_applicant/PSDEACTIONS/nothing.json"
+        },
+        "getPSDEOPPriv" : {
+          "modelref" : true,
+          "id" : "READ"
+        },
+        "getPSDEServiceAPIMethod" : {
+          "modelref" : true,
+          "id" : "nothing"
+        },
+        "requestMethod" : "POST",
+        "requestParamType" : "ENTITY",
+        "requestPath" : "/nothing",
+        "builtinMethod" : false,
+        "needResourceKey" : true
+      }, {
+        "actionMode" : "CUSTOM",
         "codeName" : "out",
         "methodType" : "DEACTION",
         "name" : "out",
@@ -17623,6 +17684,40 @@
         "needResourceKey" : true
       }, {
         "actionMode" : "CUSTOM",
+        "codeName" : "nothing",
+        "methodType" : "DEACTION",
+        "name" : "nothing",
+        "getPSAppDEMethodInput" : {
+          "name" : "输入对象",
+          "getPSAppDEMethodDTO" : {
+            "modelref" : true,
+            "id" : "hr_applicant_dto"
+          },
+          "type" : "DTO"
+        },
+        "getPSAppDEMethodReturn" : {
+          "name" : "返回对象",
+          "type" : "VOID"
+        },
+        "getPSDEAction" : {
+          "modelref" : true,
+          "path" : "PSMODULES/hr/PSDATAENTITIES/hr_applicant/PSDEACTIONS/nothing.json"
+        },
+        "getPSDEOPPriv" : {
+          "modelref" : true,
+          "id" : "READ"
+        },
+        "getPSDEServiceAPIMethod" : {
+          "modelref" : true,
+          "id" : "nothing"
+        },
+        "requestMethod" : "POST",
+        "requestParamType" : "ENTITY",
+        "requestPath" : "/nothing",
+        "builtinMethod" : false,
+        "needResourceKey" : true
+      }, {
+        "actionMode" : "CUSTOM",
         "codeName" : "out",
         "methodType" : "DEACTION",
         "name" : "out",
@@ -18127,6 +18222,28 @@
         "reloadData" : true,
         "id" : "Open_BaseInfo@hr_applicant"
       }, {
+        "actionTarget" : "SINGLEDATA",
+        "caption" : "加入黑名单",
+        "codeName" : "add_to_blacklist",
+        "confirmMsg" : "该功能暂未实现！",
+        "fullCodeName" : "hr_applicant_add_to_blacklist",
+        "name" : "加入黑名单",
+        "getPSAppDEMethod" : {
+          "modelref" : true,
+          "id" : "get"
+        },
+        "getPSAppDataEntity" : {
+          "modelref" : true,
+          "path" : "PSSYSAPPS/web/PSAPPDATAENTITIES/hr_applicant.json"
+        },
+        "timeout" : 60000,
+        "tooltip" : "该功能暂未实现！",
+        "uIActionMode" : "BACKEND",
+        "uIActionTag" : "add_to_blacklist",
+        "uIActionType" : "DEUIACTION",
+        "enableConfirm" : true,
+        "id" : "add_to_blacklist@hr_applicant"
+      }, {
         "actionTarget" : "SINGLEKEY",
         "caption" : "备注",
         "codeName" : "comment",
@@ -18173,8 +18290,13 @@
         "actionTarget" : "SINGLEKEY",
         "caption" : "跟进提醒",
         "codeName" : "follow_alert",
-        "fullCodeName" : "follow_alert",
+        "confirmMsg" : "该功能暂未实现！",
+        "fullCodeName" : "hr_applicant_follow_alert",
         "name" : "跟进提醒",
+        "getPSAppDEMethod" : {
+          "modelref" : true,
+          "id" : "get"
+        },
         "getPSAppDataEntity" : {
           "modelref" : true,
           "path" : "PSSYSAPPS/web/PSAPPDATAENTITIES/hr_applicant.json"
@@ -18183,11 +18305,101 @@
           "glyph" : "xf058@FontAwesome",
           "cssClass" : "fa fa-check-circle"
         },
-        "predefinedType" : "DATA_SAVECHANGES",
         "timeout" : 60000,
-        "uIActionMode" : "SYS",
+        "tooltip" : "该功能暂未实现！",
+        "uIActionMode" : "BACKEND",
         "uIActionTag" : "follow_alert",
-        "uIActionType" : "DEUIACTION"
+        "uIActionType" : "DEUIACTION",
+        "enableConfirm" : true,
+        "id" : "follow_alert@hr_applicant"
+      }, {
+        "actionTarget" : "SINGLEDATA",
+        "caption" : "转发候选人信息",
+        "codeName" : "forward_candidate_info",
+        "confirmMsg" : "该功能暂未实现！",
+        "fullCodeName" : "hr_applicant_forward_candidate_info",
+        "name" : "转发候选人信息",
+        "getPSAppDEMethod" : {
+          "modelref" : true,
+          "id" : "get"
+        },
+        "getPSAppDataEntity" : {
+          "modelref" : true,
+          "path" : "PSSYSAPPS/web/PSAPPDATAENTITIES/hr_applicant.json"
+        },
+        "timeout" : 60000,
+        "tooltip" : "该功能暂未实现！",
+        "uIActionMode" : "BACKEND",
+        "uIActionTag" : "forward_candidate_info",
+        "uIActionType" : "DEUIACTION",
+        "enableConfirm" : true,
+        "id" : "forward_candidate_info@hr_applicant"
+      }, {
+        "actionTarget" : "SINGLEDATA",
+        "caption" : "邀请候选人更新信息",
+        "codeName" : "invite_update_info",
+        "confirmMsg" : "该功能暂未实现！",
+        "fullCodeName" : "hr_applicant_invite_update_info",
+        "name" : "邀请候选人更新信息",
+        "getPSAppDEMethod" : {
+          "modelref" : true,
+          "id" : "get"
+        },
+        "getPSAppDataEntity" : {
+          "modelref" : true,
+          "path" : "PSSYSAPPS/web/PSAPPDATAENTITIES/hr_applicant.json"
+        },
+        "timeout" : 60000,
+        "tooltip" : "该功能暂未实现！",
+        "uIActionMode" : "BACKEND",
+        "uIActionTag" : "invite_update_info",
+        "uIActionType" : "DEUIACTION",
+        "enableConfirm" : true,
+        "id" : "invite_update_info@hr_applicant"
+      }, {
+        "actionTarget" : "SINGLEDATA",
+        "caption" : "nothing",
+        "codeName" : "nothing",
+        "confirmMsg" : "该功能暂未实现！",
+        "fullCodeName" : "hr_applicant_nothing",
+        "name" : "nothing",
+        "getPSAppDEMethod" : {
+          "modelref" : true,
+          "id" : "nothing"
+        },
+        "getPSAppDataEntity" : {
+          "modelref" : true,
+          "path" : "PSSYSAPPS/web/PSAPPDATAENTITIES/hr_applicant.json"
+        },
+        "timeout" : 60000,
+        "tooltip" : "该功能暂未实现！",
+        "uIActionMode" : "BACKEND",
+        "uIActionTag" : "nothing",
+        "uIActionType" : "DEUIACTION",
+        "enableConfirm" : true,
+        "id" : "nothing@hr_applicant"
+      }, {
+        "actionTarget" : "SINGLEDATA",
+        "caption" : "通知候选人",
+        "codeName" : "notify_candidate",
+        "confirmMsg" : "该功能暂未实现！",
+        "fullCodeName" : "hr_applicant_notify_candidate",
+        "name" : "通知候选人",
+        "getPSAppDEMethod" : {
+          "modelref" : true,
+          "id" : "get"
+        },
+        "getPSAppDataEntity" : {
+          "modelref" : true,
+          "path" : "PSSYSAPPS/web/PSAPPDATAENTITIES/hr_applicant.json"
+        },
+        "timeout" : 60000,
+        "tooltip" : "该功能暂未实现！",
+        "uIActionMode" : "BACKEND",
+        "uIActionTag" : "notify_candidate",
+        "uIActionType" : "DEUIACTION",
+        "enableConfirm" : true,
+        "id" : "notify_candidate@hr_applicant"
       }, {
         "actionTarget" : "SINGLEDATA",
         "caption" : "打开放入人才库",
@@ -18305,26 +18517,6 @@
         "uIActionType" : "DEUIACTION",
         "reloadData" : true,
         "id" : "recommend_department@hr_applicant"
-      }, {
-        "actionTarget" : "SINGLEDATA",
-        "caption" : "打开其它职位",
-        "codeName" : "recommend_other",
-        "getFrontPSAppView" : {
-          "modelref" : true,
-          "path" : "PSSYSAPPS/web/PSAPPDEVIEWS/hr_applicant_recommend_other_view.json",
-          "viewType" : "DEOPTVIEW"
-        },
-        "frontProcessType" : "WIZARD",
-        "fullCodeName" : "hr_applicant_recommend_other",
-        "name" : "打开其它职位",
-        "getPSAppDataEntity" : {
-          "modelref" : true,
-          "path" : "PSSYSAPPS/web/PSAPPDATAENTITIES/hr_applicant.json"
-        },
-        "uIActionMode" : "FRONT",
-        "uIActionTag" : "recommend_other",
-        "uIActionType" : "DEUIACTION",
-        "id" : "recommend_other@hr_applicant"
       }, {
         "actionTarget" : "SINGLEDATA",
         "caption" : "已推荐并继续推荐",
@@ -19027,7 +19219,93 @@
       "enableUIModify" : true,
       "enableUIRemove" : true,
       "enableWFActions" : false,
-      "major" : true
+      "major" : true,
+      "getAllPSAppDEUIActionGroups" : [ {
+        "codeName" : "Usr1020328292",
+        "name" : "更多",
+        "getPSAppDataEntity" : {
+          "modelref" : true,
+          "path" : "PSSYSAPPS/web/PSAPPDATAENTITIES/hr_applicant.json"
+        },
+        "uniqueTag" : "hr_applicant__Usr1020328292",
+        "getPSUIActionGroupDetails" : [ {
+          "caption" : "转发候选人信息",
+          "detailType" : "DEUIACTION",
+          "name" : "uc6b879f",
+          "getPSSysCss" : {
+            "cssName" : "gd_but"
+          },
+          "tooltip" : "该功能暂未实现！",
+          "addSeparator" : false,
+          "showCaption" : true,
+          "showIcon" : true,
+          "getPSUIAction" : {
+            "getPSAppDataEntity" : {
+              "modelref" : true,
+              "path" : "PSSYSAPPS/web/PSAPPDATAENTITIES/hr_applicant.json"
+            },
+            "modelref" : true,
+            "id" : "forward_candidate_info@hr_applicant"
+          }
+        }, {
+          "caption" : "通知候选人",
+          "detailType" : "DEUIACTION",
+          "name" : "u53e4bf0",
+          "getPSSysCss" : {
+            "cssName" : "applicant_button"
+          },
+          "tooltip" : "该功能暂未实现！",
+          "addSeparator" : false,
+          "showCaption" : true,
+          "showIcon" : true,
+          "getPSUIAction" : {
+            "getPSAppDataEntity" : {
+              "modelref" : true,
+              "path" : "PSSYSAPPS/web/PSAPPDATAENTITIES/hr_applicant.json"
+            },
+            "modelref" : true,
+            "id" : "notify_candidate@hr_applicant"
+          }
+        }, {
+          "caption" : "邀请候选人更新信息",
+          "detailType" : "DEUIACTION",
+          "name" : "u5c0a1ad",
+          "getPSSysCss" : {
+            "cssName" : "applicant_button"
+          },
+          "tooltip" : "该功能暂未实现！",
+          "addSeparator" : false,
+          "showCaption" : true,
+          "showIcon" : true,
+          "getPSUIAction" : {
+            "getPSAppDataEntity" : {
+              "modelref" : true,
+              "path" : "PSSYSAPPS/web/PSAPPDATAENTITIES/hr_applicant.json"
+            },
+            "modelref" : true,
+            "id" : "invite_update_info@hr_applicant"
+          }
+        }, {
+          "caption" : "加入黑名单",
+          "detailType" : "DEUIACTION",
+          "name" : "ucd03b5e",
+          "getPSSysCss" : {
+            "cssName" : "applicant_button"
+          },
+          "tooltip" : "该功能暂未实现！",
+          "addSeparator" : false,
+          "showCaption" : true,
+          "showIcon" : true,
+          "getPSUIAction" : {
+            "getPSAppDataEntity" : {
+              "modelref" : true,
+              "path" : "PSSYSAPPS/web/PSAPPDATAENTITIES/hr_applicant.json"
+            },
+            "modelref" : true,
+            "id" : "add_to_blacklist@hr_applicant"
+          }
+        } ]
+      } ]
     }, {
       "getAllPSAppDEActions" : [ {
         "actionMode" : "CHECKKEY",
@@ -19181,6 +19459,40 @@
         "requestParamType" : "NONE",
         "requestPath" : "/get_draft",
         "builtinMethod" : false
+      }, {
+        "actionMode" : "CUSTOM",
+        "codeName" : "nothing",
+        "methodType" : "DEACTION",
+        "name" : "nothing",
+        "getPSAppDEMethodInput" : {
+          "name" : "输入对象",
+          "getPSAppDEMethodDTO" : {
+            "modelref" : true,
+            "id" : "hr_interview_dto"
+          },
+          "type" : "DTO"
+        },
+        "getPSAppDEMethodReturn" : {
+          "name" : "返回对象",
+          "type" : "VOID"
+        },
+        "getPSDEAction" : {
+          "modelref" : true,
+          "path" : "PSMODULES/hr/PSDATAENTITIES/hr_interview/PSDEACTIONS/nothing.json"
+        },
+        "getPSDEOPPriv" : {
+          "modelref" : true,
+          "id" : "READ"
+        },
+        "getPSDEServiceAPIMethod" : {
+          "modelref" : true,
+          "id" : "nothing"
+        },
+        "requestMethod" : "POST",
+        "requestParamType" : "ENTITY",
+        "requestPath" : "/nothing",
+        "builtinMethod" : false,
+        "needResourceKey" : true
       }, {
         "actionMode" : "DELETE",
         "actionTag" : "Remove",
@@ -20961,6 +21273,40 @@
         "requestPath" : "/get_draft",
         "builtinMethod" : false
       }, {
+        "actionMode" : "CUSTOM",
+        "codeName" : "nothing",
+        "methodType" : "DEACTION",
+        "name" : "nothing",
+        "getPSAppDEMethodInput" : {
+          "name" : "输入对象",
+          "getPSAppDEMethodDTO" : {
+            "modelref" : true,
+            "id" : "hr_interview_dto"
+          },
+          "type" : "DTO"
+        },
+        "getPSAppDEMethodReturn" : {
+          "name" : "返回对象",
+          "type" : "VOID"
+        },
+        "getPSDEAction" : {
+          "modelref" : true,
+          "path" : "PSMODULES/hr/PSDATAENTITIES/hr_interview/PSDEACTIONS/nothing.json"
+        },
+        "getPSDEOPPriv" : {
+          "modelref" : true,
+          "id" : "READ"
+        },
+        "getPSDEServiceAPIMethod" : {
+          "modelref" : true,
+          "id" : "nothing"
+        },
+        "requestMethod" : "POST",
+        "requestParamType" : "ENTITY",
+        "requestPath" : "/nothing",
+        "builtinMethod" : false,
+        "needResourceKey" : true
+      }, {
         "actionMode" : "DELETE",
         "actionTag" : "Remove",
         "batchActionMode" : 1,
@@ -21427,19 +21773,27 @@
         "reloadData" : true,
         "id" : "open_interview@hr_interview"
       }, {
-        "actionTarget" : "NONE",
+        "actionTarget" : "SINGLEDATA",
         "caption" : "进入面试",
         "codeName" : "start_interview",
+        "confirmMsg" : "该功能暂未实现！",
         "frontProcessType" : "OTHER",
         "fullCodeName" : "hr_interview_start_interview",
         "name" : "进入面试",
+        "getPSAppDEMethod" : {
+          "modelref" : true,
+          "id" : "nothing"
+        },
         "getPSAppDataEntity" : {
           "modelref" : true,
           "path" : "PSSYSAPPS/web/PSAPPDATAENTITIES/hr_interview.json"
         },
-        "uIActionMode" : "FRONT",
+        "timeout" : 60000,
+        "tooltip" : "该功能暂未实现！",
+        "uIActionMode" : "BACKEND",
         "uIActionTag" : "start_interview",
         "uIActionType" : "DEUIACTION",
+        "enableConfirm" : true,
         "id" : "start_interview@hr_interview"
       } ],
       "getAllPSAppDEUILogics" : [ {
@@ -30765,6 +31119,37 @@
         "needResourceKey" : true
       }, {
         "actionMode" : "CUSTOM",
+        "actionName" : "RELOAD",
+        "codeName" : "reload",
+        "methodType" : "DEACTION",
+        "name" : "reload",
+        "getPSAppDEMethodInput" : {
+          "name" : "输入对象",
+          "getPSAppDEMethodDTO" : {
+            "modelref" : true,
+            "id" : "PSCorePrdFuncDTO"
+          },
+          "type" : "DTO"
+        },
+        "getPSAppDEMethodReturn" : {
+          "name" : "返回对象",
+          "type" : "VOID"
+        },
+        "getPSDEAction" : {
+          "modelref" : true,
+          "path" : "PSMODULES/extension/PSDATAENTITIES/PSCorePrdFunc/PSDEACTIONS/reload.json"
+        },
+        "getPSDEServiceAPIMethod" : {
+          "modelref" : true,
+          "id" : "reload"
+        },
+        "requestMethod" : "POST",
+        "requestParamType" : "ENTITY",
+        "requestPath" : "/reload",
+        "builtinMethod" : false,
+        "needResourceKey" : true
+      }, {
+        "actionMode" : "CUSTOM",
         "actionName" : "UNINSTALL",
         "codeName" : "uninstall",
         "methodType" : "DEACTION",
@@ -32399,6 +32784,37 @@
         "needResourceKey" : true
       }, {
         "actionMode" : "CUSTOM",
+        "actionName" : "RELOAD",
+        "codeName" : "reload",
+        "methodType" : "DEACTION",
+        "name" : "reload",
+        "getPSAppDEMethodInput" : {
+          "name" : "输入对象",
+          "getPSAppDEMethodDTO" : {
+            "modelref" : true,
+            "id" : "PSCorePrdFuncDTO"
+          },
+          "type" : "DTO"
+        },
+        "getPSAppDEMethodReturn" : {
+          "name" : "返回对象",
+          "type" : "VOID"
+        },
+        "getPSDEAction" : {
+          "modelref" : true,
+          "path" : "PSMODULES/extension/PSDATAENTITIES/PSCorePrdFunc/PSDEACTIONS/reload.json"
+        },
+        "getPSDEServiceAPIMethod" : {
+          "modelref" : true,
+          "id" : "reload"
+        },
+        "requestMethod" : "POST",
+        "requestParamType" : "ENTITY",
+        "requestPath" : "/reload",
+        "builtinMethod" : false,
+        "needResourceKey" : true
+      }, {
+        "actionMode" : "CUSTOM",
         "actionName" : "UNINSTALL",
         "codeName" : "uninstall",
         "methodType" : "DEACTION",
@@ -32541,6 +32957,39 @@
         "enableConfirm" : true,
         "reloadData" : true,
         "id" : "Install@PSCorePrdFunc"
+      }, {
+        "actionTarget" : "SINGLEKEY",
+        "caption" : "重新加载",
+        "codeName" : "Reload",
+        "fullCodeName" : "PSCorePrdFunc_Reload",
+        "name" : "重新加载",
+        "getPSAppDEMethod" : {
+          "modelref" : true,
+          "id" : "reload"
+        },
+        "getPSAppDataEntity" : {
+          "modelref" : true,
+          "path" : "PSSYSAPPS/web/PSAPPDATAENTITIES/PSCorePrdFunc.json"
+        },
+        "getPSNavigateContexts" : [ {
+          "key" : "PSCOREPRDFUNC",
+          "name" : "PSCOREPRDFUNC",
+          "value" : "pscoreprdfuncid",
+          "rawValue" : false
+        } ],
+        "getPSNavigateParams" : [ {
+          "key" : "n_pscoreprdid_eq",
+          "name" : "n_pscoreprdid_eq",
+          "value" : "srfv2systemid",
+          "rawValue" : false
+        } ],
+        "successMsg" : "开始重新加载，请稍等片刻重新刷新页面！",
+        "timeout" : 60000,
+        "uIActionMode" : "BACKEND",
+        "uIActionTag" : "Reload",
+        "uIActionType" : "DEUIACTION",
+        "enableConfirm" : true,
+        "id" : "Reload@PSCorePrdFunc"
       }, {
         "actionTarget" : "SINGLEKEY",
         "caption" : "卸载",

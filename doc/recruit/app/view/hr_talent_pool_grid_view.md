@@ -15,8 +15,8 @@
 
 
 ### 关联界面行为
-  * [人才库(HR_TALENT_POOL)](module/hr/hr_talent_pool) : [表格界面_删除操作](module/hr/hr_talent_pool#界面行为)
   * [人才库(HR_TALENT_POOL)](module/hr/hr_talent_pool) : [表格界面_编辑操作](module/hr/hr_talent_pool#界面行为)
+  * [人才库(HR_TALENT_POOL)](module/hr/hr_talent_pool) : [表格界面_删除操作](module/hr/hr_talent_pool#界面行为)
   * [人才库(HR_TALENT_POOL)](module/hr/hr_talent_pool) : [表格界面_新建操作](module/hr/hr_talent_pool#界面行为)
 
 ### 关联视图

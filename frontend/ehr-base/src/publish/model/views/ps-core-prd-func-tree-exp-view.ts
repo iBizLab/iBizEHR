@@ -310,6 +310,7 @@ export default {
             outputIconDefault: true,
             navViewPos: 'NONE',
             createControlAction: {
+              appDEMethodId: 'create',
               appDataEntityId: 'ehrapp.pscoreprdfunc',
               id: 'create',
             },
@@ -318,14 +319,17 @@ export default {
               id: 'fetch',
             },
             getControlAction: {
+              appDEMethodId: 'get',
               appDataEntityId: 'ehrapp.pscoreprdfunc',
               id: 'load',
             },
             removeControlAction: {
+              appDEMethodId: 'remove',
               appDataEntityId: 'ehrapp.pscoreprdfunc',
               id: 'remove',
             },
             updateControlAction: {
+              appDEMethodId: 'update',
               appDataEntityId: 'ehrapp.pscoreprdfunc',
               id: 'update',
             },
@@ -404,6 +408,7 @@ export default {
     name: 'layoutpanel',
     id: 'usr1206423734',
   },
+  priority: 30,
   title: '应用管理',
   viewStyle: 'DEFAULT',
   viewType: 'DETREEEXPVIEW',

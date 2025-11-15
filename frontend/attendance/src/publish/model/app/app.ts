@@ -1462,7 +1462,7 @@ export default {
   appVersion: '1.0.0.0',
   codeName: 'attendanceapp',
   dynaSysMode: 1,
-  engineVer: 240,
+  engineVer: 241,
   pfstyle: 'VUE_R7_EMPTY',
   pftype: 'VUE_R7',
   pkgcodeName: 'attendanceapp',

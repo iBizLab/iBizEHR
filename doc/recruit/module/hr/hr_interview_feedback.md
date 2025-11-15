@@ -148,7 +148,7 @@
 | 填写面试反馈（用人经理端） | add_feedback_manager | 填写反馈 |单项数据（主键）|<details><summary>打开视图或向导（模态）</summary>[面试结果](app/view/hr_interview_feedback_interview_result_option_view)</details>||
 | 我通过的面试 | my_pass_edit | 通过的面试 |单项数据（主键）|<details><summary>打开视图或向导（模态）</summary>[面试反馈](app/view/hr_interview_feedback_my_pass_edit_view)</details>||
 | 填写面试反馈（HR端） | add_feedback_hr | 填写反馈 |无数据|<details><summary>打开视图或向导（模态）</summary>[面试结果](app/view/hr_interview_feedback_interview_result_option_view)</details>||
-| 查看面试详情 | open_edit | 面试详情 |单项数据（主键）|<details><summary>打开视图或向导（模态）</summary>[面试反馈](app/view/hr_interview_feedback_my_interview_detail)</details>||
+| 查看面试详情 | open_edit | 面试详情 |单项数据|<details><summary>打开视图或向导（模态）</summary>[面试反馈](app/view/hr_interview_feedback_my_interview_detail)</details>||
 | 导出面试安排 | export_interview | 导出面试安排 |无数据|用户自定义||
 
 <div style="display: block; overflow: hidden; position: fixed; top: 140px; right: 100px;">

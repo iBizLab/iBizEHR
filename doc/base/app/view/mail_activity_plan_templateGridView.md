@@ -17,8 +17,8 @@
 
 
 ### 关联界面行为
-  * [活动计划模板(MAIL_ACTIVITY_PLAN_TEMPLATE)](module/mail/mail_activity_plan_template) : [表格界面_删除操作](module/mail/mail_activity_plan_template#界面行为)
   * [活动计划模板(MAIL_ACTIVITY_PLAN_TEMPLATE)](module/mail/mail_activity_plan_template) : [表格界面_新建操作](module/mail/mail_activity_plan_template#界面行为)
+  * [活动计划模板(MAIL_ACTIVITY_PLAN_TEMPLATE)](module/mail/mail_activity_plan_template) : [表格界面_删除操作](module/mail/mail_activity_plan_template#界面行为)
 
 ### 关联视图
   * [活动计划模板(mail_activity_plan_templatequick_create_view)](app/view/mail_activity_plan_templatequick_create_view)

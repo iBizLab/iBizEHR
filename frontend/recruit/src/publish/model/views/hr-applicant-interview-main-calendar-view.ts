@@ -166,7 +166,7 @@ export default {
                 uiactionId: 'appointment_interview@hr_applicant_interview',
                 renderMode: 'BUTTON',
                 tooltip: '预约面试',
-                uiactionTarget: 'NONE',
+                uiactionTarget: 'SINGLEDATA',
                 caption: '预约面试',
                 itemStyle: 'INFO',
                 itemType: 'BUTTON',
